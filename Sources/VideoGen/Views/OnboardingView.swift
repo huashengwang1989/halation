@@ -6,6 +6,7 @@ struct OnboardingView: View {
     @Environment(AppState.self) private var app
     @Environment(\.dismiss) private var dismiss
     @State private var step: Step = .welcome
+    @FocusState private var primaryFocused: Bool
 
     enum Step: Int, CaseIterable {
         case welcome, licence, runtime, models
@@ -30,19 +31,30 @@ struct OnboardingView: View {
 
             HStack {
                 if step != .welcome {
-                    Button("Back") { back() }.buttonStyle(.glass)
+                    Button("Back") { back() }
+                        .keyboardShortcut("[", modifiers: .command)
                 }
                 Spacer()
-                Button("Skip setup") { dismiss() }
+                Button("Skip setup") { close() }
                     .buttonStyle(.plain)
                     .foregroundStyle(.secondary)
+                    // Escape leaves the dialog, as it does in every macOS sheet.
+                    .keyboardShortcut(.cancelAction)
                 Button(primaryLabel) { advance() }
                     .buttonStyle(.glassProminent)
                     .disabled(!canAdvance)
+                    .focused($primaryFocused)
+                    // Return drives the flow forward. This works whether or not the
+                    // system's keyboard-navigation setting is on, which Tab does not.
+                    .keyboardShortcut(.defaultAction)
             }
             .padding(16)
         }
         .frame(width: 720, height: 560)
+        .defaultFocus($primaryFocused, true)
+        // `.keyboardShortcut(.cancelAction)` does not fire inside this sheet, so
+        // Escape is handled explicitly. This is the macOS-native hook for it.
+        .onExitCommand { close() }
     }
 
     @ViewBuilder
@@ -124,6 +136,15 @@ struct OnboardingView: View {
                                  set: { app.licenseAcknowledged = $0 }))
                 .toggleStyle(.checkbox)
                 .padding(.top, 4)
+                // This checkbox gates Continue. Without a shortcut, a keyboard user
+                // whose system keyboard-navigation is off can reach the button but
+                // never enable it — a dead end in the only mandatory step.
+                .keyboardShortcut("l", modifiers: .command)
+                .help("⌘L toggles this")
+
+            Text("Press ⌘L to accept, Return to continue, Escape to skip setup.")
+                .font(.caption)
+                .foregroundStyle(.tertiary)
         }
     }
 
@@ -261,8 +282,15 @@ struct OnboardingView: View {
         case .models:
             app.downloads.enqueue(ModelCatalog.recommendedBundle)
             app.section = .models
-            dismiss()
+            close()
         }
+    }
+
+    /// Close the sheet by clearing the state that presents it. `dismiss()` proved
+    /// unreliable here, and we own the binding anyway.
+    private func close() {
+        app.showingOnboarding = false
+        dismiss()
     }
 
     private func back() {
