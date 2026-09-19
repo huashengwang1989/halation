@@ -23,6 +23,15 @@ struct StatusBar: View {
                 activity(for: job)
             }
 
+            if let note = app.note {
+                Divider().frame(height: 12)
+                Label(note, systemImage: "checkmark.circle")
+                    .font(.caption)
+                    .foregroundStyle(.secondary)
+                    .lineLimit(1)
+                    .transition(.opacity)
+            }
+
             Spacer(minLength: 8)
 
             if let bytes = app.engine.activeMemoryBytes {

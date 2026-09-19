@@ -47,6 +47,17 @@ final class AppState {
     private(set) var problemFocusPulse = 0
 
     func highlightProblems() { problemFocusPulse += 1 }
+
+    /// A short-lived message for the status bar — a delete confirming itself, say.
+    private(set) var note: String?
+
+    func note(_ message: String) {
+        note = message
+        Task {
+            try? await Task.sleep(for: .seconds(6))
+            if note == message { note = nil }
+        }
+    }
     var licenseAcknowledged: Bool {
         didSet { UserDefaults.standard.set(licenseAcknowledged, forKey: "licenseAcknowledged") }
     }

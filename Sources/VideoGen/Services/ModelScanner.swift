@@ -71,8 +71,9 @@ enum ModelScanner {
         var results: [InstalledModel] = []
         for child in children {
             guard (try? child.resourceValues(forKeys: [.isDirectoryKey]).isDirectory) == true else { continue }
-            // Never re-report the HF cache as a loose folder.
-            if child.lastPathComponent == "huggingface" { continue }
+            // Neither the HF cache nor our own ComfyUI tree is a loose model
+            // folder: both are managed here and tracked by catalog entries.
+            if ["huggingface", "comfyui"].contains(child.lastPathComponent) { continue }
 
             if containsModelFiles(child) {
                 results.append(make(repoID: child.lastPathComponent, at: child))

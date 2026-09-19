@@ -3,6 +3,39 @@ import SwiftUI
 struct ModelsView: View {
     @Environment(AppState.self) private var app
     @State private var showingUnsupported = false
+    @State private var confirmingInstall = false
+
+    /// The recommended set minus whatever is already on disk.
+    private var pendingRecommended: [CatalogEntry] {
+        ModelCatalog.recommendedBundle.filter { !app.modelStore.isInstalled($0) }
+    }
+
+    private var pendingRecommendedBytes: Int64 {
+        pendingRecommended.reduce(0) { $0 + $1.approximateBytes }
+    }
+
+    /// Spells out both halves — what is coming, and what is already there — so the
+    /// size is not a surprise and a partial install is obvious.
+    private var installSummary: String {
+        let installed = ModelCatalog.recommendedBundle.filter { app.modelStore.isInstalled($0) }
+        var lines: [String] = []
+
+        lines.append("Will download:")
+        for entry in pendingRecommended {
+            lines.append("  • \(entry.displayName) — \(Format.bytes(entry.approximateBytes))")
+        }
+        if !installed.isEmpty {
+            lines.append("")
+            lines.append("Already installed, and skipped:")
+            for entry in installed {
+                lines.append("  • \(entry.displayName)")
+            }
+        }
+        lines.append("")
+        lines.append("Saving to \(app.modelStore.rootURL.path(percentEncoded: false)), "
+                     + "with \(Format.bytes(app.modelStore.freeBytes)) free.")
+        return lines.joined(separator: "\n")
+    }
 
     var body: some View {
         ScrollView {
@@ -26,6 +59,15 @@ struct ModelsView: View {
             .padding(20)
         }
         .scrollEdgeEffectStyle(.soft, for: .top)
+        .confirmationDialog("Install the recommended models?",
+                            isPresented: $confirmingInstall, titleVisibility: .visible) {
+            Button("Download \(Format.bytes(pendingRecommendedBytes))") {
+                app.downloads.enqueue(pendingRecommended)
+            }
+            Button("Cancel", role: .cancel) {}
+        } message: {
+            Text(installSummary)
+        }
         .toolbar {
             ToolbarItemGroup {
                 Toggle(isOn: $showingUnsupported) {
@@ -43,11 +85,15 @@ struct ModelsView: View {
             ToolbarSpacer(.fixed)
 
             ToolbarItem {
-                Button("Install Recommended", systemImage: "arrow.down.circle") {
-                    app.downloads.enqueue(ModelCatalog.recommendedBundle)
+                // Hidden once there is nothing left to install, rather than sitting
+                // there as a button that would do nothing.
+                if !pendingRecommended.isEmpty {
+                    Button("Install Recommended", systemImage: "arrow.down.circle") {
+                        confirmingInstall = true
+                    }
+                    .labelStyle(.titleAndIcon)
+                    .buttonStyle(.glassProminent)
                 }
-                .labelStyle(.titleAndIcon)
-                .buttonStyle(.glassProminent)
             }
         }
     }

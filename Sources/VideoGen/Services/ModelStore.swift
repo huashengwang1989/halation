@@ -175,6 +175,54 @@ final class ModelStore {
         installed.reduce(0) { $0 + $1.sizeBytes }
     }
 
+    /// Moves a model's files to the Trash and returns the bytes reclaimed.
+    ///
+    /// Two shapes to handle. A ComfyUI weight is one plain file. A Hugging Face
+    /// entry is a directory of symlinks into a content-addressed store, so the
+    /// links alone are worth nothing — the targets have to go too, or we would
+    /// claim to free 67 GB while freeing a few kilobytes.
+    ///
+    /// Targets outside the models root are never touched.
+    @discardableResult
+    func delete(_ entry: CatalogEntry) throws -> Int64 {
+        let fm = FileManager.default
+
+        if let file = entry.comfyUIFile {
+            let path = comfyUIPath(for: file)
+            let size = (try? path.resourceValues(forKeys: [.fileSizeKey]).fileSize).map(Int64.init) ?? 0
+            try fm.trashItem(at: path, resultingItemURL: nil)
+            Task { await scan() }
+            return size
+        }
+
+        guard let component = localPath(for: entry) else { return 0 }
+        let root = rootURL.standardizedFileURL.path
+
+        // Collect what the links actually point at before removing them.
+        var targets: Set<URL> = []
+        var freed: Int64 = 0
+        if let walker = fm.enumerator(at: component,
+                                      includingPropertiesForKeys: [.isSymbolicLinkKey],
+                                      options: [.skipsHiddenFiles]) {
+            for case let file as URL in walker {
+                let values = try? file.resourceValues(forKeys: [.isSymbolicLinkKey])
+                guard values?.isSymbolicLink == true else { continue }
+                let target = file.resolvingSymlinksInPath().standardizedFileURL
+                guard target.path.hasPrefix(root) else { continue }   // never leave the folder
+                targets.insert(target)
+            }
+        }
+
+        for target in targets {
+            let size = (try? target.resourceValues(forKeys: [.fileSizeKey]).fileSize).map(Int64.init) ?? 0
+            if (try? fm.trashItem(at: target, resultingItemURL: nil)) != nil { freed += size }
+        }
+        try fm.trashItem(at: component, resultingItemURL: nil)
+
+        Task { await scan() }
+        return freed
+    }
+
     nonisolated static func availableCapacity(at url: URL) -> Int64 {
         let probe = FileManager.default.fileExists(atPath: url.path)
             ? url

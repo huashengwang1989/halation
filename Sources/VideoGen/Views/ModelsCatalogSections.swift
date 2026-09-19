@@ -51,6 +51,8 @@ struct EntryRow: View {
     @Environment(AppState.self) private var app
     var entry: CatalogEntry
     var isSelectable: Bool
+    @State private var confirmingDelete = false
+    @State private var deleteError: String?
 
     private var isInstalled: Bool { app.modelStore.isInstalled(entry) }
 
@@ -79,10 +81,24 @@ struct EntryRow: View {
                     }
                 }
 
+                Text(entry.repoID)
+                    .font(.caption2)
+                    .foregroundStyle(.tertiary)
+                    .textSelection(.enabled)
+                    .lineLimit(1)
+                    .truncationMode(.middle)
+
                 Text(entry.summary)
                     .font(.caption)
                     .foregroundStyle(.secondary)
                     .fixedSize(horizontal: false, vertical: true)
+
+                if let deleteError {
+                    Label(deleteError, systemImage: "exclamationmark.triangle")
+                        .font(.caption2)
+                        .foregroundStyle(.red)
+                        .fixedSize(horizontal: false, vertical: true)
+                }
 
                 if let reason = entry.unusableReason {
                     Label(reason, systemImage: "nosign")
@@ -107,34 +123,74 @@ struct EntryRow: View {
             Spacer(minLength: 0)
 
             VStack(spacing: 6) {
-                // The selection control is always rendered for a selectable role,
-                // disabled with a reason rather than absent. A missing button left
-                // no way to tell "already selected" from "cannot be selected".
-                if isSelectable {
-                    Button(isSelected ? "Selected" : "Use") { select() }
-                        .disabled(isSelected || !isInstalled || !entry.isUsableHere)
-                        .help(selectionHelp)
-                }
                 if isInstalled {
-                    Button("Reveal", systemImage: "folder") {
-                        if let url = app.modelStore.localPath(for: entry) {
-                            NSWorkspace.shared.activateFileViewerSelecting([url])
+                    // Only meaningful once the file is on disk; before that the
+                    // Download button is the only thing worth offering.
+                    if isSelectable {
+                        Button(isSelected ? "Selected" : "Use") { select() }
+                            .disabled(isSelected || !entry.isUsableHere)
+                            .help(selectionHelp)
+                    }
+                    HStack(spacing: 6) {
+                        Button("Reveal", systemImage: "folder") {
+                            if let url = app.modelStore.localPath(for: entry) {
+                                NSWorkspace.shared.activateFileViewerSelecting([url])
+                            }
                         }
+                        .accessibilityLabel("Reveal \(entry.repoID) in Finder")
+
+                        Button("Delete", systemImage: "trash", role: .destructive) {
+                            confirmingDelete = true
+                        }
+                        .disabled(!isDeletable)
+                        .help(deleteHelp)
+                        .accessibilityLabel("Delete \(entry.displayName)")
                     }
                     .buttonStyle(.plain)
                     .labelStyle(.iconOnly)
                     .foregroundStyle(.secondary)
-                    .accessibilityLabel("Reveal \(entry.repoID) in Finder")
                 } else {
                     Button("Download") { app.downloads.enqueue([entry]) }
                         .disabled(!entry.isUsableHere)
                 }
             }
             .frame(width: 92)
+            .confirmationDialog("Delete \(entry.displayName)?",
+                                isPresented: $confirmingDelete, titleVisibility: .visible) {
+                Button("Move to Trash", role: .destructive) { delete() }
+                Button("Cancel", role: .cancel) {}
+            } message: {
+                Text("Frees about \(Format.bytes(entry.approximateBytes)) from the shared "
+                     + "models folder, which other projects on this Mac may also be using — "
+                     + "anything relying on \(entry.repoID) would have to download it again. "
+                     + "The files go to the Trash, so this can be undone until you empty it.")
+            }
         }
         .padding(10)
         .background(.quaternary.opacity(isSelected ? 0.3 : 0.16), in: .rect(cornerRadius: 10))
         .opacity(entry.isUsableHere ? 1 : 0.55)
+    }
+
+    /// Deletion is blocked while anything is rendering: the files may be mapped
+    /// into the running process, and a half-deleted model fails confusingly.
+    private var isDeletable: Bool {
+        isInstalled && !isSelected && !app.engine.isRunning
+    }
+
+    private var deleteHelp: String {
+        if app.engine.isRunning { return "Not while a render is running" }
+        if isSelected { return "In use for the current render — choose another first" }
+        return "Move this model to the Trash"
+    }
+
+    private func delete() {
+        do {
+            let freed = try app.modelStore.delete(entry)
+            deleteError = nil
+            if freed > 0 { app.note("Moved \(Format.bytes(freed)) to the Trash.") }
+        } catch {
+            deleteError = error.localizedDescription
+        }
     }
 
     private var selectionHelp: String {
