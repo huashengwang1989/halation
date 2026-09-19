@@ -123,6 +123,14 @@ final class RuntimeManager {
             phase = .missing
             return
         }
+        // Re-copy the bundled scripts before checking health. They were only
+        // staged during install, so after an app update the runtime kept running
+        // the previous version's sidecar — and any fix shipped in it did nothing.
+        do {
+            try stageSidecar()
+        } catch {
+            append("Could not refresh the sidecar scripts: \(error.localizedDescription)")
+        }
         await runDoctor()
     }
 
@@ -201,7 +209,7 @@ final class RuntimeManager {
     }
 
     /// Copies the bundled sidecar scripts into Application Support.
-    private func stageSidecar() throws {
+    func stageSidecar() throws {
         let fm = FileManager.default
         try fm.createDirectory(at: sidecarDirectory, withIntermediateDirectories: true)
 

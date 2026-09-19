@@ -9,7 +9,7 @@ struct ModelsView: View {
             VStack(alignment: .leading, spacing: 18) {
                 FolderCard()
 
-                if app.downloads.pendingCount > 0 || !app.downloads.transfers.isEmpty {
+                if app.downloads.hasHistory {
                     TransfersCard()
                 }
 
@@ -139,15 +139,24 @@ private struct TransfersCard: View {
     @Environment(AppState.self) private var app
 
     var body: some View {
-        GlassCard(title: "Downloads", systemImage: "arrow.down.circle") {
+        GlassCard(title: "Downloads", systemImage: "arrow.down.circle",
+                  footnote: "This list covers the current session. A finished "
+                          + "download stays here until cleared; what is installed "
+                          + "is shown against each model below.") {
             VStack(alignment: .leading, spacing: 12) {
                 ForEach(app.downloads.transfers) { transfer in
                     VStack(alignment: .leading, spacing: 4) {
                         HStack {
-                            Text(transfer.entry.repoID)
-                                .font(.callout)
-                                .lineLimit(1)
-                                .truncationMode(.middle)
+                            VStack(alignment: .leading, spacing: 1) {
+                                Text(transfer.entry.displayName)
+                                    .font(.callout)
+                                    .lineLimit(1)
+                                Text(transfer.entry.scopeDescription)
+                                    .font(.caption2)
+                                    .foregroundStyle(.tertiary)
+                                    .lineLimit(1)
+                                    .truncationMode(.middle)
+                            }
                             Spacer()
                             switch transfer.state {
                             case .finished:
@@ -169,7 +178,7 @@ private struct TransfersCard: View {
                                 .buttonStyle(.plain)
                                 .labelStyle(.iconOnly)
                                 .foregroundStyle(.secondary)
-                                .accessibilityLabel("Cancel download of \(transfer.entry.repoID)")
+                                .accessibilityLabel("Cancel download of \(transfer.entry.displayName)")
                             }
                         }
 
@@ -181,14 +190,18 @@ private struct TransfersCard: View {
                                     "\(Int(transfer.fraction * 100)) percent, "
                                     + "\(Format.bytes(transfer.completedBytes)) of "
                                     + Format.bytes(transfer.totalBytes))
-                            HStack {
-                                Text("\(Format.bytes(transfer.completedBytes)) of \(Format.bytes(transfer.totalBytes))")
-                                if let file = transfer.currentFile {
-                                    Text("· \(file)").lineLimit(1).truncationMode(.middle)
+                            HStack(spacing: 4) {
+                                if transfer.isFinalising {
+                                    ProgressView().controlSize(.small).scaleEffect(0.6)
+                                }
+                                Text("\(Format.bytes(transfer.completedBytes)) of "
+                                     + Format.bytes(transfer.totalBytes))
+                                if let note = transfer.currentFile {
+                                    Text("· \(note)").lineLimit(1).truncationMode(.middle)
                                 }
                             }
                             .font(.caption2)
-                            .foregroundStyle(.tertiary)
+                            .foregroundStyle(transfer.isFinalising ? .secondary : .tertiary)
                             .monospacedDigit()
                         } else if let message = transfer.message, transfer.state == .failed {
                             Text(message)
@@ -206,192 +219,6 @@ private struct TransfersCard: View {
                     }
                     Button("Clear Finished") { app.downloads.clearFinished() }
                     Spacer()
-                }
-            }
-        }
-    }
-}
-
-// MARK: - Catalog sections
-
-private struct TaskSection: View {
-    @Environment(AppState.self) private var app
-    var task: ModelTask
-    var showingUnsupported: Bool
-
-    var body: some View {
-        GlassCard(title: task.label, systemImage: "cube.box", footnote: task.detail) {
-            VStack(spacing: 10) {
-                ForEach(visible) { entry in
-                    EntryRow(entry: entry, isSelectable: true)
-                }
-            }
-        }
-    }
-
-    private var visible: [CatalogEntry] {
-        ModelCatalog.transformers(task: task)
-            .filter { showingUnsupported || $0.isUsableHere }
-    }
-}
-
-private struct ComponentSection: View {
-    @Environment(AppState.self) private var app
-    var role: ModelRole
-    var showingUnsupported: Bool
-
-    var body: some View {
-        GlassCard(title: role.label, systemImage: "puzzlepiece.extension",
-                  footnote: role.detail) {
-            VStack(spacing: 10) {
-                ForEach(visible) { entry in
-                    EntryRow(entry: entry, isSelectable: role == .textEncoder)
-                }
-            }
-        }
-    }
-
-    private var visible: [CatalogEntry] {
-        ModelCatalog.entries(role: role).filter { showingUnsupported || $0.isUsableHere }
-    }
-}
-
-private struct EntryRow: View {
-    @Environment(AppState.self) private var app
-    var entry: CatalogEntry
-    var isSelectable: Bool
-
-    private var isInstalled: Bool { app.modelStore.isInstalled(entry) }
-
-    private var isSelected: Bool {
-        entry.role == .transformer
-            ? app.draft.transformerEntryID == entry.id
-            : app.draft.textEncoderEntryID == entry.id
-    }
-
-    var body: some View {
-        HStack(alignment: .top, spacing: 12) {
-            Image(systemName: isInstalled ? "checkmark.circle.fill" : "circle.dashed")
-                .foregroundStyle(isInstalled ? AnyShapeStyle(.green) : AnyShapeStyle(.secondary))
-                .font(.title3)
-                .accessibilityLabel(isInstalled ? "Installed" : "Not installed")
-
-            VStack(alignment: .leading, spacing: 4) {
-                HStack(spacing: 6) {
-                    Text(entry.quantization.label).font(.callout.weight(.medium))
-                    TagPill(text: entry.provenance.label)
-                    if !entry.isUsableHere {
-                        TagPill(text: "Not runnable here", tint: .red)
-                    }
-                    if isSelected {
-                        TagPill(text: "In use", tint: .accentColor)
-                    }
-                }
-
-                Text(entry.summary)
-                    .font(.caption)
-                    .foregroundStyle(.secondary)
-                    .fixedSize(horizontal: false, vertical: true)
-
-                if let reason = entry.unusableReason {
-                    Label(reason, systemImage: "nosign")
-                        .font(.caption2)
-                        .foregroundStyle(.red)
-                        .fixedSize(horizontal: false, vertical: true)
-                }
-
-                HStack(spacing: 10) {
-                    Label(Format.bytes(entry.approximateBytes), systemImage: "internaldrive")
-                    if let resident = entry.approximateResidentBytes {
-                        Label("\(Format.bytes(resident)) in memory", systemImage: "memorychip")
-                    }
-                    if let card = entry.huggingFaceURL {
-                        Link("Model card", destination: card)
-                    }
-                }
-                .font(.caption2)
-                .foregroundStyle(.tertiary)
-            }
-
-            Spacer(minLength: 0)
-
-            VStack(spacing: 6) {
-                if isInstalled {
-                    if isSelectable {
-                        Button(isSelected ? "Selected" : "Use") { select() }
-                            .disabled(isSelected || !entry.isUsableHere)
-                    }
-                    Button("Reveal", systemImage: "folder") {
-                        if let url = app.modelStore.localPath(for: entry) {
-                            NSWorkspace.shared.activateFileViewerSelecting([url])
-                        }
-                    }
-                    .buttonStyle(.plain)
-                    .labelStyle(.iconOnly)
-                    .foregroundStyle(.secondary)
-                    .accessibilityLabel("Reveal \(entry.repoID) in Finder")
-                } else {
-                    Button("Download") { app.downloads.enqueue([entry]) }
-                        .disabled(!entry.isUsableHere)
-                }
-            }
-            .frame(width: 92)
-        }
-        .padding(10)
-        .background(.quaternary.opacity(isSelected ? 0.3 : 0.16), in: .rect(cornerRadius: 10))
-        .opacity(entry.isUsableHere ? 1 : 0.55)
-    }
-
-    private func select() {
-        if entry.role == .transformer {
-            app.draft.transformerEntryID = entry.id
-            // Selecting a checkpoint implies its task.
-            if let task = entry.task, task != app.draft.task {
-                app.draft.mode = task.supportedModes.first ?? app.draft.mode
-            }
-        } else {
-            app.draft.textEncoderEntryID = entry.id
-        }
-    }
-}
-
-private struct TagPill: View {
-    var text: String
-    var tint: Color = .secondary
-
-    var body: some View {
-        Text(text)
-            .font(.caption2.weight(.medium))
-            .padding(.horizontal, 6)
-            .padding(.vertical, 2)
-            .background(tint.opacity(0.16), in: .capsule)
-            .foregroundStyle(tint)
-    }
-}
-
-/// Anything in the folder that is clearly a model but not one we drive. Shown so
-/// the folder never looks emptier than it is.
-private struct UnrecognisedCard: View {
-    @Environment(AppState.self) private var app
-
-    private var others: [InstalledModel] {
-        app.modelStore.installed.filter { !$0.isKnown }
-    }
-
-    var body: some View {
-        if !others.isEmpty {
-            GlassCard(title: "Other models in this folder", systemImage: "questionmark.folder",
-                      footnote: "These belong to other projects. This app leaves them alone.") {
-                VStack(spacing: 6) {
-                    ForEach(others) { model in
-                        HStack {
-                            Text(model.repoID).font(.callout).lineLimit(1)
-                            TagPill(text: model.layout.label)
-                            Spacer()
-                            Text(Format.bytes(model.sizeBytes))
-                                .font(.caption).foregroundStyle(.secondary).monospacedDigit()
-                        }
-                    }
                 }
             }
         }

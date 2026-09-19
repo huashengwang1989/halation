@@ -221,7 +221,16 @@ struct OnboardingView: View {
             GlassCard(title: "About to download", systemImage: "arrow.down.circle") {
                 VStack(spacing: 8) {
                     ForEach(ModelCatalog.recommendedBundle) { entry in
-                        SpecRow(label: entry.repoID, value: Format.bytes(entry.approximateBytes))
+                        VStack(alignment: .leading, spacing: 2) {
+                            SpecRow(label: entry.displayName,
+                                    value: Format.bytes(entry.approximateBytes))
+                            Text(entry.scopeDescription)
+                                .font(.caption2)
+                                .foregroundStyle(.tertiary)
+                                .lineLimit(1)
+                                .truncationMode(.middle)
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                        }
                     }
                     Divider()
                     SpecRow(label: "Total",

@@ -213,11 +213,16 @@ enum ModelScanner {
             let newest = revisions.max { lhs, rhs in
                 modifiedDate(of: lhs) < modifiedDate(of: rhs)
             }
-            guard let revision = newest, containsModelFiles(revision) else { continue }
+            // No `containsModelFiles` gate here: a `models--` directory in the hub
+            // is a model by construction, and requiring marker files at the
+            // snapshot root wrongly rejected the upstream release, whose root
+            // holds only the `FL2VA/` and `Ref2VA/` task folders. Which catalog
+            // entries a download actually satisfies is `matchEntries`' job.
+            guard let revision = newest else { continue }
 
-            // Blobs hold the real bytes; snapshots are symlinks into them.
-            let blobs = child.appending(path: "blobs", directoryHint: .isDirectory)
-            let size = directorySize(fm.fileExists(atPath: blobs.path) ? blobs : revision)
+            // Size the snapshot and follow its links. Sizing `blobs/` directly
+            // used to work, but under Xet storage those are links too.
+            let size = directorySize(revision)
             let modified = (try? revision.resourceValues(forKeys: [.contentModificationDateKey])
                 .contentModificationDate) ?? .distantPast
 
@@ -277,15 +282,32 @@ enum ModelScanner {
 
     // MARK: Helpers
 
-    /// A directory counts as a model if it holds weights or a recognisable config.
-    private static func containsModelFiles(_ url: URL) -> Bool {
+    /// A directory counts as a model if it holds weights or a recognisable config,
+    /// at its root or one level down.
+    ///
+    /// The extra level matters: a released checkpoint may put everything inside a
+    /// task folder, so a root-only test reports a complete 78 GB download as not
+    /// a model at all.
+    private static func containsModelFiles(_ url: URL, depth: Int = 1) -> Bool {
         let fm = FileManager.default
         let markers = ["config.json", "model_index.json", "model.safetensors.index.json"]
         for marker in markers where fm.fileExists(atPath: url.appending(path: marker).path) {
             return true
         }
-        guard let entries = try? fm.contentsOfDirectory(atPath: url.path) else { return false }
-        return entries.contains { $0.hasSuffix(".safetensors") || $0.hasSuffix(".gguf") }
+        guard let entries = try? fm.contentsOfDirectory(
+            at: url, includingPropertiesForKeys: [.isDirectoryKey], options: [.skipsHiddenFiles])
+        else { return false }
+
+        if entries.contains(where: {
+            let ext = $0.pathExtension.lowercased()
+            return ext == "safetensors" || ext == "gguf"
+        }) { return true }
+
+        guard depth > 0 else { return false }
+        return entries.contains {
+            (try? $0.resourceValues(forKeys: [.isDirectoryKey]).isDirectory) == true
+            && containsModelFiles($0, depth: depth - 1)
+        }
     }
 
     /// Maps a download onto the catalog entries it satisfies.
@@ -332,21 +354,41 @@ enum ModelScanner {
             .contentModificationDate) ?? .distantPast
     }
 
+    /// Size of a model on disk, following symlinks.
+    ///
+    /// `huggingface_hub` 1.x stores content in a shared, chunk-deduplicated Xet
+    /// tree and leaves the per-repo blobs as symlinks into it. Counting only
+    /// regular files therefore reported a 96 GB install as a few megabytes.
+    /// Resolved paths are deduplicated so a blob shared between two files in the
+    /// same repo is not counted twice.
     private static func directorySize(_ url: URL) -> Int64 {
         let fm = FileManager.default
         guard let enumerator = fm.enumerator(
             at: url,
-            includingPropertiesForKeys: [.totalFileAllocatedSizeKey, .fileAllocatedSizeKey, .isRegularFileKey],
+            includingPropertiesForKeys: [.isRegularFileKey, .isSymbolicLinkKey],
             options: [.skipsHiddenFiles])
         else { return 0 }
 
         var total: Int64 = 0
+        var counted = Set<String>()
+
         for case let fileURL as URL in enumerator {
-            guard let values = try? fileURL.resourceValues(
-                forKeys: [.totalFileAllocatedSizeKey, .fileAllocatedSizeKey, .isRegularFileKey]),
-                values.isRegularFile == true
-            else { continue }
-            total += Int64(values.totalFileAllocatedSize ?? values.fileAllocatedSize ?? 0)
+            let values = try? fileURL.resourceValues(
+                forKeys: [.isRegularFileKey, .isSymbolicLinkKey])
+
+            // A symlink is followed to whatever it finally points at, which may
+            // itself be another link inside the Xet store.
+            let target = values?.isSymbolicLink == true
+                ? fileURL.resolvingSymlinksInPath()
+                : fileURL
+            guard values?.isRegularFile == true || values?.isSymbolicLink == true else { continue }
+
+            let key = target.standardizedFileURL.path
+            guard counted.insert(key).inserted else { continue }
+
+            guard let size = try? target.resourceValues(
+                forKeys: [.totalFileAllocatedSizeKey, .fileAllocatedSizeKey]) else { continue }
+            total += Int64(size.totalFileAllocatedSize ?? size.fileAllocatedSize ?? 0)
         }
         return total
     }

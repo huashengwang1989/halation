@@ -128,6 +128,12 @@ final class RenderEngine {
         let spec = jobs[index].spec
         let scratch = Self.scratchDirectory.appending(path: jobID.uuidString, directoryHint: .isDirectory)
 
+        // Declared outside the `do` so the `catch` can prefer it. The sidecar
+        // reports why it failed as an event *before* exiting non-zero, and the
+        // process error that follows is only ever "exited with code 1" — so
+        // catching without consulting this threw away the actual reason.
+        var sidecarFailure: String?
+
         do {
             try FileManager.default.createDirectory(at: scratch, withIntermediateDirectories: true)
             let rawOutput = scratch.appending(path: "render.mp4")
@@ -138,7 +144,6 @@ final class RenderEngine {
             self.runner = runner
 
             var rawVideoURL: URL?
-            var sawFailure: String?
 
             let stream = await runner.lines(.init(
                 executable: runtime.pythonURL,
@@ -148,11 +153,11 @@ final class RenderEngine {
             for try await line in stream {
                 guard let event = SidecarEvent.parse(line: line) else { continue }
                 guard jobs.contains(where: { $0.id == jobID }) else { break }
-                apply(event, to: jobID, video: &rawVideoURL, failure: &sawFailure)
+                apply(event, to: jobID, video: &rawVideoURL, failure: &sidecarFailure)
             }
 
             if cancelledJobIDs.contains(jobID) { throw CancellationError() }
-            if let sawFailure { throw EngineError.sidecar(sawFailure) }
+            if let sidecarFailure { throw EngineError.sidecar(sidecarFailure) }
             guard let rawVideoURL, FileManager.default.fileExists(atPath: rawVideoURL.path) else {
                 throw EngineError.noOutput
             }
@@ -188,7 +193,10 @@ final class RenderEngine {
                 mark(jobID, state: .cancelled, message: nil)
                 cancelledJobIDs.remove(jobID)
             } else {
-                mark(jobID, state: .failed, message: error.localizedDescription)
+                // The sidecar's own message is always more useful than the exit
+                // status that follows it.
+                mark(jobID, state: .failed,
+                     message: sidecarFailure ?? error.localizedDescription)
             }
             try? FileManager.default.removeItem(at: scratch)
         }

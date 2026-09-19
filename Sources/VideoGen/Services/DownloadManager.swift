@@ -16,6 +16,9 @@ final class DownloadManager {
         var currentFile: String?
         var state: State = .waiting
         var message: String?
+        /// Bytes are all in, but the hub is still verifying and linking. Without
+        /// this the UI shows a full bar for minutes with no explanation.
+        var isFinalising = false
 
         enum State: Sendable, Equatable {
             case waiting, active, finished, failed, cancelled
@@ -57,15 +60,34 @@ final class DownloadManager {
             .reduce(0) { $0 + max($1.entry.approximateBytes - $1.completedBytes, 0) }
     }
 
+    /// Queues anything in `entries` that is not already installed or already
+    /// queued.
+    ///
+    /// Deduplication is by catalog entry and ignores state: a finished row is
+    /// still that entry's row. Re-running "Install Recommended" used to append a
+    /// second copy of every completed item, which then raced the first for the
+    /// same cache directory and reported nonsense.
     func enqueue(_ entries: [CatalogEntry]) {
         for entry in entries {
-            guard entry.isUsableHere else { continue }
-            guard !transfers.contains(where: { $0.entry.id == entry.id && !$0.state.isTerminal }) else { continue }
-            guard !modelStore.isInstalled(entry) else { continue }
+            guard entry.isUsableHere, !modelStore.isInstalled(entry) else { continue }
+
+            if let existing = transfers.firstIndex(where: { $0.entry.id == entry.id }) {
+                // Present already. Retry it in place if it stopped short;
+                // otherwise leave it alone.
+                if transfers[existing].state == .failed || transfers[existing].state == .cancelled {
+                    transfers[existing] = Transfer(entry: entry, totalBytes: entry.approximateBytes)
+                }
+                continue
+            }
             transfers.append(Transfer(entry: entry, totalBytes: entry.approximateBytes))
         }
         startNextIfIdle()
     }
+
+    /// True once at least one transfer has run this session, so the Downloads
+    /// card can stay on screen with its history instead of vanishing the moment
+    /// the last one finishes.
+    var hasHistory: Bool { !transfers.isEmpty }
 
     func cancel(_ id: String) {
         guard let index = transfers.firstIndex(where: { $0.id == id }) else { return }
@@ -126,10 +148,11 @@ final class DownloadManager {
                 guard let event = SidecarEvent.parse(line: line),
                       let live = transfers.firstIndex(where: { $0.id == id }) else { continue }
                 switch event {
-                case .downloadProgress(_, let completed, let total, let file):
+                case .downloadProgress(_, let completed, let total, let note):
                     transfers[live].completedBytes = completed
                     if total > 0 { transfers[live].totalBytes = total }
-                    transfers[live].currentFile = file
+                    transfers[live].currentFile = note
+                    transfers[live].isFinalising = note != nil && completed >= total && total > 0
                 case .failure(let message):
                     transfers[live].message = message
                 case .log(let message):
@@ -147,6 +170,7 @@ final class DownloadManager {
                 transfers[live].state = .finished
                 transfers[live].completedBytes = transfers[live].totalBytes
                 transfers[live].currentFile = nil
+                transfers[live].isFinalising = false
             }
         } catch {
             guard let live = transfers.firstIndex(where: { $0.id == id }) else { return }

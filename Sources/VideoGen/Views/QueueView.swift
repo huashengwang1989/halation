@@ -34,11 +34,16 @@ struct QueueView: View {
             // One group, so the system draws a single Finder-style segmented
             // container instead of separate glass pills butting together.
             ToolbarItemGroup {
+                // Labelled by state rather than by action. The old icon flipped
+                // to a pause glyph whenever auto-start was on, which read as
+                // "a render is running" even when nothing had started — and
+                // nothing could start if the runtime was not ready.
                 Toggle(isOn: Binding(get: { app.engine.autoStart },
                                      set: { app.engine.autoStart = $0 })) {
-                    Label("Auto-start", systemImage: app.engine.autoStart ? "play.fill" : "pause.fill")
+                    Label(autoStartLabel, systemImage: autoStartSymbol)
                 }
-                .help("When off, the queue finishes the current render and then stops")
+                .disabled(!app.runtime.phase.isReady)
+                .help(autoStartHelp)
 
                 Button {
                     showingLog = true
@@ -61,6 +66,24 @@ struct QueueView: View {
             }
         }
         .sheet(isPresented: $showingLog) { LogSheet() }
+    }
+
+    private var autoStartLabel: String {
+        app.engine.autoStart ? "Auto-start on" : "Auto-start off"
+    }
+
+    private var autoStartSymbol: String {
+        app.engine.autoStart ? "play.circle.fill" : "pause.circle"
+    }
+
+    private var autoStartHelp: String {
+        guard app.runtime.phase.isReady else {
+            return "The Python runtime is not ready, so nothing can start. "
+                 + "Open Settings › Runtime."
+        }
+        return app.engine.autoStart
+            ? "Queued renders start automatically. Turn off to finish the current one and stop."
+            : "Queued renders wait. Turn on to start them."
     }
 
     @ViewBuilder

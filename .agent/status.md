@@ -18,6 +18,27 @@ Last updated: end of the session that built the MLX path.
   confirmed in the running app.
 - **Build quality**: 0 compiler warnings, 0 lint violations.
 
+## Gotchas that cost real debugging time
+
+- **`huggingface_hub` 1.x uses Xet storage.** Per-repo `blobs/` entries are
+  symlinks into a shared, chunk-deduplicated tree under `huggingface/xet/`.
+  Anything that measures size must follow symlinks, or a 78 GB install reads as
+  a few megabytes. `du -sh` on the repo folder also understates badly.
+- **The upstream snapshot root holds only `FL2VA/` and `Ref2VA/`.** A marker-file
+  test that looks only at the root concludes the repo is not a model at all. This
+  made a complete download appear uninstalled, which then cascaded into a missing
+  `support_path` and a failed render.
+- **A failing sidecar exits non-zero *after* reporting why.** The process error is
+  always the generic "exited with code 1", so it must never be allowed to
+  override the `error` event the sidecar already sent.
+- **The staged sidecar is a copy.** It lives in Application Support and is now
+  re-staged on every launch; previously only on install, so shipped fixes to the
+  Python side silently did nothing.
+- **Progress hitting 100% is not the end of a download.** The hub still verifies
+  checksums and materialises symlinks, which takes minutes on a large repo.
+- **Catalog entries can share a repository**, so a per-repo byte count is not a
+  per-entry byte count. Progress must be measured from a baseline.
+
 ## Built but NOT verified
 
 Be honest about these; do not imply otherwise.

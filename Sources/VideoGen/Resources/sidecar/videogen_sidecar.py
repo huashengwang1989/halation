@@ -130,7 +130,7 @@ def cmd_download(args: argparse.Namespace) -> int:
 
     cache_dir = _repo_cache_dir(repo_id)
     watcher = _SizeWatcher(repo_id, cache_dir, total_bytes)
-    protocol.download(repo_id, watcher.current_bytes(), total_bytes)
+    protocol.download(repo_id, 0, total_bytes)
 
     protocol.stage("generating")  # reuse the UI's "active" styling
     watcher.start()
@@ -146,7 +146,7 @@ def cmd_download(args: argparse.Namespace) -> int:
         return 1
     watcher.stop()
 
-    final = watcher.current_bytes()
+    final = watcher.downloaded()
     protocol.download(repo_id, total_bytes or final, total_bytes or final)
     protocol.log(f"{repo_id} is in place at {path}")
     protocol.done()
@@ -161,7 +161,21 @@ def _repo_cache_dir(repo_id: str) -> Path:
 
 
 class _SizeWatcher:
-    """Reports download progress by sampling the cache directory's size."""
+    """Reports download progress by sampling the cache directory's size.
+
+    Two subtleties this has to handle.
+
+    Several catalog entries share one repository — the upstream release supplies
+    the VAEs and the 67 GB text encoder as separate subsets — so the cache
+    directory already holds bytes that are not part of *this* transfer. Progress
+    is therefore measured from a baseline taken at the start, not from zero, or a
+    12 GB download reports 155 GB of 11 GB.
+
+    And reaching 100% of the byte count is not the end: the hub still has to
+    verify checksums and materialise the snapshot symlinks, which on a large repo
+    takes minutes with nothing else to show. We say so rather than leaving a full
+    bar sitting there looking stuck.
+    """
 
     def __init__(self, repo_id: str, directory: Path, total: int, interval: float = 1.0):
         self.repo_id = repo_id
@@ -171,8 +185,11 @@ class _SizeWatcher:
         self._stop = threading.Event()
         self._thread: Optional[threading.Thread] = None
         self._baseline = 0
+        self._announced_finalising = False
 
     def current_bytes(self) -> int:
+        """Bytes under the cache directory. Follows symlinks, because
+        huggingface_hub 1.x points per-repo blobs at a shared Xet store."""
         total = 0
         for root, _, files in os.walk(self.directory, onerror=lambda _: None):
             for name in files:
@@ -182,14 +199,21 @@ class _SizeWatcher:
                     continue
         return total
 
+    def downloaded(self) -> int:
+        """Bytes attributable to this transfer, clamped to its own total."""
+        seen = max(self.current_bytes() - self._baseline, 0)
+        return min(seen, self.total) if self.total else seen
+
     def _run(self) -> None:
         while not self._stop.wait(self.interval):
-            seen = self.current_bytes()
-            # Incomplete files land in the cache too, so cap at the known total
-            # rather than reporting more than 100%.
-            if self.total:
-                seen = min(seen, self.total)
-            protocol.download(self.repo_id, seen, self.total or seen)
+            seen = self.downloaded()
+            note = None
+            if self.total and seen >= self.total:
+                note = "Verifying checksums and linking files — this can take a while"
+                if not self._announced_finalising:
+                    self._announced_finalising = True
+                    protocol.log("Transfer complete. " + note)
+            protocol.download(self.repo_id, seen, self.total or seen, note)
 
     def start(self) -> None:
         self._baseline = self.current_bytes()
