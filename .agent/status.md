@@ -20,6 +20,18 @@ Last updated: end of the session that built the MLX path.
 
 ## Gotchas that cost real debugging time
 
+- **`mlx_vlm` is a hidden dependency.** The port's `text_encoder.py` imports
+  `mlx_vlm.models.qwen3_vl` unconditionally, but its own `requirements.txt` lists
+  only `mlx`. Without it every render dies at the first load step, after the
+  weights have already been downloaded. It is now in the sidecar's requirements
+  and checked by `doctor`.
+- **Never let `protocol.emit` write through a redirected stdout.** Generation runs
+  inside `contextlib.redirect_stdout(tee)` so the pipeline's prints can be parsed.
+  Because `emit` used `sys.stdout`, every event it produced during a render was
+  fed back into that parser instead of reaching the app — silently swallowing all
+  step and stage progress. `protocol` now holds the real stream, captured at
+  import.
+
 - **`huggingface_hub` 1.x uses Xet storage.** Per-repo `blobs/` entries are
   symlinks into a shared, chunk-deduplicated tree under `huggingface/xet/`.
   Anything that measures size must follow symlinks, or a 78 GB install reads as

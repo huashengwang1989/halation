@@ -52,6 +52,22 @@ Consequences the app depends on:
   writes the file itself using `minimax_h3_mlx.media.save_mp4` / `save_wav`,
   which pipe raw frames into `ffmpeg` — so **ffmpeg must be on PATH**.
 
+## Runtime dependencies the port does not declare
+
+`requirements.txt` in the port lists `mlx`, `numpy`, `safetensors` and
+`huggingface_hub`. It is incomplete: `text_encoder.py` imports
+
+```python
+from mlx_vlm.models.qwen3_vl.config import ModelConfig, TextConfig, VisionConfig
+```
+
+so **`mlx-vlm` is required** and must be installed separately.
+
+`from_pretrained` also does not propagate `verbose` to the weight loaders, so
+per-shard load prints are off by default. The sidecar patches
+`load.load_dit` and `text_encoder.MiniMaxH3TextEncoder` to default it on — the
+only way to get progress during the multi-minute load of a 67 GB encoder.
+
 ## Canvas and timing
 
 `resolve_canvas_size` starts from a 768 px short edge, caps area at 768 × 1344,

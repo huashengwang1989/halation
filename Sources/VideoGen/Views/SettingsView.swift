@@ -37,12 +37,9 @@ private struct GeneralSettings: View {
             }
 
             Section("Queue") {
-                Toggle("Start queued renders automatically", isOn: Binding(
-                    get: { app.engine.autoStart },
-                    set: { app.engine.autoStart = $0 }))
-                Text("Renders hold tens of gigabytes of weights in memory, so only one runs at a time regardless of "
-                     + "this"
-                     + "setting.")
+                Text("Renders hold tens of gigabytes of weights in memory, so only one "
+                     + "runs at a time. Hold or stop an individual render from its own "
+                     + "row in the Queue.")
                     .font(.caption)
                     .foregroundStyle(.secondary)
             }

@@ -44,7 +44,9 @@ def cmd_doctor(_: argparse.Namespace) -> int:
         "problems": [],
     }
 
-    for name in ("mlx", "numpy", "huggingface_hub", "PIL", "safetensors"):
+    # mlx_vlm is needed by the text encoder but missing from the port's own
+    # requirements, so it is checked here rather than discovered mid-render.
+    for name in ("mlx", "mlx_vlm", "numpy", "huggingface_hub", "PIL", "safetensors"):
         try:
             module = __import__(name)
             report["packages"][name] = getattr(module, "__version__", "present")
@@ -264,11 +266,17 @@ def cmd_generate(args: argparse.Namespace) -> int:
     steps = int(job["steps"])
     reporter = protocol.StepReporter(max(1, steps - 1))
 
+    _enable_loader_verbosity()
+    sizes = _component_file_sizes(checkpoint, job.get("transformer_path"))
+
     # The pipeline prints "  step done/total" as it denoises and takes no callback,
     # so we tee stdout through a parser instead of losing the progress entirely.
-    tee = _StepTee(reporter)
+    tee = _StepTee(reporter, file_sizes=sizes)
 
     protocol.stage("preparing")
+    total_gb = sum(sizes.values()) / 1e9
+    protocol.substage("Loading model", 0, sum(sizes.values()) or len(_LOAD_STEPS),
+                      f"{_LOAD_STEPS[0]} first · {total_gb:.0f} GB of weights")
     try:
         with contextlib.redirect_stdout(tee):
             pipeline = MiniMaxH3Pipeline.from_pretrained(
@@ -353,16 +361,100 @@ def _keyframes(job: Dict[str, Any]):
     return images, anchors
 
 
+# The four components `from_pretrained` loads, in the order it loads them. It
+# prints "  <label>: <seconds>s" as each finishes.
+_LOAD_STEPS = ("text encoder", "transformer", "video vae", "audio vae")
+
+
+def _enable_loader_verbosity() -> bool:
+    """Make the weight loaders announce each shard.
+
+    `from_pretrained` does not pass `verbose` down, so by default the only load
+    signal is four milestone lines — and the first covers the 67 GB text encoder,
+    which means many minutes at zero. The loaders are imported inside
+    `from_pretrained`, so patching their modules beforehand takes effect.
+
+    Entirely best-effort: a port whose signatures differ just keeps the coarse
+    milestones.
+    """
+    patched = False
+    try:
+        import minimax_h3_mlx.load as load_mod
+        original = load_mod.load_dit
+
+        def verbose_load_dit(*args, **kwargs):
+            kwargs.setdefault("verbose", True)
+            return original(*args, **kwargs)
+
+        load_mod.load_dit = verbose_load_dit
+        patched = True
+    except Exception as exc:
+        protocol.log(f"Could not enable transformer load detail: {exc}")
+
+    try:
+        import minimax_h3_mlx.text_encoder as te_mod
+        original_te = te_mod.MiniMaxH3TextEncoder
+
+        class VerboseTextEncoder(original_te):  # type: ignore[misc,valid-type]
+            def __init__(self, *args, **kwargs):
+                kwargs.setdefault("verbose", True)
+                super().__init__(*args, **kwargs)
+
+        te_mod.MiniMaxH3TextEncoder = VerboseTextEncoder
+        patched = True
+    except Exception as exc:
+        protocol.log(f"Could not enable text-encoder load detail: {exc}")
+
+    return patched
+
+
+def _component_file_sizes(checkpoint: str, transformer: Optional[str]) -> Dict[str, int]:
+    """Map weight-file name -> size, across every component that will be loaded.
+
+    Used to weight load progress by bytes rather than by component count, so the
+    text encoder's fourteen shards advance the bar proportionally to their size.
+    Symlinks are followed: huggingface_hub stores content in a shared Xet tree.
+    """
+    sizes: Dict[str, int] = {}
+    roots = [os.path.join(checkpoint, name)
+             for name in ("text_encoder", "video_vae", "audio_vae")]
+    roots.append(transformer or os.path.join(checkpoint, "transformer"))
+
+    for root in roots:
+        for directory, _, files in os.walk(root, onerror=lambda _: None):
+            for name in files:
+                if not name.endswith((".safetensors", ".bin", ".gguf")):
+                    continue
+                try:
+                    sizes[name] = os.stat(os.path.join(directory, name)).st_size
+                except OSError:
+                    continue
+    return sizes
+
+_LOAD_DONE = re.compile(
+    r"^(text encoder|transformer[^:]*|video vae|audio vae):\s*[\d.]+s$", re.I)
+_SHARD = re.compile(r"^(\S+\.safetensors):", re.I)
+
+
 class _StepTee:
     """Forwards the pipeline's own stdout into protocol events.
 
-    `MiniMaxH3Pipeline` writes progress with `print`, so this is the only place
-    step counts are available. Anything that is not a step line becomes a log entry.
+    `MiniMaxH3Pipeline` writes progress with `print` and takes no callback, so
+    parsing its output is the only way to report anything. Three things are
+    recognised: the diffusion step counter, the four load milestones, and the
+    per-shard lines that give finer detail while a component is loading.
+    Everything else becomes a log line.
     """
 
-    def __init__(self, reporter: "protocol.StepReporter") -> None:
+    def __init__(self, reporter: "protocol.StepReporter",
+                 file_sizes: Optional[Dict[str, int]] = None) -> None:
         self.reporter = reporter
         self._buffer = ""
+        self._loaded = 0
+        self._sizes = file_sizes or {}
+        self._total_bytes = sum(self._sizes.values())
+        self._loaded_bytes = 0
+        self._seen_shards: set = set()
 
     def write(self, text: str) -> int:
         self._buffer += text
@@ -375,6 +467,7 @@ class _StepTee:
         stripped = line.strip()
         if not stripped:
             return
+
         match = re.match(r"step\s+(\d+)\s*/\s*(\d+)", stripped)
         if match:
             completed, total = int(match.group(1)), int(match.group(2))
@@ -382,7 +475,35 @@ class _StepTee:
                 self.reporter.total = total
             self.reporter.advance(completed)
             return
+
+        if _LOAD_DONE.match(stripped):
+            self._loaded = min(self._loaded + 1, len(_LOAD_STEPS))
+            nxt = (_LOAD_STEPS[self._loaded]
+                   if self._loaded < len(_LOAD_STEPS) else "finishing")
+            self._report_load(f"loaded {stripped.split(':')[0]} · next: {nxt}")
+            protocol.log(stripped)
+            return
+
+        shard = _SHARD.match(stripped)
+        if shard:
+            name = shard.group(1)
+            if name not in self._seen_shards:
+                self._seen_shards.add(name)
+                self._loaded_bytes += self._sizes.get(name, 0)
+            current = (_LOAD_STEPS[self._loaded]
+                       if self._loaded < len(_LOAD_STEPS) else "model")
+            self._report_load(f"{current} · {name}")
+            return
+
         protocol.log(stripped)
+
+    def _report_load(self, detail: str) -> None:
+        """Byte-weighted where we know the sizes, component-counted otherwise."""
+        if self._total_bytes > 0:
+            done = min(self._loaded_bytes, self._total_bytes)
+            protocol.substage("Loading model", done, self._total_bytes, detail)
+        else:
+            protocol.substage("Loading model", self._loaded, len(_LOAD_STEPS), detail)
 
     def flush(self) -> None:
         if self._buffer.strip():

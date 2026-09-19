@@ -12,10 +12,19 @@ import time
 from typing import Any, Optional
 
 
+# The real stdout, captured at import time.
+#
+# Generation runs inside `contextlib.redirect_stdout(...)` so the pipeline's own
+# prints can be parsed for progress. Writing events through `sys.stdout` would
+# therefore feed them straight back into that parser instead of to the app —
+# which silently swallowed every step and stage event for the whole render.
+_EVENT_STREAM = sys.stdout
+
+
 def emit(**payload: Any) -> None:
     """Write one event. Flushed immediately so the UI stays live during long runs."""
-    sys.stdout.write(json.dumps(payload, default=str) + "\n")
-    sys.stdout.flush()
+    _EVENT_STREAM.write(json.dumps(payload, default=str) + "\n")
+    _EVENT_STREAM.flush()
 
 
 def log(message: str) -> None:
@@ -45,6 +54,17 @@ def artifact(video: Optional[str] = None, audio: Optional[str] = None) -> None:
 
 def memory(num_bytes: int) -> None:
     emit(type="memory", bytes=int(num_bytes))
+
+
+def substage(label: str, completed: int, total: int, detail: Optional[str] = None) -> None:
+    """Progress *within* a stage — model loading, mainly.
+
+    Loading the 67 GB text encoder and the transformer takes many minutes, during
+    which the diffusion loop has not started and there is no step count to show.
+    Without this the UI sits at "Loading model" with a motionless bar.
+    """
+    emit(type="substage", label=label, completed=int(completed),
+         total=int(total), detail=detail)
 
 
 def download(repo_id: str, completed: int, total: int, file: Optional[str] = None) -> None:

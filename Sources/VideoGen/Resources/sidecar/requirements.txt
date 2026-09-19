@@ -2,6 +2,10 @@
 # (it ships no pyproject.toml), so the app clones it and adds it to PYTHONPATH; its
 # own requirements.txt is installed separately and is a subset of this list.
 mlx>=0.32.0
+# The text encoder imports mlx_vlm for Qwen3-VL. The port's own requirements.txt
+# omits it, so loading failed with ModuleNotFoundError after the weights were
+# already downloaded.
+mlx-vlm>=0.7.0
 numpy>=1.26
 safetensors>=0.4
 huggingface_hub>=0.30

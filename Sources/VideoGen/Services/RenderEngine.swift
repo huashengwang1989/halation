@@ -11,11 +11,9 @@ import Observation
 final class RenderEngine {
     private(set) var jobs: [RenderJob] = []
     private(set) var isRunning = false
-    /// Tail of the current job's sidecar output, for the log inspector.
-    private(set) var currentLog: [String] = []
-
-    /// Set false to let the queue drain without starting anything new.
-    var autoStart = true
+    /// Sidecar output per job, so each row can show its own log rather than
+    /// sharing one buffer that only ever held the active render.
+    private(set) var logs: [UUID: [String]] = [:]
 
     private let runtime: RuntimeManager
     private let modelStore: ModelStore
@@ -104,17 +102,30 @@ final class RenderEngine {
 
     // MARK: - Execution
 
+    /// Starts the first queued job that is not being held.
     func startNextIfIdle() {
-        guard autoStart, !isRunning, runtime.phase.isReady,
-              let next = jobs.first(where: { $0.state == .queued })
+        guard !isRunning, runtime.phase.isReady,
+              let next = jobs.first(where: { $0.state == .queued && !$0.isHeld })
         else { return }
         activeTask = Task { await run(jobID: next.id) }
     }
 
+    /// Holds a queued job back, or releases it. Replaces the old global
+    /// auto-start switch: control belongs to the individual render, since that
+    /// is what the user is actually deciding about.
+    func setHeld(_ held: Bool, for id: UUID) {
+        guard let index = jobs.firstIndex(where: { $0.id == id }) else { return }
+        jobs[index].isHeld = held
+        persist()
+        if !held { startNextIfIdle() }
+    }
+
+    func log(for id: UUID) -> [String] { logs[id] ?? [] }
+
     private func run(jobID: UUID) async {
         guard let index = jobs.firstIndex(where: { $0.id == jobID }) else { return }
         isRunning = true
-        currentLog.removeAll()
+        logs[jobID] = []
         defer {
             isRunning = false
             persist()
@@ -216,6 +227,12 @@ final class RenderEngine {
         switch event {
         case .stage(let state):
             jobs[index].state = state
+            // A new stage invalidates the previous stage's sub-progress.
+            jobs[index].stageProgress = nil
+            jobs[index].stageDetail = nil
+        case .substage(_, let completed, let total, let detail):
+            jobs[index].stageProgress = total > 0 ? Double(completed) / Double(total) : nil
+            jobs[index].stageDetail = detail
         case .step(let completed, let total, let perStep):
             jobs[index].state = .generating
             jobs[index].completedSteps = completed
@@ -229,10 +246,10 @@ final class RenderEngine {
         case .artifact(let url, _):
             video = url
         case .log(let message):
-            appendLog(message)
+            appendLog(message, to: jobID)
         case .failure(let message):
             failure = message
-            appendLog("Error: \(message)")
+            appendLog("Error: \(message)", to: jobID)
         case .finishedOK, .downloadProgress:
             break
         }
@@ -245,11 +262,14 @@ final class RenderEngine {
         jobs[index].failureMessage = message
     }
 
-    private func appendLog(_ message: String) {
+    private func appendLog(_ message: String, to jobID: UUID) {
         let trimmed = message.trimmingCharacters(in: .whitespacesAndNewlines)
         guard !trimmed.isEmpty else { return }
-        currentLog.append(trimmed)
-        if currentLog.count > 400 { currentLog.removeFirst(currentLog.count - 400) }
+        var lines = logs[jobID] ?? []
+        lines.append(trimmed)
+        // A failing render can emit thousands of lines; keep a useful tail.
+        if lines.count > 600 { lines.removeFirst(lines.count - 600) }
+        logs[jobID] = lines
     }
 
     // MARK: - Job file
