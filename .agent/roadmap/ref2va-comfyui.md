@@ -43,17 +43,74 @@ weights did, and it runs on Apple silicon via PyTorch MPS.
   layout ComfyUI expects. Check this before reusing the upstream layout; they
   may differ enough to matter.
 
-## Open questions to settle first
+## Open questions — ANSWERED
 
-1. Does ComfyUI's H3 implementation expose Ref2VA conditioning as nodes, or only
-   FL2VA? Confirm before any code is written — this is the whole premise.
-2. Does it accept the upstream `Ref2VA/` folder directly, or require
-   `Comfy-Org/MiniMax-H3`? Decides whether we can reuse the shared cache.
-3. Quantization on MPS: INT8 ConvRot needs `ComfyUI-AppleSilicon-FP8`. Is there
-   a GGUF path (`unsloth/MiniMax-H3-GGUF`, `Abiray/MiniMax-H3-Pruned-GGUF`) that
-   is better behaved on Metal?
-4. Memory: 66 GB transformer + 67 GB encoder on 128 GB unified, under PyTorch
-   rather than MLX. Sequential offload will likely be mandatory.
+All four were settled before any Swift was written. Verified against a real
+ComfyUI 0.36.0 install and the Hugging Face manifests.
+
+**1. Does ComfyUI expose Ref2VA? — Yes.** `MiniMaxH3ReferenceToVideo` is a core
+node (`comfy_extras/nodes_minimax_h3.py`), alongside `MiniMaxH3ImageToVideo`,
+`MiniMaxH3AddGuide`, `MiniMaxH3SigmaShift` and `MiniMaxH3FunControlNetApply`.
+Confirmed registered at runtime on MPS.
+
+Its contract, which the workflow graph must satisfy:
+
+```
+inputs : clip, vae?, audio_vae?, prompt, width=1344, height=768,
+         length=124 (min 5, max 3600, step 17 — the 17n+5 grid),
+         ref_image_size ∈ {match, max},
+         ref_images 0–9, ref_videos 0–3, ref_video_audios 0–3, ref_audios 0–3
+outputs: positive conditioning, latent
+```
+
+Two details that matter for the UI:
+
+- **References are addressed from the prompt** as `<Picture i>`, `<Video k>`,
+  `<Audio j>`, 1-based per type. A reference the prompt never names contributes
+  far less. The app must make this obvious, and should offer to insert the tags.
+- `ref_image_size: "max"` uses a 2048 px short edge for identity fidelity and is
+  **"several times slower"**, because reference tokens ride through every
+  sampling step. Default to `match`.
+
+**2. Can it reuse the MLX cache? — No.** ComfyUI wants single-file repackaged
+safetensors from `Comfy-Org/MiniMax-H3` in a flat layout
+(`diffusion_models/`, `text_encoders/`, `vae/`, `loras/`). Entirely separate from
+the upstream diffusers tree the MLX port loads. Budget a second download.
+
+**3. Quantization on MPS — the open risk.** `comfy/quant_ops.py` disables its
+CUDA kernel registry when `torch.version.cuda is None`, so on Metal the INT8
+ConvRot path falls back to whatever generic implementation exists. Whether that
+is correct and usable is the one thing still to prove.
+
+**4. Memory.** ComfyUI reports **137.4 GB** available on this machine and manages
+its own offload. The INT8 set is ~48 GB resident, which is comfortable; the bf16
+set would be ~91 GB and much less so.
+
+## There is a 4-step Ref2VA turbo LoRA
+
+`loras/minimax_h3_ref2v_turbo_4step_v0.1_comfyui_bf16.safetensors`, 1.96 GB.
+ComfyUI has a LoRA loader, which the MLX port does not. This is the difference
+between Ref2VA being an overnight job and a usable one, and is the strongest
+argument for the ComfyUI backend existing at all.
+
+## Chosen configuration
+
+Decided with the user, on a machine with ~101 GB free at the time:
+
+| | |
+|---|---|
+| ComfyUI | app-managed headless clone under Application Support, leaving the user's own v0.8.2 install untouched |
+| Runtime | own venv, Python 3.12, torch 2.14 with MPS |
+| Transformer | `minimax_h3_ref2va_pruned_int8_convrot` — 21.0 GB |
+| Text encoder | `qwen3vl_32b_minimax_h3_int8_convrot` — 27.1 GB |
+| Video VAE | `minimax_h3_video_vae_fp16` — 5.2 GB (fp16 over INT8: small, and decode quality shows) |
+| Audio VAE | `minimax_h3_audio_vae_fp32` — 0.6 GB |
+| LoRA | `minimax_h3_ref2v_turbo_4step` — 2.0 GB |
+| **Total** | **~56 GB** |
+
+Weights live in `~/Documents/AI Models/comfyui/`, wired up by an
+`extra_model_paths.yaml` in the ComfyUI checkout — so they sit beside the MLX
+weights in the same shared folder.
 
 ## Design
 
