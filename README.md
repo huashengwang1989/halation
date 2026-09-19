@@ -75,7 +75,7 @@ states each one where it is relevant rather than exposing a control that does no
 | Aspect ratios | 21:9, 16:9, 4:3, 1:1, 3:4, 9:16, resolved with the port's own area-capped canvas rule. |
 | Audio | Generated jointly, 32 kHz stereo. There is no faster silent mode. |
 | Guidance / negative prompt | **Not available.** The released weights are CFG-distilled — one forward pass per step — so there is nothing for a guidance scale to do. |
-| Ref2VA | **Not usable yet.** The MLX pipeline accepts keyframes only; it has no reference-conditioning path. Needs the CUDA stack (SGLang / vLLM / ComfyUI). |
+| Ref2VA | **Not usable yet.** The MLX pipeline accepts keyframes only; it has no reference-conditioning path. A ComfyUI backend is planned — see [docs/ref2va-comfyui-plan.md](docs/ref2va-comfyui-plan.md). |
 | Acceleration LoRAs | 4-step distillation LoRAs exist and would be transformative, but the port has no LoRA loader. Listed in Models as blocked, to watch. |
 
 ## Output
