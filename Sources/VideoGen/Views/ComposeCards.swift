@@ -265,6 +265,7 @@ struct SummaryContent: View {
             GlassCard(title: "This render", systemImage: "info.circle") {
                 VStack(spacing: 8) {
                     SpecRow(label: "Task", value: app.draft.task.rawValue)
+                    SpecRow(label: "Engine", value: app.draftBackend.label)
                     SpecRow(label: "Generates at", value: app.draft.format.generationSize.description)
                     if app.draft.format.deliverySize != app.draft.format.generationSize {
                         SpecRow(label: "Delivered at", value: app.draft.format.deliverySize.description)
@@ -302,6 +303,15 @@ struct SummaryContent: View {
                         .opacity(isFlashing ? 1 : 0)
                 }
                 .onChange(of: app.problemFocusPulse) { _, _ in flash() }
+            }
+
+            if let reason = app.engine.unavailableReason(for: app.draft) {
+                GlassCard(title: "Engine not ready", systemImage: "exclamationmark.triangle") {
+                    Text(reason)
+                        .font(.callout)
+                        .foregroundStyle(.secondary)
+                        .fixedSize(horizontal: false, vertical: true)
+                }
             }
 
             GlassCard(title: "Models", systemImage: "cube.box") {

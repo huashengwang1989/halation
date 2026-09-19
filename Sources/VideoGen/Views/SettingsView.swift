@@ -7,6 +7,8 @@ struct SettingsView: View {
                 .tabItem { Label("General", systemImage: "gearshape") }
             RuntimeSettings()
                 .tabItem { Label("Runtime", systemImage: "terminal") }
+            ComfyUISettings()
+                .tabItem { Label("ComfyUI", systemImage: "square.stack.3d.up") }
             AdvancedSettings()
                 .tabItem { Label("Advanced", systemImage: "wrench.and.screwdriver") }
         }
@@ -142,6 +144,67 @@ private struct AdvancedSettings: View {
                 Text("Holds the Python environment, the render queue, and scratch files for in-flight renders.")
                     .font(.caption)
                     .foregroundStyle(.secondary)
+            }
+        }
+        .formStyle(.grouped)
+    }
+}
+
+/// ComfyUI is a second, separate runtime: it needs PyTorch, which cannot share an
+/// environment with MLX, and the user's own ComfyUI must be left alone.
+private struct ComfyUISettings: View {
+    @Environment(AppState.self) private var app
+
+    var body: some View {
+        Form {
+            Section("Status") {
+                switch app.comfyRuntime.phase {
+                case .ready(let version):
+                    LabeledContent("ComfyUI", value: version)
+                    LabeledContent("Server",
+                                   value: app.comfyRuntime.isServerRunning
+                                        ? "running on port \(app.comfyRuntime.port)"
+                                        : "not running")
+                case .installing(let step):
+                    LabeledContent("State", value: step)
+                case .failed(let message):
+                    Label(message, systemImage: "xmark.octagon").foregroundStyle(.red)
+                case .missing:
+                    Text("Not installed.")
+                case .unknown:
+                    Text("Checking…")
+                }
+                LabeledContent("Weights", value: app.comfyRuntime.modelsRoot.path)
+                    .textSelection(.enabled)
+            }
+
+            Section {
+                Text("Reference mode runs here rather than on MLX, whose pipeline accepts "
+                     + "keyframes only. ComfyUI also loads the 4-step turbo LoRAs, which is "
+                     + "what makes reference renders practical: about 25 minutes for 5 seconds.")
+                    .font(.caption)
+                    .foregroundStyle(.secondary)
+            }
+
+            Section {
+                HStack {
+                    Button("Install") { Task { await app.comfyRuntime.install() } }
+                        .disabled(app.comfyRuntime.phase.isBusy || app.comfyRuntime.isInstalled)
+                    Button("Repair") { Task { await app.comfyRuntime.install() } }
+                        .disabled(app.comfyRuntime.phase.isBusy || !app.comfyRuntime.isInstalled)
+                    Button("Stop Server", role: .destructive) {
+                        Task { await app.comfyRuntime.stopServer() }
+                    }
+                    .disabled(!app.comfyRuntime.isServerRunning)
+                }
+                Text("The app's own headless ComfyUI, kept apart from any you have installed "
+                     + "yourself. The server starts on demand and stops with the app.")
+                    .font(.caption)
+                    .foregroundStyle(.secondary)
+            }
+
+            if !app.comfyRuntime.installLog.isEmpty {
+                Section("Log") { LogTail(lines: app.comfyRuntime.installLog) }
             }
         }
         .formStyle(.grouped)

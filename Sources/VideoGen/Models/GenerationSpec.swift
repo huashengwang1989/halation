@@ -165,6 +165,9 @@ struct GenerationSpec: Codable, Sendable, Hashable {
     var transformerEntryID: String?
     /// Catalog id of the text encoder to load.
     var textEncoderEntryID: String?
+    /// Force a particular engine. `nil` lets the app choose: MLX where it can,
+    /// ComfyUI for modes only it implements.
+    var backend: BackendID?
 
     var task: ModelTask { mode.task }
 
@@ -249,10 +252,20 @@ struct GenerationSpec: Codable, Sendable, Hashable {
         }
 
         if mode == .reference {
-            problems.append(.init(severity: .blocking,
-                message: "The MLX port does not implement reference conditioning yet — its "
-                       + "pipeline accepts keyframes only. Ref2VA needs the CUDA stack "
-                       + "(SGLang, vLLM or ComfyUI) for now."))
+            // H3 addresses references from the prompt. One that is never named
+            // contributes far less, so this is a correctness issue, not a nicety.
+            let images = references.filter { $0.kind == .image }
+            let untagged = images.indices.filter { !prompt.contains("<Picture \($0 + 1)>") }
+            if !untagged.isEmpty {
+                let tags = untagged.map { "<Picture \($0 + 1)>" }.joined(separator: ", ")
+                problems.append(.init(severity: .advisory,
+                    message: "The prompt never mentions \(tags). H3 conditions on references "
+                           + "through those tags — untagged ones have much less influence."))
+            }
+            problems.append(.init(severity: .advisory,
+                message: "Reference mode runs through ComfyUI rather than MLX, which is slower "
+                       + "per step. With the 4-step turbo LoRA a 5 second clip takes about "
+                       + "25 minutes."))
         }
 
         if sampling.steps < 8 {

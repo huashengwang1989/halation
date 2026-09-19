@@ -73,6 +73,27 @@ Be honest about these; do not imply otherwise.
 - **Tab traversal** after enabling `AppleKeyboardUIMode=3` — reported working by
   the user, not confirmed by tooling.
 
+## Ref2VA via ComfyUI — working
+
+A second backend, used for reference mode, which the MLX port cannot do.
+
+- `RenderBackend` protocol with `MLXBackend` and `ComfyUIBackend`. `RenderEngine`
+  routes by mode: reference goes to ComfyUI, everything else stays on MLX.
+- `ComfyUIRuntime` installs and supervises a private headless ComfyUI under
+  Application Support, on a free port, with `extra_model_paths.yaml` pointing at
+  `~/Documents/AI Models/comfyui`. The user's own ComfyUI is untouched.
+- Graph built in `ComfyUIWorkflow`, derived from ComfyUI's own
+  `video_minimax_h3_r2v.json` template.
+- Progress over the websocket, with history polling as a fallback so a dropped
+  socket cannot stall a render silently.
+
+**Measured:** 1344×768, 124 frames, 4 steps with the turbo LoRA, **26m47s**.
+Compare the MLX path at 5 steps: 24 min. So ComfyUI is not the slow option — it
+is roughly par, and it is the only one with reference conditioning or LoRAs.
+
+Still to verify: progress reporting through a full app-driven render, and that
+cancel reaches ComfyUI's queue.
+
 ## Next
 
 1. **Run a real render.** Install the recommended bundle, generate a 5 s clip at

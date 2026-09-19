@@ -61,6 +61,8 @@ struct RenderJob: Codable, Sendable, Identifiable, Hashable {
     /// choosing what to run next, which is how a single item is paused without a
     /// global switch.
     var isHeld = false
+    /// Which engine ran this, recorded once chosen.
+    var backend: BackendID?
     var createdAt: Date = .now
     var startedAt: Date?
     var finishedAt: Date?

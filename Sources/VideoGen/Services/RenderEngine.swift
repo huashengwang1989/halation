@@ -14,19 +14,30 @@ final class RenderEngine {
     /// Sidecar output per job, so each row can show its own log rather than
     /// sharing one buffer that only ever held the active render.
     private(set) var logs: [UUID: [String]] = [:]
+    /// Failure messages a backend reported before throwing.
+    private var reportedFailures: [UUID: String] = [:]
 
     private let runtime: RuntimeManager
     private let modelStore: ModelStore
     private let library: LibraryStore
 
-    private var runner: ProcessRunner?
+    private let mlx: MLXBackend
+    private let comfy: ComfyUIBackend
+
     private var activeTask: Task<Void, Never>?
     private var cancelledJobIDs = Set<UUID>()
+    /// The backend serving the job in flight, so cancel reaches the right one.
+    private var activeBackend: (any RenderBackend)?
 
-    init(runtime: RuntimeManager, modelStore: ModelStore, library: LibraryStore) {
+    init(runtime: RuntimeManager,
+         comfyRuntime: ComfyUIRuntime,
+         modelStore: ModelStore,
+         library: LibraryStore) {
         self.runtime = runtime
         self.modelStore = modelStore
         self.library = library
+        self.mlx = MLXBackend(runtime: runtime, modelStore: modelStore)
+        self.comfy = ComfyUIBackend(runtime: comfyRuntime, modelStore: modelStore)
         jobs = Self.loadQueue()
         // A job that was mid-flight when the app quit cannot be resumed inside the
         // sidecar, so it returns to the queue rather than lying about its state.
@@ -52,7 +63,8 @@ final class RenderEngine {
         if jobs[index].state.isActive {
             cancelledJobIDs.insert(id)
             activeTask?.cancel()
-            Task { await runner?.terminate() }
+            let backend = activeBackend
+            Task { await backend?.cancel() }
         } else {
             jobs[index].state = .cancelled
             jobs[index].finishedAt = .now
@@ -122,10 +134,27 @@ final class RenderEngine {
 
     func log(for id: UUID) -> [String] { logs[id] ?? [] }
 
+    /// Picks the backend for a spec.
+    ///
+    /// Reference conditioning exists only in ComfyUI. Everything else defaults to
+    /// MLX, which is native and needs no server, unless the spec asks otherwise.
+    func backend(for spec: GenerationSpec) -> any RenderBackend {
+        if let preferred = spec.backend {
+            return preferred == .comfyUI ? comfy : mlx
+        }
+        return mlx.supports(spec.mode) ? mlx : comfy
+    }
+
+    /// Why this spec cannot run right now, or nil.
+    func unavailableReason(for spec: GenerationSpec) -> String? {
+        backend(for: spec).unavailableReason(for: spec)
+    }
+
     private func run(jobID: UUID) async {
         guard let index = jobs.firstIndex(where: { $0.id == jobID }) else { return }
         isRunning = true
         logs[jobID] = []
+        reportedFailures[jobID] = nil
         defer {
             isRunning = false
             persist()
@@ -139,37 +168,30 @@ final class RenderEngine {
         let spec = jobs[index].spec
         let scratch = Self.scratchDirectory.appending(path: jobID.uuidString, directoryHint: .isDirectory)
 
-        // Declared outside the `do` so the `catch` can prefer it. The sidecar
-        // reports why it failed as an event *before* exiting non-zero, and the
-        // process error that follows is only ever "exited with code 1" — so
-        // catching without consulting this threw away the actual reason.
-        var sidecarFailure: String?
-
         do {
             try FileManager.default.createDirectory(at: scratch, withIntermediateDirectories: true)
-            let rawOutput = scratch.appending(path: "render.mp4")
-            let jobFile = scratch.appending(path: "job.json")
-            try writeJobFile(spec: spec, rawOutput: rawOutput, to: jobFile)
 
-            let runner = ProcessRunner()
-            self.runner = runner
+            let chosen = backend(for: spec)
+            activeBackend = chosen
+            jobs[index].backend = chosen.id
+            appendLog("Rendering with \(chosen.id.label).", to: jobID)
 
-            var rawVideoURL: URL?
-
-            let stream = await runner.lines(.init(
-                executable: runtime.pythonURL,
-                arguments: [runtime.sidecarScript.path, "generate", "--job", jobFile.path],
-                environment: runtime.environment()))
-
-            for try await line in stream {
-                guard let event = SidecarEvent.parse(line: line) else { continue }
-                guard jobs.contains(where: { $0.id == jobID }) else { break }
-                apply(event, to: jobID, video: &rawVideoURL, failure: &sidecarFailure)
+            // Events arrive off the main actor; hop back before touching state.
+            let sink: @Sendable (SidecarEvent) -> Void = { event in
+                Task { @MainActor [weak self] in
+                    guard let self, self.jobs.contains(where: { $0.id == jobID }) else { return }
+                    var ignoredVideo: URL?
+                    var reported: String?
+                    self.apply(event, to: jobID, video: &ignoredVideo, failure: &reported)
+                    if let reported { self.reportedFailures[jobID] = reported }
+                }
             }
 
+            let rawVideoURL = try await chosen.run(spec: spec, scratch: scratch, events: sink)
+
             if cancelledJobIDs.contains(jobID) { throw CancellationError() }
-            if let sidecarFailure { throw EngineError.sidecar(sidecarFailure) }
-            guard let rawVideoURL, FileManager.default.fileExists(atPath: rawVideoURL.path) else {
+            if let reported = reportedFailures[jobID] { throw EngineError.sidecar(reported) }
+            guard FileManager.default.fileExists(atPath: rawVideoURL.path) else {
                 throw EngineError.noOutput
             }
 
@@ -206,8 +228,10 @@ final class RenderEngine {
             } else {
                 // The sidecar's own message is always more useful than the exit
                 // status that follows it.
+                // A backend reports why it failed before it throws; that message
+                // is always more useful than the transport-level error.
                 mark(jobID, state: .failed,
-                     message: sidecarFailure ?? error.localizedDescription)
+                     message: reportedFailures[jobID] ?? error.localizedDescription)
             }
             try? FileManager.default.removeItem(at: scratch)
         }
@@ -270,65 +294,6 @@ final class RenderEngine {
         // A failing render can emit thousands of lines; keep a useful tail.
         if lines.count > 600 { lines.removeFirst(lines.count - 600) }
         logs[jobID] = lines
-    }
-
-    // MARK: - Job file
-
-    /// Serialises the spec into the flat shape the sidecar expects, resolving every
-    /// catalog reference to a real path on disk.
-    private func writeJobFile(spec: GenerationSpec, rawOutput: URL, to url: URL) throws {
-        var payload: [String: Any] = [
-            "prompt": spec.prompt,
-            "duration_seconds": spec.sampling.durationSeconds,
-            "aspect_width": spec.format.aspectRatio.aspectPair.width,
-            "aspect_height": spec.format.aspectRatio.aspectPair.height,
-            "steps": spec.sampling.steps,
-            "width": spec.format.generationSize.width,
-            "height": spec.format.generationSize.height,
-            "raw_output_path": rawOutput.path,
-            "mode": spec.mode.rawValue,
-            "task": spec.task.rawValue,
-        ]
-        if let seed = spec.sampling.seed { payload["seed"] = seed }
-
-        // `localPath` already resolves to the component folder when the repository
-        // holds more than one, so these are handed over as-is.
-        if let id = spec.transformerEntryID, let entry = ModelCatalog.entry(id: id),
-           let path = modelStore.localPath(for: entry) {
-            payload["transformer_path"] = path.path
-        }
-        if let id = spec.textEncoderEntryID, let entry = ModelCatalog.entry(id: id),
-           let path = modelStore.localPath(for: entry) {
-            payload["text_encoder_path"] = path.path
-        }
-        if let support = ModelCatalog.entries(role: .support).first,
-           let path = modelStore.localPath(for: support) {
-            payload["support_path"] = path.path
-        }
-
-        // Conditioning inputs, in the order the model consumes them.
-        for asset in spec.references {
-            switch (asset.kind, asset.slot) {
-            case (.image, .first): payload["first_frame"] = asset.url.path
-            case (.image, .last):  payload["last_frame"] = asset.url.path
-            case (.image, .reference):
-                var list = payload["reference_images"] as? [String] ?? []
-                list.append(asset.url.path)
-                payload["reference_images"] = list
-            case (.video, _):
-                var list = payload["reference_videos"] as? [String] ?? []
-                list.append(asset.url.path)
-                payload["reference_videos"] = list
-            case (.audio, _):
-                var list = payload["reference_audios"] as? [String] ?? []
-                list.append(asset.url.path)
-                payload["reference_audios"] = list
-            }
-        }
-
-        let data = try JSONSerialization.data(withJSONObject: payload,
-                                              options: [.prettyPrinted, .sortedKeys])
-        try data.write(to: url, options: .atomic)
     }
 
     // MARK: - Persistence

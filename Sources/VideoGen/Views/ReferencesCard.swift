@@ -26,6 +26,11 @@ struct ReferencesCard: View {
                     if !spec.references.isEmpty {
                         Button("Remove All", role: .destructive) { spec.references = [] }
                     }
+                    if spec.mode == .reference, !missingTags.isEmpty {
+                        Button("Insert \(missingTags.count == 1 ? "Tag" : "Tags")",
+                               systemImage: "text.badge.plus") { insertMissingTags() }
+                            .help("Append \(missingTags.joined(separator: ", ")) to the prompt")
+                    }
                     Spacer()
                 }
             }
@@ -55,6 +60,23 @@ struct ReferencesCard: View {
         case .textToVideo:
             ""
         }
+    }
+
+    /// Reference tags the prompt has not used yet. H3 conditions on references
+    /// through these, so an untagged reference is largely wasted.
+    private var missingTags: [String] {
+        guard spec.mode == .reference else { return [] }
+        let images = spec.references.filter { $0.kind == .image }
+        return images.indices
+            .map { "<Picture \($0 + 1)>" }
+            .filter { !spec.prompt.contains($0) }
+    }
+
+    private func insertMissingTags() {
+        let tags = missingTags.joined(separator: " ")
+        guard !tags.isEmpty else { return }
+        let trimmed = spec.prompt.trimmingCharacters(in: .whitespacesAndNewlines)
+        spec.prompt = trimmed.isEmpty ? tags : trimmed + " " + tags
     }
 
     private func openPanel() {

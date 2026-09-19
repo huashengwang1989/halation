@@ -9,6 +9,7 @@ import SwiftUI
 final class AppState {
     let modelStore: ModelStore
     let runtime: RuntimeManager
+    let comfyRuntime: ComfyUIRuntime
     let library: LibraryStore
     let downloads: DownloadManager
     let engine: RenderEngine
@@ -53,12 +54,15 @@ final class AppState {
     init() {
         let modelStore = ModelStore()
         let runtime = RuntimeManager(modelStore: modelStore)
+        let comfyRuntime = ComfyUIRuntime(modelStore: modelStore)
         let library = LibraryStore()
         self.modelStore = modelStore
         self.runtime = runtime
+        self.comfyRuntime = comfyRuntime
         self.library = library
         self.downloads = DownloadManager(runtime: runtime, modelStore: modelStore)
-        self.engine = RenderEngine(runtime: runtime, modelStore: modelStore, library: library)
+        self.engine = RenderEngine(runtime: runtime, comfyRuntime: comfyRuntime,
+                                   modelStore: modelStore, library: library)
         self.licenseAcknowledged = UserDefaults.standard.bool(forKey: "licenseAcknowledged")
 
         // Start on the recommended preset rather than an empty form.
@@ -83,6 +87,7 @@ final class AppState {
         selectBestAvailableModels()
 
         await runtime.refresh()
+        await comfyRuntime.refresh()
         selectBestAvailableModels()
         if !runtime.phase.isReady { showingOnboarding = true }
 
@@ -113,8 +118,12 @@ final class AppState {
     }
 
     var canGenerate: Bool {
-        runtime.phase.isReady && !draftProblems.contains { $0.severity == .blocking }
+        engine.unavailableReason(for: draft) == nil
+            && !draftProblems.contains { $0.severity == .blocking }
     }
+
+    /// The engine that will serve the draft, for display in Compose.
+    var draftBackend: BackendID { engine.backend(for: draft).id }
 
     func generate() {
         guard canGenerate else { return }

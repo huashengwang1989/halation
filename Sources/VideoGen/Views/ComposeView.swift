@@ -194,9 +194,10 @@ private struct ModeCard: View {
             }
             .pickerStyle(.segmented)
             .labelsHidden()
-            .onChange(of: spec.mode) { _, _ in
+            .onChange(of: spec.mode) { previous, mode in
                 pruneReferences()
                 app.selectBestAvailableModels()
+                adjustSteps(from: previous, to: mode)
             }
         }
     }
@@ -207,6 +208,16 @@ private struct ModeCard: View {
         spec.mode == .reference
             ? " Uses the Ref2VA checkpoint."
             : " Uses the FL2VA checkpoint."
+    }
+
+    /// Reference mode runs on ComfyUI with a 4-step turbo LoRA; the MLX modes use
+    /// the port's own 16-step default. Carry the user over to a sensible number
+    /// rather than leaving 16 steps on a backend where that means two hours.
+    private func adjustSteps(from previous: GenerationMode, to mode: GenerationMode) {
+        let wasReference = previous == .reference
+        let isReference = mode == .reference
+        guard wasReference != isReference else { return }
+        spec.sampling.steps = isReference ? 4 : 16
     }
 
     /// Drop attachments that the new mode cannot accept, and re-slot the rest.

@@ -170,6 +170,10 @@ private struct JobRow: View {
         HStack(spacing: 6) {
             Label(job.spec.mode.label, systemImage: job.spec.mode.symbolName)
                 .labelStyle(.titleAndIcon)
+            if let backend = job.backend {
+                Text("·")
+                Text(backend.label)
+            }
             Text("·")
             Text(job.spec.format.generationSize.description)
             Text("·")
