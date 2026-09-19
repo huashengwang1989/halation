@@ -99,20 +99,29 @@ struct ComposeView: View {
         return min(340, max(250, width * 0.32))
     }
 
-    /// The form pans horizontally rather than compressing past the point where its
-    /// controls stop being usable. Sliders and segmented pickers degrade badly when
-    /// squeezed, so below `formContentMinWidth` the column scrolls sideways and each
-    /// control keeps its full size.
+    /// The form fills the space it is given, and pans horizontally only when that
+    /// space drops below what its controls need.
+    ///
+    /// The content width is pinned explicitly rather than left to `minWidth`. A
+    /// horizontally-scrollable `ScrollView` proposes an unbounded width to its
+    /// content, which stops `Text` wrapping — every footnote would lay out on one
+    /// line and drag the panel far wider than the window. Pinning the width to the
+    /// viewport restores normal wrapping, and only when the viewport is narrower
+    /// than `formContentMinWidth` does the content stay wider and scroll.
     private var formColumn: some View {
-        ScrollView([.vertical, .horizontal]) {
-            formCards
-                .padding(20)
-                .frame(minWidth: formContentMinWidth, alignment: .leading)
+        GeometryReader { proxy in
+            let available = proxy.size.width
+            ScrollView([.vertical, .horizontal]) {
+                formCards
+                    .padding(20)
+                    .frame(width: max(available, formContentMinWidth), alignment: .leading)
+            }
+            .scrollEdgeEffectStyle(.soft, for: .top)
         }
-        .scrollEdgeEffectStyle(.soft, for: .top)
     }
 
-    /// The width the form's controls actually need to stay legible.
+    /// The width the form's controls need to stay usable. Below this, sliders and
+    /// segmented pickers degrade badly, so the panel scrolls instead of squeezing.
     private let formContentMinWidth: CGFloat = 380
 
     @ViewBuilder
