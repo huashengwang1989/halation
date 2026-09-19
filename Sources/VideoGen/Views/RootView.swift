@@ -2,11 +2,20 @@ import SwiftUI
 
 struct RootView: View {
     @Environment(AppState.self) private var app
+    @State private var columnVisibility: NavigationSplitViewVisibility = .all
+    /// True when the app collapsed the sidebar because the window got narrow, as
+    /// opposed to the user collapsing it deliberately. Only an automatic collapse is
+    /// automatically undone.
+    @State private var collapsedByWidth = false
+
+    /// Below this the split view cannot give both columns a usable width.
+    private let collapseBelow: CGFloat = 940
+    private let restoreAbove: CGFloat = 1_080
 
     var body: some View {
         @Bindable var app = app
 
-        NavigationSplitView {
+        NavigationSplitView(columnVisibility: $columnVisibility) {
             List(selection: $app.section) {
                 Section {
                     ForEach(AppState.Section.allCases) { section in
@@ -18,6 +27,10 @@ struct RootView: View {
             }
             .navigationSplitViewColumnWidth(min: 180, ideal: 200, max: 260)
             .safeAreaInset(edge: .bottom) { SidebarStatus() }
+            // The built-in toggle collapses into an overflow menu as the window
+            // narrows — exactly when it is most needed — so we remove it here and
+            // supply our own, pinned to the leading edge of the detail toolbar.
+            .toolbar(removing: .sidebarToggle)
         } detail: {
             Group {
                 switch app.section {
@@ -28,10 +41,50 @@ struct RootView: View {
                 }
             }
             .navigationTitle(app.section.label)
+            .toolbar {
+                ToolbarItem(placement: .navigation) {
+                    Button {
+                        toggleSidebar()
+                    } label: {
+                        Label(isSidebarShowing ? "Hide Sidebar" : "Show Sidebar",
+                              systemImage: "sidebar.leading")
+                    }
+                    .help(isSidebarShowing ? "Hide the sidebar" : "Show the sidebar")
+                    .keyboardShortcut("s", modifiers: [.command, .control])
+                }
+                ToolbarSpacer(.fixed, placement: .navigation)
+            }
+        }
+        .onGeometryChange(for: CGFloat.self) { $0.size.width } action: { width in
+            adapt(toWidth: width)
         }
         .sheet(isPresented: $app.showingOnboarding) {
             OnboardingView()
                 .environment(app)
+        }
+    }
+
+    private var isSidebarShowing: Bool { columnVisibility != .detailOnly }
+
+    private func toggleSidebar() {
+        withAnimation(.snappy(duration: 0.25)) {
+            columnVisibility = isSidebarShowing ? .detailOnly : .all
+        }
+        // An explicit toggle takes ownership back from the automatic behaviour.
+        collapsedByWidth = false
+    }
+
+    /// Collapses the sidebar when the window is too narrow to show both columns, and
+    /// restores it only if we were the one who collapsed it. The gap between the two
+    /// thresholds stops the sidebar flickering while the window is being resized.
+    private func adapt(toWidth width: CGFloat) {
+        guard width > 0 else { return }
+        if width < collapseBelow, columnVisibility != .detailOnly {
+            collapsedByWidth = true
+            withAnimation(.snappy(duration: 0.2)) { columnVisibility = .detailOnly }
+        } else if width > restoreAbove, collapsedByWidth {
+            collapsedByWidth = false
+            withAnimation(.snappy(duration: 0.2)) { columnVisibility = .all }
         }
     }
 
@@ -79,6 +132,7 @@ private struct SidebarStatus: View {
         }
         .padding(.horizontal, 12)
         .padding(.bottom, 10)
+        .frame(maxWidth: .infinity, alignment: .leading)
     }
 
     private var statusColor: Color {

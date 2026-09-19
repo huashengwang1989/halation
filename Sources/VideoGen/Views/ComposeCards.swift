@@ -53,7 +53,6 @@ struct SamplingCard: View {
                         Button("Randomise", systemImage: "die.face.5") {
                             spec.sampling.seed = Int64.random(in: 0..<Int64(1) << 47)
                         }
-                        .buttonStyle(.glass)
                     }
                     Text("A fixed seed makes a render repeatable. Change any other setting and the result changes anyway.")
                         .font(.caption)
@@ -181,75 +180,121 @@ struct PresetMenu: View {
                 }
             }
         } label: {
-            Label("Presets", systemImage: "square.stack")
+            Label(currentPresetName, systemImage: "square.stack")
         }
+        // Without an explicit title style the toolbar collapses this to an icon and
+        // renders it as a circle; we want a labelled, rounded control.
+        .labelStyle(.titleAndIcon)
         .menuStyle(.button)
         .buttonStyle(.glass)
+        .fixedSize()
+        .help("Apply a saved combination of settings")
+    }
+
+    /// Shows the preset the draft currently matches, so the control reads as state
+    /// rather than as a bare menu.
+    private var currentPresetName: String {
+        app.library.allPresets.first { $0.spec.sampling == app.draft.sampling
+                                    && $0.spec.format == app.draft.format }?.name
+            ?? "Presets"
     }
 }
 
 // MARK: - Summary
 
+/// The summary column. Scrolls independently beside the form when there is room.
 struct SummarySidebar: View {
-    @Environment(AppState.self) private var app
     @Binding var showingPresetNamer: Bool
+    /// Incremented by the Compose toolbar when the user asks why Generate is off.
+    var problemFocusCount: Int
 
     var body: some View {
-        ScrollView {
-            VStack(alignment: .leading, spacing: 18) {
-                GlassCard(title: "This render", systemImage: "info.circle") {
-                    VStack(spacing: 8) {
-                        SpecRow(label: "Task", value: app.draft.task.rawValue)
-                        SpecRow(label: "Generates at", value: app.draft.format.generationSize.description)
-                        if app.draft.format.deliverySize != app.draft.format.generationSize {
-                            SpecRow(label: "Delivered at", value: app.draft.format.deliverySize.description)
-                        }
-                        SpecRow(label: "Length",
-                                value: "\(app.draft.sampling.frameCount) frames · "
-                                     + app.draft.sampling.effectiveSeconds.formatted(.number.precision(.fractionLength(2))) + " s")
-                        SpecRow(label: "Steps", value: "\(app.draft.sampling.steps)")
-                        SpecRow(label: "Codec", value: app.draft.format.codec.label)
-                        if let bitrate = app.draft.format.estimatedBitrate() {
-                            SpecRow(label: "Target bitrate",
-                                    value: "\(bitrate / 1_000_000) Mb/s")
-                        }
-                    }
-                }
-
-                GlassCard(title: "Estimated time", systemImage: "clock",
-                          footnote: "Scaled from the MLX port's published M3 Ultra timings for this machine's memory bandwidth. Treat it as an order of magnitude, not a promise — the first run of a session is slower because weights have to be paged in.") {
-                    Text(estimate)
-                        .font(.title2.weight(.semibold))
-                        .foregroundStyle(.primary)
-                }
-
-                if !app.draftProblems.isEmpty {
-                    GlassCard(title: "Before you generate", systemImage: "checklist") {
-                        VStack(alignment: .leading, spacing: 8) {
-                            ForEach(app.draftProblems) { ProblemBadge(problem: $0) }
-                        }
-                    }
-                }
-
-                GlassCard(title: "Models", systemImage: "cube.box") {
-                    VStack(spacing: 8) {
-                        SpecRow(label: "Transformer", value: name(app.draft.transformerEntryID))
-                        SpecRow(label: "Text encoder", value: name(app.draft.textEncoderEntryID))
-                        Button("Choose in Models…") { app.section = .models }
-                            .buttonStyle(.glass)
-                            .frame(maxWidth: .infinity)
-                    }
-                }
-
-                Button("Save as Preset…", systemImage: "square.and.arrow.down") {
-                    showingPresetNamer = true
-                }
-                .buttonStyle(.glass)
-                .frame(maxWidth: .infinity)
+        ScrollViewReader { proxy in
+            ScrollView {
+                SummaryContent(showingPresetNamer: $showingPresetNamer)
+                    .padding(20)
             }
-            .padding(20)
+            .scrollEdgeEffectStyle(.soft, for: .top)
+            .onChange(of: problemFocusCount) { _, _ in
+                withAnimation(.snappy) {
+                    proxy.scrollTo(ComposeAnchor.problems, anchor: .center)
+                }
+            }
         }
         .background(.background.secondary)
+    }
+}
+
+/// The summary's cards, laid out without assuming a container. Used both in the
+/// side column and inline underneath the form when the window is narrow.
+struct SummaryContent: View {
+    @Environment(AppState.self) private var app
+    @Binding var showingPresetNamer: Bool
+    @State private var isFlashing = false
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 18) {
+            GlassCard(title: "This render", systemImage: "info.circle") {
+                VStack(spacing: 8) {
+                    SpecRow(label: "Task", value: app.draft.task.rawValue)
+                    SpecRow(label: "Generates at", value: app.draft.format.generationSize.description)
+                    if app.draft.format.deliverySize != app.draft.format.generationSize {
+                        SpecRow(label: "Delivered at", value: app.draft.format.deliverySize.description)
+                    }
+                    SpecRow(label: "Length",
+                            value: "\(app.draft.sampling.frameCount) frames · "
+                                 + app.draft.sampling.effectiveSeconds.formatted(.number.precision(.fractionLength(2))) + " s")
+                    SpecRow(label: "Steps", value: "\(app.draft.sampling.steps)")
+                    SpecRow(label: "Codec", value: app.draft.format.codec.label)
+                    if let bitrate = app.draft.format.estimatedBitrate() {
+                        SpecRow(label: "Target bitrate", value: "\(bitrate / 1_000_000) Mb/s")
+                    }
+                }
+            }
+
+            GlassCard(title: "Estimated time", systemImage: "clock",
+                      footnote: "Scaled from the MLX port's published M3 Ultra timings for this machine's memory bandwidth. Treat it as an order of magnitude, not a promise — the first run of a session is slower because weights have to be paged in.") {
+                Text(estimate)
+                    .font(.title2.weight(.semibold))
+                    .foregroundStyle(.primary)
+            }
+
+            if !app.draftProblems.isEmpty {
+                GlassCard(title: "Before you generate", systemImage: "checklist") {
+                    VStack(alignment: .leading, spacing: 8) {
+                        ForEach(app.draftProblems) { ProblemBadge(problem: $0) }
+                    }
+                }
+                .id(ComposeAnchor.problems)
+                .overlay {
+                    RoundedRectangle(cornerRadius: 16)
+                        .strokeBorder(.orange, lineWidth: 2)
+                        .opacity(isFlashing ? 1 : 0)
+                }
+                .onChange(of: app.problemFocusPulse) { _, _ in flash() }
+            }
+
+            GlassCard(title: "Models", systemImage: "cube.box") {
+                VStack(spacing: 8) {
+                    SpecRow(label: "Transformer", value: name(app.draft.transformerEntryID))
+                    SpecRow(label: "Text encoder", value: name(app.draft.textEncoderEntryID))
+                    Button("Choose in Models…") { app.section = .models }
+                        .frame(maxWidth: .infinity)
+                }
+            }
+
+            Button("Save as Preset…", systemImage: "square.and.arrow.down") {
+                showingPresetNamer = true
+            }
+            .frame(maxWidth: .infinity)
+        }
+        .frame(maxWidth: .infinity, alignment: .leading)
+    }
+
+    /// Two quick pulses — enough to catch the eye without being a distraction.
+    private func flash() {
+        withAnimation(.easeOut(duration: 0.18)) { isFlashing = true }
+        withAnimation(.easeIn(duration: 0.35).delay(0.9)) { isFlashing = false }
     }
 
     private var estimate: String {

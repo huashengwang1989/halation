@@ -30,24 +30,33 @@ struct QueueView: View {
             }
         }
         .toolbar {
-            ToolbarItem {
+            // One group, so the system draws a single Finder-style segmented
+            // container instead of separate glass pills butting together.
+            ToolbarItemGroup {
                 Toggle(isOn: Binding(get: { app.engine.autoStart },
                                      set: { app.engine.autoStart = $0 })) {
                     Label("Auto-start", systemImage: app.engine.autoStart ? "play.fill" : "pause.fill")
                 }
-                .toggleStyle(.button)
-                .buttonStyle(.glass)
                 .help("When off, the queue finishes the current render and then stops")
+
+                Button {
+                    showingLog = true
+                } label: {
+                    Label("Log", systemImage: "text.alignleft")
+                }
+                .disabled(app.engine.currentLog.isEmpty)
+                .help("Show the current render's output")
             }
+
+            ToolbarSpacer(.fixed)
+
             ToolbarItem {
-                Button("Log", systemImage: "text.alignleft") { showingLog = true }
-                    .buttonStyle(.glass)
-                    .disabled(app.engine.currentLog.isEmpty)
-            }
-            ToolbarItem {
-                Button("Clear Finished", systemImage: "trash") { app.engine.clearFinished() }
-                    .buttonStyle(.glass)
-                    .disabled(!app.engine.jobs.contains { $0.state.isTerminal })
+                Button(role: .destructive) {
+                    app.engine.clearFinished()
+                } label: {
+                    Label("Clear Finished", systemImage: "trash")
+                }
+                .disabled(!app.engine.jobs.contains { $0.state.isTerminal })
             }
         }
         .sheet(isPresented: $showingLog) { LogSheet() }
@@ -185,7 +194,6 @@ private struct LogSheet: View {
                     NSPasteboard.general.setString(
                         app.engine.currentLog.joined(separator: "\n"), forType: .string)
                 }
-                .buttonStyle(.glass)
                 Button("Done") { dismiss() }
                     .buttonStyle(.glassProminent)
             }

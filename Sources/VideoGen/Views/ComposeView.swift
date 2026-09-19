@@ -1,49 +1,70 @@
 import SwiftUI
 import UniformTypeIdentifiers
 
+/// Anchor for the "Before you generate" card, so the disabled Generate button can
+/// point straight at the reason.
+enum ComposeAnchor {
+    static let problems = "compose.problems"
+}
+
 struct ComposeView: View {
     @Environment(AppState.self) private var app
     @State private var showingPresetNamer = false
     @State private var presetName = ""
+    /// Bumped when the user asks why Generate is disabled; the summary scrolls to
+    /// the problems card and flashes it.
+    @State private var problemFocusCount = 0
+    @State private var width: CGFloat = 0
+
+    /// Below this there is not enough room for the form and the summary side by
+    /// side, so the summary moves underneath instead of being clipped.
+    private var isNarrow: Bool { width > 0 && width < 860 }
 
     var body: some View {
         @Bindable var app = app
 
-        GlassEffectContainer(spacing: 18) {
-            HSplitView {
-                ScrollView {
-                    VStack(alignment: .leading, spacing: 18) {
-                        PromptCard(spec: $app.draft)
-                        ModeCard(spec: $app.draft)
-                        if app.draft.mode != .textToVideo {
-                            ReferencesCard(spec: $app.draft)
-                        }
-                        SamplingCard(spec: $app.draft)
-                        FormatCard(spec: $app.draft)
-                    }
-                    .padding(20)
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                }
-                .frame(minWidth: 480, idealWidth: 620)
-
-                SummarySidebar(showingPresetNamer: $showingPresetNamer)
-                    .frame(minWidth: 300, idealWidth: 340, maxWidth: 420)
+        Group {
+            if isNarrow {
+                narrowLayout
+            } else {
+                wideLayout
             }
         }
+        .onGeometryChange(for: CGFloat.self) { $0.size.width } action: { width = $0 }
         .toolbar {
-            ToolbarItem(placement: .principal) { PresetMenu() }
+            // Presets sit with the other actions rather than in the centre slot, so
+            // the leading edge belongs to the sidebar toggle and the window title.
+            ToolbarItem(placement: .primaryAction) {
+                PresetMenu()
+            }
+            ToolbarSpacer(.fixed, placement: .primaryAction)
+            ToolbarItem(placement: .primaryAction) {
+                if !app.canGenerate {
+                    Button {
+                        problemFocusCount += 1
+                        app.highlightProblems()
+                    } label: {
+                        Label("Why is this disabled?", systemImage: "exclamationmark.triangle.fill")
+                    }
+                    .labelStyle(.iconOnly)
+                    .foregroundStyle(.orange)
+                    .help(blockingSummary)
+                    .accessibilityLabel("Why Generate is unavailable")
+                }
+            }
             ToolbarItem(placement: .primaryAction) {
                 Button {
                     app.generate()
                 } label: {
                     Label("Generate", systemImage: "sparkles")
                 }
+                .labelStyle(.titleAndIcon)
                 .buttonStyle(.glassProminent)
                 .disabled(!app.canGenerate)
                 .keyboardShortcut(.return, modifiers: .command)
                 .help(app.canGenerate
                       ? "Add this render to the queue"
-                      : "Resolve the issues listed in the summary first")
+                      : blockingSummary)
             }
         }
         .alert("Save preset", isPresented: $showingPresetNamer) {
@@ -57,6 +78,76 @@ struct ComposeView: View {
         } message: {
             Text("Saves the current settings as a reusable recipe. The prompt, seed and attached files are not included.")
         }
+    }
+
+    // MARK: - Layouts
+
+    private var wideLayout: some View {
+        HStack(spacing: 0) {
+            formColumn
+                .frame(minWidth: 420, maxWidth: .infinity)
+
+            Divider()
+
+            SummarySidebar(showingPresetNamer: $showingPresetNamer,
+                           problemFocusCount: problemFocusCount)
+                .frame(width: 340)
+        }
+    }
+
+    /// One column: the form, then everything the summary would have shown.
+    private var narrowLayout: some View {
+        ScrollViewReader { proxy in
+            ScrollView {
+                VStack(alignment: .leading, spacing: 18) {
+                    formCards
+                    Divider()
+                    SummaryContent(showingPresetNamer: $showingPresetNamer)
+                }
+                .padding(20)
+                .frame(maxWidth: .infinity, alignment: .leading)
+            }
+            // Declared explicitly so scrolled cards pass *under* the toolbar's
+            // glass rather than over it.
+            .scrollEdgeEffectStyle(.soft, for: .top)
+            .onChange(of: problemFocusCount) { _, _ in
+                withAnimation(.snappy) { proxy.scrollTo(ComposeAnchor.problems, anchor: .center) }
+            }
+        }
+    }
+
+    private var formColumn: some View {
+        ScrollView {
+            formCards
+                .padding(20)
+                .frame(maxWidth: .infinity, alignment: .leading)
+        }
+        .scrollEdgeEffectStyle(.soft, for: .top)
+    }
+
+    @ViewBuilder
+    private var formCards: some View {
+        @Bindable var app = app
+        VStack(alignment: .leading, spacing: 18) {
+            PromptCard(spec: $app.draft)
+            ModeCard(spec: $app.draft)
+            if app.draft.mode != .textToVideo {
+                ReferencesCard(spec: $app.draft)
+            }
+            SamplingCard(spec: $app.draft)
+            FormatCard(spec: $app.draft)
+        }
+    }
+
+    /// The first blocking reason, for the button's tooltip.
+    private var blockingSummary: String {
+        if !app.runtime.phase.isReady {
+            return "The Python runtime is not ready. Open Settings › Runtime."
+        }
+        if let first = app.draftProblems.first(where: { $0.severity == .blocking }) {
+            return first.message
+        }
+        return "Resolve the issues listed under “Before you generate”."
     }
 }
 
@@ -152,10 +243,8 @@ private struct ReferencesCard: View {
 
                 HStack {
                     Button("Add Files…", systemImage: "plus") { openPanel() }
-                        .buttonStyle(.glass)
                     if !spec.references.isEmpty {
                         Button("Remove All", role: .destructive) { spec.references = [] }
-                            .buttonStyle(.glass)
                     }
                     Spacer()
                 }

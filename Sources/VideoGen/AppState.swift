@@ -41,6 +41,11 @@ final class AppState {
     /// The spec currently being edited in Compose.
     var draft = GenerationSpec()
     var showingOnboarding = false
+    /// Incremented when the user asks why Generate is unavailable. The summary
+    /// observes it to scroll to and flash the blocking-issues card.
+    private(set) var problemFocusPulse = 0
+
+    func highlightProblems() { problemFocusPulse += 1 }
     var licenseAcknowledged: Bool {
         didSet { UserDefaults.standard.set(licenseAcknowledged, forKey: "licenseAcknowledged") }
     }

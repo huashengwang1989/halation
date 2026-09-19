@@ -5,12 +5,16 @@ struct LibraryView: View {
     @Environment(AppState.self) private var app
     @State private var selection: LibraryItem.ID?
     @State private var search = ""
+    @State private var width: CGFloat = 0
 
     private var filtered: [LibraryItem] {
         let query = search.trimmingCharacters(in: .whitespacesAndNewlines).lowercased()
         guard !query.isEmpty else { return app.library.items }
         return app.library.items.filter { $0.title.lowercased().contains(query) }
     }
+
+    /// Below this the grid and the inspector cannot both be usable.
+    private var isNarrow: Bool { width > 0 && width < 820 }
 
     var body: some View {
         Group {
@@ -24,9 +28,9 @@ struct LibraryView: View {
                         .buttonStyle(.glassProminent)
                 }
             } else {
-                HSplitView {
+                HStack(spacing: 0) {
                     ScrollView {
-                        LazyVGrid(columns: [GridItem(.adaptive(minimum: 210), spacing: 16)],
+                        LazyVGrid(columns: [GridItem(.adaptive(minimum: 200), spacing: 16)],
                                   spacing: 16) {
                             ForEach(filtered) { item in
                                 LibraryTile(item: item, isSelected: selection == item.id)
@@ -36,26 +40,46 @@ struct LibraryView: View {
                         }
                         .padding(18)
                     }
-                    .frame(minWidth: 460)
+                    .scrollEdgeEffectStyle(.soft, for: .top)
+                    .frame(maxWidth: .infinity)
 
-                    if let selected = filtered.first(where: { $0.id == selection }) {
+                    // Below this there is not enough width for a grid and an
+                    // inspector, so the inspector opens as a sheet instead of being
+                    // squeezed into an unreadable column.
+                    if !isNarrow, let selected = filtered.first(where: { $0.id == selection }) {
+                        Divider()
                         LibraryDetail(item: selected)
-                            .frame(minWidth: 320, idealWidth: 380, maxWidth: 460)
+                            .frame(width: 360)
                     }
                 }
             }
         }
+        .onGeometryChange(for: CGFloat.self) { $0.size.width } action: { width = $0 }
         .searchable(text: $search, prompt: "Search prompts")
+        .sheet(isPresented: Binding(
+            get: { isNarrow && selection != nil },
+            set: { if !$0 { selection = nil } })) {
+            if let selected = filtered.first(where: { $0.id == selection }) {
+                VStack(spacing: 0) {
+                    HStack {
+                        Text(selected.title).font(.headline).lineLimit(1)
+                        Spacer()
+                        Button("Done") { selection = nil }
+                            .buttonStyle(.glassProminent)
+                    }
+                    .padding()
+                    Divider()
+                    LibraryDetail(item: selected)
+                }
+                .frame(width: 460, height: 640)
+            }
+        }
         .toolbar {
-            ToolbarItem {
+            ToolbarItemGroup {
                 Button("Reveal Folder", systemImage: "folder") {
                     NSWorkspace.shared.activateFileViewerSelecting([app.library.outputFolder])
                 }
-                .buttonStyle(.glass)
-            }
-            ToolbarItem {
                 Button("Refresh", systemImage: "arrow.clockwise") { app.library.reload() }
-                    .buttonStyle(.glass)
             }
         }
     }
@@ -198,14 +222,12 @@ private struct LibraryDetail: View {
                         app.draft = item.spec
                         app.section = .compose
                     }
-                    .buttonStyle(.glass)
                     .frame(maxWidth: .infinity)
 
                     if let audio = item.audioURL {
                         Button("Reveal WAV", systemImage: "waveform") {
                             NSWorkspace.shared.activateFileViewerSelecting([audio])
                         }
-                        .buttonStyle(.glass)
                         .frame(maxWidth: .infinity)
                     }
                 }

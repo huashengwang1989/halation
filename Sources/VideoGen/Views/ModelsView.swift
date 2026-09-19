@@ -25,23 +25,28 @@ struct ModelsView: View {
             }
             .padding(20)
         }
+        .scrollEdgeEffectStyle(.soft, for: .top)
         .toolbar {
-            ToolbarItem {
-                Toggle("Show Incompatible", isOn: $showingUnsupported)
-                    .toggleStyle(.button)
-                    .buttonStyle(.glass)
-                    .help("Include checkpoints in formats that have no Metal kernel")
-            }
-            ToolbarItem {
+            ToolbarItemGroup {
+                Toggle(isOn: $showingUnsupported) {
+                    Label("Show Incompatible", systemImage: "eye.slash")
+                }
+                .toggleStyle(.button)
+                .help("Include checkpoints in formats this Mac cannot run")
+
                 Button("Rescan", systemImage: "arrow.clockwise") {
                     Task { await app.modelStore.scan() }
                 }
-                .buttonStyle(.glass)
+                .help("Re-read the shared models folder")
             }
+
+            ToolbarSpacer(.fixed)
+
             ToolbarItem {
                 Button("Install Recommended", systemImage: "arrow.down.circle") {
                     app.downloads.enqueue(ModelCatalog.recommendedBundle)
                 }
+                .labelStyle(.titleAndIcon)
                 .buttonStyle(.glassProminent)
             }
         }
@@ -65,11 +70,9 @@ private struct FolderCard: View {
                         .textSelection(.enabled)
                     Spacer()
                     Button("Change…") { chooseFolder() }
-                        .buttonStyle(.glass)
                     Button("Reveal", systemImage: "folder") {
                         NSWorkspace.shared.activateFileViewerSelecting([app.modelStore.rootURL])
                     }
-                    .buttonStyle(.glass)
                 }
 
                 HStack(spacing: 18) {
@@ -181,10 +184,8 @@ private struct TransfersCard: View {
                 HStack {
                     if app.downloads.pendingCount > 0 {
                         Button("Cancel All", role: .destructive) { app.downloads.cancelAll() }
-                            .buttonStyle(.glass)
                     }
                     Button("Clear Finished") { app.downloads.clearFinished() }
-                        .buttonStyle(.glass)
                     Spacer()
                 }
             }
@@ -296,7 +297,6 @@ private struct EntryRow: View {
                 if isInstalled {
                     if isSelectable {
                         Button(isSelected ? "Selected" : "Use") { select() }
-                            .buttonStyle(.glass)
                             .disabled(isSelected || !entry.isUsableHere)
                     }
                     Button("Reveal", systemImage: "folder") {
@@ -309,7 +309,6 @@ private struct EntryRow: View {
                     .foregroundStyle(.secondary)
                 } else {
                     Button("Download") { app.downloads.enqueue([entry]) }
-                        .buttonStyle(.glass)
                         .disabled(!entry.isUsableHere)
                 }
             }
