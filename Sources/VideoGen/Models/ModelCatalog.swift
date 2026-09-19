@@ -82,27 +82,37 @@ enum Quantization: String, Codable, Sendable, CaseIterable, Identifiable, Compar
         }
     }
 
-    /// Whether the MLX pipeline this app drives can load the format at all.
+    /// Which engines can load this format.
     ///
-    /// MLX reads its own quantized safetensors and plain bf16. NVFP4 is a Blackwell
-    /// CUDA format, GGUF belongs to llama.cpp/ComfyUI loaders, and INT8 ConvRot is a
-    /// PyTorch-side scheme with no Metal kernel — none of them have an MLX path.
-    var mlxSupport: Support {
-        switch self {
-        case .q4, .q6, .q8: .native
-        case .bf16: .native
-        case .int8ConvRot: .unsupported("INT8 ConvRot is a PyTorch scheme with no Metal kernel.")
-        case .nvfp4: .unsupported("NVFP4 is an NVIDIA Blackwell format. There is no Metal path.")
-        case .gguf: .unsupported("GGUF is loaded by ComfyUI and llama.cpp, not by the MLX port.")
+    /// Was an MLX-only question when MLX was the only backend. Now that ComfyUI
+    /// is a real engine, formats it can read — INT8 ConvRot in particular — are
+    /// usable even though MLX cannot touch them.
+    func isLoadable(by backend: BackendID) -> Bool {
+        switch backend {
+        case .mlx:
+            // MLX reads its own quantized safetensors, and plain bf16.
+            switch self {
+            case .q4, .q6, .q8, .bf16: true
+            default: false
+            }
+        case .comfyUI:
+            // ComfyUI reads bf16 and its own quantized layouts, but has no
+            // loader for MLX's format, and GGUF needs a custom node.
+            switch self {
+            case .bf16, .int8ConvRot: true
+            default: false
+            }
         }
     }
 
-    enum Support: Sendable, Hashable {
-        case native
-        case unsupported(String)
-
-        var isUsable: Bool { self == .native }
-        var reason: String? { if case .unsupported(let why) = self { why } else { nil } }
+    /// Why no engine here can load it, or `nil` if one can.
+    var unloadableReason: String? {
+        guard !BackendID.allCases.contains(where: { isLoadable(by: $0) }) else { return nil }
+        switch self {
+        case .nvfp4: return "NVFP4 is an NVIDIA Blackwell format. There is no Metal path."
+        case .gguf:  return "GGUF needs a ComfyUI custom node this app does not install."
+        default:     return "No engine here can load \(label)."
+        }
     }
 
     private var rank: Int {
@@ -192,8 +202,16 @@ struct CatalogEntry: Identifiable, Codable, Sendable, Hashable {
     fileprivate static let upstreamRepoIDStatic = "MiniMaxAI/MiniMax-H3"
 
     /// Why this cannot be used on this machine, or `nil` if it can.
+    ///
+    /// Judged against the engine that would load it, not against MLX alone.
     var unusableReason: String? {
-        blockedReason ?? quantization.mlxSupport.reason
+        if let blockedReason { return blockedReason }
+        guard let reason = quantization.unloadableReason else {
+            return quantization.isLoadable(by: backend)
+                ? nil
+                : "\(quantization.label) needs the \(backend == .mlx ? "ComfyUI" : "MLX") engine."
+        }
+        return reason
     }
 
     var isUsableHere: Bool { unusableReason == nil }

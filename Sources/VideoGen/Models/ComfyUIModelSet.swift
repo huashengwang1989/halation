@@ -26,6 +26,25 @@ enum ComfyUIModelSet {
     }
 
     static let textEncoder = "qwen3vl_32b_minimax_h3_int8_convrot.safetensors"
+
+    /// Community encoders that can stand in for the stock one. Refusal behaviour
+    /// lives in Qwen3-VL, so swapping it changes what the system will describe
+    /// without touching H3's generation.
+    static let alternateTextEncoders = [
+        "qwen3vl_32b_minimax_h3_int8_convrot_uncensored-by-linjian257.safetensors",
+    ]
+
+    /// The encoder to load: an explicitly chosen one if installed, else the stock
+    /// one, else any alternate that happens to be present.
+    static func resolvedTextEncoder(in root: URL, preferred: String?) -> String? {
+        let folder = root.appending(path: "comfyui/text_encoders", directoryHint: .isDirectory)
+        func present(_ name: String) -> Bool {
+            FileManager.default.fileExists(atPath: folder.appending(path: name).path)
+        }
+        if let preferred, present(preferred) { return preferred }
+        if present(textEncoder) { return textEncoder }
+        return alternateTextEncoders.first(where: present)
+    }
     static let videoVAE = "minimax_h3_video_vae_fp16.safetensors"
     static let audioVAE = "minimax_h3_audio_vae_fp32.safetensors"
 
@@ -44,17 +63,26 @@ enum ComfyUIModelSet {
     }
 
     /// Files that are required but absent. `modelsRoot` is the shared folder.
+    ///
+    /// The text encoder is satisfied by any accepted build, so a user running the
+    /// uncensored one is not told the stock file is missing.
     static func missing(in modelsRoot: URL, for task: ModelTask) -> [String] {
         let root = modelsRoot.appending(path: "comfyui", directoryHint: .isDirectory)
-        return required(for: task)
+        var absent = required(for: task)
+            .filter { $0.file != textEncoder }
             .filter { !FileManager.default.fileExists(
                 atPath: root.appending(path: "\($0.folder)/\($0.file)").path) }
             .map(\.file)
+        if resolvedTextEncoder(in: modelsRoot, preferred: nil) == nil {
+            absent.append(textEncoder)
+        }
+        return absent
     }
 
     /// Resolves the set for a task, if it is fully present. `root` is the shared
     /// models folder; the turbo LoRA is optional and used when found.
-    static func resolve(in root: URL, task: ModelTask) -> ComfyUIWorkflow.Models? {
+    static func resolve(in root: URL, task: ModelTask,
+                        preferredTextEncoder: String? = nil) -> ComfyUIWorkflow.Models? {
         guard missing(in: root, for: task).isEmpty else { return nil }
         let comfy = root.appending(path: "comfyui", directoryHint: .isDirectory)
         let lora = turboLoRA(for: task)
@@ -62,7 +90,7 @@ enum ComfyUIModelSet {
             atPath: comfy.appending(path: "loras/\(lora)").path)
         return ComfyUIWorkflow.Models(
             transformer: transformer(for: task),
-            textEncoder: textEncoder,
+            textEncoder: resolvedTextEncoder(in: root, preferred: preferredTextEncoder) ?? textEncoder,
             videoVAE: videoVAE,
             audioVAE: audioVAE,
             turboLoRA: hasLoRA ? lora : nil)

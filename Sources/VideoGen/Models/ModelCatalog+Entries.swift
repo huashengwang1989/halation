@@ -254,12 +254,16 @@ enum ModelCatalog {
             task: nil,
             quantization: .int8ConvRot,
             approximateBytes: 26 * GB,
-            approximateResidentBytes: nil,
+            approximateResidentBytes: 26 * GB,
             allowPatterns: nil,
             provenance: .community,
-            summary: "A community text encoder with the refusal behaviour trained out, in "
-                   + "INT8 ConvRot. It targets the PyTorch/ComfyUI path; the MLX pipeline "
-                   + "cannot load this format, so it is listed for reference only."
+            summary: "Qwen3-VL-32B with its refusal behaviour trained out. Drop-in "
+                   + "replacement for the stock encoder — H3 itself is unchanged, since "
+                   + "refusals live in the language model, not the diffusion transformer. "
+                   + "ComfyUI only; MLX has no loader for this format.",
+            comfyUIFile: .init(
+                folder: "text_encoders",
+                filename: "qwen3vl_32b_minimax_h3_int8_convrot_uncensored-by-linjian257.safetensors")
         ),
         CatalogEntry(
             repoID: "unsloth/MiniMax-H3-GGUF",

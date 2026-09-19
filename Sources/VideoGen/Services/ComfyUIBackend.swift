@@ -52,7 +52,7 @@ actor ComfyUIBackend: RenderBackend {
         }
 
         // References must be inside ComfyUI's own input directory.
-        let inputDir = await ComfyUIRuntime.rootURL.appending(path: "input", directoryHint: .isDirectory)
+        let inputDir = ComfyUIRuntime.rootURL.appending(path: "input", directoryHint: .isDirectory)
         try FileManager.default.createDirectory(at: inputDir, withIntermediateDirectories: true)
         let uploaded = try stageReferences(spec: spec, into: inputDir)
 
