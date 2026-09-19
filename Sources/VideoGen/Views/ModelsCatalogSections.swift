@@ -72,6 +72,10 @@ struct EntryRow: View {
             VStack(alignment: .leading, spacing: 4) {
                 HStack(spacing: 6) {
                     Text(entry.quantization.label).font(.callout.weight(.medium))
+                    // Which engine loads this. The two sets are not
+                    // interchangeable, and several entries exist only for one.
+                    TagPill(text: entry.backend.label,
+                            tint: entry.backend == .comfyUI ? .purple : .blue)
                     TagPill(text: entry.provenance.label)
                     if !entry.isUsableHere {
                         TagPill(text: "Not runnable here", tint: .red)
