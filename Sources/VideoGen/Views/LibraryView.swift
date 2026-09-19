@@ -36,9 +36,19 @@ struct LibraryView: View {
                         LazyVGrid(columns: [GridItem(.adaptive(minimum: 200), spacing: 16)],
                                   spacing: 16) {
                             ForEach(filtered) { item in
-                                LibraryTile(item: item, isSelected: selection == item.id)
-                                    .onTapGesture { selection = item.id }
-                                    .contextMenu { menu(for: item) }
+                                // A Button rather than a tap gesture: a gesture is
+                                // invisible to the keyboard and to VoiceOver, which
+                                // made the whole library unreachable without a mouse.
+                                Button {
+                                    selection = item.id
+                                } label: {
+                                    LibraryTile(item: item, isSelected: selection == item.id)
+                                }
+                                .buttonStyle(.plain)
+                                .accessibilityLabel(item.title)
+                                .accessibilityValue(accessibilityDescription(of: item))
+                                .accessibilityAddTraits(selection == item.id ? [.isButton, .isSelected] : .isButton)
+                                .contextMenu { menu(for: item) }
                             }
                         }
                         .padding(18)
@@ -66,6 +76,17 @@ struct LibraryView: View {
                 Button("Refresh", systemImage: "arrow.clockwise") { app.library.reload() }
             }
         }
+    }
+
+    /// Spoken after the title: what this clip is, in the order it matters.
+    private func accessibilityDescription(of item: LibraryItem) -> String {
+        var parts = [
+            "\(item.spec.sampling.durationSeconds) seconds",
+            item.spec.format.deliverySize.description.replacingOccurrences(of: "×", with: " by "),
+            item.spec.format.codec.label,
+        ]
+        if !item.exists { parts.append("file missing") }
+        return parts.joined(separator: ", ")
     }
 
     @ViewBuilder
@@ -111,6 +132,7 @@ private struct LibraryTile: View {
                     Image(systemName: "film")
                         .font(.largeTitle)
                         .foregroundStyle(.secondary)
+                        .accessibilityHidden(true)
                 }
             }
             .frame(height: 118)

@@ -143,6 +143,11 @@ private struct AspectButton: View {
         }
         .buttonStyle(.plain)
         .help("\(ratio.label) — renders at \(ratio.nativeSize.description)")
+        // The swatch carries its meaning in shape and colour alone, so state and
+        // size have to be spoken.
+        .accessibilityLabel("\(ratio.label) aspect ratio")
+        .accessibilityValue("\(ratio.nativeSize.width) by \(ratio.nativeSize.height) pixels")
+        .accessibilityAddTraits(isSelected ? [.isButton, .isSelected] : .isButton)
     }
 
     // Normalise every swatch into the same 34 pt box so the row reads evenly.

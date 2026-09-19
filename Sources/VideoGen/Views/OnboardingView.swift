@@ -60,6 +60,7 @@ struct OnboardingView: View {
             Image(systemName: "wand.and.sparkles")
                 .font(.system(size: 44))
                 .foregroundStyle(.tint)
+                .accessibilityHidden(true)
             Text("Generate video on this Mac")
                 .font(.largeTitle.weight(.semibold))
             Text("""
@@ -305,5 +306,10 @@ struct LogTail: View {
         .defaultScrollAnchor(.bottom)
         .frame(height: 120)
         .background(.quaternary.opacity(0.3), in: .rect(cornerRadius: 8))
+        // Announced as one element: stepping through a hundred build lines one at
+        // a time is worse than useless.
+        .accessibilityElement(children: .ignore)
+        .accessibilityLabel("Installation log")
+        .accessibilityValue(lines.suffix(3).joined(separator: ". "))
     }
 }

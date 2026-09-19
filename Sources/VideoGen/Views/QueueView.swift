@@ -104,6 +104,7 @@ private struct JobRow: View {
     var body: some View {
         HStack(alignment: .top, spacing: 12) {
             Image(systemName: job.state.symbolName)
+                .accessibilityHidden(true)
                 .font(.title3)
                 .symbolRenderingMode(.hierarchical)
                 .foregroundStyle(tint)
@@ -130,6 +131,7 @@ private struct JobRow: View {
                 if job.state.isActive {
                     ProgressView(value: job.overallProgress)
                         .progressViewStyle(.linear)
+                        .accessibilityHidden(true)   // spoken by the row's value
                     HStack(spacing: 6) {
                         if job.totalSteps > 0 {
                             Text("step \(job.completedSteps)/\(job.totalSteps)")
@@ -167,6 +169,28 @@ private struct JobRow: View {
             Spacer(minLength: 0)
         }
         .padding(.vertical, 6)
+        .accessibilityElement(children: .ignore)
+        .accessibilityLabel(job.title)
+        .accessibilityValue(spokenState)
+    }
+
+    /// State, progress and any failure, as one sentence.
+    private var spokenState: String {
+        var parts = [job.state.label]
+        if job.state.isActive {
+            parts.append("\(Int(job.overallProgress * 100)) percent")
+            if job.totalSteps > 0 {
+                parts.append("step \(job.completedSteps) of \(job.totalSteps)")
+            }
+            if let remaining = job.estimatedRemaining {
+                parts.append("about \(Format.duration(remaining)) remaining")
+            }
+        }
+        if let message = job.failureMessage { parts.append(message) }
+        if job.state == .finished, let elapsed = job.elapsed {
+            parts.append("took \(Format.duration(elapsed))")
+        }
+        return parts.joined(separator: ", ")
     }
 
     private var tint: Color {

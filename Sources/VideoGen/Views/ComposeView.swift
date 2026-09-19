@@ -78,8 +78,10 @@ struct ComposeView: View {
     /// view's business, not ours.
     private var content: some View {
         HStack(spacing: 0) {
+            // Allowed to go narrower than its content: `formColumn` pans instead
+            // of clipping, so this floor is only about keeping the panel visible.
             formColumn
-                .frame(minWidth: 280, maxWidth: .infinity)
+                .frame(minWidth: 220, maxWidth: .infinity)
 
             Divider()
 
@@ -97,14 +99,21 @@ struct ComposeView: View {
         return min(340, max(250, width * 0.32))
     }
 
+    /// The form pans horizontally rather than compressing past the point where its
+    /// controls stop being usable. Sliders and segmented pickers degrade badly when
+    /// squeezed, so below `formContentMinWidth` the column scrolls sideways and each
+    /// control keeps its full size.
     private var formColumn: some View {
-        ScrollView {
+        ScrollView([.vertical, .horizontal]) {
             formCards
                 .padding(20)
-                .frame(maxWidth: .infinity, alignment: .leading)
+                .frame(minWidth: formContentMinWidth, alignment: .leading)
         }
         .scrollEdgeEffectStyle(.soft, for: .top)
     }
+
+    /// The width the form's controls actually need to stay legible.
+    private let formContentMinWidth: CGFloat = 380
 
     @ViewBuilder
     private var formCards: some View {
@@ -143,6 +152,9 @@ private struct PromptCard: View {
             VStack(alignment: .leading, spacing: 12) {
                 TextEditor(text: $spec.prompt)
                     .font(.body)
+                    .tabMovesFocus()
+                    .accessibilityLabel("Prompt")
+                    .accessibilityHint("Describe the shot. Press Tab to move on, Option-Tab to insert a tab.")
                     .scrollContentBackground(.hidden)
                     .frame(minHeight: 108)
                     .padding(8)
@@ -322,6 +334,7 @@ private struct DropWell: View {
             Image(systemName: mode.symbolName)
                 .font(.system(size: 26))
                 .foregroundStyle(.secondary)
+                .accessibilityHidden(true)
             Text("Drop files here")
                 .font(.callout)
                 .foregroundStyle(.secondary)
@@ -357,6 +370,7 @@ private struct ReferenceChip: View {
                     Image(systemName: asset.kind.symbolName)
                         .font(.title2)
                         .foregroundStyle(.secondary)
+                        .accessibilityHidden(true)
                 }
             }
             .frame(height: 74)
@@ -379,7 +393,10 @@ private struct ReferenceChip: View {
             }
             .buttonStyle(.plain)
             .padding(4)
+            .accessibilityLabel("Remove \(asset.url.lastPathComponent)")
         }
         .help(asset.url.path)
+        .accessibilityElement(children: .contain)
+        .accessibilityLabel("\(asset.slot == .reference ? asset.kind.label : asset.slot.label): \(asset.url.lastPathComponent)")
     }
 }

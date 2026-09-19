@@ -123,6 +123,10 @@ private struct Stat: View {
             Text(value).font(.callout.weight(.semibold)).monospacedDigit()
             Text(label).font(.caption2).foregroundStyle(.secondary)
         }
+        // Read as "Free space, 180 GB" rather than as two loose fragments.
+        .accessibilityElement(children: .ignore)
+        .accessibilityLabel(label)
+        .accessibilityValue(value)
     }
 }
 
@@ -144,11 +148,17 @@ private struct TransfersCard: View {
                             Spacer()
                             switch transfer.state {
                             case .finished:
-                                Image(systemName: "checkmark.circle.fill").foregroundStyle(.green)
+                                Image(systemName: "checkmark.circle.fill")
+                                    .foregroundStyle(.green)
+                                    .accessibilityLabel("Downloaded")
                             case .failed:
-                                Image(systemName: "exclamationmark.triangle.fill").foregroundStyle(.red)
+                                Image(systemName: "exclamationmark.triangle.fill")
+                                    .foregroundStyle(.red)
+                                    .accessibilityLabel("Download failed")
                             case .cancelled:
-                                Image(systemName: "xmark.circle").foregroundStyle(.secondary)
+                                Image(systemName: "xmark.circle")
+                                    .foregroundStyle(.secondary)
+                                    .accessibilityLabel("Cancelled")
                             default:
                                 Button("Cancel", systemImage: "xmark") {
                                     app.downloads.cancel(transfer.id)
@@ -156,12 +166,17 @@ private struct TransfersCard: View {
                                 .buttonStyle(.plain)
                                 .labelStyle(.iconOnly)
                                 .foregroundStyle(.secondary)
+                                .accessibilityLabel("Cancel download of \(transfer.entry.repoID)")
                             }
                         }
 
                         if !transfer.state.isTerminal {
                             ProgressView(value: transfer.fraction)
                                 .progressViewStyle(.linear)
+                                .accessibilityLabel("Download progress")
+                                .accessibilityValue(
+                                    "\(Int(transfer.fraction * 100)) percent, "
+                                    + "\(Format.bytes(transfer.completedBytes)) of \(Format.bytes(transfer.totalBytes))")
                             HStack {
                                 Text("\(Format.bytes(transfer.completedBytes)) of \(Format.bytes(transfer.totalBytes))")
                                 if let file = transfer.currentFile {
@@ -255,6 +270,7 @@ private struct EntryRow: View {
             Image(systemName: isInstalled ? "checkmark.circle.fill" : "circle.dashed")
                 .foregroundStyle(isInstalled ? AnyShapeStyle(.green) : AnyShapeStyle(.secondary))
                 .font(.title3)
+                .accessibilityLabel(isInstalled ? "Installed" : "Not installed")
 
             VStack(alignment: .leading, spacing: 4) {
                 HStack(spacing: 6) {
@@ -307,6 +323,7 @@ private struct EntryRow: View {
                     .buttonStyle(.plain)
                     .labelStyle(.iconOnly)
                     .foregroundStyle(.secondary)
+                    .accessibilityLabel("Reveal \(entry.repoID) in Finder")
                 } else {
                     Button("Download") { app.downloads.enqueue([entry]) }
                         .disabled(!entry.isUsableHere)

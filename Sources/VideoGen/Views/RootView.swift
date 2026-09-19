@@ -32,7 +32,9 @@ struct RootView: View {
                     }
                 }
             }
-            .navigationSplitViewColumnWidth(min: 180, ideal: 200, max: 260)
+            // Headroom for languages whose labels run longer than English —
+            // "Bibliothèque", "Warteschlange" — without the user resizing.
+            .navigationSplitViewColumnWidth(min: 200, ideal: 232, max: 320)
             .safeAreaInset(edge: .bottom) { SidebarStatus() }
             // The built-in toggle collapses into an overflow menu as the window
             // narrows — exactly when it is most needed — so we remove it here and
@@ -152,6 +154,7 @@ private struct SidebarStatus: View {
                 Circle()
                     .fill(statusColor)
                     .frame(width: 7, height: 7)
+                    .accessibilityHidden(true)
                 Text(statusText)
                     .font(.caption)
                     .foregroundStyle(.secondary)
@@ -162,6 +165,7 @@ private struct SidebarStatus: View {
                 ProgressView(value: job.overallProgress)
                     .progressViewStyle(.linear)
                     .controlSize(.small)
+                    .accessibilityHidden(true)   // spoken by the footer's value
                 if let remaining = job.estimatedRemaining {
                     Text("about \(Format.duration(remaining)) left")
                         .font(.caption2)
@@ -172,6 +176,24 @@ private struct SidebarStatus: View {
         .padding(.horizontal, 12)
         .padding(.bottom, 10)
         .frame(maxWidth: .infinity, alignment: .leading)
+        // The coloured dot is the only non-textual carrier of state, so the whole
+        // footer is announced as a single sentence instead of a dot and a fragment.
+        .accessibilityElement(children: .ignore)
+        .accessibilityLabel("Status")
+        .accessibilityValue(spokenStatus)
+    }
+
+    /// Everything the footer shows, in the order it matters when heard rather
+    /// than seen.
+    private var spokenStatus: String {
+        var parts = [statusText]
+        if let job = app.engine.activeJob {
+            parts.append("\(Int(job.overallProgress * 100)) percent")
+            if let remaining = job.estimatedRemaining {
+                parts.append("about \(Format.duration(remaining)) remaining")
+            }
+        }
+        return parts.joined(separator: ", ")
     }
 
     private var statusColor: Color {

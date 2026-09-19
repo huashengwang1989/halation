@@ -15,7 +15,9 @@ struct GlassCard<Content: View>: View {
                     Text(title)
                         .font(.headline)
                 } icon: {
-                    if let systemImage { Image(systemName: systemImage) }
+                    if let systemImage {
+                        Image(systemName: systemImage).accessibilityHidden(true)
+                    }
                 }
                 .labelStyle(.titleAndIcon)
                 .foregroundStyle(.primary)
@@ -68,6 +70,10 @@ struct ProblemBadge: View {
             Image(systemName: problem.severity == .blocking
                   ? "exclamationmark.octagon.fill" : "info.circle.fill")
         }
+        .accessibilityElement(children: .combine)
+        .accessibilityLabel(problem.severity == .blocking
+                            ? "Blocking issue. \(problem.message)"
+                            : "Note. \(problem.message)")
         .font(.caption)
         .foregroundStyle(problem.severity == .blocking ? .red : .secondary)
         .frame(maxWidth: .infinity, alignment: .leading)
