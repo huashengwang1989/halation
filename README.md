@@ -75,7 +75,7 @@ states each one where it is relevant rather than exposing a control that does no
 | Aspect ratios | 21:9, 16:9, 4:3, 1:1, 3:4, 9:16, resolved with the port's own area-capped canvas rule. |
 | Audio | Generated jointly, 32 kHz stereo. There is no faster silent mode. |
 | Guidance / negative prompt | **Not available.** The released weights are CFG-distilled — one forward pass per step — so there is nothing for a guidance scale to do. |
-| Ref2VA | **Not usable yet.** The MLX pipeline accepts keyframes only; it has no reference-conditioning path. A ComfyUI backend is planned — see [docs/ref2va-comfyui-plan.md](docs/ref2va-comfyui-plan.md). |
+| Ref2VA | **Not usable yet.** The MLX pipeline accepts keyframes only; it has no reference-conditioning path. A ComfyUI backend is planned — see [.agent/roadmap/ref2va-comfyui.md](.agent/roadmap/ref2va-comfyui.md). |
 | Acceleration LoRAs | 4-step distillation LoRAs exist and would be transformative, but the port has no LoRA loader. Listed in Models as blocked, to watch. |
 
 ## Output
@@ -100,6 +100,13 @@ H3 output. The app surfaces this on first run; complying with it is the user's
 responsibility.
 
 The **MLX port** is Apache-2.0.
+
+## Working on this
+
+Instructions for AI coding agents live in [`.agent/`](.agent/README.md), shared by
+every tool rather than duplicated per-tool. `.agent/verified-facts.md` is worth
+reading even as a human: it records what MiniMax H3 can actually do, including
+several plausible assumptions that turned out to be wrong.
 
 ## Layout
 
