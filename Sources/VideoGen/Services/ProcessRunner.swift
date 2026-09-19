@@ -112,6 +112,12 @@ actor ProcessRunner {
     }
 
     var isRunning: Bool { process?.isRunning ?? false }
+
+    /// The child's pid, for attributing memory use to it.
+    var processIdentifier: pid_t? {
+        guard let process, process.isRunning else { return nil }
+        return process.processIdentifier
+    }
 }
 
 private actor StderrBuffer {

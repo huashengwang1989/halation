@@ -53,6 +53,9 @@ protocol RenderBackend: Sendable {
 
     /// Stops an in-flight render.
     func cancel() async
+
+    /// Resident memory of the process doing the work, if it is running.
+    func currentMemoryBytes() async -> Int64?
 }
 
 // MARK: - MLX
@@ -131,6 +134,11 @@ actor MLXBackend: RenderBackend {
 
     func cancel() async {
         await runner?.terminate()
+    }
+
+    func currentMemoryBytes() async -> Int64? {
+        guard let pid = await runner?.processIdentifier else { return nil }
+        return ProcessMemory.residentBytes(of: pid)
     }
 }
 

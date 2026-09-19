@@ -86,6 +86,12 @@ actor ComfyUIBackend: RenderBackend {
         socket?.cancel(with: .goingAway, reason: nil)
     }
 
+    func currentMemoryBytes() async -> Int64? {
+        // The work happens in the ComfyUI server, not in this process.
+        guard let pid = await runtime.serverProcessIdentifier else { return nil }
+        return ProcessMemory.residentBytes(of: pid)
+    }
+
     // MARK: - References
 
     /// Copies attached images into ComfyUI's input folder under unique names.

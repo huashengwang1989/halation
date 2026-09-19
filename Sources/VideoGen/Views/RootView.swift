@@ -35,7 +35,6 @@ struct RootView: View {
             // Headroom for languages whose labels run longer than English —
             // "Bibliothèque", "Warteschlange" — without the user resizing.
             .navigationSplitViewColumnWidth(min: 200, ideal: 232, max: 320)
-            .safeAreaInset(edge: .bottom) { SidebarStatus() }
             // The built-in toggle collapses into an overflow menu as the window
             // narrows — exactly when it is most needed — so we remove it here and
             // supply our own, pinned to the leading edge of the detail toolbar.
@@ -64,6 +63,7 @@ struct RootView: View {
                 ToolbarSpacer(.fixed, placement: .navigation)
             }
         }
+        .safeAreaInset(edge: .bottom, spacing: 0) { StatusBar() }
         .onGeometryChange(for: CGFloat.self) { $0.size.width } action: { width in
             adapt(toWidth: width)
         }
@@ -138,82 +138,6 @@ struct RootView: View {
             app.downloads.pendingCount
         default:
             0
-        }
-    }
-}
-
-/// Persistent footer: runtime health and what the machine is doing right now.
-private struct SidebarStatus: View {
-    @Environment(AppState.self) private var app
-
-    var body: some View {
-        VStack(alignment: .leading, spacing: 6) {
-            Divider()
-
-            HStack(spacing: 6) {
-                Circle()
-                    .fill(statusColor)
-                    .frame(width: 7, height: 7)
-                    .accessibilityHidden(true)
-                Text(statusText)
-                    .font(.caption)
-                    .foregroundStyle(.secondary)
-                    .lineLimit(1)
-            }
-
-            if let job = app.engine.activeJob {
-                ProgressView(value: job.overallProgress)
-                    .progressViewStyle(.linear)
-                    .controlSize(.small)
-                    .accessibilityHidden(true)   // spoken by the footer's value
-                if let remaining = job.estimatedRemaining {
-                    Text("about \(Format.duration(remaining)) left")
-                        .font(.caption2)
-                        .foregroundStyle(.tertiary)
-                }
-            }
-        }
-        .padding(.horizontal, 12)
-        .padding(.bottom, 10)
-        .frame(maxWidth: .infinity, alignment: .leading)
-        // The coloured dot is the only non-textual carrier of state, so the whole
-        // footer is announced as a single sentence instead of a dot and a fragment.
-        .accessibilityElement(children: .ignore)
-        .accessibilityLabel("Status")
-        .accessibilityValue(spokenStatus)
-    }
-
-    /// Everything the footer shows, in the order it matters when heard rather
-    /// than seen.
-    private var spokenStatus: String {
-        var parts = [statusText]
-        if let job = app.engine.activeJob {
-            parts.append("\(Int(job.overallProgress * 100)) percent")
-            if let remaining = job.estimatedRemaining {
-                parts.append("about \(Format.duration(remaining)) remaining")
-            }
-        }
-        return parts.joined(separator: ", ")
-    }
-
-    private var statusColor: Color {
-        switch app.runtime.phase {
-        case .ready(let report): report.h3Usable ? .green : .orange
-        case .installing: .blue
-        case .failed: .red
-        case .missing, .unknown: .orange
-        }
-    }
-
-    private var statusText: String {
-        switch app.runtime.phase {
-        case .ready(let report):
-            if let job = app.engine.activeJob { return job.state.label }
-            return report.h3Usable ? "Ready" : "Runtime incomplete"
-        case .installing(let step, _): return step
-        case .failed: return "Runtime error"
-        case .missing: return "Runtime not installed"
-        case .unknown: return "Checking…"
         }
     }
 }

@@ -215,6 +215,11 @@ final class ComfyUIRuntime {
         isServerRunning = false
     }
 
+    /// The supervised server's pid, for memory reporting.
+    var serverProcessIdentifier: pid_t? {
+        get async { await serverRunner?.processIdentifier }
+    }
+
     func ping() async -> Bool {
         var request = URLRequest(url: baseURL.appending(path: "system_stats"))
         request.timeoutInterval = 3

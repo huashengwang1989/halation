@@ -16,6 +16,9 @@ final class RenderEngine {
     private(set) var logs: [UUID: [String]] = [:]
     /// Failure messages a backend reported before throwing.
     private var reportedFailures: [UUID: String] = [:]
+    /// Resident memory of the process currently rendering, sampled while it runs.
+    private(set) var activeMemoryBytes: Int64?
+    private var memoryTask: Task<Void, Never>?
 
     private let runtime: RuntimeManager
     private let modelStore: ModelStore
@@ -187,6 +190,9 @@ final class RenderEngine {
                 }
             }
 
+            startSamplingMemory(from: chosen)
+            defer { stopSamplingMemory() }
+
             let rawVideoURL = try await chosen.run(spec: spec, scratch: scratch, events: sink)
 
             if cancelledJobIDs.contains(jobID) { throw CancellationError() }
@@ -277,6 +283,28 @@ final class RenderEngine {
         case .finishedOK, .downloadProgress:
             break
         }
+    }
+
+    /// Polls the backend's memory while it works.
+    ///
+    /// Sampled rather than reported by the backends because only MLX emits a
+    /// figure of its own, and that one is a peak; the status bar wants what is
+    /// resident now, on whichever engine is running.
+    private func startSamplingMemory(from backend: any RenderBackend) {
+        memoryTask?.cancel()
+        memoryTask = Task { [weak self] in
+            while !Task.isCancelled {
+                let bytes = await backend.currentMemoryBytes()
+                await MainActor.run { self?.activeMemoryBytes = bytes }
+                try? await Task.sleep(for: .seconds(2))
+            }
+        }
+    }
+
+    private func stopSamplingMemory() {
+        memoryTask?.cancel()
+        memoryTask = nil
+        activeMemoryBytes = nil
     }
 
     private func mark(_ jobID: UUID, state: RenderJob.State, message: String?) {
