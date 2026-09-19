@@ -21,6 +21,7 @@ struct JobFileWriter {
             "height": spec.format.generationSize.height,
             "raw_output_path": rawOutput.path,
             "mode": spec.mode.rawValue,
+            "codec": spec.format.codec.rawValue,
             "task": spec.task.rawValue,
         ]
         if let seed = spec.sampling.seed { payload["seed"] = seed }

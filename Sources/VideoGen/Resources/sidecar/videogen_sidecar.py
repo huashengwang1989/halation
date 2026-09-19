@@ -365,14 +365,7 @@ def cmd_generate(args: argparse.Namespace) -> int:
 
     try:
         media.save_wav(wav_path, result.audio, result.sample_rate)
-        media.save_mp4(output, result.video, fps=result.fps, audio_path=str(wav_path))
-    except TypeError:
-        # Older signatures take the audio array directly, or no audio at all.
-        try:
-            media.save_mp4(output, result.video, result.fps)
-        except Exception as exc:
-            protocol.error(f"Could not write the video: {exc}")
-            return 1
+        _encode_video(output, result.video, result.fps, wav_path, job.get("codec", "h264"))
     except Exception as exc:
         protocol.error(f"Could not write the video: {exc}")
         protocol.log(traceback.format_exc(limit=8))
@@ -390,6 +383,49 @@ def cmd_generate(args: argparse.Namespace) -> int:
                       audio=str(wav_path) if wav_path.exists() else None)
     protocol.done()
     return 0
+
+
+# ffmpeg encoders per codec. SVT-AV1 rather than libaom: on this class of machine
+# it encodes a 5-second 768p clip in about a second, where libaom takes minutes
+# for the same thing.
+_ENCODERS = {
+    "h264": ["-c:v", "libx264", "-crf", "18", "-pix_fmt", "yuv420p"],
+    "av1": ["-c:v", "libsvtav1", "-crf", "30", "-preset", "8", "-pix_fmt", "yuv420p"],
+}
+
+
+def _encode_video(path: Path, video, fps: int, audio_path: Path, codec: str) -> None:
+    """Encode raw frames straight to the requested codec.
+
+    The port's own `media.save_mp4` hardcodes libx264, so this replaces it rather
+    than encoding twice. Either way it is a single encode from the model's raw
+    output — the point is to avoid a transcode, not to prefer one codec.
+    """
+    ffmpeg = h3_adapter.ffmpeg_path()
+    if ffmpeg is None:
+        raise RuntimeError("ffmpeg not found on PATH.")
+
+    settings = _ENCODERS.get(codec)
+    if settings is None:
+        protocol.log(f"Unknown codec {codec!r}; writing H.264.")
+        settings = _ENCODERS["h264"]
+
+    frames, height, width, _ = video.shape
+    command = [
+        ffmpeg, "-y", "-loglevel", "error",
+        "-f", "rawvideo", "-pix_fmt", "rgb24",
+        "-s", f"{width}x{height}", "-r", str(fps), "-i", "pipe:0",
+    ]
+    if audio_path is not None and Path(audio_path).exists():
+        command += ["-i", str(audio_path), "-c:a", "aac", "-b:a", "192k", "-shortest"]
+    command += settings + [str(path)]
+
+    protocol.log(f"Encoding {frames} frames as {codec}…")
+    import numpy as np
+    raw = np.ascontiguousarray(video, dtype=np.uint8).tobytes()
+    process = subprocess.run(command, input=raw, capture_output=True)
+    if process.returncode != 0:
+        raise RuntimeError(f"ffmpeg failed: {process.stderr.decode()[:500]}")
 
 
 def _keyframes(job: Dict[str, Any]):

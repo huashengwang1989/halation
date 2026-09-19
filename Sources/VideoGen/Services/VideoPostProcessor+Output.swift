@@ -80,16 +80,20 @@ extension VideoPostProcessor {
         writer.startSession(atSourceTime: .zero)
 
         let queue = DispatchQueue(label: "videogen.encode.wav")
+        // Routed through the Sendable channel for the same reason as the main
+        // pumps: AVFoundation's types are not Sendable, and the safety argument
+        // is that the block runs serially on the queue we hand it.
+        let channel = AudioPumpChannel(readerOutput: output, writerInput: input)
         await withCheckedContinuation { (continuation: CheckedContinuation<Void, Never>) in
-            input.requestMediaDataWhenReady(on: queue) {
-                while input.isReadyForMoreMediaData {
-                    guard let sample = output.copyNextSampleBuffer() else {
-                        input.markAsFinished()
+            channel.writerInput.requestMediaDataWhenReady(on: queue) {
+                while channel.writerInput.isReadyForMoreMediaData {
+                    guard let sample = channel.readerOutput.copyNextSampleBuffer() else {
+                        channel.writerInput.markAsFinished()
                         continuation.resume()
                         return
                     }
-                    if !input.append(sample) {
-                        input.markAsFinished()
+                    if !channel.writerInput.append(sample) {
+                        channel.writerInput.markAsFinished()
                         continuation.resume()
                         return
                     }

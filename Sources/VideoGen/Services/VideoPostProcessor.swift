@@ -332,7 +332,7 @@ private struct VideoPumpChannel: @unchecked Sendable {
 }
 
 /// The audio equivalent of `VideoPumpChannel`; the same reasoning applies.
-private struct AudioPumpChannel: @unchecked Sendable {
+struct AudioPumpChannel: @unchecked Sendable {
     let readerOutput: AVAssetReaderTrackOutput
     let writerInput: AVAssetWriterInput
 }

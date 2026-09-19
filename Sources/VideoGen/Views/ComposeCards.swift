@@ -124,7 +124,7 @@ struct FormatCard: View {
                     .font(.caption).foregroundStyle(.secondary)
 
                 Picker("Codec", selection: $spec.format.codec) {
-                    ForEach(availableCodecs) { codec in
+                    ForEach(VideoCodec.allCases) { codec in
                         Text(codec.label).tag(codec)
                     }
                 }
@@ -143,20 +143,6 @@ struct FormatCard: View {
                     .fixedSize(horizontal: false, vertical: true)
             }
         }
-        .onChange(of: app.draftBackend) { _, _ in
-            // The engine may no longer be able to write the chosen codec.
-            if !availableCodecs.contains(spec.format.codec) {
-                spec.format.codec = .h264
-            }
-        }
-    }
-}
-
-extension FormatCard {
-    /// Codecs the chosen engine can write itself. Offering one it cannot would
-    /// mean a silent re-encode, which is exactly what this list exists to avoid.
-    var availableCodecs: [VideoCodec] {
-        VideoCodec.allCases.filter { $0.isNative(to: app.draftBackend) }
     }
 }
 

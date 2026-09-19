@@ -172,9 +172,13 @@ enum FrameRate: Int, CaseIterable, Codable, Sendable, Identifiable {
 /// produce. Both write H.264 at the point of generation, so choosing it means the
 /// file is delivered exactly as rendered — no second encode, no lost generation.
 ///
-/// HEVC is deliberately absent. Asking for it would mean re-encoding the model's
-/// H.264 output, which costs quality to save space; if that trade is ever wanted
-/// it is a small change, and `hevc_videotoolbox` is available on this machine.
+/// Both are written at the point of generation — ComfyUI through its SaveVideo
+/// node, MLX through the sidecar's own ffmpeg call — so neither involves a
+/// re-encode.
+///
+/// HEVC is deliberately absent. Neither engine writes it, so asking for it would
+/// mean re-encoding the H.264 output: quality spent to change container. If that
+/// trade is ever wanted it is a small change, and `hevc_videotoolbox` exists here.
 enum VideoCodec: String, CaseIterable, Sendable, Identifiable {
     case h264
     case av1
@@ -194,17 +198,9 @@ enum VideoCodec: String, CaseIterable, Sendable, Identifiable {
             "What the model produces. Delivered as rendered, with no second encode, "
             + "and plays everywhere."
         case .av1:
-            "Smaller files at the same quality, but this Mac has no AV1 encoder in "
-            + "hardware, so it is encoded in software and adds several minutes. "
-            + "ComfyUI only."
-        }
-    }
-
-    /// Whether a backend can write this directly, without a re-encode on our side.
-    func isNative(to backend: BackendID) -> Bool {
-        switch self {
-        case .h264: true
-        case .av1: backend == .comfyUI
+            "About half the size for the same quality. Encoded in software, since "
+            + "Apple silicon has no AV1 encoder — but SVT-AV1 handles a five-second "
+            + "clip in a second or two, so the cost is negligible next to generation."
         }
     }
 
