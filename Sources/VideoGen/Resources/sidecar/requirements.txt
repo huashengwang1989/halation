@@ -1,0 +1,8 @@
+# Dependencies for the sidecar itself. The MiniMax-H3 MLX port is NOT pip-installable
+# (it ships no pyproject.toml), so the app clones it and adds it to PYTHONPATH; its
+# own requirements.txt is installed separately and is a subset of this list.
+mlx>=0.32.0
+numpy>=1.26
+safetensors>=0.4
+huggingface_hub>=0.30
+Pillow>=11.0

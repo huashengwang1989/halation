@@ -1,0 +1,269 @@
+import SwiftUI
+
+// MARK: - Sampling
+
+struct SamplingCard: View {
+    @Binding var spec: GenerationSpec
+    @State private var lockSeed = false
+
+    var body: some View {
+        GlassCard(title: "Sampling", systemImage: "dial.medium",
+                  footnote: "Steps dominate render time almost linearly. The port defaults to 16. Duration snaps to the video VAE's 17n+5 frame grid, so the value shown is what actually renders.") {
+            VStack(alignment: .leading, spacing: 16) {
+                LabeledContent("Duration") {
+                    HStack {
+                        Slider(value: .init(
+                            get: { Double(spec.sampling.durationSeconds) },
+                            set: { spec.sampling.durationSeconds = Int($0.rounded()) }),
+                               in: 5...15, step: 1)
+                        Text(spec.sampling.effectiveSeconds,
+                             format: .number.precision(.fractionLength(2)))
+                            .monospacedDigit()
+                            .frame(width: 50, alignment: .trailing)
+                            .help("\(spec.sampling.frameCount) frames at 24 fps")
+                    }
+                }
+
+                LabeledContent("Steps") {
+                    HStack {
+                        Slider(value: .init(
+                            get: { Double(spec.sampling.steps) },
+                            set: { spec.sampling.steps = Int($0.rounded()) }),
+                               in: 4...60, step: 1)
+                        Text("\(spec.sampling.steps)")
+                            .monospacedDigit()
+                            .frame(width: 42, alignment: .trailing)
+                    }
+                }
+
+                Divider()
+
+                Toggle("Fixed seed", isOn: Binding(
+                    get: { spec.sampling.seed != nil },
+                    set: { spec.sampling.seed = $0 ? (spec.sampling.seed ?? 42) : nil }))
+                    .toggleStyle(.switch)
+
+                if spec.sampling.seed != nil {
+                    HStack {
+                        TextField("Seed", value: Binding(
+                            get: { spec.sampling.seed ?? 0 },
+                            set: { spec.sampling.seed = $0 }), format: .number)
+                            .textFieldStyle(.roundedBorder)
+                            .monospacedDigit()
+                        Button("Randomise", systemImage: "die.face.5") {
+                            spec.sampling.seed = Int64.random(in: 0..<Int64(1) << 47)
+                        }
+                        .buttonStyle(.glass)
+                    }
+                    Text("A fixed seed makes a render repeatable. Change any other setting and the result changes anyway.")
+                        .font(.caption)
+                        .foregroundStyle(.secondary)
+                }
+            }
+        }
+    }
+}
+
+// MARK: - Format
+
+struct FormatCard: View {
+    @Environment(AppState.self) private var app
+    @Binding var spec: GenerationSpec
+
+    var body: some View {
+        GlassCard(title: "Output", systemImage: "film",
+                  footnote: "The model always renders 24 fps at a 768 px short edge. Anything else on this card is applied afterwards, during encoding.") {
+            VStack(alignment: .leading, spacing: 16) {
+                VStack(alignment: .leading, spacing: 8) {
+                    Text("Aspect ratio").font(.callout).foregroundStyle(.secondary)
+                    HStack(spacing: 8) {
+                        ForEach(AspectRatio.allCases) { ratio in
+                            AspectButton(ratio: ratio, isSelected: spec.format.aspectRatio == ratio) {
+                                spec.format.aspectRatio = ratio
+                            }
+                        }
+                    }
+                }
+
+                Picker("Resolution", selection: $spec.format.resolution) {
+                    ForEach(ResolutionTier.allCases) { tier in
+                        Text(tier.label).tag(tier)
+                    }
+                }
+                Text(spec.format.resolution.detail)
+                    .font(.caption).foregroundStyle(.secondary)
+                    .fixedSize(horizontal: false, vertical: true)
+
+                Picker("Frame rate", selection: $spec.format.frameRate) {
+                    ForEach(FrameRate.allCases) { rate in
+                        Text(rate.label).tag(rate)
+                    }
+                }
+                Text(spec.format.frameRate.detail)
+                    .font(.caption).foregroundStyle(.secondary)
+
+                Picker("Codec", selection: $spec.format.codec) {
+                    ForEach(VideoCodec.allCases) { codec in
+                        Text(codec.label).tag(codec)
+                    }
+                }
+                Text(spec.format.codec.detail)
+                    .font(.caption).foregroundStyle(.secondary)
+
+                Picker("Audio", selection: $spec.format.audio) {
+                    ForEach(AudioHandling.allCases) { option in
+                        Text(option.label).tag(option)
+                    }
+                }
+                Text("H3 generates 32 kHz stereo audio in the same pass as the picture; there is no silent mode that renders faster.")
+                    .font(.caption).foregroundStyle(.secondary)
+                    .fixedSize(horizontal: false, vertical: true)
+            }
+        }
+    }
+}
+
+private struct AspectButton: View {
+    var ratio: AspectRatio
+    var isSelected: Bool
+    var action: () -> Void
+
+    var body: some View {
+        Button(action: action) {
+            VStack(spacing: 5) {
+                RoundedRectangle(cornerRadius: 3)
+                    .strokeBorder(lineWidth: isSelected ? 2 : 1)
+                    .frame(width: swatchWidth, height: swatchHeight)
+                    .foregroundStyle(isSelected ? AnyShapeStyle(.tint) : AnyShapeStyle(.secondary))
+                Text(ratio.label)
+                    .font(.caption2)
+                    .foregroundStyle(isSelected ? AnyShapeStyle(.tint) : AnyShapeStyle(.secondary))
+            }
+            .frame(width: 52, height: 52)
+            .contentShape(.rect)
+        }
+        .buttonStyle(.plain)
+        .help("\(ratio.label) — renders at \(ratio.nativeSize.description)")
+    }
+
+    // Normalise every swatch into the same 34 pt box so the row reads evenly.
+    private var swatchWidth: CGFloat {
+        let size = ratio.nativeSize
+        return size.width >= size.height
+            ? 34 : 34 * CGFloat(size.width) / CGFloat(size.height)
+    }
+
+    private var swatchHeight: CGFloat {
+        let size = ratio.nativeSize
+        return size.height > size.width
+            ? 34 : 34 * CGFloat(size.height) / CGFloat(size.width)
+    }
+}
+
+// MARK: - Preset menu
+
+struct PresetMenu: View {
+    @Environment(AppState.self) private var app
+
+    var body: some View {
+        Menu {
+            ForEach(app.library.allPresets) { preset in
+                Button(preset.name) { app.apply(preset: preset) }
+            }
+            if !app.library.presets.isEmpty {
+                Divider()
+                Menu("Delete Preset") {
+                    ForEach(app.library.presets) { preset in
+                        Button(preset.name, role: .destructive) {
+                            app.library.deletePreset(preset.id)
+                        }
+                    }
+                }
+            }
+        } label: {
+            Label("Presets", systemImage: "square.stack")
+        }
+        .menuStyle(.button)
+        .buttonStyle(.glass)
+    }
+}
+
+// MARK: - Summary
+
+struct SummarySidebar: View {
+    @Environment(AppState.self) private var app
+    @Binding var showingPresetNamer: Bool
+
+    var body: some View {
+        ScrollView {
+            VStack(alignment: .leading, spacing: 18) {
+                GlassCard(title: "This render", systemImage: "info.circle") {
+                    VStack(spacing: 8) {
+                        SpecRow(label: "Task", value: app.draft.task.rawValue)
+                        SpecRow(label: "Generates at", value: app.draft.format.generationSize.description)
+                        if app.draft.format.deliverySize != app.draft.format.generationSize {
+                            SpecRow(label: "Delivered at", value: app.draft.format.deliverySize.description)
+                        }
+                        SpecRow(label: "Length",
+                                value: "\(app.draft.sampling.frameCount) frames · "
+                                     + app.draft.sampling.effectiveSeconds.formatted(.number.precision(.fractionLength(2))) + " s")
+                        SpecRow(label: "Steps", value: "\(app.draft.sampling.steps)")
+                        SpecRow(label: "Codec", value: app.draft.format.codec.label)
+                        if let bitrate = app.draft.format.estimatedBitrate() {
+                            SpecRow(label: "Target bitrate",
+                                    value: "\(bitrate / 1_000_000) Mb/s")
+                        }
+                    }
+                }
+
+                GlassCard(title: "Estimated time", systemImage: "clock",
+                          footnote: "Scaled from the MLX port's published M3 Ultra timings for this machine's memory bandwidth. Treat it as an order of magnitude, not a promise — the first run of a session is slower because weights have to be paged in.") {
+                    Text(estimate)
+                        .font(.title2.weight(.semibold))
+                        .foregroundStyle(.primary)
+                }
+
+                if !app.draftProblems.isEmpty {
+                    GlassCard(title: "Before you generate", systemImage: "checklist") {
+                        VStack(alignment: .leading, spacing: 8) {
+                            ForEach(app.draftProblems) { ProblemBadge(problem: $0) }
+                        }
+                    }
+                }
+
+                GlassCard(title: "Models", systemImage: "cube.box") {
+                    VStack(spacing: 8) {
+                        SpecRow(label: "Transformer", value: name(app.draft.transformerEntryID))
+                        SpecRow(label: "Text encoder", value: name(app.draft.textEncoderEntryID))
+                        Button("Choose in Models…") { app.section = .models }
+                            .buttonStyle(.glass)
+                            .frame(maxWidth: .infinity)
+                    }
+                }
+
+                Button("Save as Preset…", systemImage: "square.and.arrow.down") {
+                    showingPresetNamer = true
+                }
+                .buttonStyle(.glass)
+                .frame(maxWidth: .infinity)
+            }
+            .padding(20)
+        }
+        .background(.background.secondary)
+    }
+
+    private var estimate: String {
+        guard let id = app.draft.transformerEntryID,
+              let entry = ModelCatalog.entry(id: id) else { return "Select a model" }
+        let size = app.draft.format.generationSize
+        let range = app.draft.sampling.estimatedDuration(
+            quantization: entry.quantization,
+            pixels: size.width * size.height)
+        return Format.durationRange(range)
+    }
+
+    private func name(_ id: String?) -> String {
+        guard let id, let entry = ModelCatalog.entry(id: id) else { return "Not selected" }
+        return entry.quantization.label
+    }
+}

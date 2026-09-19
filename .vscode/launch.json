@@ -1,0 +1,24 @@
+{
+    "configurations": [
+        {
+            "type": "swift",
+            "request": "launch",
+            "args": [],
+            "cwd": "${workspaceFolder:video-gen}",
+            "name": "Debug VideoGen",
+            "target": "VideoGen",
+            "configuration": "debug",
+            "preLaunchTask": "swift: Build Debug VideoGen"
+        },
+        {
+            "type": "swift",
+            "request": "launch",
+            "args": [],
+            "cwd": "${workspaceFolder:video-gen}",
+            "name": "Release VideoGen",
+            "target": "VideoGen",
+            "configuration": "release",
+            "preLaunchTask": "swift: Build Release VideoGen"
+        }
+    ]
+}
