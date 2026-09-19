@@ -112,8 +112,17 @@ struct ReferenceAsset: Codable, Sendable, Hashable, Identifiable {
 struct SamplingSettings: Codable, Sendable, Hashable {
     /// 4–15 s, per the model card.
     var durationSeconds: Int = 5
-    /// Denoising steps. 8 is the low-step preview point; 50 is the card's default.
+    /// Denoising steps, meaning **actual forward passes**.
+    ///
+    /// The engines disagree on what "steps" counts. The MLX port takes a count of
+    /// sigma-grid points and runs one fewer forward pass than that; ComfyUI's
+    /// BasicScheduler runs exactly the number given. This value is the forward
+    /// passes, and each backend converts on the way out — so the same number is
+    /// the same amount of work whichever engine runs it.
     var steps: Int = 16
+
+    /// What the MLX sidecar must be told to achieve `steps` forward passes.
+    var mlxSigmaPoints: Int { steps + 1 }
     /// `nil` means "pick a fresh random seed for each run".
     var seed: Int64?
 

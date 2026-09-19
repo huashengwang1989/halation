@@ -3,8 +3,25 @@ import SwiftUI
 // MARK: - Sampling
 
 struct SamplingCard: View {
+    @Environment(AppState.self) private var app
     @Binding var spec: GenerationSpec
     @State private var lockSeed = false
+
+    /// Step guidance depends on the engine: a turbo LoRA changes what a good
+    /// number is by an order of magnitude.
+    private var stepsFootnote: String {
+        let recommended = app.recommendedSteps(for: app.draft.mode)
+        let advice: String = if app.draftBackend == .comfyUI, recommended <= 6 {
+            "This engine loads a \(recommended)-step turbo LoRA, distilled for "
+            + "exactly that many — more steps mostly cost time."
+        } else {
+            "These weights are undistilled, so around \(recommended) steps is the "
+            + "working range; far fewer is off-distribution and looks soft."
+        }
+        return "Steps are actual denoising passes, and dominate render time almost "
+             + "linearly. \(advice) Duration snaps to the video VAE's 17n+5 frame "
+             + "grid, so the value shown is what renders."
+    }
 
     /// What the model will actually render, given the frame grid.
     private var snappedNote: String {
@@ -20,9 +37,7 @@ struct SamplingCard: View {
 
     var body: some View {
         GlassCard(title: "Sampling", systemImage: "dial.medium",
-                  footnote: "Steps dominate render time almost linearly; the port defaults to 16. "
-                            + "The video VAE only encodes frame counts of the form 17n+5, so a "
-                            + "requested duration is rounded up to the next one it can produce.") {
+                  footnote: stepsFootnote) {
             VStack(alignment: .leading, spacing: 16) {
                 VStack(alignment: .leading, spacing: 4) {
                     LabeledContent("Duration") {

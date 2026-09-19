@@ -16,7 +16,9 @@ struct JobFileWriter {
             "duration_seconds": spec.sampling.durationSeconds,
             "aspect_width": spec.format.aspectRatio.aspectPair.width,
             "aspect_height": spec.format.aspectRatio.aspectPair.height,
-            "steps": spec.sampling.steps,
+            // The port counts sigma-grid points and runs one fewer pass, so add
+            // one to get the number of passes the user actually asked for.
+            "steps": spec.sampling.mlxSigmaPoints,
             "width": spec.format.generationSize.width,
             "height": spec.format.generationSize.height,
             "raw_output_path": rawOutput.path,

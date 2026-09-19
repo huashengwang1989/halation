@@ -125,6 +125,19 @@ final class AppState {
     /// The engine that will serve the draft, for display in Compose.
     var draftBackend: BackendID { engine.backend(for: draft).id }
 
+    /// A sensible step count for a mode, given the engine and whether a turbo
+    /// LoRA is installed for it.
+    func recommendedSteps(for mode: GenerationMode) -> Int {
+        var probe = draft
+        probe.mode = mode
+        guard engine.backend(for: probe).id == .comfyUI else { return 16 }
+        let lora = ComfyUIModelSet.turboLoRA(for: mode.task)
+        let present = FileManager.default.fileExists(
+            atPath: modelStore.rootURL
+                .appending(path: "comfyui/loras/\(lora)").path)
+        return ComfyUIModelSet.recommendedSteps(hasTurboLoRA: present)
+    }
+
     func generate() {
         guard canGenerate else { return }
         _ = engine.enqueue(draft)

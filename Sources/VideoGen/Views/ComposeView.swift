@@ -255,14 +255,14 @@ private struct ModeCard: View {
             : " Uses the FL2VA checkpoint."
     }
 
-    /// Reference mode runs on ComfyUI with a 4-step turbo LoRA; the MLX modes use
-    /// the port's own 16-step default. Carry the user over to a sensible number
-    /// rather than leaving 16 steps on a backend where that means two hours.
+    /// Move the step count to something sensible for the engine that will run.
+    ///
+    /// A turbo LoRA is a 4-step distillation, so 4 is right there and 16 would be
+    /// wasted time; undistilled weights want 16 or more, where 4 is off
+    /// distribution and looks it.
     private func adjustSteps(from previous: GenerationMode, to mode: GenerationMode) {
-        let wasReference = previous == .reference
-        let isReference = mode == .reference
-        guard wasReference != isReference else { return }
-        spec.sampling.steps = isReference ? 4 : 16
+        guard (previous == .reference) != (mode == .reference) else { return }
+        spec.sampling.steps = app.recommendedSteps(for: mode)
     }
 
     /// Drop attachments that the new mode cannot accept, and re-slot the rest.
