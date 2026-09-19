@@ -181,13 +181,26 @@ private struct LibraryDetail: View {
     @Environment(AppState.self) private var app
     var item: LibraryItem
 
+    /// Held in state rather than built inline: `VideoPlayer(player: AVPlayer(url:))`
+    /// constructs a fresh player on every body evaluation, which restarts playback
+    /// and leaks players as the view updates.
+    @State private var player: AVPlayer
+    @State private var shownItemID: LibraryItem.ID
+
+    init(item: LibraryItem) {
+        self.item = item
+        _player = State(initialValue: AVPlayer(url: item.videoURL))
+        _shownItemID = State(initialValue: item.id)
+    }
+
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 18) {
                 if item.exists {
-                    VideoPlayer(player: AVPlayer(url: item.videoURL))
+                    VideoPlayer(player: player)
                         .aspectRatio(aspect, contentMode: .fit)
                         .clipShape(.rect(cornerRadius: 12))
+                        .onDisappear { player.pause() }
                 }
 
                 GlassCard(title: "Prompt", systemImage: "text.alignleft") {
@@ -242,6 +255,12 @@ private struct LibraryDetail: View {
             .padding(18)
         }
         .background(.background.secondary)
+        .onChange(of: item.id) { _, newID in
+            guard newID != shownItemID else { return }
+            shownItemID = newID
+            player.pause()
+            player.replaceCurrentItem(with: AVPlayerItem(url: item.videoURL))
+        }
     }
 
     private var aspect: CGFloat {

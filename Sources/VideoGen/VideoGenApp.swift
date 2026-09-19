@@ -22,6 +22,15 @@ struct VideoGenApp: App {
                 }
                 .keyboardShortcut("n")
             }
+            // ⌘1…⌘4 switch sections, as in Finder and Mail.
+            CommandGroup(after: .sidebar) {
+                Divider()
+                ForEach(Array(AppState.Section.allCases.enumerated()), id: \.element) { index, section in
+                    Button(section.label) { app.section = section }
+                        .keyboardShortcut(KeyEquivalent(Character("\(index + 1)")), modifiers: .command)
+                }
+                Divider()
+            }
             CommandGroup(after: .toolbar) {
                 Button("Rescan Models Folder") {
                     Task { await app.modelStore.scan() }

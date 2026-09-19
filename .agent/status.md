@@ -20,6 +20,11 @@ Last updated: end of the session that built the MLX path.
 
 ## Gotchas that cost real debugging time
 
+- **SwiftPM autolinking misses AVKit.** Using SwiftUI's `VideoPlayer` links the
+  `_AVKit_SwiftUI` overlay but not `AVKit.framework`, whose classes the overlay
+  subclasses. The app aborted in `getSuperclassMetadata` the moment a player was
+  instantiated. `Package.swift` now links AVKit explicitly. Check `otool -L` when
+  a system framework's types crash on first use.
 - **`mlx_vlm` is a hidden dependency.** The port's `text_encoder.py` imports
   `mlx_vlm.models.qwen3_vl` unconditionally, but its own `requirements.txt` lists
   only `mlx`. Without it every render dies at the first load step, after the
@@ -55,14 +60,14 @@ Last updated: end of the session that built the MLX path.
 
 Be honest about these; do not imply otherwise.
 
-- **No clip has ever been generated.** Everything up to the generation call is
-  verified, but a real render needs ~105 GB of weights and 1–2 hours of compute.
-  This is the single most valuable next test.
-- **`VideoPostProcessor`** — the HEVC/AVFoundation encode path has never run on
-  real model output, because there has been none. Frame-rate conforming and the
-  WAV sidecar are untested.
-- **Library** — recording, reconstruction from sidecar JSON, and deletion are
-  untested end to end.
+- **A render completed end to end.** One clip has been generated, encoded and
+  written to `~/Movies/VideoGen` with its thumbnail and recipe JSON, and plays
+  back in the Library. The core path is proven.
+- **Still untested:** first-frame and first-and-last-frame modes; the non-native
+  frame rates (30/60 conforming); ProRes and H.264 output; the WAV sidecar
+  option; and the upscale tiers.
+- **Library** — recording and playback are verified. Reconstruction from sidecar
+  JSON after losing the index, and deletion to Trash, are not.
 - **Escape closing the onboarding sheet** — scripted keys cannot reach it, so it
   needs a human. Wired via both `.cancelAction` and `.onExitCommand`.
 - **Tab traversal** after enabling `AppleKeyboardUIMode=3` — reported working by
