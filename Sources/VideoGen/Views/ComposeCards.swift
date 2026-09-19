@@ -6,22 +6,40 @@ struct SamplingCard: View {
     @Binding var spec: GenerationSpec
     @State private var lockSeed = false
 
+    /// What the model will actually render, given the frame grid.
+    private var snappedNote: String {
+        let frames = spec.sampling.frameCount
+        let seconds = spec.sampling.effectiveSeconds
+        if FrameGrid.isExact(forSeconds: spec.sampling.durationSeconds) {
+            return "Renders \(frames) frames — exactly \(spec.sampling.durationSeconds) s at 24 fps."
+        }
+        let text = seconds.formatted(.number.precision(.fractionLength(2)))
+        return "Renders \(frames) frames — \(text) s at 24 fps, "
+             + "the nearest length the video VAE can encode."
+    }
+
     var body: some View {
         GlassCard(title: "Sampling", systemImage: "dial.medium",
-                  footnote: "Steps dominate render time almost linearly. The port defaults to 16. Duration snaps to the video VAE's 17n+5 frame grid, so the value shown is what actually renders.") {
+                  footnote: "Steps dominate render time almost linearly; the port defaults to 16. The video VAE only encodes frame counts of the form 17n+5, so a requested duration is rounded up to the next one it can produce.") {
             VStack(alignment: .leading, spacing: 16) {
-                LabeledContent("Duration") {
-                    HStack {
-                        Slider(value: .init(
-                            get: { Double(spec.sampling.durationSeconds) },
-                            set: { spec.sampling.durationSeconds = Int($0.rounded()) }),
-                               in: 5...15, step: 1)
-                        Text(spec.sampling.effectiveSeconds,
-                             format: .number.precision(.fractionLength(2)))
-                            .monospacedDigit()
-                            .frame(width: 50, alignment: .trailing)
-                            .help("\(spec.sampling.frameCount) frames at 24 fps")
+                VStack(alignment: .leading, spacing: 4) {
+                    LabeledContent("Duration") {
+                        HStack {
+                            Slider(value: .init(
+                                get: { Double(spec.sampling.durationSeconds) },
+                                set: { spec.sampling.durationSeconds = Int($0.rounded()) }),
+                                   in: 5...15, step: 1)
+                            // Whole seconds: one tick, one second. The grid-snapped
+                            // result is reported underneath rather than here, so the
+                            // control itself stays predictable.
+                            Text("\(spec.sampling.durationSeconds) s")
+                                .monospacedDigit()
+                                .frame(width: 42, alignment: .trailing)
+                        }
                     }
+                    Text(snappedNote)
+                        .font(.caption)
+                        .foregroundStyle(.secondary)
                 }
 
                 LabeledContent("Steps") {

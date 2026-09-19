@@ -256,10 +256,19 @@ struct OutputFormat: Codable, Sendable, Hashable {
 enum FrameGrid {
     static let fps = 24
 
+    /// The port snaps a requested duration *up* to the next grid point, so we round
+    /// up here too rather than to the nearest — otherwise our estimates and the
+    /// recorded metadata would disagree with what actually rendered.
     static func alignedFrameCount(forSeconds seconds: Int) -> Int {
         let requested = seconds * fps
-        let n = max(0, ((Double(requested) - 5.0) / 17.0).rounded())
+        let n = max(0, ((Double(requested) - 5.0) / 17.0).rounded(.up))
         return Int(n) * 17 + 5
+    }
+
+    /// True when the request happens to land exactly on the grid. Only 8 seconds
+    /// does, between 5 and 15: the grid repeats against 24 fps every 24 steps.
+    static func isExact(forSeconds seconds: Int) -> Bool {
+        alignedFrameCount(forSeconds: seconds) == seconds * fps
     }
 
     static func alignedSeconds(forSeconds seconds: Int) -> Double {

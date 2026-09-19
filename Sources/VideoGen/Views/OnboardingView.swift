@@ -35,9 +35,10 @@ struct OnboardingView: View {
                         .keyboardShortcut("[", modifiers: .command)
                 }
                 Spacer()
+                // A standard button rather than .plain: a plain button draws no
+                // clear focus ring, so with keyboard navigation on there was no way
+                // to tell it had focus.
                 Button("Skip setup") { close() }
-                    .buttonStyle(.plain)
-                    .foregroundStyle(.secondary)
                     // Escape leaves the dialog, as it does in every macOS sheet.
                     .keyboardShortcut(.cancelAction)
                 Button(primaryLabel) { advance() }
@@ -142,7 +143,7 @@ struct OnboardingView: View {
                 .keyboardShortcut("l", modifiers: .command)
                 .help("⌘L toggles this")
 
-            Text("Press ⌘L to accept, Return to continue, Escape to skip setup.")
+            Text("⌘L accepts · Return continues · Space activates whichever button has focus")
                 .font(.caption)
                 .foregroundStyle(.tertiary)
         }
