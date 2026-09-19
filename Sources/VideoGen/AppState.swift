@@ -62,14 +62,24 @@ final class AppState {
         }
     }
 
+    /// Cheap checks first, then the slow ones.
+    ///
+    /// The runtime check spawns Python and imports MLX, which takes the better part
+    /// of a quarter-minute from cold. Deciding to show onboarding only after that
+    /// would leave a first-time user looking at an empty window, so anything we can
+    /// answer from disk is answered up front and the sheet is raised immediately.
     func bootstrap() async {
+        if !licenseAcknowledged || !runtime.isInstalled {
+            showingOnboarding = true
+        }
+
         await modelStore.scan()
-        await runtime.refresh()
+        if modelStore.installedEntryIDs.isEmpty { showingOnboarding = true }
         selectBestAvailableModels()
 
-        let needsRuntime = !runtime.phase.isReady
-        let needsModels = modelStore.installedEntryIDs.isEmpty
-        showingOnboarding = needsRuntime || needsModels || !licenseAcknowledged
+        await runtime.refresh()
+        selectBestAvailableModels()
+        if !runtime.phase.isReady { showingOnboarding = true }
 
         engine.startNextIfIdle()
     }
