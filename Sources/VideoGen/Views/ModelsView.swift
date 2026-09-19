@@ -60,7 +60,8 @@ private struct FolderCard: View {
 
     var body: some View {
         GlassCard(title: "Shared models folder", systemImage: "folder",
-                  footnote: "Downloads go into the Hugging Face cache inside this folder. Any other project pointed at the same folder reuses them instead of downloading a second copy.") {
+                  footnote: "Downloads go into the Hugging Face cache inside this folder. Any other project pointed at "
+                            + "the same folder reuses them instead of downloading a second copy.") {
             VStack(alignment: .leading, spacing: 12) {
                 HStack {
                     Text(app.modelStore.rootURL.path(percentEncoded: false))
@@ -85,7 +86,9 @@ private struct FolderCard: View {
                 }
 
                 if app.modelStore.freeBytes < ModelCatalog.recommendedBytes + 20 * 1_073_741_824 {
-                    Label("The recommended set needs about \(Format.bytes(ModelCatalog.recommendedBytes)), plus scratch space while rendering.",
+                    Label("The recommended set needs about "
+                          + "\(Format.bytes(ModelCatalog.recommendedBytes)), plus scratch "
+                          + "space while rendering.",
                           systemImage: "externaldrive.badge.exclamationmark")
                         .font(.caption)
                         .foregroundStyle(.orange)
@@ -176,7 +179,8 @@ private struct TransfersCard: View {
                                 .accessibilityLabel("Download progress")
                                 .accessibilityValue(
                                     "\(Int(transfer.fraction * 100)) percent, "
-                                    + "\(Format.bytes(transfer.completedBytes)) of \(Format.bytes(transfer.totalBytes))")
+                                    + "\(Format.bytes(transfer.completedBytes)) of "
+                                    + Format.bytes(transfer.totalBytes))
                             HStack {
                                 Text("\(Format.bytes(transfer.completedBytes)) of \(Format.bytes(transfer.totalBytes))")
                                 if let file = transfer.currentFile {
@@ -301,7 +305,9 @@ private struct EntryRow: View {
                     if let resident = entry.approximateResidentBytes {
                         Label("\(Format.bytes(resident)) in memory", systemImage: "memorychip")
                     }
-                    Link("Model card", destination: entry.huggingFaceURL)
+                    if let card = entry.huggingFaceURL {
+                        Link("Model card", destination: card)
+                    }
                 }
                 .font(.caption2)
                 .foregroundStyle(.tertiary)

@@ -147,31 +147,8 @@ final class RenderEngine {
 
             for try await line in stream {
                 guard let event = SidecarEvent.parse(line: line) else { continue }
-                guard let liveIndex = jobs.firstIndex(where: { $0.id == jobID }) else { break }
-
-                switch event {
-                case .stage(let state):
-                    jobs[liveIndex].state = state
-                case .step(let completed, let total, let perStep):
-                    jobs[liveIndex].state = .generating
-                    jobs[liveIndex].completedSteps = completed
-                    jobs[liveIndex].totalSteps = total
-                    jobs[liveIndex].secondsPerStep = perStep
-                    jobs[liveIndex].progress = total > 0 ? Double(completed) / Double(total) : 0
-                case .memory(let bytes):
-                    jobs[liveIndex].peakMemoryBytes = max(jobs[liveIndex].peakMemoryBytes ?? 0, bytes)
-                case .seed(let seed):
-                    jobs[liveIndex].resolvedSeed = seed
-                case .artifact(let video, _):
-                    rawVideoURL = video
-                case .log(let message):
-                    appendLog(message)
-                case .failure(let message):
-                    sawFailure = message
-                    appendLog("Error: \(message)")
-                case .finishedOK, .downloadProgress:
-                    break
-                }
+                guard jobs.contains(where: { $0.id == jobID }) else { break }
+                apply(event, to: jobID, video: &rawVideoURL, failure: &sawFailure)
             }
 
             if cancelledJobIDs.contains(jobID) { throw CancellationError() }
@@ -214,6 +191,42 @@ final class RenderEngine {
                 mark(jobID, state: .failed, message: error.localizedDescription)
             }
             try? FileManager.default.removeItem(at: scratch)
+        }
+    }
+
+    /// Folds one sidecar event into the job's state.
+    ///
+    /// Separated from `run` so the render loop reads as what it is — start the
+    /// process, consume events, post-process — rather than burying that shape
+    /// under a long switch.
+    private func apply(_ event: SidecarEvent,
+                       to jobID: UUID,
+                       video: inout URL?,
+                       failure: inout String?) {
+        guard let index = jobs.firstIndex(where: { $0.id == jobID }) else { return }
+
+        switch event {
+        case .stage(let state):
+            jobs[index].state = state
+        case .step(let completed, let total, let perStep):
+            jobs[index].state = .generating
+            jobs[index].completedSteps = completed
+            jobs[index].totalSteps = total
+            jobs[index].secondsPerStep = perStep
+            jobs[index].progress = total > 0 ? Double(completed) / Double(total) : 0
+        case .memory(let bytes):
+            jobs[index].peakMemoryBytes = max(jobs[index].peakMemoryBytes ?? 0, bytes)
+        case .seed(let seed):
+            jobs[index].resolvedSeed = seed
+        case .artifact(let url, _):
+            video = url
+        case .log(let message):
+            appendLog(message)
+        case .failure(let message):
+            failure = message
+            appendLog("Error: \(message)")
+        case .finishedOK, .downloadProgress:
+            break
         }
     }
 

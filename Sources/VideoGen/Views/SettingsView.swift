@@ -40,7 +40,9 @@ private struct GeneralSettings: View {
                 Toggle("Start queued renders automatically", isOn: Binding(
                     get: { app.engine.autoStart },
                     set: { app.engine.autoStart = $0 }))
-                Text("Renders hold tens of gigabytes of weights in memory, so only one runs at a time regardless of this setting.")
+                Text("Renders hold tens of gigabytes of weights in memory, so only one runs at a time regardless of "
+                     + "this"
+                     + "setting.")
                     .font(.caption)
                     .foregroundStyle(.secondary)
             }
@@ -125,7 +127,8 @@ private struct AdvancedSettings: View {
     var body: some View {
         Form {
             Section("MiniMax-H3 port") {
-                TextField("Checkout path", text: $repoOverride, prompt: Text("Leave empty to use the installed package"))
+                TextField("Checkout path", text: $repoOverride,
+                          prompt: Text("Leave empty to use the installed package"))
                 Text("""
                     Point this at a local clone of PipeNetwork/minimax-h3-mlx to run against \
                     your own build of the port. The app discovers the pipeline's parameters \

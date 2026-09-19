@@ -25,7 +25,8 @@ struct LibraryView: View {
                 ContentUnavailableView {
                     Label("No videos yet", systemImage: "film.stack")
                 } description: {
-                    Text("Finished renders are saved to \(app.library.outputFolder.path(percentEncoded: false)), each with a JSON file recording the exact settings that produced it.")
+                    Text("Finished renders are saved to \(app.library.outputFolder.path(percentEncoded: false)), each "
+                         + "with a JSON file recording the exact settings that produced it.")
                 } actions: {
                     Button("Go to Compose") { app.section = .compose }
                         .buttonStyle(.glassProminent)

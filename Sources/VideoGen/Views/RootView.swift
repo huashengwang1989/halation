@@ -110,7 +110,7 @@ struct RootView: View {
         regime = next
 
         // Don't animate the window's initial sizing pass.
-        let change = { 
+        let change = {
             switch next {
             case .narrow:
                 guard isSidebarShowing else { return }

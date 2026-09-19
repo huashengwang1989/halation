@@ -147,14 +147,17 @@ struct VideoPostProcessor: Sendable {
         // Video is retimed and scaled on one queue; audio is a straight copy on
         // another. Both pumps are driven from a single non-isolated region so the
         // AVFoundation objects, none of which are Sendable, never cross a boundary.
-        try await pump(readerVideoOutput: readerVideoOutput,
-                       writerVideoInput: writerVideoInput,
-                       adaptor: adaptor,
-                       readerAudioOutput: readerAudioOutput,
-                       writerAudioInput: writerAudioInput,
-                       targetSize: size,
-                       duration: duration,
-                       frameRate: Int32(format.frameRate.rawValue),
+        let videoChannel = VideoPumpChannel(readerOutput: readerVideoOutput,
+                                            writerInput: writerVideoInput,
+                                            adaptor: adaptor)
+        let audioChannel = zip(readerAudioOutput, writerAudioInput)
+            .map(AudioPumpChannel.init(readerOutput:writerInput:))
+
+        try await pump(video: videoChannel,
+                       audio: audioChannel,
+                       plan: EncodePlan(targetSize: size,
+                                        duration: duration,
+                                        frameRate: Int32(format.frameRate.rawValue)),
                        progress: progress)
 
         await writer.finishWriting()
@@ -171,17 +174,13 @@ struct VideoPostProcessor: Sendable {
     /// H3 only produces 24 fps. For a higher target we hold each source frame until
     /// the next one is due, which duplicates frames rather than inventing motion —
     /// exactly what the UI promises.
-    private func pump(readerVideoOutput: AVAssetReaderTrackOutput,
-                      writerVideoInput: AVAssetWriterInput,
-                      adaptor: AVAssetWriterInputPixelBufferAdaptor,
-                      readerAudioOutput: AVAssetReaderTrackOutput?,
-                      writerAudioInput: AVAssetWriterInput?,
-                      targetSize: PixelSize,
-                      duration: CMTime,
-                      frameRate: Int32,
+    private func pump(video: VideoPumpChannel,
+                      audio: AudioPumpChannel?,
+                      plan: EncodePlan,
                       progress: (@Sendable (Double) -> Void)?) async throws {
-        let frameDuration = CMTime(value: 1, timescale: frameRate)
-        let totalSeconds = max(duration.seconds, 0.001)
+        let targetSize = plan.targetSize
+        let frameDuration = CMTime(value: 1, timescale: plan.frameRate)
+        let totalSeconds = max(plan.duration.seconds, 0.001)
         let context = CIContext(options: [.useSoftwareRenderer: false])
 
         try await withCheckedThrowingContinuation { (continuation: CheckedContinuation<Void, Error>) in
@@ -191,10 +190,10 @@ struct VideoPostProcessor: Sendable {
             // ── Video ────────────────────────────────────────────────────────
             group.enter()
             let videoQueue = DispatchQueue(label: "videogen.encode.video", qos: .userInitiated)
-            writerVideoInput.requestMediaDataWhenReady(on: videoQueue) {
-                while writerVideoInput.isReadyForMoreMediaData {
-                    guard let sample = state.takePending() ?? readerVideoOutput.copyNextSampleBuffer() else {
-                        writerVideoInput.markAsFinished()
+            video.writerInput.requestMediaDataWhenReady(on: videoQueue) {
+                while video.writerInput.isReadyForMoreMediaData {
+                    guard let sample = state.takePending() ?? video.readerOutput.copyNextSampleBuffer() else {
+                        video.writerInput.markAsFinished()
                         progress?(1)
                         state.finishVideo(group)
                         return
@@ -206,7 +205,7 @@ struct VideoPostProcessor: Sendable {
                     // The source frame is still in the future: repeat the previous
                     // frame to fill the gap on the denser timeline.
                     if CMTimeCompare(sourceTime, nextTarget) > 0, let previous = state.lastPixelBuffer {
-                        if adaptor.append(previous, withPresentationTime: nextTarget) {
+                        if video.adaptor.append(previous, withPresentationTime: nextTarget) {
                             state.frameIndex += 1
                             state.setPending(sample)
                             continue
@@ -215,13 +214,13 @@ struct VideoPostProcessor: Sendable {
 
                     guard let source = CMSampleBufferGetImageBuffer(sample) else { continue }
                     guard let scaled = Self.scale(source, to: targetSize,
-                                                  pool: adaptor.pixelBufferPool,
+                                                  pool: video.adaptor.pixelBufferPool,
                                                   context: context) else { continue }
 
-                    if !adaptor.append(scaled, withPresentationTime: nextTarget) {
+                    if !video.adaptor.append(scaled, withPresentationTime: nextTarget) {
                         state.failure = PostProcessError.writerFailed(
                             "The encoder rejected a frame at \(nextTarget.seconds)s.")
-                        writerVideoInput.markAsFinished()
+                        video.writerInput.markAsFinished()
                         state.finishVideo(group)
                         return
                     }
@@ -232,14 +231,14 @@ struct VideoPostProcessor: Sendable {
             }
 
             // ── Audio ────────────────────────────────────────────────────────
-            if let readerAudioOutput, let writerAudioInput {
+            if let audio {
                 group.enter()
                 let audioQueue = DispatchQueue(label: "videogen.encode.audio", qos: .userInitiated)
-                writerAudioInput.requestMediaDataWhenReady(on: audioQueue) {
-                    while writerAudioInput.isReadyForMoreMediaData {
-                        guard let sample = readerAudioOutput.copyNextSampleBuffer(),
-                              writerAudioInput.append(sample) else {
-                            writerAudioInput.markAsFinished()
+                audio.writerInput.requestMediaDataWhenReady(on: audioQueue) {
+                    while audio.writerInput.isReadyForMoreMediaData {
+                        guard let sample = audio.readerOutput.copyNextSampleBuffer(),
+                              audio.writerInput.append(sample) else {
+                            audio.writerInput.markAsFinished()
                             state.finishAudio(group)
                             return
                         }
@@ -284,137 +283,41 @@ struct VideoPostProcessor: Sendable {
         context.render(image, to: destination)
         return destination
     }
+}
 
-    // MARK: - Settings
+/// The geometry and timing one encode pass needs, kept together so the pump takes
+/// a handful of arguments rather than a parameter list nobody can read.
+private struct EncodePlan: Sendable {
+    let targetSize: PixelSize
+    let duration: CMTime
+    let frameRate: Int32
+}
 
-    private func videoSettings(size: PixelSize) -> [String: Any] {
-        switch format.codec {
-        case .proRes422:
-            return [
-                AVVideoCodecKey: AVVideoCodecType.proRes422.rawValue,
-                AVVideoWidthKey: size.width,
-                AVVideoHeightKey: size.height,
-            ]
-        case .hevc, .h264:
-            var compression: [String: Any] = [
-                AVVideoAverageBitRateKey: format.estimatedBitrate() ?? 12_000_000,
-                AVVideoExpectedSourceFrameRateKey: format.frameRate.rawValue,
-                AVVideoMaxKeyFrameIntervalDurationKey: 2.0,
-                AVVideoAllowFrameReorderingKey: true,
-            ]
-            if format.codec == .hevc {
-                compression[AVVideoProfileLevelKey] = kVTProfileLevel_HEVC_Main_AutoLevel
-            } else {
-                compression[AVVideoProfileLevelKey] = AVVideoProfileLevelH264HighAutoLevel
-            }
-            return [
-                AVVideoCodecKey: (format.codec == .hevc
-                                  ? AVVideoCodecType.hevc : AVVideoCodecType.h264).rawValue,
-                AVVideoWidthKey: size.width,
-                AVVideoHeightKey: size.height,
-                AVVideoCompressionPropertiesKey: compression,
-            ]
-        }
-    }
+/// Pairs two optionals, or nothing. Keeps the optional audio channel readable at
+/// the call site.
+private func zip<A, B>(_ first: A?, _ second: B?) -> (A, B)? {
+    guard let first, let second else { return nil }
+    return (first, second)
+}
 
-    private func audioSettings() -> [String: Any] {
-        if format.codec == .proRes422 {
-            // Keep an editing intermediate lossless.
-            return [
-                AVFormatIDKey: kAudioFormatLinearPCM,
-                AVSampleRateKey: 48_000,
-                AVNumberOfChannelsKey: 2,
-                AVLinearPCMBitDepthKey: 24,
-                AVLinearPCMIsFloatKey: false,
-                AVLinearPCMIsBigEndianKey: false,
-                AVLinearPCMIsNonInterleaved: false,
-            ]
-        }
-        return [
-            AVFormatIDKey: kAudioFormatMPEG4AAC,
-            AVSampleRateKey: 48_000,
-            AVNumberOfChannelsKey: 2,
-            AVEncoderBitRateKey: 256_000,
-        ]
-    }
+/// Carries one encode pass's AVFoundation objects across the `@Sendable` boundary
+/// that `requestMediaDataWhenReady(on:)` imposes.
+///
+/// None of these types are `Sendable` and none can be made so. The safety argument
+/// is the queue: AVFoundation invokes the block serially on the queue we hand it,
+/// and each object is touched only from inside its own block, never from the actor
+/// that created it. Asserting that once here is better than repeating an
+/// unexplained warning at every capture site.
+private struct VideoPumpChannel: @unchecked Sendable {
+    let readerOutput: AVAssetReaderTrackOutput
+    let writerInput: AVAssetWriterInput
+    let adaptor: AVAssetWriterInputPixelBufferAdaptor
+}
 
-    // MARK: - Extras
-
-    /// Writes the model's audio out on its own, for use in an editor.
-    private func extractWAV(from asset: AVAsset, next destination: URL) async throws -> URL? {
-        guard let track = try await asset.loadTracks(withMediaType: .audio).first else { return nil }
-        let url = destination.deletingPathExtension().appendingPathExtension("wav")
-        try? FileManager.default.removeItem(at: url)
-
-        let reader = try AVAssetReader(asset: asset)
-        let output = AVAssetReaderTrackOutput(track: track, outputSettings: [
-            AVFormatIDKey: kAudioFormatLinearPCM,
-            AVLinearPCMBitDepthKey: 24,
-            AVLinearPCMIsFloatKey: false,
-            AVLinearPCMIsBigEndianKey: false,
-            AVLinearPCMIsNonInterleaved: false,
-        ])
-        reader.add(output)
-
-        let writer = try AVAssetWriter(outputURL: url, fileType: .wav)
-        let input = AVAssetWriterInput(mediaType: .audio, outputSettings: [
-            AVFormatIDKey: kAudioFormatLinearPCM,
-            AVSampleRateKey: 48_000,
-            AVNumberOfChannelsKey: 2,
-            AVLinearPCMBitDepthKey: 24,
-            AVLinearPCMIsFloatKey: false,
-            AVLinearPCMIsBigEndianKey: false,
-            AVLinearPCMIsNonInterleaved: false,
-        ])
-        writer.add(input)
-
-        guard reader.startReading(), writer.startWriting() else { return nil }
-        writer.startSession(atSourceTime: .zero)
-
-        let queue = DispatchQueue(label: "videogen.encode.wav")
-        await withCheckedContinuation { (continuation: CheckedContinuation<Void, Never>) in
-            input.requestMediaDataWhenReady(on: queue) {
-                while input.isReadyForMoreMediaData {
-                    guard let sample = output.copyNextSampleBuffer() else {
-                        input.markAsFinished()
-                        continuation.resume()
-                        return
-                    }
-                    if !input.append(sample) {
-                        input.markAsFinished()
-                        continuation.resume()
-                        return
-                    }
-                }
-            }
-        }
-        await writer.finishWriting()
-        return writer.status == .completed ? url : nil
-    }
-
-    private func makeThumbnail(asset: AVAsset, next destination: URL) async throws -> URL? {
-        let generator = AVAssetImageGenerator(asset: asset)
-        generator.appliesPreferredTrackTransform = true
-        generator.maximumSize = CGSize(width: 640, height: 640)
-
-        let duration = try await asset.load(.duration)
-        // A third of the way in — the first frame is often still resolving.
-        let time = CMTimeMultiplyByFloat64(duration, multiplier: 0.33)
-        let (image, _) = try await generator.image(at: time)
-
-        let url = destination.deletingPathExtension().appendingPathExtension("jpg")
-        guard let destinationRef = CGImageDestinationCreateWithURL(
-            url as CFURL, "public.jpeg" as CFString, 1, nil) else { return nil }
-        CGImageDestinationAddImage(destinationRef, image,
-                                   [kCGImageDestinationLossyCompressionQuality: 0.85] as CFDictionary)
-        return CGImageDestinationFinalize(destinationRef) ? url : nil
-    }
-
-    private func replaceItem(at destination: URL, with source: URL) throws {
-        let fm = FileManager.default
-        if fm.fileExists(atPath: destination.path) { try fm.removeItem(at: destination) }
-        try fm.copyItem(at: source, to: destination)
-    }
+/// The audio equivalent of `VideoPumpChannel`; the same reasoning applies.
+private struct AudioPumpChannel: @unchecked Sendable {
+    let readerOutput: AVAssetReaderTrackOutput
+    let writerInput: AVAssetWriterInput
 }
 
 /// Mutable state for the encode pump. `requestMediaDataWhenReady` re-enters on a

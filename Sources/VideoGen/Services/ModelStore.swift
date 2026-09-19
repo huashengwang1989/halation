@@ -79,10 +79,9 @@ final class ModelStore {
     /// Creates the folder tree if it isn't there. Safe to call repeatedly.
     func ensureRootExists() throws {
         let fm = FileManager.default
-        for url in [rootURL, huggingFaceHome, hubURL] {
-            if !fm.fileExists(atPath: url.path) {
-                try fm.createDirectory(at: url, withIntermediateDirectories: true)
-            }
+        for url in [rootURL, huggingFaceHome, hubURL]
+        where !fm.fileExists(atPath: url.path) {
+            try fm.createDirectory(at: url, withIntermediateDirectories: true)
         }
         // A short note for anyone who opens the folder wondering what it is.
         let readme = rootURL.appending(path: "README.txt")
@@ -115,8 +114,9 @@ final class ModelStore {
         lastScanError = nil
         defer { isScanning = false }
 
-        do { try ensureRootExists() }
-        catch {
+        do {
+            try ensureRootExists()
+        } catch {
             lastScanError = "Could not create \(rootURL.path): \(error.localizedDescription)"
             return
         }
@@ -211,9 +211,7 @@ enum ModelScanner {
 
             // Prefer the most recently written revision.
             let newest = revisions.max { lhs, rhs in
-                let l = (try? lhs.resourceValues(forKeys: [.contentModificationDateKey]).contentModificationDate) ?? .distantPast
-                let r = (try? rhs.resourceValues(forKeys: [.contentModificationDateKey]).contentModificationDate) ?? .distantPast
-                return l < r
+                modifiedDate(of: lhs) < modifiedDate(of: rhs)
             }
             guard let revision = newest, containsModelFiles(revision) else { continue }
 
@@ -327,6 +325,11 @@ enum ModelScanner {
             if ext == "safetensors" || ext == "gguf" || ext == "bin" { return true }
         }
         return false
+    }
+
+    private static func modifiedDate(of url: URL) -> Date {
+        (try? url.resourceValues(forKeys: [.contentModificationDateKey])
+            .contentModificationDate) ?? .distantPast
     }
 
     private static func directorySize(_ url: URL) -> Int64 {

@@ -95,11 +95,13 @@ final class AppState {
         let installed = modelStore.installedEntryIDs
         let task = draft.task
 
-        if draft.transformerEntryID == nil || !installed.contains(draft.transformerEntryID!) {
+        let transformerMissing = draft.transformerEntryID.map { !installed.contains($0) } ?? true
+        if transformerMissing {
             draft.transformerEntryID = ModelCatalog.transformers(task: task)
                 .first { installed.contains($0.id) }?.id
         }
-        if draft.textEncoderEntryID == nil || !installed.contains(draft.textEncoderEntryID!) {
+        let encoderMissing = draft.textEncoderEntryID.map { !installed.contains($0) } ?? true
+        if encoderMissing {
             draft.textEncoderEntryID = ModelCatalog.entries(role: .textEncoder)
                 .filter { installed.contains($0.id) }
                 .min { $0.approximateBytes < $1.approximateBytes }?.id

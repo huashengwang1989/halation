@@ -20,7 +20,9 @@ struct SamplingCard: View {
 
     var body: some View {
         GlassCard(title: "Sampling", systemImage: "dial.medium",
-                  footnote: "Steps dominate render time almost linearly; the port defaults to 16. The video VAE only encodes frame counts of the form 17n+5, so a requested duration is rounded up to the next one it can produce.") {
+                  footnote: "Steps dominate render time almost linearly; the port defaults to 16. "
+                            + "The video VAE only encodes frame counts of the form 17n+5, so a "
+                            + "requested duration is rounded up to the next one it can produce.") {
             VStack(alignment: .leading, spacing: 16) {
                 VStack(alignment: .leading, spacing: 4) {
                     LabeledContent("Duration") {
@@ -72,7 +74,8 @@ struct SamplingCard: View {
                             spec.sampling.seed = Int64.random(in: 0..<Int64(1) << 47)
                         }
                     }
-                    Text("A fixed seed makes a render repeatable. Change any other setting and the result changes anyway.")
+                    Text("A fixed seed makes a render repeatable. Change any other setting and the result changes "
+                         + "anyway.")
                         .font(.caption)
                         .foregroundStyle(.secondary)
                 }
@@ -89,7 +92,8 @@ struct FormatCard: View {
 
     var body: some View {
         GlassCard(title: "Output", systemImage: "film",
-                  footnote: "The model always renders 24 fps at a 768 px short edge. Anything else on this card is applied afterwards, during encoding.") {
+                  footnote: "The model always renders 24 fps at a 768 px short edge. Anything else on this card is "
+                            + "applied afterwards, during encoding.") {
             VStack(alignment: .leading, spacing: 16) {
                 VStack(alignment: .leading, spacing: 8) {
                     Text("Aspect ratio").font(.callout).foregroundStyle(.secondary)
@@ -132,7 +136,8 @@ struct FormatCard: View {
                         Text(option.label).tag(option)
                     }
                 }
-                Text("H3 generates 32 kHz stereo audio in the same pass as the picture; there is no silent mode that renders faster.")
+                Text("H3 generates 32 kHz stereo audio in the same pass as the picture; there is no silent mode that "
+                     + "renders faster.")
                     .font(.caption).foregroundStyle(.secondary)
                     .fixedSize(horizontal: false, vertical: true)
             }
@@ -265,8 +270,7 @@ struct SummaryContent: View {
                         SpecRow(label: "Delivered at", value: app.draft.format.deliverySize.description)
                     }
                     SpecRow(label: "Length",
-                            value: "\(app.draft.sampling.frameCount) frames · "
-                                 + app.draft.sampling.effectiveSeconds.formatted(.number.precision(.fractionLength(2))) + " s")
+                            value: renderedLength)
                     SpecRow(label: "Steps", value: "\(app.draft.sampling.steps)")
                     SpecRow(label: "Codec", value: app.draft.format.codec.label)
                     if let bitrate = app.draft.format.estimatedBitrate() {
@@ -276,7 +280,10 @@ struct SummaryContent: View {
             }
 
             GlassCard(title: "Estimated time", systemImage: "clock",
-                      footnote: "Scaled from the MLX port's published M3 Ultra timings for this machine's memory bandwidth. Treat it as an order of magnitude, not a promise — the first run of a session is slower because weights have to be paged in.") {
+                      footnote: "Scaled from the MLX port's published M3 Ultra timings for this "
+                                + "machine's memory bandwidth. Treat it as an order of magnitude, "
+                                + "not a promise — the first run of a session is slower because "
+                                + "weights have to be paged in.") {
                 Text(estimate)
                     .font(.title2.weight(.semibold))
                     .foregroundStyle(.primary)
@@ -318,6 +325,13 @@ struct SummaryContent: View {
     private func flash() {
         withAnimation(.easeOut(duration: 0.18)) { isFlashing = true }
         withAnimation(.easeIn(duration: 0.35).delay(0.9)) { isFlashing = false }
+    }
+
+    /// "362 frames · 15.08 s" — what the model will actually produce.
+    private var renderedLength: String {
+        let seconds = app.draft.sampling.effectiveSeconds
+            .formatted(.number.precision(.fractionLength(2)))
+        return "\(app.draft.sampling.frameCount) frames · \(seconds) s"
     }
 
     private var estimate: String {

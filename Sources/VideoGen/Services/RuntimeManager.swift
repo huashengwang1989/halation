@@ -256,11 +256,10 @@ final class RuntimeManager {
 
         for candidate in ["/opt/homebrew/bin/uv", "/usr/local/bin/uv",
                           fm.homeDirectoryForCurrentUser.appending(path: ".cargo/bin/uv").path,
-                          fm.homeDirectoryForCurrentUser.appending(path: ".local/bin/uv").path] {
-            if fm.isExecutableFile(atPath: candidate) {
-                append("Using the uv already installed at \(candidate)")
-                return URL(fileURLWithPath: candidate)
-            }
+                          fm.homeDirectoryForCurrentUser.appending(path: ".local/bin/uv").path]
+        where fm.isExecutableFile(atPath: candidate) {
+            append("Using the uv already installed at \(candidate)")
+            return URL(fileURLWithPath: candidate)
         }
 
         append("Downloading uv from astral.sh…")

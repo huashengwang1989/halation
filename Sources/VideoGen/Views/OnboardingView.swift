@@ -122,15 +122,18 @@ struct OnboardingView: View {
 
             GlassCard(title: "The restrictions that actually bite", systemImage: "exclamationmark.shield") {
                 VStack(alignment: .leading, spacing: 10) {
-                    Bullet("Local use is restricted in the USA, the EU, the UK and South Korea. Running the model in those territories needs a separate application to MiniMax.")
+                    Bullet("Local use is restricted in the USA, the EU, the UK and South Korea. Running the model in "
+                           + "those territories needs a separate application to MiniMax.")
                     Bullet("Organisations above roughly US$20 million in annual revenue need authorisation.")
                     Bullet("Training another model on H3's output is prohibited.")
-                    Bullet("Unlawful and pornographic output is prohibited by the licence, wherever you are. There is no server-side filter on a local run, so this is on you rather than on the software.")
+                    Bullet("Unlawful and pornographic output is prohibited by the licence, "
+                           + "wherever you are. There is no server-side filter on a local run, so "
+                           + "this is on you rather than on the software.")
                 }
             }
 
             Link("Read the full licence on Hugging Face",
-                 destination: URL(string: "https://huggingface.co/MiniMaxAI/MiniMax-H3")!)
+                 destination: .literal("https://huggingface.co/MiniMaxAI/MiniMax-H3"))
 
             Toggle("I have read the licence and I am entitled to use these weights where I am",
                    isOn: Binding(get: { app.licenseAcknowledged },

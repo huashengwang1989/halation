@@ -13,7 +13,8 @@ struct QueueView: View {
                 ContentUnavailableView {
                     Label("Nothing queued", systemImage: "list.bullet.rectangle")
                 } description: {
-                    Text("Renders you start from Compose appear here. They keep running while you work, and survive quitting the app.")
+                    Text("Renders you start from Compose appear here. They keep running while you work, and survive "
+                         + "quitting the app.")
                 } actions: {
                     Button("Go to Compose") { app.section = .compose }
                         .buttonStyle(.glassProminent)

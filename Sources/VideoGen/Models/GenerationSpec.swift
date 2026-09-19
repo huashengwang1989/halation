@@ -218,7 +218,8 @@ struct GenerationSpec: Codable, Sendable, Hashable {
             }
             for (kind, group) in references0fKind where group.count > kind.limit {
                 problems.append(.init(severity: .blocking,
-                    message: "At most \(kind.limit) reference \(kind.label.lowercased()) files — you have \(group.count)."))
+                    message: "At most \(kind.limit) reference \(kind.label.lowercased()) files — you have "
+                             + "\(group.count)."))
             }
             if references.count > ReferenceAsset.totalFileLimit {
                 problems.append(.init(severity: .blocking,

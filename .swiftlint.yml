@@ -1,0 +1,87 @@
+# SwiftLint configuration for VideoGen.
+#
+# Project-local only: this file does not change anything outside this directory.
+# Every relaxation below is a deliberate decision with a reason, not a way to make
+# a warning go away. Anything SwiftLint flags that is NOT listed here is a real
+# finding and should be fixed in the code.
+
+included:
+  - Sources
+
+excluded:
+  - .build
+  - dist
+
+# ── Rules switched off ────────────────────────────────────────────────────────
+disabled_rules:
+  # Trailing commas in multi-line literals are used throughout this codebase on
+  # purpose: adding an entry then touches one line instead of two, which keeps
+  # diffs and code review honest. The model catalog and the AVFoundation settings
+  # dictionaries both rely on this.
+  - trailing_comma
+
+  # SwiftUI view bodies are one large expression by nature. Splitting them to
+  # satisfy a line budget produces worse code, not better.
+  - type_body_length
+
+# ── Rules kept, with thresholds that match how this code is written ──────────
+line_length:
+  # The codebase wraps at ~100 and nothing currently exceeds 120, so the standard
+  # limit holds. Comments are exempt because the section dividers use box-drawing
+  # characters that inflate the count without affecting readability.
+  warning: 120
+  error: 160
+  ignores_comments: true
+  ignores_urls: true
+
+identifier_name:
+  # Two-character names are meaningful here rather than lazy: `q4`/`q6`/`q8` are
+  # the quantization formats as their publishers name them, and `fm` for
+  # FileManager is conventional Swift.
+  min_length:
+    warning: 2
+    error: 1
+  excluded:
+    - n   # frame-grid index, matching the model card's own "17n + 5"
+    - GB
+
+nesting:
+  # A nested enum is the clearest way to express a type that only makes sense
+  # inside its parent — ReferenceAsset.Kind, RenderJob.State, Transfer.State.
+  type_level: 2
+
+function_body_length:
+  # Validation and the render loop are long but linear: each is a single
+  # switch over cases that belong together, and breaking them up would scatter
+  # one decision across several functions.
+  warning: 80
+  error: 120
+
+cyclomatic_complexity:
+  # Same reasoning. These are wide switches, not deeply nested branching.
+  warning: 20
+  error: 30
+  ignores_case_statements: true
+
+# ── Extra rules switched on ──────────────────────────────────────────────────
+# Opt-in rules that catch real mistakes rather than enforce taste.
+opt_in_rules:
+  - empty_count
+  - empty_string
+  - first_where
+  - last_where
+  - contains_over_filter_count
+  - contains_over_first_not_nil
+  - sorted_first_last
+  - redundant_nil_coalescing
+  - toggle_bool
+  - explicit_init
+  - unneeded_parentheses_in_closure_argument
+  - closure_spacing
+  - operator_usage_whitespace
+  - joined_default_parameter
+  - literal_expression_end_indentation
+  - overridden_super_call
+  - prohibited_super_call
+  - fatal_error_message
+  - force_unwrapping

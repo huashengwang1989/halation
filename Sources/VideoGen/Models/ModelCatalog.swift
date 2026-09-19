@@ -188,7 +188,9 @@ struct CatalogEntry: Identifiable, Codable, Sendable, Hashable {
     }
 
     var isUsableHere: Bool { unusableReason == nil }
-    var huggingFaceURL: URL { URL(string: "https://huggingface.co/\(repoID)")! }
+    /// Optional rather than forced: `repoID` is catalog data, and a malformed
+    /// entry should hide the link rather than crash the Models screen.
+    var huggingFaceURL: URL? { URL(string: "https://huggingface.co/\(repoID)") }
 }
 
 private let GB: Int64 = 1_073_741_824
