@@ -16,21 +16,11 @@ struct ComposeView: View {
     @State private var problemFocusCount = 0
     @State private var width: CGFloat = 0
 
-    /// Below this there is not enough room for the form and the summary side by
-    /// side, so the summary moves underneath instead of being clipped.
-    private var isNarrow: Bool { width > 0 && width < 860 }
-
     var body: some View {
         @Bindable var app = app
 
-        Group {
-            if isNarrow {
-                narrowLayout
-            } else {
-                wideLayout
-            }
-        }
-        .onGeometryChange(for: CGFloat.self) { $0.size.width } action: { width = $0 }
+        content
+            .onGeometryChange(for: CGFloat.self) { $0.size.width } action: { width = $0 }
         .toolbar {
             // Presets sit with the other actions rather than in the centre slot, so
             // the leading edge belongs to the sidebar toggle and the window title.
@@ -80,40 +70,31 @@ struct ComposeView: View {
         }
     }
 
-    // MARK: - Layouts
+    // MARK: - Layout
 
-    private var wideLayout: some View {
+    /// The form and the summary always sit side by side. The summary has a floor it
+    /// will not go below; the form takes whatever is left. Nothing is ever hidden or
+    /// reflowed underneath — only the sidebar is negotiable, and that is the split
+    /// view's business, not ours.
+    private var content: some View {
         HStack(spacing: 0) {
             formColumn
-                .frame(minWidth: 420, maxWidth: .infinity)
+                .frame(minWidth: 280, maxWidth: .infinity)
 
             Divider()
 
             SummarySidebar(showingPresetNamer: $showingPresetNamer,
                            problemFocusCount: problemFocusCount)
-                .frame(width: 340)
+                .frame(width: summaryWidth)
         }
     }
 
-    /// One column: the form, then everything the summary would have shown.
-    private var narrowLayout: some View {
-        ScrollViewReader { proxy in
-            ScrollView {
-                VStack(alignment: .leading, spacing: 18) {
-                    formCards
-                    Divider()
-                    SummaryContent(showingPresetNamer: $showingPresetNamer)
-                }
-                .padding(20)
-                .frame(maxWidth: .infinity, alignment: .leading)
-            }
-            // Declared explicitly so scrolled cards pass *under* the toolbar's
-            // glass rather than over it.
-            .scrollEdgeEffectStyle(.soft, for: .top)
-            .onChange(of: problemFocusCount) { _, _ in
-                withAnimation(.snappy) { proxy.scrollTo(ComposeAnchor.problems, anchor: .center) }
-            }
-        }
+    /// The summary gives up width before the form does, down to a readable floor.
+    /// 280 (form) + 250 (summary) fits the 560pt detail the window minimum
+    /// guarantees, so neither column can be clipped at any window size.
+    private var summaryWidth: CGFloat {
+        guard width > 0 else { return 300 }
+        return min(340, max(250, width * 0.32))
     }
 
     private var formColumn: some View {

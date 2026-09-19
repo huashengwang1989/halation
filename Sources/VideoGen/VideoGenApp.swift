@@ -9,9 +9,10 @@ struct VideoGenApp: App {
             RootView()
                 .environment(app)
                 .task { await app.bootstrap() }
-                // Low enough that the single-column Compose layout is actually
-                // reachable; the views adapt rather than clipping.
-                .frame(minWidth: 720, minHeight: 600)
+                // 200pt sidebar + 560pt detail minimum. Sized so that even with the
+                // sidebar manually shown at the smallest window, both the form and
+                // the summary still fit at their floors.
+                .frame(minWidth: 760, minHeight: 600)
         }
         .windowToolbarStyle(.unified)
         .commands {

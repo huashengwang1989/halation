@@ -13,8 +13,11 @@ struct LibraryView: View {
         return app.library.items.filter { $0.title.lowercased().contains(query) }
     }
 
-    /// Below this the grid and the inspector cannot both be usable.
-    private var isNarrow: Bool { width > 0 && width < 820 }
+    /// The inspector gives up width before the grid does, down to a readable floor.
+    private var inspectorWidth: CGFloat {
+        guard width > 0 else { return 320 }
+        return min(380, max(260, width * 0.34))
+    }
 
     var body: some View {
         Group {
@@ -43,37 +46,18 @@ struct LibraryView: View {
                     .scrollEdgeEffectStyle(.soft, for: .top)
                     .frame(maxWidth: .infinity)
 
-                    // Below this there is not enough width for a grid and an
-                    // inspector, so the inspector opens as a sheet instead of being
-                    // squeezed into an unreadable column.
-                    if !isNarrow, let selected = filtered.first(where: { $0.id == selection }) {
+                    // The inspector appears when something is selected and stays
+                    // put; it narrows with the window rather than disappearing.
+                    if let selected = filtered.first(where: { $0.id == selection }) {
                         Divider()
                         LibraryDetail(item: selected)
-                            .frame(width: 360)
+                            .frame(width: inspectorWidth)
                     }
                 }
             }
         }
         .onGeometryChange(for: CGFloat.self) { $0.size.width } action: { width = $0 }
         .searchable(text: $search, prompt: "Search prompts")
-        .sheet(isPresented: Binding(
-            get: { isNarrow && selection != nil },
-            set: { if !$0 { selection = nil } })) {
-            if let selected = filtered.first(where: { $0.id == selection }) {
-                VStack(spacing: 0) {
-                    HStack {
-                        Text(selected.title).font(.headline).lineLimit(1)
-                        Spacer()
-                        Button("Done") { selection = nil }
-                            .buttonStyle(.glassProminent)
-                    }
-                    .padding()
-                    Divider()
-                    LibraryDetail(item: selected)
-                }
-                .frame(width: 460, height: 640)
-            }
-        }
         .toolbar {
             ToolbarItemGroup {
                 Button("Reveal Folder", systemImage: "folder") {

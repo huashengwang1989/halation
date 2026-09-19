@@ -2,15 +2,22 @@ import SwiftUI
 
 struct RootView: View {
     @Environment(AppState.self) private var app
-    @State private var columnVisibility: NavigationSplitViewVisibility = .all
-    /// True when the app collapsed the sidebar because the window got narrow, as
-    /// opposed to the user collapsing it deliberately. Only an automatic collapse is
-    /// automatically undone.
-    @State private var collapsedByWidth = false
+    @State private var columnVisibility: NavigationSplitViewVisibility = .doubleColumn
+    /// True when *we* collapsed the sidebar because the window got narrow. Only an
+    /// automatic collapse is ever automatically undone.
+    @State private var autoCollapsed = false
+    /// The width regime we last acted on. We only ever act when the window *crosses*
+    /// a threshold, never on every layout pass — that is what lets a manual toggle
+    /// survive, since nothing re-evaluates it until the window genuinely changes size.
+    @State private var regime: WidthRegime?
 
-    /// Below this the split view cannot give both columns a usable width.
-    private let collapseBelow: CGFloat = 940
-    private let restoreAbove: CGFloat = 1_080
+    private enum WidthRegime { case narrow, wide }
+
+    /// Below this the sidebar and the detail cannot both be useful.
+    private let collapseBelow: CGFloat = 1_000
+    /// Wide enough that the sidebar is comfortable again. The gap between the two
+    /// stops the sidebar flickering while a resize is in progress.
+    private let restoreAbove: CGFloat = 1_120
 
     var body: some View {
         @Bindable var app = app
@@ -68,23 +75,55 @@ struct RootView: View {
 
     private func toggleSidebar() {
         withAnimation(.snappy(duration: 0.25)) {
-            columnVisibility = isSidebarShowing ? .detailOnly : .all
+            columnVisibility = isSidebarShowing ? .detailOnly : .doubleColumn
         }
-        // An explicit toggle takes ownership back from the automatic behaviour.
-        collapsedByWidth = false
+        // Whatever the user chose is now the state to preserve; it is no longer ours
+        // to undo when the window widens again.
+        autoCollapsed = false
     }
 
-    /// Collapses the sidebar when the window is too narrow to show both columns, and
-    /// restores it only if we were the one who collapsed it. The gap between the two
-    /// thresholds stops the sidebar flickering while the window is being resized.
+    /// Collapses the sidebar when the window becomes too narrow for it, and restores
+    /// it when the window becomes wide again — but only if we were the one who
+    /// collapsed it.
+    ///
+    /// This acts on threshold *crossings* only. Reacting to every layout pass would
+    /// undo a manual toggle on the very next frame, which is what made the button
+    /// appear dead at narrow widths. The detail column is never hidden: only the
+    /// sidebar is negotiable.
     private func adapt(toWidth width: CGFloat) {
         guard width > 0 else { return }
-        if width < collapseBelow, columnVisibility != .detailOnly {
-            collapsedByWidth = true
-            withAnimation(.snappy(duration: 0.2)) { columnVisibility = .detailOnly }
-        } else if width > restoreAbove, collapsedByWidth {
-            collapsedByWidth = false
-            withAnimation(.snappy(duration: 0.2)) { columnVisibility = .all }
+
+        let next: WidthRegime
+        if width < collapseBelow {
+            next = .narrow
+        } else if width > restoreAbove {
+            next = .wide
+        } else {
+            // Inside the hysteresis band: hold whatever we last decided.
+            return
+        }
+
+        guard next != regime else { return }
+        let isFirstMeasurement = regime == nil
+        regime = next
+
+        // Don't animate the window's initial sizing pass.
+        let change = { 
+            switch next {
+            case .narrow:
+                guard isSidebarShowing else { return }
+                autoCollapsed = true
+                columnVisibility = .detailOnly
+            case .wide:
+                guard autoCollapsed else { return }
+                autoCollapsed = false
+                columnVisibility = .doubleColumn
+            }
+        }
+        if isFirstMeasurement {
+            change()
+        } else {
+            withAnimation(.snappy(duration: 0.2)) { change() }
         }
     }
 
