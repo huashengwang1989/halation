@@ -218,7 +218,8 @@ private struct LibraryDetail: View {
                         SpecRow(label: "Duration", value: "\(item.spec.sampling.durationSeconds) s")
                         SpecRow(label: "Steps", value: "\(item.spec.sampling.steps)")
                         if let seed = item.seed {
-                            SpecRow(label: "Seed", value: String(seed), isProminent: true)
+                            SpecRow(label: "Seed", value: String(seed),
+                                    isProminent: true, isCopyable: true)
                         }
                         SpecRow(label: "File size", value: Format.bytes(item.fileSizeBytes))
                         if let seconds = item.renderSeconds {
