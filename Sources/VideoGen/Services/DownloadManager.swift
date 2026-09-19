@@ -130,9 +130,14 @@ final class DownloadManager {
         let entry = transfers[index].entry
 
         var arguments = [runtime.sidecarScript.path, "download", "--repo", entry.repoID]
-        if let patterns = entry.allowPatterns,
-           let data = try? JSONSerialization.data(withJSONObject: patterns),
-           let json = String(data: data, encoding: .utf8) {
+        if let file = entry.comfyUIFile {
+            // ComfyUI needs a real file in its own folder layout, not a cache entry.
+            let destination = modelStore.comfyUIPath(for: file).deletingLastPathComponent()
+            arguments += ["--file", "\(file.folder)/\(file.filename)",
+                          "--dest", destination.path]
+        } else if let patterns = entry.allowPatterns,
+                  let data = try? JSONSerialization.data(withJSONObject: patterns),
+                  let json = String(data: data, encoding: .utf8) {
             arguments += ["--patterns", json]
         }
 

@@ -88,10 +88,15 @@ actor ComfyUIBackend: RenderBackend {
 
     // MARK: - References
 
-    /// Copies attached images into ComfyUI's input folder under unique names, in
-    /// the order the prompt addresses them.
+    /// Copies attached images into ComfyUI's input folder under unique names.
+    ///
+    /// Order matters and differs by mode: reference mode uses prompt order, while
+    /// keyframe modes expect the first frame at index 0 and the last at index 1.
     private func stageReferences(spec: GenerationSpec, into inputDir: URL) throws -> [String] {
-        let images = spec.references.filter { $0.kind == .image }
+        var images = spec.references.filter { $0.kind == .image }
+        if spec.mode == .firstAndLastFrame || spec.mode == .firstFrame {
+            images.sort { lhs, _ in lhs.slot == .first }
+        }
         var names: [String] = []
         for (index, asset) in images.enumerated() {
             let name = "videogen_ref_\(UUID().uuidString.prefix(8))_\(index).\(asset.url.pathExtension)"

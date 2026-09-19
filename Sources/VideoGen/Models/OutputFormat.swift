@@ -235,9 +235,12 @@ struct OutputFormat: Codable, Sendable, Hashable {
             : generationSize.scaled(toShortEdge: resolution.shortEdge)
     }
 
-    /// True when generation output can be written straight out with no re-encode.
-    var isPassthrough: Bool {
-        resolution == .native768 && frameRate.isNative && codec == .hevc
+    /// True when the *delivery* settings ask for no geometry or timing change.
+    ///
+    /// Not sufficient on its own to skip the encoder: the source's codec has to
+    /// match the requested one as well. See `VideoPostProcessor.process`.
+    var needsNoResample: Bool {
+        resolution == .native768 && frameRate.isNative
     }
 
     func estimatedBitrate() -> Int? {

@@ -24,7 +24,8 @@ struct ComfyUIWorkflow {
     var spec: GenerationSpec
     var models: Models
     var seed: Int64
-    /// Filenames already uploaded into ComfyUI's input directory, in prompt order.
+    /// Filenames already staged in ComfyUI's input directory, in prompt order.
+    /// For keyframe modes these are the first and (optionally) last frame.
     var referenceImages: [String]
     var outputPrefix: String
 
@@ -68,26 +69,7 @@ struct ComfyUIWorkflow {
         nodes[Node.videoVAE] = node("VAELoader", ["vae_name": models.videoVAE])
         nodes[Node.audioVAE] = node("VAELoader", ["vae_name": models.audioVAE])
 
-        var conditioning: [String: Any] = [
-            "clip": [Node.clip, 0],
-            "vae": [Node.videoVAE, 0],
-            "audio_vae": [Node.audioVAE, 0],
-            "prompt": spec.prompt,
-            "width": spec.format.generationSize.width,
-            "height": spec.format.generationSize.height,
-            "length": spec.sampling.frameCount,
-            // "max" uses a 2048px short edge for identity fidelity and is several
-            // times slower, because reference tokens ride through every step.
-            "ref_image_size": "match",
-        ]
-
-        for (index, filename) in referenceImages.enumerated() {
-            nodes[Node.image(index)] = node("LoadImage", ["image": filename])
-            // Dotted, zero-based autogrow key. The prompt addresses the same
-            // reference one-based, as <Picture 1>.
-            conditioning["ref_images.ref_image_\(index)"] = [Node.image(index), 0]
-        }
-        nodes[Node.conditioning] = node("MiniMaxH3ReferenceToVideo", conditioning)
+        nodes.merge(conditioningNodes()) { current, _ in current }
 
         nodes[Node.guider] = node("BasicGuider", [
             "model": modelSource,
@@ -127,6 +109,58 @@ struct ComfyUIWorkflow {
             "format": "auto",
             "codec": "auto",
         ])
+        return nodes
+    }
+
+    /// The conditioning node and the images it loads.
+    ///
+    /// Split out because it is the only part of the graph that varies by mode —
+    /// and because both variants emit (CONDITIONING, LATENT), nothing downstream
+    /// has to care which was used.
+    private func conditioningNodes() -> [String: Any] {
+        var nodes: [String: Any] = [:]
+        // Every mode shares this graph; only the conditioning node differs, and
+        // both produce (CONDITIONING, LATENT) so nothing downstream changes.
+        var conditioning: [String: Any] = [
+            "clip": [Node.clip, 0],
+            "vae": [Node.videoVAE, 0],
+            "prompt": spec.prompt,
+            "width": spec.format.generationSize.width,
+            "height": spec.format.generationSize.height,
+            "length": spec.sampling.frameCount,
+        ]
+
+        for (index, filename) in referenceImages.enumerated() {
+            nodes[Node.image(index)] = node("LoadImage", ["image": filename])
+        }
+
+        switch spec.mode {
+        case .reference:
+            // Ref2VA also conditions the text encoder on audio, so it takes the
+            // audio VAE; the keyframe node does not.
+            conditioning["audio_vae"] = [Node.audioVAE, 0]
+            // "max" uses a 2048px short edge for identity fidelity and is several
+            // times slower, because reference tokens ride through every step.
+            conditioning["ref_image_size"] = "match"
+            for index in referenceImages.indices {
+                // Dotted, zero-based autogrow key. The prompt addresses the same
+                // reference one-based, as <Picture 1>.
+                conditioning["ref_images.ref_image_\(index)"] = [Node.image(index), 0]
+            }
+            nodes[Node.conditioning] = node("MiniMaxH3ReferenceToVideo", conditioning)
+
+        case .textToVideo, .firstFrame, .firstAndLastFrame:
+            // first_frame and last_frame are both optional, so text-to-video is
+            // simply this node with neither supplied.
+            if referenceImages.indices.contains(0) {
+                conditioning["first_frame"] = [Node.image(0), 0]
+            }
+            if referenceImages.indices.contains(1) {
+                conditioning["last_frame"] = [Node.image(1), 0]
+            }
+            nodes[Node.conditioning] = node("MiniMaxH3ImageToVideo", conditioning)
+        }
+
         return nodes
     }
 

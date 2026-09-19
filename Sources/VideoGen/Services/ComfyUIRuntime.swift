@@ -193,12 +193,12 @@ final class ComfyUIRuntime {
                 let stream = await runner.lines(.init(executable: python, arguments: arguments,
                                                       environment: env, currentDirectory: cwd))
                 for try await line in stream {
-                    await self?.append(line)
+                    self?.append(line)
                 }
             } catch {
-                await self?.append("ComfyUI server exited: \(error.localizedDescription)")
+                self?.append("ComfyUI server exited: \(error.localizedDescription)")
             }
-            await MainActor.run { self?.isServerRunning = false }
+            self?.isServerRunning = false
         }
 
         // Loading the frontend and scanning models takes a few seconds.

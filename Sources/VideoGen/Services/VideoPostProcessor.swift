@@ -45,9 +45,15 @@ struct VideoPostProcessor: Sendable {
         guard let videoTrack = videoTracks.first else { throw PostProcessError.noVideoTrack }
         let audioTrack = try await asset.loadTracks(withMediaType: .audio).first
 
-        // Nothing to change: keep the model's own bytes rather than re-encoding and
-        // losing a generation of quality for no reason.
-        if format.isPassthrough, source.pathExtension.lowercased() == destination.pathExtension.lowercased() {
+        // Skip the encoder only when the source is *already* what was asked for.
+        //
+        // This used to test the requested format alone, which silently produced
+        // H.264 whenever HEVC was requested: both backends write H.264, so the
+        // "nothing to change" path copied the file and the recorded codec lied.
+        let sourceCodec = await Self.codec(of: videoTrack)
+        let matchesRequest = sourceCodec == format.codec
+        if format.needsNoResample, matchesRequest,
+           source.pathExtension.lowercased() == destination.pathExtension.lowercased() {
             try replaceItem(at: destination, with: source)
             let audio = format.audio.writesSidecarWAV && audioTrack != nil
                 ? try await extractWAV(from: asset, next: destination) : nil
@@ -68,6 +74,21 @@ struct VideoPostProcessor: Sendable {
         return Result(videoURL: destination,
                       audioURL: audio,
                       thumbnailURL: try? await makeThumbnail(asset: asset, next: destination))
+    }
+
+    /// The codec a track is actually encoded with, or `nil` if unrecognised.
+    static func codec(of track: AVAssetTrack) async -> VideoCodec? {
+        guard let descriptions = try? await track.load(.formatDescriptions),
+              let description = descriptions.first else { return nil }
+        switch CMFormatDescriptionGetMediaSubType(description) {
+        // 'hvc1' and 'hev1' are the two HEVC sample entries.
+        case kCMVideoCodecType_HEVC: return .hevc
+        case kCMVideoCodecType_H264: return .h264
+        case kCMVideoCodecType_AppleProRes422, kCMVideoCodecType_AppleProRes422HQ,
+             kCMVideoCodecType_AppleProRes422LT, kCMVideoCodecType_AppleProRes422Proxy:
+            return .proRes422
+        default: return nil
+        }
     }
 
     // MARK: - Transcode

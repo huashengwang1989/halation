@@ -17,6 +17,8 @@ private let GB: Int64 = 1_073_741_824
 /// layer re-reads the manifest before transferring, so these are used only for
 /// the pre-flight disk check and the size shown in the UI.
 enum ModelCatalog {
+    /// Comfy-Org's repackaged single-file weights, in ComfyUI's own layout.
+    static let comfyRepoID = "Comfy-Org/MiniMax-H3"
 
     static let upstreamRepoID = "MiniMaxAI/MiniMax-H3"
 
@@ -139,6 +141,110 @@ enum ModelCatalog {
                    + "yet, so it is listed here to watch rather than to install.",
             blockedReason: "The MLX port has no LoRA loader yet. Fusing this would need a "
                          + "merged checkpoint rather than the LoRA on its own."
+        ),
+
+        // ── ComfyUI-format weights ───────────────────────────────────────────
+        // Repackaged single files from Comfy-Org. ComfyUI cannot read the MLX
+        // tree, so these are a separate download even though the model is the
+        // same. INT8 ConvRot is chosen for size: ComfyUI reports no native
+        // quantized ops on Metal and emulates them all, so it saves ~40 GB of
+        // disk rather than any time.
+        CatalogEntry(
+            repoID: comfyRepoID,
+            role: .transformer,
+            task: .ref2va,
+            quantization: .int8ConvRot,
+            approximateBytes: 21 * GB,
+            approximateResidentBytes: 20 * GB,
+            allowPatterns: nil,
+            provenance: .official,
+            summary: "Ref2VA transformer for ComfyUI. Required for reference mode, "
+                   + "which the MLX port cannot do at all.",
+            comfyUIFile: .init(folder: "diffusion_models",
+                               filename: "minimax_h3_ref2va_pruned_int8_convrot.safetensors")
+        ),
+        CatalogEntry(
+            repoID: comfyRepoID,
+            role: .transformer,
+            task: .fl2va,
+            quantization: .int8ConvRot,
+            approximateBytes: 21 * GB,
+            approximateResidentBytes: 20 * GB,
+            allowPatterns: nil,
+            provenance: .official,
+            summary: "FL2VA transformer for ComfyUI. Only needed if you want to run "
+                   + "text-to-video or keyframes through ComfyUI instead of MLX.",
+            comfyUIFile: .init(folder: "diffusion_models",
+                               filename: "minimax_h3_fl2va_pruned_int8_convrot.safetensors")
+        ),
+        CatalogEntry(
+            repoID: comfyRepoID,
+            role: .textEncoder,
+            task: nil,
+            quantization: .int8ConvRot,
+            approximateBytes: 28 * GB,
+            approximateResidentBytes: 26 * GB,
+            allowPatterns: nil,
+            provenance: .official,
+            summary: "Qwen3-VL-32B for ComfyUI. Shared by both tasks — download once.",
+            comfyUIFile: .init(folder: "text_encoders",
+                               filename: "qwen3vl_32b_minimax_h3_int8_convrot.safetensors")
+        ),
+        CatalogEntry(
+            repoID: comfyRepoID,
+            role: .support,
+            task: nil,
+            quantization: .bf16,
+            approximateBytes: 6 * GB,
+            approximateResidentBytes: 6 * GB,
+            allowPatterns: nil,
+            provenance: .official,
+            summary: "Video VAE in fp16. Chosen over the INT8 build: it is small, and "
+                   + "decode quality is visible.",
+            comfyUIFile: .init(folder: "vae",
+                               filename: "minimax_h3_video_vae_fp16.safetensors")
+        ),
+        CatalogEntry(
+            repoID: comfyRepoID,
+            role: .support,
+            task: .ref2va,
+            quantization: .bf16,
+            approximateBytes: 1 * GB,
+            approximateResidentBytes: 1 * GB,
+            allowPatterns: nil,
+            provenance: .official,
+            summary: "Audio VAE in fp32, for the stereo track H3 generates alongside "
+                   + "the picture.",
+            comfyUIFile: .init(folder: "vae",
+                               filename: "minimax_h3_audio_vae_fp32.safetensors")
+        ),
+        CatalogEntry(
+            repoID: comfyRepoID,
+            role: .accelerator,
+            task: .ref2va,
+            quantization: .bf16,
+            approximateBytes: 2 * GB,
+            approximateResidentBytes: 2 * GB,
+            allowPatterns: nil,
+            provenance: .community,
+            summary: "4-step Ref2VA turbo LoRA. This is what makes reference renders "
+                   + "practical: about 25 minutes rather than hours.",
+            comfyUIFile: .init(folder: "loras",
+                               filename: "minimax_h3_ref2v_turbo_4step_v0.1_comfyui_bf16.safetensors")
+        ),
+        CatalogEntry(
+            repoID: comfyRepoID,
+            role: .accelerator,
+            task: .fl2va,
+            quantization: .bf16,
+            approximateBytes: 2 * GB,
+            approximateResidentBytes: 2 * GB,
+            allowPatterns: nil,
+            provenance: .community,
+            summary: "4-step FL2VA turbo LoRA. Distilled for four steps, where MLX's "
+                   + "undistilled weights want sixteen.",
+            comfyUIFile: .init(folder: "loras",
+                               filename: "minimax_h3_fl2v_turbo_4step_v1.2_768p_comfyui_bf16.safetensors")
         ),
 
         // ── Listed but not usable here ───────────────────────────────────────

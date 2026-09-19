@@ -134,10 +134,19 @@ struct CatalogEntry: Identifiable, Codable, Sendable, Hashable {
     var allowPatterns: [String]?
     var provenance: Provenance
     var summary: String
+    /// For ComfyUI-format weights: the single file to fetch, and the folder it
+    /// belongs in under `<models>/comfyui/`. ComfyUI cannot read the MLX tree, so
+    /// these are downloaded as plain files rather than into the HF cache.
+    var comfyUIFile: ComfyUIFile?
     /// Set when the app knows the entry will not work here, beyond its quantization.
     var blockedReason: String?
 
     var id: String { "\(repoID)#\(role.rawValue)#\(task?.rawValue ?? "-")#\(quantization.rawValue)" }
+
+    struct ComfyUIFile: Codable, Sendable, Hashable {
+        var folder: String
+        var filename: String
+    }
 
     enum Provenance: String, Codable, Sendable {
         case official, portMaintainer, community
@@ -188,6 +197,9 @@ struct CatalogEntry: Identifiable, Codable, Sendable, Hashable {
     }
 
     var isUsableHere: Bool { unusableReason == nil }
+
+    /// Which engine loads this. ComfyUI files are never read by MLX and vice versa.
+    var backend: BackendID { comfyUIFile == nil ? .mlx : .comfyUI }
     /// Optional rather than forced: `repoID` is catalog data, and a malformed
     /// entry should hide the link rather than crash the Models screen.
     var huggingFaceURL: URL? { URL(string: "https://huggingface.co/\(repoID)") }

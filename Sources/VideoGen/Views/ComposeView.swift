@@ -187,6 +187,7 @@ private struct ModeCard: View {
     var body: some View {
         GlassCard(title: "Mode", systemImage: "slider.horizontal.3",
                   footnote: spec.mode.detail + taskNote) {
+            VStack(alignment: .leading, spacing: 12) {
             Picker("Mode", selection: $spec.mode) {
                 ForEach(GenerationMode.allCases) { mode in
                     Label(mode.label, systemImage: mode.symbolName).tag(mode)
@@ -198,7 +199,51 @@ private struct ModeCard: View {
                 pruneReferences()
                 app.selectBestAvailableModels()
                 adjustSteps(from: previous, to: mode)
+                // Reference mode has only one engine; drop any stale override.
+                if mode == .reference { spec.backend = nil }
             }
+
+            if spec.mode != .reference {
+                Divider()
+                enginePicker
+            }
+            }
+        }
+    }
+
+    /// Engine choice, for the modes both backends implement.
+    ///
+    /// Reference mode is absent deliberately: only ComfyUI implements it, so a
+    /// picker there would be a control with one option.
+    @ViewBuilder
+    private var enginePicker: some View {
+        VStack(alignment: .leading, spacing: 6) {
+            Picker("Engine", selection: Binding(
+                get: { spec.backend ?? .mlx },
+                set: { spec.backend = $0 == .mlx ? nil : $0 })) {
+                ForEach(BackendID.allCases) { backend in
+                    Text(backend.label).tag(backend)
+                }
+            }
+            .pickerStyle(.segmented)
+
+            Text(engineNote)
+                .font(.caption)
+                .foregroundStyle(.secondary)
+                .fixedSize(horizontal: false, vertical: true)
+        }
+    }
+
+    private var engineNote: String {
+        switch spec.backend ?? .mlx {
+        case .mlx:
+            "Runs natively on MLX. No server, and the default. Its weights are "
+            + "undistilled, so low step counts are off-distribution — use the "
+            + "port's 16 steps or more for quality."
+        case .comfyUI:
+            "Runs through ComfyUI on PyTorch/Metal, which can load the 4-step turbo "
+            + "LoRA. Four distilled steps take about as long as five undistilled "
+            + "ones on MLX, and are what the LoRA was trained for."
         }
     }
 

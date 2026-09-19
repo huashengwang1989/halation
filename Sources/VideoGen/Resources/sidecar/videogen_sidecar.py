@@ -116,6 +116,12 @@ def cmd_download(args: argparse.Namespace) -> int:
     repo_id: str = args.repo
     patterns: Optional[List[str]] = json.loads(args.patterns) if args.patterns else None
 
+    # A single named file, fetched as a plain file rather than into the HF cache.
+    # ComfyUI reads real files from its own folder layout; it cannot use the
+    # symlinked cache tree the MLX path relies on.
+    if args.file:
+        return _download_single(repo_id, args.file, args.dest)
+
     protocol.stage("preparing")
     protocol.log(f"Resolving {repo_id}…")
 
@@ -151,6 +157,52 @@ def cmd_download(args: argparse.Namespace) -> int:
     final = watcher.downloaded()
     protocol.download(repo_id, total_bytes or final, total_bytes or final)
     protocol.log(f"{repo_id} is in place at {path}")
+    protocol.done()
+    return 0
+
+
+def _download_single(repo_id: str, filename: str, dest_dir: str) -> int:
+    """Fetch one file into `dest_dir`, reporting progress from its size on disk."""
+    from huggingface_hub import hf_hub_download, HfApi
+
+    destination = Path(dest_dir)
+    destination.mkdir(parents=True, exist_ok=True)
+    target = destination / Path(filename).name
+
+    total = 0
+    try:
+        info = HfApi().model_info(repo_id, files_metadata=True)
+        for sibling in info.siblings or []:
+            if sibling.rfilename == filename:
+                total = getattr(sibling, "size", None) or 0
+                break
+    except Exception as exc:
+        protocol.log(f"Could not read the manifest ({exc}). Progress will be coarse.")
+
+    if target.exists() and total and target.stat().st_size >= total * 0.99:
+        protocol.log(f"{target.name} is already present.")
+        protocol.download(repo_id, total, total)
+        protocol.done()
+        return 0
+
+    protocol.stage("preparing")
+    protocol.download(repo_id, 0, total)
+    protocol.stage("generating")
+
+    watcher = _SizeWatcher(repo_id, destination, total)
+    watcher.start()
+    try:
+        # local_dir gives real files rather than symlinks into the cache.
+        hf_hub_download(repo_id=repo_id, filename=filename,
+                        local_dir=str(destination.parent.parent))
+    except Exception as exc:
+        watcher.stop()
+        protocol.error(f"Download of {filename} failed: {exc}")
+        return 1
+    watcher.stop()
+
+    protocol.download(repo_id, total or watcher.downloaded(), total or watcher.downloaded())
+    protocol.log(f"{filename} is in place.")
     protocol.done()
     return 0
 
@@ -525,6 +577,10 @@ def main(argv: Optional[List[str]] = None) -> int:
     download.add_argument("--patterns", default=None,
                           help="JSON array of glob patterns to restrict the download.")
     download.add_argument("--workers", type=int, default=8)
+    download.add_argument("--file", default=None,
+                          help="Fetch this single repo file instead of a snapshot.")
+    download.add_argument("--dest", default=None,
+                          help="Destination folder for --file.")
     download.set_defaults(func=cmd_download)
 
     generate = subparsers.add_parser("generate")

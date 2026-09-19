@@ -177,8 +177,8 @@ final class RenderEngine {
             appendLog("Rendering with \(chosen.id.label).", to: jobID)
 
             // Events arrive off the main actor; hop back before touching state.
-            let sink: @Sendable (SidecarEvent) -> Void = { event in
-                Task { @MainActor [weak self] in
+            let sink: @Sendable (SidecarEvent) -> Void = { [weak self] event in
+                Task { @MainActor in
                     guard let self, self.jobs.contains(where: { $0.id == jobID }) else { return }
                     var ignoredVideo: URL?
                     var reported: String?
