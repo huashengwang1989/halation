@@ -166,38 +166,73 @@ enum FrameRate: Int, CaseIterable, Codable, Sendable, Identifiable {
     }
 }
 
-enum VideoCodec: String, CaseIterable, Codable, Sendable, Identifiable {
-    case hevc
+/// Delivery codec.
+///
+/// The list is what the backends actually emit, not what AVFoundation could
+/// produce. Both write H.264 at the point of generation, so choosing it means the
+/// file is delivered exactly as rendered — no second encode, no lost generation.
+///
+/// HEVC is deliberately absent. Asking for it would mean re-encoding the model's
+/// H.264 output, which costs quality to save space; if that trade is ever wanted
+/// it is a small change, and `hevc_videotoolbox` is available on this machine.
+enum VideoCodec: String, CaseIterable, Sendable, Identifiable {
     case h264
-    case proRes422
+    case av1
 
     var id: String { rawValue }
 
     var label: String {
         switch self {
-        case .hevc: "HEVC / H.265"
         case .h264: "H.264"
-        case .proRes422: "ProRes 422"
+        case .av1: "AV1"
         }
     }
 
     var detail: String {
         switch self {
-        case .hevc: "Default. Hardware-encoded on Apple silicon, best quality per megabyte."
-        case .h264: "Widest compatibility with older players and web uploads."
-        case .proRes422: "Near-lossless intermediate for editing. Files are very large."
+        case .h264:
+            "What the model produces. Delivered as rendered, with no second encode, "
+            + "and plays everywhere."
+        case .av1:
+            "Smaller files at the same quality, but this Mac has no AV1 encoder in "
+            + "hardware, so it is encoded in software and adds several minutes. "
+            + "ComfyUI only."
         }
     }
 
-    var fileExtension: String { self == .proRes422 ? "mov" : "mp4" }
+    /// Whether a backend can write this directly, without a re-encode on our side.
+    func isNative(to backend: BackendID) -> Bool {
+        switch self {
+        case .h264: true
+        case .av1: backend == .comfyUI
+        }
+    }
 
-    /// Bits per pixel per second, used to derive a sane default bitrate.
+    /// The identifier ComfyUI's SaveVideo node expects.
+    var comfyUIName: String { rawValue }
+
+    var fileExtension: String { "mp4" }
+
+    /// Bits per pixel per second, for a sane default when we do have to re-encode.
     var bitsPerPixel: Double {
         switch self {
-        case .hevc: 0.07
         case .h264: 0.12
-        case .proRes422: 0.0   // ProRes is quality-driven, not bitrate-driven
+        case .av1: 0.06
         }
+    }
+}
+
+/// Old library entries recorded codecs that no longer exist (`hevc`, `proRes422`).
+/// Decode them as H.264 rather than failing to read the index at all.
+extension VideoCodec: Codable {
+    init(from decoder: any Decoder) throws {
+        let raw = try decoder.singleValueContainer().decode(String.self)
+        self = VideoCodec(rawValue: raw) ?? .h264
+    }
+
+    func encode(to encoder: any Encoder) throws {
+        var container = encoder.singleValueContainer()
+        try container.encode(rawValue)
     }
 }
 
@@ -222,7 +257,7 @@ struct OutputFormat: Codable, Sendable, Hashable {
     var aspectRatio: AspectRatio = .widescreen
     var resolution: ResolutionTier = .native768
     var frameRate: FrameRate = .fps24
-    var codec: VideoCodec = .hevc
+    var codec: VideoCodec = .h264
     var audio: AudioHandling = .muxed
 
     /// The canvas the model is asked to render.

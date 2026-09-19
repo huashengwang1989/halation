@@ -13,50 +13,32 @@ extension VideoPostProcessor {
 
     // MARK: - Settings
 
+    /// Encoder settings for the resample path.
+    ///
+    /// Only reached when geometry or frame rate changes; a codec-matching, same
+    /// size render is copied rather than re-encoded. AVFoundation has no AV1
+    /// encoder, so a resampled AV1 render comes out as H.264 — which is why the
+    /// UI steers AV1 users away from the resampling tiers.
     func videoSettings(size: PixelSize) -> [String: Any] {
-        switch format.codec {
-        case .proRes422:
-            return [
-                AVVideoCodecKey: AVVideoCodecType.proRes422.rawValue,
-                AVVideoWidthKey: size.width,
-                AVVideoHeightKey: size.height,
-            ]
-        case .hevc, .h264:
-            var compression: [String: Any] = [
-                AVVideoAverageBitRateKey: format.estimatedBitrate() ?? 12_000_000,
-                AVVideoExpectedSourceFrameRateKey: format.frameRate.rawValue,
-                AVVideoMaxKeyFrameIntervalDurationKey: 2.0,
-                AVVideoAllowFrameReorderingKey: true,
-            ]
-            if format.codec == .hevc {
-                compression[AVVideoProfileLevelKey] = kVTProfileLevel_HEVC_Main_AutoLevel
-            } else {
-                compression[AVVideoProfileLevelKey] = AVVideoProfileLevelH264HighAutoLevel
-            }
-            return [
-                AVVideoCodecKey: (format.codec == .hevc
-                                  ? AVVideoCodecType.hevc : AVVideoCodecType.h264).rawValue,
-                AVVideoWidthKey: size.width,
-                AVVideoHeightKey: size.height,
-                AVVideoCompressionPropertiesKey: compression,
-            ]
-        }
+        var compression: [String: Any] = [
+            AVVideoAverageBitRateKey: format.estimatedBitrate() ?? 12_000_000,
+            AVVideoExpectedSourceFrameRateKey: format.frameRate.rawValue,
+            AVVideoMaxKeyFrameIntervalDurationKey: 2.0,
+            AVVideoAllowFrameReorderingKey: true,
+            AVVideoProfileLevelKey: AVVideoProfileLevelH264HighAutoLevel,
+        ]
+        if format.codec == .av1 { compression.removeValue(forKey: AVVideoProfileLevelKey) }
+
+        return [
+            AVVideoCodecKey: AVVideoCodecType.h264.rawValue,
+            AVVideoWidthKey: size.width,
+            AVVideoHeightKey: size.height,
+            AVVideoCompressionPropertiesKey: compression,
+        ]
     }
 
     func audioSettings() -> [String: Any] {
-        if format.codec == .proRes422 {
-            // Keep an editing intermediate lossless.
-            return [
-                AVFormatIDKey: kAudioFormatLinearPCM,
-                AVSampleRateKey: 48_000,
-                AVNumberOfChannelsKey: 2,
-                AVLinearPCMBitDepthKey: 24,
-                AVLinearPCMIsFloatKey: false,
-                AVLinearPCMIsBigEndianKey: false,
-                AVLinearPCMIsNonInterleaved: false,
-            ]
-        }
-        return [
+        [
             AVFormatIDKey: kAudioFormatMPEG4AAC,
             AVSampleRateKey: 48_000,
             AVNumberOfChannelsKey: 2,

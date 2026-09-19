@@ -137,6 +137,22 @@ The last one matters: the uncensored community text encoders
 the PyTorch path and cannot be loaded by MLX. Listed in the catalog for
 reference with `blockedReason` set.
 
+## Output codecs
+
+Neither backend writes HEVC:
+
+- the MLX port's `media.save_mp4` hardcodes `libx264` at crf 18;
+- ComfyUI's `SaveVideo` offers `auto`, `h264` and `av1` only.
+
+So H.264 is what the model produces, and the app delivers it unchanged. Asking
+for HEVC previously *looked* like it worked — the recorded codec said so — but
+the passthrough shortcut tested the requested format rather than the source's,
+copied the H.264 file and mislabelled it. Anything not in the backends' own list
+costs a second encode.
+
+This Mac has `hevc_videotoolbox` and `h264_videotoolbox` but **no** AV1 encoder,
+so AV1 is software-only via libsvtav1/libaom.
+
 ## Licence
 
 MiniMax H3 Community License. Restricts local use in the **USA, EU, UK and South

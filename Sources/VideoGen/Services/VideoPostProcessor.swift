@@ -82,11 +82,8 @@ struct VideoPostProcessor: Sendable {
               let description = descriptions.first else { return nil }
         switch CMFormatDescriptionGetMediaSubType(description) {
         // 'hvc1' and 'hev1' are the two HEVC sample entries.
-        case kCMVideoCodecType_HEVC: return .hevc
         case kCMVideoCodecType_H264: return .h264
-        case kCMVideoCodecType_AppleProRes422, kCMVideoCodecType_AppleProRes422HQ,
-             kCMVideoCodecType_AppleProRes422LT, kCMVideoCodecType_AppleProRes422Proxy:
-            return .proRes422
+        case kCMVideoCodecType_AV1: return .av1
         default: return nil
         }
     }
@@ -98,7 +95,7 @@ struct VideoPostProcessor: Sendable {
                            audioTrack: AVAssetTrack?,
                            destination: URL,
                            progress: (@Sendable (Double) -> Void)?) async throws {
-        let fileType: AVFileType = format.codec == .proRes422 ? .mov : .mp4
+        let fileType: AVFileType = .mp4
         try? FileManager.default.removeItem(at: destination)
 
         let reader: AVAssetReader
@@ -122,8 +119,7 @@ struct VideoPostProcessor: Sendable {
         let writerVideoInput = AVAssetWriterInput(
             mediaType: .video, outputSettings: videoSettings(size: size))
         writerVideoInput.expectsMediaDataInRealTime = false
-        // HEVC in an .mp4 needs the 'hvc1' tag to play in QuickTime and Photos.
-        if format.codec == .hevc { writerVideoInput.mediaTimeScale = 600 }
+        writerVideoInput.mediaTimeScale = 600
         writer.add(writerVideoInput)
 
         let adaptor = AVAssetWriterInputPixelBufferAdaptor(

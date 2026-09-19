@@ -180,7 +180,7 @@ private struct JobRow: View {
             Text("\(job.spec.sampling.frameCount) frames")
             Text("·")
             Text("\(job.spec.sampling.steps) steps")
-            if job.spec.format.codec != .hevc {
+            if job.spec.format.codec != .h264 {
                 Text("·")
                 Text(job.spec.format.codec.label)
             }

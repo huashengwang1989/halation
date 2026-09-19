@@ -103,11 +103,14 @@ struct ComfyUIWorkflow {
             "fps": Double(FrameGrid.fps),
             "audio": [Node.decodeAudio, 0],
         ])
+        // Ask ComfyUI for the codec directly, so the file is written once in the
+        // requested format rather than re-encoded afterwards. SaveVideo supports
+        // h264 and av1; anything else would have to be a resample on our side.
         nodes[Node.save] = node("SaveVideo", [
             "video": [Node.createVideo, 0],
             "filename_prefix": outputPrefix,
-            "format": "auto",
-            "codec": "auto",
+            "format": "mp4",
+            "codec": spec.format.codec.comfyUIName,
         ])
         return nodes
     }

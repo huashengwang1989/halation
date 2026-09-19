@@ -75,13 +75,19 @@ states each one where it is relevant rather than exposing a control that does no
 | Aspect ratios | 21:9, 16:9, 4:3, 1:1, 3:4, 9:16, resolved with the port's own area-capped canvas rule. |
 | Audio | Generated jointly, 32 kHz stereo. There is no faster silent mode. |
 | Guidance / negative prompt | **Not available.** The released weights are CFG-distilled — one forward pass per step — so there is nothing for a guidance scale to do. |
-| Ref2VA | **Not usable yet.** The MLX pipeline accepts keyframes only; it has no reference-conditioning path. A ComfyUI backend is planned — see [.agent/roadmap/ref2va-comfyui.md](.agent/roadmap/ref2va-comfyui.md). |
+| Ref2VA | **Works, via ComfyUI.** The MLX pipeline accepts keyframes only, so reference mode runs through a second backend the app installs and supervises. About 25 minutes for 5 seconds with the 4-step turbo LoRA. |
 | Acceleration LoRAs | 4-step distillation LoRAs exist and would be transformative, but the port has no LoRA loader. Listed in Models as blocked, to watch. |
 
 ## Output
 
-Finished clips go to `~/Movies/VideoGen` as **HEVC/H.265** by default (hardware
-encoded), with AAC audio muxed in. H.264 and ProRes 422 are also available.
+Finished clips go to `~/Movies/VideoGen` as **H.264** with AAC audio muxed in —
+which is what both backends write, so the file is delivered exactly as rendered
+rather than re-encoded. ComfyUI can also write **AV1**, though this Mac has no
+AV1 encoder in hardware so it is software-encoded and slow.
+
+The codec list is deliberately what the engines emit, not everything AVFoundation
+could produce: asking for a codec neither backend writes would mean a second
+encode, spending quality to change container format.
 
 Every clip is written with a `.videogen.json` sidecar recording the prompt, seed,
 steps, canvas and codec — so a render stays reproducible even without this app.
