@@ -799,6 +799,9 @@ add("menu.rescanModels", "Rescan Models Folder", "重新掃描模型資料夾",
 add("menu.revealModels", "Reveal Models Folder in Finder", "在 Finder 中顯示模型資料夾",
     "在 Finder 中显示模型文件夹", "Modellordner im Finder zeigen",
     "إظهار مجلد النماذج في Finder")
+add("menu.licenses", "Licenses", "授權", "许可", "Lizenzen", "التراخيص",
+    "Help menu item opening the licence window. The window's own text is "
+    "English only — see LicensesView.")
 
 # ── References card ──────────────────────────────────────────────────────────
 add("refs.title.keyframes", "Keyframes", "關鍵格", "关键帧", "Keyframes",

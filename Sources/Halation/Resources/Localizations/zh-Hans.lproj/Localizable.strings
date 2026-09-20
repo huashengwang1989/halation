@@ -191,6 +191,9 @@
 
 "library.useSettings" = "沿用这些设置";
 
+/* Help menu item opening the licence window. The window's own text is English only — see LicensesView. */
+"menu.licenses" = "许可";
+
 "menu.newRender" = "新建渲染";
 
 "menu.rescanModels" = "重新扫描模型文件夹";

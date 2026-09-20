@@ -1,7 +1,10 @@
-.PHONY: app run debug clean test lint lint-fix
+.PHONY: app dmg run debug clean test lint lint-fix
 
 app:            ## Build Halation.app (release)
 	@Scripts/make_app.sh release
+
+dmg: app        ## Build a distributable disk image
+	@Scripts/make_dmg.sh
 
 debug:          ## Build Halation.app (debug)
 	@Scripts/make_app.sh debug

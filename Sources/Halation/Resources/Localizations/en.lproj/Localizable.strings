@@ -191,6 +191,9 @@
 
 "library.useSettings" = "Use These Settings";
 
+/* Help menu item opening the licence window. The window's own text is English only — see LicensesView. */
+"menu.licenses" = "Licenses";
+
 "menu.newRender" = "New Render";
 
 "menu.rescanModels" = "Rescan Models Folder";

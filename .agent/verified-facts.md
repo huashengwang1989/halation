@@ -700,3 +700,30 @@ ground gradient first and fills the canvas edge to edge, so the backmost layer
 is fully opaque. Costs nothing — there is nothing behind it — and the circle is
 gone. For the same reason the core carries no `specular` and no hand-painted
 highlight: both were soft radial spots, and both got traced.
+
+## Finder no longer persists a disk image's icon view options
+
+Every guide to building a pretty DMG says to mount it, drive Finder with
+AppleScript, and let Finder write the `.DS_Store`. On macOS 26 that silently
+produces a default window.
+
+What was measured: set `icon size` to 128 and read it straight back in the same
+script and Finder answers 128, so the setting is accepted. `osascript` exits 0.
+But the `.DS_Store` Finder then writes contains `iconSize 48`, `arrangeBy name`,
+`backgroundType 0`. The window-level records survive — `bwsp` has the right
+bounds, and `Iloc` has the right icon positions — and everything in the `icvp`
+record is replaced with defaults. Attaching with and without `-nobrowse` and
+`-noautoopen` makes no difference; nor does the `close`/`open`/`update` dance.
+
+The visible symptom is easy to misread: Finder falls back to arranging by name,
+which puts Applications *before* the app and so reverses the drag the window
+exists to demonstrate.
+
+`Scripts/make_dmg_layout.py` writes the records directly with `ds-store`
+instead. Finder is not involved at any point, which also means the build needs
+no Automation permission and runs on a CI box with nobody logged in. Two things
+that cost time there: `ds_store` infers the type only for records it knows, so
+`vSrn` has to be written as the pair `("long", 1)`, and the background needs
+both `backgroundType: 2` and a `mac_alias` alias built against the *mounted*
+volume path — which is why the layout is written after attach and before the
+image is compressed.

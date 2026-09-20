@@ -4,6 +4,9 @@ import SwiftUI
 struct HalationApp: App {
     @State private var app = AppState()
     @State private var localization = Localization.shared
+    @Environment(\.openWindow) private var openWindow
+
+    static let licensesWindowID = "licenses"
 
     var body: some Scene {
         WindowGroup {
@@ -51,7 +54,28 @@ struct HalationApp: App {
                     NSWorkspace.shared.activateFileViewerSelecting([app.modelStore.rootURL])
                 }
             }
+
+            // `after:` rather than `replacing:`. AppKit owns the Help menu — it
+            // installs the search field and the "Halation Help" item itself —
+            // and replacing the group leaves those in place while dropping our
+            // item entirely, with no warning.
+            CommandGroup(after: .help) {
+                Button(loc("menu.licenses")) {
+                    openWindow(id: Self.licensesWindowID)
+                }
+            }
         }
+
+        // A plain Window rather than a sheet: licence text is something people
+        // leave open beside the app while they read it, and a utility window can
+        // be moved to another space and kept there.
+        Window(loc("menu.licenses"), id: Self.licensesWindowID) {
+            LicensesView()
+                .environment(localization)
+                .environment(\.locale, Locale(identifier: localization.resolved.rawValue))
+                .id(localization.generation)
+        }
+        .windowResizability(.contentSize)
 
         Settings {
             SettingsView()

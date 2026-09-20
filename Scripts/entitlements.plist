@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <!--
+    Entitlements for the hardened runtime, which notarization requires.
+
+    This list is deliberately almost empty, and that is worth explaining, because
+    the app does several things that look like they should need an entitlement
+    and do not:
+
+    - It spawns a Python interpreter it downloaded itself. Spawning an unsigned
+      or ad-hoc-signed executable needs no entitlement; the hardened runtime
+      constrains *this* process, and the child is a separate one that inherits
+      none of it.
+    - It sets PYTHONPATH, HF_HOME and friends for that child. Only
+      DYLD_* variables in our *own* environment would need
+      allow-dyld-environment-variables.
+    - It reads and writes Documents and Movies. The app is not sandboxed, so
+      that is governed by TCC prompts, not entitlements.
+    - It makes network requests. Only a sandboxed app needs to declare that.
+
+    Add com.apple.security.cs.disable-library-validation only if the app itself
+    ever dlopens a library signed by someone else. Today nothing does, and
+    granting it weakens the app for no gain.
+    -->
+</dict>
+</plist>

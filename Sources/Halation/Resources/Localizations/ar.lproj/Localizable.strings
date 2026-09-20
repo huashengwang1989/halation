@@ -191,6 +191,9 @@
 
 "library.useSettings" = "استخدام هذه الإعدادات";
 
+/* Help menu item opening the licence window. The window's own text is English only — see LicensesView. */
+"menu.licenses" = "التراخيص";
+
 "menu.newRender" = "تصيير جديد";
 
 "menu.rescanModels" = "إعادة فحص مجلد النماذج";
