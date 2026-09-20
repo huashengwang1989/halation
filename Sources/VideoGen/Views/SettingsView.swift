@@ -75,6 +75,8 @@ private struct GeneralSettings: View {
                 @Bindable var app = app
                 Toggle(loc("settings.remember.mode"), isOn: $app.remembersMode)
                 Toggle(loc("settings.remember.engine"), isOn: $app.remembersEngine)
+                Toggle(loc("settings.remember.sampling"), isOn: $app.remembersSampling)
+                Toggle(loc("settings.remember.output"), isOn: $app.remembersOutput)
                 Text(loc("settings.remember.note"))
                     .font(.caption)
                     .foregroundStyle(.secondary)

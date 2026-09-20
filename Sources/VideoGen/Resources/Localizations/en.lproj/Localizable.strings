@@ -764,7 +764,11 @@
 
 "settings.remember.mode" = "Remember the last mode";
 
-"settings.remember.note" = "Only the mode and the engine. The prompt, the seed and any attached files belong to one render, and always start clear.";
+"settings.remember.note" = "The prompt, the seed and any attached files are never carried over: they belong to one render, and always start clear.";
+
+"settings.remember.output" = "Remember output settings";
+
+"settings.remember.sampling" = "Remember sampling settings";
 
 "settings.remember.section" = "Compose";
 

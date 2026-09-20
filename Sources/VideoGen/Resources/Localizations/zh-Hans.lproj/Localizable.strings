@@ -764,7 +764,11 @@
 
 "settings.remember.mode" = "记住上次使用的模式";
 
-"settings.remember.note" = "只会记住模式与引擎。提示词、种子与附加文件属于单次渲染，每次都会重新开始。";
+"settings.remember.note" = "提示词、种子与附加文件永远不会沿用——它们属于单次渲染，每次都会重新开始。";
+
+"settings.remember.output" = "记住输出设置";
+
+"settings.remember.sampling" = "记住采样设置";
 
 "settings.remember.section" = "编写";
 

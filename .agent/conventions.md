@@ -210,10 +210,16 @@ interface text, and it was the last English left in the app.
 
 ## What carries over between launches
 
-Compose remembers the mode and the engine, and nothing else. Those are how
-someone works; the prompt, the seed and any attached files belong to one render
-and always start clear. Both are on by default with switches in Settings for
-anyone who would rather each session start the same way.
+Compose remembers the mode, the engine, the sampling settings and the output
+settings — four switches in Settings, each on by default. What is never carried
+over is the prompt, the seed and any attached files: those belong to one render
+and always start clear.
+
+The seed is the one that needs saying out loud, because it lives inside
+`SamplingSettings` and so would ride along for free. It is stripped before the
+group is stored, for the same reason `savePreset` strips it — a seed is one
+particular clip, not a way of working, and a fixed seed quietly surviving a
+relaunch would produce identical renders with no visible cause.
 
 `AppState.draft` has a `didSet` that writes them, rather than the views calling
 a save method — a view that forgets to call it is a bug waiting to happen, and

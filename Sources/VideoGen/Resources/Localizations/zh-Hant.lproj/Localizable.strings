@@ -764,7 +764,11 @@
 
 "settings.remember.mode" = "記住上次使用的模式";
 
-"settings.remember.note" = "只會記住模式與引擎。提示詞、種子與附加檔案屬於單次算圖，每次都會重新開始。";
+"settings.remember.note" = "提示詞、種子與附加檔案永遠不會沿用——它們屬於單次算圖，每次都會重新開始。";
+
+"settings.remember.output" = "記住輸出設定";
+
+"settings.remember.sampling" = "記住取樣設定";
 
 "settings.remember.section" = "編寫";
 

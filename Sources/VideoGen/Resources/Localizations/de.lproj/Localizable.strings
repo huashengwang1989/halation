@@ -764,7 +764,11 @@
 
 "settings.remember.mode" = "Zuletzt verwendeten Modus merken";
 
-"settings.remember.note" = "Nur Modus und Engine. Prompt, Seed und angehängte Dateien gehören zu einem einzelnen Rendering und beginnen immer leer.";
+"settings.remember.note" = "Prompt, Seed und angehängte Dateien werden nie übernommen: Sie gehören zu einem einzelnen Rendering und beginnen immer leer.";
+
+"settings.remember.output" = "Ausgabeeinstellungen merken";
+
+"settings.remember.sampling" = "Sampling-Einstellungen merken";
 
 "settings.remember.section" = "Erstellen";
 

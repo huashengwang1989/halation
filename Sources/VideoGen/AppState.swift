@@ -95,10 +95,31 @@ final class AppState {
         }
     }
 
+    /// Duration and steps. Kept as a group, because they are read together and
+    /// nobody thinks about them one at a time.
+    var remembersSampling: Bool {
+        didSet {
+            UserDefaults.standard.set(remembersSampling, forKey: Self.remembersSamplingKey)
+            if remembersSampling { rememberDraftChoices(replacing: nil) }
+        }
+    }
+
+    /// Aspect ratio, resolution, frame rate, codec and audio handling.
+    var remembersOutput: Bool {
+        didSet {
+            UserDefaults.standard.set(remembersOutput, forKey: Self.remembersOutputKey)
+            if remembersOutput { rememberDraftChoices(replacing: nil) }
+        }
+    }
+
     private static let remembersModeKey = "remembersMode"
     private static let remembersEngineKey = "remembersEngine"
+    private static let remembersSamplingKey = "remembersSampling"
+    private static let remembersOutputKey = "remembersOutput"
     private static let lastModeKey = "lastComposeMode"
     private static let lastEngineKey = "lastComposeEngine"
+    private static let lastSamplingKey = "lastComposeSampling"
+    private static let lastOutputKey = "lastComposeOutput"
 
     /// Writes the mode and engine, when they have changed and are being kept.
     ///
@@ -107,16 +128,34 @@ final class AppState {
     /// recorded until it was next changed.
     private func rememberDraftChoices(replacing previous: GenerationSpec?) {
         let defaults = UserDefaults.standard
-        if remembersMode, previous.map({ $0.mode != draft.mode }) ?? true {
+        func changed<Value: Equatable>(_ path: KeyPath<GenerationSpec, Value>) -> Bool {
+            previous.map { $0[keyPath: path] != draft[keyPath: path] } ?? true
+        }
+
+        if remembersMode, changed(\.mode) {
             defaults.set(draft.mode.rawValue, forKey: Self.lastModeKey)
         }
-        if remembersEngine, previous.map({ $0.backend != draft.backend }) ?? true {
+        if remembersEngine, changed(\.backend) {
             // Nil is a real choice — it means "whatever suits this mode" — so it
             // is stored as the absence of the key rather than as a value.
             if let backend = draft.backend {
                 defaults.set(backend.rawValue, forKey: Self.lastEngineKey)
             } else {
                 defaults.removeObject(forKey: Self.lastEngineKey)
+            }
+        }
+        if remembersSampling, changed(\.sampling) {
+            var sampling = draft.sampling
+            // A fixed seed is one particular clip, not a way of working — the
+            // same reason `savePreset` drops it from a preset.
+            sampling.seed = nil
+            if let data = try? JSONEncoder().encode(sampling) {
+                defaults.set(data, forKey: Self.lastSamplingKey)
+            }
+        }
+        if remembersOutput, changed(\.format) {
+            if let data = try? JSONEncoder().encode(draft.format) {
+                defaults.set(data, forKey: Self.lastOutputKey)
             }
         }
     }
@@ -138,6 +177,8 @@ final class AppState {
         // Absent means on: remembering is the default, so a fresh install does it.
         self.remembersMode = defaults.object(forKey: Self.remembersModeKey) as? Bool ?? true
         self.remembersEngine = defaults.object(forKey: Self.remembersEngineKey) as? Bool ?? true
+        self.remembersSampling = defaults.object(forKey: Self.remembersSamplingKey) as? Bool ?? true
+        self.remembersOutput = defaults.object(forKey: Self.remembersOutputKey) as? Bool ?? true
 
         // Start on the recommended preset rather than an empty form.
         if let preset = GenerationPreset.builtIns.first {
@@ -154,6 +195,14 @@ final class AppState {
         if remembersEngine {
             draft.backend = defaults.string(forKey: Self.lastEngineKey)
                 .flatMap(BackendID.init(rawValue:))
+        }
+        if remembersSampling, let data = defaults.data(forKey: Self.lastSamplingKey),
+           let sampling = try? JSONDecoder().decode(SamplingSettings.self, from: data) {
+            draft.sampling = sampling
+        }
+        if remembersOutput, let data = defaults.data(forKey: Self.lastOutputKey),
+           let format = try? JSONDecoder().decode(OutputFormat.self, from: data) {
+            draft.format = format
         }
     }
 

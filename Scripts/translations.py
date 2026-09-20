@@ -1641,8 +1641,14 @@ add('settings.remember.engine',
     'Zuletzt verwendete Engine merken',
     'تذكّر المحرّك المستخدم آخر مرة')
 add('settings.remember.note',
-    'Only the mode and the engine. The prompt, the seed and any attached files belong to one render, and always start clear.',
-    '只會記住模式與引擎。提示詞、種子與附加檔案屬於單次算圖，每次都會重新開始。',
-    '只会记住模式与引擎。提示词、种子与附加文件属于单次渲染，每次都会重新开始。',
-    'Nur Modus und Engine. Prompt, Seed und angehängte Dateien gehören zu einem einzelnen Rendering und beginnen immer leer.',
-    'الوضع والمحرّك فقط. أما المطالبة والبذرة والملفات المرفقة فتخصّ تصييرًا واحدًا، وتبدأ فارغة في كل مرة.')
+    'The prompt, the seed and any attached files are never carried over: they belong to one render, and always start clear.',
+    '提示詞、種子與附加檔案永遠不會沿用——它們屬於單次算圖，每次都會重新開始。',
+    '提示词、种子与附加文件永远不会沿用——它们属于单次渲染，每次都会重新开始。',
+    'Prompt, Seed und angehängte Dateien werden nie übernommen: Sie gehören zu einem einzelnen Rendering und beginnen immer leer.',
+    'لا تُنقل أبدًا المطالبة ولا البذرة ولا الملفات المرفقة: فهي تخصّ تصييرًا واحدًا، وتبدأ فارغة في كل مرة.')
+add("settings.remember.sampling", "Remember sampling settings",
+    "記住取樣設定", "记住采样设置",
+    "Sampling-Einstellungen merken", "تذكّر إعدادات المعاينة")
+add("settings.remember.output", "Remember output settings",
+    "記住輸出設定", "记住输出设置",
+    "Ausgabeeinstellungen merken", "تذكّر إعدادات الإخراج")
