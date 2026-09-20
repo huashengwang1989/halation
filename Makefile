@@ -1,4 +1,4 @@
-.PHONY: app dmg run debug clean test lint lint-fix
+.PHONY: app dmg run debug clean test lint lint-fix strings check hooks
 
 app:            ## Build Halation.app (release)
 	@Scripts/make_app.sh release
@@ -17,6 +17,16 @@ clean:
 
 test:
 	@swift build 2>&1 | tail -5
+
+strings:        ## Regenerate the .strings files and the catalogue
+	@python3 Scripts/build_strings.py
+
+check:          ## Verify translations.py, the .strings files and the code agree
+	@python3 Scripts/check_translations.py
+
+hooks:          ## Install the pre-commit hook that runs `make check`
+	@git config core.hooksPath Scripts/hooks
+	@echo "core.hooksPath -> Scripts/hooks"
 
 lint:           ## Run SwiftLint with the project config
 	@swiftlint lint --config .swiftlint.yml --quiet || true

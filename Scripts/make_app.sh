@@ -37,6 +37,21 @@ BUNDLE_ID="${BUNDLE_ID:-com.local.halation}"
 MIN_MACOS="${MIN_MACOS:-26.0}"
 
 cd "$ROOT"
+
+# Verified rather than regenerated. Silently rebuilding the .strings files here
+# would make every local build correct while the files in the commit stayed
+# stale — the drift would survive all the way to whoever cloned the repo.
+# Captured rather than piped: a pipeline takes the exit status of its *last*
+# command, so piping this through grep would report grep's success and let a
+# failing check through silently.
+echo "==> Checking localisations"
+if ! CHECK_OUTPUT="$(python3 "$ROOT/Scripts/check_translations.py")"; then
+  printf '%s\n' "$CHECK_OUTPUT"
+  echo "    run: python3 Scripts/build_strings.py"
+  exit 1
+fi
+printf '  %s\n' "$(printf '%s\n' "$CHECK_OUTPUT" | tail -1)"
+
 echo "==> Building ($CONFIG)"
 swift build -c "$CONFIG"
 

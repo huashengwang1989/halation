@@ -1,0 +1,12 @@
+#!/bin/bash
+# Refuses a commit where the localisation files disagree with translations.py.
+#
+# Install with `make hooks`, which points core.hooksPath here. Bypass a single
+# commit with `git commit --no-verify` if you genuinely need to.
+ROOT="$(git rev-parse --show-toplevel)"
+if ! python3 "$ROOT/Scripts/check_translations.py"; then
+    echo
+    echo "Localisation check failed. Most of the time the fix is:"
+    echo "    python3 Scripts/build_strings.py && git add Sources/Halation/Resources"
+    exit 1
+fi

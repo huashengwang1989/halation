@@ -237,3 +237,33 @@ rename. Run the repo's own file, or relaunch the app first.
 
 The stager copies over the top and does not remove files, so a renamed script
 leaves its predecessor behind until it is deleted by hand.
+
+## Localisations have one source, and it is checked
+
+`Scripts/translations.py` is the only place a string is written. Both the
+`.lproj/Localizable.strings` files the app actually reads and
+`translation-catalog.json` that the Debug inspector reads are generated from it
+by `Scripts/build_strings.py`. Edit the table, then regenerate:
+
+    make strings
+
+`make check` (`Scripts/check_translations.py`) verifies the three stay in
+agreement, and is worth understanding because the failure it prevents is
+invisible. Nothing crashes when they drift: `loc` returns the key itself when it
+is missing, so a button reads `compose.generate`, and a stale `.strings` file
+just serves the previous wording. The app launches and looks fine.
+
+It checks five things: that the generated files match what the table would
+produce right now, that every `loc("key")` in Swift resolves, that every
+language has the same format placeholders as English, that multi-argument
+strings use positional specifiers, and that no key is defined unused. Errors
+fail; warnings print. All five were tested by breaking them deliberately.
+
+Two places run it. `Scripts/make_app.sh` verifies before compiling — it does not
+regenerate, because silently fixing the files locally would leave the drift in
+the commit for whoever clones next. And `make hooks` points `core.hooksPath` at
+`Scripts/hooks`, adding a pre-commit check; `git commit --no-verify` bypasses it.
+
+Note the shell trap this hit twice: a pipeline takes the exit status of its
+*last* command, so `check_translations.py | grep …` reports grep's success and
+lets a failing check through. Capture the output instead.
