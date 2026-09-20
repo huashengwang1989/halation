@@ -658,3 +658,45 @@ While isolating this, note that the whole toolbar lost its glass, not just the
 styled controls. That is the giveaway that the cause is app-wide rather than a
 bad wrapper: a broken `buttonStyle` shim could not have un-glassed a toolbar
 item it never touched.
+
+## The `.icon` format, as actool actually accepts it
+
+Icon Composer's `.icon` package is a directory holding `icon.json` and
+`Assets/`, compiled into `Assets.car` by `actool`. The schema is not documented
+anywhere, so every key in `Scripts/make_icon.sh` was bisected against `actool`
+one at a time. What it rejects is most of what you would guess.
+
+**Groups run front to back.** The first entry in `groups` is the *topmost*
+layer. This is the opposite of `CALayer`, of `CGContext`, and of the order you
+would draw them in yourself, and getting it wrong is silent — the icon builds
+and installs, it just shows the back layer tinting everything in front of it.
+Half a day went into "why is the white core coming out dull orange" before the
+answer turned out to be that the bloom was on top of it the whole time.
+
+Other findings, each verified by a build that failed without it:
+
+- `groups` is mandatory, and each group needs `layers`. A top-level `layers`
+  array is rejected.
+- A colour is the string `"<space>:r,g,b,a"`, e.g. `"srgb:0.09,0.10,0.16,1.0"`.
+- `linear-gradient` takes a **bare array** of those strings.
+  `{"colors": [...]}` is rejected. `"automatic"` and `{"automatic-gradient":
+  "..."}` are both accepted as a `fill`.
+- There is no way to say "no shadow". `"kind": "none"`, `false` and
+  `"opacity": 0` are all rejected. **Omitting the `shadow` key is the only
+  accepted way**, which is why the bloom group has none.
+
+## The layered renderer lights layers by their alpha silhouette
+
+This is the constraint that shapes the artwork, and it is worth knowing before
+drawing anything. macOS 26 derives a group's lighting, shadow and `specular`
+rim from the alpha of its layers. That works for shapes with edges and fails
+for soft glows: a glow crosses any alpha threshold at exactly one radius, so it
+comes back with a thin circle etched around it that no amount of blurring
+removes. Three separate attempts to blur, re-stop and re-reach the gradient all
+failed, because the problem was never the gradient.
+
+The fix is to give the renderer no silhouette to find. `renderBloom` draws the
+ground gradient first and fills the canvas edge to edge, so the backmost layer
+is fully opaque. Costs nothing — there is nothing behind it — and the circle is
+gone. For the same reason the core carries no `specular` and no hand-painted
+highlight: both were soft radial spots, and both got traced.
