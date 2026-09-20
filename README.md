@@ -57,6 +57,52 @@ On first launch the app walks through licence acknowledgement, runtime install a
 model download. The runtime lives in `~/Library/Application Support/Halation` and can
 be rebuilt from Settings › Runtime without touching downloaded weights.
 
+### Distributing a build
+
+```bash
+make dmg
+```
+
+Produces `dist/Halation-<version>.dmg` — the app, an Applications symlink, and a
+window laid out for the drag. A disk image rather than an installer, because there
+is nothing to install: the app builds its own Python runtime on first launch.
+
+An ad-hoc signature opens only on the machine that built it; anywhere else macOS
+claims the app "is damaged", which means unsigned, not corrupt. The Developer ID
+and notarization path is wired up behind two environment variables and documented
+at the top of `Scripts/make_dmg.sh`.
+
+The icon is generated too — `Design/RenderIcon.swift` is the artwork, as code, and
+`Scripts/make_icon.sh` builds both the flat `.icns` and the layered `.icon` that
+macOS 26 lights for itself.
+
+## Translations
+
+`Scripts/translations.py` is the only place a string is written. Both the `.lproj`
+files the app reads and the catalogue the in-app inspector reads are generated from
+it, so **never edit a `.strings` file by hand** — the next build overwrites it.
+
+```bash
+make strings   # regenerate after editing translations.py
+make check     # verify the table, the generated files and the code agree
+make hooks     # install a pre-commit hook that runs the check
+```
+
+`make check` catches the failures that are otherwise invisible: a stale generated
+file, a `loc("key")` with no entry, a translation that dropped a `%@`, and keys
+nothing references. Only English is required for a key — anything missing falls
+back to it, so a new language can be added to `LANGS` and filled in gradually.
+
+With the debug menu enabled, **Debug ▸ Localisations (i18n)** shows every key,
+every translation and the translator notes, searchable and sortable:
+
+```bash
+defaults write -g _NS_4445425547 -bool true
+```
+
+That is AppKit's own debug switch, so it reveals AppKit's Debug menu in every app
+too. Unset it to hide both.
+
 ## The shared models folder
 
 Weights go in **`~/Documents/AI Models`**, created on first run. Inside it,
@@ -139,10 +185,18 @@ Sources/Halation/
   Services/      ModelStore, RuntimeManager, DownloadManager,
                  RenderEngine, VideoPostProcessor, LibraryStore, ProcessRunner
   Views/         Compose, Queue, Library, Models, Settings, Onboarding
+  Views/Debug/   Localisation inspector, gated on the AppKit debug default
+  Resources/
+    translation-catalog.json   generated; read by the debug inspector
   Resources/sidecar/
                  halation_sidecar.py   doctor / probe / download / generate
                  h3_adapter.py         capability detection
                  protocol.py           NDJSON event protocol
+```
+
+```
+Design/          Icon and disk-image artwork, as runnable Swift
+Scripts/         Build, packaging, translation generation and checks
 ```
 
 The sidecar checks the installed pipeline's signature at launch (Settings › Runtime),
