@@ -760,6 +760,14 @@
 
 "settings.recheck" = "重新檢查";
 
+"settings.remember.engine" = "記住上次使用的引擎";
+
+"settings.remember.mode" = "記住上次使用的模式";
+
+"settings.remember.note" = "只會記住模式與引擎。提示詞、種子與附加檔案屬於單次算圖，每次都會重新開始。";
+
+"settings.remember.section" = "編寫";
+
 "settings.repair" = "修復";
 
 /* The Python environment the app manages, not a term of art: TW says 執行環境, mainland 运行时. */

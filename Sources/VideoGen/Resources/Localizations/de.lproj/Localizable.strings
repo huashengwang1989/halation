@@ -760,6 +760,14 @@
 
 "settings.recheck" = "Erneut prüfen";
 
+"settings.remember.engine" = "Zuletzt verwendete Engine merken";
+
+"settings.remember.mode" = "Zuletzt verwendeten Modus merken";
+
+"settings.remember.note" = "Nur Modus und Engine. Prompt, Seed und angehängte Dateien gehören zu einem einzelnen Rendering und beginnen immer leer.";
+
+"settings.remember.section" = "Erstellen";
+
 "settings.repair" = "Reparieren";
 
 /* The Python environment the app manages, not a term of art: TW says 執行環境, mainland 运行时. */

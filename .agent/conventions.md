@@ -207,3 +207,16 @@ Strings assembled by concatenation hide from the usual greps. Watch for `+ " of 
 and similar joins, and for text built only for VoiceOver — `accessibilityValue`,
 `accessibilityLabel`, and the `spoken…` helpers. It is read aloud, so it is
 interface text, and it was the last English left in the app.
+
+## What carries over between launches
+
+Compose remembers the mode and the engine, and nothing else. Those are how
+someone works; the prompt, the seed and any attached files belong to one render
+and always start clear. Both are on by default with switches in Settings for
+anyone who would rather each session start the same way.
+
+`AppState.draft` has a `didSet` that writes them, rather than the views calling
+a save method — a view that forgets to call it is a bug waiting to happen, and
+the draft changes from several places (a preset, a library item, the mode
+picker). Property observers do not run during `init`, so restoring in the
+initialiser does not write straight back.

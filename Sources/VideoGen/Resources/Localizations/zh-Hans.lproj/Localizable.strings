@@ -760,6 +760,14 @@
 
 "settings.recheck" = "重新检查";
 
+"settings.remember.engine" = "记住上次使用的引擎";
+
+"settings.remember.mode" = "记住上次使用的模式";
+
+"settings.remember.note" = "只会记住模式与引擎。提示词、种子与附加文件属于单次渲染，每次都会重新开始。";
+
+"settings.remember.section" = "编写";
+
 "settings.repair" = "修复";
 
 /* The Python environment the app manages, not a term of art: TW says 執行環境, mainland 运行时. */

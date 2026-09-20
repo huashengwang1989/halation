@@ -760,6 +760,14 @@
 
 "settings.recheck" = "Re-check";
 
+"settings.remember.engine" = "Remember the last engine";
+
+"settings.remember.mode" = "Remember the last mode";
+
+"settings.remember.note" = "Only the mode and the engine. The prompt, the seed and any attached files belong to one render, and always start clear.";
+
+"settings.remember.section" = "Compose";
+
 "settings.repair" = "Repair";
 
 /* The Python environment the app manages, not a term of art: TW says 執行環境, mainland 运行时. */

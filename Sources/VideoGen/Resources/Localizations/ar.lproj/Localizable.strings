@@ -760,6 +760,14 @@
 
 "settings.recheck" = "إعادة الفحص";
 
+"settings.remember.engine" = "تذكّر المحرّك المستخدم آخر مرة";
+
+"settings.remember.mode" = "تذكّر الوضع المستخدم آخر مرة";
+
+"settings.remember.note" = "الوضع والمحرّك فقط. أما المطالبة والبذرة والملفات المرفقة فتخصّ تصييرًا واحدًا، وتبدأ فارغة في كل مرة.";
+
+"settings.remember.section" = "الإنشاء";
+
 "settings.repair" = "إصلاح";
 
 /* The Python environment the app manages, not a term of art: TW says 執行環境, mainland 运行时. */

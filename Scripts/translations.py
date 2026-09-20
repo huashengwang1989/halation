@@ -1620,3 +1620,29 @@ add('onboarding.spaceTight',
     '把渲染所需的临时空间算进来后，可用空间可能不足。',
     'Zusammen mit dem temporären Speicher fürs Rendern könnte der freie Platz nicht reichen.',
     'قد لا تكفي المساحة الحرة بعد احتساب المساحة المؤقتة اللازمة للتصيير.')
+
+# ── Settings: what Compose carries over ──────────────────────────────────────
+add('settings.remember.section',
+    'Compose',
+    '編寫',
+    '编写',
+    'Erstellen',
+    'الإنشاء')
+add('settings.remember.mode',
+    'Remember the last mode',
+    '記住上次使用的模式',
+    '记住上次使用的模式',
+    'Zuletzt verwendeten Modus merken',
+    'تذكّر الوضع المستخدم آخر مرة')
+add('settings.remember.engine',
+    'Remember the last engine',
+    '記住上次使用的引擎',
+    '记住上次使用的引擎',
+    'Zuletzt verwendete Engine merken',
+    'تذكّر المحرّك المستخدم آخر مرة')
+add('settings.remember.note',
+    'Only the mode and the engine. The prompt, the seed and any attached files belong to one render, and always start clear.',
+    '只會記住模式與引擎。提示詞、種子與附加檔案屬於單次算圖，每次都會重新開始。',
+    '只会记住模式与引擎。提示词、种子与附加文件属于单次渲染，每次都会重新开始。',
+    'Nur Modus und Engine. Prompt, Seed und angehängte Dateien gehören zu einem einzelnen Rendering und beginnen immer leer.',
+    'الوضع والمحرّك فقط. أما المطالبة والبذرة والملفات المرفقة فتخصّ تصييرًا واحدًا، وتبدأ فارغة في كل مرة.')

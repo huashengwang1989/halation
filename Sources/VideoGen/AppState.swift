@@ -40,7 +40,13 @@ final class AppState {
 
     var section: Section = .compose
     /// The spec currently being edited in Compose.
-    var draft = GenerationSpec()
+    ///
+    /// The observer keeps the mode and engine across launches. Only those two:
+    /// the prompt, the seed and the attached files belong to one particular
+    /// render, while the mode and the engine are how someone works.
+    var draft = GenerationSpec() {
+        didSet { rememberDraftChoices(replacing: oldValue) }
+    }
     var showingOnboarding = false
     /// Incremented when the user asks why Generate is unavailable. The summary
     /// observes it to scroll to and flash the blocking-issues card.
@@ -70,6 +76,51 @@ final class AppState {
         didSet { UserDefaults.standard.set(licenseAcknowledged, forKey: "licenseAcknowledged") }
     }
 
+    /// Whether Compose opens on the mode and engine last used.
+    ///
+    /// On by default, because carrying on where you left off is what people
+    /// expect; the switches in Settings are for anyone who would rather each
+    /// session start from the same place.
+    var remembersMode: Bool {
+        didSet {
+            UserDefaults.standard.set(remembersMode, forKey: Self.remembersModeKey)
+            if remembersMode { rememberDraftChoices(replacing: nil) }
+        }
+    }
+
+    var remembersEngine: Bool {
+        didSet {
+            UserDefaults.standard.set(remembersEngine, forKey: Self.remembersEngineKey)
+            if remembersEngine { rememberDraftChoices(replacing: nil) }
+        }
+    }
+
+    private static let remembersModeKey = "remembersMode"
+    private static let remembersEngineKey = "remembersEngine"
+    private static let lastModeKey = "lastComposeMode"
+    private static let lastEngineKey = "lastComposeEngine"
+
+    /// Writes the mode and engine, when they have changed and are being kept.
+    ///
+    /// `replacing: nil` means "write them regardless", which is what turning a
+    /// switch back on should do — otherwise the choice on screen would not be
+    /// recorded until it was next changed.
+    private func rememberDraftChoices(replacing previous: GenerationSpec?) {
+        let defaults = UserDefaults.standard
+        if remembersMode, previous.map({ $0.mode != draft.mode }) ?? true {
+            defaults.set(draft.mode.rawValue, forKey: Self.lastModeKey)
+        }
+        if remembersEngine, previous.map({ $0.backend != draft.backend }) ?? true {
+            // Nil is a real choice — it means "whatever suits this mode" — so it
+            // is stored as the absence of the key rather than as a value.
+            if let backend = draft.backend {
+                defaults.set(backend.rawValue, forKey: Self.lastEngineKey)
+            } else {
+                defaults.removeObject(forKey: Self.lastEngineKey)
+            }
+        }
+    }
+
     init() {
         let modelStore = ModelStore()
         let runtime = RuntimeManager(modelStore: modelStore)
@@ -82,11 +133,27 @@ final class AppState {
         self.downloads = DownloadManager(runtime: runtime, modelStore: modelStore)
         self.engine = RenderEngine(runtime: runtime, comfyRuntime: comfyRuntime,
                                    modelStore: modelStore, library: library)
-        self.licenseAcknowledged = UserDefaults.standard.bool(forKey: "licenseAcknowledged")
+        let defaults = UserDefaults.standard
+        self.licenseAcknowledged = defaults.bool(forKey: "licenseAcknowledged")
+        // Absent means on: remembering is the default, so a fresh install does it.
+        self.remembersMode = defaults.object(forKey: Self.remembersModeKey) as? Bool ?? true
+        self.remembersEngine = defaults.object(forKey: Self.remembersEngineKey) as? Bool ?? true
 
         // Start on the recommended preset rather than an empty form.
         if let preset = GenerationPreset.builtIns.first {
             draft = preset.spec
+        }
+
+        // Then put back however the user last left it. Property observers do not
+        // run during init, so nothing is written back here.
+        if remembersMode,
+           let raw = defaults.string(forKey: Self.lastModeKey),
+           let mode = GenerationMode(rawValue: raw) {
+            draft.mode = mode
+        }
+        if remembersEngine {
+            draft.backend = defaults.string(forKey: Self.lastEngineKey)
+                .flatMap(BackendID.init(rawValue:))
         }
     }
 

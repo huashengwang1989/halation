@@ -71,6 +71,16 @@ private struct GeneralSettings: View {
                 LanguagePicker()
             }
 
+            Section(loc("settings.remember.section")) {
+                @Bindable var app = app
+                Toggle(loc("settings.remember.mode"), isOn: $app.remembersMode)
+                Toggle(loc("settings.remember.engine"), isOn: $app.remembersEngine)
+                Text(loc("settings.remember.note"))
+                    .font(.caption)
+                    .foregroundStyle(.secondary)
+                    .fixedSize(horizontal: false, vertical: true)
+            }
+
             Section(loc("settings.folders")) {
                 LabeledContent(loc("settings.folder.models")) {
                     HStack {
