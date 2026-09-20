@@ -570,3 +570,60 @@ cancelled, so once a download finished, pressing Download for that entry did
 nothing for the rest of the session — even after the file was deleted. Reaching
 that branch already means the file is *not* installed, so any transfer that is
 no longer running is stale by definition; all terminal states now restart.
+
+## What the app needs from macOS
+
+Measured by lowering `platforms:` in `Package.swift` and reading the compiler's
+availability errors, which is authoritative in a way that reading the source is
+not.
+
+**Nothing requires macOS 27.** The package declares `.macOS(.v26)` and builds
+clean; Swift's availability checking would reject a 27-only API against that
+deployment target, so the clean build *is* the proof.
+
+**Exactly five APIs require macOS 26**, at 20 call sites across 12 view files,
+and every one of them is cosmetic:
+
+| API | sites | where |
+|---|---|---|
+| `.buttonStyle(.glassProminent)` | 9 | Compose, Library, Models, Onboarding, PresetNamer, QueueLogSheet, Queue |
+| `.scrollEdgeEffectStyle(_:for:)` | 4 | ComposeSummary, Compose, Library, Models |
+| `.glassEffect(_:in:)` | 3 | GlassCard, Library, Queue |
+| `ToolbarSpacer` | 3 | Compose, Models, Root |
+| `.buttonStyle(.glass)` | 1 | ComposeCards |
+
+Nothing else in the codebase is newer than **macOS 15.0**. Set the deployment
+target to `.v15` and the compiler reports those five and nothing else — no
+15.1-or-later API, nothing in between. So Sequoia is the true floor once they
+are shimmed, and the work is five `@available` helpers plus a mechanical
+substitution, not an architectural change:
+
+```swift
+extension View {
+    @ViewBuilder func glassy(in shape: some Shape) -> some View {
+        if #available(macOS 26, *) { glassEffect(.regular, in: shape) }
+        else { background(.regularMaterial, in: shape) }
+    }
+}
+```
+
+`LSMinimumSystemVersion` in `Scripts/make_app.sh` and `platforms:` in
+`Package.swift` both have to move together; they are the two places the floor is
+stated.
+
+Caveat: this is a compile-time result. It says the code *builds* for Sequoia,
+not that it *behaves* there. `TabBarFocusRingSuppressor` walks the window's
+chrome, and the right-to-left switch depends on `AppleTextDirection` — neither
+is verifiable without a machine running it.
+
+### Method
+
+```bash
+sed -i '' 's/\.macOS(\.v26)/.macOS(.v15)/' Package.swift
+swift build -c debug --scratch-path /tmp/b15 -Xswiftc -continue-building-after-errors
+```
+
+A separate scratch path and `-continue-building-after-errors` both matter: the
+ordinary build stops at the first failing file and reports a fraction of the
+truth. Per-file `swiftc -typecheck` is worse — it aborts on the unresolved
+cross-file references before it reaches the view bodies.
