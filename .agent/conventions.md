@@ -202,3 +202,8 @@ before the sizes, where it will be read.
 Do not rebuild a row out of the pieces. That is how the Compose side ended up
 showing a bare format name while the Models page showed a full identity, for
 entries where several share a format.
+
+Strings assembled by concatenation hide from the usual greps. Watch for `+ " of "`
+and similar joins, and for text built only for VoiceOver — `accessibilityValue`,
+`accessibilityLabel`, and the `spoken…` helpers. It is read aloud, so it is
+interface text, and it was the last English left in the app.

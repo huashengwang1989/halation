@@ -213,7 +213,7 @@ private struct TransfersCard: View {
                                     .foregroundStyle(.secondary)
                                     .accessibilityLabel(loc("state.cancelled"))
                             default:
-                                Button("Cancel", systemImage: "xmark") {
+                                Button(loc("common.cancel"), systemImage: "xmark") {
                                     app.downloads.cancel(transfer.id)
                                 }
                                 .buttonStyle(.plain)
@@ -238,9 +238,11 @@ private struct TransfersCard: View {
                                     .progressViewStyle(.linear)
                                     .accessibilityLabel(loc("models.progress"))
                                     .accessibilityValue(
-                                        "\(Int(transfer.fraction * 100)) percent, "
-                                        + "\(Format.bytes(transfer.completedBytes)) of "
-                                        + Format.bytes(transfer.totalBytes))
+                                        loc("a11y.percent", "\(Int(transfer.fraction * 100))")
+                                        + ", "
+                                        + loc("format.ofTotal",
+                                              Format.bytes(transfer.completedBytes),
+                                              Format.bytes(transfer.totalBytes)))
                             }
                             HStack(spacing: 4) {
                                 if transfer.isFinalising {
@@ -249,8 +251,9 @@ private struct TransfersCard: View {
                                 if transfer.completedBytes == 0 {
                                     Text(loc("models.download.starting"))
                                 } else {
-                                    Text("\(Format.bytes(transfer.completedBytes)) of "
-                                         + Format.bytes(transfer.totalBytes))
+                                    Text(loc("format.ofTotal",
+                                             Format.bytes(transfer.completedBytes),
+                                             Format.bytes(transfer.totalBytes)))
                                     if let note = transfer.currentFile {
                                         Text("· \(note)").lineLimit(1).truncationMode(.middle)
                                     }

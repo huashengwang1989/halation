@@ -241,7 +241,7 @@ struct OnboardingView: View {
             }
 
             if !app.modelStore.canAccommodate(ModelCatalog.recommendedBundle) {
-                Label("There may not be enough free space once scratch space for rendering is taken into account.",
+                Label(loc("onboarding.spaceTight"),
                       systemImage: "externaldrive.badge.exclamationmark")
                     .font(.callout)
                     .foregroundStyle(.orange)

@@ -163,13 +163,13 @@ struct StatusBar: View {
         var parts = [statusText]
         if let job = app.engine.activeJob {
             parts.append(job.title)
-            parts.append("\(Int(job.overallProgress * 100)) percent")
+            parts.append(loc("a11y.percent", "\(Int(job.overallProgress * 100))"))
             if let remaining = job.estimatedRemaining {
-                parts.append("about \(Format.duration(remaining)) remaining")
+                parts.append(loc("a11y.remaining", Format.duration(remaining)))
             }
         }
         if let bytes = app.engine.activeMemoryBytes {
-            parts.append("using \(Self.memoryText(bytes))")
+            parts.append(loc("a11y.usingMemory", Self.memoryText(bytes)))
         }
         return parts.joined(separator: ", ")
     }

@@ -1554,3 +1554,69 @@ add("models.download.starting", "Starting transfer\u2026", "正在開始傳輸�
     "\u00dcbertragung wird gestartet\u2026", "\u062c\u0627\u0631\u064d \u0628\u062f\u0621 \u0627\u0644\u0646\u0642\u0644\u2026")
 add("models.downloading", "Downloading\u2026", "下載中…", "下载中…",
     "Wird geladen\u2026", "\u062c\u0627\u0631\u064d \u0627\u0644\u062a\u0646\u0632\u064a\u0644\u2026")
+
+# ── Spoken and compact progress text ─────────────────────────────────────────
+# The a11y.* keys are read aloud by VoiceOver, so they are translated even
+# though they never appear on screen.
+add('format.ofTotal',
+    '%1$@ of %2$@',
+    '已下載 %1$@，共 %2$@',
+    '已下载 %1$@，共 %2$@',
+    '%1$@ von %2$@',
+    '%1$@ من %2$@')
+add('a11y.percent',
+    '%@ percent',
+    '%@%%',
+    '%@%%',
+    '%@ Prozent',
+    '%@ بالمئة')
+add('a11y.elapsed',
+    'elapsed %@',
+    '已用 %@',
+    '已用 %@',
+    '%@ vergangen',
+    'انقضى %@')
+add('a11y.remaining',
+    'about %@ remaining',
+    '約剩 %@',
+    '约剩 %@',
+    'noch etwa %@',
+    'يتبقى نحو %@')
+add('a11y.usingMemory',
+    'using %@',
+    '佔用 %@',
+    '占用 %@',
+    'belegt %@',
+    'يستخدم %@')
+add('queue.a11y.held',
+    'held',
+    '已暫停',
+    '已暂停',
+    'angehalten',
+    'مُعلَّق')
+add('library.empty.detail',
+    'Finished renders are saved to %@, each with a JSON file recording the exact settings that produced it.',
+    '完成的算圖會存到 %@，每支影片都附一個 JSON 檔，記下產生它的完整設定。',
+    '完成的渲染会保存到 %@，每个视频都附一个 JSON 文件，记录生成它的完整设置。',
+    'Fertige Renderings werden unter %@ gesichert, jeweils mit einer JSON-Datei, die die genauen Einstellungen festhält.',
+    'تُحفظ عمليات التصيير المنجزة في %@، مع ملف JSON لكل منها يسجّل الإعدادات التي أنتجته بالضبط.')
+
+# ── Remaining engine and onboarding messages ─────────────────────────────────
+add('mlx.runtimeNotReady',
+    'The Python runtime is not ready. Open Settings › Runtime.',
+    'Python 執行環境尚未就緒。請開啟「設定 › 執行環境」。',
+    'Python 运行时尚未就绪。请打开“设置 › 运行时”。',
+    'Die Python-Umgebung ist nicht bereit. Öffnen Sie „Einstellungen › Laufzeitumgebung“.',
+    '\u200fبيئة Python غير جاهزة. افتح «الإعدادات › بيئة التشغيل».')
+add('mlx.checkpointMissing',
+    'The selected checkpoint is not installed.',
+    '所選的檢查點尚未安裝。',
+    '所选的检查点尚未安装。',
+    'Der gewählte Checkpoint ist nicht installiert.',
+    'نقطة التحقّق المختارة غير مثبَّتة.')
+add('onboarding.spaceTight',
+    'There may not be enough free space once scratch space for rendering is taken into account.',
+    '把算圖所需的暫存空間算進來後，可用空間可能不足。',
+    '把渲染所需的临时空间算进来后，可用空间可能不足。',
+    'Zusammen mit dem temporären Speicher fürs Rendern könnte der freie Platz nicht reichen.',
+    'قد لا تكفي المساحة الحرة بعد احتساب المساحة المؤقتة اللازمة للتصيير.')

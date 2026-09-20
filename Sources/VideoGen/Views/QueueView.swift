@@ -311,15 +311,15 @@ private struct JobRow: View {
 
     private var spokenState: String {
         var parts = [job.spec.mode.label, job.activityDescription]
-        if job.isHeld, job.state == .queued { parts.append("held") }
+        if job.isHeld, job.state == .queued { parts.append(loc("queue.a11y.held")) }
         if job.state.isActive {
-            parts.append("\(Int(job.overallProgress * 100)) percent")
+            parts.append(loc("a11y.percent", "\(Int(job.overallProgress * 100))"))
             if job.totalSteps > 0 {
                 parts.append(loc("queue.step", "\(job.completedSteps)", "\(job.totalSteps)"))
             }
-            parts.append("elapsed \(Format.duration(job.elapsed))")
+            parts.append(loc("a11y.elapsed", Format.duration(job.elapsed)))
             if let remaining = job.estimatedRemaining {
-                parts.append("about \(Format.duration(remaining)) remaining")
+                parts.append(loc("a11y.remaining", Format.duration(remaining)))
             }
         }
         if let message = job.failureMessage { parts.append(message) }

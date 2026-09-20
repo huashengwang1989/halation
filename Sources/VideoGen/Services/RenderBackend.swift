@@ -80,11 +80,11 @@ actor MLXBackend: RenderBackend {
 
     @MainActor func unavailableReason(for spec: GenerationSpec) -> String? {
         guard runtime.phase.isReady else {
-            return "The Python runtime is not ready. Open Settings › Runtime."
+            return loc("mlx.runtimeNotReady")
         }
         guard let id = spec.transformerEntryID, let entry = ModelCatalog.entry(id: id),
               modelStore.isInstalled(entry) else {
-            return "The selected checkpoint is not installed."
+            return loc("mlx.checkpointMissing")
         }
         return nil
     }
