@@ -226,3 +226,14 @@ a save method — a view that forgets to call it is a bug waiting to happen, and
 the draft changes from several places (a preset, a library item, the mode
 picker). Property observers do not run during `init`, so restoring in the
 initialiser does not write straight back.
+
+## The staged sidecar goes stale
+
+The app copies `Sources/Halation/Resources/sidecar` into
+`Application Support/Halation/sidecar` at launch. Testing against that staged
+copy tests whatever was current the last time the app started, not what is in
+the repo — which reads as a puzzling failure when the change under test is a
+rename. Run the repo's own file, or relaunch the app first.
+
+The stager copies over the top and does not remove files, so a renamed script
+leaves its predecessor behind until it is deleted by hand.

@@ -74,7 +74,7 @@ def _signature_kwargs(func) -> List[str]:
 
 
 def detect() -> Capabilities:
-    caps = Capabilities(checkout_path=os.environ.get("VIDEOGEN_H3_REPO"))
+    caps = Capabilities(checkout_path=os.environ.get("HALATION_H3_REPO"))
 
     try:
         module = importlib.import_module(PIPELINE_MODULE)
@@ -112,7 +112,7 @@ def detect() -> Capabilities:
 
 def ffmpeg_path() -> Optional[str]:
     """The port pipes raw frames into ffmpeg, so it must be on PATH to write video."""
-    override = os.environ.get("VIDEOGEN_FFMPEG")
+    override = os.environ.get("HALATION_FFMPEG")
     if override and Path(override).is_file():
         return override
     for candidate in ("ffmpeg", "/opt/homebrew/bin/ffmpeg", "/usr/local/bin/ffmpeg"):

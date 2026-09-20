@@ -98,9 +98,9 @@ final class RuntimeManager {
             "TOKENIZERS_PARALLELISM": "false",
             // The port is a checkout, not an installed package.
             "PYTHONPATH": portURL.path,
-            "VIDEOGEN_H3_REPO": portURL.path,
+            "HALATION_H3_REPO": portURL.path,
         ]
-        if let ffmpeg = Self.locateFFmpeg() { env["VIDEOGEN_FFMPEG"] = ffmpeg }
+        if let ffmpeg = Self.locateFFmpeg() { env["HALATION_FFMPEG"] = ffmpeg }
         // The port shells out to ffmpeg by name, so its directory must be on PATH.
         let path = ProcessInfo.processInfo.environment["PATH"] ?? "/usr/bin:/bin"
         env["PATH"] = "/opt/homebrew/bin:/usr/local/bin:" + path
