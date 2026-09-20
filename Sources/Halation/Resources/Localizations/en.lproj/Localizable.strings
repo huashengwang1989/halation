@@ -818,11 +818,17 @@
 
 "status.ready" = "Ready";
 
+/* Estimated time still to run. The duration is already localized. */
+"status.remaining" = "%@ left";
+
 "status.runtime.error" = "Runtime error";
 
 "status.runtime.incomplete" = "Runtime incomplete";
 
 "status.runtime.missing" = "Runtime not installed";
+
+/* Progress through the sampler's steps, shown in the status bar during a render. Lower-case in English because it sits inside a sentence fragment. */
+"status.step" = "step %@/%@";
 
 "summary.bitrate" = "Target bitrate";
 

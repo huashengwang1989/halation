@@ -108,10 +108,17 @@ struct RenderJob: Codable, Sendable, Identifiable, Hashable {
         return state.label
     }
 
+    /// The whole prompt, not a prefix of it.
+    ///
+    /// This used to cut at 70 characters, which put the truncation in the model
+    /// where no view could undo it: the queue row and the log sheet both showed
+    /// a prompt that stopped mid-word with no ellipsis to say why. Where a
+    /// prompt is too long for the space it is shown in is a layout question, so
+    /// each view answers it with `lineLimit`.
     var title: String {
         let trimmed = spec.prompt.trimmingCharacters(in: .whitespacesAndNewlines)
         guard !trimmed.isEmpty else { return loc("queue.untitled") }
-        return String(trimmed.prefix(70))
+        return trimmed
     }
 
     var elapsed: TimeInterval? {

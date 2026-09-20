@@ -37,6 +37,12 @@ add("status.runtime.missing", "Runtime not installed", "尚未安裝執行環境
 add("status.queued.count", "%@ queued", "佇列中 %@", "队列中 %@",
     "%@ in Warteschlange", "%@ في قائمة الانتظار")
 add("status.label", "Status", "狀態", "状态", "Status", "الحالة")
+add("status.step", "step %@/%@", "步驟 %@/%@", "步骤 %@/%@", "Schritt %@/%@",
+    "الخطوة %@/%@",
+    "Progress through the sampler's steps, shown in the status bar during a "
+    "render. Lower-case in English because it sits inside a sentence fragment.")
+add("status.remaining", "%@ left", "剩餘 %@", "剩余 %@", "noch %@", "%@ متبقٍ",
+    "Estimated time still to run. The duration is already localized.")
 add("status.memory.help",
     "Resident memory of the render process, and its share of this Mac's %@",
     "算圖程序佔用的實體記憶體，以及在本機 %@ 中的佔比",

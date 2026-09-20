@@ -818,11 +818,17 @@
 
 "status.ready" = "جاهز";
 
+/* Estimated time still to run. The duration is already localized. */
+"status.remaining" = "%@ متبقٍ";
+
 "status.runtime.error" = "خطأ في بيئة التشغيل";
 
 "status.runtime.incomplete" = "بيئة التشغيل غير مكتملة";
 
 "status.runtime.missing" = "بيئة التشغيل غير مثبتة";
+
+/* Progress through the sampler's steps, shown in the status bar during a render. Lower-case in English because it sits inside a sentence fragment. */
+"status.step" = "الخطوة %@/%@";
 
 "summary.bitrate" = "معدل البت المستهدف";
 

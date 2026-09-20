@@ -125,9 +125,12 @@ private struct JobRow: View {
                 .accessibilityHidden(true)
 
             VStack(alignment: .leading, spacing: 5) {
+                // The whole prompt, wrapped. It is the one thing that tells two
+                // queued jobs apart, so it is worth the rows being uneven.
                 Text(job.title)
-                    .lineLimit(2)
                     .font(.body)
+                    .fixedSize(horizontal: false, vertical: true)
+                    .textSelection(.enabled)
 
                 specLine
 

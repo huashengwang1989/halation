@@ -818,11 +818,17 @@
 
 "status.ready" = "就绪";
 
+/* Estimated time still to run. The duration is already localized. */
+"status.remaining" = "剩余 %@";
+
 "status.runtime.error" = "运行环境错误";
 
 "status.runtime.incomplete" = "运行环境不完整";
 
 "status.runtime.missing" = "尚未安装运行环境";
+
+/* Progress through the sampler's steps, shown in the status bar during a render. Lower-case in English because it sits inside a sentence fragment. */
+"status.step" = "步骤 %@/%@";
 
 "summary.bitrate" = "目标码率";
 

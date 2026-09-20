@@ -68,10 +68,12 @@ struct StatusBar: View {
 
     @ViewBuilder
     private func activity(for job: RenderJob) -> some View {
+        // Two lines at most, and tail truncation so the ellipsis lands where a
+        // reader stops rather than in the middle of the phrase.
         Text(job.title)
             .font(.caption)
-            .lineLimit(1)
-            .truncationMode(.middle)
+            .lineLimit(2)
+            .truncationMode(.tail)
             .frame(maxWidth: 220, alignment: .leading)
 
         // Indeterminate while loading: a bar at 1% reads as stuck, and weights
@@ -97,10 +99,10 @@ struct StatusBar: View {
     private func detail(for job: RenderJob) -> String {
         var parts: [String] = []
         if job.totalSteps > 0 {
-            parts.append("step \(job.completedSteps)/\(job.totalSteps)")
+            parts.append(loc("status.step", "\(job.completedSteps)", "\(job.totalSteps)"))
         }
         if let remaining = job.estimatedRemaining {
-            parts.append("\(Format.duration(remaining)) left")
+            parts.append(loc("status.remaining", Format.duration(remaining)))
         } else if let elapsed = job.elapsed {
             parts.append(Format.duration(elapsed))
         }

@@ -19,7 +19,8 @@ struct LogSheet: View {
                         Text(job.title)
                             .font(.caption)
                             .foregroundStyle(.secondary)
-                            .lineLimit(1)
+                            .fixedSize(horizontal: false, vertical: true)
+                            .textSelection(.enabled)
                     }
                 }
                 Spacer()
