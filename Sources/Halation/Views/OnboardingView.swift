@@ -42,7 +42,7 @@ struct OnboardingView: View {
                     // Escape leaves the dialog, as it does in every macOS sheet.
                     .keyboardShortcut(.cancelAction)
                 Button(primaryLabel) { advance() }
-                    .buttonStyle(.glassProminent)
+                    .prominentButtonStyle()
                     .disabled(!canAdvance)
                     .focused($primaryFocused)
                     // Return drives the flow forward. This works whether or not the

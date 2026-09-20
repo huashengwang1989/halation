@@ -245,7 +245,7 @@ struct PresetMenu: View {
         // renders it as a circle; we want a labelled, rounded control.
         .labelStyle(.titleAndIcon)
         .menuStyle(.button)
-        .buttonStyle(.glass)
+        .raisedButtonStyle()
         .fixedSize()
         .help(loc("compose.presets.help"))
         .overlay {

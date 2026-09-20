@@ -58,7 +58,7 @@ struct ModelsView: View {
             }
             .padding(20)
         }
-        .scrollEdgeEffectStyle(.soft, for: .top)
+        .softScrollEdge(for: .top)
         .confirmationDialog(loc("models.installRecommended.title"),
                             isPresented: $confirmingInstall, titleVisibility: .visible) {
             Button(loc("models.downloadAmount", Format.bytes(pendingRecommendedBytes))) {
@@ -82,7 +82,7 @@ struct ModelsView: View {
                 .help(loc("models.rescan.help"))
             }
 
-            ToolbarSpacer(.fixed)
+            toolbarGap()
 
             ToolbarItem {
                 // Hidden once there is nothing left to install, rather than sitting
@@ -92,7 +92,7 @@ struct ModelsView: View {
                         confirmingInstall = true
                     }
                     .labelStyle(.titleAndIcon)
-                    .buttonStyle(.glassProminent)
+                    .prominentButtonStyle()
                 }
             }
         }

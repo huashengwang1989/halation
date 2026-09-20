@@ -28,7 +28,7 @@ struct ComposeView: View {
             ToolbarItem(placement: .primaryAction) {
                 PresetMenu()
             }
-            ToolbarSpacer(.fixed, placement: .primaryAction)
+            toolbarGap(.primaryAction)
             ToolbarItem(placement: .primaryAction) {
                 if !app.canGenerate {
                     Button {
@@ -50,7 +50,7 @@ struct ComposeView: View {
                     Label(loc("compose.generate"), systemImage: "sparkles")
                 }
                 .labelStyle(.titleAndIcon)
-                .buttonStyle(.glassProminent)
+                .prominentButtonStyle()
                 .disabled(!app.canGenerate)
                 .keyboardShortcut(.return, modifiers: .command)
                 .help(app.canGenerate ? loc("compose.generate.help.ready") : blockingSummary)
@@ -115,7 +115,7 @@ struct ComposeView: View {
                     .padding(20)
                     .frame(width: max(available, formContentMinWidth), alignment: .leading)
             }
-            .scrollEdgeEffectStyle(.soft, for: .top)
+            .softScrollEdge(for: .top)
         }
     }
 

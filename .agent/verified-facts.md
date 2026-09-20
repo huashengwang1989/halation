@@ -627,3 +627,34 @@ A separate scratch path and `-continue-building-after-errors` both matter: the
 ordinary build stops at the first failing file and reports a fraction of the
 truth. Per-file `swiftc -typecheck` is worse — it aborts on the unresolved
 cross-file references before it reaches the view bodies.
+
+### Reaching back to Sequoia costs Liquid Glass everywhere
+
+The five macOS 26 APIs are now behind `Views/Components/LiquidGlass.swift`, so
+lowering the deployment target is a one-line change rather than a port. But the
+deployment target is also what opts an app into the new design language, and
+that is decided by the **`minos` in the binary's `LC_BUILD_VERSION`** — not by
+`LSMinimumSystemVersion`, and not by which branch the `#available` checks take.
+
+Measured on macOS 27, photographing the same toolbar four times:
+
+| shims | `minos` | plist | result |
+|---|---|---|---|
+| none (committed baseline) | 26.0 | 26.0 | full Liquid Glass |
+| all | 26.0 | 26.0 | **pixel-identical to baseline** |
+| all | 15.0 | 15.0 | legacy appearance throughout |
+| all | 15.0 | **26.0** | legacy appearance throughout |
+
+The last row is the one that settles it: the Info.plist string is irrelevant to
+the appearance, so there is no combination that gets both. An app that can
+launch on Sequoia renders pre-26 on every system, including 27.
+
+So the shims are correct — row two proves they change nothing on a modern
+system — and the version is a build-time choice the packager makes, not a
+compromise baked into the source. `UIDesignRequiresCompatibility` does not help;
+it opts *out* of the new design, and there is no opt-*in* for a lower target.
+
+While isolating this, note that the whole toolbar lost its glass, not just the
+styled controls. That is the giveaway that the cause is app-wide rather than a
+bad wrapper: a broken `buttonStyle` shim could not have un-glassed a toolbar
+item it never touched.

@@ -60,7 +60,7 @@ struct RootView: View {
                     .help(isSidebarShowing ? loc("sidebar.hide") : loc("sidebar.show"))
                     .keyboardShortcut("s", modifiers: [.command, .control])
                 }
-                ToolbarSpacer(.fixed, placement: .navigation)
+                toolbarGap(.navigation)
             }
         }
         .safeAreaInset(edge: .bottom, spacing: 0) { StatusBar() }

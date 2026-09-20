@@ -29,7 +29,7 @@ struct LogSheet: View {
                 }
                 .disabled(lines.isEmpty)
                 Button(loc("common.done")) { dismiss() }
-                    .buttonStyle(.glassProminent)
+                    .prominentButtonStyle()
                     .keyboardShortcut(.defaultAction)
             }
             .padding()

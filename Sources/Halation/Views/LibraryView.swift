@@ -29,7 +29,7 @@ struct LibraryView: View {
                              app.library.outputFolder.path(percentEncoded: false)))
                 } actions: {
                     Button(loc("queue.goCompose")) { app.section = .compose }
-                        .buttonStyle(.glassProminent)
+                        .prominentButtonStyle()
                 }
             } else {
                 HStack(spacing: 0) {
@@ -54,7 +54,7 @@ struct LibraryView: View {
                         }
                         .padding(18)
                     }
-                    .scrollEdgeEffectStyle(.soft, for: .top)
+                    .softScrollEdge(for: .top)
                     .frame(maxWidth: .infinity)
 
                     // The inspector appears when something is selected and stays
@@ -143,7 +143,7 @@ private struct LibraryTile: View {
                     .font(.caption2.weight(.semibold))
                     .padding(.horizontal, 6)
                     .padding(.vertical, 2)
-                    .glassEffect(.regular, in: .capsule)
+                    .glassSurface(in: .capsule)
                     .padding(6)
             }
 
@@ -238,7 +238,7 @@ private struct LibraryDetail: View {
                         _ = app.engine.enqueue(spec)
                         app.section = .queue
                     }
-                    .buttonStyle(.glassProminent)
+                    .prominentButtonStyle()
                     .disabled(item.seed == nil)
 
                     Button(loc("library.useSettings"), systemImage: "arrow.uturn.backward") {

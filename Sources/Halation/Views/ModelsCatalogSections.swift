@@ -181,7 +181,7 @@ struct EntryRow: View {
                     // Download button is the only thing worth offering.
                     if isSelectable {
                         Button(isSelected ? loc("models.selected") : loc("models.use")) { select() }
-                            .buttonStyle(.glassProminent)
+                            .prominentButtonStyle()
                             .disabled(isSelected || !entry.isUsableHere)
                             .help(selectionHelp)
                     }

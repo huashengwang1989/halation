@@ -34,7 +34,12 @@ H3 conditions on. The 4-bit transformer is 26 GB and the VAEs 12 GB.
 ## Requirements
 
 - Apple silicon Mac. 64 GB unified memory is the practical floor; 128 GB is comfortable.
-- macOS 26 or later (the UI uses Liquid Glass).
+- macOS 26 or later by default. It **builds and runs on Sequoia (15)** — change
+  `platforms: [.macOS(.v26)]` in `Package.swift` and `LSMinimumSystemVersion` in
+  `Scripts/make_app.sh` to 15, and every macOS 26 API falls back on its own (see
+  `Views/Components/LiquidGlass.swift`). The catch is that the deployment target
+  is what opts an app into Liquid Glass, so a build that reaches back to 15 wears
+  the pre-26 look *everywhere*, including on 26 and 27. Hence the default.
 - ~130 GB free disk.
 - `ffmpeg` — `brew install ffmpeg`. The port pipes raw frames into it.
 - Xcode 26+ toolchain to build.

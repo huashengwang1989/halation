@@ -64,7 +64,7 @@ struct PresetNamer: View {
                 .keyboardShortcut(.cancelAction)
 
                 Button(loc("common.save")) { save() }
-                    .buttonStyle(.glassProminent)
+                    .prominentButtonStyle()
                     .keyboardShortcut(.defaultAction)
                     .disabled(!canSave)
             }

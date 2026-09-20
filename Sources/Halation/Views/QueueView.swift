@@ -14,7 +14,7 @@ struct QueueView: View {
                     Text(loc("queue.empty.detail"))
                 } actions: {
                     Button(loc("queue.goCompose")) { app.section = .compose }
-                        .buttonStyle(.glassProminent)
+                        .prominentButtonStyle()
                 }
             } else {
                 List(selection: $selection) {
@@ -61,7 +61,7 @@ struct QueueView: View {
                 }
             }
             .padding(12)
-            .glassEffect(.regular, in: .rect(cornerRadius: 12))
+            .glassSurface(in: .rect(cornerRadius: 12))
             .padding(12)
         }
     }

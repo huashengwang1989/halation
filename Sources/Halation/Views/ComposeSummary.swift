@@ -18,7 +18,7 @@ struct SummarySidebar: View {
                 SummaryContent(showingPresetNamer: $showingPresetNamer)
                     .padding(20)
             }
-            .scrollEdgeEffectStyle(.soft, for: .top)
+            .softScrollEdge(for: .top)
             .onChange(of: problemFocusCount) { _, _ in
                 withAnimation(.snappy) {
                     proxy.scrollTo(ComposeAnchor.problems, anchor: .center)
