@@ -7,6 +7,7 @@ struct HalationApp: App {
     @Environment(\.openWindow) private var openWindow
 
     static let licensesWindowID = "licenses"
+    static let localizationWindowID = "debug-localizations"
 
     var body: some Scene {
         WindowGroup {
@@ -64,6 +65,18 @@ struct HalationApp: App {
                     openWindow(id: Self.licensesWindowID)
                 }
             }
+
+            // Developer tools, gated on AppKit's own debug switch — see AppDebug.
+            // Not localized, and deliberately so: these are for whoever is
+            // working on the app, and an English menu is one less thing to keep
+            // in step with translations.py.
+            if AppDebug.isEnabled {
+                CommandMenu("Debug") {
+                    Button("Localisations (i18n)") {
+                        openWindow(id: Self.localizationWindowID)
+                    }
+                }
+            }
         }
 
         // A plain Window rather than a sheet: licence text is something people
@@ -76,6 +89,11 @@ struct HalationApp: App {
                 .id(localization.generation)
         }
         .windowResizability(.contentSize)
+
+        Window("Localisations (i18n)", id: Self.localizationWindowID) {
+            LocalizationInspector()
+        }
+        .defaultSize(width: 1100, height: 720)
 
         Settings {
             SettingsView()

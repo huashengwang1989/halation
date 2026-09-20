@@ -1,6 +1,11 @@
 #!/usr/bin/env python3
-"""Generate the .lproj/Localizable.strings files from translations.py."""
-import pathlib, sys
+"""Generate the .lproj/Localizable.strings files from translations.py.
+
+Also writes a JSON catalogue of every key, every translation and every note, for
+the Debug ▸ Localisations (i18n) window to read at runtime. The .strings files
+cannot serve that purpose: each holds one language, and the notes become C\ncomments that nothing can read back.
+"""
+import json, pathlib, sys
 sys.path.insert(0, str(pathlib.Path(__file__).parent))
 from translations import T
 
@@ -27,5 +32,25 @@ for lang in LANGS:
     target.parent.mkdir(parents=True, exist_ok=True)
     target.write_text("\n".join(lines), encoding="utf-8")
     print(f"  {lang:8s} {len(T)} keys -> {target.relative_to(ROOT.parent.parent.parent.parent)}")
+# The catalogue the in-app inspector reads. Sorted so the file is stable in
+# diffs and a review shows only what actually changed.
+catalog = {
+    "languages": LANGS,
+    "entries": [
+        {
+            "key": key,
+            "values": {lang: T[key].get(lang) or "" for lang in LANGS},
+            "note": T[key].get("note") or "",
+        }
+        for key in sorted(T)
+    ],
+}
+catalog_path = ROOT.parent / "translation-catalog.json"
+catalog_path.write_text(
+    json.dumps(catalog, ensure_ascii=False, indent=2, sort_keys=False) + "\n",
+    encoding="utf-8")
+noted = sum(1 for e in catalog["entries"] if e["note"])
+print(f"  catalog  {len(T)} keys, {noted} notes -> {catalog_path.name}")
+
 if missing:
     print(f"  WARNING: {missing} missing translations fell back to English")

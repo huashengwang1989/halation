@@ -727,3 +727,33 @@ that cost time there: `ds_store` infers the type only for records it knows, so
 both `backgroundType: 2` and a `mac_alias` alias built against the *mounted*
 volume path — which is why the layout is written after attach and before the
 image is compressed.
+
+## A Divider inside a VStack asks for infinite width
+
+This cost an hour in the localisation inspector and would cost it again. A
+`Divider()` in a vertical stack is not the 1pt line its appearance suggests: it
+requests *unbounded* width, so the stack around it grows to whatever it is
+offered rather than to its other children.
+
+In a table built from fixed-width cells the symptom does not look like a width
+problem at all. Each pane grew past its columns and centred its rows inside
+itself, which read as a stray margin before the first column and a matching gap
+before the next pane — and because the left pane had taken the space, the
+right-hand columns were pushed off the edge and simply never appeared. Nothing
+in the code mentions a margin, and the spacing is all zero.
+
+The fix is to pin any stack containing a divider to an explicit width. Worth
+checking whenever a SwiftUI layout has margins nobody wrote.
+
+## The AppKit debug menu is a system-wide switch, not a per-app one
+
+`defaults write -g _NS_4445425547 -bool true` (the key name is hex for "DEBUG")
+makes AppKit add its own Debug menu to *every* AppKit app. Verified by dumping
+the menu from TextEdit and from Halation: both return the same 18 items in the
+same order, none of which the app contributes.
+
+There is no API for adding to it. `Views/Debug/AppDebug.swift` reads the same
+default to gate the app's own Debug menu, so the two appear and disappear
+together. UserDefaults searches the global domain, so nothing per-app is needed,
+and the argument domain still wins for a single run:
+`open -a Halation --args -_NS_4445425547 NO`.

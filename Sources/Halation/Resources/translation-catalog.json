@@ -1,0 +1,4730 @@
+{
+  "languages": [
+    "en",
+    "zh-Hant",
+    "zh-Hans",
+    "de",
+    "ar"
+  ],
+  "entries": [
+    {
+      "key": "a11y.elapsed",
+      "values": {
+        "en": "elapsed %@",
+        "zh-Hant": "已用 %@",
+        "zh-Hans": "已用 %@",
+        "de": "%@ vergangen",
+        "ar": "انقضى %@"
+      },
+      "note": ""
+    },
+    {
+      "key": "a11y.percent",
+      "values": {
+        "en": "%@ percent",
+        "zh-Hant": "%@%%",
+        "zh-Hans": "%@%%",
+        "de": "%@ Prozent",
+        "ar": "%@ بالمئة"
+      },
+      "note": ""
+    },
+    {
+      "key": "a11y.remaining",
+      "values": {
+        "en": "about %@ remaining",
+        "zh-Hant": "約剩 %@",
+        "zh-Hans": "约剩 %@",
+        "de": "noch etwa %@",
+        "ar": "يتبقى نحو %@"
+      },
+      "note": ""
+    },
+    {
+      "key": "a11y.usingMemory",
+      "values": {
+        "en": "using %@",
+        "zh-Hant": "佔用 %@",
+        "zh-Hans": "占用 %@",
+        "de": "belegt %@",
+        "ar": "يستخدم %@"
+      },
+      "note": ""
+    },
+    {
+      "key": "backend.comfy.detail",
+      "values": {
+        "en": "PyTorch on Metal. The only backend that supports references, and the only one that can load the 4-step turbo LoRAs.",
+        "zh-Hant": "以 Metal 執行 PyTorch。唯一支援參考素材的後端，也是唯一能載入 4 步 turbo LoRA 的。",
+        "zh-Hans": "以 Metal 运行 PyTorch。唯一支持参考素材的后端，也是唯一能加载 4 步 turbo LoRA 的。",
+        "de": "PyTorch auf Metal. Das einzige Backend mit Referenzen und das einzige, das die 4-Schritt-Turbo-LoRAs laden kann.",
+        "ar": "PyTorch على Metal. الواجهة الخلفية الوحيدة التي تدعم المراجع، والوحيدة القادرة على تحميل نماذج turbo LoRA ذات الأربع خطوات."
+      },
+      "note": ""
+    },
+    {
+      "key": "backend.mlx.detail",
+      "values": {
+        "en": "Apple's own framework, running the model natively. Text-to-video and keyframes only — the port has no reference conditioning.",
+        "zh-Hant": "Apple 自家的框架，原生執行模型。僅支援文字轉影片與關鍵格，移植版沒有參考素材條件化。",
+        "zh-Hans": "Apple 自家的框架，原生运行模型。仅支持文字转视频与关键帧，移植版没有参考素材条件化。",
+        "de": "Apples eigenes Framework, das Modell läuft nativ. Nur Text-zu-Video und Keyframes — die Portierung kennt keine Referenzkonditionierung.",
+        "ar": "إطار عمل Apple، يشغّل النموذج أصليًا. يدعم النص إلى فيديو والإطارات المفتاحية فقط، إذ لا يتضمّن النقل شرطنة المراجع."
+      },
+      "note": ""
+    },
+    {
+      "key": "comfy.executionError",
+      "values": {
+        "en": "ComfyUI reported an execution error.",
+        "zh-Hant": "ComfyUI 回報執行錯誤。",
+        "zh-Hans": "ComfyUI 报告执行错误。",
+        "de": "ComfyUI hat einen Ausführungsfehler gemeldet.",
+        "ar": "أبلغ ComfyUI عن خطأ أثناء التنفيذ."
+      },
+      "note": ""
+    },
+    {
+      "key": "comfy.missingWeights",
+      "values": {
+        "en": "Missing ComfyUI weights: %@",
+        "zh-Hant": "缺少 ComfyUI 權重檔：%@",
+        "zh-Hans": "缺少 ComfyUI 权重文件：%@",
+        "de": "Fehlende ComfyUI-Gewichte: %@",
+        "ar": "أوزان ComfyUI ناقصة: %@"
+      },
+      "note": ""
+    },
+    {
+      "key": "comfy.notInstalled",
+      "values": {
+        "en": "ComfyUI is not installed. Install it in Settings › ComfyUI.",
+        "zh-Hant": "尚未安裝 ComfyUI。請至「設定 › ComfyUI」安裝。",
+        "zh-Hans": "尚未安装 ComfyUI。请至“设置 › ComfyUI”安装。",
+        "de": "ComfyUI ist nicht installiert. Installieren Sie es unter „Einstellungen › ComfyUI“.",
+        "ar": "‏ComfyUI غير مثبَّت. ثبّته من «الإعدادات › ComfyUI»."
+      },
+      "note": ""
+    },
+    {
+      "key": "common.cancel",
+      "values": {
+        "en": "Cancel",
+        "zh-Hant": "取消",
+        "zh-Hans": "取消",
+        "de": "Abbrechen",
+        "ar": "إلغاء"
+      },
+      "note": ""
+    },
+    {
+      "key": "common.copy",
+      "values": {
+        "en": "Copy",
+        "zh-Hant": "拷貝",
+        "zh-Hans": "复制",
+        "de": "Kopieren",
+        "ar": "نسخ"
+      },
+      "note": "macOS uses 拷貝 in Traditional Chinese, 复制 in Simplified."
+    },
+    {
+      "key": "common.delete",
+      "values": {
+        "en": "Delete",
+        "zh-Hant": "刪除",
+        "zh-Hans": "删除",
+        "de": "Löschen",
+        "ar": "حذف"
+      },
+      "note": ""
+    },
+    {
+      "key": "common.done",
+      "values": {
+        "en": "Done",
+        "zh-Hant": "完成",
+        "zh-Hans": "完成",
+        "de": "Fertig",
+        "ar": "تم"
+      },
+      "note": ""
+    },
+    {
+      "key": "common.download",
+      "values": {
+        "en": "Download",
+        "zh-Hant": "下載",
+        "zh-Hans": "下载",
+        "de": "Laden",
+        "ar": "تنزيل"
+      },
+      "note": ""
+    },
+    {
+      "key": "common.name",
+      "values": {
+        "en": "Name",
+        "zh-Hant": "名稱",
+        "zh-Hans": "名称",
+        "de": "Name",
+        "ar": "الاسم"
+      },
+      "note": ""
+    },
+    {
+      "key": "common.refresh",
+      "values": {
+        "en": "Refresh",
+        "zh-Hant": "重新整理",
+        "zh-Hans": "刷新",
+        "de": "Aktualisieren",
+        "ar": "تحديث"
+      },
+      "note": ""
+    },
+    {
+      "key": "common.reveal",
+      "values": {
+        "en": "Reveal",
+        "zh-Hant": "顯示",
+        "zh-Hans": "显示",
+        "de": "Anzeigen",
+        "ar": "إظهار"
+      },
+      "note": "Reveal in Finder."
+    },
+    {
+      "key": "common.save",
+      "values": {
+        "en": "Save",
+        "zh-Hant": "儲存",
+        "zh-Hans": "保存",
+        "de": "Sichern",
+        "ar": "حفظ"
+      },
+      "note": ""
+    },
+    {
+      "key": "compose.aspect",
+      "values": {
+        "en": "Aspect ratio",
+        "zh-Hant": "長寬比",
+        "zh-Hans": "宽高比",
+        "de": "Seitenverhältnis",
+        "ar": "نسبة العرض إلى الارتفاع"
+      },
+      "note": ""
+    },
+    {
+      "key": "compose.aspect.accessibility",
+      "values": {
+        "en": "%@ aspect ratio",
+        "zh-Hant": "%@ 長寬比",
+        "zh-Hans": "%@ 宽高比",
+        "de": "Seitenverhältnis %@",
+        "ar": "نسبة عرض إلى ارتفاع %@"
+      },
+      "note": ""
+    },
+    {
+      "key": "compose.aspect.help",
+      "values": {
+        "en": "%1$@ — renders at %2$@",
+        "zh-Hant": "%1$@ — 以 %2$@ 算圖",
+        "zh-Hans": "%1$@ — 以 %2$@ 渲染",
+        "de": "%1$@ — rendert mit %2$@",
+        "ar": "%1$@ — يُصيَّر بمقاس %2$@"
+      },
+      "note": ""
+    },
+    {
+      "key": "compose.aspect.pixels",
+      "values": {
+        "en": "%1$@ by %2$@ pixels",
+        "zh-Hant": "%1$@ 乘 %2$@ 像素",
+        "zh-Hans": "%1$@ 乘 %2$@ 像素",
+        "de": "%1$@ mal %2$@ Pixel",
+        "ar": "%1$@ في %2$@ بكسل"
+      },
+      "note": ""
+    },
+    {
+      "key": "compose.audio",
+      "values": {
+        "en": "Audio",
+        "zh-Hant": "音訊",
+        "zh-Hans": "音频",
+        "de": "Audio",
+        "ar": "الصوت"
+      },
+      "note": ""
+    },
+    {
+      "key": "compose.audio.footnote",
+      "values": {
+        "en": "H3 generates 32 kHz stereo audio in the same pass as the picture; there is no silent mode that renders faster.",
+        "zh-Hant": "H3 會在生成畫面的同一次運算中產生 32 kHz 立體聲音訊；沒有更快的無聲模式。",
+        "zh-Hans": "H3 会在生成画面的同一次运算中产生 32 kHz 立体声音频；没有更快的静音模式。",
+        "de": "H3 erzeugt 32-kHz-Stereo-Audio im selben Durchgang wie das Bild; einen schnelleren stummen Modus gibt es nicht.",
+        "ar": "يولّد H3 صوتًا ستيريو بتردد 32 kHz في المسار نفسه الذي يولّد فيه الصورة؛ ولا يوجد وضع صامت أسرع."
+      },
+      "note": ""
+    },
+    {
+      "key": "compose.codec",
+      "values": {
+        "en": "Codec",
+        "zh-Hant": "編碼格式",
+        "zh-Hans": "编码格式",
+        "de": "Codec",
+        "ar": "الترميز"
+      },
+      "note": ""
+    },
+    {
+      "key": "compose.engine.comfy.note",
+      "values": {
+        "en": "Runs through ComfyUI on PyTorch/Metal, which can load the 4-step turbo LoRA. Four distilled steps take about as long as five undistilled ones on MLX, and are what the LoRA was trained for.",
+        "zh-Hant": "透過 ComfyUI 以 PyTorch/Metal 執行，可載入 4 步 turbo LoRA。四個蒸餾步驟所需時間與 MLX 上五個未蒸餾步驟相當，而這正是該 LoRA 訓練的目標。",
+        "zh-Hans": "通过 ComfyUI 以 PyTorch/Metal 运行，可加载 4 步 turbo LoRA。四个蒸馏步骤所需时间与 MLX 上五个未蒸馏步骤相当，而这正是该 LoRA 训练的目标。",
+        "de": "Läuft über ComfyUI auf PyTorch/Metal und kann die 4-Schritt-Turbo-LoRA laden. Vier destillierte Schritte dauern etwa so lange wie fünf undestillierte auf MLX — und genau dafür wurde die LoRA trainiert.",
+        "ar": "يعمل عبر ComfyUI على PyTorch/Metal، ويستطيع تحميل turbo LoRA ذات الأربع خطوات. أربع خطوات مقطّرة تستغرق زمنًا قريبًا من خمس خطوات غير مقطّرة على MLX، وهي ما دُرّبت عليه الـ LoRA."
+      },
+      "note": ""
+    },
+    {
+      "key": "compose.engine.label",
+      "values": {
+        "en": "Engine",
+        "zh-Hant": "引擎",
+        "zh-Hans": "引擎",
+        "de": "Engine",
+        "ar": "المحرّك"
+      },
+      "note": ""
+    },
+    {
+      "key": "compose.engine.mlx.note",
+      "values": {
+        "en": "Runs natively on MLX. No server, and the default. Its weights are undistilled, so low step counts are off-distribution — use the port's 16 steps or more for quality.",
+        "zh-Hant": "以 MLX 原生執行，不需伺服器，也是預設選項。其權重未經蒸餾，步數太低會偏離訓練分布；要求品質請用移植版預設的 16 步以上。",
+        "zh-Hans": "以 MLX 原生运行，不需服务器，也是默认选项。其权重未经蒸馏，步数太低会偏离训练分布；要求质量请用移植版默认的 16 步以上。",
+        "de": "Läuft nativ auf MLX. Kein Server, und die Voreinstellung. Die Gewichte sind nicht destilliert, niedrige Schrittzahlen liegen daher außerhalb der Verteilung — für Qualität die 16 Schritte der Portierung oder mehr.",
+        "ar": "يعمل أصليًا على MLX. بلا خادم، وهو الخيار الافتراضي. أوزانه غير مقطّرة، لذا فإن أعداد الخطوات المنخفضة تخرج عن التوزيع — استخدم 16 خطوة أو أكثر للجودة."
+      },
+      "note": ""
+    },
+    {
+      "key": "compose.framerate",
+      "values": {
+        "en": "Frame rate",
+        "zh-Hant": "影格率",
+        "zh-Hans": "帧率",
+        "de": "Bildrate",
+        "ar": "معدل الإطارات"
+      },
+      "note": ""
+    },
+    {
+      "key": "compose.generate",
+      "values": {
+        "en": "Generate",
+        "zh-Hant": "生成",
+        "zh-Hans": "生成",
+        "de": "Erzeugen",
+        "ar": "توليد"
+      },
+      "note": "Button that queues a render — the verb, not a noun."
+    },
+    {
+      "key": "compose.generate.blocked.generic",
+      "values": {
+        "en": "Resolve the issues listed under “Before you generate”.",
+        "zh-Hant": "請先處理「生成前請確認」列出的問題。",
+        "zh-Hans": "请先处理“生成前请确认”列出的问题。",
+        "de": "Behebe die unter „Vor dem Erzeugen“ aufgeführten Punkte.",
+        "ar": "عالِج المشكلات المذكورة تحت «قبل التوليد»."
+      },
+      "note": ""
+    },
+    {
+      "key": "compose.generate.blocked.runtime",
+      "values": {
+        "en": "The Python runtime is not ready. Open Settings › Runtime.",
+        "zh-Hant": "Python 執行環境尚未就緒。請開啟「設定 › Runtime」。",
+        "zh-Hans": "Python 运行环境尚未就绪。请打开“设置 › Runtime”。",
+        "de": "Die Python-Laufzeitumgebung ist nicht bereit. Öffne „Einstellungen › Runtime“.",
+        "ar": "بيئة تشغيل Python غير جاهزة. افتح «الإعدادات › Runtime»."
+      },
+      "note": ""
+    },
+    {
+      "key": "compose.generate.help.ready",
+      "values": {
+        "en": "Add this render to the queue",
+        "zh-Hant": "將這次算圖加入佇列",
+        "zh-Hans": "将这次渲染加入队列",
+        "de": "Diesen Render der Warteschlange hinzufügen",
+        "ar": "أضف هذا التصيير إلى قائمة الانتظار"
+      },
+      "note": ""
+    },
+    {
+      "key": "compose.generate.why",
+      "values": {
+        "en": "Why is this disabled?",
+        "zh-Hant": "為什麼無法使用？",
+        "zh-Hans": "为什么无法使用？",
+        "de": "Warum ist das deaktiviert?",
+        "ar": "لماذا هذا معطّل؟"
+      },
+      "note": ""
+    },
+    {
+      "key": "compose.mode.task.fl2va",
+      "values": {
+        "en": " Uses the FL2VA checkpoint.",
+        "zh-Hant": "　使用 FL2VA 檢查點。",
+        "zh-Hans": "　使用 FL2VA 检查点。",
+        "de": " Verwendet den FL2VA-Checkpoint.",
+        "ar": " يستخدم نقطة التحقق FL2VA."
+      },
+      "note": ""
+    },
+    {
+      "key": "compose.mode.task.ref2va",
+      "values": {
+        "en": " Uses the Ref2VA checkpoint.",
+        "zh-Hant": "　使用 Ref2VA 檢查點。",
+        "zh-Hans": "　使用 Ref2VA 检查点。",
+        "de": " Verwendet den Ref2VA-Checkpoint.",
+        "ar": " يستخدم نقطة التحقق Ref2VA."
+      },
+      "note": ""
+    },
+    {
+      "key": "compose.mode.title",
+      "values": {
+        "en": "Mode",
+        "zh-Hant": "模式",
+        "zh-Hans": "模式",
+        "de": "Modus",
+        "ar": "الوضع"
+      },
+      "note": ""
+    },
+    {
+      "key": "compose.output.footnote",
+      "values": {
+        "en": "The model always renders 24 fps at a 768 px short edge. Anything else on this card is applied afterwards, during encoding.",
+        "zh-Hant": "模型固定以 24 fps、短邊 768 px 算圖。此卡片上的其他設定都是事後在編碼階段套用。",
+        "zh-Hans": "模型固定以 24 fps、短边 768 px 渲染。此卡片上的其他设置都是事后在编码阶段应用。",
+        "de": "Das Modell rendert immer 24 fps mit 768 px kurzer Kante. Alles andere auf dieser Karte wird erst beim Kodieren angewandt.",
+        "ar": "يصيّر النموذج دائمًا بمعدل 24 fps وبحافة قصيرة قدرها 768 بكسل. وكل ما عدا ذلك في هذه البطاقة يُطبَّق لاحقًا أثناء الترميز."
+      },
+      "note": ""
+    },
+    {
+      "key": "compose.output.title",
+      "values": {
+        "en": "Output",
+        "zh-Hant": "輸出",
+        "zh-Hans": "输出",
+        "de": "Ausgabe",
+        "ar": "الإخراج"
+      },
+      "note": ""
+    },
+    {
+      "key": "compose.preset.delete",
+      "values": {
+        "en": "Delete Custom Preset",
+        "zh-Hant": "刪除自訂預設組合",
+        "zh-Hans": "删除自定义预设组合",
+        "de": "Eigene Vorlage löschen",
+        "ar": "حذف إعداد مخصّص"
+      },
+      "note": ""
+    },
+    {
+      "key": "compose.preset.duplicate",
+      "values": {
+        "en": "A preset called “%@” already exists. Choose another name.",
+        "zh-Hant": "已有名為「%@」的預設組合，請換一個名稱。",
+        "zh-Hans": "已有名为“%@”的预设组合，请换一个名称。",
+        "de": "Eine Vorlage namens „%@“ gibt es bereits. Wählen Sie einen anderen Namen.",
+        "ar": "يوجد إعداد باسم «%@» مسبقًا. اختر اسمًا آخر."
+      },
+      "note": ""
+    },
+    {
+      "key": "compose.preset.save",
+      "values": {
+        "en": "Save as Preset…",
+        "zh-Hant": "另存為預設組合…",
+        "zh-Hans": "另存为预设组合…",
+        "de": "Als Vorlage sichern …",
+        "ar": "حفظ كإعداد محفوظ…"
+      },
+      "note": ""
+    },
+    {
+      "key": "compose.preset.save.message",
+      "values": {
+        "en": "Saves the current settings as a reusable recipe. The prompt, seed and attached files are not included.",
+        "zh-Hant": "將目前設定存成可重複使用的配方。不包含提示詞、種子與附加檔案。",
+        "zh-Hans": "将当前设置存为可重复使用的配方。不包含提示词、种子与附加文件。",
+        "de": "Sichert die aktuellen Einstellungen als wiederverwendbares Rezept. Prompt, Seed und angehängte Dateien sind nicht enthalten.",
+        "ar": "يحفظ الإعدادات الحالية كوصفة قابلة لإعادة الاستخدام. لا يشمل الموجّه أو قيمة seed أو الملفات المرفقة."
+      },
+      "note": ""
+    },
+    {
+      "key": "compose.preset.save.title",
+      "values": {
+        "en": "Save preset",
+        "zh-Hant": "儲存預設組合",
+        "zh-Hans": "保存预设组合",
+        "de": "Vorlage sichern",
+        "ar": "حفظ الإعداد"
+      },
+      "note": ""
+    },
+    {
+      "key": "compose.preset.saved",
+      "values": {
+        "en": "Saved “%@” to Presets",
+        "zh-Hant": "已將「%@」儲存至預設組合",
+        "zh-Hans": "已将“%@”保存至预设组合",
+        "de": "„%@“ unter Voreinstellungen gesichert",
+        "ar": "حُفِظ «%@» ضمن الإعدادات المُسبَقة"
+      },
+      "note": ""
+    },
+    {
+      "key": "compose.presets",
+      "values": {
+        "en": "Presets",
+        "zh-Hant": "預設組合",
+        "zh-Hans": "预设组合",
+        "de": "Vorlagen",
+        "ar": "إعدادات محفوظة"
+      },
+      "note": "Saved combinations of settings — not 'default' in the factory sense."
+    },
+    {
+      "key": "compose.presets.help",
+      "values": {
+        "en": "Apply a saved combination of settings",
+        "zh-Hant": "套用已儲存的設定組合",
+        "zh-Hans": "应用已保存的设置组合",
+        "de": "Eine gespeicherte Einstellungskombination anwenden",
+        "ar": "تطبيق مجموعة إعدادات محفوظة"
+      },
+      "note": ""
+    },
+    {
+      "key": "compose.prompt.footnote",
+      "values": {
+        "en": "H3 responds well to camera language — shot size, lens, movement, lighting — and to a described soundscape, since it generates audio in the same pass. There is no negative prompt: the released weights are CFG-distilled, so guidance controls would do nothing.",
+        "zh-Hant": "H3 對鏡頭語言反應良好，例如景別、鏡頭、運動與打光；也能理解對聲音場景的描述，因為它在同一次運算中生成音訊。沒有負面提示詞：釋出的權重經過 CFG 蒸餾，引導強度的設定不會有任何作用。",
+        "zh-Hans": "H3 对镜头语言反应良好，例如景别、镜头、运动与打光；也能理解对声音场景的描述，因为它在同一次运算中生成音频。没有负面提示词：发布的权重经过 CFG 蒸馏，引导强度的设置不会有任何作用。",
+        "de": "H3 reagiert gut auf Kamerasprache — Einstellungsgröße, Objektiv, Bewegung, Licht — und auf beschriebene Klangbilder, da Audio im selben Durchgang entsteht. Es gibt keinen Negativ-Prompt: die veröffentlichten Gewichte sind CFG-destilliert, Guidance-Regler hätten keine Wirkung.",
+        "ar": "يستجيب H3 جيدًا للغة الكاميرا — حجم اللقطة والعدسة والحركة والإضاءة — وكذلك لوصف المشهد الصوتي، لأنه يولّد الصوت في المسار نفسه. لا يوجد موجّه سلبي: الأوزان المنشورة مقطّرة بأسلوب CFG، لذا لن يكون لعناصر التوجيه أي أثر."
+      },
+      "note": ""
+    },
+    {
+      "key": "compose.prompt.hint",
+      "values": {
+        "en": "Describe the shot. Press Tab to move on, Option-Tab to insert a tab.",
+        "zh-Hant": "描述這個鏡頭。按 Tab 跳到下一項，Option-Tab 插入定位字元。",
+        "zh-Hans": "描述这个镜头。按 Tab 跳到下一项，Option-Tab 插入制表符。",
+        "de": "Beschreibe die Einstellung. Tab wechselt weiter, Wahl-Tab fügt einen Tabulator ein.",
+        "ar": "صِف اللقطة. اضغط Tab للانتقال، وOption-Tab لإدراج علامة جدولة."
+      },
+      "note": ""
+    },
+    {
+      "key": "compose.prompt.title",
+      "values": {
+        "en": "Prompt",
+        "zh-Hant": "提示詞",
+        "zh-Hans": "提示词",
+        "de": "Prompt",
+        "ar": "الموجّه"
+      },
+      "note": ""
+    },
+    {
+      "key": "compose.resolution",
+      "values": {
+        "en": "Resolution",
+        "zh-Hant": "解析度",
+        "zh-Hans": "分辨率",
+        "de": "Auflösung",
+        "ar": "الدقة"
+      },
+      "note": ""
+    },
+    {
+      "key": "format.audio.muxed",
+      "values": {
+        "en": "Muxed into the video",
+        "zh-Hant": "混流至影片中",
+        "zh-Hans": "混流至视频中",
+        "de": "In das Video gemuxt",
+        "ar": "مدمج داخل الفيديو"
+      },
+      "note": ""
+    },
+    {
+      "key": "format.audio.wav",
+      "values": {
+        "en": "Muxed, plus a separate WAV",
+        "zh-Hant": "混流，並另存 WAV",
+        "zh-Hans": "混流，并另存 WAV",
+        "de": "Gemuxt, plus separate WAV-Datei",
+        "ar": "مدمج، مع ملف WAV منفصل"
+      },
+      "note": ""
+    },
+    {
+      "key": "format.clipLength",
+      "values": {
+        "en": "%@ s",
+        "zh-Hant": "%@ 秒",
+        "zh-Hans": "%@ 秒",
+        "de": "%@ s",
+        "ar": "%@ ث"
+      },
+      "note": ""
+    },
+    {
+      "key": "format.codec.av1.detail",
+      "values": {
+        "en": "About half the size for the same quality. Encoded in software, since Apple silicon has no AV1 encoder — but SVT-AV1 handles a five-second clip in a second or two, so the cost is negligible next to generation.",
+        "zh-Hant": "同等品質下檔案約為一半大小。因為 Apple 晶片沒有 AV1 編碼器，改以軟體編碼；但 SVT-AV1 處理五秒片段只要一兩秒，相較生成時間可以忽略。",
+        "zh-Hans": "同等质量下文件约为一半大小。因为 Apple 芯片没有 AV1 编码器，改以软件编码；但 SVT-AV1 处理五秒片段只要一两秒，相较生成时间可以忽略。",
+        "de": "Etwa halb so groß bei gleicher Qualität. Wird in Software kodiert, da Apple Silicon keinen AV1-Encoder hat — SVT-AV1 schafft einen Fünf-Sekunden-Clip aber in ein bis zwei Sekunden, gegenüber der Erzeugung also vernachlässigbar.",
+        "ar": "نحو نصف الحجم بالجودة نفسها. يُرمَّز برمجيًا لأن معالجات Apple لا تتضمّن مرمِّز AV1 — غير أن SVT-AV1 ينهي مقطعًا من خمس ثوانٍ في ثانية أو اثنتين، وهو زمن ضئيل مقارنةً بالتوليد."
+      },
+      "note": ""
+    },
+    {
+      "key": "format.codec.h264.detail",
+      "values": {
+        "en": "What the model produces. Delivered as rendered, with no second encode, and plays everywhere.",
+        "zh-Hant": "模型的原生輸出。依算圖結果直接交付，不做二次編碼，相容性最廣。",
+        "zh-Hans": "模型的原生输出。依渲染结果直接交付，不做二次编码，兼容性最广。",
+        "de": "Was das Modell erzeugt. Wird unverändert ausgeliefert, ohne zweite Kodierung, und läuft überall.",
+        "ar": "ما ينتجه النموذج. يُسلَّم كما صُيِّر، دون ترميز ثانٍ، ويعمل في كل مكان."
+      },
+      "note": ""
+    },
+    {
+      "key": "format.fps.30.detail",
+      "values": {
+        "en": "Frames are duplicated to a 30 fps timeline. Motion may judder slightly.",
+        "zh-Hant": "影格會複製到 30 fps 時間軸，動態可能略為頓挫。",
+        "zh-Hans": "帧会复制到 30 fps 时间轴，动态可能略为顿挫。",
+        "de": "Bilder werden auf eine 30-fps-Zeitleiste dupliziert. Die Bewegung kann leicht ruckeln.",
+        "ar": "تُكرَّر الإطارات على خط زمني بمعدل 30 fps. قد تبدو الحركة متقطّعة قليلًا."
+      },
+      "note": ""
+    },
+    {
+      "key": "format.fps.60.detail",
+      "values": {
+        "en": "Frames are duplicated to a 60 fps timeline. No new motion is synthesised.",
+        "zh-Hant": "影格會複製到 60 fps 時間軸，不會合成新的動態。",
+        "zh-Hans": "帧会复制到 60 fps 时间轴，不会合成新的动态。",
+        "de": "Bilder werden auf eine 60-fps-Zeitleiste dupliziert. Es wird keine neue Bewegung erzeugt.",
+        "ar": "تُكرَّر الإطارات على خط زمني بمعدل 60 fps. لا تُصطنَع حركة جديدة."
+      },
+      "note": ""
+    },
+    {
+      "key": "format.fps.conformed",
+      "values": {
+        "en": "%@ fps — conformed",
+        "zh-Hant": "%@ fps — 轉換",
+        "zh-Hans": "%@ fps — 转换",
+        "de": "%@ fps — angepasst",
+        "ar": "‏%@ fps — مُوائَم"
+      },
+      "note": ""
+    },
+    {
+      "key": "format.fps.native",
+      "values": {
+        "en": "24 fps — native",
+        "zh-Hant": "24 fps — 原生",
+        "zh-Hans": "24 fps — 原生",
+        "de": "24 fps — nativ",
+        "ar": "‏24 fps — أصلي"
+      },
+      "note": ""
+    },
+    {
+      "key": "format.fps.native.detail",
+      "values": {
+        "en": "The model's own cadence. No frames are invented or dropped.",
+        "zh-Hant": "模型本身的節奏，不會憑空產生或丟棄影格。",
+        "zh-Hans": "模型本身的节奏，不会凭空产生或丢弃帧。",
+        "de": "Die eigene Kadenz des Modells. Es werden keine Bilder erfunden oder verworfen.",
+        "ar": "إيقاع النموذج نفسه. لا تُختلق إطارات ولا تُحذف."
+      },
+      "note": ""
+    },
+    {
+      "key": "format.frames",
+      "values": {
+        "en": "%@ frames",
+        "zh-Hant": "%@ 影格",
+        "zh-Hans": "%@ 帧",
+        "de": "%@ Bilder",
+        "ar": "%@ إطارًا"
+      },
+      "note": ""
+    },
+    {
+      "key": "format.framesAndLength",
+      "values": {
+        "en": "%1$@ frames · %2$@ s",
+        "zh-Hant": "%1$@ 影格 · %2$@ 秒",
+        "zh-Hans": "%1$@ 帧 · %2$@ 秒",
+        "de": "%1$@ Bilder · %2$@ s",
+        "ar": "%1$@ إطارًا · %2$@ ث"
+      },
+      "note": ""
+    },
+    {
+      "key": "format.hours",
+      "values": {
+        "en": "%@ h",
+        "zh-Hant": "%@ 小時",
+        "zh-Hans": "%@ 小时",
+        "de": "%@ Std.",
+        "ar": "%@ س"
+      },
+      "note": ""
+    },
+    {
+      "key": "format.hoursMinutes",
+      "values": {
+        "en": "%1$@ h %2$@ min",
+        "zh-Hant": "%1$@ 小時 %2$@ 分",
+        "zh-Hans": "%1$@ 小时 %2$@ 分",
+        "de": "%1$@ Std. %2$@ Min.",
+        "ar": "%1$@ س %2$@ د"
+      },
+      "note": ""
+    },
+    {
+      "key": "format.minutes",
+      "values": {
+        "en": "%@ min",
+        "zh-Hant": "%@ 分",
+        "zh-Hans": "%@ 分",
+        "de": "%@ Min.",
+        "ar": "%@ د"
+      },
+      "note": ""
+    },
+    {
+      "key": "format.ofTotal",
+      "values": {
+        "en": "%1$@ of %2$@",
+        "zh-Hant": "已下載 %1$@，共 %2$@",
+        "zh-Hans": "已下载 %1$@，共 %2$@",
+        "de": "%1$@ von %2$@",
+        "ar": "%1$@ من %2$@"
+      },
+      "note": ""
+    },
+    {
+      "key": "format.res.1080",
+      "values": {
+        "en": "1080p — upscaled",
+        "zh-Hant": "1080p — 放大",
+        "zh-Hans": "1080p — 放大",
+        "de": "1080p — hochskaliert",
+        "ar": "‏1080p — مُكبَّر"
+      },
+      "note": ""
+    },
+    {
+      "key": "format.res.1080.detail",
+      "values": {
+        "en": "Resampled after generation to fit a 1080p delivery pipeline. No detail is added.",
+        "zh-Hant": "生成後重新取樣以符合 1080p 交付流程，不會增加細節。",
+        "zh-Hans": "生成后重新采样以符合 1080p 交付流程，不会增加细节。",
+        "de": "Nach der Erzeugung auf eine 1080p-Auslieferung resampelt. Es kommen keine Details hinzu.",
+        "ar": "يُعاد أخذ العيّنات بعد التوليد ليلائم مسار تسليم 1080p. لا تُضاف أي تفاصيل."
+      },
+      "note": ""
+    },
+    {
+      "key": "format.res.1440",
+      "values": {
+        "en": "1440p — upscaled",
+        "zh-Hant": "1440p — 放大",
+        "zh-Hans": "1440p — 放大",
+        "de": "1440p — hochskaliert",
+        "ar": "‏1440p — مُكبَّر"
+      },
+      "note": ""
+    },
+    {
+      "key": "format.res.1440.detail",
+      "values": {
+        "en": "Resampled to 1440p. Larger files for the same real detail; useful only if a downstream tool demands this size.",
+        "zh-Hant": "重新取樣為 1440p。檔案更大但實際細節不變；只有下游工具要求此尺寸時才有意義。",
+        "zh-Hans": "重新采样为 1440p。文件更大但实际细节不变；只有下游工具要求此尺寸时才有意义。",
+        "de": "Auf 1440p resampelt. Größere Dateien bei gleichem echten Detail; nur sinnvoll, wenn ein nachgelagertes Werkzeug diese Größe verlangt.",
+        "ar": "يُعاد أخذ العيّنات إلى 1440p. ملفات أكبر بالتفاصيل الحقيقية نفسها؛ مفيد فقط إذا طلبت أداة لاحقة هذا الحجم."
+      },
+      "note": ""
+    },
+    {
+      "key": "format.res.native",
+      "values": {
+        "en": "768p — native",
+        "zh-Hant": "768p — 原生",
+        "zh-Hans": "768p — 原生",
+        "de": "768p — nativ",
+        "ar": "‏768p — أصلي"
+      },
+      "note": ""
+    },
+    {
+      "key": "format.res.native.detail",
+      "values": {
+        "en": "Exactly what the model produces, with no resampling. Recommended.",
+        "zh-Hant": "模型的原始輸出，不做重新取樣。建議使用。",
+        "zh-Hans": "模型的原始输出，不做重新采样。建议使用。",
+        "de": "Genau das, was das Modell erzeugt, ohne Resampling. Empfohlen.",
+        "ar": "ما ينتجه النموذج تمامًا، دون إعادة أخذ عيّنات. موصى به."
+      },
+      "note": ""
+    },
+    {
+      "key": "format.seconds",
+      "values": {
+        "en": "%@ s",
+        "zh-Hant": "%@ 秒",
+        "zh-Hans": "%@ 秒",
+        "de": "%@ s",
+        "ar": "%@ ث"
+      },
+      "note": ""
+    },
+    {
+      "key": "format.steps",
+      "values": {
+        "en": "%@ steps",
+        "zh-Hant": "%@ 步",
+        "zh-Hans": "%@ 步",
+        "de": "%@ Schritte",
+        "ar": "%@ خطوة"
+      },
+      "note": ""
+    },
+    {
+      "key": "library.copied",
+      "values": {
+        "en": "Copied",
+        "zh-Hant": "已拷貝",
+        "zh-Hans": "已复制",
+        "de": "Kopiert",
+        "ar": "تم النسخ"
+      },
+      "note": ""
+    },
+    {
+      "key": "library.copySeed",
+      "values": {
+        "en": "Copy %@",
+        "zh-Hant": "拷貝%@",
+        "zh-Hans": "复制%@",
+        "de": "%@ kopieren",
+        "ar": "نسخ %@"
+      },
+      "note": ""
+    },
+    {
+      "key": "library.duration",
+      "values": {
+        "en": "Duration",
+        "zh-Hant": "長度",
+        "zh-Hans": "时长",
+        "de": "Dauer",
+        "ar": "المدة"
+      },
+      "note": ""
+    },
+    {
+      "key": "library.empty.detail",
+      "values": {
+        "en": "Finished renders are saved to %@, each with a JSON file recording the exact settings that produced it.",
+        "zh-Hant": "完成的算圖會存到 %@，每支影片都附一個 JSON 檔，記下產生它的完整設定。",
+        "zh-Hans": "完成的渲染会保存到 %@，每个视频都附一个 JSON 文件，记录生成它的完整设置。",
+        "de": "Fertige Renderings werden unter %@ gesichert, jeweils mit einer JSON-Datei, die die genauen Einstellungen festhält.",
+        "ar": "تُحفظ عمليات التصيير المنجزة في %@، مع ملف JSON لكل منها يسجّل الإعدادات التي أنتجته بالضبط."
+      },
+      "note": ""
+    },
+    {
+      "key": "library.empty.title",
+      "values": {
+        "en": "No videos yet",
+        "zh-Hant": "還沒有影片",
+        "zh-Hans": "还没有视频",
+        "de": "Noch keine Videos",
+        "ar": "لا توجد مقاطع بعد"
+      },
+      "note": ""
+    },
+    {
+      "key": "library.filesize",
+      "values": {
+        "en": "File size",
+        "zh-Hant": "檔案大小",
+        "zh-Hans": "文件大小",
+        "de": "Dateigröße",
+        "ar": "حجم الملف"
+      },
+      "note": ""
+    },
+    {
+      "key": "library.missing",
+      "values": {
+        "en": "This file is no longer on disk",
+        "zh-Hant": "這個檔案已不在磁碟上",
+        "zh-Hans": "这个文件已不在磁盘上",
+        "de": "Diese Datei ist nicht mehr auf dem Volume",
+        "ar": "لم يعد هذا الملف موجودًا على القرص"
+      },
+      "note": ""
+    },
+    {
+      "key": "library.mode",
+      "values": {
+        "en": "Mode",
+        "zh-Hant": "模式",
+        "zh-Hans": "模式",
+        "de": "Modus",
+        "ar": "الوضع"
+      },
+      "note": ""
+    },
+    {
+      "key": "library.moveToTrash",
+      "values": {
+        "en": "Move to Trash",
+        "zh-Hant": "移到垃圾桶",
+        "zh-Hans": "移到废纸篓",
+        "de": "In den Papierkorb legen",
+        "ar": "نقل إلى المهملات"
+      },
+      "note": "macOS calls it 垃圾桶 in TW, 废纸篓 in CN."
+    },
+    {
+      "key": "library.open",
+      "values": {
+        "en": "Open",
+        "zh-Hant": "打開",
+        "zh-Hans": "打开",
+        "de": "Öffnen",
+        "ar": "فتح"
+      },
+      "note": ""
+    },
+    {
+      "key": "library.renderTime",
+      "values": {
+        "en": "Render time",
+        "zh-Hant": "算圖時間",
+        "zh-Hans": "渲染时间",
+        "de": "Renderdauer",
+        "ar": "زمن التصيير"
+      },
+      "note": ""
+    },
+    {
+      "key": "library.revealFolder",
+      "values": {
+        "en": "Reveal Folder",
+        "zh-Hant": "顯示資料夾",
+        "zh-Hans": "显示文件夹",
+        "de": "Ordner anzeigen",
+        "ar": "إظهار المجلد"
+      },
+      "note": ""
+    },
+    {
+      "key": "library.revealWav",
+      "values": {
+        "en": "Reveal WAV",
+        "zh-Hant": "顯示 WAV",
+        "zh-Hans": "显示 WAV",
+        "de": "WAV anzeigen",
+        "ar": "إظهار ملف WAV"
+      },
+      "note": ""
+    },
+    {
+      "key": "library.search",
+      "values": {
+        "en": "Search prompts",
+        "zh-Hant": "搜尋提示詞",
+        "zh-Hans": "搜索提示词",
+        "de": "Prompts durchsuchen",
+        "ar": "البحث في الموجّهات"
+      },
+      "note": ""
+    },
+    {
+      "key": "library.seconds",
+      "values": {
+        "en": "%@ seconds",
+        "zh-Hant": "%@ 秒",
+        "zh-Hans": "%@ 秒",
+        "de": "%@ Sekunden",
+        "ar": "%@ ثانية"
+      },
+      "note": ""
+    },
+    {
+      "key": "library.seed",
+      "values": {
+        "en": "Seed",
+        "zh-Hant": "種子",
+        "zh-Hans": "种子",
+        "de": "Seed",
+        "ar": "البذرة"
+      },
+      "note": ""
+    },
+    {
+      "key": "library.settings",
+      "values": {
+        "en": "Settings",
+        "zh-Hant": "設定",
+        "zh-Hans": "设置",
+        "de": "Einstellungen",
+        "ar": "الإعدادات"
+      },
+      "note": ""
+    },
+    {
+      "key": "library.useSettings",
+      "values": {
+        "en": "Use These Settings",
+        "zh-Hant": "沿用這些設定",
+        "zh-Hans": "沿用这些设置",
+        "de": "Diese Einstellungen übernehmen",
+        "ar": "استخدام هذه الإعدادات"
+      },
+      "note": ""
+    },
+    {
+      "key": "menu.licenses",
+      "values": {
+        "en": "Licenses",
+        "zh-Hant": "授權",
+        "zh-Hans": "许可",
+        "de": "Lizenzen",
+        "ar": "التراخيص"
+      },
+      "note": "Help menu item opening the licence window. The window's own text is English only — see LicensesView."
+    },
+    {
+      "key": "menu.newRender",
+      "values": {
+        "en": "New Render",
+        "zh-Hant": "新增算圖",
+        "zh-Hans": "新建渲染",
+        "de": "Neuer Render",
+        "ar": "تصيير جديد"
+      },
+      "note": ""
+    },
+    {
+      "key": "menu.rescanModels",
+      "values": {
+        "en": "Rescan Models Folder",
+        "zh-Hant": "重新掃描模型資料夾",
+        "zh-Hans": "重新扫描模型文件夹",
+        "de": "Modellordner neu einlesen",
+        "ar": "إعادة فحص مجلد النماذج"
+      },
+      "note": ""
+    },
+    {
+      "key": "menu.revealModels",
+      "values": {
+        "en": "Reveal Models Folder in Finder",
+        "zh-Hant": "在 Finder 中顯示模型資料夾",
+        "zh-Hans": "在 Finder 中显示模型文件夹",
+        "de": "Modellordner im Finder zeigen",
+        "ar": "إظهار مجلد النماذج في Finder"
+      },
+      "note": ""
+    },
+    {
+      "key": "mlx.checkpointMissing",
+      "values": {
+        "en": "The selected checkpoint is not installed.",
+        "zh-Hant": "所選的檢查點尚未安裝。",
+        "zh-Hans": "所选的检查点尚未安装。",
+        "de": "Der gewählte Checkpoint ist nicht installiert.",
+        "ar": "نقطة التحقّق المختارة غير مثبَّتة."
+      },
+      "note": ""
+    },
+    {
+      "key": "mlx.runtimeNotReady",
+      "values": {
+        "en": "The Python runtime is not ready. Open Settings › Runtime.",
+        "zh-Hant": "Python 執行環境尚未就緒。請開啟「設定 › 執行環境」。",
+        "zh-Hans": "Python 运行时尚未就绪。请打开“设置 › 运行时”。",
+        "de": "Die Python-Umgebung ist nicht bereit. Öffnen Sie „Einstellungen › Laufzeitumgebung“.",
+        "ar": "‏بيئة Python غير جاهزة. افتح «الإعدادات › بيئة التشغيل»."
+      },
+      "note": ""
+    },
+    {
+      "key": "mode.first",
+      "values": {
+        "en": "First frame",
+        "zh-Hant": "首格",
+        "zh-Hans": "首帧",
+        "de": "Erstes Bild",
+        "ar": "الإطار الأول"
+      },
+      "note": "The opening frame of the clip."
+    },
+    {
+      "key": "mode.first.detail",
+      "values": {
+        "en": "Animate outward from a still image you supply.",
+        "zh-Hant": "以你提供的靜態圖片為起點延伸動態。",
+        "zh-Hans": "以你提供的静态图片为起点延伸动态。",
+        "de": "Ausgehend von einem Standbild animieren.",
+        "ar": "تحريك انطلاقًا من صورة ثابتة تقدّمها."
+      },
+      "note": ""
+    },
+    {
+      "key": "mode.firstlast",
+      "values": {
+        "en": "First & last frame",
+        "zh-Hant": "首尾格",
+        "zh-Hans": "首尾帧",
+        "de": "Erstes & letztes Bild",
+        "ar": "الإطار الأول والأخير"
+      },
+      "note": ""
+    },
+    {
+      "key": "mode.firstlast.detail",
+      "values": {
+        "en": "Supply both ends of the shot; the model fills in the motion between them.",
+        "zh-Hant": "提供鏡頭的起點與終點，模型補出中間的動態。",
+        "zh-Hans": "提供镜头的起点与终点，模型补出中间的动态。",
+        "de": "Beide Enden der Einstellung vorgeben; das Modell erzeugt die Bewegung dazwischen.",
+        "ar": "قدّم بداية اللقطة ونهايتها، ويولّد النموذج الحركة بينهما."
+      },
+      "note": ""
+    },
+    {
+      "key": "mode.reference",
+      "values": {
+        "en": "References",
+        "zh-Hant": "參考素材",
+        "zh-Hans": "参考素材",
+        "de": "Referenzen",
+        "ar": "مراجع"
+      },
+      "note": "Reference images/videos/audio that define subject or style."
+    },
+    {
+      "key": "mode.reference.detail",
+      "values": {
+        "en": "Supply reference images, clips or audio to pin down a subject, style or voice.",
+        "zh-Hant": "提供參考圖片、片段或音訊，用來固定主體、風格或聲音。",
+        "zh-Hans": "提供参考图片、片段或音频，用来固定主体、风格或声音。",
+        "de": "Referenzbilder, -clips oder -audio vorgeben, um Motiv, Stil oder Stimme festzulegen.",
+        "ar": "قدّم صورًا أو مقاطع أو أصواتًا مرجعية لتثبيت الموضوع أو الأسلوب أو الصوت."
+      },
+      "note": ""
+    },
+    {
+      "key": "mode.t2v",
+      "values": {
+        "en": "Text to video",
+        "zh-Hant": "文字轉影片",
+        "zh-Hans": "文字转视频",
+        "de": "Text zu Video",
+        "ar": "نص إلى فيديو"
+      },
+      "note": ""
+    },
+    {
+      "key": "mode.t2v.detail",
+      "values": {
+        "en": "Generate purely from a written description.",
+        "zh-Hant": "僅依文字描述生成。",
+        "zh-Hans": "仅依文字描述生成。",
+        "de": "Ausschließlich aus einer Beschreibung erzeugen.",
+        "ar": "التوليد من وصف نصي فقط."
+      },
+      "note": ""
+    },
+    {
+      "key": "model.comfy.audioVAE",
+      "values": {
+        "en": "Audio VAE in fp32, for the stereo track H3 generates alongside the picture.",
+        "zh-Hant": "fp32 的 audio VAE，用於 H3 在畫面之外同時生成的立體聲軌。",
+        "zh-Hans": "fp32 的 audio VAE，用于 H3 在画面之外同时生成的立体声轨。",
+        "de": "Audio-VAE in fp32, für die Stereospur, die H3 zusätzlich zum Bild erzeugt.",
+        "ar": "‏audio VAE بدقة fp32، للمسار الصوتي المجسَّم الذي يولّده H3 إلى جانب الصورة."
+      },
+      "note": ""
+    },
+    {
+      "key": "model.comfy.fl2va",
+      "values": {
+        "en": "FL2VA transformer for ComfyUI. Only needed if you want to run text-to-video or keyframes through ComfyUI instead of MLX.",
+        "zh-Hant": "ComfyUI 用的 FL2VA transformer。只有當你想改用 ComfyUI（而非 MLX）執行文字轉影片或關鍵影格時才需要。",
+        "zh-Hans": "ComfyUI 用的 FL2VA transformer。只有当你想改用 ComfyUI（而非 MLX）执行文字转视频或关键帧时才需要。",
+        "de": "FL2VA-Transformer für ComfyUI. Nur nötig, wenn Sie Text-zu-Video oder Keyframes über ComfyUI statt über MLX laufen lassen wollen.",
+        "ar": "محوّل FL2VA الخاص بـ ComfyUI. لا يلزم إلا إذا أردت تشغيل التحويل من نص إلى فيديو أو الإطارات المفتاحية عبر ComfyUI بدل MLX."
+      },
+      "note": ""
+    },
+    {
+      "key": "model.comfy.lora.fl2va",
+      "values": {
+        "en": "4-step FL2VA turbo LoRA. Distilled for four steps, where MLX's undistilled weights want sixteen.",
+        "zh-Hant": "4 步的 FL2VA turbo LoRA。專為四步蒸餾，而 MLX 未蒸餾的權重需要十六步。",
+        "zh-Hans": "4 步的 FL2VA turbo LoRA。专为四步蒸馏，而 MLX 未蒸馏的权重需要十六步。",
+        "de": "4-Schritt-Turbo-LoRA für FL2VA. Auf vier Schritte destilliert, während die undestillierten MLX-Gewichte sechzehn brauchen.",
+        "ar": "نموذج LoRA السريع لـ FL2VA بأربع خطوات. مُقطَّر لأربع خطوات، بينما تحتاج أوزان MLX غير المقطَّرة إلى ستّ عشرة."
+      },
+      "note": ""
+    },
+    {
+      "key": "model.comfy.lora.ref2va",
+      "values": {
+        "en": "4-step Ref2VA turbo LoRA. This is what makes reference renders practical at all — four steps instead of fifty, so tens of minutes rather than many hours.",
+        "zh-Hant": "4 步的 Ref2VA turbo LoRA。正是它讓參考素材算圖變得可行——四步而非五十步，時間從數小時降到數十分鐘。",
+        "zh-Hans": "4 步的 Ref2VA turbo LoRA。正是它让参考素材渲染变得可行——四步而非五十步，时间从数小时降到数十分钟。",
+        "de": "4-Schritt-Turbo-LoRA für Ref2VA. Sie macht Referenz-Renderings überhaupt erst praktikabel – vier Schritte statt fünfzig, also Dutzende Minuten statt vieler Stunden.",
+        "ar": "نموذج LoRA السريع لـ Ref2VA بأربع خطوات. هو ما يجعل التصيير المرجعي عمليًا أصلًا — أربع خطوات بدل خمسين، أي عشرات الدقائق بدل ساعات طويلة."
+      },
+      "note": ""
+    },
+    {
+      "key": "model.comfy.ref2va",
+      "values": {
+        "en": "Ref2VA transformer for ComfyUI. Required for reference mode, which the MLX port cannot do at all.",
+        "zh-Hant": "ComfyUI 用的 Ref2VA transformer。參考素材模式必備，而 MLX 移植版完全無法處理該模式。",
+        "zh-Hans": "ComfyUI 用的 Ref2VA transformer。参考素材模式必备，而 MLX 移植版完全无法处理该模式。",
+        "de": "Ref2VA-Transformer für ComfyUI. Erforderlich für den Referenzmodus, den die MLX-Portierung überhaupt nicht beherrscht.",
+        "ar": "محوّل Ref2VA الخاص بـ ComfyUI. لازم لوضع المراجع، وهو ما لا تستطيعه نسخة MLX إطلاقًا."
+      },
+      "note": ""
+    },
+    {
+      "key": "model.comfy.textEncoder",
+      "values": {
+        "en": "Qwen3-VL-32B for ComfyUI. Shared by both tasks — download once.",
+        "zh-Hant": "ComfyUI 用的 Qwen3-VL-32B。兩種任務共用——下載一次即可。",
+        "zh-Hans": "ComfyUI 用的 Qwen3-VL-32B。两种任务共用——下载一次即可。",
+        "de": "Qwen3-VL-32B für ComfyUI. Von beiden Aufgaben genutzt – einmal laden.",
+        "ar": "‏Qwen3-VL-32B الخاص بـ ComfyUI. تشترك فيه المهمتان — نزّله مرة واحدة."
+      },
+      "note": ""
+    },
+    {
+      "key": "model.comfy.videoVAE",
+      "values": {
+        "en": "Video VAE in fp16. Chosen over the INT8 build: it is small, and decode quality is visible.",
+        "zh-Hant": "fp16 的 video VAE。相較 INT8 版更建議這個：體積小，而且解碼品質看得出差別。",
+        "zh-Hans": "fp16 的 video VAE。相较 INT8 版更建议这个：体积小，而且解码质量看得出差别。",
+        "de": "Video-VAE in fp16. Dem INT8-Build vorgezogen: klein, und die Decodier-Qualität ist sichtbar.",
+        "ar": "‏video VAE بدقة fp16. فُضّل على نسخة INT8: حجمه صغير وجودة فك الترميز ملحوظة."
+      },
+      "note": ""
+    },
+    {
+      "key": "model.fl2va.bf16",
+      "values": {
+        "en": "Reference precision, validated against the diffusers implementation. The slowest option, and about 41 GB resident on its own — with the text encoder loaded as well, plan on 128 GB of unified memory.",
+        "zh-Hant": "參考精度，已對照 diffusers 實作驗證。速度最慢，單是本體常駐就約 41 GB——再加上文字編碼器，建議使用 128 GB 統一記憶體的機器。",
+        "zh-Hans": "参考精度，已对照 diffusers 实现验证。速度最慢，单是本体常驻就约 41 GB——再加上文本编码器，建议使用 128 GB 统一内存的机器。",
+        "de": "Referenzpräzision, gegen die diffusers-Implementierung validiert. Die langsamste Option und allein schon rund 41 GB resident – zusammen mit dem Text-Encoder sollten es 128 GB Unified Memory sein.",
+        "ar": "دقة مرجعية، جرى التحقق منها مقابل تنفيذ diffusers. الخيار الأبطأ، ويشغل وحده نحو 41 غيغابايت — ومع تحميل مشفّر النص أيضًا، يُنصح بذاكرة موحّدة سعتها 128 غيغابايت."
+      },
+      "note": ""
+    },
+    {
+      "key": "model.fl2va.gguf",
+      "values": {
+        "en": "GGUF quantizations, including very small ones. Loaded by ComfyUI, not by MLX — useful if you ever run this model through ComfyUI instead.",
+        "zh-Hant": "GGUF 量化版本，包含非常小的檔案。由 ComfyUI 載入，MLX 不支援——若你改以 ComfyUI 執行本模型就用得上。",
+        "zh-Hans": "GGUF 量化版本，包含非常小的文件。由 ComfyUI 加载，MLX 不支持——若你改用 ComfyUI 运行本模型就用得上。",
+        "de": "GGUF-Quantisierungen, auch sehr kleine. Wird von ComfyUI geladen, nicht von MLX – nützlich, falls Sie das Modell stattdessen über ComfyUI laufen lassen.",
+        "ar": "تكميمات بصيغة GGUF، منها نسخ صغيرة جدًا. يحمّلها ComfyUI لا MLX — مفيدة إن شغّلت هذا النموذج عبر ComfyUI بدلًا من ذلك."
+      },
+      "note": ""
+    },
+    {
+      "key": "model.fl2va.nvfp4",
+      "values": {
+        "en": "Community prune in NVIDIA's NVFP4 format. Listed for completeness.",
+        "zh-Hant": "社群釋出的修剪版，採用 NVIDIA 的 NVFP4 格式。列出以求完整。",
+        "zh-Hans": "社区发布的剪枝版，采用 NVIDIA 的 NVFP4 格式。列出以求完整。",
+        "de": "Community-Prune im NVFP4-Format von NVIDIA. Der Vollständigkeit halber aufgeführt.",
+        "ar": "نسخة مُقلَّمة من المجتمع بصيغة NVFP4 من NVIDIA. مُدرجة لاكتمال القائمة."
+      },
+      "note": ""
+    },
+    {
+      "key": "model.fl2va.q4",
+      "values": {
+        "en": "4-bit, group size 64. The fastest of these and about 12 GB resident. Loses some fine texture. The best place to start — but the text encoder, not this, is what sets the memory floor.",
+        "zh-Hant": "4-bit，group size 64。這些選項中最快，常駐約 12 GB。細節質感會有所損失。建議從這個開始——不過決定記憶體門檻的是文字編碼器，而不是它。",
+        "zh-Hans": "4-bit，group size 64。这些选项中最快，常驻约 12 GB。细节质感会有所损失。建议从这个开始——不过决定内存门槛的是文本编码器，而不是它。",
+        "de": "4 Bit, Gruppengröße 64. Die schnellste dieser Varianten und rund 12 GB resident. Verliert etwas Feintextur. Der beste Einstieg – die Speicheruntergrenze setzt allerdings der Text-Encoder, nicht diese Datei.",
+        "ar": "‏4-bit بحجم مجموعة 64. الأسرع بينها ويشغل نحو 12 غيغابايت. يفقد بعض التفاصيل الدقيقة. أفضل نقطة للبدء — غير أن الحدّ الأدنى للذاكرة يفرضه مشفّر النص لا هذا الملف."
+      },
+      "note": ""
+    },
+    {
+      "key": "model.fl2va.q6",
+      "values": {
+        "en": "6-bit. A middle point if 4-bit looks soft and 8-bit is too slow.",
+        "zh-Hant": "6-bit。若覺得 4-bit 太鬆散、8-bit 又太慢，這是折衷選擇。",
+        "zh-Hans": "6-bit。若觉得 4-bit 太软、8-bit 又太慢，这是折中选择。",
+        "de": "6 Bit. Ein Mittelweg, wenn 4 Bit zu weich wirkt und 8 Bit zu langsam ist.",
+        "ar": "‏6-bit. حل وسط إذا بدا 4-bit ناعمًا أكثر من اللازم وكان 8-bit بطيئًا."
+      },
+      "note": ""
+    },
+    {
+      "key": "model.fl2va.q8",
+      "values": {
+        "en": "The quality-per-gigabyte sweet spot — visually very close to bf16.",
+        "zh-Hant": "每 GB 畫質的最佳平衡點——視覺上非常接近 bf16。",
+        "zh-Hans": "每 GB 画质的最佳平衡点——视觉上非常接近 bf16。",
+        "de": "Das beste Verhältnis von Qualität zu Gigabyte – optisch sehr nah an bf16.",
+        "ar": "أفضل توازن بين الجودة وحجم التخزين — قريب بصريًا جدًا من bf16."
+      },
+      "note": ""
+    },
+    {
+      "key": "model.lora.fl2va.mlx",
+      "values": {
+        "en": "A 4-step distillation LoRA for FL2VA at 768p — the single biggest speed win available for this model. The MLX port has no LoRA loader yet, so it is listed here to watch rather than to install.",
+        "zh-Hant": "針對 768p FL2VA 的 4 步蒸餾 LoRA——本模型目前最大的一項加速。MLX 移植版尚無 LoRA 載入器，因此這裡只是列出供關注，還不能安裝。",
+        "zh-Hans": "针对 768p FL2VA 的 4 步蒸馏 LoRA——本模型目前最大的一项加速。MLX 移植版尚无 LoRA 加载器，因此这里只是列出供关注，还不能安装。",
+        "de": "Eine 4-Schritt-Destillations-LoRA für FL2VA bei 768p – der größte verfügbare Geschwindigkeitsgewinn für dieses Modell. Die MLX-Portierung hat noch keinen LoRA-Loader, daher steht sie hier zum Beobachten, nicht zum Installieren.",
+        "ar": "نموذج LoRA مُقطَّر بأربع خطوات لـ FL2VA بدقة 768p — أكبر مكسب في السرعة متاح لهذا النموذج. لا تملك نسخة MLX محمِّل LoRA بعد، لذا يُدرج هنا للمتابعة لا للتثبيت."
+      },
+      "note": ""
+    },
+    {
+      "key": "model.lora.fl2va.mlx.blocked",
+      "values": {
+        "en": "The MLX port has no LoRA loader yet. Fusing this would need a merged checkpoint rather than the LoRA on its own.",
+        "zh-Hant": "MLX 移植版尚無 LoRA 載入器。要套用它得改用已合併的檢查點，而非單獨的 LoRA。",
+        "zh-Hans": "MLX 移植版尚无 LoRA 加载器。要套用它得改用已合并的检查点，而非单独的 LoRA。",
+        "de": "Die MLX-Portierung hat noch keinen LoRA-Loader. Zum Einbinden wäre ein zusammengeführter Checkpoint nötig, nicht die LoRA allein.",
+        "ar": "لا تملك نسخة MLX محمِّل LoRA بعد. ودمجه يتطلب نقطة تحقّق مدموجة بدل ملف LoRA وحده."
+      },
+      "note": ""
+    },
+    {
+      "key": "model.name.comfy.audioVAE",
+      "values": {
+        "en": "Audio VAE — fp32",
+        "zh-Hant": "Audio VAE — fp32",
+        "zh-Hans": "Audio VAE — fp32",
+        "de": "Audio-VAE – fp32",
+        "ar": "‏VAE الصوت — ‏fp32"
+      },
+      "note": ""
+    },
+    {
+      "key": "model.name.comfy.fl2va",
+      "values": {
+        "en": "FL2VA transformer — INT8 ConvRot",
+        "zh-Hant": "FL2VA transformer — INT8 ConvRot",
+        "zh-Hans": "FL2VA transformer — INT8 ConvRot",
+        "de": "FL2VA-Transformer – INT8 ConvRot",
+        "ar": "محوّل FL2VA — ‏INT8 ConvRot"
+      },
+      "note": ""
+    },
+    {
+      "key": "model.name.comfy.lora.fl2va",
+      "values": {
+        "en": "FL2VA turbo LoRA — 4-step, ComfyUI format",
+        "zh-Hant": "FL2VA turbo LoRA — 4 步，ComfyUI 格式",
+        "zh-Hans": "FL2VA turbo LoRA — 4 步，ComfyUI 格式",
+        "de": "FL2VA-Turbo-LoRA – 4 Schritte, ComfyUI-Format",
+        "ar": "‏FL2VA turbo LoRA — أربع خطوات، بصيغة ComfyUI"
+      },
+      "note": ""
+    },
+    {
+      "key": "model.name.comfy.lora.ref2va",
+      "values": {
+        "en": "Ref2VA turbo LoRA — 4-step",
+        "zh-Hant": "Ref2VA turbo LoRA — 4 步",
+        "zh-Hans": "Ref2VA turbo LoRA — 4 步",
+        "de": "Ref2VA-Turbo-LoRA – 4 Schritte",
+        "ar": "‏Ref2VA turbo LoRA — أربع خطوات"
+      },
+      "note": ""
+    },
+    {
+      "key": "model.name.comfy.ref2va",
+      "values": {
+        "en": "Ref2VA transformer — INT8 ConvRot",
+        "zh-Hant": "Ref2VA transformer — INT8 ConvRot",
+        "zh-Hans": "Ref2VA transformer — INT8 ConvRot",
+        "de": "Ref2VA-Transformer – INT8 ConvRot",
+        "ar": "محوّل Ref2VA — ‏INT8 ConvRot"
+      },
+      "note": ""
+    },
+    {
+      "key": "model.name.comfy.textEncoder",
+      "values": {
+        "en": "Text encoder — INT8 ConvRot",
+        "zh-Hant": "文字編碼器 — INT8 ConvRot",
+        "zh-Hans": "文本编码器 — INT8 ConvRot",
+        "de": "Text-Encoder – INT8 ConvRot",
+        "ar": "مشفّر النص — ‏INT8 ConvRot"
+      },
+      "note": ""
+    },
+    {
+      "key": "model.name.comfy.videoVAE",
+      "values": {
+        "en": "Video VAE — fp16",
+        "zh-Hant": "Video VAE — fp16",
+        "zh-Hans": "Video VAE — fp16",
+        "de": "Video-VAE – fp16",
+        "ar": "‏VAE الفيديو — ‏fp16"
+      },
+      "note": ""
+    },
+    {
+      "key": "model.name.fl2va.bf16",
+      "values": {
+        "en": "FL2VA transformer — bfloat16",
+        "zh-Hant": "FL2VA transformer — bfloat16",
+        "zh-Hans": "FL2VA transformer — bfloat16",
+        "de": "FL2VA-Transformer – bfloat16",
+        "ar": "محوّل FL2VA — ‏bfloat16"
+      },
+      "note": ""
+    },
+    {
+      "key": "model.name.fl2va.gguf",
+      "values": {
+        "en": "FL2VA transformer — GGUF",
+        "zh-Hant": "FL2VA transformer — GGUF",
+        "zh-Hans": "FL2VA transformer — GGUF",
+        "de": "FL2VA-Transformer – GGUF",
+        "ar": "محوّل FL2VA — ‏GGUF"
+      },
+      "note": ""
+    },
+    {
+      "key": "model.name.fl2va.nvfp4",
+      "values": {
+        "en": "FL2VA transformer — NVFP4",
+        "zh-Hant": "FL2VA transformer — NVFP4",
+        "zh-Hans": "FL2VA transformer — NVFP4",
+        "de": "FL2VA-Transformer – NVFP4",
+        "ar": "محوّل FL2VA — ‏NVFP4"
+      },
+      "note": ""
+    },
+    {
+      "key": "model.name.fl2va.q4",
+      "values": {
+        "en": "FL2VA transformer — 4-bit (MLX)",
+        "zh-Hant": "FL2VA transformer — 4-bit (MLX)",
+        "zh-Hans": "FL2VA transformer — 4-bit (MLX)",
+        "de": "FL2VA-Transformer – 4-bit (MLX)",
+        "ar": "محوّل FL2VA — ‏4-bit ‏(MLX)"
+      },
+      "note": ""
+    },
+    {
+      "key": "model.name.fl2va.q6",
+      "values": {
+        "en": "FL2VA transformer — 6-bit (MLX)",
+        "zh-Hant": "FL2VA transformer — 6-bit (MLX)",
+        "zh-Hans": "FL2VA transformer — 6-bit (MLX)",
+        "de": "FL2VA-Transformer – 6-bit (MLX)",
+        "ar": "محوّل FL2VA — ‏6-bit ‏(MLX)"
+      },
+      "note": ""
+    },
+    {
+      "key": "model.name.fl2va.q8",
+      "values": {
+        "en": "FL2VA transformer — 8-bit (MLX)",
+        "zh-Hant": "FL2VA transformer — 8-bit (MLX)",
+        "zh-Hans": "FL2VA transformer — 8-bit (MLX)",
+        "de": "FL2VA-Transformer – 8-bit (MLX)",
+        "ar": "محوّل FL2VA — ‏8-bit ‏(MLX)"
+      },
+      "note": ""
+    },
+    {
+      "key": "model.name.lora.fl2va.mlx",
+      "values": {
+        "en": "FL2VA turbo LoRA — 4-step, MLX format",
+        "zh-Hant": "FL2VA turbo LoRA — 4 步，MLX 格式",
+        "zh-Hans": "FL2VA turbo LoRA — 4 步，MLX 格式",
+        "de": "FL2VA-Turbo-LoRA – 4 Schritte, MLX-Format",
+        "ar": "‏FL2VA turbo LoRA — أربع خطوات، بصيغة MLX"
+      },
+      "note": ""
+    },
+    {
+      "key": "model.name.ref2va.bf16",
+      "values": {
+        "en": "Ref2VA transformer — bfloat16",
+        "zh-Hant": "Ref2VA transformer — bfloat16",
+        "zh-Hans": "Ref2VA transformer — bfloat16",
+        "de": "Ref2VA-Transformer – bfloat16",
+        "ar": "محوّل Ref2VA — ‏bfloat16"
+      },
+      "note": ""
+    },
+    {
+      "key": "model.name.support.mlx",
+      "values": {
+        "en": "FL2VA VAEs, processor & tokenizer",
+        "zh-Hant": "FL2VA VAE、處理器與 tokenizer",
+        "zh-Hans": "FL2VA VAE、处理器与 tokenizer",
+        "de": "FL2VA-VAEs, Prozessor und Tokenizer",
+        "ar": "‏VAE ومعالج و‏tokenizer لـ FL2VA"
+      },
+      "note": ""
+    },
+    {
+      "key": "model.name.textEncoder.mlx",
+      "values": {
+        "en": "Text encoder — bfloat16",
+        "zh-Hant": "文字編碼器 — bfloat16",
+        "zh-Hans": "文本编码器 — bfloat16",
+        "de": "Text-Encoder – bfloat16",
+        "ar": "مشفّر النص — bfloat16"
+      },
+      "note": ""
+    },
+    {
+      "key": "model.name.textEncoder.uncensored",
+      "values": {
+        "en": "Text encoder — INT8 ConvRot, uncensored",
+        "zh-Hant": "文字編碼器 — INT8 ConvRot，無審查",
+        "zh-Hans": "文本编码器 — INT8 ConvRot，无审查",
+        "de": "Text-Encoder – INT8 ConvRot, ohne Filter",
+        "ar": "مشفّر النص — ‏INT8 ConvRot، بلا رقابة"
+      },
+      "note": ""
+    },
+    {
+      "key": "model.ref2va.bf16",
+      "values": {
+        "en": "Upstream bf16 Ref2VA checkpoint. Listed so the option is visible, but the MLX port's pipeline accepts keyframes only — it has no reference conditioning path — so this cannot be driven from this app yet.",
+        "zh-Hant": "上游的 bf16 Ref2VA 檢查點。列出是為了讓選項可見，但 MLX 移植版的 pipeline 只接受關鍵影格——沒有參考條件的路徑——因此目前無法從本 App 驅動。",
+        "zh-Hans": "上游的 bf16 Ref2VA 检查点。列出是为了让选项可见，但 MLX 移植版的 pipeline 只接受关键帧——没有参考条件的通路——因此目前无法从本 App 驱动。",
+        "de": "Upstream-bf16-Checkpoint für Ref2VA. Nur aufgeführt, damit die Option sichtbar ist: Die Pipeline der MLX-Portierung akzeptiert ausschließlich Keyframes und kennt keinen Pfad für Referenzkonditionierung, lässt sich also aus dieser App noch nicht ansteuern.",
+        "ar": "نقطة تحقّق Ref2VA الأصلية بدقة bf16. مُدرجة ليظهر الخيار فحسب، لكن منظومة نسخة MLX لا تقبل سوى الإطارات المفتاحية ولا تملك مسارًا للاشتراط المرجعي، لذا لا يمكن تشغيلها من هذا التطبيق بعد."
+      },
+      "note": ""
+    },
+    {
+      "key": "model.ref2va.bf16.blocked",
+      "values": {
+        "en": "The MLX port does not implement reference conditioning. Ref2VA currently needs the CUDA stack (SGLang, vLLM or ComfyUI).",
+        "zh-Hant": "MLX 移植版尚未實作參考條件。Ref2VA 目前需要 CUDA 環境（SGLang、vLLM 或 ComfyUI）。",
+        "zh-Hans": "MLX 移植版尚未实现参考条件。Ref2VA 目前需要 CUDA 环境（SGLang、vLLM 或 ComfyUI）。",
+        "de": "Die MLX-Portierung implementiert keine Referenzkonditionierung. Ref2VA benötigt derzeit den CUDA-Stack (SGLang, vLLM oder ComfyUI).",
+        "ar": "لا تنفّذ نسخة MLX الاشتراط المرجعي. يحتاج Ref2VA حاليًا إلى منظومة CUDA ‏(SGLang أو vLLM أو ComfyUI)."
+      },
+      "note": ""
+    },
+    {
+      "key": "model.support.mlx",
+      "values": {
+        "en": "Video VAE (10.4 GB), audio VAE, processor and tokenizer, taken from the FL2VA task directory the pipeline loads as a unit. Required by every run.",
+        "zh-Hant": "video VAE（10.4 GB）、audio VAE、處理器與 tokenizer，取自 pipeline 整包載入的 FL2VA 任務目錄。每次算圖都需要。",
+        "zh-Hans": "video VAE（10.4 GB）、audio VAE、处理器与 tokenizer，取自 pipeline 整包加载的 FL2VA 任务目录。每次渲染都需要。",
+        "de": "Video-VAE (10,4 GB), Audio-VAE, Prozessor und Tokenizer aus dem FL2VA-Aufgabenverzeichnis, das die Pipeline als Einheit lädt. Für jeden Lauf erforderlich.",
+        "ar": "‏video VAE (10.4 GB) و‏audio VAE والمعالج و‏tokenizer، مأخوذة من مجلد مهمة FL2VA الذي تحمّله المنظومة ككتلة واحدة. مطلوبة في كل تشغيل."
+      },
+      "note": ""
+    },
+    {
+      "key": "model.textEncoder.mlx",
+      "values": {
+        "en": "Qwen3-VL-32B in bfloat16 — H3 reads its 50th-layer hidden states. The largest single download, and currently the only text encoder the MLX pipeline can load. At about 34 GB resident it, not the transformer, decides whether this app runs on a given Mac: with the smallest transformer that is roughly 46 GB, so about 64 GB of unified memory is the practical floor. It installs beside the VAEs in FL2VA/.",
+        "zh-Hant": "bfloat16 版的 Qwen3-VL-32B——H3 讀取其第 50 層的隱藏狀態。單一檔案中最大的下載項目，目前也是 MLX pipeline 唯一能載入的文字編碼器。常駐約 34 GB，因此決定本 App 能否在某台 Mac 上執行的是它而非 transformer：搭配最小的 transformer 約需 46 GB，實務上統一記憶體約 64 GB 是門檻。會與 VAE 一同安裝在 FL2VA/ 之下。",
+        "zh-Hans": "bfloat16 版的 Qwen3-VL-32B——H3 读取其第 50 层的隐藏状态。单个文件中最大的下载项，目前也是 MLX pipeline 唯一能加载的文本编码器。常驻约 34 GB，因此决定本 App 能否在某台 Mac 上运行的是它而非 transformer：搭配最小的 transformer 约需 46 GB，实际上统一内存约 64 GB 是门槛。会与 VAE 一同安装在 FL2VA/ 之下。",
+        "de": "Qwen3-VL-32B in bfloat16 – H3 liest dessen Hidden States aus Schicht 50. Der größte Einzeldownload und derzeit der einzige Text-Encoder, den die MLX-Pipeline laden kann. Mit rund 34 GB resident entscheidet er, nicht der Transformer, ob die App auf einem Mac läuft: mit dem kleinsten Transformer sind das etwa 46 GB, praktisch also rund 64 GB Unified Memory als Untergrenze. Wird neben den VAEs unter FL2VA/ installiert.",
+        "ar": "‏Qwen3-VL-32B بدقة bfloat16 — يقرأ H3 الحالات المخفية من طبقته الخمسين. أكبر تنزيل مفرد، وهو حاليًا مشفّر النص الوحيد الذي تستطيع منظومة MLX تحميله. وبإشغاله نحو 34 غيغابايت، فهو — لا المحوّل — ما يحدّد إمكانية تشغيل التطبيق على جهاز بعينه: مع أصغر محوّل يبلغ المجموع نحو 46 غيغابايت، أي أن الحدّ العملي هو ذاكرة موحّدة بنحو 64 غيغابايت. يُثبَّت بجانب الـ VAE داخل ‎FL2VA/‎."
+      },
+      "note": ""
+    },
+    {
+      "key": "model.textEncoder.uncensored",
+      "values": {
+        "en": "Qwen3-VL-32B with its refusal behaviour trained out. Drop-in replacement for the stock encoder — H3 itself is unchanged, since refusals live in the language model, not the diffusion transformer. ComfyUI only; MLX has no loader for this format.",
+        "zh-Hant": "已移除拒絕行為的 Qwen3-VL-32B。可直接替換原本的編碼器——H3 本身沒有改動，因為拒絕行為存在於語言模型，而非 diffusion transformer。僅支援 ComfyUI；MLX 無法載入此格式。",
+        "zh-Hans": "已移除拒绝行为的 Qwen3-VL-32B。可直接替换原本的编码器——H3 本身没有改动，因为拒绝行为存在于语言模型，而非 diffusion transformer。仅支持 ComfyUI；MLX 无法加载此格式。",
+        "de": "Qwen3-VL-32B, dem das Verweigerungsverhalten abtrainiert wurde. Direkter Ersatz für den Standard-Encoder – H3 selbst bleibt unverändert, da Verweigerungen im Sprachmodell sitzen, nicht im Diffusion-Transformer. Nur ComfyUI; MLX hat keinen Loader für dieses Format.",
+        "ar": "‏Qwen3-VL-32B بعد تدريبه على التخلّي عن سلوك الرفض. بديل مباشر للمشفّر القياسي — ويبقى H3 نفسه دون تغيير، لأن الرفض يقيم في نموذج اللغة لا في محوّل الانتشار. يعمل مع ComfyUI فقط؛ ولا يملك MLX محمِّلًا لهذه الصيغة."
+      },
+      "note": ""
+    },
+    {
+      "key": "models.alreadyInstalled",
+      "values": {
+        "en": "Already installed, and skipped:",
+        "zh-Hant": "已安裝，將略過：",
+        "zh-Hans": "已安装，将跳过：",
+        "de": "Bereits installiert, wird übersprungen:",
+        "ar": "مثبَّت مسبقًا، وسيُتخطّى:"
+      },
+      "note": ""
+    },
+    {
+      "key": "models.bytesOf",
+      "values": {
+        "en": "%1$@ of %2$@",
+        "zh-Hant": "%1$@ / %2$@",
+        "zh-Hans": "%1$@ / %2$@",
+        "de": "%1$@ von %2$@",
+        "ar": "%1$@ من %2$@"
+      },
+      "note": ""
+    },
+    {
+      "key": "models.cancelAll",
+      "values": {
+        "en": "Cancel All",
+        "zh-Hant": "全部取消",
+        "zh-Hans": "全部取消",
+        "de": "Alle abbrechen",
+        "ar": "إلغاء الكل"
+      },
+      "note": ""
+    },
+    {
+      "key": "models.cancelDownload",
+      "values": {
+        "en": "Cancel download of %@",
+        "zh-Hant": "取消下載 %@",
+        "zh-Hans": "取消下载 %@",
+        "de": "Download von %@ abbrechen",
+        "ar": "إلغاء تنزيل %@"
+      },
+      "note": ""
+    },
+    {
+      "key": "models.change",
+      "values": {
+        "en": "Change…",
+        "zh-Hant": "更改…",
+        "zh-Hans": "更改…",
+        "de": "Ändern …",
+        "ar": "تغيير…"
+      },
+      "note": ""
+    },
+    {
+      "key": "models.chooseFolder.message",
+      "values": {
+        "en": "Choose the folder where model weights are shared between projects",
+        "zh-Hant": "選擇各專案共用模型權重的資料夾",
+        "zh-Hans": "选择各项目共用模型权重的文件夹",
+        "de": "Wählen Sie den Ordner, in dem Modellgewichte projektübergreifend geteilt werden",
+        "ar": "اختر المجلد الذي تُشارَك فيه أوزان النماذج بين المشاريع"
+      },
+      "note": ""
+    },
+    {
+      "key": "models.clearFinished",
+      "values": {
+        "en": "Clear Finished",
+        "zh-Hant": "清除已完成",
+        "zh-Hans": "清除已完成",
+        "de": "Fertige entfernen",
+        "ar": "مسح المكتملة"
+      },
+      "note": ""
+    },
+    {
+      "key": "models.copyFilename",
+      "values": {
+        "en": "Copy file name",
+        "zh-Hant": "拷貝檔案名稱",
+        "zh-Hans": "复制文件名",
+        "de": "Dateinamen kopieren",
+        "ar": "نسخ اسم الملف"
+      },
+      "note": ""
+    },
+    {
+      "key": "models.copyLink",
+      "values": {
+        "en": "Copy link",
+        "zh-Hant": "拷貝連結",
+        "zh-Hans": "复制链接",
+        "de": "Link kopieren",
+        "ar": "نسخ الرابط"
+      },
+      "note": ""
+    },
+    {
+      "key": "models.copyRepoID",
+      "values": {
+        "en": "Copy repository id",
+        "zh-Hant": "拷貝儲存庫 ID",
+        "zh-Hans": "复制仓库 ID",
+        "de": "Repository-ID kopieren",
+        "ar": "نسخ معرّف المستودع"
+      },
+      "note": ""
+    },
+    {
+      "key": "models.delete.freed",
+      "values": {
+        "en": "Moved %@ to the Trash.",
+        "zh-Hant": "已將 %@ 移到垃圾桶。",
+        "zh-Hans": "已将 %@ 移到废纸篓。",
+        "de": "%@ in den Papierkorb gelegt.",
+        "ar": "نُقل %@ إلى المهملات."
+      },
+      "note": ""
+    },
+    {
+      "key": "models.delete.help.inUse",
+      "values": {
+        "en": "In use for the current render — choose another first",
+        "zh-Hant": "目前的算圖正在使用，請先改選其他",
+        "zh-Hans": "当前的渲染正在使用，请先改选其他",
+        "de": "Wird für den aktuellen Render verwendet — zuerst ein anderes wählen",
+        "ar": "مستخدَم في التصيير الحالي — اختر غيره أولًا"
+      },
+      "note": ""
+    },
+    {
+      "key": "models.delete.help.ok",
+      "values": {
+        "en": "Move this model to the Trash",
+        "zh-Hant": "將此模型移到垃圾桶",
+        "zh-Hans": "将此模型移到废纸篓",
+        "de": "Dieses Modell in den Papierkorb legen",
+        "ar": "نقل هذا النموذج إلى المهملات"
+      },
+      "note": ""
+    },
+    {
+      "key": "models.delete.help.running",
+      "values": {
+        "en": "Not while a render is running",
+        "zh-Hant": "算圖進行中無法刪除",
+        "zh-Hans": "渲染进行中无法删除",
+        "de": "Nicht während ein Render läuft",
+        "ar": "غير ممكن أثناء تشغيل تصيير"
+      },
+      "note": ""
+    },
+    {
+      "key": "models.delete.message",
+      "values": {
+        "en": "Frees about %1$@ from the shared models folder, which other projects on this Mac may also be using — anything relying on %2$@ would have to download it again. The files go to the Trash, so this can be undone until you empty it.",
+        "zh-Hant": "可釋出約 %1$@ 的共用模型資料夾空間；本機其他專案可能也在使用，任何依賴 %2$@ 的程式都得重新下載。檔案會移到垃圾桶，清空前都還能還原。",
+        "zh-Hans": "可释出约 %1$@ 的共享模型文件夹空间；本机其他项目可能也在使用，任何依赖 %2$@ 的程序都得重新下载。文件会移到废纸篓，清空前都还能还原。",
+        "de": "Gibt etwa %1$@ im gemeinsamen Modellordner frei, den andere Projekte auf diesem Mac ebenfalls nutzen könnten — alles, was auf %2$@ angewiesen ist, müsste es erneut laden. Die Dateien wandern in den Papierkorb und lassen sich bis zum Leeren wiederherstellen.",
+        "ar": "يحرّر نحو %1$@ من مجلد النماذج المشترك، وقد تستخدمه مشاريع أخرى على هذا الـ Mac — وأي شيء يعتمد على %2$@ سيحتاج إلى تنزيله مجددًا. تنتقل الملفات إلى المهملات، فيمكن التراجع حتى تفريغها."
+      },
+      "note": ""
+    },
+    {
+      "key": "models.delete.title",
+      "values": {
+        "en": "Delete %@?",
+        "zh-Hant": "要刪除%@嗎？",
+        "zh-Hans": "要删除%@吗？",
+        "de": "%@ löschen?",
+        "ar": "هل تريد حذف %@؟"
+      },
+      "note": ""
+    },
+    {
+      "key": "models.download.starting",
+      "values": {
+        "en": "Starting transfer…",
+        "zh-Hant": "正在開始傳輸…",
+        "zh-Hans": "正在开始传输…",
+        "de": "Übertragung wird gestartet…",
+        "ar": "جارٍ بدء النقل…"
+      },
+      "note": ""
+    },
+    {
+      "key": "models.downloadAmount",
+      "values": {
+        "en": "Download %@",
+        "zh-Hant": "下載 %@",
+        "zh-Hans": "下载 %@",
+        "de": "%@ laden",
+        "ar": "تنزيل %@"
+      },
+      "note": ""
+    },
+    {
+      "key": "models.downloadFailed",
+      "values": {
+        "en": "Download failed",
+        "zh-Hant": "下載失敗",
+        "zh-Hans": "下载失败",
+        "de": "Download fehlgeschlagen",
+        "ar": "فشل التنزيل"
+      },
+      "note": ""
+    },
+    {
+      "key": "models.downloaded",
+      "values": {
+        "en": "Downloaded",
+        "zh-Hant": "已下載",
+        "zh-Hans": "已下载",
+        "de": "Geladen",
+        "ar": "تم التنزيل"
+      },
+      "note": ""
+    },
+    {
+      "key": "models.downloading",
+      "values": {
+        "en": "Downloading…",
+        "zh-Hant": "下載中…",
+        "zh-Hans": "下载中…",
+        "de": "Wird geladen…",
+        "ar": "جارٍ التنزيل…"
+      },
+      "note": ""
+    },
+    {
+      "key": "models.downloads",
+      "values": {
+        "en": "Downloads",
+        "zh-Hant": "下載",
+        "zh-Hans": "下载",
+        "de": "Downloads",
+        "ar": "التنزيلات"
+      },
+      "note": ""
+    },
+    {
+      "key": "models.downloads.footnote",
+      "values": {
+        "en": "This list covers the current session. A finished download stays here until cleared; what is installed is shown against each model below.",
+        "zh-Hant": "此清單只涵蓋本次工作階段。已完成的下載會留在這裡直到清除；實際安裝狀態顯示在下方各模型旁。",
+        "zh-Hans": "此列表只涵盖本次会话。已完成的下载会留在这里直到清除；实际安装状态显示在下方各模型旁。",
+        "de": "Diese Liste gilt für die aktuelle Sitzung. Ein abgeschlossener Download bleibt hier, bis er entfernt wird; was installiert ist, steht unten bei jedem Modell.",
+        "ar": "تغطي هذه القائمة الجلسة الحالية. يبقى التنزيل المكتمل هنا حتى يُمسح؛ أما ما هو مثبَّت فيظهر بجانب كل نموذج أدناه."
+      },
+      "note": ""
+    },
+    {
+      "key": "models.folder.footnote",
+      "values": {
+        "en": "Downloads go into the Hugging Face cache inside this folder. Any other project pointed at the same folder reuses them instead of downloading a second copy.",
+        "zh-Hant": "下載內容會放進這個資料夾裡的 Hugging Face 快取。任何指向同一資料夾的其他專案都能直接重用，不必再下載一份。",
+        "zh-Hans": "下载内容会放进这个文件夹里的 Hugging Face 缓存。任何指向同一文件夹的其他项目都能直接重用，不必再下载一份。",
+        "de": "Downloads landen im Hugging-Face-Cache in diesem Ordner. Jedes andere Projekt, das auf denselben Ordner zeigt, verwendet sie weiter, statt eine zweite Kopie zu laden.",
+        "ar": "تُحفظ التنزيلات في ذاكرة Hugging Face المؤقتة داخل هذا المجلد. وأي مشروع آخر موجَّه إلى المجلد نفسه يعيد استخدامها بدل تنزيل نسخة ثانية."
+      },
+      "note": ""
+    },
+    {
+      "key": "models.folder.title",
+      "values": {
+        "en": "Shared models folder",
+        "zh-Hant": "共用模型資料夾",
+        "zh-Hans": "共享模型文件夹",
+        "de": "Gemeinsamer Modellordner",
+        "ar": "مجلد النماذج المشترك"
+      },
+      "note": ""
+    },
+    {
+      "key": "models.found",
+      "values": {
+        "en": "Models found",
+        "zh-Hant": "找到的模型",
+        "zh-Hans": "找到的模型",
+        "de": "Gefundene Modelle",
+        "ar": "النماذج المعثور عليها"
+      },
+      "note": ""
+    },
+    {
+      "key": "models.freeSpace",
+      "values": {
+        "en": "Free space",
+        "zh-Hant": "可用空間",
+        "zh-Hans": "可用空间",
+        "de": "Freier Speicher",
+        "ar": "المساحة الحرة"
+      },
+      "note": ""
+    },
+    {
+      "key": "models.inMemory",
+      "values": {
+        "en": "%@ in memory",
+        "zh-Hant": "記憶體 %@",
+        "zh-Hans": "内存 %@",
+        "de": "%@ im Arbeitsspeicher",
+        "ar": "%@ في الذاكرة"
+      },
+      "note": ""
+    },
+    {
+      "key": "models.inUse",
+      "values": {
+        "en": "In use",
+        "zh-Hant": "使用中",
+        "zh-Hans": "使用中",
+        "de": "In Verwendung",
+        "ar": "قيد الاستخدام"
+      },
+      "note": ""
+    },
+    {
+      "key": "models.installRecommended",
+      "values": {
+        "en": "Install Recommended",
+        "zh-Hant": "安裝建議組合",
+        "zh-Hans": "安装建议组合",
+        "de": "Empfohlene installieren",
+        "ar": "تثبيت الموصى به"
+      },
+      "note": ""
+    },
+    {
+      "key": "models.installRecommended.title",
+      "values": {
+        "en": "Install the recommended models?",
+        "zh-Hant": "要安裝建議的模型嗎？",
+        "zh-Hans": "要安装建议的模型吗？",
+        "de": "Die empfohlenen Modelle installieren?",
+        "ar": "هل تريد تثبيت النماذج الموصى بها؟"
+      },
+      "note": ""
+    },
+    {
+      "key": "models.installed",
+      "values": {
+        "en": "Installed",
+        "zh-Hant": "已安裝",
+        "zh-Hans": "已安装",
+        "de": "Installiert",
+        "ar": "مثبَّت"
+      },
+      "note": ""
+    },
+    {
+      "key": "models.memory.tight",
+      "values": {
+        "en": "Needs about %1$@ of the roughly %2$@ this Mac can give a model. It will fit, with little to spare.",
+        "zh-Hant": "需要約 %1$@，而本機可分配給模型的約為 %2$@。放得下，但餘裕不多。",
+        "zh-Hans": "需要约 %1$@，而本机可分配给模型的约为 %2$@。放得下，但余量不多。",
+        "de": "Benötigt etwa %1$@ von den rund %2$@, die dieser Mac einem Modell geben kann. Es passt, aber knapp.",
+        "ar": "يحتاج نحو %1$@ من أصل %2$@ تقريبًا يمكن لهذا الـ Mac منحها لنموذج. سيتّسع، لكن دون هامش يُذكر."
+      },
+      "note": ""
+    },
+    {
+      "key": "models.memory.tooLarge",
+      "values": {
+        "en": "Needs about %1$@ in memory. This Mac can give about %2$@ to a model, so this will swap rather than run.",
+        "zh-Hant": "需要約 %1$@ 記憶體。本機可分配給模型的約為 %2$@，因此會落到置換空間而非正常執行。",
+        "zh-Hans": "需要约 %1$@ 内存。本机可分配给模型的约为 %2$@，因此会落到交换空间而非正常运行。",
+        "de": "Benötigt etwa %1$@ Arbeitsspeicher. Dieser Mac kann einem Modell etwa %2$@ geben, es würde also auslagern statt zu laufen.",
+        "ar": "يحتاج نحو %1$@ من الذاكرة. ولا يستطيع هذا الـ Mac منح النموذج سوى %2$@ تقريبًا، لذا سيلجأ إلى التبديل بدل التشغيل."
+      },
+      "note": ""
+    },
+    {
+      "key": "models.notInstalled",
+      "values": {
+        "en": "Not installed",
+        "zh-Hant": "未安裝",
+        "zh-Hans": "未安装",
+        "de": "Nicht installiert",
+        "ar": "غير مثبَّت"
+      },
+      "note": ""
+    },
+    {
+      "key": "models.notRunnable",
+      "values": {
+        "en": "Not runnable here",
+        "zh-Hant": "此裝置無法執行",
+        "zh-Hans": "此设备无法运行",
+        "de": "Hier nicht lauffähig",
+        "ar": "غير قابل للتشغيل هنا"
+      },
+      "note": ""
+    },
+    {
+      "key": "models.other.footnote",
+      "values": {
+        "en": "These belong to other projects. This app leaves them alone.",
+        "zh-Hant": "這些屬於其他專案，本 App 不會動它們。",
+        "zh-Hans": "这些属于其他项目，本 App 不会动它们。",
+        "de": "Diese gehören zu anderen Projekten. Diese App rührt sie nicht an.",
+        "ar": "هذه تخص مشاريع أخرى، ولا يمسّها هذا التطبيق."
+      },
+      "note": ""
+    },
+    {
+      "key": "models.other.title",
+      "values": {
+        "en": "Other models in this folder",
+        "zh-Hant": "此資料夾中的其他模型",
+        "zh-Hans": "此文件夹中的其他模型",
+        "de": "Weitere Modelle in diesem Ordner",
+        "ar": "نماذج أخرى في هذا المجلد"
+      },
+      "note": ""
+    },
+    {
+      "key": "models.progress",
+      "values": {
+        "en": "Download progress",
+        "zh-Hant": "下載進度",
+        "zh-Hans": "下载进度",
+        "de": "Download-Fortschritt",
+        "ar": "تقدّم التنزيل"
+      },
+      "note": ""
+    },
+    {
+      "key": "models.rescan",
+      "values": {
+        "en": "Rescan",
+        "zh-Hant": "重新掃描",
+        "zh-Hans": "重新扫描",
+        "de": "Neu einlesen",
+        "ar": "إعادة الفحص"
+      },
+      "note": ""
+    },
+    {
+      "key": "models.rescan.help",
+      "values": {
+        "en": "Re-read the shared models folder",
+        "zh-Hant": "重新讀取共用模型資料夾",
+        "zh-Hans": "重新读取共享模型文件夹",
+        "de": "Den gemeinsamen Modellordner neu einlesen",
+        "ar": "إعادة قراءة مجلد النماذج المشترك"
+      },
+      "note": ""
+    },
+    {
+      "key": "models.revealInFinder",
+      "values": {
+        "en": "Reveal %@ in Finder",
+        "zh-Hant": "在 Finder 中顯示 %@",
+        "zh-Hans": "在 Finder 中显示 %@",
+        "de": "%@ im Finder zeigen",
+        "ar": "إظهار %@ في Finder"
+      },
+      "note": ""
+    },
+    {
+      "key": "models.savingTo",
+      "values": {
+        "en": "Saving to %1$@, with %2$@ free.",
+        "zh-Hant": "儲存至 %1$@，可用空間 %2$@。",
+        "zh-Hans": "保存至 %1$@，可用空间 %2$@。",
+        "de": "Wird in %1$@ gesichert, %2$@ frei.",
+        "ar": "سيُحفظ في %1$@، والمساحة الحرة %2$@."
+      },
+      "note": ""
+    },
+    {
+      "key": "models.selected",
+      "values": {
+        "en": "Selected",
+        "zh-Hant": "已選擇",
+        "zh-Hans": "已选择",
+        "de": "Ausgewählt",
+        "ar": "محدَّد"
+      },
+      "note": ""
+    },
+    {
+      "key": "models.showIncompatible",
+      "values": {
+        "en": "Show Incompatible",
+        "zh-Hant": "顯示不相容項目",
+        "zh-Hans": "显示不兼容项目",
+        "de": "Inkompatible anzeigen",
+        "ar": "إظهار غير المتوافق"
+      },
+      "note": ""
+    },
+    {
+      "key": "models.showIncompatible.help",
+      "values": {
+        "en": "Include checkpoints in formats this Mac cannot run",
+        "zh-Hant": "一併顯示本機無法執行之格式的檢查點",
+        "zh-Hans": "一并显示本机无法运行之格式的检查点",
+        "de": "Auch Checkpoints in Formaten zeigen, die dieser Mac nicht ausführen kann",
+        "ar": "تضمين نقاط التحقق بصيغ لا يستطيع هذا الـ Mac تشغيلها"
+      },
+      "note": ""
+    },
+    {
+      "key": "models.spaceWarning",
+      "values": {
+        "en": "The recommended set needs about %@, plus scratch space while rendering.",
+        "zh-Hant": "建議的組合約需 %@，算圖時還需要額外的暫存空間。",
+        "zh-Hans": "建议的组合约需 %@，渲染时还需要额外的暂存空间。",
+        "de": "Der empfohlene Satz benötigt etwa %@, zuzüglich Arbeitsspeicherplatz beim Rendern.",
+        "ar": "تحتاج المجموعة الموصى بها نحو %@، إضافةً إلى مساحة مؤقتة أثناء التصيير."
+      },
+      "note": ""
+    },
+    {
+      "key": "models.status.inUse",
+      "values": {
+        "en": "Downloaded, and used by this render",
+        "zh-Hant": "已下載，且本次算圖會用到",
+        "zh-Hans": "已下载，且本次渲染会用到",
+        "de": "Geladen und für dieses Rendering verwendet",
+        "ar": "مُنزَّل، ويُستخدم في هذا التصيير"
+      },
+      "note": ""
+    },
+    {
+      "key": "models.status.missing",
+      "values": {
+        "en": "Needed by this render, but not downloaded",
+        "zh-Hant": "本次算圖需要，但尚未下載",
+        "zh-Hans": "本次渲染需要，但尚未下载",
+        "de": "Für dieses Rendering erforderlich, aber nicht geladen",
+        "ar": "مطلوب لهذا التصيير، لكنه غير مُنزَّل"
+      },
+      "note": ""
+    },
+    {
+      "key": "models.use",
+      "values": {
+        "en": "Use",
+        "zh-Hant": "使用",
+        "zh-Hans": "使用",
+        "de": "Verwenden",
+        "ar": "استخدام"
+      },
+      "note": ""
+    },
+    {
+      "key": "models.use.help.download",
+      "values": {
+        "en": "Download this first",
+        "zh-Hant": "請先下載",
+        "zh-Hans": "请先下载",
+        "de": "Zuerst laden",
+        "ar": "نزّله أولًا"
+      },
+      "note": ""
+    },
+    {
+      "key": "models.use.help.inUse",
+      "values": {
+        "en": "Already in use for the current render",
+        "zh-Hant": "目前的算圖已在使用",
+        "zh-Hans": "当前的渲染已在使用",
+        "de": "Wird für den aktuellen Render bereits verwendet",
+        "ar": "مستخدَم بالفعل في التصيير الحالي"
+      },
+      "note": ""
+    },
+    {
+      "key": "models.use.help.select",
+      "values": {
+        "en": "Use this for the current render",
+        "zh-Hant": "用於目前的算圖",
+        "zh-Hans": "用于当前的渲染",
+        "de": "Für den aktuellen Render verwenden",
+        "ar": "استخدامه في التصيير الحالي"
+      },
+      "note": ""
+    },
+    {
+      "key": "models.willDownload",
+      "values": {
+        "en": "Will download:",
+        "zh-Hant": "即將下載：",
+        "zh-Hans": "即将下载：",
+        "de": "Wird geladen:",
+        "ar": "سيتم تنزيل:"
+      },
+      "note": ""
+    },
+    {
+      "key": "onboarding.back",
+      "values": {
+        "en": "Back",
+        "zh-Hant": "上一步",
+        "zh-Hans": "上一步",
+        "de": "Zurück",
+        "ar": "رجوع"
+      },
+      "note": ""
+    },
+    {
+      "key": "onboarding.continue",
+      "values": {
+        "en": "Continue",
+        "zh-Hant": "繼續",
+        "zh-Hans": "继续",
+        "de": "Fortfahren",
+        "ar": "متابعة"
+      },
+      "note": ""
+    },
+    {
+      "key": "onboarding.diskTitle",
+      "values": {
+        "en": "Setup is a large download",
+        "zh-Hant": "初始設定的下載量很大",
+        "zh-Hans": "初始设置的下载量很大",
+        "de": "Die Einrichtung lädt viel herunter",
+        "ar": "الإعداد يتطلّب تنزيلًا كبيرًا"
+      },
+      "note": ""
+    },
+    {
+      "key": "onboarding.freeOnDisk",
+      "values": {
+        "en": "Free on disk",
+        "zh-Hant": "磁碟可用空間",
+        "zh-Hans": "磁盘可用空间",
+        "de": "Frei auf dem Volume",
+        "ar": "المساحة الحرة على القرص"
+      },
+      "note": ""
+    },
+    {
+      "key": "onboarding.installRuntime",
+      "values": {
+        "en": "Install Runtime",
+        "zh-Hant": "安裝執行環境",
+        "zh-Hans": "安装运行环境",
+        "de": "Laufzeitumgebung installieren",
+        "ar": "تثبيت بيئة التشغيل"
+      },
+      "note": ""
+    },
+    {
+      "key": "onboarding.installing",
+      "values": {
+        "en": "Installing…",
+        "zh-Hant": "安裝中…",
+        "zh-Hans": "安装中…",
+        "de": "Wird installiert …",
+        "ar": "جارٍ التثبيت…"
+      },
+      "note": ""
+    },
+    {
+      "key": "onboarding.licence.acknowledge",
+      "values": {
+        "en": "I have read the licence and I am entitled to use these weights where I am",
+        "zh-Hant": "我已閱讀授權條款，並確認在我所在地有權使用這些權重",
+        "zh-Hans": "我已阅读许可条款，并确认在我所在地有权使用这些权重",
+        "de": "Ich habe die Lizenz gelesen und bin berechtigt, diese Gewichte hier zu verwenden",
+        "ar": "لقد قرأت الترخيص وأنا مخوَّل باستخدام هذه الأوزان في موقعي"
+      },
+      "note": ""
+    },
+    {
+      "key": "onboarding.licence.heading",
+      "values": {
+        "en": "MiniMax H3 Community License",
+        "zh-Hant": "MiniMax H3 社群授權條款",
+        "zh-Hans": "MiniMax H3 社区许可协议",
+        "de": "MiniMax H3 Community License",
+        "ar": "ترخيص مجتمع MiniMax H3"
+      },
+      "note": "The licence's proper name stays in English; TW/CN gloss it."
+    },
+    {
+      "key": "onboarding.licence.readFull",
+      "values": {
+        "en": "Read the full licence on Hugging Face",
+        "zh-Hant": "在 Hugging Face 閱讀完整授權",
+        "zh-Hans": "在 Hugging Face 阅读完整许可",
+        "de": "Vollständige Lizenz auf Hugging Face lesen",
+        "ar": "اقرأ الترخيص كاملًا على Hugging Face"
+      },
+      "note": ""
+    },
+    {
+      "key": "onboarding.licence.title",
+      "values": {
+        "en": "Model licence",
+        "zh-Hant": "模型授權",
+        "zh-Hans": "模型许可",
+        "de": "Modelllizenz",
+        "ar": "ترخيص النموذج"
+      },
+      "note": ""
+    },
+    {
+      "key": "onboarding.models.title",
+      "values": {
+        "en": "Model weights",
+        "zh-Hant": "模型權重",
+        "zh-Hans": "模型权重",
+        "de": "Modellgewichte",
+        "ar": "أوزان النموذج"
+      },
+      "note": ""
+    },
+    {
+      "key": "onboarding.runtime.title",
+      "values": {
+        "en": "Python runtime",
+        "zh-Hant": "Python 執行環境",
+        "zh-Hans": "Python 运行环境",
+        "de": "Python-Laufzeitumgebung",
+        "ar": "بيئة تشغيل Python"
+      },
+      "note": ""
+    },
+    {
+      "key": "onboarding.savingTo",
+      "values": {
+        "en": "Saving to %@",
+        "zh-Hant": "儲存至 %@",
+        "zh-Hans": "保存至 %@",
+        "de": "Wird gesichert in %@",
+        "ar": "سيُحفظ في %@"
+      },
+      "note": ""
+    },
+    {
+      "key": "onboarding.skip",
+      "values": {
+        "en": "Skip setup",
+        "zh-Hant": "略過設定",
+        "zh-Hans": "跳过设置",
+        "de": "Einrichtung überspringen",
+        "ar": "تخطّي الإعداد"
+      },
+      "note": ""
+    },
+    {
+      "key": "onboarding.slowTitle",
+      "values": {
+        "en": "Renders take hours, not seconds",
+        "zh-Hant": "算圖需要數小時，而非數秒",
+        "zh-Hans": "渲染需要数小时，而非数秒",
+        "de": "Renders dauern Stunden, nicht Sekunden",
+        "ar": "يستغرق التصيير ساعات لا ثوانٍ"
+      },
+      "note": ""
+    },
+    {
+      "key": "onboarding.spaceTight",
+      "values": {
+        "en": "There may not be enough free space once scratch space for rendering is taken into account.",
+        "zh-Hant": "把算圖所需的暫存空間算進來後，可用空間可能不足。",
+        "zh-Hans": "把渲染所需的临时空间算进来后，可用空间可能不足。",
+        "de": "Zusammen mit dem temporären Speicher fürs Rendern könnte der freie Platz nicht reichen.",
+        "ar": "قد لا تكفي المساحة الحرة بعد احتساب المساحة المؤقتة اللازمة للتصيير."
+      },
+      "note": ""
+    },
+    {
+      "key": "onboarding.startDownload",
+      "values": {
+        "en": "Start Download",
+        "zh-Hant": "開始下載",
+        "zh-Hans": "开始下载",
+        "de": "Download starten",
+        "ar": "بدء التنزيل"
+      },
+      "note": ""
+    },
+    {
+      "key": "onboarding.total",
+      "values": {
+        "en": "Total",
+        "zh-Hant": "總計",
+        "zh-Hans": "总计",
+        "de": "Gesamt",
+        "ar": "الإجمالي"
+      },
+      "note": ""
+    },
+    {
+      "key": "onboarding.welcome.title",
+      "values": {
+        "en": "Generate video on this Mac",
+        "zh-Hant": "在這台 Mac 上生成影片",
+        "zh-Hans": "在这台 Mac 上生成视频",
+        "de": "Video auf diesem Mac erzeugen",
+        "ar": "توليد الفيديو على هذا الـ Mac"
+      },
+      "note": ""
+    },
+    {
+      "key": "preset.fastPreview",
+      "values": {
+        "en": "Fast preview",
+        "zh-Hant": "快速預覽",
+        "zh-Hans": "快速预览",
+        "de": "Schnelle Vorschau",
+        "ar": "معاينة سريعة"
+      },
+      "note": ""
+    },
+    {
+      "key": "preset.quality",
+      "values": {
+        "en": "Quality — overnight",
+        "zh-Hant": "高品質——整夜算圖",
+        "zh-Hans": "高质量——整夜渲染",
+        "de": "Hohe Qualität – über Nacht",
+        "ar": "جودة عالية — طوال الليل"
+      },
+      "note": ""
+    },
+    {
+      "key": "preset.vertical",
+      "values": {
+        "en": "Vertical social",
+        "zh-Hant": "直式社群影片",
+        "zh-Hans": "竖屏社交视频",
+        "de": "Hochformat für Social Media",
+        "ar": "فيديو رأسي للتواصل الاجتماعي"
+      },
+      "note": ""
+    },
+    {
+      "key": "problem.blocking",
+      "values": {
+        "en": "Blocking issue. %@",
+        "zh-Hant": "阻擋問題：%@",
+        "zh-Hans": "阻塞问题：%@",
+        "de": "Blockierendes Problem. %@",
+        "ar": "مشكلة مانعة. %@"
+      },
+      "note": ""
+    },
+    {
+      "key": "problem.chooseCheckpoint",
+      "values": {
+        "en": "Choose a %@ checkpoint in Models.",
+        "zh-Hant": "請在「模型」中選擇 %@ 檢查點。",
+        "zh-Hans": "请在“模型”中选择 %@ 检查点。",
+        "de": "Wähle unter „Modelle“ einen %@-Checkpoint.",
+        "ar": "اختر نقطة تحقق %@ من «النماذج»."
+      },
+      "note": ""
+    },
+    {
+      "key": "problem.duration",
+      "values": {
+        "en": "H3 only generates 4–15 second clips.",
+        "zh-Hant": "H3 只能生成 4–15 秒的片段。",
+        "zh-Hans": "H3 只能生成 4–15 秒的片段。",
+        "de": "H3 erzeugt nur Clips von 4–15 Sekunden.",
+        "ar": "يولّد H3 مقاطع مدتها 4–15 ثانية فقط."
+      },
+      "note": ""
+    },
+    {
+      "key": "problem.longOvernight",
+      "values": {
+        "en": "Long clips at high step counts can run overnight. Consider a short test first.",
+        "zh-Hant": "長片段搭配高步數可能需要整夜。建議先做一次短測試。",
+        "zh-Hans": "长片段搭配高步数可能需要整夜。建议先做一次短测试。",
+        "de": "Lange Clips mit hoher Schrittzahl können über Nacht laufen. Erst einen kurzen Test erwägen.",
+        "ar": "قد تستغرق المقاطع الطويلة بأعداد خطوات كبيرة ليلة كاملة. جرّب اختبارًا قصيرًا أولًا."
+      },
+      "note": ""
+    },
+    {
+      "key": "problem.lowSteps",
+      "values": {
+        "en": "Below 8 steps the model tends to produce soft, unstable motion.",
+        "zh-Hant": "低於 8 步時，模型容易產生模糊、不穩定的動態。",
+        "zh-Hans": "低于 8 步时，模型容易产生模糊、不稳定的动态。",
+        "de": "Unter 8 Schritten erzeugt das Modell eher weiche, instabile Bewegung.",
+        "ar": "دون 8 خطوات يميل النموذج إلى حركة ناعمة غير مستقرة."
+      },
+      "note": ""
+    },
+    {
+      "key": "problem.memory",
+      "values": {
+        "en": "The selected weights need about %1$@ in memory together. This Mac can give a model about %2$@. Choose a smaller quantization, or expect it to swap.",
+        "zh-Hant": "所選的權重合計需要約 %1$@ 記憶體，而本機可分配給模型的約為 %2$@。請改選更小的量化版本，否則會落到置換空間。",
+        "zh-Hans": "所选的权重合计需要约 %1$@ 内存，而本机可分配给模型的约为 %2$@。请改选更小的量化版本，否则会落到交换空间。",
+        "de": "Die gewählten Gewichte brauchen zusammen etwa %1$@ Arbeitsspeicher. Dieser Mac kann einem Modell etwa %2$@ geben. Wählen Sie eine kleinere Quantisierung, oder rechnen Sie mit Auslagerung.",
+        "ar": "تحتاج الأوزان المختارة معًا نحو %1$@ من الذاكرة، ولا يستطيع هذا الـ Mac منح النموذج سوى %2$@ تقريبًا. اختر تكميمًا أصغر، أو توقّع اللجوء إلى التبديل."
+      },
+      "note": ""
+    },
+    {
+      "key": "problem.needFirst",
+      "values": {
+        "en": "Add a first-frame image.",
+        "zh-Hant": "請加入首格圖片。",
+        "zh-Hans": "请添加首帧图片。",
+        "de": "Füge ein Bild für das erste Bild hinzu.",
+        "ar": "أضف صورة للإطار الأول."
+      },
+      "note": ""
+    },
+    {
+      "key": "problem.needLast",
+      "values": {
+        "en": "Add a last-frame image.",
+        "zh-Hant": "請加入末格圖片。",
+        "zh-Hans": "请添加末帧图片。",
+        "de": "Füge ein Bild für das letzte Bild hinzu.",
+        "ar": "أضف صورة للإطار الأخير."
+      },
+      "note": ""
+    },
+    {
+      "key": "problem.needReference",
+      "values": {
+        "en": "Ref2VA needs at least one reference file.",
+        "zh-Hant": "Ref2VA 至少需要一個參考檔案。",
+        "zh-Hans": "Ref2VA 至少需要一个参考文件。",
+        "de": "Ref2VA benötigt mindestens eine Referenzdatei.",
+        "ar": "يتطلّب Ref2VA ملف مرجع واحدًا على الأقل."
+      },
+      "note": ""
+    },
+    {
+      "key": "problem.noMetalKernel",
+      "values": {
+        "en": "%@ has no Metal kernel and cannot run on Apple silicon.",
+        "zh-Hant": "%@ 沒有對應的 Metal kernel，無法在 Apple 晶片上執行。",
+        "zh-Hans": "%@ 没有对应的 Metal kernel，无法在 Apple 芯片上运行。",
+        "de": "%@ hat keinen Metal-Kernel und läuft nicht auf Apple Silicon.",
+        "ar": "لا يملك %@ نواة Metal، ولا يمكن تشغيله على شرائح Apple."
+      },
+      "note": ""
+    },
+    {
+      "key": "problem.notInstalled",
+      "values": {
+        "en": "The selected checkpoint isn't installed yet.",
+        "zh-Hant": "所選的檢查點尚未安裝。",
+        "zh-Hans": "所选的检查点尚未安装。",
+        "de": "Der gewählte Checkpoint ist noch nicht installiert.",
+        "ar": "نقطة التحقق المحددة غير مثبتة بعد."
+      },
+      "note": ""
+    },
+    {
+      "key": "problem.note",
+      "values": {
+        "en": "Note. %@",
+        "zh-Hant": "提醒：%@",
+        "zh-Hans": "提醒：%@",
+        "de": "Hinweis. %@",
+        "ar": "ملاحظة. %@"
+      },
+      "note": ""
+    },
+    {
+      "key": "problem.prompt.empty",
+      "values": {
+        "en": "Write a prompt describing the shot.",
+        "zh-Hant": "請寫一段描述鏡頭的提示詞。",
+        "zh-Hans": "请写一段描述镜头的提示词。",
+        "de": "Schreibe einen Prompt, der die Einstellung beschreibt.",
+        "ar": "اكتب موجّهًا يصف اللقطة."
+      },
+      "note": ""
+    },
+    {
+      "key": "problem.refSlow",
+      "values": {
+        "en": "Reference mode runs through ComfyUI rather than MLX, which is slower per step. The 4-step turbo LoRA is what keeps it to minutes rather than hours.",
+        "zh-Hant": "參考模式透過 ComfyUI 而非 MLX 執行，每步較慢。4 步 turbo LoRA 正是把時間控制在數分鐘而非數小時的關鍵。",
+        "zh-Hans": "参考模式通过 ComfyUI 而非 MLX 运行，每步较慢。4 步 turbo LoRA 正是把时间控制在数分钟而非数小时的关键。",
+        "de": "Der Referenzmodus läuft über ComfyUI statt MLX und ist pro Schritt langsamer. Die 4-Schritt-Turbo-LoRA hält es bei Minuten statt Stunden.",
+        "ar": "يعمل وضع المراجع عبر ComfyUI بدل MLX، وهو أبطأ لكل خطوة. ونموذج turbo LoRA ذو الأربع خطوات هو ما يبقي الزمن بالدقائق لا بالساعات."
+      },
+      "note": ""
+    },
+    {
+      "key": "problem.refUntagged",
+      "values": {
+        "en": "The prompt never mentions %@. H3 conditions on references through those tags — untagged ones have much less influence.",
+        "zh-Hant": "提示詞中沒有提到 %@。H3 透過這些標記對參考素材做條件化，沒被標記的影響力小得多。",
+        "zh-Hans": "提示词中没有提到 %@。H3 通过这些标记对参考素材做条件化，没被标记的影响力小得多。",
+        "de": "Der Prompt erwähnt %@ nie. H3 konditioniert Referenzen über diese Tags — ohne Tag ist der Einfluss deutlich geringer.",
+        "ar": "لا يذكر الموجّه %@ إطلاقًا. يشترط H3 على المراجع عبر هذه الوسوم، وما لا يُذكر يكون تأثيره أضعف بكثير."
+      },
+      "note": ""
+    },
+    {
+      "key": "problem.t2v.extraFiles",
+      "values": {
+        "en": "Text-to-video ignores attached files. Switch modes to use them.",
+        "zh-Hant": "文字轉影片會忽略附加檔案。若要使用，請切換模式。",
+        "zh-Hans": "文字转视频会忽略附加文件。若要使用，请切换模式。",
+        "de": "Text-zu-Video ignoriert angehängte Dateien. Wechsle den Modus, um sie zu nutzen.",
+        "ar": "يتجاهل وضع النص إلى فيديو الملفات المرفقة. بدّل الوضع لاستخدامها."
+      },
+      "note": ""
+    },
+    {
+      "key": "problem.tooManyKind",
+      "values": {
+        "en": "At most %1$@ reference %2$@ files — you have %3$@.",
+        "zh-Hant": "參考%2$@最多 %1$@ 個，目前有 %3$@ 個。",
+        "zh-Hans": "参考%2$@最多 %1$@ 个，当前有 %3$@ 个。",
+        "de": "Höchstens %1$@ Referenzdateien vom Typ %2$@ — du hast %3$@.",
+        "ar": "بحد أقصى %1$@ من ملفات %2$@ المرجعية — لديك %3$@."
+      },
+      "note": ""
+    },
+    {
+      "key": "problem.tooManyOfKind",
+      "values": {
+        "en": "At most %1$@ reference %2$@ files — you have %3$@.",
+        "zh-Hant": "參考%2$@檔案最多 %1$@ 個——目前有 %3$@ 個。",
+        "zh-Hans": "参考%2$@文件最多 %1$@ 个——目前有 %3$@ 个。",
+        "de": "Höchstens %1$@ Referenzdateien vom Typ %2$@ – Sie haben %3$@.",
+        "ar": "بحد أقصى %1$@ من ملفات %2$@ المرجعية — لديك %3$@."
+      },
+      "note": ""
+    },
+    {
+      "key": "problem.tooManyTotal",
+      "values": {
+        "en": "Ref2VA accepts %@ reference files in total.",
+        "zh-Hant": "Ref2VA 總共最多接受 %@ 個參考檔案。",
+        "zh-Hans": "Ref2VA 总共最多接受 %@ 个参考文件。",
+        "de": "Ref2VA akzeptiert insgesamt %@ Referenzdateien.",
+        "ar": "يقبل Ref2VA %@ ملف مرجع بالإجمال."
+      },
+      "note": ""
+    },
+    {
+      "key": "problem.upscale",
+      "values": {
+        "en": "%@ is a resample of the model's 768p output. H3's true 2K mode is not open-sourced and cannot run locally.",
+        "zh-Hant": "%@ 只是模型 768p 輸出的重新取樣。H3 真正的 2K 模式未開源，無法在本機執行。",
+        "zh-Hans": "%@ 只是模型 768p 输出的重新采样。H3 真正的 2K 模式未开源，无法在本机运行。",
+        "de": "%@ ist ein Resampling der 768p-Ausgabe des Modells. Der echte 2K-Modus von H3 ist nicht quelloffen und läuft nicht lokal.",
+        "ar": "‏%@ مجرد إعادة أخذ عيّنات لإخراج النموذج بدقة 768p. أما وضع 2K الحقيقي في H3 فليس مفتوح المصدر ولا يمكن تشغيله محليًا."
+      },
+      "note": ""
+    },
+    {
+      "key": "provenance.community",
+      "values": {
+        "en": "Community",
+        "zh-Hant": "社群",
+        "zh-Hans": "社区",
+        "de": "Community",
+        "ar": "المجتمع"
+      },
+      "note": ""
+    },
+    {
+      "key": "provenance.official",
+      "values": {
+        "en": "Official",
+        "zh-Hant": "官方",
+        "zh-Hans": "官方",
+        "de": "Offiziell",
+        "ar": "رسمي"
+      },
+      "note": ""
+    },
+    {
+      "key": "provenance.port",
+      "values": {
+        "en": "MLX port",
+        "zh-Hant": "MLX 移植",
+        "zh-Hans": "MLX 移植",
+        "de": "MLX-Portierung",
+        "ar": "نقل MLX"
+      },
+      "note": ""
+    },
+    {
+      "key": "quantization.unloadable.gguf",
+      "values": {
+        "en": "GGUF needs a ComfyUI custom node this app does not install.",
+        "zh-Hant": "GGUF 需要一個本 App 不會安裝的 ComfyUI 自訂節點。",
+        "zh-Hans": "GGUF 需要一个本 App 不会安装的 ComfyUI 自定义节点。",
+        "de": "GGUF benötigt eine ComfyUI-Erweiterung, die diese App nicht installiert.",
+        "ar": "يحتاج GGUF إلى عقدة مخصّصة في ComfyUI لا يثبّتها هذا التطبيق."
+      },
+      "note": ""
+    },
+    {
+      "key": "quantization.unloadable.nvfp4",
+      "values": {
+        "en": "NVFP4 is an NVIDIA Blackwell format. There is no Metal path.",
+        "zh-Hant": "NVFP4 是 NVIDIA Blackwell 的格式，沒有對應的 Metal 執行路徑。",
+        "zh-Hans": "NVFP4 是 NVIDIA Blackwell 的格式，没有对应的 Metal 执行路径。",
+        "de": "NVFP4 ist ein NVIDIA-Blackwell-Format. Einen Metal-Pfad dafür gibt es nicht.",
+        "ar": "‏NVFP4 صيغة خاصة ببنية NVIDIA Blackwell. ولا يوجد مسار عبر Metal لتشغيلها."
+      },
+      "note": ""
+    },
+    {
+      "key": "quantization.unloadable.other",
+      "values": {
+        "en": "No engine here can load %@.",
+        "zh-Hant": "此處的任何引擎都無法載入 %@。",
+        "zh-Hans": "此处的任何引擎都无法加载 %@。",
+        "de": "Keine Engine hier kann %@ laden.",
+        "ar": "لا يستطيع أي محرّك هنا تحميل %@."
+      },
+      "note": ""
+    },
+    {
+      "key": "queue.a11y.held",
+      "values": {
+        "en": "held",
+        "zh-Hant": "已暫停",
+        "zh-Hans": "已暂停",
+        "de": "angehalten",
+        "ar": "مُعلَّق"
+      },
+      "note": ""
+    },
+    {
+      "key": "queue.ahead",
+      "values": {
+        "en": "Queued — %@ ahead",
+        "zh-Hant": "等待中 — 前面還有 %@",
+        "zh-Hans": "等待中 — 前面还有 %@",
+        "de": "In Warteschlange — %@ davor",
+        "ar": "في الانتظار — %@ قبله"
+      },
+      "note": ""
+    },
+    {
+      "key": "queue.clearFinished",
+      "values": {
+        "en": "Clear Finished",
+        "zh-Hant": "清除已完成",
+        "zh-Hans": "清除已完成",
+        "de": "Fertige entfernen",
+        "ar": "مسح المكتملة"
+      },
+      "note": ""
+    },
+    {
+      "key": "queue.clearFinished.help",
+      "values": {
+        "en": "Remove finished, failed and cancelled renders from this list",
+        "zh-Hant": "從清單移除已完成、失敗與已取消的算圖",
+        "zh-Hans": "从列表移除已完成、失败与已取消的渲染",
+        "de": "Fertige, fehlgeschlagene und abgebrochene Renders aus dieser Liste entfernen",
+        "ar": "إزالة عمليات التصيير المكتملة والفاشلة والملغاة من هذه القائمة"
+      },
+      "note": ""
+    },
+    {
+      "key": "queue.editCopy",
+      "values": {
+        "en": "Edit a Copy",
+        "zh-Hant": "編輯副本",
+        "zh-Hans": "编辑副本",
+        "de": "Kopie bearbeiten",
+        "ar": "تحرير نسخة"
+      },
+      "note": ""
+    },
+    {
+      "key": "queue.empty.detail",
+      "values": {
+        "en": "Renders you start from Compose appear here. They keep running while you work, and survive quitting the app.",
+        "zh-Hant": "從「編寫」開始的算圖會出現在這裡。它們會在你工作時持續執行，即使結束 App 也不會中斷。",
+        "zh-Hans": "从“编写”开始的渲染会出现在这里。它们会在你工作时持续运行，即使退出 App 也不会中断。",
+        "de": "Renders, die du unter „Erstellen“ startest, erscheinen hier. Sie laufen weiter, während du arbeitest, und überstehen das Beenden der App.",
+        "ar": "تظهر هنا عمليات التصيير التي تبدأها من «إنشاء». تستمر أثناء عملك، وتبقى حتى بعد إغلاق التطبيق."
+      },
+      "note": ""
+    },
+    {
+      "key": "queue.empty.title",
+      "values": {
+        "en": "Nothing queued",
+        "zh-Hant": "佇列是空的",
+        "zh-Hans": "队列是空的",
+        "de": "Nichts in der Warteschlange",
+        "ar": "لا شيء في قائمة الانتظار"
+      },
+      "note": ""
+    },
+    {
+      "key": "queue.goCompose",
+      "values": {
+        "en": "Go to Compose",
+        "zh-Hant": "前往「編寫」",
+        "zh-Hans": "前往“编写”",
+        "de": "Zu „Erstellen“",
+        "ar": "الانتقال إلى «إنشاء»"
+      },
+      "note": ""
+    },
+    {
+      "key": "queue.held",
+      "values": {
+        "en": "Held — will not start until released",
+        "zh-Hant": "已暫緩，恢復後才會開始",
+        "zh-Hans": "已暂缓，恢复后才会开始",
+        "de": "Zurückgestellt — startet erst nach Freigabe",
+        "ar": "معلّق — لن يبدأ حتى يُستأنف"
+      },
+      "note": ""
+    },
+    {
+      "key": "queue.hold",
+      "values": {
+        "en": "Hold",
+        "zh-Hant": "暫緩",
+        "zh-Hans": "暂缓",
+        "de": "Zurückstellen",
+        "ar": "تعليق"
+      },
+      "note": "Hold a queued job back so it is skipped, not cancel it."
+    },
+    {
+      "key": "queue.hold.help",
+      "values": {
+        "en": "Hold this render back",
+        "zh-Hant": "暫緩這次算圖",
+        "zh-Hans": "暂缓这次渲染",
+        "de": "Diesen Render zurückstellen",
+        "ar": "تعليق هذا التصيير"
+      },
+      "note": ""
+    },
+    {
+      "key": "queue.log.copyAll",
+      "values": {
+        "en": "Copy All",
+        "zh-Hant": "全部拷貝",
+        "zh-Hans": "全部复制",
+        "de": "Alles kopieren",
+        "ar": "نسخ الكل"
+      },
+      "note": ""
+    },
+    {
+      "key": "queue.log.empty.detail",
+      "values": {
+        "en": "Output appears here once this render starts. Logs are kept for the current session.",
+        "zh-Hant": "算圖開始後輸出會顯示在這裡。記錄只保留本次工作階段。",
+        "zh-Hans": "渲染开始后输出会显示在这里。日志只保留本次会话。",
+        "de": "Sobald dieser Render startet, erscheint die Ausgabe hier. Protokolle gelten nur für die aktuelle Sitzung.",
+        "ar": "يظهر الإخراج هنا فور بدء التصيير. تُحفظ السجلات للجلسة الحالية فقط."
+      },
+      "note": ""
+    },
+    {
+      "key": "queue.log.empty.title",
+      "values": {
+        "en": "No log yet",
+        "zh-Hant": "尚無記錄",
+        "zh-Hans": "尚无日志",
+        "de": "Noch kein Protokoll",
+        "ar": "لا يوجد سجل بعد"
+      },
+      "note": ""
+    },
+    {
+      "key": "queue.log.help",
+      "values": {
+        "en": "Show this render's log",
+        "zh-Hant": "顯示這次算圖的記錄",
+        "zh-Hans": "显示这次渲染的日志",
+        "de": "Protokoll dieses Renders anzeigen",
+        "ar": "عرض سجل هذا التصيير"
+      },
+      "note": ""
+    },
+    {
+      "key": "queue.log.title",
+      "values": {
+        "en": "Render log",
+        "zh-Hant": "算圖記錄",
+        "zh-Hans": "渲染日志",
+        "de": "Render-Protokoll",
+        "ar": "سجل التصيير"
+      },
+      "note": ""
+    },
+    {
+      "key": "queue.moveToFront",
+      "values": {
+        "en": "Move to Front",
+        "zh-Hant": "移到最前",
+        "zh-Hans": "移到最前",
+        "de": "Nach vorne verschieben",
+        "ar": "نقل إلى المقدمة"
+      },
+      "note": ""
+    },
+    {
+      "key": "queue.nextUp",
+      "values": {
+        "en": "Next up",
+        "zh-Hant": "下一個",
+        "zh-Hans": "下一个",
+        "de": "Als Nächstes",
+        "ar": "التالي"
+      },
+      "note": ""
+    },
+    {
+      "key": "queue.openSettings",
+      "values": {
+        "en": "Open Settings",
+        "zh-Hant": "開啟設定",
+        "zh-Hans": "打开设置",
+        "de": "Einstellungen öffnen",
+        "ar": "فتح الإعدادات"
+      },
+      "note": ""
+    },
+    {
+      "key": "queue.peak",
+      "values": {
+        "en": "%@ peak",
+        "zh-Hant": "尖峰 %@",
+        "zh-Hans": "峰值 %@",
+        "de": "%@ Spitze",
+        "ar": "الذروة %@"
+      },
+      "note": ""
+    },
+    {
+      "key": "queue.perStep",
+      "values": {
+        "en": "%@/step",
+        "zh-Hant": "%@/步",
+        "zh-Hans": "%@/步",
+        "de": "%@/Schritt",
+        "ar": "%@/خطوة"
+      },
+      "note": ""
+    },
+    {
+      "key": "queue.perStep.average",
+      "values": {
+        "en": "%@/step average",
+        "zh-Hant": "平均 %@/步",
+        "zh-Hans": "平均 %@/步",
+        "de": "im Mittel %@/Schritt",
+        "ar": "%@/خطوة في المتوسط"
+      },
+      "note": ""
+    },
+    {
+      "key": "queue.perStep.now",
+      "values": {
+        "en": "%@/step now",
+        "zh-Hant": "目前 %@/步",
+        "zh-Hans": "当前 %@/步",
+        "de": "jetzt %@/Schritt",
+        "ar": "%@/خطوة الآن"
+      },
+      "note": ""
+    },
+    {
+      "key": "queue.release",
+      "values": {
+        "en": "Release",
+        "zh-Hant": "恢復",
+        "zh-Hans": "恢复",
+        "de": "Freigeben",
+        "ar": "استئناف"
+      },
+      "note": ""
+    },
+    {
+      "key": "queue.release.help",
+      "values": {
+        "en": "Allow this render to start",
+        "zh-Hant": "允許這次算圖開始",
+        "zh-Hans": "允许这次渲染开始",
+        "de": "Diesen Render starten lassen",
+        "ar": "السماح ببدء هذا التصيير"
+      },
+      "note": ""
+    },
+    {
+      "key": "queue.remaining",
+      "values": {
+        "en": "%@ remaining",
+        "zh-Hant": "剩餘 %@",
+        "zh-Hans": "剩余 %@",
+        "de": "noch %@",
+        "ar": "يتبقى %@"
+      },
+      "note": ""
+    },
+    {
+      "key": "queue.remainingUnknown",
+      "values": {
+        "en": "remaining unknown until generation starts",
+        "zh-Hant": "開始生成前無法估算剩餘時間",
+        "zh-Hans": "开始生成前无法估算剩余时间",
+        "de": "Restzeit erst ab Beginn der Erzeugung bekannt",
+        "ar": "الوقت المتبقي غير معروف حتى يبدأ التوليد"
+      },
+      "note": ""
+    },
+    {
+      "key": "queue.remove",
+      "values": {
+        "en": "Remove from Queue",
+        "zh-Hant": "從佇列移除",
+        "zh-Hans": "从队列移除",
+        "de": "Aus Warteschlange entfernen",
+        "ar": "إزالة من قائمة الانتظار"
+      },
+      "note": ""
+    },
+    {
+      "key": "queue.renderAgain",
+      "values": {
+        "en": "Render Again",
+        "zh-Hant": "重新算圖",
+        "zh-Hans": "重新渲染",
+        "de": "Erneut rendern",
+        "ar": "إعادة التصيير"
+      },
+      "note": ""
+    },
+    {
+      "key": "queue.renderAgain.help",
+      "values": {
+        "en": "Queue this again with a new seed",
+        "zh-Hant": "以新的種子重新排入佇列",
+        "zh-Hans": "以新的种子重新排入队列",
+        "de": "Erneut mit neuem Seed einreihen",
+        "ar": "إعادة الإدراج ببذرة جديدة"
+      },
+      "note": ""
+    },
+    {
+      "key": "queue.reproduce",
+      "values": {
+        "en": "Reproduce Exactly",
+        "zh-Hant": "完全重現",
+        "zh-Hans": "完全重现",
+        "de": "Exakt reproduzieren",
+        "ar": "إعادة إنتاج مطابقة"
+      },
+      "note": ""
+    },
+    {
+      "key": "queue.revealInFinder",
+      "values": {
+        "en": "Reveal in Finder",
+        "zh-Hant": "在 Finder 中顯示",
+        "zh-Hans": "在 Finder 中显示",
+        "de": "Im Finder zeigen",
+        "ar": "إظهار في Finder"
+      },
+      "note": ""
+    },
+    {
+      "key": "queue.runtimeWarning",
+      "values": {
+        "en": "The Python runtime is not ready, so queued renders cannot start.",
+        "zh-Hant": "Python 執行環境尚未就緒，佇列中的算圖無法開始。",
+        "zh-Hans": "Python 运行环境尚未就绪，队列中的渲染无法开始。",
+        "de": "Die Python-Laufzeitumgebung ist nicht bereit, daher können wartende Renders nicht starten.",
+        "ar": "بيئة تشغيل Python غير جاهزة، لذا لا يمكن بدء عمليات التصيير المنتظرة."
+      },
+      "note": ""
+    },
+    {
+      "key": "queue.showLog",
+      "values": {
+        "en": "Show Log",
+        "zh-Hant": "顯示記錄",
+        "zh-Hans": "显示日志",
+        "de": "Protokoll anzeigen",
+        "ar": "عرض السجل"
+      },
+      "note": ""
+    },
+    {
+      "key": "queue.step",
+      "values": {
+        "en": "step %1$@ of %2$@",
+        "zh-Hant": "第 %1$@ 步，共 %2$@ 步",
+        "zh-Hans": "第 %1$@ 步，共 %2$@ 步",
+        "de": "Schritt %1$@ von %2$@",
+        "ar": "الخطوة %1$@ من %2$@"
+      },
+      "note": ""
+    },
+    {
+      "key": "queue.stop",
+      "values": {
+        "en": "Stop",
+        "zh-Hant": "停止",
+        "zh-Hans": "停止",
+        "de": "Anhalten",
+        "ar": "إيقاف"
+      },
+      "note": ""
+    },
+    {
+      "key": "queue.stop.help",
+      "values": {
+        "en": "Stop this render. Progress is lost — a render cannot be resumed.",
+        "zh-Hant": "停止這次算圖。進度會遺失，算圖無法續算。",
+        "zh-Hans": "停止这次渲染。进度会丢失，渲染无法续算。",
+        "de": "Diesen Render anhalten. Der Fortschritt geht verloren — ein Render lässt sich nicht fortsetzen.",
+        "ar": "إيقاف هذا التصيير. سيضيع التقدّم، إذ لا يمكن استئناف التصيير."
+      },
+      "note": ""
+    },
+    {
+      "key": "queue.tokens",
+      "values": {
+        "en": "%@ tokens",
+        "zh-Hant": "%@ 個 token",
+        "zh-Hans": "%@ 个 token",
+        "de": "%@ Tokens",
+        "ar": "%@ توكن"
+      },
+      "note": ""
+    },
+    {
+      "key": "queue.tokens.help",
+      "values": {
+        "en": "Length of the sequence the text encoder reads: %1$@ tokens in all, of which %2$@ are the prompt. The rest are vision tokens, one block per reference image. It is read once, before denoising starts — nothing here is generated token by token.",
+        "zh-Hant": "文字編碼器讀取的序列長度：共 %1$@ 個 token，其中 %2$@ 個來自提示詞，其餘是視覺 token，每張參考圖片一段。這段序列在去噪開始前只讀取一次——此處並非逐 token 生成。",
+        "zh-Hans": "文本编码器读取的序列长度：共 %1$@ 个 token，其中 %2$@ 个来自提示词，其余是视觉 token，每张参考图片一段。这段序列在去噪开始前只读取一次——此处并非逐 token 生成。",
+        "de": "Länge der Sequenz, die der Text-Encoder liest: insgesamt %1$@ Tokens, davon %2$@ aus dem Prompt. Der Rest sind Vision-Tokens, ein Block je Referenzbild. Sie wird einmal vor dem Entrauschen gelesen — hier wird nichts Token für Token erzeugt.",
+        "ar": "طول المتسلسلة التي يقرأها مشفّر النص: %1$@ توكن إجمالًا، منها %2$@ من المطالبة، والباقي توكنات بصرية بمقدار كتلة لكل صورة مرجعية. تُقرأ مرة واحدة قبل بدء إزالة التشويش — ولا يُولَّد هنا شيء توكنًا بتوكن."
+      },
+      "note": ""
+    },
+    {
+      "key": "queue.took",
+      "values": {
+        "en": "Took %@",
+        "zh-Hant": "耗時 %@",
+        "zh-Hans": "耗时 %@",
+        "de": "Dauerte %@",
+        "ar": "استغرق %@"
+      },
+      "note": ""
+    },
+    {
+      "key": "queue.untitled",
+      "values": {
+        "en": "Untitled render",
+        "zh-Hant": "未命名算圖",
+        "zh-Hans": "未命名渲染",
+        "de": "Unbenannter Render",
+        "ar": "تصيير بلا عنوان"
+      },
+      "note": ""
+    },
+    {
+      "key": "refs.addFiles",
+      "values": {
+        "en": "Add Files…",
+        "zh-Hant": "加入檔案…",
+        "zh-Hans": "添加文件…",
+        "de": "Dateien hinzufügen …",
+        "ar": "إضافة ملفات…"
+      },
+      "note": ""
+    },
+    {
+      "key": "refs.choose.any",
+      "values": {
+        "en": "Choose reference images, videos or audio",
+        "zh-Hant": "選擇參考圖片、影片或音訊",
+        "zh-Hans": "选择参考图片、视频或音频",
+        "de": "Referenzbilder, -videos oder -audio wählen",
+        "ar": "اختر صورًا أو مقاطع فيديو أو صوتًا مرجعية"
+      },
+      "note": ""
+    },
+    {
+      "key": "refs.choose.image",
+      "values": {
+        "en": "Choose a keyframe image",
+        "zh-Hant": "選擇關鍵格圖片",
+        "zh-Hans": "选择关键帧图片",
+        "de": "Keyframe-Bild wählen",
+        "ar": "اختر صورة إطار مفتاحي"
+      },
+      "note": ""
+    },
+    {
+      "key": "refs.drop",
+      "values": {
+        "en": "Drop files here",
+        "zh-Hant": "把檔案拖到這裡",
+        "zh-Hans": "把文件拖到这里",
+        "de": "Dateien hierher ziehen",
+        "ar": "أفلِت الملفات هنا"
+      },
+      "note": ""
+    },
+    {
+      "key": "refs.footnote.first",
+      "values": {
+        "en": "One image, used as the opening frame. The clip animates outward from it.",
+        "zh-Hant": "一張圖片，作為開場影格，片段會由此延伸動態。",
+        "zh-Hans": "一张图片，作为开场帧，片段会由此延伸动态。",
+        "de": "Ein Bild als Anfangsbild. Der Clip animiert von dort aus.",
+        "ar": "صورة واحدة تُستخدم كإطار افتتاحي، وينطلق منها تحريك المقطع."
+      },
+      "note": ""
+    },
+    {
+      "key": "refs.footnote.firstlast",
+      "values": {
+        "en": "Two images. The first becomes frame one, the second the final frame, and H3 generates the motion between them.",
+        "zh-Hant": "兩張圖片：第一張為第一格，第二張為最後一格，H3 生成兩者之間的動態。",
+        "zh-Hans": "两张图片：第一张为第一帧，第二张为最后一帧，H3 生成两者之间的动态。",
+        "de": "Zwei Bilder. Das erste wird Bild eins, das zweite das Schlussbild; H3 erzeugt die Bewegung dazwischen.",
+        "ar": "صورتان: الأولى تصبح الإطار الأول والثانية الإطار الأخير، ويولّد H3 الحركة بينهما."
+      },
+      "note": ""
+    },
+    {
+      "key": "refs.footnote.reference",
+      "values": {
+        "en": "Up to 9 images, 3 videos and 3 audio clips, 12 files in total. Refer to them from the prompt as <Picture 1>, <Video 1>, <Audio 1> — H3 conditions on them through those tags, so an unmentioned reference has little effect.",
+        "zh-Hant": "最多 9 張圖片、3 段影片與 3 段音訊，合計 12 個檔案。在提示詞中以 <Picture 1>、<Video 1>、<Audio 1> 指稱它們；H3 透過這些標記做條件化，沒有被提到的參考素材幾乎不起作用。",
+        "zh-Hans": "最多 9 张图片、3 段视频与 3 段音频，合计 12 个文件。在提示词中以 <Picture 1>、<Video 1>、<Audio 1> 指称它们；H3 通过这些标记做条件化，没有被提到的参考素材几乎不起作用。",
+        "de": "Bis zu 9 Bilder, 3 Videos und 3 Audioclips, insgesamt 12 Dateien. Im Prompt als <Picture 1>, <Video 1>, <Audio 1> ansprechen — H3 konditioniert über diese Tags, eine nicht erwähnte Referenz wirkt kaum.",
+        "ar": "حتى 9 صور و3 مقاطع فيديو و3 مقاطع صوتية، بمجموع 12 ملفًا. أشِر إليها في الموجّه بصيغة <Picture 1> و<Video 1> و<Audio 1> — إذ يشترط H3 عليها عبر هذه الوسوم، فالمرجع غير المذكور يكاد لا يؤثّر."
+      },
+      "note": ""
+    },
+    {
+      "key": "refs.insertTag",
+      "values": {
+        "en": "Insert Tag",
+        "zh-Hant": "插入標記",
+        "zh-Hans": "插入标记",
+        "de": "Tag einfügen",
+        "ar": "إدراج وسم"
+      },
+      "note": ""
+    },
+    {
+      "key": "refs.insertTags",
+      "values": {
+        "en": "Insert Tags",
+        "zh-Hant": "插入標記",
+        "zh-Hans": "插入标记",
+        "de": "Tags einfügen",
+        "ar": "إدراج وسوم"
+      },
+      "note": ""
+    },
+    {
+      "key": "refs.insertTags.help",
+      "values": {
+        "en": "Append %@ to the prompt",
+        "zh-Hant": "將 %@ 附加到提示詞",
+        "zh-Hans": "将 %@ 附加到提示词",
+        "de": "%@ an den Prompt anhängen",
+        "ar": "إلحاق %@ بالموجّه"
+      },
+      "note": ""
+    },
+    {
+      "key": "refs.kind.audio",
+      "values": {
+        "en": "Audio",
+        "zh-Hant": "音訊",
+        "zh-Hans": "音频",
+        "de": "Audio",
+        "ar": "صوت"
+      },
+      "note": ""
+    },
+    {
+      "key": "refs.kind.image",
+      "values": {
+        "en": "Image",
+        "zh-Hant": "圖片",
+        "zh-Hans": "图片",
+        "de": "Bild",
+        "ar": "صورة"
+      },
+      "note": ""
+    },
+    {
+      "key": "refs.kind.video",
+      "values": {
+        "en": "Video",
+        "zh-Hant": "影片",
+        "zh-Hans": "视频",
+        "de": "Video",
+        "ar": "فيديو"
+      },
+      "note": ""
+    },
+    {
+      "key": "refs.remove",
+      "values": {
+        "en": "Remove %@",
+        "zh-Hant": "移除 %@",
+        "zh-Hans": "移除 %@",
+        "de": "%@ entfernen",
+        "ar": "إزالة %@"
+      },
+      "note": ""
+    },
+    {
+      "key": "refs.removeAll",
+      "values": {
+        "en": "Remove All",
+        "zh-Hant": "全部移除",
+        "zh-Hans": "全部移除",
+        "de": "Alle entfernen",
+        "ar": "إزالة الكل"
+      },
+      "note": ""
+    },
+    {
+      "key": "refs.slot.first",
+      "values": {
+        "en": "First frame",
+        "zh-Hant": "首格",
+        "zh-Hans": "首帧",
+        "de": "Erstes Bild",
+        "ar": "الإطار الأول"
+      },
+      "note": ""
+    },
+    {
+      "key": "refs.slot.last",
+      "values": {
+        "en": "Last frame",
+        "zh-Hant": "末格",
+        "zh-Hans": "末帧",
+        "de": "Letztes Bild",
+        "ar": "الإطار الأخير"
+      },
+      "note": ""
+    },
+    {
+      "key": "refs.slot.reference",
+      "values": {
+        "en": "Reference",
+        "zh-Hant": "參考",
+        "zh-Hans": "参考",
+        "de": "Referenz",
+        "ar": "مرجع"
+      },
+      "note": ""
+    },
+    {
+      "key": "refs.title.keyframes",
+      "values": {
+        "en": "Keyframes",
+        "zh-Hant": "關鍵格",
+        "zh-Hans": "关键帧",
+        "de": "Keyframes",
+        "ar": "الإطارات المفتاحية"
+      },
+      "note": ""
+    },
+    {
+      "key": "refs.title.references",
+      "values": {
+        "en": "References",
+        "zh-Hant": "參考素材",
+        "zh-Hans": "参考素材",
+        "de": "Referenzen",
+        "ar": "المراجع"
+      },
+      "note": ""
+    },
+    {
+      "key": "role.accelerator",
+      "values": {
+        "en": "Acceleration LoRAs",
+        "zh-Hant": "加速 LoRA",
+        "zh-Hans": "加速 LoRA",
+        "de": "Beschleunigungs-LoRAs",
+        "ar": "نماذج LoRA للتسريع"
+      },
+      "note": ""
+    },
+    {
+      "key": "role.accelerator.detail",
+      "values": {
+        "en": "Optional LoRAs trained to produce usable video in around 4 steps instead of 50.",
+        "zh-Hant": "選用的 LoRA，經訓練後約 4 步即可產出可用影片，而非 50 步。",
+        "zh-Hans": "可选的 LoRA，经训练后约 4 步即可产出可用视频，而非 50 步。",
+        "de": "Optionale LoRAs, trainiert für brauchbares Video in etwa 4 statt 50 Schritten.",
+        "ar": "نماذج LoRA اختيارية مدرَّبة لإنتاج فيديو صالح في نحو 4 خطوات بدل 50."
+      },
+      "note": ""
+    },
+    {
+      "key": "role.support",
+      "values": {
+        "en": "VAEs & processors",
+        "zh-Hant": "VAE 與前處理器",
+        "zh-Hans": "VAE 与预处理器",
+        "de": "VAEs & Prozessoren",
+        "ar": "‏VAE والمعالِجات"
+      },
+      "note": ""
+    },
+    {
+      "key": "role.support.detail",
+      "values": {
+        "en": "Small, mandatory, and shared by everything. Install once.",
+        "zh-Hant": "檔案小、必要，且所有項目共用。安裝一次即可。",
+        "zh-Hans": "文件小、必需，且所有项目共用。安装一次即可。",
+        "de": "Klein, zwingend erforderlich und von allem gemeinsam genutzt. Einmal installieren.",
+        "ar": "صغيرة وإلزامية ومشتركة بين كل شيء. تُثبَّت مرة واحدة."
+      },
+      "note": ""
+    },
+    {
+      "key": "role.textEncoder",
+      "values": {
+        "en": "Text encoder",
+        "zh-Hant": "文字編碼器",
+        "zh-Hans": "文本编码器",
+        "de": "Text-Encoder",
+        "ar": "مُرمِّز النص"
+      },
+      "note": ""
+    },
+    {
+      "key": "role.textEncoder.detail",
+      "values": {
+        "en": "H3 conditions on Qwen3-VL-32B. This is the largest single download and is shared by both tasks.",
+        "zh-Hant": "H3 以 Qwen3-VL-32B 作為條件輸入。這是單一檔案中最大的下載項目，兩種任務共用。",
+        "zh-Hans": "H3 以 Qwen3-VL-32B 作为条件输入。这是单个文件中最大的下载项，两种任务共用。",
+        "de": "H3 wird auf Qwen3-VL-32B konditioniert. Das ist der größte Einzeldownload und wird von beiden Aufgaben genutzt.",
+        "ar": "يعتمد H3 على Qwen3-VL-32B. وهو أكبر تنزيل مفرد، وتشترك فيه المهمتان."
+      },
+      "note": ""
+    },
+    {
+      "key": "role.transformer",
+      "values": {
+        "en": "Diffusion transformer",
+        "zh-Hant": "擴散 Transformer",
+        "zh-Hans": "扩散 Transformer",
+        "de": "Diffusion-Transformer",
+        "ar": "مُحوِّل الانتشار"
+      },
+      "note": ""
+    },
+    {
+      "key": "role.transformer.detail",
+      "values": {
+        "en": "The model itself. Pick one quantization; higher precision costs disk, memory and time.",
+        "zh-Hant": "模型本體。擇一量化版本；精度越高，佔用的磁碟、記憶體與時間也越多。",
+        "zh-Hans": "模型本体。择一量化版本；精度越高，占用的磁盘、内存与时间也越多。",
+        "de": "Das Modell selbst. Wählen Sie eine Quantisierung; höhere Präzision kostet Speicherplatz, Arbeitsspeicher und Zeit.",
+        "ar": "النموذج نفسه. اختر تكميمًا واحدًا؛ فكلما ارتفعت الدقة زاد استهلاك القرص والذاكرة والوقت."
+      },
+      "note": ""
+    },
+    {
+      "key": "runtime.installedNotUsable",
+      "values": {
+        "en": "Installed, but not usable yet",
+        "zh-Hant": "已安裝，但尚無法使用",
+        "zh-Hans": "已安装，但尚无法使用",
+        "de": "Installiert, aber noch nicht nutzbar",
+        "ar": "مثبَّت، لكنه غير قابل للاستخدام بعد"
+      },
+      "note": ""
+    },
+    {
+      "key": "runtime.notInstalledYet",
+      "values": {
+        "en": "Not installed yet.",
+        "zh-Hant": "尚未安裝。",
+        "zh-Hans": "尚未安装。",
+        "de": "Noch nicht installiert.",
+        "ar": "غير مثبَّت بعد."
+      },
+      "note": ""
+    },
+    {
+      "key": "runtime.ready",
+      "values": {
+        "en": "Runtime ready — Python %1$@, MLX on Metal",
+        "zh-Hant": "執行環境就緒 — Python %1$@，MLX on Metal",
+        "zh-Hans": "运行环境就绪 — Python %1$@，MLX on Metal",
+        "de": "Laufzeitumgebung bereit — Python %1$@, MLX auf Metal",
+        "ar": "بيئة التشغيل جاهزة — Python %1$@، وMLX على Metal"
+      },
+      "note": ""
+    },
+    {
+      "key": "sampling.duration",
+      "values": {
+        "en": "Duration",
+        "zh-Hant": "長度",
+        "zh-Hans": "时长",
+        "de": "Dauer",
+        "ar": "المدة"
+      },
+      "note": ""
+    },
+    {
+      "key": "sampling.seed.fixed",
+      "values": {
+        "en": "Fixed seed",
+        "zh-Hant": "固定種子",
+        "zh-Hans": "固定种子",
+        "de": "Fester Seed",
+        "ar": "بذرة ثابتة"
+      },
+      "note": "'Seed' is kept in English; the qualifier is translated."
+    },
+    {
+      "key": "sampling.seed.note",
+      "values": {
+        "en": "A fixed seed makes a render repeatable. Change any other setting and the result changes anyway.",
+        "zh-Hant": "固定種子可讓算圖結果重現。但只要更動其他設定，結果仍然會變。",
+        "zh-Hans": "固定种子可让渲染结果重现。但只要改动其他设置，结果仍然会变。",
+        "de": "Ein fester Seed macht einen Render wiederholbar. Ändert man eine andere Einstellung, ändert sich das Ergebnis trotzdem.",
+        "ar": "تجعل البذرة الثابتة التصيير قابلًا للتكرار. لكن تغيير أي إعداد آخر يغيّر النتيجة على أي حال."
+      },
+      "note": ""
+    },
+    {
+      "key": "sampling.seed.randomise",
+      "values": {
+        "en": "Randomise",
+        "zh-Hant": "隨機",
+        "zh-Hans": "随机",
+        "de": "Zufällig",
+        "ar": "عشوائي"
+      },
+      "note": ""
+    },
+    {
+      "key": "sampling.snapped.exact",
+      "values": {
+        "en": "Renders %1$@ frames — exactly %2$@ s at 24 fps.",
+        "zh-Hant": "算出 %1$@ 格 — 在 24 fps 下正好 %2$@ 秒。",
+        "zh-Hans": "渲染 %1$@ 帧 — 在 24 fps 下正好 %2$@ 秒。",
+        "de": "Rendert %1$@ Bilder — exakt %2$@ s bei 24 fps.",
+        "ar": "يُصيَّر %1$@ إطارًا — أي %2$@ ثانية بالضبط عند 24 fps."
+      },
+      "note": ""
+    },
+    {
+      "key": "sampling.snapped.inexact",
+      "values": {
+        "en": "Renders %1$@ frames — %2$@ s at 24 fps, the nearest length the video VAE can encode.",
+        "zh-Hant": "算出 %1$@ 格 — 在 24 fps 下為 %2$@ 秒，是 video VAE 能編碼的最接近長度。",
+        "zh-Hans": "渲染 %1$@ 帧 — 在 24 fps 下为 %2$@ 秒，是 video VAE 能编码的最接近长度。",
+        "de": "Rendert %1$@ Bilder — %2$@ s bei 24 fps, die nächstliegende Länge, die die Video-VAE kodieren kann.",
+        "ar": "يُصيَّر %1$@ إطارًا — أي %2$@ ثانية عند 24 fps، وهي أقرب مدة يستطيع video VAE ترميزها."
+      },
+      "note": ""
+    },
+    {
+      "key": "sampling.steps",
+      "values": {
+        "en": "Steps",
+        "zh-Hant": "步數",
+        "zh-Hans": "步数",
+        "de": "Schritte",
+        "ar": "الخطوات"
+      },
+      "note": ""
+    },
+    {
+      "key": "sampling.steps.note",
+      "values": {
+        "en": "Steps are actual denoising passes, and dominate render time almost linearly. %1$@ Duration snaps to the video VAE's 17n+5 frame grid, so the value shown is what renders.",
+        "zh-Hant": "步數就是實際的去噪次數，幾乎線性決定算圖時間。%1$@時長會對齊 video VAE 的 17n+5 影格格線，因此顯示的數值就是實際會算出的長度。",
+        "zh-Hans": "步数就是实际的去噪次数，几乎线性决定渲染时间。%1$@时长会对齐 video VAE 的 17n+5 帧栅格，因此显示的数值就是实际会渲染出的长度。",
+        "de": "Schritte sind echte Entrausch-Durchgänge und bestimmen die Renderzeit nahezu linear. %1$@ Die Dauer rastet auf das 17n+5-Bildraster des Video-VAE ein, der angezeigte Wert ist also der, der gerendert wird.",
+        "ar": "الخطوات هي مرات إزالة التشويش الفعلية، وتحدّد زمن التصيير تحديدًا خطّيًا تقريبًا. %1$@ وتنحاز المدة إلى شبكة إطارات video VAE ‏(17n+5)، لذا فالقيمة المعروضة هي ما سيُصيَّر فعلًا."
+      },
+      "note": ""
+    },
+    {
+      "key": "sampling.steps.note.turbo",
+      "values": {
+        "en": "This engine loads a %1$@-step turbo LoRA, distilled for exactly that many — more steps mostly cost time.",
+        "zh-Hant": "此引擎會載入 %1$@ 步的 turbo LoRA，正是針對這個步數蒸餾的——再加步數多半只是多花時間。",
+        "zh-Hans": "此引擎会加载 %1$@ 步的 turbo LoRA，正是针对这个步数蒸馏的——再加步数多半只是多花时间。",
+        "de": "Diese Engine lädt eine Turbo-LoRA für %1$@ Schritte, genau darauf destilliert – mehr Schritte kosten meist nur Zeit.",
+        "ar": "يحمّل هذا المحرّك نموذج LoRA سريعًا بـ %1$@ خطوات، مُقطَّرًا لهذا العدد تحديدًا — والمزيد من الخطوات يكلّف وقتًا في الغالب."
+      },
+      "note": ""
+    },
+    {
+      "key": "sampling.steps.note.undistilled",
+      "values": {
+        "en": "These weights are undistilled, so around %1$@ steps is the working range; far fewer is off-distribution and looks soft.",
+        "zh-Hant": "這些權重未經蒸餾，因此約 %1$@ 步是合用的範圍；步數遠低於此會偏離訓練分佈，畫面會顯得鬆散。",
+        "zh-Hans": "这些权重未经蒸馏，因此约 %1$@ 步是合用的范围；步数远低于此会偏离训练分布，画面会显得发软。",
+        "de": "Diese Gewichte sind undestilliert, brauchbar ist daher der Bereich um %1$@ Schritte; deutlich weniger liegt außerhalb der Verteilung und wirkt weich.",
+        "ar": "هذه الأوزان غير مقطَّرة، لذا فالمجال العملي نحو %1$@ خطوة؛ وما دون ذلك بكثير يخرج عن التوزيع ويبدو ناعمًا."
+      },
+      "note": ""
+    },
+    {
+      "key": "sampling.title",
+      "values": {
+        "en": "Sampling",
+        "zh-Hant": "取樣",
+        "zh-Hans": "采样",
+        "de": "Sampling",
+        "ar": "المعاينة"
+      },
+      "note": ""
+    },
+    {
+      "key": "section.compose",
+      "values": {
+        "en": "Compose",
+        "zh-Hant": "編寫",
+        "zh-Hans": "编写",
+        "de": "Erstellen",
+        "ar": "إنشاء"
+      },
+      "note": "The screen where you write a prompt and set up a render."
+    },
+    {
+      "key": "section.library",
+      "values": {
+        "en": "Library",
+        "zh-Hant": "媒體庫",
+        "zh-Hans": "媒体库",
+        "de": "Mediathek",
+        "ar": "المكتبة"
+      },
+      "note": "Collection of finished videos — not a code library."
+    },
+    {
+      "key": "section.models",
+      "values": {
+        "en": "Models",
+        "zh-Hant": "模型",
+        "zh-Hans": "模型",
+        "de": "Modelle",
+        "ar": "النماذج"
+      },
+      "note": ""
+    },
+    {
+      "key": "section.queue",
+      "values": {
+        "en": "Queue",
+        "zh-Hant": "佇列",
+        "zh-Hans": "队列",
+        "de": "Warteschlange",
+        "ar": "قائمة الانتظار"
+      },
+      "note": ""
+    },
+    {
+      "key": "settings.advanced",
+      "values": {
+        "en": "Advanced",
+        "zh-Hant": "進階",
+        "zh-Hans": "高级",
+        "de": "Erweitert",
+        "ar": "متقدّم"
+      },
+      "note": ""
+    },
+    {
+      "key": "settings.advanced.checkout",
+      "values": {
+        "en": "Checkout path",
+        "zh-Hant": "簽出路徑",
+        "zh-Hans": "检出路径",
+        "de": "Checkout-Pfad",
+        "ar": "مسار النسخة"
+      },
+      "note": ""
+    },
+    {
+      "key": "settings.advanced.checkout.hint",
+      "values": {
+        "en": "Leave empty to use the installed package",
+        "zh-Hant": "留空則使用已安裝的套件",
+        "zh-Hans": "留空则使用已安装的包",
+        "de": "Leer lassen, um das installierte Paket zu verwenden",
+        "ar": "اتركه فارغًا لاستخدام الحزمة المثبتة"
+      },
+      "note": ""
+    },
+    {
+      "key": "settings.advanced.port",
+      "values": {
+        "en": "MiniMax-H3 port",
+        "zh-Hant": "MiniMax-H3 移植版",
+        "zh-Hans": "MiniMax-H3 移植版",
+        "de": "MiniMax-H3-Portierung",
+        "ar": "نقل MiniMax-H3"
+      },
+      "note": ""
+    },
+    {
+      "key": "settings.advanced.reveal",
+      "values": {
+        "en": "Reveal Application Support Folder",
+        "zh-Hant": "顯示 Application Support 資料夾",
+        "zh-Hans": "显示 Application Support 文件夹",
+        "de": "Ordner „Application Support“ zeigen",
+        "ar": "إظهار مجلد Application Support"
+      },
+      "note": ""
+    },
+    {
+      "key": "settings.advanced.support.note",
+      "values": {
+        "en": "Holds the Python environment, the render queue, and scratch files for in-flight renders.",
+        "zh-Hant": "存放 Python 執行環境、算圖佇列，以及算圖進行中的暫存檔案。",
+        "zh-Hans": "存放 Python 运行时、渲染队列，以及渲染进行中的临时文件。",
+        "de": "Enthält die Python-Umgebung, die Renderwarteschlange und temporäre Dateien laufender Rendervorgänge.",
+        "ar": "يحتوي على بيئة Python وقائمة انتظار التصيير والملفات المؤقتة لعمليات التصيير الجارية."
+      },
+      "note": ""
+    },
+    {
+      "key": "settings.advanced.supportNote",
+      "values": {
+        "en": "Holds the Python environment, the render queue, and scratch files for in-flight renders.",
+        "zh-Hant": "存放 Python 環境、算圖佇列，以及進行中算圖的暫存檔。",
+        "zh-Hans": "存放 Python 环境、渲染队列，以及进行中渲染的暂存文件。",
+        "de": "Enthält die Python-Umgebung, die Render-Warteschlange und Zwischendateien laufender Renders.",
+        "ar": "يضم بيئة Python وقائمة انتظار التصيير والملفات المؤقتة لعمليات التصيير الجارية."
+      },
+      "note": ""
+    },
+    {
+      "key": "settings.architecture",
+      "values": {
+        "en": "Architecture",
+        "zh-Hant": "架構",
+        "zh-Hans": "架构",
+        "de": "Architektur",
+        "ar": "البنية"
+      },
+      "note": ""
+    },
+    {
+      "key": "settings.comfy.install",
+      "values": {
+        "en": "Install",
+        "zh-Hant": "安裝",
+        "zh-Hans": "安装",
+        "de": "Installieren",
+        "ar": "تثبيت"
+      },
+      "note": ""
+    },
+    {
+      "key": "settings.comfy.notRunning",
+      "values": {
+        "en": "not running",
+        "zh-Hant": "未執行",
+        "zh-Hans": "未运行",
+        "de": "läuft nicht",
+        "ar": "لا يعمل"
+      },
+      "note": ""
+    },
+    {
+      "key": "settings.comfy.note",
+      "values": {
+        "en": "The app's own headless ComfyUI, kept apart from any you have installed yourself. The server starts on demand and stops with the app.",
+        "zh-Hant": "這是 App 自帶的無介面 ComfyUI，與你自行安裝的版本互不干擾。伺服器會在需要時啟動，並隨 App 結束。",
+        "zh-Hans": "这是 App 自带的无界面 ComfyUI，与你自行安装的版本互不干扰。服务器会在需要时启动，并随 App 退出。",
+        "de": "Das eigene headless ComfyUI der App, getrennt von jedem selbst installierten. Der Server startet bei Bedarf und endet mit der App.",
+        "ar": "نسخة ComfyUI الخاصة بالتطبيق بلا واجهة، منفصلة عن أي نسخة ثبّتها بنفسك. يبدأ الخادم عند الحاجة ويتوقف مع إغلاق التطبيق."
+      },
+      "note": ""
+    },
+    {
+      "key": "settings.comfy.running",
+      "values": {
+        "en": "running on port %@",
+        "zh-Hant": "執行中，連接埠 %@",
+        "zh-Hans": "运行中，端口 %@",
+        "de": "läuft auf Port %@",
+        "ar": "يعمل على المنفذ %@"
+      },
+      "note": ""
+    },
+    {
+      "key": "settings.comfy.server",
+      "values": {
+        "en": "Server",
+        "zh-Hant": "伺服器",
+        "zh-Hans": "服务器",
+        "de": "Server",
+        "ar": "الخادم"
+      },
+      "note": ""
+    },
+    {
+      "key": "settings.comfy.stop",
+      "values": {
+        "en": "Stop Server",
+        "zh-Hant": "停止伺服器",
+        "zh-Hans": "停止服务器",
+        "de": "Server anhalten",
+        "ar": "إيقاف الخادم"
+      },
+      "note": ""
+    },
+    {
+      "key": "settings.comfy.weights",
+      "values": {
+        "en": "Weights",
+        "zh-Hant": "權重",
+        "zh-Hans": "权重",
+        "de": "Gewichte",
+        "ar": "الأوزان"
+      },
+      "note": ""
+    },
+    {
+      "key": "settings.comfy.why",
+      "values": {
+        "en": "Reference mode runs here rather than on MLX, whose pipeline accepts keyframes only. ComfyUI also loads the 4-step turbo LoRAs, which is what makes reference renders practical at all.",
+        "zh-Hant": "參考模式在此執行，而非 MLX，因為 MLX 的管線只接受關鍵格。ComfyUI 還能載入 4 步 turbo LoRA，這正是參考模式算圖得以可行的原因。",
+        "zh-Hans": "参考模式在此运行，而非 MLX，因为 MLX 的管线只接受关键帧。ComfyUI 还能加载 4 步 turbo LoRA，这正是参考模式渲染得以可行的原因。",
+        "de": "Der Referenzmodus läuft hier statt auf MLX, dessen Pipeline nur Keyframes annimmt. ComfyUI lädt zudem die 4-Schritt-Turbo-LoRAs — erst dadurch werden Referenz-Renders überhaupt praktikabel.",
+        "ar": "يعمل وضع المراجع هنا بدل MLX، إذ لا تقبل منظومته سوى الإطارات المفتاحية. كما يحمّل ComfyUI نماذج turbo LoRA ذات الأربع خطوات، وهو ما يجعل التصيير المرجعي عمليًا أصلًا."
+      },
+      "note": ""
+    },
+    {
+      "key": "settings.detected",
+      "values": {
+        "en": "Detected",
+        "zh-Hant": "已偵測",
+        "zh-Hans": "已检测",
+        "de": "Erkannt",
+        "ar": "تم الكشف"
+      },
+      "note": ""
+    },
+    {
+      "key": "settings.folder.models",
+      "values": {
+        "en": "Models",
+        "zh-Hant": "模型",
+        "zh-Hans": "模型",
+        "de": "Modelle",
+        "ar": "النماذج"
+      },
+      "note": ""
+    },
+    {
+      "key": "settings.folder.output",
+      "values": {
+        "en": "Output",
+        "zh-Hant": "輸出",
+        "zh-Hans": "输出",
+        "de": "Ausgabe",
+        "ar": "الإخراج"
+      },
+      "note": ""
+    },
+    {
+      "key": "settings.folders",
+      "values": {
+        "en": "Folders",
+        "zh-Hant": "資料夾",
+        "zh-Hans": "文件夹",
+        "de": "Ordner",
+        "ar": "المجلدات"
+      },
+      "note": ""
+    },
+    {
+      "key": "settings.general",
+      "values": {
+        "en": "General",
+        "zh-Hant": "一般",
+        "zh-Hans": "通用",
+        "de": "Allgemein",
+        "ar": "عام"
+      },
+      "note": ""
+    },
+    {
+      "key": "settings.h3Pipeline",
+      "values": {
+        "en": "H3 pipeline",
+        "zh-Hant": "H3 管線",
+        "zh-Hans": "H3 管线",
+        "de": "H3-Pipeline",
+        "ar": "خط معالجة H3"
+      },
+      "note": ""
+    },
+    {
+      "key": "settings.language.label",
+      "values": {
+        "en": "Interface language",
+        "zh-Hant": "介面語言 (Interface Language)",
+        "zh-Hans": "界面语言 (Interface Language)",
+        "de": "Sprache der Benutzeroberfläche (Interface Language)",
+        "ar": "لغة الواجهة ⁨(Interface Language)⁩"
+      },
+      "note": ""
+    },
+    {
+      "key": "settings.language.relaunch",
+      "values": {
+        "en": "Relaunch now",
+        "zh-Hant": "立即重新啟動",
+        "zh-Hans": "立即重新启动",
+        "de": "Jetzt neu starten",
+        "ar": "أعِد التشغيل الآن"
+      },
+      "note": ""
+    },
+    {
+      "key": "settings.language.restart",
+      "values": {
+        "en": "Text changes immediately. The menu bar at the top of the screen follows when you restart the app.",
+        "zh-Hant": "文字會立即切換。畫面上方的選單列則需重新啟動 App 後才會跟著改變。",
+        "zh-Hans": "文字会立即切换。屏幕顶部的菜单栏需重新启动 App 后才会跟着改变。",
+        "de": "Texte wechseln sofort. Die Menüleiste am oberen Bildschirmrand folgt, sobald Sie die App neu starten.",
+        "ar": "تتغيّر النصوص فورًا. أمّا شريط القوائم أعلى الشاشة فيتبعها عند إعادة تشغيل التطبيق."
+      },
+      "note": ""
+    },
+    {
+      "key": "settings.language.restart.direction",
+      "values": {
+        "en": "Text changes immediately. This language reads in the other direction, so the window swaps sides to match — that, and the menu bar at the top of the screen, follow when you restart the app.",
+        "zh-Hant": "文字會立即切換。此語言的閱讀方向相反，因此整個視窗的左右會對調——這項變更與畫面上方的選單列，都需重新啟動 App 後才會套用。",
+        "zh-Hans": "文字会立即切换。此语言的阅读方向相反，因此整个窗口的左右会对调——这项变更与屏幕顶部的菜单栏，都需重新启动 App 后才会生效。",
+        "de": "Texte wechseln sofort. Diese Sprache wird in der anderen Richtung gelesen, daher tauscht das Fenster die Seiten. Das und die Menüleiste am oberen Bildschirmrand folgen, sobald Sie die App neu starten.",
+        "ar": "تتغيّر النصوص فورًا. تُقرأ هذه اللغة في الاتجاه المعاكس، لذا تتبادل عناصر النافذة جانبيها. يحدث ذلك، مع شريط القوائم أعلى الشاشة، عند إعادة تشغيل التطبيق."
+      },
+      "note": ""
+    },
+    {
+      "key": "settings.language.section",
+      "values": {
+        "en": "Language",
+        "zh-Hant": "語言 (Language)",
+        "zh-Hans": "语言 (Language)",
+        "de": "Sprache (Language)",
+        "ar": "اللغة ⁨(Language)⁩"
+      },
+      "note": ""
+    },
+    {
+      "key": "settings.language.system",
+      "values": {
+        "en": "Follow system (%@)",
+        "zh-Hant": "跟隨系統（%@）",
+        "zh-Hans": "跟随系统（%@）",
+        "de": "Systemsprache (%@)",
+        "ar": "اتّباع النظام (%@)"
+      },
+      "note": ""
+    },
+    {
+      "key": "settings.log",
+      "values": {
+        "en": "Log",
+        "zh-Hant": "記錄",
+        "zh-Hans": "日志",
+        "de": "Protokoll",
+        "ar": "السجل"
+      },
+      "note": ""
+    },
+    {
+      "key": "settings.log.accessibility",
+      "values": {
+        "en": "Installation log",
+        "zh-Hant": "安裝記錄",
+        "zh-Hans": "安装日志",
+        "de": "Installationsprotokoll",
+        "ar": "سجل التثبيت"
+      },
+      "note": ""
+    },
+    {
+      "key": "settings.log.clear",
+      "values": {
+        "en": "Clear",
+        "zh-Hant": "清除",
+        "zh-Hans": "清除",
+        "de": "Leeren",
+        "ar": "مسح"
+      },
+      "note": ""
+    },
+    {
+      "key": "settings.mlxMetal",
+      "values": {
+        "en": "MLX on Metal",
+        "zh-Hant": "MLX on Metal",
+        "zh-Hans": "MLX on Metal",
+        "de": "MLX auf Metal",
+        "ar": "‏MLX على Metal"
+      },
+      "note": ""
+    },
+    {
+      "key": "settings.notDetected",
+      "values": {
+        "en": "Not detected",
+        "zh-Hant": "未偵測到",
+        "zh-Hans": "未检测到",
+        "de": "Nicht erkannt",
+        "ar": "لم يُكتشف"
+      },
+      "note": ""
+    },
+    {
+      "key": "settings.notFound",
+      "values": {
+        "en": "Not found",
+        "zh-Hant": "找不到",
+        "zh-Hans": "未找到",
+        "de": "Nicht gefunden",
+        "ar": "غير موجود"
+      },
+      "note": ""
+    },
+    {
+      "key": "settings.notInstalled",
+      "values": {
+        "en": "Not installed.",
+        "zh-Hant": "尚未安裝。",
+        "zh-Hans": "尚未安装。",
+        "de": "Nicht installiert.",
+        "ar": "غير مثبَّت."
+      },
+      "note": ""
+    },
+    {
+      "key": "settings.notWorking",
+      "values": {
+        "en": "Not working",
+        "zh-Hant": "異常",
+        "zh-Hans": "异常",
+        "de": "Funktioniert nicht",
+        "ar": "لا يعمل"
+      },
+      "note": ""
+    },
+    {
+      "key": "settings.python",
+      "values": {
+        "en": "Python",
+        "zh-Hant": "Python",
+        "zh-Hans": "Python",
+        "de": "Python",
+        "ar": "Python"
+      },
+      "note": ""
+    },
+    {
+      "key": "settings.queue.note",
+      "values": {
+        "en": "Renders hold tens of gigabytes of weights in memory, so only one runs at a time. Hold or stop an individual render from its own row in the Queue.",
+        "zh-Hant": "算圖會在記憶體中保留數十 GB 的權重，因此一次只執行一個。要暫緩或停止個別算圖，請在「佇列」中該列操作。",
+        "zh-Hans": "渲染会在内存中保留数十 GB 的权重，因此一次只运行一个。要暂缓或停止单个渲染，请在“队列”中该行操作。",
+        "de": "Renders halten zig Gigabyte an Gewichten im Speicher, daher läuft immer nur einer. Einzelne Renders lassen sich in ihrer Zeile in der Warteschlange zurückstellen oder anhalten.",
+        "ar": "يحتفظ التصيير بعشرات الغيغابايتات من الأوزان في الذاكرة، لذا يعمل واحد فقط في كل مرة. يمكنك تعليق أو إيقاف أي تصيير من صفّه في قائمة الانتظار."
+      },
+      "note": ""
+    },
+    {
+      "key": "settings.rebuild",
+      "values": {
+        "en": "Rebuild from Scratch",
+        "zh-Hant": "完全重建",
+        "zh-Hans": "完全重建",
+        "de": "Komplett neu aufbauen",
+        "ar": "إعادة البناء من الصفر"
+      },
+      "note": ""
+    },
+    {
+      "key": "settings.rebuild.note",
+      "values": {
+        "en": "Rebuilding deletes and recreates the Python environment. It does not touch downloaded weights.",
+        "zh-Hant": "重建會刪除並重新建立 Python 環境，不會動到已下載的權重。",
+        "zh-Hans": "重建会删除并重新创建 Python 环境，不会动到已下载的权重。",
+        "de": "Beim Neuaufbau wird die Python-Umgebung gelöscht und neu erstellt. Heruntergeladene Gewichte bleiben unberührt.",
+        "ar": "تؤدي إعادة البناء إلى حذف بيئة Python وإنشائها من جديد، دون المساس بالأوزان المنزَّلة."
+      },
+      "note": ""
+    },
+    {
+      "key": "settings.recheck",
+      "values": {
+        "en": "Re-check",
+        "zh-Hant": "重新檢查",
+        "zh-Hans": "重新检查",
+        "de": "Erneut prüfen",
+        "ar": "إعادة الفحص"
+      },
+      "note": ""
+    },
+    {
+      "key": "settings.remember.engine",
+      "values": {
+        "en": "Remember the last engine",
+        "zh-Hant": "記住上次使用的引擎",
+        "zh-Hans": "记住上次使用的引擎",
+        "de": "Zuletzt verwendete Engine merken",
+        "ar": "تذكّر المحرّك المستخدم آخر مرة"
+      },
+      "note": ""
+    },
+    {
+      "key": "settings.remember.mode",
+      "values": {
+        "en": "Remember the last mode",
+        "zh-Hant": "記住上次使用的模式",
+        "zh-Hans": "记住上次使用的模式",
+        "de": "Zuletzt verwendeten Modus merken",
+        "ar": "تذكّر الوضع المستخدم آخر مرة"
+      },
+      "note": ""
+    },
+    {
+      "key": "settings.remember.note",
+      "values": {
+        "en": "The prompt, the seed and any attached files are never carried over: they belong to one render, and always start clear.",
+        "zh-Hant": "提示詞、種子與附加檔案永遠不會沿用——它們屬於單次算圖，每次都會重新開始。",
+        "zh-Hans": "提示词、种子与附加文件永远不会沿用——它们属于单次渲染，每次都会重新开始。",
+        "de": "Prompt, Seed und angehängte Dateien werden nie übernommen: Sie gehören zu einem einzelnen Rendering und beginnen immer leer.",
+        "ar": "لا تُنقل أبدًا المطالبة ولا البذرة ولا الملفات المرفقة: فهي تخصّ تصييرًا واحدًا، وتبدأ فارغة في كل مرة."
+      },
+      "note": ""
+    },
+    {
+      "key": "settings.remember.output",
+      "values": {
+        "en": "Remember output settings",
+        "zh-Hant": "記住輸出設定",
+        "zh-Hans": "记住输出设置",
+        "de": "Ausgabeeinstellungen merken",
+        "ar": "تذكّر إعدادات الإخراج"
+      },
+      "note": ""
+    },
+    {
+      "key": "settings.remember.sampling",
+      "values": {
+        "en": "Remember sampling settings",
+        "zh-Hant": "記住取樣設定",
+        "zh-Hans": "记住采样设置",
+        "de": "Sampling-Einstellungen merken",
+        "ar": "تذكّر إعدادات المعاينة"
+      },
+      "note": ""
+    },
+    {
+      "key": "settings.remember.section",
+      "values": {
+        "en": "Compose",
+        "zh-Hant": "編寫",
+        "zh-Hans": "编写",
+        "de": "Erstellen",
+        "ar": "الإنشاء"
+      },
+      "note": ""
+    },
+    {
+      "key": "settings.repair",
+      "values": {
+        "en": "Repair",
+        "zh-Hant": "修復",
+        "zh-Hans": "修复",
+        "de": "Reparieren",
+        "ar": "إصلاح"
+      },
+      "note": ""
+    },
+    {
+      "key": "settings.runtime",
+      "values": {
+        "en": "Runtime",
+        "zh-Hant": "執行環境",
+        "zh-Hans": "运行时",
+        "de": "Laufzeitumgebung",
+        "ar": "بيئة التشغيل"
+      },
+      "note": "The Python environment the app manages, not a term of art: TW says 執行環境, mainland 运行时."
+    },
+    {
+      "key": "settings.runtime.rebuild.note",
+      "values": {
+        "en": "Rebuilding deletes and recreates the Python environment. It does not touch downloaded weights.",
+        "zh-Hant": "完全重建會刪除並重新建立 Python 執行環境，不會動到已下載的模型權重。",
+        "zh-Hans": "完全重建会删除并重新创建 Python 运行时，不会影响已下载的模型权重。",
+        "de": "Beim vollständigen Neuaufbau wird die Python-Umgebung gelöscht und neu erstellt. Geladene Gewichte bleiben unberührt.",
+        "ar": "تؤدي إعادة البناء إلى حذف بيئة Python وإنشائها من جديد. ولا تمسّ الأوزان التي جرى تنزيلها."
+      },
+      "note": ""
+    },
+    {
+      "key": "settings.state",
+      "values": {
+        "en": "State",
+        "zh-Hant": "狀態",
+        "zh-Hans": "状态",
+        "de": "Zustand",
+        "ar": "الحالة"
+      },
+      "note": ""
+    },
+    {
+      "key": "settings.status",
+      "values": {
+        "en": "Status",
+        "zh-Hant": "狀態",
+        "zh-Hans": "状态",
+        "de": "Status",
+        "ar": "الحالة"
+      },
+      "note": ""
+    },
+    {
+      "key": "settings.working",
+      "values": {
+        "en": "Working",
+        "zh-Hant": "正常",
+        "zh-Hans": "正常",
+        "de": "Funktioniert",
+        "ar": "يعمل"
+      },
+      "note": ""
+    },
+    {
+      "key": "sidebar.hide",
+      "values": {
+        "en": "Hide Sidebar",
+        "zh-Hant": "隱藏側邊欄",
+        "zh-Hans": "隐藏边栏",
+        "de": "Seitenleiste ausblenden",
+        "ar": "إخفاء الشريط الجانبي"
+      },
+      "note": ""
+    },
+    {
+      "key": "sidebar.show",
+      "values": {
+        "en": "Show Sidebar",
+        "zh-Hant": "顯示側邊欄",
+        "zh-Hans": "显示边栏",
+        "de": "Seitenleiste einblenden",
+        "ar": "إظهار الشريط الجانبي"
+      },
+      "note": ""
+    },
+    {
+      "key": "state.cancelled",
+      "values": {
+        "en": "Cancelled",
+        "zh-Hant": "已取消",
+        "zh-Hans": "已取消",
+        "de": "Abgebrochen",
+        "ar": "أُلغي"
+      },
+      "note": ""
+    },
+    {
+      "key": "state.decoding",
+      "values": {
+        "en": "Decoding",
+        "zh-Hant": "解碼中",
+        "zh-Hans": "解码中",
+        "de": "Wird dekodiert",
+        "ar": "جارٍ فك الترميز"
+      },
+      "note": ""
+    },
+    {
+      "key": "state.encoding",
+      "values": {
+        "en": "Encoding",
+        "zh-Hant": "編碼中",
+        "zh-Hans": "编码中",
+        "de": "Wird kodiert",
+        "ar": "جارٍ الترميز"
+      },
+      "note": ""
+    },
+    {
+      "key": "state.failed",
+      "values": {
+        "en": "Failed",
+        "zh-Hant": "失敗",
+        "zh-Hans": "失败",
+        "de": "Fehlgeschlagen",
+        "ar": "فشل"
+      },
+      "note": ""
+    },
+    {
+      "key": "state.finished",
+      "values": {
+        "en": "Finished",
+        "zh-Hant": "已完成",
+        "zh-Hans": "已完成",
+        "de": "Fertig",
+        "ar": "اكتمل"
+      },
+      "note": ""
+    },
+    {
+      "key": "state.generating",
+      "values": {
+        "en": "Generating",
+        "zh-Hant": "生成中",
+        "zh-Hans": "生成中",
+        "de": "Wird erzeugt",
+        "ar": "جارٍ التوليد"
+      },
+      "note": ""
+    },
+    {
+      "key": "state.preparing",
+      "values": {
+        "en": "Loading model",
+        "zh-Hant": "載入模型中",
+        "zh-Hans": "加载模型中",
+        "de": "Modell wird geladen",
+        "ar": "جارٍ تحميل النموذج"
+      },
+      "note": ""
+    },
+    {
+      "key": "state.queued",
+      "values": {
+        "en": "Queued",
+        "zh-Hant": "等待中",
+        "zh-Hans": "等待中",
+        "de": "In Warteschlange",
+        "ar": "في الانتظار"
+      },
+      "note": ""
+    },
+    {
+      "key": "status.checking",
+      "values": {
+        "en": "Checking…",
+        "zh-Hant": "檢查中…",
+        "zh-Hans": "检查中…",
+        "de": "Wird geprüft …",
+        "ar": "جارٍ التحقق…"
+      },
+      "note": ""
+    },
+    {
+      "key": "status.label",
+      "values": {
+        "en": "Status",
+        "zh-Hant": "狀態",
+        "zh-Hans": "状态",
+        "de": "Status",
+        "ar": "الحالة"
+      },
+      "note": ""
+    },
+    {
+      "key": "status.memory.help",
+      "values": {
+        "en": "Resident memory of the render process, and its share of this Mac's %@",
+        "zh-Hant": "算圖程序佔用的實體記憶體，以及在本機 %@ 中的佔比",
+        "zh-Hans": "渲染进程占用的物理内存，以及在本机 %@ 中的占比",
+        "de": "Vom Renderprozess belegter Arbeitsspeicher und sein Anteil an den %@ dieses Mac",
+        "ar": "الذاكرة المقيمة لعملية التصيير ونسبتها من ذاكرة هذا الـ Mac البالغة %@"
+      },
+      "note": ""
+    },
+    {
+      "key": "status.queued.count",
+      "values": {
+        "en": "%@ queued",
+        "zh-Hant": "佇列中 %@",
+        "zh-Hans": "队列中 %@",
+        "de": "%@ in Warteschlange",
+        "ar": "%@ في قائمة الانتظار"
+      },
+      "note": ""
+    },
+    {
+      "key": "status.ready",
+      "values": {
+        "en": "Ready",
+        "zh-Hant": "就緒",
+        "zh-Hans": "就绪",
+        "de": "Bereit",
+        "ar": "جاهز"
+      },
+      "note": ""
+    },
+    {
+      "key": "status.remaining",
+      "values": {
+        "en": "%@ left",
+        "zh-Hant": "剩餘 %@",
+        "zh-Hans": "剩余 %@",
+        "de": "noch %@",
+        "ar": "%@ متبقٍ"
+      },
+      "note": "Estimated time still to run. The duration is already localized."
+    },
+    {
+      "key": "status.runtime.error",
+      "values": {
+        "en": "Runtime error",
+        "zh-Hant": "執行環境錯誤",
+        "zh-Hans": "运行环境错误",
+        "de": "Laufzeitfehler",
+        "ar": "خطأ في بيئة التشغيل"
+      },
+      "note": ""
+    },
+    {
+      "key": "status.runtime.incomplete",
+      "values": {
+        "en": "Runtime incomplete",
+        "zh-Hant": "執行環境不完整",
+        "zh-Hans": "运行环境不完整",
+        "de": "Laufzeitumgebung unvollständig",
+        "ar": "بيئة التشغيل غير مكتملة"
+      },
+      "note": ""
+    },
+    {
+      "key": "status.runtime.missing",
+      "values": {
+        "en": "Runtime not installed",
+        "zh-Hant": "尚未安裝執行環境",
+        "zh-Hans": "尚未安装运行环境",
+        "de": "Laufzeitumgebung nicht installiert",
+        "ar": "بيئة التشغيل غير مثبتة"
+      },
+      "note": ""
+    },
+    {
+      "key": "status.step",
+      "values": {
+        "en": "step %@/%@",
+        "zh-Hant": "步驟 %@/%@",
+        "zh-Hans": "步骤 %@/%@",
+        "de": "Schritt %@/%@",
+        "ar": "الخطوة %@/%@"
+      },
+      "note": "Progress through the sampler's steps, shown in the status bar during a render. Lower-case in English because it sits inside a sentence fragment."
+    },
+    {
+      "key": "summary.bitrate",
+      "values": {
+        "en": "Target bitrate",
+        "zh-Hant": "目標位元率",
+        "zh-Hans": "目标码率",
+        "de": "Ziel-Bitrate",
+        "ar": "معدل البت المستهدف"
+      },
+      "note": ""
+    },
+    {
+      "key": "summary.chooseInModels",
+      "values": {
+        "en": "Choose in Models…",
+        "zh-Hant": "在「模型」中選擇…",
+        "zh-Hans": "在“模型”中选择…",
+        "de": "Unter „Modelle“ wählen …",
+        "ar": "اختر من «النماذج»…"
+      },
+      "note": ""
+    },
+    {
+      "key": "summary.delivers",
+      "values": {
+        "en": "Delivered at",
+        "zh-Hant": "輸出解析度",
+        "zh-Hans": "输出分辨率",
+        "de": "Ausgeliefert mit",
+        "ar": "يُسلَّم بمقاس"
+      },
+      "note": ""
+    },
+    {
+      "key": "summary.engineNotReady",
+      "values": {
+        "en": "Engine not ready",
+        "zh-Hant": "引擎尚未就緒",
+        "zh-Hans": "引擎尚未就绪",
+        "de": "Engine nicht bereit",
+        "ar": "المحرّك غير جاهز"
+      },
+      "note": ""
+    },
+    {
+      "key": "summary.eta",
+      "values": {
+        "en": "Estimated time",
+        "zh-Hant": "預估時間",
+        "zh-Hans": "预计时间",
+        "de": "Geschätzte Dauer",
+        "ar": "الوقت المقدَّر"
+      },
+      "note": ""
+    },
+    {
+      "key": "summary.eta.footnote.measured",
+      "values": {
+        "en": "Measured from this Mac's own renders on this engine (%@ so far).",
+        "zh-Hant": "依本機此引擎的實際算圖測得（目前 %@ 次）。",
+        "zh-Hans": "依本机此引擎的实际渲染测得（目前 %@ 次）。",
+        "de": "Aus den Renderings dieses Macs mit dieser Engine gemessen (bisher %@).",
+        "ar": "مقيس من عمليات التصيير على هذا الـ Mac بهذا المحرّك (%@ حتى الآن)."
+      },
+      "note": ""
+    },
+    {
+      "key": "summary.eta.footnote.predicted",
+      "values": {
+        "en": "An estimate for %@, scaled from a published figure for a different Mac. It will be replaced by a measurement after your first render.",
+        "zh-Hant": "針對 %@ 的推估值，由另一款 Mac 的公開數據換算而來。完成第一次算圖後，會改用實測值。",
+        "zh-Hans": "针对 %@ 的推算值，由另一款 Mac 的公开数据换算而来。完成第一次渲染后，会改用实测值。",
+        "de": "Eine Schätzung für %@, hochgerechnet aus einem veröffentlichten Wert für einen anderen Mac. Nach Ihrem ersten Render wird sie durch eine Messung ersetzt.",
+        "ar": "تقدير لجهاز %@، محسوب من رقم منشور لجهاز Mac مختلف. وسيحلّ محلّه قياس فعلي بعد أول تصيير تجريه."
+      },
+      "note": ""
+    },
+    {
+      "key": "summary.eta.noModel",
+      "values": {
+        "en": "Select a model",
+        "zh-Hant": "請選擇模型",
+        "zh-Hans": "请选择模型",
+        "de": "Modell wählen",
+        "ar": "اختر نموذجًا"
+      },
+      "note": ""
+    },
+    {
+      "key": "summary.generates",
+      "values": {
+        "en": "Generates at",
+        "zh-Hant": "生成解析度",
+        "zh-Hans": "生成分辨率",
+        "de": "Erzeugt mit",
+        "ar": "يُولَّد بمقاس"
+      },
+      "note": ""
+    },
+    {
+      "key": "summary.length",
+      "values": {
+        "en": "Length",
+        "zh-Hant": "長度",
+        "zh-Hans": "时长",
+        "de": "Länge",
+        "ar": "الطول"
+      },
+      "note": ""
+    },
+    {
+      "key": "summary.length.value",
+      "values": {
+        "en": "%1$@ frames · %2$@ s",
+        "zh-Hant": "%1$@ 格 · %2$@ 秒",
+        "zh-Hans": "%1$@ 帧 · %2$@ 秒",
+        "de": "%1$@ Bilder · %2$@ s",
+        "ar": "%1$@ إطارًا · %2$@ ثانية"
+      },
+      "note": ""
+    },
+    {
+      "key": "summary.models",
+      "values": {
+        "en": "Models",
+        "zh-Hant": "模型",
+        "zh-Hans": "模型",
+        "de": "Modelle",
+        "ar": "النماذج"
+      },
+      "note": ""
+    },
+    {
+      "key": "summary.notSelected",
+      "values": {
+        "en": "Not selected",
+        "zh-Hant": "未選擇",
+        "zh-Hans": "未选择",
+        "de": "Nicht gewählt",
+        "ar": "لم يُحدَّد"
+      },
+      "note": ""
+    },
+    {
+      "key": "summary.problems",
+      "values": {
+        "en": "Before you generate",
+        "zh-Hant": "生成前請確認",
+        "zh-Hans": "生成前请确认",
+        "de": "Vor dem Erzeugen",
+        "ar": "قبل التوليد"
+      },
+      "note": ""
+    },
+    {
+      "key": "summary.render",
+      "values": {
+        "en": "This render",
+        "zh-Hant": "本次算圖",
+        "zh-Hans": "本次渲染",
+        "de": "Dieser Render",
+        "ar": "هذا التصيير"
+      },
+      "note": ""
+    },
+    {
+      "key": "summary.task",
+      "values": {
+        "en": "Task",
+        "zh-Hant": "任務",
+        "zh-Hans": "任务",
+        "de": "Aufgabe",
+        "ar": "المهمة"
+      },
+      "note": ""
+    },
+    {
+      "key": "summary.textEncoder",
+      "values": {
+        "en": "Text encoder",
+        "zh-Hant": "文字編碼器",
+        "zh-Hans": "文本编码器",
+        "de": "Text-Encoder",
+        "ar": "مُرمِّز النص"
+      },
+      "note": ""
+    },
+    {
+      "key": "summary.transformer",
+      "values": {
+        "en": "Transformer",
+        "zh-Hant": "Transformer",
+        "zh-Hans": "Transformer",
+        "de": "Transformer",
+        "ar": "Transformer"
+      },
+      "note": "Architecture name; left in English."
+    },
+    {
+      "key": "task.fl2va",
+      "values": {
+        "en": "FL2VA — text & keyframes",
+        "zh-Hant": "FL2VA — 文字與關鍵格",
+        "zh-Hans": "FL2VA — 文字与关键帧",
+        "de": "FL2VA — Text & Keyframes",
+        "ar": "‏FL2VA — نص وإطارات مفتاحية"
+      },
+      "note": ""
+    },
+    {
+      "key": "task.fl2va.detail",
+      "values": {
+        "en": "Text-to-video, plus optional first and/or last frame images. Use this for most work.",
+        "zh-Hant": "文字轉影片，並可選擇性指定首張與／或末張影格圖片。多數情況用這個。",
+        "zh-Hans": "文字转视频，并可选择性指定首帧与/或末帧图片。多数情况用这个。",
+        "de": "Text zu Video, dazu optional Bilder für das erste und/oder letzte Bild. Für die meisten Arbeiten geeignet.",
+        "ar": "من نص إلى فيديو، مع إمكانية تحديد صورة للإطار الأول و/أو الأخير. استخدم هذا في معظم الأعمال."
+      },
+      "note": ""
+    },
+    {
+      "key": "task.ref2va",
+      "values": {
+        "en": "Ref2VA — references",
+        "zh-Hant": "Ref2VA — 參考素材",
+        "zh-Hans": "Ref2VA — 参考素材",
+        "de": "Ref2VA — Referenzen",
+        "ar": "‏Ref2VA — مراجع"
+      },
+      "note": ""
+    },
+    {
+      "key": "task.ref2va.detail",
+      "values": {
+        "en": "Conditions on up to 9 reference images, 3 reference videos and 3 reference audio clips.",
+        "zh-Hant": "最多可依據 9 張參考圖片、3 段參考影片與 3 段參考音訊生成。",
+        "zh-Hans": "最多可依据 9 张参考图片、3 段参考视频与 3 段参考音频生成。",
+        "de": "Konditioniert auf bis zu 9 Referenzbilder, 3 Referenzvideos und 3 Referenz-Audioclips.",
+        "ar": "يعتمد على ما يصل إلى 9 صور و3 مقاطع فيديو و3 مقاطع صوتية مرجعية."
+      },
+      "note": ""
+    }
+  ]
+}
