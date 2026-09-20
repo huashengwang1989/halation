@@ -1,0 +1,61 @@
+VideoGen
+Copyright (C) 2026 Huasheng Wang
+
+This program is free software: you can redistribute it and/or modify it under
+the terms of the GNU Affero General Public License as published by the Free
+Software Foundation, either version 3 of the License, or (at your option) any
+later version. See LICENSE for the full text.
+
+
+MODEL WEIGHTS ARE NOT PART OF THIS PROGRAM
+==========================================
+
+VideoGen downloads model weights from Hugging Face at your request. It does not
+contain, bundle or redistribute any of them. Each is licensed by whoever
+published it, and that licence is an agreement between you and them — this
+program's licence neither grants nor restricts anything about the weights.
+
+The restrictions below are the publishers'. They are reproduced here because
+they are easy to miss and they bind the person running the app, not its author.
+
+  MiniMax H3 (MiniMaxAI/MiniMax-H3)
+    MiniMax H3 Community License.
+      - Restricts use in the USA, the EU, the UK and South Korea.
+      - Requires authorisation above roughly US$20M revenue.
+      - Prohibits training other models on H3 output.
+      - Prohibits unlawful and pornographic output, in any territory.
+    There is no server-side filter on a local run. Complying is your
+    responsibility. The app asks you to acknowledge this on first launch.
+
+  Community and third-party checkpoints
+    Quantized conversions, turbo LoRAs and alternative text encoders each carry
+    their own terms, which are often unstated. Where a licence is unclear, the
+    catalogue marks the entry as community provenance; read the model card
+    before relying on it for anything that matters.
+
+Running this app in the USA, the EU, the UK or South Korea is not in itself a
+problem — the restriction is on the weights, not the software.
+
+
+THIRD-PARTY SOFTWARE
+====================
+
+None of the following is distributed with this program. Each is fetched at
+runtime, into the user's own Application Support directory, and run there.
+
+  minimax-h3-mlx — https://github.com/PipeNetwork/minimax-h3-mlx
+    Apache License 2.0. The Apple-silicon port of MiniMax H3. Imported by the
+    Python sidecar in Sources/VideoGen/Resources/sidecar.
+
+  ComfyUI — https://github.com/comfyanonymous/ComfyUI
+    GNU General Public License v3.0. Cloned into Application Support, run as a
+    separate process, and driven over HTTP and a websocket. It is not linked
+    into this program and is not redistributed by it.
+
+  ComfyUI workflow templates — comfyui_workflow_templates
+    MIT License. The graph built by Sources/VideoGen/Services/ComfyUIWorkflow.swift
+    is derived from the project's own `video_minimax_h3_r2v.json` template.
+
+  ffmpeg
+    Located on PATH if present; invoked as an external tool. Licensing depends
+    on the build you have installed (typically LGPL-2.1+ or GPL-2.0+).

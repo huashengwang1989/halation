@@ -97,15 +97,27 @@ Named presets are saved separately, in Settings' support folder.
 
 ## Licence
 
-The **app code** here is yours to do as you like with.
+The **app** is [AGPL-3.0](LICENSE). Modify it and share it as you like; if you
+distribute a modified version — or run one as a network service — the source
+has to come with it.
 
-The **weights** are under the [MiniMax H3 Community License](https://huggingface.co/MiniMaxAI/MiniMax-H3),
-which restricts local use in the USA, the EU, the UK and South Korea, requires
-authorisation above roughly US$20M revenue, and prohibits training other models on
-H3 output. The app surfaces this on first run; complying with it is the user's
-responsibility.
+The **weights are not part of the app** and it never redistributes them: they
+are downloaded from Hugging Face at your request, under whatever licence their
+publisher set. That licence is between you and them, and nothing here grants or
+restricts anything about it.
 
-The **MLX port** is Apache-2.0.
+The one worth reading before you start is the
+[MiniMax H3 Community License](https://huggingface.co/MiniMaxAI/MiniMax-H3),
+which restricts use in the USA, the EU, the UK and South Korea, requires
+authorisation above roughly US$20M revenue, prohibits training other models on
+H3 output, and prohibits unlawful and pornographic output in any territory.
+There is no server-side filter on a local run. The app asks you to acknowledge
+this on first launch; complying with it is yours to do.
+
+Third-party software — the Apache-2.0 [MLX port](https://github.com/PipeNetwork/minimax-h3-mlx),
+GPL-3.0 [ComfyUI](https://github.com/comfyanonymous/ComfyUI), and ComfyUI's
+MIT workflow templates — is fetched at runtime rather than bundled. See
+[NOTICE](NOTICE) for the details.
 
 ## Working on this
 

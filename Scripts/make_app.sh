@@ -44,7 +44,7 @@ cat > "$APP/Contents/Info.plist" <<'PLIST'
     <key>LSMinimumSystemVersion</key>        <string>26.0</string>
     <key>NSHighResolutionCapable</key>       <true/>
     <key>NSHumanReadableCopyright</key>
-    <string>Runs MiniMax H3 locally. Weights are licensed separately by MiniMax.</string>
+    <string>Copyright © 2026 Huasheng Wang. AGPL-3.0. Model weights are downloaded, not included, and are licensed separately by their publishers.</string>
     <!-- The app reads weights from ~/Documents/AI Models and writes clips to Movies. -->
     <key>NSDocumentsFolderUsageDescription</key>
     <string>VideoGen stores and reads AI model weights in a shared folder inside Documents.</string>
