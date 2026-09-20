@@ -9,12 +9,11 @@ struct QueueView: View {
         Group {
             if app.engine.jobs.isEmpty {
                 ContentUnavailableView {
-                    Label("Nothing queued", systemImage: "list.bullet.rectangle")
+                    Label(loc("queue.empty.title"), systemImage: "list.bullet.rectangle")
                 } description: {
-                    Text("Renders you start from Compose appear here. They keep running "
-                         + "while you work, and survive quitting the app.")
+                    Text(loc("queue.empty.detail"))
                 } actions: {
-                    Button("Go to Compose") { app.section = .compose }
+                    Button(loc("queue.goCompose")) { app.section = .compose }
                         .buttonStyle(.glassProminent)
                 }
             } else {
@@ -34,10 +33,10 @@ struct QueueView: View {
                 Button(role: .destructive) {
                     app.engine.clearFinished()
                 } label: {
-                    Label("Clear Finished", systemImage: "trash")
+                    Label(loc("queue.clearFinished"), systemImage: "trash")
                 }
                 .disabled(!app.engine.jobs.contains { $0.state.isTerminal })
-                .help("Remove finished, failed and cancelled renders from this list")
+                .help(loc("queue.clearFinished.help"))
             }
         }
         .safeAreaInset(edge: .bottom) { runtimeNotice }
@@ -54,10 +53,10 @@ struct QueueView: View {
             HStack(spacing: 8) {
                 Image(systemName: "exclamationmark.triangle.fill")
                     .foregroundStyle(.orange)
-                Text("The Python runtime is not ready, so queued renders cannot start.")
+                Text(loc("queue.runtimeWarning"))
                     .font(.callout)
                 Spacer()
-                Button("Open Settings") {
+                Button(loc("queue.openSettings")) {
                     NSApp.sendAction(Selector(("showSettingsWindow:")), to: nil, from: nil)
                 }
             }
@@ -70,39 +69,39 @@ struct QueueView: View {
     @ViewBuilder
     private func menu(for job: RenderJob) -> some View {
         if job.state == .queued {
-            Button(job.isHeld ? "Release" : "Hold", systemImage: job.isHeld ? "play" : "pause") {
+            Button(job.isHeld ? loc("queue.release") : loc("queue.hold"), systemImage: job.isHeld ? "play" : "pause") {
                 app.engine.setHeld(!job.isHeld, for: job.id)
             }
-            Button("Move to Front", systemImage: "arrow.up.to.line") {
+            Button(loc("queue.moveToFront"), systemImage: "arrow.up.to.line") {
                 app.engine.moveToFront(job.id)
             }
         }
         if job.state.isActive {
-            Button("Stop", systemImage: "stop.fill", role: .destructive) {
+            Button(loc("queue.stop"), systemImage: "stop.fill", role: .destructive) {
                 app.engine.cancel(job.id)
             }
         }
         if job.state.isTerminal {
-            Button("Render Again", systemImage: "arrow.clockwise") { app.engine.retry(job.id) }
+            Button(loc("queue.renderAgain"), systemImage: "arrow.clockwise") { app.engine.retry(job.id) }
             if job.resolvedSeed != nil {
-                Button("Reproduce Exactly", systemImage: "equal.square") {
+                Button(loc("queue.reproduce"), systemImage: "equal.square") {
                     app.engine.reproduce(job.id)
                 }
             }
-            Button("Edit a Copy", systemImage: "pencil") {
+            Button(loc("queue.editCopy"), systemImage: "pencil") {
                 app.draft = job.spec
                 app.section = .compose
             }
         }
         Divider()
-        Button("Show Log", systemImage: "text.alignleft") { logJobID = job.id }
+        Button(loc("queue.showLog"), systemImage: "text.alignleft") { logJobID = job.id }
         if let url = job.outputURL {
-            Button("Reveal in Finder", systemImage: "folder") {
+            Button(loc("queue.revealInFinder"), systemImage: "folder") {
                 NSWorkspace.shared.activateFileViewerSelecting([url])
             }
         }
         Divider()
-        Button("Remove from Queue", systemImage: "trash", role: .destructive) {
+        Button(loc("queue.remove"), systemImage: "trash", role: .destructive) {
             app.engine.remove(job.id)
         }
     }
@@ -135,7 +134,7 @@ private struct JobRow: View {
                 if job.state.isActive {
                     activeProgress
                 } else if job.state == .queued {
-                    Text(job.isHeld ? "Held — will not start until released" : queuePosition)
+                    Text(job.isHeld ? loc("queue.held") : queuePosition)
                         .font(.caption)
                         .foregroundStyle(.secondary)
                 }
@@ -149,7 +148,7 @@ private struct JobRow: View {
                 }
 
                 if job.state == .finished, let elapsed = job.elapsed {
-                    Text("Took \(Format.duration(elapsed))")
+                    Text(loc("queue.took", Format.duration(elapsed)))
                         .font(.caption2)
                         .foregroundStyle(.tertiary)
                 }
@@ -177,9 +176,9 @@ private struct JobRow: View {
             Text("·")
             Text(job.spec.format.generationSize.description)
             Text("·")
-            Text("\(job.spec.sampling.frameCount) frames")
+            Text(Format.frames(job.spec.sampling.frameCount))
             Text("·")
-            Text("\(job.spec.sampling.steps) steps")
+            Text(Format.steps(job.spec.sampling.steps))
             if job.spec.format.codec != .h264 {
                 Text("·")
                 Text(job.spec.format.codec.label)
@@ -208,13 +207,27 @@ private struct JobRow: View {
                     .foregroundStyle(.secondary)
 
                 if job.totalSteps > 0 {
-                    Text("· step \(job.completedSteps) of \(job.totalSteps)")
+                    Text("· " + loc("queue.step", "\(job.completedSteps)", "\(job.totalSteps)"))
+                }
+                // Both rates while one is in flight: the average is what the ETA
+                // rests on, and the latest is what tells you whether the run is
+                // holding that pace or drifting off it.
+                if let recent = job.secondsPerStepRecent, job.state == .generating {
+                    Text("· " + loc("queue.perStep.now", Format.duration(recent)))
                 }
                 if let perStep = job.secondsPerStep {
-                    Text("· \(Format.duration(perStep))/step")
+                    Text("· " + loc(job.state == .generating ? "queue.perStep.average"
+                                                             : "queue.perStep",
+                                    Format.duration(perStep)))
+                }
+                if let tokens = job.promptTokenCount, tokens > 0 {
+                    Text("· " + loc("queue.tokens", tokens.formatted(
+                        .number.locale(Localization.currentLocale))))
+                        .help(loc("queue.tokens.help", "\(tokens)",
+                                  "\(job.promptTextTokenCount ?? tokens)"))
                 }
                 if let memory = job.peakMemoryBytes {
-                    Text("· \(Format.bytes(memory)) peak")
+                    Text("· " + loc("queue.peak", Format.bytes(memory)))
                 }
             }
             .font(.caption2)
@@ -225,9 +238,9 @@ private struct JobRow: View {
             HStack(spacing: 6) {
                 Label(Format.duration(job.elapsed), systemImage: "clock")
                 if let remaining = job.estimatedRemaining {
-                    Text("· \(Format.duration(remaining)) remaining")
+                    Text("· " + loc("queue.remaining", Format.duration(remaining)))
                 } else if job.state == .preparing {
-                    Text("· remaining unknown until generation starts")
+                    Text("· " + loc("queue.remainingUnknown"))
                 }
             }
             .font(.caption2)
@@ -242,47 +255,47 @@ private struct JobRow: View {
     private var controls: some View {
         HStack(spacing: 4) {
             Button(action: showLog) {
-                Label("Log", systemImage: "text.alignleft")
+                Label(loc("queue.showLog"), systemImage: "text.alignleft")
             }
             .labelStyle(.iconOnly)
             .buttonStyle(.borderless)
-            .help("Show this render's log")
-            .accessibilityLabel("Show log")
+            .help(loc("queue.log.help"))
+            .accessibilityLabel(loc("queue.showLog"))
 
             switch job.state {
             case .queued:
                 Button {
                     app.engine.setHeld(!job.isHeld, for: job.id)
                 } label: {
-                    Label(job.isHeld ? "Release" : "Hold",
+                    Label(job.isHeld ? loc("queue.release") : loc("queue.hold"),
                           systemImage: job.isHeld ? "play.fill" : "pause.fill")
                 }
                 .labelStyle(.iconOnly)
                 .buttonStyle(.borderless)
-                .help(job.isHeld ? "Allow this render to start" : "Hold this render back")
-                .accessibilityLabel(job.isHeld ? "Release render" : "Hold render")
+                .help(job.isHeld ? loc("queue.release.help") : loc("queue.hold.help"))
+                .accessibilityLabel(job.isHeld ? loc("queue.release") : loc("queue.hold"))
 
             case .preparing, .generating, .decoding, .encoding:
                 Button(role: .destructive) {
                     app.engine.cancel(job.id)
                 } label: {
-                    Label("Stop", systemImage: "stop.fill")
+                    Label(loc("queue.stop"), systemImage: "stop.fill")
                 }
                 .labelStyle(.iconOnly)
                 .buttonStyle(.borderless)
-                .help("Stop this render. Progress is lost — a render cannot be resumed.")
-                .accessibilityLabel("Stop render")
+                .help(loc("queue.stop.help"))
+                .accessibilityLabel(loc("queue.stop"))
 
             case .finished, .failed, .cancelled:
                 Button {
                     app.engine.retry(job.id)
                 } label: {
-                    Label("Render Again", systemImage: "arrow.clockwise")
+                    Label(loc("queue.renderAgain"), systemImage: "arrow.clockwise")
                 }
                 .labelStyle(.iconOnly)
                 .buttonStyle(.borderless)
-                .help("Queue this again with a new seed")
-                .accessibilityLabel("Render again")
+                .help(loc("queue.renderAgain.help"))
+                .accessibilityLabel(loc("queue.renderAgain"))
             }
         }
         .imageScale(.medium)
@@ -293,7 +306,7 @@ private struct JobRow: View {
             .filter { $0.state == .queued && !$0.isHeld }
             .firstIndex(where: { $0.id == job.id })
         guard let waiting else { return "Queued" }
-        return waiting == 0 ? "Next up" : "Queued — \(waiting) ahead"
+        return waiting == 0 ? loc("queue.nextUp") : loc("queue.ahead", "\(waiting)")
     }
 
     private var spokenState: String {
@@ -302,7 +315,7 @@ private struct JobRow: View {
         if job.state.isActive {
             parts.append("\(Int(job.overallProgress * 100)) percent")
             if job.totalSteps > 0 {
-                parts.append("step \(job.completedSteps) of \(job.totalSteps)")
+                parts.append(loc("queue.step", "\(job.completedSteps)", "\(job.totalSteps)"))
             }
             parts.append("elapsed \(Format.duration(job.elapsed))")
             if let remaining = job.estimatedRemaining {
@@ -328,65 +341,4 @@ private struct JobRow: View {
 /// Lets a `UUID` drive a `.sheet(item:)`.
 extension UUID: @retroactive Identifiable {
     public var id: UUID { self }
-}
-
-private struct LogSheet: View {
-    @Environment(AppState.self) private var app
-    @Environment(\.dismiss) private var dismiss
-    var jobID: UUID
-
-    private var lines: [String] { app.engine.log(for: jobID) }
-
-    var body: some View {
-        VStack(alignment: .leading, spacing: 0) {
-            HStack {
-                VStack(alignment: .leading, spacing: 1) {
-                    Text("Render log").font(.headline)
-                    if let job = app.engine.jobs.first(where: { $0.id == jobID }) {
-                        Text(job.title)
-                            .font(.caption)
-                            .foregroundStyle(.secondary)
-                            .lineLimit(1)
-                    }
-                }
-                Spacer()
-                Button("Copy All", systemImage: "doc.on.doc") {
-                    NSPasteboard.general.clearContents()
-                    NSPasteboard.general.setString(lines.joined(separator: "\n"), forType: .string)
-                }
-                .disabled(lines.isEmpty)
-                Button("Done") { dismiss() }
-                    .buttonStyle(.glassProminent)
-                    .keyboardShortcut(.defaultAction)
-            }
-            .padding()
-
-            Divider()
-
-            if lines.isEmpty {
-                ContentUnavailableView {
-                    Label("No log yet", systemImage: "text.alignleft")
-                } description: {
-                    Text("Output appears here once this render starts. Logs are kept for "
-                         + "the current session.")
-                }
-            } else {
-                ScrollView {
-                    // Selectable so any line can be copied individually.
-                    LazyVStack(alignment: .leading, spacing: 2) {
-                        ForEach(Array(lines.enumerated()), id: \.offset) { _, line in
-                            Text(line)
-                                .font(.system(.caption, design: .monospaced))
-                                .textSelection(.enabled)
-                                .frame(maxWidth: .infinity, alignment: .leading)
-                        }
-                    }
-                    .padding(12)
-                }
-                .defaultScrollAnchor(.bottom)
-            }
-        }
-        .frame(width: 760, height: 480)
-        .onExitCommand { dismiss() }
-    }
 }

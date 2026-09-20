@@ -72,9 +72,13 @@ final class DownloadManager {
             guard entry.isUsableHere, !modelStore.isInstalled(entry) else { continue }
 
             if let existing = transfers.firstIndex(where: { $0.entry.id == entry.id }) {
-                // Present already. Retry it in place if it stopped short;
-                // otherwise leave it alone.
-                if transfers[existing].state == .failed || transfers[existing].state == .cancelled {
+                // Getting here means the file is not on disk — the guard above
+                // says so — which makes any transfer that is no longer running
+                // stale, *including* one that says it finished: the file has
+                // since been deleted, or never landed. Restart it. Leaving a
+                // finished transfer alone meant the Download button did nothing
+                // for the rest of the session once a file had been removed.
+                if transfers[existing].state.isTerminal {
                     transfers[existing] = Transfer(entry: entry, totalBytes: entry.approximateBytes)
                 }
                 continue
@@ -133,7 +137,7 @@ final class DownloadManager {
         if let file = entry.comfyUIFile {
             // ComfyUI needs a real file in its own folder layout, not a cache entry.
             let destination = modelStore.comfyUIPath(for: file).deletingLastPathComponent()
-            arguments += ["--file", "\(file.folder)/\(file.filename)",
+            arguments += ["--file", file.remotePath,
                           "--dest", destination.path]
         } else if let patterns = entry.allowPatterns,
                   let data = try? JSONSerialization.data(withJSONObject: patterns),

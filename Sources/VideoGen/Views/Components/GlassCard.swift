@@ -96,9 +96,9 @@ struct SpecRow: View {
                 .frame(width: 14)
         }
         .buttonStyle(.borderless)
-        .help("Copy \(label.lowercased())")
-        .accessibilityLabel("Copy \(label.lowercased())")
-        .accessibilityValue(didCopy ? "Copied" : value)
+        .help(loc("library.copySeed", label.lowercased()))
+        .accessibilityLabel(loc("library.copySeed", label.lowercased()))
+        .accessibilityValue(didCopy ? loc("library.copied") : value)
     }
 }
 
@@ -116,8 +116,8 @@ struct ProblemBadge: View {
         }
         .accessibilityElement(children: .combine)
         .accessibilityLabel(problem.severity == .blocking
-                            ? "Blocking issue. \(problem.message)"
-                            : "Note. \(problem.message)")
+                            ? loc("problem.blocking", problem.message)
+                            : loc("problem.note", problem.message))
         .font(.caption)
         .foregroundStyle(problem.severity == .blocking ? .red : .secondary)
         .frame(maxWidth: .infinity, alignment: .leading)

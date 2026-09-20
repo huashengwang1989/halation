@@ -11,6 +11,7 @@ struct ComposeView: View {
     @Environment(AppState.self) private var app
     @State private var showingPresetNamer = false
     @State private var presetName = ""
+
     /// Bumped when the user asks why Generate is disabled; the summary scrolls to
     /// the problems card and flashes it.
     @State private var problemFocusCount = 0
@@ -34,40 +35,37 @@ struct ComposeView: View {
                         problemFocusCount += 1
                         app.highlightProblems()
                     } label: {
-                        Label("Why is this disabled?", systemImage: "exclamationmark.triangle.fill")
+                        Label(loc("compose.generate.why"), systemImage: "exclamationmark.triangle.fill")
                     }
                     .labelStyle(.iconOnly)
                     .foregroundStyle(.orange)
                     .help(blockingSummary)
-                    .accessibilityLabel("Why Generate is unavailable")
+                    .accessibilityLabel(loc("compose.generate.why"))
                 }
             }
             ToolbarItem(placement: .primaryAction) {
                 Button {
                     app.generate()
                 } label: {
-                    Label("Generate", systemImage: "sparkles")
+                    Label(loc("compose.generate"), systemImage: "sparkles")
                 }
                 .labelStyle(.titleAndIcon)
                 .buttonStyle(.glassProminent)
                 .disabled(!app.canGenerate)
                 .keyboardShortcut(.return, modifiers: .command)
-                .help(app.canGenerate
-                      ? "Add this render to the queue"
-                      : blockingSummary)
+                .help(app.canGenerate ? loc("compose.generate.help.ready") : blockingSummary)
             }
         }
-        .alert("Save preset", isPresented: $showingPresetNamer) {
-            TextField("Name", text: $presetName)
-            Button("Cancel", role: .cancel) { presetName = "" }
-            Button("Save") {
-                let name = presetName.trimmingCharacters(in: .whitespacesAndNewlines)
-                if !name.isEmpty { app.library.savePreset(name: name, spec: app.draft) }
-                presetName = ""
+        // A sheet rather than an alert: an alert's message is fixed when it is
+        // presented, so the objection to a duplicate name could never appear, and
+        // a Save button that is merely dim does not say why.
+        .sheet(isPresented: $showingPresetNamer) {
+            PresetNamer(name: $presetName, taken: app.library.allPresets.map(\.displayName)) { name in
+                app.library.savePreset(name: name, spec: app.draft)
+                // Say where it went, and light up the control it went into.
+                app.note(loc("compose.preset.saved", name))
+                app.highlightPresets()
             }
-        } message: {
-            Text("Saves the current settings as a reusable recipe. The prompt, seed and attached files are not "
-                 + "included.")
         }
     }
 
@@ -142,12 +140,12 @@ struct ComposeView: View {
     /// The first blocking reason, for the button's tooltip.
     private var blockingSummary: String {
         if !app.runtime.phase.isReady {
-            return "The Python runtime is not ready. Open Settings › Runtime."
+            return loc("compose.generate.blocked.runtime")
         }
         if let first = app.draftProblems.first(where: { $0.severity == .blocking }) {
             return first.message
         }
-        return "Resolve the issues listed under “Before you generate”."
+        return loc("compose.generate.blocked.generic")
     }
 }
 
@@ -155,19 +153,25 @@ struct ComposeView: View {
 
 private struct PromptCard: View {
     @Binding var spec: GenerationSpec
+    @FocusState private var isFocused: Bool
 
     var body: some View {
-        GlassCard(title: "Prompt", systemImage: "text.alignleft",
-                  footnote: "H3 responds well to camera language — shot size, lens, movement, "
-                            + "lighting — and to a described soundscape, since it generates audio "
-                            + "in the same pass. There is no negative prompt: the released weights "
-                            + "are CFG-distilled, so guidance controls would do nothing.") {
+        GlassCard(title: loc("compose.prompt.title"), systemImage: "text.alignleft",
+                  footnote: loc("compose.prompt.footnote")) {
             VStack(alignment: .leading, spacing: 12) {
                 TextEditor(text: $spec.prompt)
                     .font(.body)
+                    .focused($isFocused)
+                    // Writing Tools stay on, deliberately. macOS 27 puts its
+                    // "write with Siri" button in a window of its own as soon as a
+                    // text view appears — not when one is focused — and never takes
+                    // it down, so it can float over the Queue or the Library.
+                    // `.writingToolsBehavior(.disabled)` here is the only thing
+                    // that removes it, and losing Writing Tools on the prompt is
+                    // the worse trade. Left as a system bug to wait out.
                     .tabMovesFocus()
-                    .accessibilityLabel("Prompt")
-                    .accessibilityHint("Describe the shot. Press Tab to move on, Option-Tab to insert a tab.")
+                    .accessibilityLabel(loc("compose.prompt.title"))
+                    .accessibilityHint(loc("compose.prompt.hint"))
                     .scrollContentBackground(.hidden)
                     .frame(minHeight: 108)
                     .padding(8)
@@ -185,16 +189,13 @@ private struct ModeCard: View {
     @Binding var spec: GenerationSpec
 
     var body: some View {
-        GlassCard(title: "Mode", systemImage: "slider.horizontal.3",
+        GlassCard(title: loc("compose.mode.title"), systemImage: "slider.horizontal.3",
                   footnote: spec.mode.detail + taskNote) {
             VStack(alignment: .leading, spacing: 12) {
-            Picker("Mode", selection: $spec.mode) {
-                ForEach(GenerationMode.allCases) { mode in
-                    Label(mode.label, systemImage: mode.symbolName).tag(mode)
-                }
+            SegmentedPicker(selection: $spec.mode, options: GenerationMode.allCases) { mode in
+                Text(mode.label)
             }
-            .pickerStyle(.segmented)
-            .labelsHidden()
+            .accessibilityLabel(loc("compose.mode.title"))
             .onChange(of: spec.mode) { previous, mode in
                 pruneReferences()
                 app.selectBestAvailableModels()
@@ -218,14 +219,22 @@ private struct ModeCard: View {
     @ViewBuilder
     private var enginePicker: some View {
         VStack(alignment: .leading, spacing: 6) {
-            Picker("Engine", selection: Binding(
-                get: { spec.backend ?? .mlx },
-                set: { spec.backend = $0 == .mlx ? nil : $0 })) {
-                ForEach(BackendID.allCases) { backend in
-                    Text(backend.label).tag(backend)
+            // The label sits outside the control. Inside, it picked up the track's
+            // own background and looked like a fifth, permanently-off segment.
+            HStack(spacing: 10) {
+                Text(loc("compose.engine.label"))
+                SegmentedPicker(selection: Binding(
+                    get: { spec.backend ?? .mlx },
+                    set: { spec.backend = $0 == .mlx ? nil : $0 }),
+                                options: BackendID.allCases) { backend in
+                    Text(backend.label)
                 }
+                .accessibilityLabel(loc("compose.engine.label"))
             }
-            .pickerStyle(.segmented)
+            // The two engines read different formats, so the checkpoint has to be
+            // re-picked here as well as on a mode change — otherwise switching
+            // engine leaves weights selected that the new one cannot load.
+            .onChange(of: spec.backend) { _, _ in app.selectBestAvailableModels() }
 
             Text(engineNote)
                 .font(.caption)
@@ -236,14 +245,8 @@ private struct ModeCard: View {
 
     private var engineNote: String {
         switch spec.backend ?? .mlx {
-        case .mlx:
-            "Runs natively on MLX. No server, and the default. Its weights are "
-            + "undistilled, so low step counts are off-distribution — use the "
-            + "port's 16 steps or more for quality."
-        case .comfyUI:
-            "Runs through ComfyUI on PyTorch/Metal, which can load the 4-step turbo "
-            + "LoRA. Four distilled steps take about as long as five undistilled "
-            + "ones on MLX, and are what the LoRA was trained for."
+        case .mlx: loc("compose.engine.mlx.note")
+        case .comfyUI: loc("compose.engine.comfy.note")
         }
     }
 
@@ -251,8 +254,8 @@ private struct ModeCard: View {
     /// which multi-gigabyte file gets loaded. Say so.
     private var taskNote: String {
         spec.mode == .reference
-            ? " Uses the Ref2VA checkpoint."
-            : " Uses the FL2VA checkpoint."
+            ? loc("compose.mode.task.ref2va")
+            : loc("compose.mode.task.fl2va")
     }
 
     /// Move the step count to something sensible for the engine that will run.

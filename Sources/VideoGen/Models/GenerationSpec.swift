@@ -14,10 +14,10 @@ enum GenerationMode: String, Codable, Sendable, CaseIterable, Identifiable {
 
     var label: String {
         switch self {
-        case .textToVideo: "Text to video"
-        case .firstFrame: "First frame"
-        case .firstAndLastFrame: "First & last frame"
-        case .reference: "References"
+        case .textToVideo: loc("mode.t2v")
+        case .firstFrame: loc("mode.first")
+        case .firstAndLastFrame: loc("mode.firstlast")
+        case .reference: loc("mode.reference")
         }
     }
 
@@ -32,14 +32,10 @@ enum GenerationMode: String, Codable, Sendable, CaseIterable, Identifiable {
 
     var detail: String {
         switch self {
-        case .textToVideo:
-            "Generate purely from a written description."
-        case .firstFrame:
-            "Animate outward from a still image you supply."
-        case .firstAndLastFrame:
-            "Supply both ends of the shot; the model fills in the motion between them."
-        case .reference:
-            "Supply reference images, clips or audio to pin down a subject, style or voice."
+        case .textToVideo: loc("mode.t2v.detail")
+        case .firstFrame: loc("mode.first.detail")
+        case .firstAndLastFrame: loc("mode.firstlast.detail")
+        case .reference: loc("mode.reference.detail")
         }
     }
 
@@ -62,9 +58,9 @@ struct ReferenceAsset: Codable, Sendable, Hashable, Identifiable {
 
         var label: String {
             switch self {
-            case .image: "Image"
-            case .video: "Video"
-            case .audio: "Audio"
+            case .image: loc("refs.kind.image")
+            case .video: loc("refs.kind.video")
+            case .audio: loc("refs.kind.audio")
             }
         }
 
@@ -93,9 +89,9 @@ struct ReferenceAsset: Codable, Sendable, Hashable, Identifiable {
 
         var label: String {
             switch self {
-            case .first: "First frame"
-            case .last: "Last frame"
-            case .reference: "Reference"
+            case .first: loc("refs.slot.first")
+            case .last: loc("refs.slot.last")
+            case .reference: loc("refs.slot.reference")
             }
         }
     }
@@ -140,24 +136,18 @@ struct SamplingSettings: Codable, Sendable, Hashable {
     /// Very rough wall-clock estimate, anchored on the MLX port's published M3 Ultra
     /// figures and scaled for this machine's lower memory bandwidth. Presented as a
     /// range because real timings vary a lot with resolution and reference count.
+    /// How long this will take, as a range.
+    ///
+    /// The machine-dependent part is `secondsPerStepMegapixel` and nothing else;
+    /// see `RenderThroughput`, which measures it from finished renders where it
+    /// can and predicts it from memory bandwidth where it cannot. This used to
+    /// carry a constant tuned to one particular Mac, which made the estimate
+    /// meaningless anywhere else.
     func estimatedDuration(quantization: Quantization,
                            pixels: Int,
-                           bandwidthFactor: Double = 1.5) -> ClosedRange<TimeInterval> {
-        // Published anchor: bf16, 5 s, 8 steps ≈ 1.2 h on M3 Ultra.
-        let anchorHours = 1.2
-        let stepFactor = Double(steps) / 8.0
-        let durationFactor = Double(durationSeconds) / 5.0
-        let pixelFactor = Double(pixels) / Double(1344 * 768)
-
-        let quantSpeedup: Double = switch quantization {
-        case .q4: 1.4
-        case .q6: 1.25
-        case .q8: 1.1
-        default: 1.0
-        }
-
-        let centre = anchorHours * stepFactor * durationFactor * pixelFactor
-                   * bandwidthFactor / quantSpeedup * 3600
+                           secondsPerStepMegapixel: Double) -> ClosedRange<TimeInterval> {
+        let centre = secondsPerStepMegapixel
+            * RenderThroughput.work(sampling: self, pixels: pixels, quantization: quantization)
         return (centre * 0.7)...(centre * 1.45)
     }
 }
@@ -171,6 +161,18 @@ struct GenerationSpec: Codable, Sendable, Hashable {
     var format = OutputFormat()
     var references: [ReferenceAsset] = []
     /// Catalog id of the transformer checkpoint to load.
+    /// The engine this spec runs on, worked out without the engine itself.
+    ///
+    /// Mirrors `RenderEngine.backend(for:)`: an explicit choice wins, reference
+    /// conditioning exists only in ComfyUI, and everything else is MLX. Reference
+    /// specs carry `backend == nil`, so reading that field directly reports them
+    /// as MLX renders — which is how finished reference renders went missing from
+    /// the throughput measurement.
+    var resolvedBackend: BackendID {
+        if let backend { return backend }
+        return mode == .reference ? .comfyUI : .mlx
+    }
+
     var transformerEntryID: String?
     /// Catalog id of the text encoder to load.
     var textEncoderEntryID: String?
@@ -198,12 +200,12 @@ struct GenerationSpec: Codable, Sendable, Hashable {
         var problems: [Problem] = []
 
         if prompt.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
-            problems.append(.init(severity: .blocking, message: "Write a prompt describing the shot."))
+            problems.append(.init(severity: .blocking, message: loc("problem.prompt.empty")))
         }
 
         if !SamplingSettings.durationRange.contains(sampling.durationSeconds) {
             problems.append(.init(severity: .blocking,
-                message: "H3 only generates 4–15 second clips."))
+                message: loc("problem.duration")))
         }
 
         // Mode-specific input requirements.
@@ -212,30 +214,30 @@ struct GenerationSpec: Codable, Sendable, Hashable {
         case .textToVideo:
             if !references.isEmpty {
                 problems.append(.init(severity: .advisory,
-                    message: "Text-to-video ignores attached files. Switch modes to use them."))
+                    message: loc("problem.t2v.extraFiles")))
             }
         case .firstFrame:
             if images.isEmpty {
-                problems.append(.init(severity: .blocking, message: "Add a first-frame image."))
+                problems.append(.init(severity: .blocking, message: loc("problem.needFirst")))
             }
         case .firstAndLastFrame:
             let hasFirst = references.contains { $0.slot == .first }
             let hasLast = references.contains { $0.slot == .last }
-            if !hasFirst { problems.append(.init(severity: .blocking, message: "Add a first-frame image.")) }
-            if !hasLast { problems.append(.init(severity: .blocking, message: "Add a last-frame image.")) }
+            if !hasFirst { problems.append(.init(severity: .blocking, message: loc("problem.needFirst"))) }
+            if !hasLast { problems.append(.init(severity: .blocking, message: loc("problem.needLast"))) }
         case .reference:
             if references.isEmpty {
                 problems.append(.init(severity: .blocking,
-                    message: "Ref2VA needs at least one reference file."))
+                    message: loc("problem.needReference")))
             }
             for (kind, group) in references0fKind where group.count > kind.limit {
                 problems.append(.init(severity: .blocking,
-                    message: "At most \(kind.limit) reference \(kind.label.lowercased()) files — you have "
-                             + "\(group.count)."))
+                    message: loc("problem.tooManyOfKind", "\(kind.limit)",
+                                 kind.label.lowercased(), "\(group.count)")))
             }
             if references.count > ReferenceAsset.totalFileLimit {
                 problems.append(.init(severity: .blocking,
-                    message: "Ref2VA accepts \(ReferenceAsset.totalFileLimit) reference files in total."))
+                    message: loc("problem.tooManyTotal", "\(ReferenceAsset.totalFileLimit)")))
             }
         }
 
@@ -243,21 +245,22 @@ struct GenerationSpec: Codable, Sendable, Hashable {
         if let id = transformerEntryID {
             if !installed.contains(id) {
                 problems.append(.init(severity: .blocking,
-                    message: "The selected checkpoint isn't installed yet."))
+                    message: loc("problem.notInstalled")))
             }
             if let entry = ModelCatalog.entry(id: id), !entry.isUsableHere {
                 problems.append(.init(severity: .blocking,
-                    message: "\(entry.quantization.label) has no Metal kernel and cannot run on Apple silicon."))
+                    message: loc("problem.noMetalKernel", entry.quantization.label)))
             }
         } else {
             problems.append(.init(severity: .blocking,
-                message: "Choose a \(task.rawValue) checkpoint in Models."))
+                message: loc("problem.chooseCheckpoint", task.rawValue)))
         }
+
+        problems.append(contentsOf: memoryProblems)
 
         if format.resolution.isUpscale {
             problems.append(.init(severity: .advisory,
-                message: "\(format.resolution.label) is a resample of the model's 768p output. "
-                       + "H3's true 2K mode is not open-sourced and cannot run locally."))
+                message: loc("problem.upscale", format.resolution.label)))
         }
 
         if mode == .reference {
@@ -268,26 +271,42 @@ struct GenerationSpec: Codable, Sendable, Hashable {
             if !untagged.isEmpty {
                 let tags = untagged.map { "<Picture \($0 + 1)>" }.joined(separator: ", ")
                 problems.append(.init(severity: .advisory,
-                    message: "The prompt never mentions \(tags). H3 conditions on references "
-                           + "through those tags — untagged ones have much less influence."))
+                    message: loc("problem.refUntagged", tags)))
             }
             problems.append(.init(severity: .advisory,
-                message: "Reference mode runs through ComfyUI rather than MLX, which is slower "
-                       + "per step. With the 4-step turbo LoRA a 5 second clip takes about "
-                       + "25 minutes."))
+                message: loc("problem.refSlow")))
         }
 
         if sampling.steps < 8 {
             problems.append(.init(severity: .advisory,
-                message: "Below 8 steps the model tends to produce soft, unstable motion."))
+                message: loc("problem.lowSteps")))
         }
 
         if sampling.durationSeconds > 8, sampling.steps > 20 {
             problems.append(.init(severity: .advisory,
-                message: "Long clips at high step counts can run overnight. Consider a short test first."))
+                message: loc("problem.longOvernight")))
         }
 
         return problems
+    }
+
+    /// Whether the weights this spec selects will fit while it runs.
+    ///
+    /// Everything the run holds at once has to sit in what the GPU may wire down,
+    /// and on Apple Silicon that is a fraction of installed memory rather than all
+    /// of it — the rest belongs to the system and to graphics. Advisory rather
+    /// than blocking: going over does not fail, it swaps, and whether that is
+    /// worth the wait is the user's call on their own machine.
+    private var memoryProblems: [Problem] {
+        let resident = [transformerEntryID, textEncoderEntryID]
+            .compactMap { $0 }
+            .compactMap { ModelCatalog.entry(id: $0)?.approximateResidentBytes }
+            .reduce(0, +)
+        guard resident > MachineProfile.usableWeightBytes else { return [] }
+        return [.init(severity: .advisory,
+                      message: loc("problem.memory",
+                                   Format.bytes(resident),
+                                   Format.bytes(MachineProfile.usableWeightBytes)))]
     }
 
     var isRenderable: Bool { true }
@@ -298,14 +317,23 @@ struct GenerationSpec: Codable, Sendable, Hashable {
 struct GenerationPreset: Codable, Sendable, Hashable, Identifiable {
     var id: UUID = UUID()
     var name: String
+    /// Translation key for a built-in's name. A preset is saved to disk, so the
+    /// name it was stored under cannot be the translated text — that would freeze
+    /// whichever language happened to be current when it was written. Built-ins
+    /// carry the key and are translated on the way to the screen; a preset the
+    /// user named keeps the name they typed, in whatever language they typed it.
+    var nameKey: String?
+
     var spec: GenerationSpec
     var createdAt: Date = .now
     /// Presets shipped with the app cannot be deleted, only duplicated.
     var isBuiltIn: Bool = false
+    var displayName: String { nameKey.map { loc($0) } ?? name }
 
     static let builtIns: [GenerationPreset] = [
         GenerationPreset(
             name: "Fast preview",
+            nameKey: "preset.fastPreview",
             spec: {
                 var spec = GenerationSpec()
                 spec.sampling.steps = 16
@@ -318,6 +346,7 @@ struct GenerationPreset: Codable, Sendable, Hashable, Identifiable {
         ),
         GenerationPreset(
             name: "Quality — overnight",
+            nameKey: "preset.quality",
             spec: {
                 var spec = GenerationSpec()
                 spec.sampling.steps = 50
@@ -329,6 +358,7 @@ struct GenerationPreset: Codable, Sendable, Hashable, Identifiable {
         ),
         GenerationPreset(
             name: "Vertical social",
+            nameKey: "preset.vertical",
             spec: {
                 var spec = GenerationSpec()
                 spec.sampling.steps = 12

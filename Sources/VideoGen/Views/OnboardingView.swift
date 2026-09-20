@@ -13,10 +13,10 @@ struct OnboardingView: View {
 
         var title: String {
             switch self {
-            case .welcome: "Local video generation"
-            case .licence: "Model licence"
-            case .runtime: "Python runtime"
-            case .models: "Model weights"
+            case .welcome: loc("onboarding.welcome.title")
+            case .licence: loc("onboarding.licence.title")
+            case .runtime: loc("onboarding.runtime.title")
+            case .models: loc("onboarding.models.title")
             }
         }
     }
@@ -31,14 +31,14 @@ struct OnboardingView: View {
 
             HStack {
                 if step != .welcome {
-                    Button("Back") { back() }
+                    Button(loc("onboarding.back")) { back() }
                         .keyboardShortcut("[", modifiers: .command)
                 }
                 Spacer()
                 // A standard button rather than .plain: a plain button draws no
                 // clear focus ring, so with keyboard navigation on there was no way
                 // to tell it had focus.
-                Button("Skip setup") { close() }
+                Button(loc("onboarding.skip")) { close() }
                     // Escape leaves the dialog, as it does in every macOS sheet.
                     .keyboardShortcut(.cancelAction)
                 Button(primaryLabel) { advance() }
@@ -74,7 +74,7 @@ struct OnboardingView: View {
                 .font(.system(size: 44))
                 .foregroundStyle(.tint)
                 .accessibilityHidden(true)
-            Text("Generate video on this Mac")
+            Text(loc("onboarding.welcome.title"))
                 .font(.largeTitle.weight(.semibold))
             Text("""
                 This app runs MiniMax H3 entirely on your own machine. Nothing is sent \
@@ -84,7 +84,7 @@ struct OnboardingView: View {
                 """)
                 .foregroundStyle(.secondary)
 
-            GlassCard(title: "Renders take hours, not seconds", systemImage: "clock") {
+            GlassCard(title: loc("onboarding.slowTitle"), systemImage: "clock") {
                 Text("""
                     H3 is a 33-billion-parameter diffusion model. On an M4 Max, a 5-second \
                     clip at the fast-preview settings takes roughly one to two hours; at \
@@ -96,7 +96,7 @@ struct OnboardingView: View {
                 .fixedSize(horizontal: false, vertical: true)
             }
 
-            GlassCard(title: "Setup is a large download", systemImage: "internaldrive") {
+            GlassCard(title: loc("onboarding.diskTitle"), systemImage: "internaldrive") {
                 Text("""
                     The recommended set of weights is a little over 100 GB — most of it the \
                     Qwen3-VL-32B text encoder. They are stored in a shared folder so other \
@@ -111,7 +111,7 @@ struct OnboardingView: View {
 
     private var licence: some View {
         VStack(alignment: .leading, spacing: 16) {
-            Text("MiniMax H3 Community License")
+            Text(loc("onboarding.licence.heading"))
                 .font(.title.weight(.semibold))
             Text("""
                 The weights are open, but not unconditionally. The terms you are agreeing \
@@ -132,10 +132,10 @@ struct OnboardingView: View {
                 }
             }
 
-            Link("Read the full licence on Hugging Face",
+            Link(loc("onboarding.licence.readFull"),
                  destination: .literal("https://huggingface.co/MiniMaxAI/MiniMax-H3"))
 
-            Toggle("I have read the licence and I am entitled to use these weights where I am",
+            Toggle(loc("onboarding.licence.acknowledge"),
                    isOn: Binding(get: { app.licenseAcknowledged },
                                  set: { app.licenseAcknowledged = $0 }))
                 .toggleStyle(.checkbox)
@@ -154,7 +154,7 @@ struct OnboardingView: View {
 
     private var runtime: some View {
         VStack(alignment: .leading, spacing: 16) {
-            Text("Python runtime").font(.title.weight(.semibold))
+            Text(loc("onboarding.runtime.title")).font(.title.weight(.semibold))
             Text("""
                 H3 has no native Swift implementation. The app drives the MLX port through \
                 its own private Python environment, kept separate from any Python you \
@@ -182,12 +182,12 @@ struct OnboardingView: View {
                 }
             case .ready(let report):
                 if report.h3Usable {
-                    Label("Runtime ready — Python \(report.pythonVersion), MLX on Metal",
+                    Label(loc("runtime.ready", report.pythonVersion),
                           systemImage: "checkmark.circle.fill")
                         .foregroundStyle(.green)
                 } else {
                     VStack(alignment: .leading, spacing: 6) {
-                        Label("Installed, but not usable yet", systemImage: "exclamationmark.triangle.fill")
+                        Label(loc("runtime.installedNotUsable"), systemImage: "exclamationmark.triangle.fill")
                             .foregroundStyle(.orange)
                         ForEach(report.problems, id: \.self) { problem in
                             Text("• \(problem)").font(.caption).foregroundStyle(.secondary)
@@ -202,14 +202,14 @@ struct OnboardingView: View {
                     LogTail(lines: app.runtime.installLog)
                 }
             case .missing, .unknown:
-                Text("Not installed yet.").foregroundStyle(.secondary)
+                Text(loc("runtime.notInstalledYet")).foregroundStyle(.secondary)
             }
         }
     }
 
     private var models: some View {
         VStack(alignment: .leading, spacing: 16) {
-            Text("Model weights").font(.title.weight(.semibold))
+            Text(loc("onboarding.models.title")).font(.title.weight(.semibold))
             Text("""
                 The recommended set is the 4-bit FL2VA transformer plus the bfloat16 text \
                 encoder and the shared VAEs — the fastest combination the MLX port can \
@@ -233,10 +233,10 @@ struct OnboardingView: View {
                         }
                     }
                     Divider()
-                    SpecRow(label: "Total",
+                    SpecRow(label: loc("onboarding.total"),
                             value: Format.bytes(app.modelStore.requiredBytes(for: ModelCatalog.recommendedBundle)),
                             isProminent: true)
-                    SpecRow(label: "Free on disk", value: Format.bytes(app.modelStore.freeBytes))
+                    SpecRow(label: loc("onboarding.freeOnDisk"), value: Format.bytes(app.modelStore.freeBytes))
                 }
             }
 
@@ -248,7 +248,7 @@ struct OnboardingView: View {
                     .fixedSize(horizontal: false, vertical: true)
             }
 
-            Text("Saving to \(app.modelStore.rootURL.path(percentEncoded: false))")
+            Text(loc("onboarding.savingTo", app.modelStore.rootURL.path(percentEncoded: false)))
                 .font(.caption)
                 .foregroundStyle(.tertiary)
                 .textSelection(.enabled)
@@ -259,12 +259,12 @@ struct OnboardingView: View {
 
     private var primaryLabel: String {
         switch step {
-        case .welcome: "Continue"
-        case .licence: "Continue"
+        case .welcome: loc("onboarding.continue")
+        case .licence: loc("onboarding.continue")
         case .runtime:
-            app.runtime.phase.isReady ? "Continue"
-                : (app.runtime.phase.isBusy ? "Installing…" : "Install Runtime")
-        case .models: "Start Download"
+            app.runtime.phase.isReady ? loc("onboarding.continue")
+                : (app.runtime.phase.isBusy ? loc("onboarding.installing") : loc("onboarding.installRuntime"))
+        case .models: loc("onboarding.startDownload")
         }
     }
 
@@ -340,6 +340,11 @@ struct LogTail: View {
                         .lineLimit(1)
                         .truncationMode(.middle)
                         .frame(maxWidth: .infinity, alignment: .leading)
+                        // Selectable so a line can be picked out and pasted into a
+                        // search or an issue. The Copy button beside the heading
+                        // takes the whole log, including the lines shown truncated
+                        // here and the ones scrolled past the 120 kept on screen.
+                        .textSelection(.enabled)
                 }
             }
             .padding(8)
@@ -350,7 +355,7 @@ struct LogTail: View {
         // Announced as one element: stepping through a hundred build lines one at
         // a time is worse than useless.
         .accessibilityElement(children: .ignore)
-        .accessibilityLabel("Installation log")
+        .accessibilityLabel(loc("settings.log.accessibility"))
         .accessibilityValue(lines.suffix(3).joined(separator: ". "))
     }
 }

@@ -12,15 +12,11 @@ struct SamplingCard: View {
     private var stepsFootnote: String {
         let recommended = app.recommendedSteps(for: app.draft.mode)
         let advice: String = if app.draftBackend == .comfyUI, recommended <= 6 {
-            "This engine loads a \(recommended)-step turbo LoRA, distilled for "
-            + "exactly that many — more steps mostly cost time."
+            loc("sampling.steps.note.turbo", "\(recommended)")
         } else {
-            "These weights are undistilled, so around \(recommended) steps is the "
-            + "working range; far fewer is off-distribution and looks soft."
+            loc("sampling.steps.note.undistilled", "\(recommended)")
         }
-        return "Steps are actual denoising passes, and dominate render time almost "
-             + "linearly. \(advice) Duration snaps to the video VAE's 17n+5 frame "
-             + "grid, so the value shown is what renders."
+        return loc("sampling.steps.note", advice)
     }
 
     /// What the model will actually render, given the frame grid.
@@ -28,24 +24,34 @@ struct SamplingCard: View {
         let frames = spec.sampling.frameCount
         let seconds = spec.sampling.effectiveSeconds
         if FrameGrid.isExact(forSeconds: spec.sampling.durationSeconds) {
-            return "Renders \(frames) frames — exactly \(spec.sampling.durationSeconds) s at 24 fps."
+            return loc("sampling.snapped.exact", "\(frames)", "\(spec.sampling.durationSeconds)")
         }
         let text = seconds.formatted(.number.precision(.fractionLength(2)))
-        return "Renders \(frames) frames — \(text) s at 24 fps, "
-             + "the nearest length the video VAE can encode."
+        return loc("sampling.snapped.inexact", "\(frames)", text)
     }
 
     var body: some View {
-        GlassCard(title: "Sampling", systemImage: "dial.medium",
+        GlassCard(title: loc("sampling.title"), systemImage: "dial.medium",
                   footnote: stepsFootnote) {
             VStack(alignment: .leading, spacing: 16) {
                 VStack(alignment: .leading, spacing: 4) {
-                    LabeledContent("Duration") {
+                    LabeledContent(loc("sampling.duration")) {
                         HStack {
+                            // Both ends are labelled. The range starts at 5, so
+                            // the knob sits hard left at the minimum and read as
+                            // zero — as though nothing would be generated. The
+                            // scale has to say what its first tick means.
                             Slider(value: .init(
                                 get: { Double(spec.sampling.durationSeconds) },
                                 set: { spec.sampling.durationSeconds = Int($0.rounded()) }),
-                                   in: 5...15, step: 1)
+                                   in: 5...15, step: 1,
+                                   minimumValueLabel: Text(Format.clipLength(5)),
+                                   maximumValueLabel: Text(Format.clipLength(15))) {
+                                // For VoiceOver only: LabeledContent already
+                                // shows this name beside the control.
+                                Text(loc("sampling.duration"))
+                            }
+                            .labelsHidden()
                             // Whole seconds: one tick, one second. The grid-snapped
                             // result is reported underneath rather than here, so the
                             // control itself stays predictable.
@@ -59,12 +65,17 @@ struct SamplingCard: View {
                         .foregroundStyle(.secondary)
                 }
 
-                LabeledContent("Steps") {
+                LabeledContent(loc("sampling.steps")) {
                     HStack {
                         Slider(value: .init(
                             get: { Double(spec.sampling.steps) },
                             set: { spec.sampling.steps = Int($0.rounded()) }),
-                               in: 4...60, step: 1)
+                               in: 4...60, step: 1,
+                               minimumValueLabel: Text("4"),
+                               maximumValueLabel: Text("60")) {
+                            Text(loc("sampling.steps"))
+                        }
+                        .labelsHidden()
                         Text("\(spec.sampling.steps)")
                             .monospacedDigit()
                             .frame(width: 42, alignment: .trailing)
@@ -73,7 +84,7 @@ struct SamplingCard: View {
 
                 Divider()
 
-                Toggle("Fixed seed", isOn: Binding(
+                Toggle(loc("sampling.seed.fixed"), isOn: Binding(
                     get: { spec.sampling.seed != nil },
                     set: { spec.sampling.seed = $0 ? (spec.sampling.seed ?? 42) : nil }))
                     .toggleStyle(.switch)
@@ -85,12 +96,11 @@ struct SamplingCard: View {
                             set: { spec.sampling.seed = $0 }), format: .number)
                             .textFieldStyle(.roundedBorder)
                             .monospacedDigit()
-                        Button("Randomise", systemImage: "die.face.5") {
+                        Button(loc("sampling.seed.randomise"), systemImage: "die.face.5") {
                             spec.sampling.seed = Int64.random(in: 0..<Int64(1) << 47)
                         }
                     }
-                    Text("A fixed seed makes a render repeatable. Change any other setting and the result changes "
-                         + "anyway.")
+                    Text(loc("sampling.seed.note"))
                         .font(.caption)
                         .foregroundStyle(.secondary)
                 }
@@ -106,12 +116,11 @@ struct FormatCard: View {
     @Binding var spec: GenerationSpec
 
     var body: some View {
-        GlassCard(title: "Output", systemImage: "film",
-                  footnote: "The model always renders 24 fps at a 768 px short edge. Anything else on this card is "
-                            + "applied afterwards, during encoding.") {
+        GlassCard(title: loc("compose.output.title"), systemImage: "film",
+                  footnote: loc("compose.output.footnote")) {
             VStack(alignment: .leading, spacing: 16) {
                 VStack(alignment: .leading, spacing: 8) {
-                    Text("Aspect ratio").font(.callout).foregroundStyle(.secondary)
+                    Text(loc("compose.aspect")).font(.callout).foregroundStyle(.secondary)
                     HStack(spacing: 8) {
                         ForEach(AspectRatio.allCases) { ratio in
                             AspectButton(ratio: ratio, isSelected: spec.format.aspectRatio == ratio) {
@@ -121,7 +130,7 @@ struct FormatCard: View {
                     }
                 }
 
-                Picker("Resolution", selection: $spec.format.resolution) {
+                Picker(loc("compose.resolution"), selection: $spec.format.resolution) {
                     ForEach(ResolutionTier.allCases) { tier in
                         Text(tier.label).tag(tier)
                     }
@@ -130,7 +139,7 @@ struct FormatCard: View {
                     .font(.caption).foregroundStyle(.secondary)
                     .fixedSize(horizontal: false, vertical: true)
 
-                Picker("Frame rate", selection: $spec.format.frameRate) {
+                Picker(loc("compose.framerate"), selection: $spec.format.frameRate) {
                     ForEach(FrameRate.allCases) { rate in
                         Text(rate.label).tag(rate)
                     }
@@ -138,7 +147,7 @@ struct FormatCard: View {
                 Text(spec.format.frameRate.detail)
                     .font(.caption).foregroundStyle(.secondary)
 
-                Picker("Codec", selection: $spec.format.codec) {
+                Picker(loc("compose.codec"), selection: $spec.format.codec) {
                     ForEach(VideoCodec.allCases) { codec in
                         Text(codec.label).tag(codec)
                     }
@@ -147,13 +156,12 @@ struct FormatCard: View {
                     .font(.caption).foregroundStyle(.secondary)
                     .fixedSize(horizontal: false, vertical: true)
 
-                Picker("Audio", selection: $spec.format.audio) {
+                Picker(loc("compose.audio"), selection: $spec.format.audio) {
                     ForEach(AudioHandling.allCases) { option in
                         Text(option.label).tag(option)
                     }
                 }
-                Text("H3 generates 32 kHz stereo audio in the same pass as the picture; there is no silent mode that "
-                     + "renders faster.")
+                Text(loc("compose.audio.footnote"))
                     .font(.caption).foregroundStyle(.secondary)
                     .fixedSize(horizontal: false, vertical: true)
             }
@@ -181,11 +189,11 @@ private struct AspectButton: View {
             .contentShape(.rect)
         }
         .buttonStyle(.plain)
-        .help("\(ratio.label) — renders at \(ratio.nativeSize.description)")
+        .help(loc("compose.aspect.help", ratio.label, ratio.nativeSize.description))
         // The swatch carries its meaning in shape and colour alone, so state and
         // size have to be spoken.
-        .accessibilityLabel("\(ratio.label) aspect ratio")
-        .accessibilityValue("\(ratio.nativeSize.width) by \(ratio.nativeSize.height) pixels")
+        .accessibilityLabel(loc("compose.aspect.accessibility", ratio.label))
+        .accessibilityValue(loc("compose.aspect.pixels", "\(ratio.nativeSize.width)", "\(ratio.nativeSize.height)"))
         .accessibilityAddTraits(isSelected ? [.isButton, .isSelected] : .isButton)
     }
 
@@ -207,17 +215,24 @@ private struct AspectButton: View {
 
 struct PresetMenu: View {
     @Environment(AppState.self) private var app
+    @State private var isFlashing = false
 
     var body: some View {
         Menu {
-            ForEach(app.library.allPresets) { preset in
-                Button(preset.name) { app.apply(preset: preset) }
+            ForEach(GenerationPreset.builtIns) { preset in
+                Button(preset.displayName) { app.apply(preset: preset) }
             }
             if !app.library.presets.isEmpty {
+                // A rule between what ships with the app and what the user made,
+                // because only the second kind can be deleted.
                 Divider()
-                Menu("Delete Preset") {
+                ForEach(app.library.presets) { preset in
+                    Button(preset.displayName) { app.apply(preset: preset) }
+                }
+                Divider()
+                Menu(loc("compose.preset.delete")) {
                     ForEach(app.library.presets) { preset in
-                        Button(preset.name, role: .destructive) {
+                        Button(preset.displayName, role: .destructive) {
                             app.library.deletePreset(preset.id)
                         }
                     }
@@ -232,146 +247,28 @@ struct PresetMenu: View {
         .menuStyle(.button)
         .buttonStyle(.glass)
         .fixedSize()
-        .help("Apply a saved combination of settings")
+        .help(loc("compose.presets.help"))
+        .overlay {
+            Capsule()
+                .strokeBorder(Color.accentColor, lineWidth: 2)
+                .opacity(isFlashing ? 1 : 0)
+                .allowsHitTesting(false)
+        }
+        .onChange(of: app.presetSavedPulse) { _, _ in flash() }
+    }
+
+    /// Two quick pulses — enough to catch the eye without being a distraction.
+    /// The same shape the Compose summary uses for a blocking problem.
+    private func flash() {
+        withAnimation(.easeOut(duration: 0.18)) { isFlashing = true }
+        withAnimation(.easeIn(duration: 0.35).delay(0.9)) { isFlashing = false }
     }
 
     /// Shows the preset the draft currently matches, so the control reads as state
     /// rather than as a bare menu.
     private var currentPresetName: String {
         app.library.allPresets.first { $0.spec.sampling == app.draft.sampling
-                                    && $0.spec.format == app.draft.format }?.name
-            ?? "Presets"
-    }
-}
-
-// MARK: - Summary
-
-/// The summary column. Scrolls independently beside the form when there is room.
-struct SummarySidebar: View {
-    @Binding var showingPresetNamer: Bool
-    /// Incremented by the Compose toolbar when the user asks why Generate is off.
-    var problemFocusCount: Int
-
-    var body: some View {
-        ScrollViewReader { proxy in
-            ScrollView {
-                SummaryContent(showingPresetNamer: $showingPresetNamer)
-                    .padding(20)
-            }
-            .scrollEdgeEffectStyle(.soft, for: .top)
-            .onChange(of: problemFocusCount) { _, _ in
-                withAnimation(.snappy) {
-                    proxy.scrollTo(ComposeAnchor.problems, anchor: .center)
-                }
-            }
-        }
-        .background(.background.secondary)
-    }
-}
-
-/// The summary's cards, laid out without assuming a container. Used both in the
-/// side column and inline underneath the form when the window is narrow.
-struct SummaryContent: View {
-    @Environment(AppState.self) private var app
-    @Binding var showingPresetNamer: Bool
-    @State private var isFlashing = false
-
-    var body: some View {
-        VStack(alignment: .leading, spacing: 18) {
-            GlassCard(title: "This render", systemImage: "info.circle") {
-                VStack(spacing: 8) {
-                    SpecRow(label: "Task", value: app.draft.task.rawValue)
-                    SpecRow(label: "Engine", value: app.draftBackend.label)
-                    SpecRow(label: "Generates at", value: app.draft.format.generationSize.description)
-                    if app.draft.format.deliverySize != app.draft.format.generationSize {
-                        SpecRow(label: "Delivered at", value: app.draft.format.deliverySize.description)
-                    }
-                    SpecRow(label: "Length",
-                            value: renderedLength)
-                    SpecRow(label: "Steps", value: "\(app.draft.sampling.steps)")
-                    SpecRow(label: "Codec", value: app.draft.format.codec.label)
-                    if let bitrate = app.draft.format.estimatedBitrate() {
-                        SpecRow(label: "Target bitrate", value: "\(bitrate / 1_000_000) Mb/s")
-                    }
-                }
-            }
-
-            GlassCard(title: "Estimated time", systemImage: "clock",
-                      footnote: "Scaled from the MLX port's published M3 Ultra timings for this "
-                                + "machine's memory bandwidth. Treat it as an order of magnitude, "
-                                + "not a promise — the first run of a session is slower because "
-                                + "weights have to be paged in.") {
-                Text(estimate)
-                    .font(.title2.weight(.semibold))
-                    .foregroundStyle(.primary)
-            }
-
-            if !app.draftProblems.isEmpty {
-                GlassCard(title: "Before you generate", systemImage: "checklist") {
-                    VStack(alignment: .leading, spacing: 8) {
-                        ForEach(app.draftProblems) { ProblemBadge(problem: $0) }
-                    }
-                }
-                .id(ComposeAnchor.problems)
-                .overlay {
-                    RoundedRectangle(cornerRadius: 16)
-                        .strokeBorder(.orange, lineWidth: 2)
-                        .opacity(isFlashing ? 1 : 0)
-                }
-                .onChange(of: app.problemFocusPulse) { _, _ in flash() }
-            }
-
-            if let reason = app.engine.unavailableReason(for: app.draft) {
-                GlassCard(title: "Engine not ready", systemImage: "exclamationmark.triangle") {
-                    Text(reason)
-                        .font(.callout)
-                        .foregroundStyle(.secondary)
-                        .fixedSize(horizontal: false, vertical: true)
-                }
-            }
-
-            GlassCard(title: "Models", systemImage: "cube.box") {
-                VStack(spacing: 8) {
-                    SpecRow(label: "Transformer", value: name(app.draft.transformerEntryID))
-                    SpecRow(label: "Text encoder", value: name(app.draft.textEncoderEntryID))
-                    Button("Choose in Models…") { app.section = .models }
-                        .frame(maxWidth: .infinity)
-                }
-            }
-
-            Button("Save as Preset…", systemImage: "square.and.arrow.down") {
-                showingPresetNamer = true
-            }
-            .frame(maxWidth: .infinity)
-        }
-        .frame(maxWidth: .infinity, alignment: .leading)
-    }
-
-    /// Two quick pulses — enough to catch the eye without being a distraction.
-    private func flash() {
-        withAnimation(.easeOut(duration: 0.18)) { isFlashing = true }
-        withAnimation(.easeIn(duration: 0.35).delay(0.9)) { isFlashing = false }
-    }
-
-    /// "362 frames · 15.08 s" — what the model will actually produce.
-    private var renderedLength: String {
-        let seconds = app.draft.sampling.effectiveSeconds
-            .formatted(.number.precision(.fractionLength(2)))
-        return "\(app.draft.sampling.frameCount) frames · \(seconds) s"
-    }
-
-    private var estimate: String {
-        guard let id = app.draft.transformerEntryID,
-              let entry = ModelCatalog.entry(id: id) else { return "Select a model" }
-        let size = app.draft.format.generationSize
-        let range = app.draft.sampling.estimatedDuration(
-            quantization: entry.quantization,
-            pixels: size.width * size.height)
-        return Format.durationRange(range)
-    }
-
-    private func name(_ id: String?) -> String {
-        guard let id, let entry = ModelCatalog.entry(id: id) else { return "Not selected" }
-        return entry.quantization.label
+                                    && $0.spec.format == app.draft.format }?.displayName
+            ?? loc("compose.presets")
     }
 }

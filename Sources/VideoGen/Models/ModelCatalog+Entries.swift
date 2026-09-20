@@ -21,6 +21,8 @@ enum ModelCatalog {
     static let comfyRepoID = "Comfy-Org/MiniMax-H3"
 
     static let upstreamRepoID = "MiniMaxAI/MiniMax-H3"
+    /// Where the turbo LoRAs are distilled and published.
+    static let turboRepoID = "lightx2v/Minimax-h3-Turbo"
 
     /// The upstream repo publishes its components twice: once at the top level in
     /// diffusers layout, and once mirrored inside `FL2VA/` and `Ref2VA/`. We always
@@ -38,8 +40,8 @@ enum ModelCatalog {
             allowPatterns: ["FL2VA/model_index.json", "FL2VA/video_vae/*",
                             "FL2VA/audio_vae/*", "FL2VA/processor/*", "FL2VA/tokenizer/*"],
             provenance: .official,
-            summary: "Video VAE (10.4 GB), audio VAE, processor and tokenizer, taken from the "
-                   + "FL2VA task directory the pipeline loads as a unit. Required by every run."
+            nameKey: "model.name.support.mlx",
+            summaryKey: "model.support.mlx"
         ),
         CatalogEntry(
             repoID: upstreamRepoID,
@@ -50,9 +52,8 @@ enum ModelCatalog {
             approximateResidentBytes: 34 * GB,
             allowPatterns: ["FL2VA/text_encoder/*"],
             provenance: .official,
-            summary: "Qwen3-VL-32B in bfloat16 — H3 reads its 50th-layer hidden states. "
-                   + "The largest single download, and currently the only text encoder the "
-                   + "MLX pipeline can load. It installs beside the VAEs in FL2VA/."
+            nameKey: "model.name.textEncoder.mlx",
+            summaryKey: "model.textEncoder.mlx"
         ),
 
         // ── MLX diffusion transformers (FL2VA) ───────────────────────────────
@@ -67,8 +68,8 @@ enum ModelCatalog {
             approximateResidentBytes: 12 * GB,
             allowPatterns: nil,
             provenance: .portMaintainer,
-            summary: "4-bit, group size 64. Around 1.4× faster than bf16 and only ~12 GB "
-                   + "resident. Loses some fine texture. The best place to start."
+            nameKey: "model.name.fl2va.q4",
+            summaryKey: "model.fl2va.q4"
         ),
         CatalogEntry(
             repoID: "pipenetwork/MiniMax-H3-MLX-6bit",
@@ -79,7 +80,8 @@ enum ModelCatalog {
             approximateResidentBytes: 17 * GB,
             allowPatterns: nil,
             provenance: .portMaintainer,
-            summary: "6-bit. A middle point if 4-bit looks soft and 8-bit is too slow."
+            nameKey: "model.name.fl2va.q6",
+            summaryKey: "model.fl2va.q6"
         ),
         CatalogEntry(
             repoID: "pipenetwork/MiniMax-H3-MLX-8bit",
@@ -90,7 +92,8 @@ enum ModelCatalog {
             approximateResidentBytes: 22 * GB,
             allowPatterns: nil,
             provenance: .portMaintainer,
-            summary: "The quality-per-gigabyte sweet spot — visually very close to bf16."
+            nameKey: "model.name.fl2va.q8",
+            summaryKey: "model.fl2va.q8"
         ),
         CatalogEntry(
             repoID: "pipenetwork/MiniMax-H3-MLX-bf16",
@@ -101,9 +104,8 @@ enum ModelCatalog {
             approximateResidentBytes: 41 * GB,
             allowPatterns: nil,
             provenance: .portMaintainer,
-            summary: "Reference precision, validated against the diffusers implementation. "
-                   + "Slowest, and alongside the 67 GB encoder it leaves little headroom "
-                   + "even in 128 GB."
+            nameKey: "model.name.fl2va.bf16",
+            summaryKey: "model.fl2va.bf16"
         ),
 
         // ── Ref2VA ───────────────────────────────────────────────────────────
@@ -119,16 +121,14 @@ enum ModelCatalog {
             approximateResidentBytes: 41 * GB,
             allowPatterns: ["Ref2VA/*"],
             provenance: .official,
-            summary: "Upstream bf16 Ref2VA checkpoint. Listed so the option is visible, but "
-                   + "the MLX port's pipeline accepts keyframes only — it has no reference "
-                   + "conditioning path — so this cannot be driven from this app yet.",
-            blockedReason: "The MLX port does not implement reference conditioning. Ref2VA "
-                         + "currently needs the CUDA stack (SGLang, vLLM or ComfyUI)."
+            nameKey: "model.name.ref2va.bf16",
+            summaryKey: "model.ref2va.bf16",
+            blockedReasonKey: "model.ref2va.bf16.blocked"
         ),
 
         // ── Acceleration ─────────────────────────────────────────────────────
         CatalogEntry(
-            repoID: "lightx2v/Minimax-h3-Turbo",
+            repoID: turboRepoID,
             role: .accelerator,
             task: .fl2va,
             quantization: .bf16,
@@ -136,11 +136,9 @@ enum ModelCatalog {
             approximateResidentBytes: 2 * GB,
             allowPatterns: ["*turbo_4step_v1.2_768p_bf16.safetensors", "*.json", "*.md"],
             provenance: .community,
-            summary: "A 4-step distillation LoRA for FL2VA at 768p — the single biggest "
-                   + "speed win available for this model. The MLX port has no LoRA loader "
-                   + "yet, so it is listed here to watch rather than to install.",
-            blockedReason: "The MLX port has no LoRA loader yet. Fusing this would need a "
-                         + "merged checkpoint rather than the LoRA on its own."
+            nameKey: "model.name.lora.fl2va.mlx",
+            summaryKey: "model.lora.fl2va.mlx",
+            blockedReasonKey: "model.lora.fl2va.mlx.blocked"
         ),
 
         // ── ComfyUI-format weights ───────────────────────────────────────────
@@ -158,8 +156,8 @@ enum ModelCatalog {
             approximateResidentBytes: 20 * GB,
             allowPatterns: nil,
             provenance: .official,
-            summary: "Ref2VA transformer for ComfyUI. Required for reference mode, "
-                   + "which the MLX port cannot do at all.",
+            nameKey: "model.name.comfy.ref2va",
+            summaryKey: "model.comfy.ref2va",
             comfyUIFile: .init(folder: "diffusion_models",
                                filename: "minimax_h3_ref2va_pruned_int8_convrot.safetensors")
         ),
@@ -172,8 +170,8 @@ enum ModelCatalog {
             approximateResidentBytes: 20 * GB,
             allowPatterns: nil,
             provenance: .official,
-            summary: "FL2VA transformer for ComfyUI. Only needed if you want to run "
-                   + "text-to-video or keyframes through ComfyUI instead of MLX.",
+            nameKey: "model.name.comfy.fl2va",
+            summaryKey: "model.comfy.fl2va",
             comfyUIFile: .init(folder: "diffusion_models",
                                filename: "minimax_h3_fl2va_pruned_int8_convrot.safetensors")
         ),
@@ -186,7 +184,8 @@ enum ModelCatalog {
             approximateResidentBytes: 26 * GB,
             allowPatterns: nil,
             provenance: .official,
-            summary: "Qwen3-VL-32B for ComfyUI. Shared by both tasks — download once.",
+            nameKey: "model.name.comfy.textEncoder",
+            summaryKey: "model.comfy.textEncoder",
             comfyUIFile: .init(folder: "text_encoders",
                                filename: "qwen3vl_32b_minimax_h3_int8_convrot.safetensors")
         ),
@@ -199,8 +198,8 @@ enum ModelCatalog {
             approximateResidentBytes: 6 * GB,
             allowPatterns: nil,
             provenance: .official,
-            summary: "Video VAE in fp16. Chosen over the INT8 build: it is small, and "
-                   + "decode quality is visible.",
+            nameKey: "model.name.comfy.videoVAE",
+            summaryKey: "model.comfy.videoVAE",
             comfyUIFile: .init(folder: "vae",
                                filename: "minimax_h3_video_vae_fp16.safetensors")
         ),
@@ -213,8 +212,8 @@ enum ModelCatalog {
             approximateResidentBytes: 1 * GB,
             allowPatterns: nil,
             provenance: .official,
-            summary: "Audio VAE in fp32, for the stereo track H3 generates alongside "
-                   + "the picture.",
+            nameKey: "model.name.comfy.audioVAE",
+            summaryKey: "model.comfy.audioVAE",
             comfyUIFile: .init(folder: "vae",
                                filename: "minimax_h3_audio_vae_fp32.safetensors")
         ),
@@ -227,13 +226,16 @@ enum ModelCatalog {
             approximateResidentBytes: 2 * GB,
             allowPatterns: nil,
             provenance: .community,
-            summary: "4-step Ref2VA turbo LoRA. This is what makes reference renders "
-                   + "practical: about 25 minutes rather than hours.",
+            nameKey: "model.name.comfy.lora.ref2va",
+            summaryKey: "model.comfy.lora.ref2va",
             comfyUIFile: .init(folder: "loras",
                                filename: "minimax_h3_ref2v_turbo_4step_v0.1_comfyui_bf16.safetensors")
         ),
         CatalogEntry(
-            repoID: comfyRepoID,
+            // The distiller's own repository, not the Comfy-Org mirror. The
+            // mirror carries only v1.0 of this LoRA, so asking it for the v1.2
+            // the rest of the app expects returned a 404.
+            repoID: turboRepoID,
             role: .accelerator,
             task: .fl2va,
             quantization: .bf16,
@@ -241,10 +243,12 @@ enum ModelCatalog {
             approximateResidentBytes: 2 * GB,
             allowPatterns: nil,
             provenance: .community,
-            summary: "4-step FL2VA turbo LoRA. Distilled for four steps, where MLX's "
-                   + "undistilled weights want sixteen.",
+            nameKey: "model.name.comfy.lora.fl2va",
+            summaryKey: "model.comfy.lora.fl2va",
             comfyUIFile: .init(folder: "loras",
-                               filename: "minimax_h3_fl2v_turbo_4step_v1.2_768p_comfyui_bf16.safetensors")
+                               filename: "minimax_h3_fl2v_turbo_4step_v1.2_768p_comfyui_bf16.safetensors",
+                               // Flat repository: no folders to mirror.
+                               repoPath: "minimax_h3_fl2v_turbo_4step_v1.2_768p_comfyui_bf16.safetensors")
         ),
 
         // ── Listed but not usable here ───────────────────────────────────────
@@ -257,13 +261,14 @@ enum ModelCatalog {
             approximateResidentBytes: 26 * GB,
             allowPatterns: nil,
             provenance: .community,
-            summary: "Qwen3-VL-32B with its refusal behaviour trained out. Drop-in "
-                   + "replacement for the stock encoder — H3 itself is unchanged, since "
-                   + "refusals live in the language model, not the diffusion transformer. "
-                   + "ComfyUI only; MLX has no loader for this format.",
+            nameKey: "model.name.textEncoder.uncensored",
+            summaryKey: "model.textEncoder.uncensored",
             comfyUIFile: .init(
                 folder: "text_encoders",
-                filename: "qwen3vl_32b_minimax_h3_int8_convrot_uncensored-by-linjian257.safetensors")
+                filename: "qwen3vl_32b_minimax_h3_int8_convrot_uncensored-by-linjian257.safetensors",
+                // This repository holds the one file at its root, not under a
+                // folder mirroring ComfyUI's layout.
+                repoPath: "qwen3vl_32b_minimax_h3_int8_convrot_uncensored-by-linjian257.safetensors")
         ),
         CatalogEntry(
             repoID: "unsloth/MiniMax-H3-GGUF",
@@ -274,8 +279,8 @@ enum ModelCatalog {
             approximateResidentBytes: nil,
             allowPatterns: nil,
             provenance: .community,
-            summary: "GGUF quantizations, including very small ones. Loaded by ComfyUI, "
-                   + "not by MLX — useful if you ever run this model through ComfyUI instead."
+            nameKey: "model.name.fl2va.gguf",
+            summaryKey: "model.fl2va.gguf"
         ),
         CatalogEntry(
             repoID: "coolthor/MiniMax-H3-pruned-NVFP4",
@@ -286,7 +291,8 @@ enum ModelCatalog {
             approximateResidentBytes: nil,
             allowPatterns: nil,
             provenance: .community,
-            summary: "Community prune in NVIDIA's NVFP4 format. Listed for completeness."
+            nameKey: "model.name.fl2va.nvfp4",
+            summaryKey: "model.fl2va.nvfp4"
         )
     ]
 

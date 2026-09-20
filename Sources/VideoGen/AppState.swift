@@ -21,10 +21,10 @@ final class AppState {
 
         var label: String {
             switch self {
-            case .compose: "Compose"
-            case .queue: "Queue"
-            case .library: "Library"
-            case .models: "Models"
+            case .compose: loc("section.compose")
+            case .queue: loc("section.queue")
+            case .library: loc("section.library")
+            case .models: loc("section.models")
             }
         }
 
@@ -47,6 +47,14 @@ final class AppState {
     private(set) var problemFocusPulse = 0
 
     func highlightProblems() { problemFocusPulse += 1 }
+
+    /// Bumped after a preset is saved, so the control that now holds it draws the
+    /// eye. SwiftUI cannot open a `Menu` on demand, and a menu that opened by
+    /// itself would have to be dismissed again anyway; pointing at the control is
+    /// the part that answers "where did that go?".
+    private(set) var presetSavedPulse = 0
+
+    func highlightPresets() { presetSavedPulse += 1 }
 
     /// A short-lived message for the status bar — a delete confirming itself, say.
     private(set) var note: String?
@@ -110,16 +118,27 @@ final class AppState {
     func selectBestAvailableModels() {
         let installed = modelStore.installedEntryIDs
         let task = draft.task
+        let backend = draftBackend
 
-        let transformerMissing = draft.transformerEntryID.map { !installed.contains($0) } ?? true
-        if transformerMissing {
-            draft.transformerEntryID = ModelCatalog.transformers(task: task)
-                .first { installed.contains($0.id) }?.id
+        // A selection stays only if it still belongs to the task *and* the engine
+        // now chosen — being installed is not enough. Checking installedness alone
+        // meant switching to reference mode kept an installed FL2VA transformer,
+        // and switching engine kept weights the new engine cannot read at all.
+        func stillFits(_ id: String?, matchingTask: Bool) -> Bool {
+            guard let id, installed.contains(id),
+                  let entry = ModelCatalog.entry(id: id),
+                  entry.backend == backend
+            else { return false }
+            return matchingTask ? entry.task == task : true
         }
-        let encoderMissing = draft.textEncoderEntryID.map { !installed.contains($0) } ?? true
-        if encoderMissing {
+
+        if !stillFits(draft.transformerEntryID, matchingTask: true) {
+            draft.transformerEntryID = ModelCatalog.transformers(task: task)
+                .first { installed.contains($0.id) && $0.backend == backend }?.id
+        }
+        if !stillFits(draft.textEncoderEntryID, matchingTask: false) {
             draft.textEncoderEntryID = ModelCatalog.entries(role: .textEncoder)
-                .filter { installed.contains($0.id) }
+                .filter { installed.contains($0.id) && $0.backend == backend }
                 .min { $0.approximateBytes < $1.approximateBytes }?.id
         }
     }

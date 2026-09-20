@@ -89,6 +89,8 @@ struct PixelSize: Codable, Sendable, Hashable, CustomStringConvertible {
     var height: Int
     var description: String { "\(width)×\(height)" }
 
+    var pixelCount: Int { width * height }
+
     /// Scales the canvas so the short edge hits `shortEdge`, keeping both
     /// dimensions even (required by every block-based video codec).
     func scaled(toShortEdge shortEdge: Int) -> PixelSize {
@@ -124,21 +126,17 @@ enum ResolutionTier: String, CaseIterable, Codable, Sendable, Identifiable {
 
     var label: String {
         switch self {
-        case .native768: "768p — native"
-        case .upscale1080: "1080p — upscaled"
-        case .upscale1440: "1440p — upscaled"
+        case .native768: loc("format.res.native")
+        case .upscale1080: loc("format.res.1080")
+        case .upscale1440: loc("format.res.1440")
         }
     }
 
     var detail: String {
         switch self {
-        case .native768:
-            "Exactly what the model produces, with no resampling. Recommended."
-        case .upscale1080:
-            "Resampled after generation to fit a 1080p delivery pipeline. No detail is added."
-        case .upscale1440:
-            "Resampled to 1440p. Larger files for the same real detail; useful only if a "
-            + "downstream tool demands this size."
+        case .native768: loc("format.res.native.detail")
+        case .upscale1080: loc("format.res.1080.detail")
+        case .upscale1440: loc("format.res.1440.detail")
         }
     }
 
@@ -155,13 +153,15 @@ enum FrameRate: Int, CaseIterable, Codable, Sendable, Identifiable {
     var id: Int { rawValue }
     var isNative: Bool { self == .fps24 }
 
-    var label: String { isNative ? "24 fps — native" : "\(rawValue) fps — conformed" }
+    var label: String {
+        isNative ? loc("format.fps.native") : loc("format.fps.conformed", "\(rawValue)")
+    }
 
     var detail: String {
         switch self {
-        case .fps24: "The model's own cadence. No frames are invented or dropped."
-        case .fps30: "Frames are duplicated to a 30 fps timeline. Motion may judder slightly."
-        case .fps60: "Frames are duplicated to a 60 fps timeline. No new motion is synthesised."
+        case .fps24: loc("format.fps.native.detail")
+        case .fps30: loc("format.fps.30.detail")
+        case .fps60: loc("format.fps.60.detail")
         }
     }
 }
@@ -194,13 +194,8 @@ enum VideoCodec: String, CaseIterable, Sendable, Identifiable {
 
     var detail: String {
         switch self {
-        case .h264:
-            "What the model produces. Delivered as rendered, with no second encode, "
-            + "and plays everywhere."
-        case .av1:
-            "About half the size for the same quality. Encoded in software, since "
-            + "Apple silicon has no AV1 encoder — but SVT-AV1 handles a five-second "
-            + "clip in a second or two, so the cost is negligible next to generation."
+        case .h264: loc("format.codec.h264.detail")
+        case .av1: loc("format.codec.av1.detail")
         }
     }
 
@@ -240,8 +235,8 @@ enum AudioHandling: String, CaseIterable, Codable, Sendable, Identifiable {
 
     var label: String {
         switch self {
-        case .muxed: "Muxed into the video"
-        case .muxedPlusWAV: "Muxed, plus a separate WAV"
+        case .muxed: loc("format.audio.muxed")
+        case .muxedPlusWAV: loc("format.audio.wav")
         }
     }
 

@@ -11,6 +11,9 @@ actor ComfyUIBackend: RenderBackend {
     private let runtime: ComfyUIRuntime
     private let modelStore: ModelStore
     private var currentPromptID: String?
+    /// Where the previous progress report left off, for the per-step timing.
+    private var lastProgressAt: Date?
+    private var lastProgressValue = 0
     private var socket: URLSessionWebSocketTask?
 
     init(runtime: ComfyUIRuntime, modelStore: ModelStore) {
@@ -26,11 +29,14 @@ actor ComfyUIBackend: RenderBackend {
 
     @MainActor func unavailableReason(for spec: GenerationSpec) -> String? {
         guard runtime.isInstalled else {
-            return "ComfyUI is not installed. Install it in Settings › ComfyUI."
+            return loc("comfy.notInstalled")
         }
         let missing = ComfyUIModelSet.missing(in: modelStore.rootURL, for: spec.task)
         guard missing.isEmpty else {
-            return "Missing ComfyUI weights: " + missing.joined(separator: ", ")
+            // Backticked so the file names are set apart from the sentence;
+            // `CodeSpanText` renders them.
+            return loc("comfy.missingWeights",
+                       missing.map { "`\($0)`" }.joined(separator: ", "))
         }
         return nil
     }
@@ -186,7 +192,7 @@ actor ComfyUIBackend: RenderBackend {
                     }
                     if let text = Self.text(of: message),
                        let event = Self.parse(text, totalSteps: totalSteps, started: started) {
-                        switch event {
+                        switch timed(event) {
                         case .failure(let message):
                             throw BackendError.reported(message)
                         case .finishedOK:
@@ -218,6 +224,23 @@ actor ComfyUIBackend: RenderBackend {
         }
     }
 
+    /// Fills in how long the latest steps took.
+    ///
+    /// ComfyUI reports a running count, not a duration, so the gap between two
+    /// reports is the only measurement available. Kept here rather than in
+    /// `parse`, which is static and deliberately has no memory.
+    private func timed(_ event: SidecarEvent) -> SidecarEvent {
+        guard case .step(let completed, let total, let perStep, _) = event else { return event }
+        defer {
+            lastProgressAt = Date()
+            lastProgressValue = completed
+        }
+        guard let since = lastProgressAt, completed > lastProgressValue else { return event }
+        let recent = Date().timeIntervalSince(since) / Double(completed - lastProgressValue)
+        return .step(completed: completed, total: total,
+                     secondsPerStep: perStep, recentSeconds: recent)
+    }
+
     private static func text(of message: URLSessionWebSocketTask.Message) -> String? {
         if case .string(let text) = message { return text }
         return nil
@@ -235,7 +258,10 @@ actor ComfyUIBackend: RenderBackend {
             let max = payload["max"] as? Int ?? totalSteps
             let elapsed = Date().timeIntervalSince(started)
             let perStep = value > 0 ? elapsed / Double(value) : nil
-            return .step(completed: value, total: max, secondsPerStep: perStep)
+            // `recentSeconds` is filled in by the caller, which is the only place
+            // that remembers where the previous progress report left off.
+            return .step(completed: value, total: max, secondsPerStep: perStep,
+                         recentSeconds: nil)
         case "executing":
             guard let node = payload["node"] as? String else { return .finishedOK }
             if let stage = ComfyUIWorkflow.stage(forNode: node) {
@@ -264,7 +290,7 @@ actor ComfyUIBackend: RenderBackend {
                 }
             }
         }
-        return "ComfyUI reported an execution error."
+        return loc("comfy.executionError")
     }
 
     // MARK: - Output

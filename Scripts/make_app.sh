@@ -53,9 +53,26 @@ cat > "$APP/Contents/Info.plist" <<'PLIST'
     <key>NSDownloadsFolderUsageDescription</key>
     <string>VideoGen needs access if you choose a model or output folder in Downloads.</string>
     <key>LSApplicationCategoryType</key>     <string>public.app-category.video</string>
+    <!-- The languages AppKit may localize its own chrome into come from the
+         .lproj folders copied in below; this only names the fallback. Listing them
+         again in CFBundleLocalizations just duplicates every entry in
+         Bundle.main.localizations. -->
+    <key>CFBundleDevelopmentRegion</key>     <string>en</string>
 </dict>
 </plist>
 PLIST
+
+# CFBundleLocalizations alone is not enough: CFBundle only treats a language as
+# available when the bundle carries a populated .lproj, and that is what decides
+# whether AppKit mirrors the window for a right-to-left language. The app reads
+# its strings from the SwiftPM resource bundle at runtime; this copy is what makes
+# the *main* bundle count as localized.
+for LPROJ in "$ROOT"/Sources/VideoGen/Resources/Localizations/*.lproj; do
+  [ -d "$LPROJ" ] || continue
+  DEST="$APP/Contents/Resources/$(basename "$LPROJ")"
+  mkdir -p "$DEST"
+  cp "$LPROJ"/*.strings "$DEST/"
+done
 
 # Ad-hoc signature: enough for local use, and required for the app to keep its
 # TCC permissions across rebuilds. Replace with a Developer ID to distribute.

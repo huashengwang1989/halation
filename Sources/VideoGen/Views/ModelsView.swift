@@ -20,20 +20,20 @@ struct ModelsView: View {
         let installed = ModelCatalog.recommendedBundle.filter { app.modelStore.isInstalled($0) }
         var lines: [String] = []
 
-        lines.append("Will download:")
+        lines.append(loc("models.willDownload"))
         for entry in pendingRecommended {
             lines.append("  • \(entry.displayName) — \(Format.bytes(entry.approximateBytes))")
         }
         if !installed.isEmpty {
             lines.append("")
-            lines.append("Already installed, and skipped:")
+            lines.append(loc("models.alreadyInstalled"))
             for entry in installed {
                 lines.append("  • \(entry.displayName)")
             }
         }
         lines.append("")
-        lines.append("Saving to \(app.modelStore.rootURL.path(percentEncoded: false)), "
-                     + "with \(Format.bytes(app.modelStore.freeBytes)) free.")
+        lines.append(loc("models.savingTo",
+            app.modelStore.rootURL.path(percentEncoded: false), Format.bytes(app.modelStore.freeBytes)))
         return lines.joined(separator: "\n")
     }
 
@@ -59,27 +59,27 @@ struct ModelsView: View {
             .padding(20)
         }
         .scrollEdgeEffectStyle(.soft, for: .top)
-        .confirmationDialog("Install the recommended models?",
+        .confirmationDialog(loc("models.installRecommended.title"),
                             isPresented: $confirmingInstall, titleVisibility: .visible) {
-            Button("Download \(Format.bytes(pendingRecommendedBytes))") {
+            Button(loc("models.downloadAmount", Format.bytes(pendingRecommendedBytes))) {
                 app.downloads.enqueue(pendingRecommended)
             }
-            Button("Cancel", role: .cancel) {}
+            Button(loc("common.cancel"), role: .cancel) {}
         } message: {
             Text(installSummary)
         }
         .toolbar {
             ToolbarItemGroup {
                 Toggle(isOn: $showingUnsupported) {
-                    Label("Show Incompatible", systemImage: "eye.slash")
+                    Label(loc("models.showIncompatible"), systemImage: "eye.slash")
                 }
                 .toggleStyle(.button)
-                .help("Include checkpoints in formats this Mac cannot run")
+                .help(loc("models.showIncompatible.help"))
 
-                Button("Rescan", systemImage: "arrow.clockwise") {
+                Button(loc("models.rescan"), systemImage: "arrow.clockwise") {
                     Task { await app.modelStore.scan() }
                 }
-                .help("Re-read the shared models folder")
+                .help(loc("models.rescan.help"))
             }
 
             ToolbarSpacer(.fixed)
@@ -88,7 +88,7 @@ struct ModelsView: View {
                 // Hidden once there is nothing left to install, rather than sitting
                 // there as a button that would do nothing.
                 if !pendingRecommended.isEmpty {
-                    Button("Install Recommended", systemImage: "arrow.down.circle") {
+                    Button(loc("models.installRecommended"), systemImage: "arrow.down.circle") {
                         confirmingInstall = true
                     }
                     .labelStyle(.titleAndIcon)
@@ -105,9 +105,8 @@ private struct FolderCard: View {
     @Environment(AppState.self) private var app
 
     var body: some View {
-        GlassCard(title: "Shared models folder", systemImage: "folder",
-                  footnote: "Downloads go into the Hugging Face cache inside this folder. Any other project pointed at "
-                            + "the same folder reuses them instead of downloading a second copy.") {
+        GlassCard(title: loc("models.folder.title"), systemImage: "folder",
+                  footnote: loc("models.folder.footnote")) {
             VStack(alignment: .leading, spacing: 12) {
                 HStack {
                     Text(app.modelStore.rootURL.path(percentEncoded: false))
@@ -116,25 +115,23 @@ private struct FolderCard: View {
                         .truncationMode(.middle)
                         .textSelection(.enabled)
                     Spacer()
-                    Button("Change…") { chooseFolder() }
-                    Button("Reveal", systemImage: "folder") {
+                    Button(loc("models.change")) { chooseFolder() }
+                    Button(loc("common.reveal"), systemImage: "folder") {
                         NSWorkspace.shared.activateFileViewerSelecting([app.modelStore.rootURL])
                     }
                 }
 
                 HStack(spacing: 18) {
-                    Stat(label: "Installed", value: Format.bytes(app.modelStore.totalInstalledBytes))
-                    Stat(label: "Free space", value: Format.bytes(app.modelStore.freeBytes))
-                    Stat(label: "Models found", value: "\(app.modelStore.installed.count)")
+                    Stat(label: loc("models.installed"), value: Format.bytes(app.modelStore.totalInstalledBytes))
+                    Stat(label: loc("models.freeSpace"), value: Format.bytes(app.modelStore.freeBytes))
+                    Stat(label: loc("models.found"), value: "\(app.modelStore.installed.count)")
                     if app.modelStore.isScanning {
                         ProgressView().controlSize(.small)
                     }
                 }
 
                 if app.modelStore.freeBytes < ModelCatalog.recommendedBytes + 20 * 1_073_741_824 {
-                    Label("The recommended set needs about "
-                          + "\(Format.bytes(ModelCatalog.recommendedBytes)), plus scratch "
-                          + "space while rendering.",
+                    Label(loc("models.spaceWarning", Format.bytes(ModelCatalog.recommendedBytes)),
                           systemImage: "externaldrive.badge.exclamationmark")
                         .font(.caption)
                         .foregroundStyle(.orange)
@@ -155,7 +152,7 @@ private struct FolderCard: View {
         panel.canChooseDirectories = true
         panel.canChooseFiles = false
         panel.canCreateDirectories = true
-        panel.message = "Choose the folder where model weights are shared between projects"
+        panel.message = loc("models.chooseFolder.message")
         panel.directoryURL = app.modelStore.rootURL
         if panel.runModal() == .OK, let url = panel.url {
             app.modelStore.setRoot(url)
@@ -185,10 +182,8 @@ private struct TransfersCard: View {
     @Environment(AppState.self) private var app
 
     var body: some View {
-        GlassCard(title: "Downloads", systemImage: "arrow.down.circle",
-                  footnote: "This list covers the current session. A finished "
-                          + "download stays here until cleared; what is installed "
-                          + "is shown against each model below.") {
+        GlassCard(title: loc("models.downloads"), systemImage: "arrow.down.circle",
+                  footnote: loc("models.downloads.footnote")) {
             VStack(alignment: .leading, spacing: 12) {
                 ForEach(app.downloads.transfers) { transfer in
                     VStack(alignment: .leading, spacing: 4) {
@@ -208,15 +203,15 @@ private struct TransfersCard: View {
                             case .finished:
                                 Image(systemName: "checkmark.circle.fill")
                                     .foregroundStyle(.green)
-                                    .accessibilityLabel("Downloaded")
+                                    .accessibilityLabel(loc("models.downloaded"))
                             case .failed:
                                 Image(systemName: "exclamationmark.triangle.fill")
                                     .foregroundStyle(.red)
-                                    .accessibilityLabel("Download failed")
+                                    .accessibilityLabel(loc("models.downloadFailed"))
                             case .cancelled:
                                 Image(systemName: "xmark.circle")
                                     .foregroundStyle(.secondary)
-                                    .accessibilityLabel("Cancelled")
+                                    .accessibilityLabel(loc("state.cancelled"))
                             default:
                                 Button("Cancel", systemImage: "xmark") {
                                     app.downloads.cancel(transfer.id)
@@ -224,26 +219,41 @@ private struct TransfersCard: View {
                                 .buttonStyle(.plain)
                                 .labelStyle(.iconOnly)
                                 .foregroundStyle(.secondary)
-                                .accessibilityLabel("Cancel download of \(transfer.entry.displayName)")
+                                .accessibilityLabel(loc("models.cancelDownload", transfer.entry.displayName))
                             }
                         }
 
                         if !transfer.state.isTerminal {
-                            ProgressView(value: transfer.fraction)
-                                .progressViewStyle(.linear)
-                                .accessibilityLabel("Download progress")
-                                .accessibilityValue(
-                                    "\(Int(transfer.fraction * 100)) percent, "
-                                    + "\(Format.bytes(transfer.completedBytes)) of "
-                                    + Format.bytes(transfer.totalBytes))
+                            // Nothing has arrived yet: a transfer spends its first
+                            // half-minute negotiating before it writes a byte, and
+                            // an empty determinate bar for that long reads as
+                            // stuck. Same treatment the queue gives a model load.
+                            if transfer.completedBytes == 0 {
+                                ProgressView()
+                                    .progressViewStyle(.linear)
+                                    .accessibilityLabel(loc("models.progress"))
+                                    .accessibilityValue(loc("models.download.starting"))
+                            } else {
+                                ProgressView(value: transfer.fraction)
+                                    .progressViewStyle(.linear)
+                                    .accessibilityLabel(loc("models.progress"))
+                                    .accessibilityValue(
+                                        "\(Int(transfer.fraction * 100)) percent, "
+                                        + "\(Format.bytes(transfer.completedBytes)) of "
+                                        + Format.bytes(transfer.totalBytes))
+                            }
                             HStack(spacing: 4) {
                                 if transfer.isFinalising {
                                     ProgressView().controlSize(.small).scaleEffect(0.6)
                                 }
-                                Text("\(Format.bytes(transfer.completedBytes)) of "
-                                     + Format.bytes(transfer.totalBytes))
-                                if let note = transfer.currentFile {
-                                    Text("· \(note)").lineLimit(1).truncationMode(.middle)
+                                if transfer.completedBytes == 0 {
+                                    Text(loc("models.download.starting"))
+                                } else {
+                                    Text("\(Format.bytes(transfer.completedBytes)) of "
+                                         + Format.bytes(transfer.totalBytes))
+                                    if let note = transfer.currentFile {
+                                        Text("· \(note)").lineLimit(1).truncationMode(.middle)
+                                    }
                                 }
                             }
                             .font(.caption2)
@@ -261,9 +271,9 @@ private struct TransfersCard: View {
 
                 HStack {
                     if app.downloads.pendingCount > 0 {
-                        Button("Cancel All", role: .destructive) { app.downloads.cancelAll() }
+                        Button(loc("models.cancelAll"), role: .destructive) { app.downloads.cancelAll() }
                     }
-                    Button("Clear Finished") { app.downloads.clearFinished() }
+                    Button(loc("models.clearFinished")) { app.downloads.clearFinished() }
                     Spacer()
                 }
             }

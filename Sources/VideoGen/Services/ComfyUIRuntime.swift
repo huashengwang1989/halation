@@ -261,6 +261,10 @@ final class ComfyUIRuntime {
         for try await line in stream { append(line) }
     }
 
+    /// Empties the log. It is a progress indicator, not an archive, so throwing
+    /// it away is always safe; the next run starts a fresh one anyway.
+    func clearLog() { installLog.removeAll() }
+
     private func append(_ line: String) {
         let trimmed = line.trimmingCharacters(in: .whitespacesAndNewlines)
         guard !trimmed.isEmpty else { return }

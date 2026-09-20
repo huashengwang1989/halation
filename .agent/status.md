@@ -94,6 +94,24 @@ is roughly par, and it is the only one with reference conditioning or LoRAs.
 Still to verify: progress reporting through a full app-driven render, and that
 cancel reaches ComfyUI's queue.
 
+## Multilingual interface
+
+Five languages: English, 繁體中文 (TW phrasing), 简体中文, Deutsch, العربية.
+~329 keys in `Scripts/translations.py`, generated into `.lproj` bundles.
+
+Default follows the system, matched by Foundation, so `en-GB` lands on English,
+`zh-Hant-HK` on Traditional Chinese, and anything unsupported (`fr`, `ja`) on
+English. Settings offers an explicit override plus a Relaunch button.
+
+**Verified in the running app** via a direct `AXUIElement` probe — every toolbar
+item translated, none truncated or collapsed, in all five languages; the Arabic
+window fully mirrored (sidebar and its toggle on the right, Generate on the
+left). German is the longest ("Schnelle Vorschau", 153 pt vs English 123 pt) and
+still fits.
+
+`verified-facts.md` records how right-to-left is actually switched on — it is
+not what the obvious reading of `AppleLanguages` suggests.
+
 ## Next
 
 1. **Run a real render.** Install the recommended bundle, generate a 5 s clip at

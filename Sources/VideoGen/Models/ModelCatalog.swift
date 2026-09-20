@@ -13,23 +13,23 @@ enum ModelRole: String, Codable, Sendable, CaseIterable {
 
     var label: String {
         switch self {
-        case .transformer: "Diffusion transformer"
-        case .textEncoder: "Text encoder"
-        case .support: "VAEs & processors"
-        case .accelerator: "Acceleration LoRAs"
+        case .transformer: loc("role.transformer")
+        case .textEncoder: loc("role.textEncoder")
+        case .support: loc("role.support")
+        case .accelerator: loc("role.accelerator")
         }
     }
 
     var detail: String {
         switch self {
         case .transformer:
-            "The model itself. Pick one quantization; higher precision costs disk, memory and time."
+            loc("role.transformer.detail")
         case .textEncoder:
-            "H3 conditions on Qwen3-VL-32B. This is the largest single download and is shared by both tasks."
+            loc("role.textEncoder.detail")
         case .support:
-            "Small, mandatory, and shared by everything. Install once."
+            loc("role.support.detail")
         case .accelerator:
-            "Optional LoRAs trained to produce usable video in around 4 steps instead of 50."
+            loc("role.accelerator.detail")
         }
     }
 }
@@ -43,17 +43,17 @@ enum ModelTask: String, Codable, Sendable, CaseIterable, Identifiable {
 
     var label: String {
         switch self {
-        case .fl2va: "FL2VA — text & keyframes"
-        case .ref2va: "Ref2VA — references"
+        case .fl2va: loc("task.fl2va")
+        case .ref2va: loc("task.ref2va")
         }
     }
 
     var detail: String {
         switch self {
         case .fl2va:
-            "Text-to-video, plus optional first and/or last frame images. Use this for most work."
+            loc("task.fl2va.detail")
         case .ref2va:
-            "Conditions on up to 9 reference images, 3 reference videos and 3 reference audio clips."
+            loc("task.ref2va.detail")
         }
     }
 
@@ -109,9 +109,9 @@ enum Quantization: String, Codable, Sendable, CaseIterable, Identifiable, Compar
     var unloadableReason: String? {
         guard !BackendID.allCases.contains(where: { isLoadable(by: $0) }) else { return nil }
         switch self {
-        case .nvfp4: return "NVFP4 is an NVIDIA Blackwell format. There is no Metal path."
-        case .gguf:  return "GGUF needs a ComfyUI custom node this app does not install."
-        default:     return "No engine here can load \(label)."
+        case .nvfp4: return loc("quantization.unloadable.nvfp4")
+        case .gguf:  return loc("quantization.unloadable.gguf")
+        default:     return loc("quantization.unloadable.other", label)
         }
     }
 
@@ -143,19 +143,51 @@ struct CatalogEntry: Identifiable, Codable, Sendable, Hashable {
     /// Restrict the download to these glob patterns. `nil` fetches the whole repo.
     var allowPatterns: [String]?
     var provenance: Provenance
-    var summary: String
+    /// Translation key for what this entry *is*.
+    ///
+    /// Written out per entry rather than derived from role and format. Deriving it
+    /// gave nine different entries the name "bfloat16" — among them a video VAE
+    /// that is actually fp16 and an audio VAE that is fp32, because `quantization`
+    /// is a required field and those had been given `.bf16` as filler. A name has
+    /// to identify the thing it names.
+    var nameKey: String
+
+    /// Translation key for the blurb under the model's name. A key rather than
+    /// the text itself because `all` is a `static let`: built once, on first
+    /// touch, which would otherwise freeze these in whatever language happened
+    /// to be current at that moment.
+    var summaryKey: String
+
+    var summary: String { loc(summaryKey) }
     /// For ComfyUI-format weights: the single file to fetch, and the folder it
     /// belongs in under `<models>/comfyui/`. ComfyUI cannot read the MLX tree, so
     /// these are downloaded as plain files rather than into the HF cache.
     var comfyUIFile: ComfyUIFile?
-    /// Set when the app knows the entry will not work here, beyond its quantization.
-    var blockedReason: String?
+    /// Set when the app knows the entry will not work here, beyond its
+    /// quantization. A translation key, for the same reason as `summaryKey`.
+    var blockedReasonKey: String?
+
+    var blockedReason: String? { blockedReasonKey.map { loc($0) } }
 
     var id: String { "\(repoID)#\(role.rawValue)#\(task?.rawValue ?? "-")#\(quantization.rawValue)" }
 
     struct ComfyUIFile: Codable, Sendable, Hashable {
+        /// Where the file belongs under `<models>/comfyui/`.
         var folder: String
         var filename: String
+        /// Where the file sits *inside its repository*, when that is not
+        /// `folder/filename`.
+        ///
+        /// The official repository happens to lay its files out in the same
+        /// folders ComfyUI wants, so the two coincide there and the app assumed
+        /// they always would. A community repository is under no such obligation:
+        /// the uncensored encoder sits at its repository's root, and asking for
+        /// `text_encoders/…` returned a 404 that surfaced only as an unrelated
+        /// warning about unauthenticated requests.
+        var repoPath: String?
+
+        /// The path to ask the Hub for.
+        var remotePath: String { repoPath ?? "\(folder)/\(filename)" }
     }
 
     enum Provenance: String, Codable, Sendable {
@@ -163,9 +195,9 @@ struct CatalogEntry: Identifiable, Codable, Sendable, Hashable {
 
         var label: String {
             switch self {
-            case .official: "Official"
-            case .portMaintainer: "MLX port"
-            case .community: "Community"
+            case .official: loc("provenance.official")
+            case .portMaintainer: loc("provenance.port")
+            case .community: loc("provenance.community")
             }
         }
     }
@@ -228,19 +260,7 @@ struct CatalogEntry: Identifiable, Codable, Sendable, Hashable {
     /// VAEs, the text encoder and the Ref2VA checkpoint as separate subsets — so
     /// a repo id alone identifies nothing. Anywhere entries are listed together,
     /// show this instead.
-    var displayName: String {
-        switch role {
-        case .transformer:
-            let task = task.map { " (\($0.rawValue))" } ?? ""
-            return "\(quantization.label) transformer\(task)"
-        case .textEncoder:
-            return "Text encoder — \(quantization.label)"
-        case .support:
-            return "VAEs, processor & tokenizer"
-        case .accelerator:
-            return "Acceleration LoRA"
-        }
-    }
+    var displayName: String { loc(nameKey) }
 
     /// The part of the repository this entry actually fetches, for a subtitle.
     var scopeDescription: String {

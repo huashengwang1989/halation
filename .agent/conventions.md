@@ -86,3 +86,119 @@ Co-Authored-By: Claude Opus 5 <noreply@anthropic.com>
   development at the user's request. A dialog should still work without it, via
   Return for the default action and an explicit shortcut for anything gating it.
 - `ffmpeg` must be on `PATH`; the port shells out to it by name.
+
+## User-facing strings
+
+Every string the user reads goes through `loc("some.key")`. Nothing is added to
+a `.strings` file by hand: `Scripts/translations.py` is the single source of
+truth and `Scripts/build_strings.py` generates all five `.lproj` files from it.
+Add the key to `translations.py` with all five languages, regenerate, then use
+it. `build_strings.py` warns about anything missing.
+
+Keys are semantic, not English text — `compose.generate.button`, not `Generate`.
+That is what lets the same English word be translated differently where context
+demands it: a **Rate** button that scores something is `打分`, never `率`.
+
+Leave technical terms in English: `bfloat16`, `ComfyUI`, `MLX`, `LoRA`, `VAE`,
+`ffmpeg`, and every model and repository name. Translating them makes the app
+harder to use, not easier, because the surrounding ecosystem is English.
+
+Anything persisted keeps its untranslated form and carries a key alongside it —
+see `GenerationPreset.nameKey` / `displayName`. Storing translated text freezes
+whichever language was current when the file was written.
+
+German is carried mainly to catch layout that breaks on long words, and Arabic
+to catch anything that assumes left-to-right. Check both after any chrome
+change; see `verified-facts.md` for how right-to-left is actually switched on.
+
+The language controls themselves are the exception to translating everything:
+"Language" and "Interface Language" carry their English names in every
+language — `语言 (Language)`, `لغة الواجهة ⁨(Interface Language)⁩`. Someone who
+lands in a script they cannot read has to be able to find the way back. In
+Arabic the Latin fragment is wrapped in U+2068/U+2069 isolates so the
+parentheses do not migrate.
+
+Where two messages differ only by a condition the user can perceive, write two
+keys rather than one that covers both: `settings.language.restart` and
+`settings.language.restart.direction`. Explaining mirroring to someone moving
+between two left-to-right languages invents a worry instead of answering one.
+
+## Segmented controls
+
+Use `SegmentedPicker`, not `.pickerStyle(.segmented)`. The system style draws
+its selection as a fully rounded pill inset in the track, which reads as an
+object sitting on top of the control rather than one of its positions, and
+SwiftUI exposes no way to change that shape. `SegmentedPicker` rounds only where
+a segment meets the end of the track and squares every edge between.
+
+Its radii are leading/trailing, not left/right, so right-to-left mirrors for
+free — verified in Arabic: the first option rounds on the right. Any shape with
+asymmetric corners should be built the same way; reach for
+`UnevenRoundedRectangle`'s leading/trailing arguments rather than composing a
+path by hand.
+
+Keep a control's label outside its track. Inside, it inherits the track
+background and reads as one more segment that can never be selected.
+
+To find strings that were missed, scan for literals rather than reading screens:
+
+```bash
+grep -rnE '(Text|Label|Button)\("[A-Z]' Sources/VideoGen/Views/
+grep -rnE 'return "[A-Z]|message: "[A-Z]' Sources/VideoGen/Models/
+```
+
+The second one matters more. Most of what was missed was not in a view at all
+but in a model — `displayName`, `unloadableReason`, a validation message — where
+it reads as ordinary code rather than as interface text.
+
+## Naming a file in a message
+
+Wrap it in backticks and render with `CodeSpanText`, which sets backticked spans
+in a monospaced face. `minimax_h3_fl2va_pruned_int8_convrot.safetensors` loses
+its underscores in a proportional face and blurs into the sentence around it.
+Keep the backticks in every translation.
+
+## Sliders whose range does not start at zero
+
+Label both ends with `minimumValueLabel` / `maximumValueLabel`. Duration starts
+at 5 s and steps at 4, so the knob sits hard left at the minimum and reads as
+zero — as though nothing would be generated. The range was always enforced; what
+was missing was the scale saying so. Add `.labelsHidden()` when a
+`LabeledContent` already names the control, or the name appears twice.
+
+## Counting things in a sentence
+
+Put the count in a parenthetical — "(%@ so far)" — rather than in a phrase that
+has to agree with it. Plural rules differ per language and Arabic alone has six
+forms, none of which a `.strings` file can express. A parenthetical is
+grammatical at any count in every language we ship.
+
+## Colour
+
+Take colours from the system so they adapt to both appearances: `.purple` for
+the weights file name, `Color(nsColor: .linkColor)` for a link. Never a
+hand-picked hex tuned against whichever appearance happened to be on screen.
+
+A repository id that is also a URL carries its own link rather than sitting
+beside a separate one — the model card's URL *is* the id appended to
+huggingface.co, so two controls said the same thing. Links open on click, never
+on hover: a page that opened because the pointer crossed a row is a surprise,
+not a shortcut. A `Link` cannot be text-selected, so where the string is worth
+copying (a repository id is what you paste into a download command) give it a
+copy item in its context menu.
+
+## Describing a catalogue entry
+
+Use `ModelCard`. It is the whole description of an entry — name, tags,
+repository link, weights file, blurb, sizes — and both the Models list and the
+Compose summary render it, so an entry looks the same wherever it appears.
+
+The two contexts differ only in what surrounds it: a status icon and action
+buttons on one side, a heading on the other. Pass `showsDescription: false`
+where space is tight, `isInUse:` to add the pill, and use the `footer` slot for
+anything the context wants to say about the entry — it lands after the blurb and
+before the sizes, where it will be read.
+
+Do not rebuild a row out of the pieces. That is how the Compose side ended up
+showing a bare format name while the Models page showed a full identity, for
+entries where several share a format.

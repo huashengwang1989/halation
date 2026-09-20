@@ -40,7 +40,8 @@ struct StatusBar: View {
 
             if app.engine.queuedCount > 0 {
                 Divider().frame(height: 12)
-                Label("\(app.engine.queuedCount) queued", systemImage: "list.bullet")
+                Label(loc("status.queued.count", "\(app.engine.queuedCount)"),
+                      systemImage: "list.bullet")
                     .font(.caption)
                     .foregroundStyle(.secondary)
                     .labelStyle(.titleAndIcon)
@@ -52,7 +53,7 @@ struct StatusBar: View {
         .background(.bar)
         .overlay(alignment: .top) { Divider() }
         .accessibilityElement(children: .ignore)
-        .accessibilityLabel("Status")
+        .accessibilityLabel(loc("status.label"))
         .accessibilityValue(spokenStatus)
     }
 
@@ -121,8 +122,7 @@ struct StatusBar: View {
         .font(.caption)
         .foregroundStyle(.secondary)
         .monospacedDigit()
-        .help("Resident memory of the render process, and its share of this Mac's "
-              + "\(Format.bytes(ProcessMemory.physicalBytes))")
+        .help(loc("status.memory.help", Format.bytes(ProcessMemory.physicalBytes)))
     }
 
     static func memoryText(_ bytes: Int64) -> String {
@@ -150,11 +150,12 @@ struct StatusBar: View {
             return job.activityDescription
         }
         switch app.runtime.phase {
-        case .ready(let report): return report.h3Usable ? "Ready" : "Runtime incomplete"
+        case .ready(let report):
+            return report.h3Usable ? loc("status.ready") : loc("status.runtime.incomplete")
         case .installing(let step, _): return step
-        case .failed: return "Runtime error"
-        case .missing: return "Runtime not installed"
-        case .unknown: return "Checking…"
+        case .failed: return loc("status.runtime.error")
+        case .missing: return loc("status.runtime.missing")
+        case .unknown: return loc("status.checking")
         }
     }
 

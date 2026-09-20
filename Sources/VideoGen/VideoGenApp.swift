@@ -3,11 +3,21 @@ import SwiftUI
 @main
 struct VideoGenApp: App {
     @State private var app = AppState()
+    @State private var localization = Localization.shared
 
     var body: some Scene {
         WindowGroup {
             RootView()
                 .environment(app)
+                .environment(localization)
+                // Writing direction is deliberately *not* forced here. It comes
+                // from the process localization, so the AppKit toolbar and the
+                // SwiftUI content always agree; overriding only this half left the
+                // toolbar unmirrored and collapsed it into its overflow menu.
+                .environment(\.locale, Locale(identifier: localization.resolved.rawValue))
+                // Rebuild on a language change so every string is re-read; without
+                // this only views that happened to redraw would switch.
+                .id(localization.generation)
                 .task { await app.bootstrap() }
                 // 200pt sidebar + 560pt detail minimum. Sized so that even with the
                 // sidebar manually shown at the smallest window, both the form and
@@ -17,7 +27,7 @@ struct VideoGenApp: App {
         .windowToolbarStyle(.unified)
         .commands {
             CommandGroup(replacing: .newItem) {
-                Button("New Render") {
+                Button(loc("menu.newRender")) {
                     app.section = .compose
                 }
                 .keyboardShortcut("n")
@@ -32,12 +42,12 @@ struct VideoGenApp: App {
                 Divider()
             }
             CommandGroup(after: .toolbar) {
-                Button("Rescan Models Folder") {
+                Button(loc("menu.rescanModels")) {
                     Task { await app.modelStore.scan() }
                 }
                 .keyboardShortcut("r", modifiers: [.command, .shift])
 
-                Button("Reveal Models Folder in Finder") {
+                Button(loc("menu.revealModels")) {
                     NSWorkspace.shared.activateFileViewerSelecting([app.modelStore.rootURL])
                 }
             }
@@ -46,6 +56,9 @@ struct VideoGenApp: App {
         Settings {
             SettingsView()
                 .environment(app)
+                .environment(localization)
+                .environment(\.locale, Locale(identifier: localization.resolved.rawValue))
+                .id(localization.generation)
         }
     }
 }

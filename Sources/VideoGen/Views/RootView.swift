@@ -54,10 +54,10 @@ struct RootView: View {
                     Button {
                         toggleSidebar()
                     } label: {
-                        Label(isSidebarShowing ? "Hide Sidebar" : "Show Sidebar",
+                        Label(isSidebarShowing ? loc("sidebar.hide") : loc("sidebar.show"),
                               systemImage: "sidebar.leading")
                     }
-                    .help(isSidebarShowing ? "Hide the sidebar" : "Show the sidebar")
+                    .help(isSidebarShowing ? loc("sidebar.hide") : loc("sidebar.show"))
                     .keyboardShortcut("s", modifiers: [.command, .control])
                 }
                 ToolbarSpacer(.fixed, placement: .navigation)

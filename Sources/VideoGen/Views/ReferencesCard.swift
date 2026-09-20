@@ -22,14 +22,14 @@ struct ReferencesCard: View {
                 }
 
                 HStack {
-                    Button("Add Files…", systemImage: "plus") { openPanel() }
+                    Button(loc("refs.addFiles"), systemImage: "plus") { openPanel() }
                     if !spec.references.isEmpty {
-                        Button("Remove All", role: .destructive) { spec.references = [] }
+                        Button(loc("refs.removeAll"), role: .destructive) { spec.references = [] }
                     }
                     if spec.mode == .reference, !missingTags.isEmpty {
-                        Button("Insert \(missingTags.count == 1 ? "Tag" : "Tags")",
+                        Button(missingTags.count == 1 ? loc("refs.insertTag") : loc("refs.insertTags"),
                                systemImage: "text.badge.plus") { insertMissingTags() }
-                            .help("Append \(missingTags.joined(separator: ", ")) to the prompt")
+                            .help(loc("refs.insertTags.help", missingTags.joined(separator: ", ")))
                     }
                     Spacer()
                 }
@@ -43,22 +43,15 @@ struct ReferencesCard: View {
     }
 
     private var title: String {
-        spec.mode == .reference ? "References" : "Keyframes"
+        spec.mode == .reference ? loc("refs.title.references") : loc("refs.title.keyframes")
     }
 
     private var footnote: String {
         switch spec.mode {
-        case .firstFrame:
-            "One image, used as the opening frame. The clip animates outward from it."
-        case .firstAndLastFrame:
-            "Two images. The first becomes frame one, the second the final frame, and H3 generates the motion between "
-            + "them."
-        case .reference:
-            "Up to 9 images, 3 videos and 3 audio clips, 12 files in total. References define the subject, style or "
-            + "voice"
-            + "rather than an exact frame."
-        case .textToVideo:
-            ""
+        case .firstFrame: loc("refs.footnote.first")
+        case .firstAndLastFrame: loc("refs.footnote.firstlast")
+        case .reference: loc("refs.footnote.reference")
+        case .textToVideo: ""
         }
     }
 
@@ -87,8 +80,8 @@ struct ReferencesCard: View {
             ? [.image, .movie, .audio]
             : [.image]
         panel.message = spec.mode == .reference
-            ? "Choose reference images, videos or audio"
-            : "Choose a keyframe image"
+            ? loc("refs.choose.any")
+            : loc("refs.choose.image")
         if panel.runModal() == .OK { add(panel.urls) }
     }
 
@@ -147,7 +140,7 @@ private struct DropWell: View {
                 .font(.system(size: 26))
                 .foregroundStyle(.secondary)
                 .accessibilityHidden(true)
-            Text("Drop files here")
+            Text(loc("refs.drop"))
                 .font(.callout)
                 .foregroundStyle(.secondary)
         }
@@ -205,7 +198,7 @@ private struct ReferenceChip: View {
             }
             .buttonStyle(.plain)
             .padding(4)
-            .accessibilityLabel("Remove \(asset.url.lastPathComponent)")
+            .accessibilityLabel(loc("refs.remove", asset.url.lastPathComponent))
         }
         .help(asset.url.path)
         .accessibilityElement(children: .contain)

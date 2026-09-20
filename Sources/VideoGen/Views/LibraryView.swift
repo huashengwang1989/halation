@@ -23,12 +23,12 @@ struct LibraryView: View {
         Group {
             if app.library.items.isEmpty {
                 ContentUnavailableView {
-                    Label("No videos yet", systemImage: "film.stack")
+                    Label(loc("library.empty.title"), systemImage: "film.stack")
                 } description: {
                     Text("Finished renders are saved to \(app.library.outputFolder.path(percentEncoded: false)), each "
                          + "with a JSON file recording the exact settings that produced it.")
                 } actions: {
-                    Button("Go to Compose") { app.section = .compose }
+                    Button(loc("queue.goCompose")) { app.section = .compose }
                         .buttonStyle(.glassProminent)
                 }
             } else {
@@ -68,13 +68,13 @@ struct LibraryView: View {
             }
         }
         .onGeometryChange(for: CGFloat.self) { $0.size.width } action: { width = $0 }
-        .searchable(text: $search, prompt: "Search prompts")
+        .searchable(text: $search, prompt: Text(loc("library.search")))
         .toolbar {
             ToolbarItemGroup {
-                Button("Reveal Folder", systemImage: "folder") {
+                Button(loc("library.revealFolder"), systemImage: "folder") {
                     NSWorkspace.shared.activateFileViewerSelecting([app.library.outputFolder])
                 }
-                Button("Refresh", systemImage: "arrow.clockwise") { app.library.reload() }
+                Button(loc("common.refresh"), systemImage: "arrow.clockwise") { app.library.reload() }
             }
         }
     }
@@ -82,7 +82,7 @@ struct LibraryView: View {
     /// Spoken after the title: what this clip is, in the order it matters.
     private func accessibilityDescription(of item: LibraryItem) -> String {
         var parts = [
-            "\(item.spec.sampling.durationSeconds) seconds",
+            loc("library.seconds", "\(item.spec.sampling.durationSeconds)"),
             item.spec.format.deliverySize.description.replacingOccurrences(of: "×", with: " by "),
             item.spec.format.codec.label,
         ]
@@ -92,26 +92,26 @@ struct LibraryView: View {
 
     @ViewBuilder
     private func menu(for item: LibraryItem) -> some View {
-        Button("Open", systemImage: "play.rectangle") {
+        Button(loc("library.open"), systemImage: "play.rectangle") {
             NSWorkspace.shared.open(item.videoURL)
         }
-        Button("Reveal in Finder", systemImage: "folder") {
+        Button(loc("queue.revealInFinder"), systemImage: "folder") {
             NSWorkspace.shared.activateFileViewerSelecting([item.videoURL])
         }
         Divider()
-        Button("Use These Settings", systemImage: "arrow.uturn.backward") {
+        Button(loc("library.useSettings"), systemImage: "arrow.uturn.backward") {
             app.draft = item.spec
             app.draft.sampling.seed = item.seed
             app.section = .compose
         }
-        Button("Render Again", systemImage: "arrow.clockwise") {
+        Button(loc("queue.renderAgain"), systemImage: "arrow.clockwise") {
             var spec = item.spec
             spec.sampling.seed = nil
             _ = app.engine.enqueue(spec)
             app.section = .queue
         }
         Divider()
-        Button("Move to Trash", systemImage: "trash", role: .destructive) {
+        Button(loc("library.moveToTrash"), systemImage: "trash", role: .destructive) {
             app.library.delete(item)
         }
     }
@@ -139,7 +139,7 @@ private struct LibraryTile: View {
             .frame(height: 118)
             .clipShape(.rect(cornerRadius: 10))
             .overlay(alignment: .bottomTrailing) {
-                Text("\(item.spec.sampling.durationSeconds)s")
+                Text(Format.clipLength(item.spec.sampling.durationSeconds))
                     .font(.caption2.weight(.semibold))
                     .padding(.horizontal, 6)
                     .padding(.vertical, 2)
@@ -173,7 +173,7 @@ private struct LibraryTile: View {
                 .strokeBorder(isSelected ? AnyShapeStyle(.tint) : AnyShapeStyle(.clear))
         }
         .opacity(item.exists ? 1 : 0.45)
-        .help(item.exists ? item.videoURL.path : "This file is no longer on disk")
+        .help(item.exists ? item.videoURL.path : loc("library.missing"))
     }
 }
 
@@ -203,55 +203,56 @@ private struct LibraryDetail: View {
                         .onDisappear { player.pause() }
                 }
 
-                GlassCard(title: "Prompt", systemImage: "text.alignleft") {
+                GlassCard(title: loc("compose.prompt.title"), systemImage: "text.alignleft") {
                     Text(item.spec.prompt)
                         .font(.callout)
                         .textSelection(.enabled)
                         .fixedSize(horizontal: false, vertical: true)
                 }
 
-                GlassCard(title: "Settings", systemImage: "info.circle") {
+                GlassCard(title: loc("library.settings"), systemImage: "info.circle") {
                     VStack(spacing: 8) {
-                        SpecRow(label: "Mode", value: item.spec.mode.label)
-                        SpecRow(label: "Resolution", value: item.spec.format.deliverySize.description)
-                        SpecRow(label: "Frame rate", value: "\(item.spec.format.frameRate.rawValue) fps")
-                        SpecRow(label: "Duration", value: "\(item.spec.sampling.durationSeconds) s")
-                        SpecRow(label: "Steps", value: "\(item.spec.sampling.steps)")
+                        SpecRow(label: loc("library.mode"), value: item.spec.mode.label)
+                        SpecRow(label: loc("compose.resolution"), value: item.spec.format.deliverySize.description)
+                        SpecRow(label: loc("compose.framerate"), value: "\(item.spec.format.frameRate.rawValue) fps")
+                        SpecRow(label: loc("library.duration"),
+                                value: Format.clipLength(item.spec.sampling.durationSeconds))
+                        SpecRow(label: loc("sampling.steps"), value: "\(item.spec.sampling.steps)")
                         if let seed = item.seed {
-                            SpecRow(label: "Seed", value: String(seed),
+                            SpecRow(label: loc("library.seed"), value: String(seed),
                                     isProminent: true, isCopyable: true)
                         }
-                        SpecRow(label: "File size", value: Format.bytes(item.fileSizeBytes))
+                        SpecRow(label: loc("library.filesize"), value: Format.bytes(item.fileSizeBytes))
                         if let seconds = item.renderSeconds {
-                            SpecRow(label: "Render time", value: Format.duration(seconds))
+                            SpecRow(label: loc("library.renderTime"), value: Format.duration(seconds))
                         }
                     }
                 }
 
-                VStack(spacing: 8) {
-                    Button("Reproduce Exactly", systemImage: "equal.square") {
+                // One row, centred: these are peers, and stacked full-width they
+                // read as a list of steps to work through rather than a choice.
+                HStack(spacing: 8) {
+                    Button(loc("queue.reproduce"), systemImage: "equal.square") {
                         var spec = item.spec
                         spec.sampling.seed = item.seed
                         _ = app.engine.enqueue(spec)
                         app.section = .queue
                     }
                     .buttonStyle(.glassProminent)
-                    .frame(maxWidth: .infinity)
                     .disabled(item.seed == nil)
 
-                    Button("Use These Settings", systemImage: "arrow.uturn.backward") {
+                    Button(loc("library.useSettings"), systemImage: "arrow.uturn.backward") {
                         app.draft = item.spec
                         app.section = .compose
                     }
-                    .frame(maxWidth: .infinity)
 
                     if let audio = item.audioURL {
-                        Button("Reveal WAV", systemImage: "waveform") {
+                        Button(loc("library.revealWav"), systemImage: "waveform") {
                             NSWorkspace.shared.activateFileViewerSelecting([audio])
                         }
-                        .frame(maxWidth: .infinity)
                     }
                 }
+                .frame(maxWidth: .infinity)
             }
             .padding(18)
         }

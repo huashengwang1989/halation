@@ -15,14 +15,14 @@ struct RenderJob: Codable, Sendable, Identifiable, Hashable {
 
         var label: String {
             switch self {
-            case .queued: "Queued"
-            case .preparing: "Loading model"
-            case .generating: "Generating"
-            case .decoding: "Decoding"
-            case .encoding: "Encoding"
-            case .finished: "Finished"
-            case .failed: "Failed"
-            case .cancelled: "Cancelled"
+            case .queued: loc("state.queued")
+            case .preparing: loc("state.preparing")
+            case .generating: loc("state.generating")
+            case .decoding: loc("state.decoding")
+            case .encoding: loc("state.encoding")
+            case .finished: loc("state.finished")
+            case .failed: loc("state.failed")
+            case .cancelled: loc("state.cancelled")
             }
         }
 
@@ -71,8 +71,20 @@ struct RenderJob: Codable, Sendable, Identifiable, Hashable {
     var progress: Double = 0
     var completedSteps: Int = 0
     var totalSteps: Int = 0
-    /// Seconds per diffusion step, averaged. The only reliable basis for an ETA.
+    /// Seconds per diffusion step, averaged over the run. The only reliable basis
+    /// for an ETA.
     var secondsPerStep: Double?
+    /// How long the most recent step took. The average smooths away the shape of a
+    /// run — the first steps are slower with cold caches, and step time drifts as
+    /// the sequence grows — so both are worth showing while one is in flight.
+    var secondsPerStepRecent: Double?
+    /// Length of the sequence handed to the text encoder, and how much of that was
+    /// the prompt. The rest is vision tokens, one block per reference image.
+    ///
+    /// Not a running cost: H3 generates nothing token by token, so this is one
+    /// forward pass at the start of the render, reported once.
+    var promptTokenCount: Int?
+    var promptTextTokenCount: Int?
     /// Progress within the current stage, for phases that have no step count —
     /// model loading, mostly, which takes minutes.
     var stageProgress: Double?
@@ -98,7 +110,7 @@ struct RenderJob: Codable, Sendable, Identifiable, Hashable {
 
     var title: String {
         let trimmed = spec.prompt.trimmingCharacters(in: .whitespacesAndNewlines)
-        guard !trimmed.isEmpty else { return "Untitled render" }
+        guard !trimmed.isEmpty else { return loc("queue.untitled") }
         return String(trimmed.prefix(70))
     }
 
@@ -133,8 +145,9 @@ struct RenderJob: Codable, Sendable, Identifiable, Hashable {
 enum SidecarEvent: Sendable {
     case stage(RenderJob.State)
     case substage(label: String, completed: Int, total: Int, detail: String?)
-    case step(completed: Int, total: Int, secondsPerStep: Double?)
+    case step(completed: Int, total: Int, secondsPerStep: Double?, recentSeconds: Double?)
     case memory(bytes: Int64)
+    case promptTokens(total: Int, text: Int)
     case seed(Int64)
     case artifact(video: URL?, audio: URL?)
     case log(String)
@@ -174,7 +187,11 @@ enum SidecarEvent: Sendable {
             let completed = object["completed"] as? Int ?? 0
             let total = object["total"] as? Int ?? 0
             return .step(completed: completed, total: total,
-                         secondsPerStep: object["seconds_per_step"] as? Double)
+                         secondsPerStep: object["seconds_per_step"] as? Double,
+                         recentSeconds: object["seconds_recent"] as? Double)
+        case "tokens":
+            return .promptTokens(total: object["total"] as? Int ?? 0,
+                                 text: object["text"] as? Int ?? 0)
         case "memory":
             guard let bytes = int64("bytes") else { return nil }
             return .memory(bytes: bytes)

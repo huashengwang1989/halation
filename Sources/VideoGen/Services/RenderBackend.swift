@@ -19,12 +19,8 @@ enum BackendID: String, Codable, Sendable, CaseIterable, Identifiable {
 
     var detail: String {
         switch self {
-        case .mlx:
-            "Apple's own framework, running the model natively. Text-to-video and "
-            + "keyframes only — the port has no reference conditioning."
-        case .comfyUI:
-            "PyTorch on Metal. The only backend that supports references, and the "
-            + "only one that can load the 4-step turbo LoRAs."
+        case .mlx: loc("backend.mlx.detail")
+        case .comfyUI: loc("backend.comfy.detail")
         }
     }
 }

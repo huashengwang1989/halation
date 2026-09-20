@@ -263,12 +263,16 @@ final class RenderEngine {
         case .substage(_, let completed, let total, let detail):
             jobs[index].stageProgress = total > 0 ? Double(completed) / Double(total) : nil
             jobs[index].stageDetail = detail
-        case .step(let completed, let total, let perStep):
+        case .step(let completed, let total, let perStep, let recent):
             jobs[index].state = .generating
             jobs[index].completedSteps = completed
             jobs[index].totalSteps = total
             jobs[index].secondsPerStep = perStep
+            jobs[index].secondsPerStepRecent = recent
             jobs[index].progress = total > 0 ? Double(completed) / Double(total) : 0
+        case .promptTokens(let total, let text):
+            jobs[index].promptTokenCount = total
+            jobs[index].promptTextTokenCount = text
         case .memory(let bytes):
             jobs[index].peakMemoryBytes = max(jobs[index].peakMemoryBytes ?? 0, bytes)
         case .seed(let seed):

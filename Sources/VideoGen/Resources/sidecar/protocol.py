@@ -67,6 +67,17 @@ def substage(label: str, completed: int, total: int, detail: Optional[str] = Non
          total=int(total), detail=detail)
 
 
+def tokens(total: int, text: int) -> None:
+    """How long the sequence handed to the text encoder actually is.
+
+    Not a running cost — H3 is a diffusion model and generates nothing token by
+    token. This is one forward pass over one sequence, reported because a
+    keyframe or reference render carries a block of vision tokens per image that
+    dwarfs the words, and there is otherwise no way to see that.
+    """
+    emit(type="tokens", total=int(total), text=int(text))
+
+
 def download(repo_id: str, completed: int, total: int, file: Optional[str] = None) -> None:
     emit(type="download", repo_id=repo_id, completed=int(completed),
          total=int(total), file=file)
@@ -85,10 +96,22 @@ class StepReporter:
         self.throttle = throttle
         self._start = time.monotonic()
         self._last_emit = 0.0
+        # When the previous step landed, and how long it took. The average hides
+        # the shape of a run: steps get slower as the sequence grows, and the
+        # first is slower still because caches are cold.
+        self._last_advance = self._start
+        self._recent: Optional[float] = None
 
     def advance(self, completed: Optional[int] = None) -> None:
-        self.completed = self.completed + 1 if completed is None else int(completed)
         now = time.monotonic()
+        previous = self.completed
+        self.completed = self.completed + 1 if completed is None else int(completed)
+        # Divided by the number of steps that landed, not assumed to be one: a
+        # throttled report can cover several.
+        stepped = max(1, self.completed - previous)
+        self._recent = (now - self._last_advance) / stepped
+        self._last_advance = now
+
         is_last = self.completed >= self.total
         if not is_last and (now - self._last_emit) < self.throttle:
             return
@@ -96,7 +119,7 @@ class StepReporter:
         elapsed = now - self._start
         per_step = elapsed / self.completed if self.completed > 0 else None
         emit(type="step", completed=self.completed, total=self.total,
-             seconds_per_step=per_step)
+             seconds_per_step=per_step, seconds_recent=self._recent)
 
     def report_memory(self) -> None:
         """Best-effort peak-memory reading from MLX, if it is loaded."""

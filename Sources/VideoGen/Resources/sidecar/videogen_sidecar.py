@@ -18,6 +18,7 @@ import os
 import platform
 import random
 import re
+import shutil
 import subprocess
 import sys
 import threading
@@ -161,6 +162,29 @@ def cmd_download(args: argparse.Namespace) -> int:
     return 0
 
 
+def _prune_empty(start: Path, stop_at: Path) -> None:
+    """Remove `start` and its empty parents, stopping before `stop_at`."""
+    current = start
+    while current != stop_at and current.is_dir():
+        try:
+            current.rmdir()
+        except OSError:
+            return
+        current = current.parent
+
+
+def _prune_empty_children(directory: Path) -> None:
+    """Remove empty folders directly under `directory`, deepest first."""
+    if not directory.is_dir():
+        return
+    for path in sorted(directory.rglob("*"), key=lambda p: -len(p.parts)):
+        if path.is_dir() and path.name != ".cache":
+            try:
+                path.rmdir()
+            except OSError:
+                pass
+
+
 def _download_single(repo_id: str, filename: str, dest_dir: str) -> int:
     """Fetch one file into `dest_dir`, reporting progress from its size on disk."""
     from huggingface_hub import hf_hub_download, HfApi
@@ -185,6 +209,9 @@ def _download_single(repo_id: str, filename: str, dest_dir: str) -> int:
         protocol.done()
         return 0
 
+    # A transfer that was cancelled leaves the repository's folder shape behind.
+    _prune_empty_children(destination)
+
     protocol.stage("preparing")
     protocol.download(repo_id, 0, total)
     protocol.stage("generating")
@@ -192,14 +219,26 @@ def _download_single(repo_id: str, filename: str, dest_dir: str) -> int:
     watcher = _SizeWatcher(repo_id, destination, total)
     watcher.start()
     try:
-        # local_dir gives real files rather than symlinks into the cache.
-        hf_hub_download(repo_id=repo_id, filename=filename,
-                        local_dir=str(destination.parent.parent))
+        # local_dir gives real files rather than symlinks into the cache. It is
+        # the destination folder itself: `hf_hub_download` recreates the file's
+        # repository path underneath, which is not the layout ComfyUI wants, so
+        # the result is moved up to `dest_dir/<name>` below. Passing a parent
+        # instead used to scatter files into folders of the repository's choosing.
+        fetched = Path(hf_hub_download(repo_id=repo_id, filename=filename,
+                                       local_dir=str(destination)))
     except Exception as exc:
         watcher.stop()
         protocol.error(f"Download of {filename} failed: {exc}")
         return 1
     watcher.stop()
+
+    if fetched.resolve() != target.resolve():
+        target.parent.mkdir(parents=True, exist_ok=True)
+        shutil.move(str(fetched), str(target))
+        # Leave no empty scaffolding from the repository's own layout. Also swept
+        # on the way in, because a cancelled transfer never reaches this point and
+        # its empty folders would otherwise accumulate.
+        _prune_empty(fetched.parent, stop_at=destination)
 
     protocol.download(repo_id, total or watcher.downloaded(), total or watcher.downloaded())
     protocol.log(f"{filename} is in place.")
@@ -338,6 +377,7 @@ def cmd_generate(args: argparse.Namespace) -> int:
             )
 
         images, anchors = _keyframes(job)
+        _report_prompt_tokens(pipeline, job["prompt"], images)
 
         protocol.stage("generating")
         with contextlib.redirect_stdout(tee):
@@ -392,6 +432,30 @@ _ENCODERS = {
     "h264": ["-c:v", "libx264", "-crf", "18", "-pix_fmt", "yuv420p"],
     "av1": ["-c:v", "libsvtav1", "-crf", "30", "-preset", "8", "-pix_fmt", "yuv420p"],
 }
+
+
+def _report_prompt_tokens(pipeline, prompt: str, images) -> None:
+    """Count the tokens the text encoder will actually be handed.
+
+    Built through the encoder's own `build_request`, so the figure is the real
+    sequence length rather than a guess: with keyframes or references each image
+    contributes a block of vision tokens that is far larger than the prompt, and
+    only the encoder knows how large.
+
+    Never fatal. This is a statistic, and a render must not fail for want of one.
+    """
+    try:
+        encoder = pipeline.text_encoder
+        text_only = len(encoder.tokenizer(prompt, add_special_tokens=False)["input_ids"])
+        try:
+            input_ids, _, _ = encoder.build_request(prompt, images or None)
+            total = int(input_ids.shape[-1])
+        except Exception:
+            # Fall back to the text alone rather than reporting nothing.
+            total = text_only
+        protocol.tokens(total=total, text=text_only)
+    except Exception as exc:  # noqa: BLE001 - deliberately swallowed
+        protocol.log(f"Could not count prompt tokens: {exc}")
 
 
 def _encode_video(path: Path, video, fps: int, audio_path: Path, codec: str) -> None:

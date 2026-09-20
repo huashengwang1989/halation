@@ -112,7 +112,10 @@ final class ModelStore {
     func scan() async {
         isScanning = true
         lastScanError = nil
-        defer { isScanning = false }
+        // Always bumped, even when `installed` comes back identical: a ComfyUI
+        // weight that just landed never appears there, and without this the row
+        // that asked about it would keep its old answer.
+        defer { isScanning = false; revision += 1 }
 
         do {
             try ensureRootExists()
@@ -133,17 +136,39 @@ final class ModelStore {
         freeBytes = Self.availableCapacity(at: root)
     }
 
+    /// Bumped whenever the folder may have changed on disk.
+    ///
+    /// ComfyUI weights are plain files, tested with `fileExists` rather than held
+    /// in `installed`, and a file appearing on disk is not something `@Observable`
+    /// can notice. Anything that answers "is this installed" reads this too, so a
+    /// scan after a download actually redraws the rows that asked.
+    private(set) var revision = 0
+
+    /// Every catalog entry present on disk, in either layout.
+    ///
+    /// ComfyUI weights are plain files in the shared folder rather than Hugging
+    /// Face cache entries, so they never appear in `installed` and used to look
+    /// missing to everything that reasons about what is available — selection,
+    /// validation, the recommended bundle. The handful of `stat` calls this costs
+    /// is nothing beside a SwiftUI layout pass.
     var installedEntryIDs: Set<String> {
-        installed.reduce(into: Set<String>()) { $0.formUnion($1.matchedEntryIDs) }
+        _ = revision  // observation dependency; see `revision`.
+        var ids = installed.reduce(into: Set<String>()) { $0.formUnion($1.matchedEntryIDs) }
+        for entry in ModelCatalog.all {
+            guard let file = entry.comfyUIFile else { continue }
+            if FileManager.default.fileExists(atPath: comfyUIPath(for: file).path) {
+                ids.insert(entry.id)
+            }
+        }
+        return ids
     }
 
     func isInstalled(_ entry: CatalogEntry) -> Bool {
-        // ComfyUI weights are plain files in the shared folder rather than HF
-        // cache entries, so presence is a direct file check.
+        _ = revision  // observation dependency; see `revision`.
         if let file = entry.comfyUIFile {
             return FileManager.default.fileExists(atPath: comfyUIPath(for: file).path)
         }
-        return installedEntryIDs.contains(entry.id)
+        return installed.contains { $0.matchedEntryIDs.contains(entry.id) }
     }
 
     /// Where a ComfyUI-format weight lives inside the shared folder.

@@ -161,3 +161,412 @@ models on H3 output; prohibits unlawful and pornographic output regardless of
 territory. There is no server-side filter on a local run.
 
 The MLX port's own code is Apache-2.0. The app surfaces the licence on first run.
+
+## Interface language and right-to-left layout
+
+Two separate mechanisms, and only the second one mirrors the window. Both were
+measured on macOS 27, not assumed.
+
+**Our own strings** come from an explicitly loaded `.lproj` in the SwiftPM
+resource bundle (`Localization.activeBundle`), so picking a language re-reads
+every string immediately — no relaunch, and `.id(localization.generation)` on
+the scene rebuilds the tree so nothing stale survives.
+
+**AppKit's own chrome** — the menu bar, standard button titles, writing
+direction — is fixed once, at launch, from defaults:
+
+| `AppleLanguages` | `AppleTextDirection` | result |
+|---|---|---|
+| `["ar"]` | absent | Arabic menu bar, **window not mirrored** |
+| `["ar"]` | `NO` | Arabic menu bar, not mirrored |
+| `["en"]` | `YES` | English, not mirrored |
+| `["ar"]` | `YES` | Arabic, **mirrored** |
+
+The two conditions are **ANDed, not XORed**: mirroring needs a right-to-left
+language *and* the flag. So choosing Arabic on an already-Arabic system cannot
+double-flip back to left-to-right — a reasonable worry, and measurably not a
+real one.
+
+`AppleTextDirection` is the key Xcode sets for its right-to-left
+pseudolanguage. Both keys must be *persisted* defaults; passed as launch
+arguments they had no effect.
+
+`Localization.set(_:)` therefore writes `AppleTextDirection` explicitly in
+**both** directions rather than clearing it for left-to-right languages.
+Clearing it would let an English interface inherit an Arabic system's
+mirroring — English text in a mirrored window. Writing `false` pins the
+direction to the chosen language whatever the machine is set to. Only
+`.system` clears both keys, so that preference inherits the machine wholesale.
+
+That last case — an actual right-to-left *system* — is reasoned from the table
+rather than observed, since testing it means changing the machine's own
+language.
+
+`Locale.preferredLanguages` answers with the **app-domain** `AppleLanguages`
+as soon as one is written, not with the system's. So anything that needs to know
+what the *system* asks for — resolving a `.system` preference, or labelling the
+"Follow system (…)" option — must read `AppleLanguages` out of
+`UserDefaults.globalDomain` instead. Going through `Locale` made that option
+rename itself to whatever the user had just chosen: on an English Mac, picking
+Chinese relabelled it "跟随系统（简体中文）". `Localization.systemPreferredLanguages`
+is the single place that reads it.
+
+For the app bundle to count as localized at all, `make_app.sh` copies each
+`.lproj` (with its `.strings`, not an empty folder) into `Contents/Resources`.
+`CFBundleLocalizations` is deliberately *not* listed as well: with real `.lproj`
+folders present it only duplicates every entry in `Bundle.main.localizations`.
+
+Do **not** force `\.layoutDirection` from the scene. Overriding only the SwiftUI
+half while AppKit stayed left-to-right made `NSToolbar` collapse its entire
+contents into a single "more toolbar items" overflow button at every window
+width. Direction now comes from the process, so both halves always agree.
+
+### Measuring the running UI
+
+`System Events`' `count of windows` silently returns 0 for **every** application
+once window-level accessibility is gated, which reads exactly like "the app
+launched with no window". Menu bars stay readable, which makes the failure easy
+to misdiagnose. Check a known-good app before trusting a window count; to
+inspect the real tree, talk to `AXUIElement` directly from a small compiled
+helper (`AXUIElementCreateApplication(pid)`), which is unaffected.
+
+### The Settings tab bar's focus ring
+
+With full keyboard access on (`AppleKeyboardUIMode = 3`), AppKit draws a blue
+focus ring on whichever Settings tab **has keyboard focus**, which is not the
+same as the selected one. On an unselected tab it reads as a second selection;
+on the selected tab it doubles up with the blue tint already there.
+
+Neither `.focusEffectDisabled()` on the `TabView` nor migrating `.tabItem` to
+the `Tab` API removes it — both were built and photographed, and the ring
+survived both. The tabs are `NSToolbar` items and sit outside SwiftUI's focus
+system entirely.
+
+What works is clearing `focusRingType` on the window's chrome, which
+`TabBarFocusRingSuppressor` in `SettingsView.swift` does. The walk stops at
+`contentView`, so controls inside a panel keep their own focus rings. Focus
+itself is untouched: Tab still moves through the tabs, Space still selects.
+
+### Looking at the UI
+
+`screencapture` works in this environment, including `-R x,y,w,h` against a
+window rect from the accessibility probe. It is the only way to settle a
+question about a ring, a tint or spacing — the accessibility tree reports none
+of them. Capturing the same strip after each keystroke and comparing checksums
+finds the frame that differs without reading every image.
+
+### The "write with Siri" button over the prompt
+
+macOS 27 creates the Writing Tools affordance in **its own window**, as soon as
+a text view appears — not when one is focused — and does not take it down when
+that view goes away. So it ends up floating over the Queue or the Library.
+
+Measured, in this order: it is present on a fresh launch before the prompt has
+ever been clicked; `makeFirstResponder(nil)` on section change does not remove
+it (the premise that it follows focus is simply wrong);
+`.writingToolsBehavior(.limited)` does not remove it either.
+`.writingToolsBehavior(.disabled)` on the prompt is the only lever that works,
+and the cost is Writing Tools on that field.
+
+Decided against: Writing Tools on the prompt is worth more than the stray
+button, so the field keeps them and this waits for a macOS fix. Do not
+"fix" it by disabling Writing Tools without asking.
+
+### Driving the UI for verification
+
+`System Events`' `click at {x, y}` resolves the element under the point but does
+not reliably activate a SwiftUI button inside a `List` row, and those rows'
+buttons are not exposed as `AXButton` at all, so `AXUIElementPerformAction`
+cannot reach them either. A synthesised `CGEvent` — mouseMoved, then down, then
+up, with a short pause — does work, and is what opens the per-job log sheet.
+
+## What this app needs from the Mac it runs on
+
+Nothing is tuned to the machine it was written on any more. Both numbers that
+depend on the hardware are read from the hardware at runtime — see
+`MachineProfile` and `RenderThroughput`.
+
+### Memory is the binding constraint, and the text encoder is why
+
+Apple Silicon shares one memory pool between CPU and GPU, and macOS caps what
+the GPU may wire down at roughly three quarters of installed memory.
+`MachineProfile.usableWeightBytes` is that budget. Going over does not fail
+cleanly — it swaps — so both warnings are advisory, never blocking.
+
+A run holds the transformer **and** the text encoder at once, and the encoder is
+the larger of the two: Qwen3-VL-32B in bfloat16 is about 34 GB resident against
+12 GB for the 4-bit transformer. Computed over the real catalogue figures:
+
+| installed | usable | what fits |
+|---|---|---|
+| 48 GB and below | ≤36 GB | **nothing** |
+| 64 GB | 48 GB | 4-bit and the INT8 ConvRot builds, all flagged "tight" (46 GB) |
+| 96 GB | 72 GB | everything except bfloat16 |
+| 128 GB and above | ≥96 GB | everything, bfloat16 included at 75 GB |
+
+So **64 GB is the practical floor** and there is no quantization that changes
+that — choosing a smaller transformer saves at most 29 GB against a 34 GB fixed
+cost. Say this plainly in anything user-facing; it is the single most useful
+fact for someone deciding whether to try the app.
+
+### Render time is measured, not predicted
+
+`RenderThroughput` reduces render time to one number: seconds per sampling step
+per megapixel. Finished renders in the library supply it, per backend, as a
+median — MLX and ComfyUI are not comparable, since ComfyUI runs a distilled LoRA
+at four steps where MLX wants sixteen.
+
+Only before the first render does it fall back to a prediction, scaled from the
+MLX port's published M3 Ultra figure by memory bandwidth, taken from the chip
+tier in `machdep.cpu.brand_string` rather than a table of exact figures per
+model — a table would be wrong for every chip released after this was written.
+The summary panel says which of the two it is showing.
+
+This matters because the old constant was not merely machine-specific, it was
+wrong: it predicted 2 h 31 min – 5 h 13 min for a 16-step render on the machine
+it was tuned for, where measurement from that machine's own renders gives
+1 h 15 min – 2 h 36 min.
+
+## Catalogue entries name themselves
+
+`CatalogEntry.nameKey` is written out per entry. It used to be derived from role
+and format, which gave **nine** entries the name "bfloat16" — including a video
+VAE that is really fp16 and an audio VAE that is fp32. `quantization` is a
+required field, so entries where it means nothing had been given `.bf16` as
+filler, and that filler was then displayed as fact.
+
+The row title, the Compose summary and the delete button's accessibility label
+all use `displayName`. Every name is unique: tag pills and the grey description
+are context, not identity.
+
+## Two bugs the naming was hiding
+
+**Selection did not follow mode or engine.** `selectBestAvailableModels` re-picked
+only when the current entry was not *installed*, so switching to reference mode
+kept an installed FL2VA transformer, and switching engine kept weights the new
+engine cannot read. It now also requires the entry's task and backend to match
+what is selected, and it runs on an engine change as well as a mode change.
+
+**ComfyUI weights never counted as installed.** `installedEntryIDs` was built
+from the Hugging Face cache alone, and ComfyUI weights are plain files in the
+shared folder, so every ComfyUI checkpoint looked missing to selection, to
+validation and to the recommended bundle. Only `isInstalled(_:)` checked the
+file system. The two agree now.
+
+These compounded: with ComfyUI entries invisible, the stale MLX selection was
+what made reference mode pass validation at all, and the render worked only
+because `ComfyUIBackend` resolves its own model set and ignores the spec's entry
+ids entirely. Verified after the fix: text-to-video on MLX picks the bf16 pair,
+reference mode picks the Ref2VA INT8 ConvRot pair, and text-to-video on ComfyUI
+reports the FL2VA transformer as not selected — which is true, it is not
+downloaded, and saying so is the point.
+
+### Throughput samples must not require a recorded checkpoint
+
+A reference render's spec carries no `transformerEntryID` — ComfyUI resolves its
+own model set — so requiring one discarded every ComfyUI timing and sent that
+engine's estimate back to a figure published for a different Mac. Unrecorded
+runs now count, with bf16 assumed, which applies no speed-up correction and so
+reads slightly slow rather than inventing one.
+
+`GenerationSpec.resolvedBackend` exists for the same class of mistake: reference
+specs carry `backend == nil`, so reading that field directly reports them as MLX
+renders. It mirrors `RenderEngine.backend(for:)` — explicit choice wins,
+reference is always ComfyUI, everything else MLX.
+
+### Reading coordinates out of the accessibility tree
+
+`AXPosition` is reported for rows that are scrolled out of view, in unclipped
+coordinates, so an element can be given a position above the window's own top
+edge. Intersect against the window rect before using a coordinate to capture or
+to click — otherwise the point lands on whatever is behind, on another display,
+and the screenshot looks like a real answer.
+
+`screencapture -R` takes global points across all displays; `sips --cropOffset`
+works in one image's pixels, which is not the same space when a second display
+has a different backing scale. Prefer `-R` with the rect from `winlist`.
+
+### A link and text selection cannot share a run
+
+Measured both ways on the repository id in `EntryRow`:
+
+- `AttributedString.link` — opens on click, pointing-hand cursor, hover styling
+  can be driven from state. A double-click selects **nothing**.
+- `.textSelection(.enabled)` instead — double-click selects a word, but an
+  `onTapGesture` on the same text **never fires**, because selection consumes
+  the click. Verified by window count and frontmost app: nothing opened.
+
+Click to open won, because that is the job the id took over when the separate
+"Model card" link was removed; without it the card is unreachable. Copying is
+covered by the button beside it (full URL) and a context menu item (bare id).
+
+Note for tests: a synthesised `CGEvent` drag does **not** produce a text
+selection, even on plain selectable text — it looks like the feature is broken
+when it is not. Use a double-click with `mouseEventClickState` set, which does.
+
+### Required is not the same question as used
+
+`EntryRow` keeps `isInUse` and `isRequired` apart, and the warning icon keys off
+the second. A turbo LoRA is used when present and skipped when not, so its
+absence is nothing to warn about — the first version treated every file matching
+the engine and task as required and put a warning on an undownloaded LoRA.
+
+`isRequired` asks `ComfyUIModelSet.required(for:)` rather than matching on the
+catalogue's `task`, because reimplementing that rule got it wrong twice over in
+opposite directions:
+
+- the turbo LoRA is **not** on the required list, so it was warned about when it
+  should have been ignored;
+- the audio VAE **is** on it for *both* tasks, though the catalogue entry is
+  tagged `.ref2va`, so it was reported as unused during an FL2VA render that
+  genuinely loads it.
+
+`isMissingRequirement` goes through `missing(in:for:)` rather than
+`!isInstalled`, so someone running an alternate text encoder is not told the
+stock one is missing — the engine accepts either, and the row has to agree with
+the engine.
+
+The rule: anything the UI says about what a render needs comes from the type the
+engine itself consults. Restating it in a view is how the two drift.
+
+## There are no tokens to meter
+
+H3 is a diffusion model. Nothing is generated token by token, so there is no
+token stream, no running token cost, and no tokens per second. The sidecar
+protocol has never had a token event; `grep -i token` across it returned
+nothing before `protocol.tokens` was added.
+
+What does exist is the **length of the one sequence the text encoder reads**,
+once, before denoising starts. `protocol.tokens` reports it, built through the
+encoder's own `build_request` so the figure is real rather than inferred. Only
+part of it is the prompt: measured against the shipped tokenizer, a short prompt
+is 3 tokens, a long cinematic one 47. Each reference image adds a block of
+vision tokens — roughly 729 for a 768px image at patch 14 with merge 2 — so a
+nine-image Ref2VA render is thousands of tokens of picture and a few dozen of
+words. That contrast is the only reason the number is worth showing.
+
+It is MLX-only. ComfyUI resolves its own graph and reports no such figure.
+
+The real throughput unit is **seconds per step**, not steps per second: a step
+takes minutes, so the reciprocal would be a fraction with no useful digits.
+`StepReporter` now emits both `seconds_per_step` (cumulative average, what the
+ETA rests on) and `seconds_recent` (the latest step, divided by however many
+steps a throttled report covers). ComfyUI has no per-step duration either, so
+`ComfyUIBackend.timed(_:)` derives it from the gap between progress reports.
+
+### A SwiftUI `Menu` cannot be opened in code
+
+There is no programmatic presentation API for `Menu`, and the preset control is
+not an `NSPopUpButton` that could be sent `performClick` — accessibility reports
+it as a *menu button*, not a *pop up button*, unlike the genuine `NSPopUpButton`
+in Settings.
+
+So `highlightPresets()` rings the control instead, paired with a status-bar note
+naming the preset. That answers the question the request was really asking —
+where did my preset go — and a menu that opened by itself would have to be
+dismissed again anyway.
+
+One quirk this exposed: `PresetMenu.currentPresetName` matches on sampling and
+format and takes the *first* hit, so a preset saved with settings identical to a
+built-in leaves the control showing the built-in's name. The ring and the note
+still point at the right control; only the label is ambiguous.
+
+### An alert's message is fixed once it is presented
+
+Its buttons are not: `.disabled(...)` on an alert button updates live as state
+changes, measured through `AXEnabled` flipping while typing. But the `message:`
+text is handed to AppKit when the alert appears and never updated, so a reason
+that depends on what has been typed can never be shown there.
+
+That is why naming a preset is a sheet (`PresetNamer`) rather than an alert. A
+Save button that is merely dim does not say why it is dim, and the objection —
+that the name is already taken — is exactly the part that has to change as the
+user types.
+
+## A repository's layout is not the layout ComfyUI wants
+
+`CatalogEntry.ComfyUIFile.folder` says where a file belongs under
+`<models>/comfyui/`. It does **not** say where the file lives inside its
+repository, and the app used to send `folder/filename` as the path to fetch.
+
+That holds for `Comfy-Org/MiniMax-H3`, which happens to store its files under
+`text_encoders/`, `vae/`, `loras/` and `diffusion_models/`. It does not hold for
+a community repository. The uncensored encoder sits at its repository's root:
+
+```
+GET …/resolve/main/text_encoders/<name>.safetensors  ->  404   (what the app asked for)
+GET …/resolve/main/<name>.safetensors                ->  302   (where the file is)
+```
+
+`ComfyUIFile.repoPath` now carries the in-repository path when it differs, and
+`remotePath` is what the downloader sends.
+
+The failure surfaced only as huggingface_hub's routine warning about
+unauthenticated requests, which is **not** an error: the repository is public
+and ungated, and an anonymous ranged GET returns 206. Nothing here needs a
+token.
+
+`_download_single` also passed `local_dir=destination.parent.parent`, which
+scattered files into `<models>/<repo layout>` rather than the folder asked for —
+it left an empty `<models>/text_encoders/` and a stray `<models>/.cache/`. It now
+downloads into the destination folder and moves the result up to
+`dest_dir/<name>`, so the local layout no longer depends on the repository's.
+
+### Xet names its partial file by content hash
+
+A Xet transfer does write an `.incomplete` file into
+`<dest>/.cache/huggingface/download/`, and `_SizeWatcher` measures it correctly —
+the app reported "13.82 GB of 25.77 GB" mid-transfer. But the file is named for
+the chunk hash, not the file being fetched:
+
+```
+Bne6F93c5pJarKXPfRrucTs-WwQ=.e385249a….8f9f95a5.incomplete
+```
+
+Looking for `*<filename>*.incomplete` therefore finds nothing and makes a
+working download look stalled. Match on `*.incomplete` alone.
+
+What is real is a **startup window of roughly half a minute** in which Xet
+negotiates chunks and writes nothing at all, so the byte count sits at zero. The
+download row shows an indeterminate bar until the first bytes arrive, the same
+way the queue does while a model loads.
+
+A cancelled transfer leaves the repository's own folder scaffolding behind —
+`hf_hub_download` recreates the repo path under `local_dir`, and the move up to
+`dest_dir/<name>` only happens once the download finishes. An interrupted one
+therefore leaves an empty nested folder and a partial in `.cache`. Both are
+harmless and the partial is what lets a retry resume.
+
+### The catalogue's repository paths need checking, not assuming
+
+Two entries shipped pointing at files that were not there, and both surfaced to
+the user only as huggingface_hub's unrelated token warning:
+
+- the uncensored text encoder sits at its repository's **root**, not under
+  `text_encoders/`;
+- the FL2VA turbo LoRA is published by **lightx2v** at v1.2, while the
+  Comfy-Org mirror carries only v1.0 — so `loras/…v1.2…` was a 404 there.
+
+`Scripts/check_catalog_urls.py` now HEADs every ComfyUI entry's resolved URL and
+reports anything that is not a 200 or 302. Run it after touching the catalogue;
+it needs no token, because every repository here is public.
+
+### A file appearing on disk is not observable
+
+`ModelStore.isInstalled` tests ComfyUI weights with `fileExists`, because they
+are plain files and never enter `installed`. `@Observable` cannot see that, so a
+row that asked "is this installed" kept its old answer after a download — stale
+icon, stale Download button — until something else forced a redraw.
+
+`ModelStore.revision` is bumped by every `scan()`, unconditionally, and both
+`isInstalled` and `installedEntryIDs` read it. That is what makes the dependency
+visible to SwiftUI. Anything else that answers a question from the file system
+rather than from stored state has to do the same.
+
+### A finished transfer used to block its own retry
+
+`enqueue` left an existing transfer alone unless it had failed or been
+cancelled, so once a download finished, pressing Download for that entry did
+nothing for the rest of the session — even after the file was deleted. Reaching
+that branch already means the file is *not* installed, so any transfer that is
+no longer running is stale by definition; all terminal states now restart.
