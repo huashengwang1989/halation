@@ -34,7 +34,7 @@ import pathlib, re, sys
 
 sys.path.insert(0, str(pathlib.Path(__file__).parent))
 import build_strings as gen
-from translations import T
+from translations import SOURCE_LANG, T, value
 
 SOURCES = pathlib.Path(__file__).parent.parent / "Sources/Halation"
 
@@ -90,25 +90,27 @@ def check_keys_used_in_code():
 
 
 def check_placeholders():
+    """An untranslated language is skipped, not compared: it falls back to the
+    English string, so it cannot disagree with it."""
     for key in sorted(T):
-        english = specifiers(T[key]["en"])
+        english = specifiers(value(key, SOURCE_LANG))
         for lang in gen.LANGS:
-            if lang == "en":
+            if lang == SOURCE_LANG:
                 continue
-            value = T[key].get(lang)
-            if not value:
+            translated = T[key]["values"].get(lang)
+            if not translated:
                 continue
-            other = specifiers(value)
+            other = specifiers(translated)
             if sorted(s[1] for s in other) != sorted(s[1] for s in english):
                 errors.append(
-                    f"{key} [{lang}] has {len(other)} placeholder(s) but English "
-                    f"has {len(english)} — {value!r}")
+                    f"{key} [{lang}] has {len(other)} placeholder(s) but "
+                    f"{SOURCE_LANG} has {len(english)} — {translated!r}")
 
 
 def check_positional():
     """Two or more arguments need %1$@ style, or they cannot be reordered."""
     for key in sorted(T):
-        found = specifiers(T[key]["en"])
+        found = specifiers(value(key, SOURCE_LANG))
         if len(found) >= 2 and any(index is None for index, _ in found):
             warnings.append(f"{key} takes {len(found)} arguments without positional "
                             f"specifiers (%1$@); a translator cannot reorder them")
@@ -133,8 +135,17 @@ def main():
 
     print(f"  {len(T)} keys, {len(gen.LANGS)} languages, {len(referenced)} referenced "
           f"by literal, {dynamic_count} dynamic loc() call(s) not checkable")
-    for gap in gen.missing_translations():
-        warnings.append(f"{gap[0]} [{gap[1]}] is empty and falls back to English")
+    gaps = gen.missing_translations()
+    if gaps:
+        by_lang = {}
+        for _, lang in gaps:
+            by_lang[lang] = by_lang.get(lang, 0) + 1
+        # Summarised rather than listed: a language being added is normally
+        # incomplete on purpose, and hundreds of lines saying so would bury the
+        # warnings that do need acting on.
+        for lang, count in sorted(by_lang.items()):
+            warnings.append(f"{lang} has {count} untranslated key(s), showing "
+                            f"{SOURCE_LANG}")
 
     for warning in warnings:
         print(f"  warning: {warning}")

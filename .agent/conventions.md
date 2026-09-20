@@ -240,7 +240,18 @@ leaves its predecessor behind until it is deleted by hand.
 
 ## Localisations have one source, and it is checked
 
-`Scripts/translations.py` is the only place a string is written. Both the
+`Scripts/translations.py` is the only place a string is written. A key is
+defined with its languages keyed by name, and only English is required:
+
+    add("common.save", {"en": "Save", "de": "Sichern"},
+        note="Imperative verb on a button, not the noun.")
+
+Anything absent falls back to English when the files are built, which is what
+makes a language addable incrementally: put it in `LANGS` and fill it in a
+screen at a time. `add` rejects a language not in `LANGS`, a missing English, a
+key defined twice and an unknown note level — the positional form this replaced
+could do none of that, and a value in the wrong position was a silent
+mistranslation rather than an error. Both the
 `.lproj/Localizable.strings` files the app actually reads and
 `translation-catalog.json` that the Debug inspector reads are generated from it
 by `Scripts/build_strings.py`. Edit the table, then regenerate:
