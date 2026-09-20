@@ -141,7 +141,7 @@ A **second, separate** environment under Application Support — do not reuse th
 MLX venv, the dependency sets conflict (PyTorch nightly vs MLX):
 
 ```
-~/Library/Application Support/VideoGen/
+~/Library/Application Support/Halation/
   runtime/          existing MLX venv
   comfyui/          git checkout + its own venv
   comfyui-extra-model-paths.yaml

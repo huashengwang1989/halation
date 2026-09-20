@@ -27,7 +27,7 @@ audio.
 
 ## The engine is already installed and already capable
 
-The ComfyUI at `~/Library/Application Support/VideoGen/comfyui` is **0.36.0**
+The ComfyUI at `~/Library/Application Support/Halation/comfyui` is **0.36.0**
 and knows **103 model families**, among them `Flux`, `Flux2`, `FluxInpaint`,
 `FluxSchnell`, `QwenImage`, `HiDream`, `Chroma`, `ChromaRadiance`, `Omnigen2`,
 `SDXL`, `SD3`, `SD15_instructpix2pix`, `SDXL_instructpix2pix`, `Lumina2`,

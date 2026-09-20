@@ -66,7 +66,7 @@ final class RuntimeManager {
     nonisolated static var supportDirectory: URL {
         let base = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask).first
             ?? FileManager.default.homeDirectoryForCurrentUser.appending(path: "Library/Application Support")
-        return base.appending(path: "VideoGen", directoryHint: .isDirectory)
+        return base.appending(path: "Halation", directoryHint: .isDirectory)
     }
 
     var venvURL: URL { Self.supportDirectory.appending(path: "runtime", directoryHint: .isDirectory) }
@@ -76,7 +76,7 @@ final class RuntimeManager {
     /// The sidecar scripts, copied out of the app bundle so the interpreter can see
     /// them even when the bundle is read-only or translocated.
     var sidecarDirectory: URL { Self.supportDirectory.appending(path: "sidecar", directoryHint: .isDirectory) }
-    var sidecarScript: URL { sidecarDirectory.appending(path: "videogen_sidecar.py") }
+    var sidecarScript: URL { sidecarDirectory.appending(path: "halation_sidecar.py") }
 
     var isInstalled: Bool {
         FileManager.default.isExecutableFile(atPath: pythonURL.path)

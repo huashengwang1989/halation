@@ -1,4 +1,4 @@
-VideoGen
+Halation
 Copyright (C) 2026 Huasheng Wang
 
 This program is free software: you can redistribute it and/or modify it under
@@ -10,7 +10,7 @@ later version. See LICENSE for the full text.
 MODEL WEIGHTS ARE NOT PART OF THIS PROGRAM
 ==========================================
 
-VideoGen downloads model weights from Hugging Face at your request. It does not
+Halation downloads model weights from Hugging Face at your request. It does not
 contain, bundle or redistribute any of them. Each is licensed by whoever
 published it, and that licence is an agreement between you and them — this
 program's licence neither grants nor restricts anything about the weights.
@@ -45,7 +45,7 @@ runtime, into the user's own Application Support directory, and run there.
 
   minimax-h3-mlx — https://github.com/PipeNetwork/minimax-h3-mlx
     Apache License 2.0. The Apple-silicon port of MiniMax H3. Imported by the
-    Python sidecar in Sources/VideoGen/Resources/sidecar.
+    Python sidecar in Sources/Halation/Resources/sidecar.
 
   ComfyUI — https://github.com/comfyanonymous/ComfyUI
     GNU General Public License v3.0. Cloned into Application Support, run as a
@@ -53,7 +53,7 @@ runtime, into the user's own Application Support directory, and run there.
     into this program and is not redistributed by it.
 
   ComfyUI workflow templates — comfyui_workflow_templates
-    MIT License. The graph built by Sources/VideoGen/Services/ComfyUIWorkflow.swift
+    MIT License. The graph built by Sources/Halation/Services/ComfyUIWorkflow.swift
     is derived from the project's own `video_minimax_h3_r2v.json` template.
 
   ffmpeg

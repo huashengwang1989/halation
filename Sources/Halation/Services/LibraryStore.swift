@@ -38,9 +38,9 @@ final class LibraryStore {
         get {
             if let stored = UserDefaults.standard.url(forKey: Self.outputDefaultsKey) { return stored }
             return FileManager.default.urls(for: .moviesDirectory, in: .userDomainMask).first?
-                .appending(path: "VideoGen", directoryHint: .isDirectory)
+                .appending(path: "Halation", directoryHint: .isDirectory)
                 ?? FileManager.default.homeDirectoryForCurrentUser
-                    .appending(path: "Movies/VideoGen", directoryHint: .isDirectory)
+                    .appending(path: "Movies/Halation", directoryHint: .isDirectory)
         }
         set {
             UserDefaults.standard.set(newValue, forKey: Self.outputDefaultsKey)
@@ -97,9 +97,9 @@ final class LibraryStore {
 
     /// Writes the recipe next to the video. Plain JSON, readable without this app.
     private func writeSidecar(for item: LibraryItem) {
-        let url = item.videoURL.deletingPathExtension().appendingPathExtension("videogen.json")
+        let url = item.videoURL.deletingPathExtension().appendingPathExtension("halation.json")
         var payload: [String: Any] = [
-            "app": "VideoGen",
+            "app": "Halation",
             "model": "MiniMax-H3",
             "task": item.spec.task.rawValue,
             "mode": item.spec.mode.rawValue,
@@ -155,7 +155,7 @@ final class LibraryStore {
         var seed: Int64?
         var created = (try? url.resourceValues(forKeys: [.creationDateKey]).creationDate) ?? .now
 
-        let sidecar = url.deletingPathExtension().appendingPathExtension("videogen.json")
+        let sidecar = url.deletingPathExtension().appendingPathExtension("halation.json")
         if let data = try? Data(contentsOf: sidecar),
            let object = try? JSONSerialization.jsonObject(with: data) as? [String: Any] {
             spec.prompt = object["prompt"] as? String ?? ""
@@ -199,7 +199,7 @@ final class LibraryStore {
             item.videoURL,
             item.audioURL,
             item.thumbnailURL,
-            item.videoURL.deletingPathExtension().appendingPathExtension("videogen.json"),
+            item.videoURL.deletingPathExtension().appendingPathExtension("halation.json"),
         ].compactMap { $0 }
 
         for url in companions where fm.fileExists(atPath: url.path) {

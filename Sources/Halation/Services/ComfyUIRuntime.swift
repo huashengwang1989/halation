@@ -145,9 +145,9 @@ final class ComfyUIRuntime {
                 at: root.appending(path: sub), withIntermediateDirectories: true)
         }
         let yaml = """
-            # Written by VideoGen. Points ComfyUI at the shared models folder so its
+            # Written by Halation. Points ComfyUI at the shared models folder so its
             # weights live beside the MLX ones rather than inside the checkout.
-            videogen:
+            halation:
               base_path: \(root.path)
               diffusion_models: diffusion_models
               text_encoders: text_encoders

@@ -61,7 +61,7 @@ Last updated: end of the session that built the MLX path.
 Be honest about these; do not imply otherwise.
 
 - **A render completed end to end.** One clip has been generated, encoded and
-  written to `~/Movies/VideoGen` with its thumbnail and recipe JSON, and plays
+  written to `~/Movies/Halation` with its thumbnail and recipe JSON, and plays
   back in the Library. The core path is proven.
 - **Still untested:** first-frame and first-and-last-frame modes; the non-native
   frame rates (30/60 conforming); ProRes and H.264 output; the WAV sidecar

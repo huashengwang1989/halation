@@ -1,5 +1,5 @@
 #!/bin/bash
-# Assembles the SwiftPM executable into a launchable VideoGen.app.
+# Assembles the SwiftPM executable into a launchable Halation.app.
 #
 # SwiftPM cannot emit an app bundle directly, so we build the executable and wrap
 # it. Xcode can also open Package.swift directly if you prefer working there.
@@ -7,7 +7,7 @@ set -euo pipefail
 
 CONFIG="${1:-release}"
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
-APP="$ROOT/dist/VideoGen.app"
+APP="$ROOT/dist/Halation.app"
 
 cd "$ROOT"
 echo "==> Building ($CONFIG)"
@@ -19,7 +19,7 @@ echo "==> Assembling $APP"
 rm -rf "$APP"
 mkdir -p "$APP/Contents/MacOS" "$APP/Contents/Resources"
 
-cp "$BIN_DIR/VideoGen" "$APP/Contents/MacOS/VideoGen"
+cp "$BIN_DIR/Halation" "$APP/Contents/MacOS/Halation"
 
 # Bundle.module resolves relative to the executable's directory, so the resource
 # bundle goes beside the binary as well as into Resources.
@@ -34,10 +34,10 @@ cat > "$APP/Contents/Info.plist" <<'PLIST'
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-    <key>CFBundleName</key>                  <string>VideoGen</string>
-    <key>CFBundleDisplayName</key>           <string>VideoGen</string>
-    <key>CFBundleIdentifier</key>            <string>com.local.videogen</string>
-    <key>CFBundleExecutable</key>            <string>VideoGen</string>
+    <key>CFBundleName</key>                  <string>Halation</string>
+    <key>CFBundleDisplayName</key>           <string>Halation</string>
+    <key>CFBundleIdentifier</key>            <string>com.local.halation</string>
+    <key>CFBundleExecutable</key>            <string>Halation</string>
     <key>CFBundlePackageType</key>           <string>APPL</string>
     <key>CFBundleShortVersionString</key>    <string>1.0</string>
     <key>CFBundleVersion</key>               <string>1</string>
@@ -47,11 +47,11 @@ cat > "$APP/Contents/Info.plist" <<'PLIST'
     <string>Copyright © 2026 Huasheng Wang. AGPL-3.0. Model weights are downloaded, not included, and are licensed separately by their publishers.</string>
     <!-- The app reads weights from ~/Documents/AI Models and writes clips to Movies. -->
     <key>NSDocumentsFolderUsageDescription</key>
-    <string>VideoGen stores and reads AI model weights in a shared folder inside Documents.</string>
+    <string>Halation stores and reads AI model weights in a shared folder inside Documents.</string>
     <key>NSDesktopFolderUsageDescription</key>
-    <string>VideoGen needs access if you choose a model or output folder on the Desktop.</string>
+    <string>Halation needs access if you choose a model or output folder on the Desktop.</string>
     <key>NSDownloadsFolderUsageDescription</key>
-    <string>VideoGen needs access if you choose a model or output folder in Downloads.</string>
+    <string>Halation needs access if you choose a model or output folder in Downloads.</string>
     <key>LSApplicationCategoryType</key>     <string>public.app-category.video</string>
     <!-- The languages AppKit may localize its own chrome into come from the
          .lproj folders copied in below; this only names the fallback. Listing them
@@ -67,7 +67,7 @@ PLIST
 # whether AppKit mirrors the window for a right-to-left language. The app reads
 # its strings from the SwiftPM resource bundle at runtime; this copy is what makes
 # the *main* bundle count as localized.
-for LPROJ in "$ROOT"/Sources/VideoGen/Resources/Localizations/*.lproj; do
+for LPROJ in "$ROOT"/Sources/Halation/Resources/Localizations/*.lproj; do
   [ -d "$LPROJ" ] || continue
   DEST="$APP/Contents/Resources/$(basename "$LPROJ")"
   mkdir -p "$DEST"

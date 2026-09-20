@@ -1,4 +1,4 @@
-# Project: VideoGen
+# Project: Halation
 
 A native macOS app that generates video locally with MiniMax H3 on Apple silicon.
 Nothing leaves the machine — no account, no API key, no upload.
@@ -23,14 +23,14 @@ are the two ends of that contract — **change them together**.
 ## Layout
 
 ```
-Sources/VideoGen/
+Sources/Halation/
   Models/      OutputFormat, ModelCatalog, GenerationSpec, RenderJob, URL+Literal
   Services/    ModelStore, RuntimeManager, DownloadManager, RenderEngine,
                VideoPostProcessor(+Output), LibraryStore, ProcessRunner
   Views/       RootView, Compose(View/Cards), ReferencesCard, Queue, Library,
                Models, Settings, Onboarding, Components/
   Resources/sidecar/
-               videogen_sidecar.py   doctor | probe | download | generate
+               halation_sidecar.py   doctor | probe | download | generate
                h3_adapter.py         capability detection
                protocol.py           NDJSON event protocol
 .agent/        these instructions
@@ -42,9 +42,9 @@ Runtime and weights live outside the repo:
 - `~/Documents/AI Models` — **shared** model folder, deliberately not app-private.
   `HF_HOME` points into it so any other project aimed at the same folder reuses
   the downloads. Never delete anything there that the app did not create.
-- `~/Library/Application Support/VideoGen/` — Python venv, cloned port, queue
+- `~/Library/Application Support/Halation/` — Python venv, cloned port, queue
   state, scratch. Disposable; rebuildable from Settings.
-- `~/Movies/VideoGen` — finished clips plus a `.videogen.json` recipe each.
+- `~/Movies/Halation` — finished clips plus a `.halation.json` recipe each.
 
 ## Invariants
 

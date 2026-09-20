@@ -4,7 +4,7 @@ import pathlib, sys
 sys.path.insert(0, str(pathlib.Path(__file__).parent))
 from translations import T
 
-ROOT = pathlib.Path(__file__).parent.parent / "Sources/VideoGen/Resources/Localizations"
+ROOT = pathlib.Path(__file__).parent.parent / "Sources/Halation/Resources/Localizations"
 LANGS = ["en", "zh-Hant", "zh-Hans", "de", "ar"]
 
 def esc(value):

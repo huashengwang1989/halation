@@ -79,7 +79,7 @@ extension VideoPostProcessor {
         guard reader.startReading(), writer.startWriting() else { return nil }
         writer.startSession(atSourceTime: .zero)
 
-        let queue = DispatchQueue(label: "videogen.encode.wav")
+        let queue = DispatchQueue(label: "halation.encode.wav")
         // Routed through the Sendable channel for the same reason as the main
         // pumps: AVFoundation's types are not Sendable, and the safety argument
         // is that the block runs serially on the queue we hand it.

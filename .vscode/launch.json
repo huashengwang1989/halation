@@ -4,21 +4,21 @@
             "type": "swift",
             "request": "launch",
             "args": [],
-            "cwd": "${workspaceFolder:video-gen}",
-            "name": "Debug VideoGen",
-            "target": "VideoGen",
+            "cwd": "${workspaceFolder:halation}",
+            "name": "Debug Halation",
+            "target": "Halation",
             "configuration": "debug",
-            "preLaunchTask": "swift: Build Debug VideoGen"
+            "preLaunchTask": "swift: Build Debug Halation"
         },
         {
             "type": "swift",
             "request": "launch",
             "args": [],
-            "cwd": "${workspaceFolder:video-gen}",
-            "name": "Release VideoGen",
-            "target": "VideoGen",
+            "cwd": "${workspaceFolder:halation}",
+            "name": "Release Halation",
+            "target": "Halation",
             "configuration": "release",
-            "preLaunchTask": "swift: Build Release VideoGen"
+            "preLaunchTask": "swift: Build Release Halation"
         }
     ]
 }

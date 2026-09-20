@@ -68,7 +68,7 @@ actor ComfyUIBackend: RenderBackend {
         let workflow = ComfyUIWorkflow(
             spec: spec, models: models, seed: seed,
             referenceImages: uploaded,
-            outputPrefix: "videogen/\(UUID().uuidString.prefix(8))")
+            outputPrefix: "halation/\(UUID().uuidString.prefix(8))")
 
         let clientID = UUID().uuidString
         try await openSocket(base: base, clientID: clientID)
@@ -111,7 +111,7 @@ actor ComfyUIBackend: RenderBackend {
         }
         var names: [String] = []
         for (index, asset) in images.enumerated() {
-            let name = "videogen_ref_\(UUID().uuidString.prefix(8))_\(index).\(asset.url.pathExtension)"
+            let name = "halation_ref_\(UUID().uuidString.prefix(8))_\(index).\(asset.url.pathExtension)"
             let destination = inputDir.appending(path: name)
             try? FileManager.default.removeItem(at: destination)
             try FileManager.default.copyItem(at: asset.url, to: destination)

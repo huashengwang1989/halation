@@ -3,7 +3,7 @@
 ## Build, run, lint
 
 ```bash
-make app     # build dist/VideoGen.app (release)
+make app     # build dist/Halation.app (release)
 make debug   # debug bundle
 make run     # build and launch
 make lint    # SwiftLint with the project config
@@ -53,7 +53,7 @@ Claims about behaviour should be checked, not asserted. What has worked here:
   lists and sizes. Several catalog entries were wrong until checked this way.
 - **Read the port's source.** Its actual signature is the contract, not the
   README.
-- **Exercise the sidecar standalone.** `python videogen_sidecar.py doctor`
+- **Exercise the sidecar standalone.** `python halation_sidecar.py doctor`
   reports runtime health as one JSON object.
 
 ### Known limits of that tooling
@@ -143,8 +143,8 @@ background and reads as one more segment that can never be selected.
 To find strings that were missed, scan for literals rather than reading screens:
 
 ```bash
-grep -rnE '(Text|Label|Button)\("[A-Z]' Sources/VideoGen/Views/
-grep -rnE 'return "[A-Z]|message: "[A-Z]' Sources/VideoGen/Models/
+grep -rnE '(Text|Label|Button)\("[A-Z]' Sources/Halation/Views/
+grep -rnE 'return "[A-Z]|message: "[A-Z]' Sources/Halation/Models/
 ```
 
 The second one matters more. Most of what was missed was not in a view at all

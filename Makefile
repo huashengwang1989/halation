@@ -1,13 +1,13 @@
 .PHONY: app run debug clean test lint lint-fix
 
-app:            ## Build VideoGen.app (release)
+app:            ## Build Halation.app (release)
 	@Scripts/make_app.sh release
 
-debug:          ## Build VideoGen.app (debug)
+debug:          ## Build Halation.app (debug)
 	@Scripts/make_app.sh debug
 
 run: app        ## Build and launch
-	@open dist/VideoGen.app
+	@open dist/Halation.app
 
 clean:
 	@rm -rf .build dist

@@ -21,7 +21,7 @@ import subprocess
 import sys
 from pathlib import Path
 
-ENTRIES = Path(__file__).resolve().parent.parent / "Sources/VideoGen/Models/ModelCatalog+Entries.swift"
+ENTRIES = Path(__file__).resolve().parent.parent / "Sources/Halation/Models/ModelCatalog+Entries.swift"
 ALIASES = {
     "comfyRepoID": "Comfy-Org/MiniMax-H3",
     "upstreamRepoID": "MiniMaxAI/MiniMax-H3",

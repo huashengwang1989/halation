@@ -1,7 +1,7 @@
 import SwiftUI
 
 @main
-struct VideoGenApp: App {
+struct HalationApp: App {
     @State private var app = AppState()
     @State private var localization = Localization.shared
 

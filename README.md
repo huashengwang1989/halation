@@ -1,4 +1,4 @@
-# VideoGen
+# Halation
 
 A native macOS app for generating video locally with **MiniMax H3**, on Apple silicon.
 
@@ -14,8 +14,8 @@ transformer. The app is therefore two halves:
 
 | Half | Does |
 |---|---|
-| **SwiftUI app** (`Sources/VideoGen`) | Model library, render queue, format validation, H.265 encoding, video library |
-| **Python sidecar** (`Sources/VideoGen/Resources/sidecar`) | Drives [`PipeNetwork/minimax-h3-mlx`](https://github.com/PipeNetwork/minimax-h3-mlx), the Apache-2.0 Apple-silicon port |
+| **SwiftUI app** (`Sources/Halation`) | Model library, render queue, format validation, H.265 encoding, video library |
+| **Python sidecar** (`Sources/Halation/Resources/sidecar`) | Drives [`PipeNetwork/minimax-h3-mlx`](https://github.com/PipeNetwork/minimax-h3-mlx), the Apache-2.0 Apple-silicon port |
 
 They talk over NDJSON on stdout — one JSON object per line, one event per line.
 The app owns everything the user can see; the sidecar owns the tensors.
@@ -45,11 +45,11 @@ H3 conditions on. The 4-bit transformer is 26 GB and the VAEs 12 GB.
 make run
 ```
 
-That builds `dist/VideoGen.app` and launches it. `make app` builds without launching;
+That builds `dist/Halation.app` and launches it. `make app` builds without launching;
 `make debug` builds a debug bundle. Xcode can also open `Package.swift` directly.
 
 On first launch the app walks through licence acknowledgement, runtime install and
-model download. The runtime lives in `~/Library/Application Support/VideoGen` and can
+model download. The runtime lives in `~/Library/Application Support/Halation` and can
 be rebuilt from Settings › Runtime without touching downloaded weights.
 
 ## The shared models folder
@@ -80,7 +80,7 @@ states each one where it is relevant rather than exposing a control that does no
 
 ## Output
 
-Finished clips go to `~/Movies/VideoGen` as **H.264** with AAC audio muxed in —
+Finished clips go to `~/Movies/Halation` as **H.264** with AAC audio muxed in —
 which is what both backends write, so the file is delivered exactly as rendered
 rather than re-encoded. ComfyUI can also write **AV1**, though this Mac has no
 AV1 encoder in hardware so it is software-encoded and slow.
@@ -89,7 +89,7 @@ The codec list is deliberately what the engines emit, not everything AVFoundatio
 could produce: asking for a codec neither backend writes would mean a second
 encode, spending quality to change container format.
 
-Every clip is written with a `.videogen.json` sidecar recording the prompt, seed,
+Every clip is written with a `.halation.json` sidecar recording the prompt, seed,
 steps, canvas and codec — so a render stays reproducible even without this app.
 "Reproduce Exactly" in the Library re-queues a clip with its original seed.
 
@@ -129,13 +129,13 @@ several plausible assumptions that turned out to be wrong.
 ## Layout
 
 ```
-Sources/VideoGen/
+Sources/Halation/
   Models/        OutputFormat, ModelCatalog, GenerationSpec, RenderJob
   Services/      ModelStore, RuntimeManager, DownloadManager,
                  RenderEngine, VideoPostProcessor, LibraryStore, ProcessRunner
   Views/         Compose, Queue, Library, Models, Settings, Onboarding
   Resources/sidecar/
-                 videogen_sidecar.py   doctor / probe / download / generate
+                 halation_sidecar.py   doctor / probe / download / generate
                  h3_adapter.py         capability detection
                  protocol.py           NDJSON event protocol
 ```

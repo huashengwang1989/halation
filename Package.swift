@@ -2,13 +2,13 @@
 import PackageDescription
 
 let package = Package(
-    name: "VideoGen",
+    name: "Halation",
     defaultLocalization: "en",
     platforms: [.macOS(.v26)],
     targets: [
         .executableTarget(
-            name: "VideoGen",
-            path: "Sources/VideoGen",
+            name: "Halation",
+            path: "Sources/Halation",
             resources: [.copy("Resources/sidecar"), .process("Resources/Localizations")],
             swiftSettings: [.swiftLanguageMode(.v6)],
             // SwiftUI's VideoPlayer lives in the _AVKit_SwiftUI overlay, whose

@@ -206,7 +206,7 @@ struct VideoPostProcessor: Sendable {
 
             // ── Video ────────────────────────────────────────────────────────
             group.enter()
-            let videoQueue = DispatchQueue(label: "videogen.encode.video", qos: .userInitiated)
+            let videoQueue = DispatchQueue(label: "halation.encode.video", qos: .userInitiated)
             video.writerInput.requestMediaDataWhenReady(on: videoQueue) {
                 while video.writerInput.isReadyForMoreMediaData {
                     guard let sample = state.takePending() ?? video.readerOutput.copyNextSampleBuffer() else {
@@ -250,7 +250,7 @@ struct VideoPostProcessor: Sendable {
             // ── Audio ────────────────────────────────────────────────────────
             if let audio {
                 group.enter()
-                let audioQueue = DispatchQueue(label: "videogen.encode.audio", qos: .userInitiated)
+                let audioQueue = DispatchQueue(label: "halation.encode.audio", qos: .userInitiated)
                 audio.writerInput.requestMediaDataWhenReady(on: audioQueue) {
                     while audio.writerInput.isReadyForMoreMediaData {
                         guard let sample = audio.readerOutput.copyNextSampleBuffer(),

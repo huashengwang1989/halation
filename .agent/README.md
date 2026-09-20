@@ -1,4 +1,4 @@
-# Agent instructions — VideoGen
+# Agent instructions — Halation
 
 This folder is the single source of truth for any AI coding agent working on this
 repository. It is tool-neutral: `AGENTS.md`, `CLAUDE.md`, `GEMINI.md`,

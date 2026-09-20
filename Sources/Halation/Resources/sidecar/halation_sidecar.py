@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Sidecar for the VideoGen Mac app.
+"""Sidecar for the Halation Mac app.
 
 Subcommands
   doctor    Report the runtime's health as a single JSON object.
@@ -666,7 +666,7 @@ class _StepTee:
 # ── entry point ─────────────────────────────────────────────────────────────────
 
 def main(argv: Optional[List[str]] = None) -> int:
-    parser = argparse.ArgumentParser(prog="videogen_sidecar")
+    parser = argparse.ArgumentParser(prog="halation_sidecar")
     subparsers = parser.add_subparsers(dest="command", required=True)
 
     subparsers.add_parser("doctor").set_defaults(func=cmd_doctor)
