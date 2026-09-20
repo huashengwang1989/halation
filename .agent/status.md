@@ -114,11 +114,19 @@ not what the obvious reading of `AppleLanguages` suggests.
 
 ## Next
 
-1. **Run a real render.** Install the recommended bundle, generate a 5 s clip at
-   low steps, and confirm the file, audio, thumbnail and recipe JSON all appear.
-   Expect 1–2 hours.
-2. `roadmap/ref2va-comfyui.md` — Ref2VA via a ComfyUI backend. Starts with a
-   research question that may kill the plan; read it first.
+Both of the previous entries here are done: real renders have been produced on
+both engines — three sit in the Library, one of them a Ref2VA reference render
+through ComfyUI — so `roadmap/ref2va-comfyui.md` is now history rather than a
+plan.
+
+1. `roadmap/image-generation.md` — text to image, expansion, reference and
+   editing. Investigated but not started; the engine and the nodes are already
+   installed, so it is weights plus a workflow graph. Read the "what the app
+   assumes about video" section first: the structural change it needs is larger
+   than the feature itself.
+2. **Untested paths**, in rough order of risk: AV1 end to end, ComfyUI for
+   text-to-video and keyframes (needs the 21 GB FL2VA transformer), and model
+   deletion.
 
 ## Watch list
 
