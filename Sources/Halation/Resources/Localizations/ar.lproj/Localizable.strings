@@ -2,6 +2,7 @@
 
 "a11y.elapsed" = "انقضى %@";
 
+/* WARNING: Spoken by VoiceOver. Percentages take plural agreement in several languages — Russian distinguishes 1, 2-4 and 5-20 — and this has one form. */
 "a11y.percent" = "%@ بالمئة";
 
 "a11y.remaining" = "يتبقى نحو %@";
@@ -20,7 +21,7 @@
 
 "common.cancel" = "إلغاء";
 
-/* macOS uses 拷貝 in Traditional Chinese, 复制 in Simplified. */
+/* Imperative verb on a button — copy this to the clipboard. Never the noun "a copy". macOS uses 拷貝 in Traditional Chinese, 复制 in Simplified. */
 "common.copy" = "نسخ";
 
 "common.delete" = "حذف";
@@ -29,13 +30,15 @@
 
 "common.download" = "تنزيل";
 
+/* Noun: the name of a preset or a file. A field label, not the verb "to name". */
 "common.name" = "الاسم";
 
 "common.refresh" = "تحديث";
 
-/* Reveal in Finder. */
+/* Imperative verb: show this file in the Finder, selected in its folder. Follow whatever the platform calls it — it is a Finder idiom, not a general "show". */
 "common.reveal" = "إظهار";
 
+/* Imperative verb on a button: write to disk. Not the sense of rescuing or of saving money. */
 "common.save" = "حفظ";
 
 "compose.aspect" = "نسبة العرض إلى الارتفاع";
@@ -46,6 +49,7 @@
 
 "compose.aspect.pixels" = "%1$@ في %2$@ بكسل";
 
+/* Labels the switch for whether the render produces sound. A property of the output. Distinct from refs.kind.audio, which names a kind of file the user attaches. */
 "compose.audio" = "الصوت";
 
 "compose.audio.footnote" = "يولّد H3 صوتًا ستيريو بتردد 32 kHz في المسار نفسه الذي يولّد فيه الصورة؛ ولا يوجد وضع صامت أسرع.";
@@ -54,13 +58,14 @@
 
 "compose.engine.comfy.note" = "يعمل عبر ComfyUI على PyTorch/Metal، ويستطيع تحميل turbo LoRA ذات الأربع خطوات. أربع خطوات مقطّرة تستغرق زمنًا قريبًا من خمس خطوات غير مقطّرة على MLX، وهي ما دُرّبت عليه الـ LoRA.";
 
+/* Which backend runs the model — MLX or ComfyUI. Not a motor, and not a game engine. Usually kept in English. */
 "compose.engine.label" = "المحرّك";
 
 "compose.engine.mlx.note" = "يعمل أصليًا على MLX. بلا خادم، وهو الخيار الافتراضي. أوزانه غير مقطّرة، لذا فإن أعداد الخطوات المنخفضة تخرج عن التوزيع — استخدم 16 خطوة أو أكثر للجودة.";
 
 "compose.framerate" = "معدل الإطارات";
 
-/* Button that queues a render — the verb, not a noun. */
+/* Imperative verb on the main action button: start the render. Not the noun, and not "generation" in the sense of a cohort. */
 "compose.generate" = "توليد";
 
 "compose.generate.blocked.generic" = "عالِج المشكلات المذكورة تحت «قبل التوليد».";
@@ -71,14 +76,18 @@
 
 "compose.generate.why" = "لماذا هذا معطّل؟";
 
+/* WARNING: Begins with a space because it is appended to the sentence before it — U+3000 for Chinese. Runtime concatenation: the two halves cannot be reordered, and a language needing the clause first cannot have it. */
 "compose.mode.task.fl2va" = " يستخدم نقطة التحقق FL2VA.";
 
+/* WARNING: See compose.mode.task.fl2va — same leading space, same concatenation. */
 "compose.mode.task.ref2va" = " يستخدم نقطة التحقق Ref2VA.";
 
+/* Labels the picker choosing between text-to-video and reference modes. A choice the user makes. Distinct from library.mode, which reports what a finished render used. */
 "compose.mode.title" = "الوضع";
 
 "compose.output.footnote" = "يصيّر النموذج دائمًا بمعدل 24 fps وبحافة قصيرة قدرها 768 بكسل. وكل ما عدا ذلك في هذه البطاقة يُطبَّق لاحقًا أثناء الترميز.";
 
+/* Heads the card for how the video is encoded — codec, resolution, frame rate. Output as in the result of a render. Distinct from settings.folder.output, a folder. */
 "compose.output.title" = "الإخراج";
 
 "compose.preset.delete" = "حذف إعداد مخصّص";
@@ -104,6 +113,7 @@
 
 "compose.prompt.title" = "الموجّه";
 
+/* Pixel dimensions of the output. Not resolution in the sense of resolving a dispute or a decision. */
 "compose.resolution" = "الدقة";
 
 "format.audio.muxed" = "مدمج داخل الفيديو";
@@ -126,6 +136,7 @@
 
 "format.fps.native.detail" = "إيقاع النموذج نفسه. لا تُختلق إطارات ولا تُحذف.";
 
+/* WARNING: Takes a count. English offers only two forms and this string supplies one, so "1 frames" is already wrong; Arabic needs six categories and settles for a single compromise form. Any language with Slavic-style plurals will need a .stringsdict before this can be translated correctly. Counts start at 5 here because frames follow the VAE's 17n+5 grid, which is why nobody has hit the singular case. */
 "format.frames" = "%@ إطارًا";
 
 "format.framesAndLength" = "%1$@ إطارًا · %2$@ ث";
@@ -152,12 +163,15 @@
 
 "format.seconds" = "%@ ث";
 
+/* WARNING: Takes a count. English offers only two forms and this string supplies one, so "1 steps" is already wrong; Arabic needs six categories and settles for a single compromise form. Any language with Slavic-style plurals will need a .stringsdict before this can be translated correctly. GenerationSpec.stepsRange is 4...60, so the singular is unreachable today — but that range is a UI choice, not a property of the sampler. */
 "format.steps" = "%@ خطوة";
 
 "library.copied" = "تم النسخ";
 
+/* WARNING: Injects a name into a sentence. Languages that inflect a noun for case, choose an article by gender, or attach a vowel-harmonising suffix cannot do it without knowing the word, and it is only known at runtime. Prefer wording that sets the name apart — quoted, or on its own line. */
 "library.copySeed" = "نسخ %@";
 
+/* A Library column giving the length of a finished video. Reports a fact; sampling.duration sets a target. */
 "library.duration" = "المدة";
 
 "library.empty.detail" = "تُحفظ عمليات التصيير المنجزة في %@، مع ملف JSON لكل منها يسجّل الإعدادات التي أنتجته بالضبط.";
@@ -168,11 +182,13 @@
 
 "library.missing" = "لم يعد هذا الملف موجودًا على القرص";
 
+/* A column in the Library listing which mode produced a finished video. Reporting a past fact, where compose.mode.title is a control. Some languages prefer different words for the two. */
 "library.mode" = "الوضع";
 
 /* macOS calls it 垃圾桶 in TW, 废纸篓 in CN. */
 "library.moveToTrash" = "نقل إلى المهملات";
 
+/* Imperative verb: open the finished video in another app. Not the adjective. */
 "library.open" = "فتح";
 
 "library.renderTime" = "زمن التصيير";
@@ -183,8 +199,10 @@
 
 "library.search" = "البحث في الموجّهات";
 
+/* WARNING: Takes a count. English offers only two forms and this string supplies one, so "1 seconds" is already wrong; Arabic needs six categories and settles for a single compromise form. Any language with Slavic-style plurals will need a .stringsdict before this can be translated correctly. */
 "library.seconds" = "%@ ثانية";
 
+/* The random seed that determines a render's noise. A number, not a plant seed. Most languages keep the English term or transliterate it. */
 "library.seed" = "البذرة";
 
 "library.settings" = "الإعدادات";
@@ -204,7 +222,7 @@
 
 "mlx.runtimeNotReady" = "‏بيئة Python غير جاهزة. افتح «الإعدادات › بيئة التشغيل».";
 
-/* The opening frame of the clip. */
+/* The name of the first-frame mode in the mode picker: the render continues from a supplied image. Distinct from refs.slot.first, which labels the slot that image goes in. */
 "mode.first" = "الإطار الأول";
 
 "mode.first.detail" = "تحريك انطلاقًا من صورة ثابتة تقدّمها.";
@@ -213,7 +231,7 @@
 
 "mode.firstlast.detail" = "قدّم بداية اللقطة ونهايتها، ويولّد النموذج الحركة بينهما.";
 
-/* Reference images/videos/audio that define subject or style. */
+/* The name of the reference mode in the mode picker — the mode that conditions on supplied images or video. Distinct from refs.title.references, which heads the list of the files themselves. */
 "mode.reference" = "مراجع";
 
 "mode.reference.detail" = "قدّم صورًا أو مقاطع أو أصواتًا مرجعية لتثبيت الموضوع أو الأسلوب أو الصوت.";
@@ -304,12 +322,14 @@
 
 "models.cancelAll" = "إلغاء الكل";
 
+/* WARNING: Injects a name into a sentence. Languages that inflect a noun for case, choose an article by gender, or attach a vowel-harmonising suffix cannot do it without knowing the word, and it is only known at runtime. Prefer wording that sets the name apart — quoted, or on its own line. */
 "models.cancelDownload" = "إلغاء تنزيل %@";
 
 "models.change" = "تغيير…";
 
 "models.chooseFolder.message" = "اختر المجلد الذي تُشارَك فيه أوزان النماذج بين المشاريع";
 
+/* Removes completed downloads from the transfer list in Models. Same English as queue.clearFinished, different object — see it. */
 "models.clearFinished" = "مسح المكتملة";
 
 "models.copyFilename" = "نسخ اسم الملف";
@@ -328,6 +348,7 @@
 
 "models.delete.message" = "يحرّر نحو %1$@ من مجلد النماذج المشترك، وقد تستخدمه مشاريع أخرى على هذا الـ Mac — وأي شيء يعتمد على %2$@ سيحتاج إلى تنزيله مجددًا. تنتقل الملفات إلى المهملات، فيمكن التراجع حتى تفريغها.";
 
+/* WARNING: Injects a name into a sentence. Languages that inflect a noun for case, choose an article by gender, or attach a vowel-harmonising suffix cannot do it without knowing the word, and it is only known at runtime. Prefer wording that sets the name apart — quoted, or on its own line. */
 "models.delete.title" = "هل تريد حذف %@؟";
 
 "models.download.starting" = "جارٍ بدء النقل…";
@@ -380,10 +401,12 @@
 
 "models.rescan.help" = "إعادة قراءة مجلد النماذج المشترك";
 
+/* WARNING: Injects a name into a sentence. Languages that inflect a noun for case, choose an article by gender, or attach a vowel-harmonising suffix cannot do it without knowing the word, and it is only known at runtime. Prefer wording that sets the name apart — quoted, or on its own line. */
 "models.revealInFinder" = "إظهار %@ في Finder";
 
 "models.savingTo" = "سيُحفظ في %1$@، والمساحة الحرة %2$@.";
 
+/* Adjective describing a model the user has picked for a render. Not a verb, and not a count. */
 "models.selected" = "محدَّد";
 
 "models.showIncompatible" = "إظهار غير المتوافق";
@@ -396,6 +419,7 @@
 
 "models.status.missing" = "مطلوب لهذا التصيير، لكنه غير مُنزَّل";
 
+/* Imperative verb on a button — select these weights for the next render. Not the noun "usage". */
 "models.use" = "استخدام";
 
 "models.use.help.download" = "نزّله أولًا";
@@ -406,6 +430,7 @@
 
 "models.willDownload" = "سيتم تنزيل:";
 
+/* Navigates to the previous onboarding step. The direction, not the body part — and specifically "previous", which some languages word differently from "backwards". */
 "onboarding.back" = "رجوع";
 
 "onboarding.continue" = "متابعة";
@@ -441,6 +466,7 @@
 
 "onboarding.startDownload" = "بدء التنزيل";
 
+/* The combined download size of the recommended model set. A sum of bytes, not a count of files. */
 "onboarding.total" = "الإجمالي";
 
 "onboarding.welcome.title" = "توليد الفيديو على هذا الـ Mac";
@@ -451,8 +477,10 @@
 
 "preset.vertical" = "فيديو رأسي للتواصل الاجتماعي";
 
+/* WARNING: Wraps another translated sentence as "Blocking issue. %@". Two sentences glued together; the inner one was translated without knowing it would be prefixed. */
 "problem.blocking" = "مشكلة مانعة. %@";
 
+/* WARNING: Injects a task name into the noun phrase "a %@ checkpoint". The English article is fixed as "a", so a name beginning with a vowel sound already reads "a FL2VA" wrongly, and gendered languages cannot choose their article at all. */
 "problem.chooseCheckpoint" = "اختر نقطة تحقق %@ من «النماذج».";
 
 "problem.duration" = "يولّد H3 مقاطع مدتها 4–15 ثانية فقط.";
@@ -469,30 +497,39 @@
 
 "problem.needReference" = "يتطلّب Ref2VA ملف مرجع واحدًا على الأقل.";
 
+/* WARNING: Injects a name into a sentence. Languages that inflect a noun for case, choose an article by gender, or attach a vowel-harmonising suffix cannot do it without knowing the word, and it is only known at runtime. Prefer wording that sets the name apart — quoted, or on its own line. Here the name also begins the sentence, which forces capitalisation the model name may not want. */
 "problem.noMetalKernel" = "لا يملك %@ نواة Metal، ولا يمكن تشغيله على شرائح Apple.";
 
 "problem.notInstalled" = "نقطة التحقق المحددة غير مثبتة بعد.";
 
+/* WARNING: See problem.blocking — the same prefix-plus-sentence construction. */
 "problem.note" = "ملاحظة. %@";
 
 "problem.prompt.empty" = "اكتب موجّهًا يصف اللقطة.";
 
 "problem.refSlow" = "يعمل وضع المراجع عبر ComfyUI بدل MLX، وهو أبطأ لكل خطوة. ونموذج turbo LoRA ذو الأربع خطوات هو ما يبقي الزمن بالدقائق لا بالساعات.";
 
+/* WARNING: Injects a name into a sentence. Languages that inflect a noun for case, choose an article by gender, or attach a vowel-harmonising suffix cannot do it without knowing the word, and it is only known at runtime. Prefer wording that sets the name apart — quoted, or on its own line. */
 "problem.refUntagged" = "لا يذكر الموجّه %@ إطلاقًا. يشترط H3 على المراجع عبر هذه الوسوم، وما لا يُذكر يكون تأثيره أضعف بكثير.";
 
 "problem.t2v.extraFiles" = "يتجاهل وضع النص إلى فيديو الملفات المرفقة. بدّل الوضع لاستخدامها.";
 
+/* WARNING: Dead: nothing calls this. It duplicates problem.tooManyOfKind word for word, and only that one is used, from GenerationSpec. Worth deleting rather than translating again. */
 "problem.tooManyKind" = "بحد أقصى %1$@ من ملفات %2$@ المرجعية — لديك %3$@.";
 
+/* WARNING: Injects a count, then a *noun* naming the file kind, then a second count. The noun has to agree with the numeral in most inflecting languages, and it arrives lowercased by the call site, which is an assumption German does not share. The counts themselves never reach 1 — the per-kind limits are 9, 3 and 3 — so only the noun is a live problem. See also problem.tooManyKind, its unused twin. */
 "problem.tooManyOfKind" = "بحد أقصى %1$@ من ملفات %2$@ المرجعية — لديك %3$@.";
 
+/* WARNING: Takes a count of reference files, though the value is always ReferenceAsset.totalFileLimit, which is 12. A placeholder that only ever holds one constant: the plural risk is theoretical, and the number could as easily be written into each translation, which would let every language inflect around it. */
 "problem.tooManyTotal" = "يقبل Ref2VA %@ ملف مرجع بالإجمال.";
 
+/* WARNING: Injects a name into a sentence. Languages that inflect a noun for case, choose an article by gender, or attach a vowel-harmonising suffix cannot do it without knowing the word, and it is only known at runtime. Prefer wording that sets the name apart — quoted, or on its own line. Sentence-initial, as in problem.noMetalKernel. */
 "problem.upscale" = "‏%@ مجرد إعادة أخذ عيّنات لإخراج النموذج بدقة 768p. أما وضع 2K الحقيقي في H3 فليس مفتوح المصدر ولا يمكن تشغيله محليًا.";
 
+/* Marks a model published by someone other than the original authors — a conversion or a fine-tune. Neutral: it describes origin, not quality. See provenance.official. */
 "provenance.community" = "المجتمع";
 
+/* Marks a model published by the original authors, as opposed to provenance.community. About who released the weights, not about approval or certification. */
 "provenance.official" = "رسمي";
 
 "provenance.port" = "نقل MLX";
@@ -501,12 +538,16 @@
 
 "quantization.unloadable.nvfp4" = "‏NVFP4 صيغة خاصة ببنية NVIDIA Blackwell. ولا يوجد مسار عبر Metal لتشغيلها.";
 
+/* WARNING: Injects a name into a sentence. Languages that inflect a noun for case, choose an article by gender, or attach a vowel-harmonising suffix cannot do it without knowing the word, and it is only known at runtime. Prefer wording that sets the name apart — quoted, or on its own line. */
 "quantization.unloadable.other" = "لا يستطيع أي محرّك هنا تحميل %@.";
 
+/* WARNING: A lowercase fragment appended to a longer spoken string. Languages that inflect or that put the qualifier first cannot produce a correct sentence from a fragment, and lowercase is itself an assumption German does not share. */
 "queue.a11y.held" = "مُعلَّق";
 
+/* WARNING: Takes a count of jobs waiting in front of this one. The count is 1 whenever a single job is ahead, which is the common case, so plural-sensitive languages will read wrongly here. */
 "queue.ahead" = "في الانتظار — %@ قبله";
 
+/* Removes finished jobs from the render queue. The English matches models.clearFinished exactly but the object differs — jobs, not downloads — and languages that inflect the verb for its object will need different wording. */
 "queue.clearFinished" = "مسح المكتملة";
 
 "queue.clearFinished.help" = "إزالة عمليات التصيير المكتملة والفاشلة والملغاة من هذه القائمة";
@@ -521,7 +562,7 @@
 
 "queue.held" = "معلّق — لن يبدأ حتى يُستأنف";
 
-/* Hold a queued job back so it is skipped, not cancel it. */
+/* Imperative verb on a button: keep this job in the queue but do not start it. The opposite of queue.release. Not the noun "a hold", and not "hold" as in grip. */
 "queue.hold" = "تعليق";
 
 "queue.hold.help" = "تعليق هذا التصيير";
@@ -550,6 +591,7 @@
 
 "queue.perStep.now" = "%@/خطوة الآن";
 
+/* Imperative verb: let a held job run again. The opposite of queue.hold. NOT a software release or version — a common and damaging mistranslation. */
 "queue.release" = "استئناف";
 
 "queue.release.help" = "السماح ببدء هذا التصيير";
@@ -574,10 +616,12 @@
 
 "queue.step" = "الخطوة %1$@ من %2$@";
 
+/* Imperative verb: cancel the render that is running. Not "pause"; the work is discarded. */
 "queue.stop" = "إيقاف";
 
 "queue.stop.help" = "إيقاف هذا التصيير. سيضيع التقدّم، إذ لا يمكن استئناف التصيير.";
 
+/* WARNING: Takes a count. English offers only two forms and this string supplies one, so "1 tokens" is already wrong; Arabic needs six categories and settles for a single compromise form. Any language with Slavic-style plurals will need a .stringsdict before this can be translated correctly. */
 "queue.tokens" = "%@ توكن";
 
 "queue.tokens.help" = "طول المتسلسلة التي يقرأها مشفّر النص: %1$@ توكن إجمالًا، منها %2$@ من المطالبة، والباقي توكنات بصرية بمقدار كتلة لكل صورة مرجعية. تُقرأ مرة واحدة قبل بدء إزالة التشويش — ولا يُولَّد هنا شيء توكنًا بتوكن.";
@@ -606,16 +650,21 @@
 
 "refs.insertTags.help" = "إلحاق %@ بالموجّه";
 
+/* Names the audio *file* kind in the reference list, beside Image and Video. A category of attachment — see compose.audio. */
 "refs.kind.audio" = "صوت";
 
+/* Names the still-image kind in the reference list, beside Video and Audio. A file category. */
 "refs.kind.image" = "صورة";
 
+/* Names the video kind in the reference list, beside Image and Audio. A file category. */
 "refs.kind.video" = "فيديو";
 
+/* WARNING: Injects a name into a sentence. Languages that inflect a noun for case, choose an article by gender, or attach a vowel-harmonising suffix cannot do it without knowing the word, and it is only known at runtime. Prefer wording that sets the name apart — quoted, or on its own line. */
 "refs.remove" = "إزالة %@";
 
 "refs.removeAll" = "إزالة الكل";
 
+/* Labels the drop target for the first-frame image. A place to put a file, where mode.first is a mode — see it. */
 "refs.slot.first" = "الإطار الأول";
 
 "refs.slot.last" = "الإطار الأخير";
@@ -624,6 +673,7 @@
 
 "refs.title.keyframes" = "الإطارات المفتاحية";
 
+/* Heads the card listing the reference files the user has attached. The files, not the mode — see mode.reference. */
 "refs.title.references" = "المراجع";
 
 "role.accelerator" = "نماذج LoRA للتسريع";
@@ -634,6 +684,7 @@
 
 "role.support.detail" = "صغيرة وإلزامية ومشتركة بين كل شيء. تُثبَّت مرة واحدة.";
 
+/* Names the text-encoder role in the model catalogue — a kind of model file. Distinct from summary.textEncoder, which names the specific encoder a render will use. */
 "role.textEncoder" = "مُرمِّز النص";
 
 "role.textEncoder.detail" = "يعتمد H3 على Qwen3-VL-32B. وهو أكبر تنزيل مفرد، وتشترك فيه المهمتان.";
@@ -648,6 +699,7 @@
 
 "runtime.ready" = "بيئة التشغيل جاهزة — Python %1$@، وMLX على Metal";
 
+/* How long the finished clip will be, in the Sampling card. A length the user is choosing. Distinct from library.duration, which reports the length of a video already made. */
 "sampling.duration" = "المدة";
 
 /* 'Seed' is kept in English; the qualifier is translated. */
@@ -661,6 +713,7 @@
 
 "sampling.snapped.inexact" = "يُصيَّر %1$@ إطارًا — أي %2$@ ثانية عند 24 fps، وهي أقرب مدة يستطيع video VAE ترميزها.";
 
+/* Denoising steps — iterations of the sampler. Not stairs, and not steps in a set of instructions. */
 "sampling.steps" = "الخطوات";
 
 "sampling.steps.note" = "الخطوات هي مرات إزالة التشويش الفعلية، وتحدّد زمن التصيير تحديدًا خطّيًا تقريبًا. %1$@ وتنحاز المدة إلى شبكة إطارات video VAE ‏(17n+5)، لذا فالقيمة المعروضة هي ما سيُصيَّر فعلًا.";
@@ -671,12 +724,13 @@
 
 "sampling.title" = "المعاينة";
 
-/* The screen where you write a prompt and set up a render. */
+/* The Compose tab: the screen where a render is set up. Not the verb. Distinct from settings.remember.section, which is the name of a group of settings *about* that screen. */
 "section.compose" = "إنشاء";
 
 /* Collection of finished videos — not a code library. */
 "section.library" = "المكتبة";
 
+/* The Models tab in the sidebar. Distinct from settings.folder.models (a folder on disk) and summary.models (the weights a particular render will load). */
 "section.models" = "النماذج";
 
 "section.queue" = "قائمة الانتظار";
@@ -697,6 +751,7 @@
 
 "settings.architecture" = "البنية";
 
+/* Imperative verb on a button. Not the noun "installation", which is a different word in most languages. */
 "settings.comfy.install" = "تثبيت";
 
 "settings.comfy.notRunning" = "لا يعمل";
@@ -709,14 +764,18 @@
 
 "settings.comfy.stop" = "إيقاف الخادم";
 
+/* Model weights — the trained parameters of a neural network. Never the sense of heaviness or of weighting a value. Many languages keep the English term. */
 "settings.comfy.weights" = "الأوزان";
 
 "settings.comfy.why" = "يعمل وضع المراجع هنا بدل MLX، إذ لا تقبل منظومته سوى الإطارات المفتاحية. كما يحمّل ComfyUI نماذج turbo LoRA ذات الأربع خطوات، وهو ما يجعل التصيير المرجعي عمليًا أصلًا.";
 
+/* Adjective: the app found this component on the machine by itself. Reports a discovery, not an action available. */
 "settings.detected" = "تم الكشف";
 
+/* Labels the folder on disk where weights are stored, in Settings ▸ Folders. A location, not the tab — see section.models. */
 "settings.folder.models" = "النماذج";
 
+/* Labels the folder finished videos are written to, in Settings ▸ Folders. A location — see compose.output.title. */
 "settings.folder.output" = "الإخراج";
 
 "settings.folders" = "المجلدات";
@@ -737,10 +796,12 @@
 
 "settings.language.system" = "اتّباع النظام (%@)";
 
+/* Noun: the record of what the runtime printed. Not the verb "to log", and not a logarithm. */
 "settings.log" = "السجل";
 
 "settings.log.accessibility" = "سجل التثبيت";
 
+/* Imperative verb: empty the log. Not the adjective "clear" meaning legible or transparent. */
 "settings.log.clear" = "مسح";
 
 "settings.mlxMetal" = "‏MLX على Metal";
@@ -773,8 +834,10 @@
 
 "settings.remember.sampling" = "تذكّر إعدادات المعاينة";
 
+/* Names the group of Compose-screen settings in Settings ▸ General. A heading over a set of options, not the tab itself — see section.compose. */
 "settings.remember.section" = "الإنشاء";
 
+/* Imperative verb on a button: reinstall the broken parts of the runtime. Not a noun. */
 "settings.repair" = "إصلاح";
 
 /* The Python environment the app manages, not a term of art: TW says 執行環境, mainland 运行时. */
@@ -782,10 +845,13 @@
 
 "settings.runtime.rebuild.note" = "تؤدي إعادة البناء إلى حذف بيئة Python وإنشائها من جديد. ولا تمسّ الأوزان التي جرى تنزيلها.";
 
+/* Labels one row reporting the runtime's condition. German separates this (Zustand) from Status; English does not. If a language has only one word, using it for both is fine. */
 "settings.state" = "الحالة";
 
+/* Heads the runtime status section in Settings. A section heading, not the status-bar label — see status.label. */
 "settings.status" = "الحالة";
 
+/* Means the runtime is functioning correctly — NOT "in progress". The value shown beside settings.state when nothing is wrong. Translate as "OK" or "functioning", never as "busy". */
 "settings.working" = "يعمل";
 
 "sidebar.hide" = "إخفاء الشريط الجانبي";
@@ -810,15 +876,17 @@
 
 "status.checking" = "جارٍ التحقق…";
 
+/* Labels the health indicator in the status bar along the bottom of the window. Distinct from settings.status, which heads a whole section, and from settings.state. */
 "status.label" = "الحالة";
 
 "status.memory.help" = "الذاكرة المقيمة لعملية التصيير ونسبتها من ذاكرة هذا الـ Mac البالغة %@";
 
+/* WARNING: Takes a count of queued jobs. Safer than the other counts because no noun follows the number in English, but languages that inflect the verb or add a classifier still need the count itself. */
 "status.queued.count" = "%@ في قائمة الانتظار";
 
 "status.ready" = "جاهز";
 
-/* Estimated time still to run. The duration is already localized. */
+/* WARNING: Joined to status.step with " · " in StatusBar, so the two halves are translated apart and assembled in a fixed order. The duration inside is already localized. */
 "status.remaining" = "%@ متبقٍ";
 
 "status.runtime.error" = "خطأ في بيئة التشغيل";
@@ -827,7 +895,7 @@
 
 "status.runtime.missing" = "بيئة التشغيل غير مثبتة";
 
-/* Progress through the sampler's steps, shown in the status bar during a render. Lower-case in English because it sits inside a sentence fragment. */
+/* WARNING: Built without positional specifiers — "%@/%@" rather than "%1$@/%2$@" — so a translator cannot swap the two numbers. Every other multi-argument string in this file is positional; this one is the exception and should be brought into line. */
 "status.step" = "الخطوة %@/%@";
 
 "summary.bitrate" = "معدل البت المستهدف";
@@ -848,10 +916,12 @@
 
 "summary.generates" = "يُولَّد بمقاس";
 
+/* The duration of the clip in time. Not physical length, and not the length of a list. Compare sampling.duration. */
 "summary.length" = "الطول";
 
 "summary.length.value" = "%1$@ إطارًا · %2$@ ثانية";
 
+/* Heads the list of weights a render will load, in the Compose summary. Means these specific files, not the tab and not the folder. */
 "summary.models" = "النماذج";
 
 "summary.notSelected" = "لم يُحدَّد";
@@ -860,8 +930,10 @@
 
 "summary.render" = "هذا التصيير";
 
+/* The particular job a checkpoint was trained for — first-frame continuation or reference conditioning. A machine-learning sense, not a to-do item or a queued job. */
 "summary.task" = "المهمة";
 
+/* Names the encoder chosen for this render, in the Compose summary. A particular file; role.textEncoder is the category. */
 "summary.textEncoder" = "مُرمِّز النص";
 
 /* Architecture name; left in English. */

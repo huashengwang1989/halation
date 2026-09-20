@@ -292,16 +292,21 @@ struct LocalizationInspector: View {
                 Button {
                     openNote = entry.key
                 } label: {
-                    Image(systemName: "info.circle").foregroundStyle(.secondary)
+                    Image(systemName: entry.level.symbolName)
+                        .foregroundStyle(entry.level == .warning ? .orange : .secondary)
                 }
                 .buttonStyle(.plain)
                 .popover(isPresented: Binding(
                     get: { openNote == entry.key },
                     set: { if !$0 { openNote = nil } })) {
                     VStack(alignment: .leading, spacing: 6) {
-                        Text(entry.key)
-                            .font(.system(.caption, design: .monospaced))
-                            .foregroundStyle(.secondary)
+                        HStack(spacing: 5) {
+                            Image(systemName: entry.level.symbolName)
+                                .foregroundStyle(entry.level == .warning ? .orange : .secondary)
+                            Text(entry.key)
+                                .font(.system(.caption, design: .monospaced))
+                                .foregroundStyle(.secondary)
+                        }
                         Text(entry.note)
                             .font(.callout)
                             .textSelection(.enabled)

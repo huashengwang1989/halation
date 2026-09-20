@@ -13,9 +13,37 @@ Run Scripts/build_strings.py to regenerate the .lproj files.
 
 T = {}
 
-def add(key, en, zh_hant, zh_hans, de, ar, note=""):
+# Note levels, shown in Debug ▸ Localisations (i18n):
+#
+#   info     context a translator needs — what an ambiguous word means here,
+#            where it appears, which sense is intended.
+#   warning  the key is translatable into the five languages shipped today, but
+#            the *way* it is built will not survive some language we may add.
+#            Plural counts, injected nouns and runtime-assembled sentences are
+#            the usual causes. A warning is not a bug report: nothing here is
+#            broken in en/zh/de/ar unless the note says so.
+INFO = "info"
+WARNING = "warning"
+
+
+def add(key, en, zh_hant, zh_hans, de, ar, note="", level=INFO):
     T[key] = {"en": en, "zh-Hant": zh_hant, "zh-Hans": zh_hans, "de": de, "ar": ar,
-              "note": note}
+              "note": note, "level": level}
+
+
+def annotate(key, note, level=INFO):
+    """Attach a note to a key defined above.
+
+    Kept separate from `add` on purpose. These came out of one pass over the
+    whole table looking for ambiguity and for constructions that will not
+    generalise, and they read as a body of work: a reviewer can see every
+    warning at once instead of hunting through four hundred `add` calls, and
+    adding to the audit never reflows the definitions.
+    """
+    if key not in T:
+        raise KeyError(f"annotate: no such key {key!r}")
+    T[key]["note"] = note
+    T[key]["level"] = level
 
 # ── Navigation ───────────────────────────────────────────────────────────────
 add("section.compose", "Compose", "編寫", "编写", "Erstellen", "إنشاء",
@@ -1661,3 +1689,325 @@ add("settings.remember.sampling", "Remember sampling settings",
 add("settings.remember.output", "Remember output settings",
     "記住輸出設定", "记住输出设置",
     "Ausgabeeinstellungen merken", "تذكّر إعدادات الإخراج")
+
+
+# ═══════════════════════════════════════════════════════════════════════════
+# Translator notes — one pass over the whole table
+# ═══════════════════════════════════════════════════════════════════════════
+#
+# Two things were looked for.
+#
+# Ambiguity. A short English string carries its meaning from where it sits on
+# screen, and a translator cannot see the screen. English "Working" can mean
+# "in progress" or "not broken"; German has to pick one and cannot pick both.
+# Worse, two keys with the same English can need different words elsewhere, so
+# a developer who reuses a key because the English matched has silently changed
+# the meaning in four other languages.
+#
+# Constructions that will not generalise. The five languages here are easy
+# cases: Chinese has no plural inflection or grammatical gender, German is
+# close to English, and Arabic's difficulties were absorbed by the translator
+# choosing one compromise form. Spanish, French, Portuguese, Japanese, Korean,
+# Russian, Polish, Finnish and Turkish are not all so forgiving, and the shape
+# of a format string decides whether they can be translated at all.
+#
+# A warning here is not a bug report. Almost nothing below is broken in the
+# five languages shipped today; the exceptions say so explicitly.
+
+
+# ── Same English, different meaning ────────────────────────────────────────
+#
+# These pairs are the ones to be careful with. The English matches, so nothing
+# stops a developer reusing whichever key autocomplete offers first — and in a
+# language that distinguishes the two senses that quietly mistranslates one of
+# them. Each note says which is which.
+
+annotate("section.compose", "The Compose tab: the screen where a render is set "
+         "up. Not the verb. Distinct from settings.remember.section, which is "
+         "the name of a group of settings *about* that screen.")
+annotate("settings.remember.section", "Names the group of Compose-screen "
+         "settings in Settings ▸ General. A heading over a set of options, not "
+         "the tab itself — see section.compose.")
+
+annotate("section.models", "The Models tab in the sidebar. Distinct from "
+         "settings.folder.models (a folder on disk) and summary.models (the "
+         "weights a particular render will load).")
+annotate("settings.folder.models", "Labels the folder on disk where weights are "
+         "stored, in Settings ▸ Folders. A location, not the tab — see "
+         "section.models.")
+annotate("summary.models", "Heads the list of weights a render will load, in "
+         "the Compose summary. Means these specific files, not the tab and not "
+         "the folder.")
+
+annotate("compose.output.title", "Heads the card for how the video is encoded — "
+         "codec, resolution, frame rate. Output as in the result of a render. "
+         "Distinct from settings.folder.output, a folder.")
+annotate("settings.folder.output", "Labels the folder finished videos are "
+         "written to, in Settings ▸ Folders. A location — see "
+         "compose.output.title.")
+
+annotate("compose.mode.title", "Labels the picker choosing between text-to-video "
+         "and reference modes. A choice the user makes. Distinct from "
+         "library.mode, which reports what a finished render used.")
+annotate("library.mode", "A column in the Library listing which mode produced a "
+         "finished video. Reporting a past fact, where compose.mode.title is a "
+         "control. Some languages prefer different words for the two.")
+
+annotate("mode.reference", "The name of the reference mode in the mode picker — "
+         "the mode that conditions on supplied images or video. Distinct from "
+         "refs.title.references, which heads the list of the files themselves.")
+annotate("refs.title.references", "Heads the card listing the reference files "
+         "the user has attached. The files, not the mode — see mode.reference.")
+
+annotate("sampling.duration", "How long the finished clip will be, in the "
+         "Sampling card. A length the user is choosing. Distinct from "
+         "library.duration, which reports the length of a video already made.")
+annotate("library.duration", "A Library column giving the length of a finished "
+         "video. Reports a fact; sampling.duration sets a target.")
+
+annotate("status.label", "Labels the health indicator in the status bar along "
+         "the bottom of the window. Distinct from settings.status, which heads "
+         "a whole section, and from settings.state.")
+annotate("settings.status", "Heads the runtime status section in Settings. A "
+         "section heading, not the status-bar label — see status.label.")
+annotate("settings.state", "Labels one row reporting the runtime's condition. "
+         "German separates this (Zustand) from Status; English does not. If a "
+         "language has only one word, using it for both is fine.")
+
+annotate("compose.audio", "Labels the switch for whether the render produces "
+         "sound. A property of the output. Distinct from refs.kind.audio, which "
+         "names a kind of file the user attaches.")
+annotate("refs.kind.audio", "Names the audio *file* kind in the reference list, "
+         "beside Image and Video. A category of attachment — see compose.audio.")
+
+annotate("mode.first", "The name of the first-frame mode in the mode picker: "
+         "the render continues from a supplied image. Distinct from "
+         "refs.slot.first, which labels the slot that image goes in.")
+annotate("refs.slot.first", "Labels the drop target for the first-frame image. "
+         "A place to put a file, where mode.first is a mode — see it.")
+
+annotate("role.textEncoder", "Names the text-encoder role in the model "
+         "catalogue — a kind of model file. Distinct from summary.textEncoder, "
+         "which names the specific encoder a render will use.")
+annotate("summary.textEncoder", "Names the encoder chosen for this render, in "
+         "the Compose summary. A particular file; role.textEncoder is the "
+         "category.")
+
+annotate("queue.clearFinished", "Removes finished jobs from the render queue. "
+         "The English matches models.clearFinished exactly but the object "
+         "differs — jobs, not downloads — and languages that inflect the verb "
+         "for its object will need different wording.")
+annotate("models.clearFinished", "Removes completed downloads from the transfer "
+         "list in Models. Same English as queue.clearFinished, different "
+         "object — see it.")
+
+
+# ── Single words that are ambiguous on their own ───────────────────────────
+#
+# Mostly verb-or-noun. English does not mark the difference and many languages
+# do: a button label is usually an imperative verb, a column heading a noun.
+
+annotate("settings.working", "Means the runtime is functioning correctly — NOT "
+         "\"in progress\". The value shown beside settings.state when nothing is "
+         "wrong. Translate as \"OK\" or \"functioning\", never as \"busy\".")
+annotate("models.selected", "Adjective describing a model the user has picked "
+         "for a render. Not a verb, and not a count.")
+annotate("settings.detected", "Adjective: the app found this component on the "
+         "machine by itself. Reports a discovery, not an action available.")
+
+annotate("common.copy", "Imperative verb on a button — copy this to the "
+         "clipboard. Never the noun \"a copy\". macOS uses 拷貝 in Traditional "
+         "Chinese, 复制 in Simplified.")
+annotate("common.save", "Imperative verb on a button: write to disk. Not the "
+         "sense of rescuing or of saving money.")
+annotate("common.reveal", "Imperative verb: show this file in the Finder, "
+         "selected in its folder. Follow whatever the platform calls it — it is "
+         "a Finder idiom, not a general \"show\".")
+annotate("common.name", "Noun: the name of a preset or a file. A field label, "
+         "not the verb \"to name\".")
+annotate("models.use", "Imperative verb on a button — select these weights for "
+         "the next render. Not the noun \"usage\".")
+annotate("library.open", "Imperative verb: open the finished video in another "
+         "app. Not the adjective.")
+annotate("settings.log.clear", "Imperative verb: empty the log. Not the "
+         "adjective \"clear\" meaning legible or transparent.")
+annotate("settings.log", "Noun: the record of what the runtime printed. Not the "
+         "verb \"to log\", and not a logarithm.")
+annotate("settings.repair", "Imperative verb on a button: reinstall the broken "
+         "parts of the runtime. Not a noun.")
+annotate("settings.comfy.install", "Imperative verb on a button. Not the noun "
+         "\"installation\", which is a different word in most languages.")
+annotate("settings.comfy.weights", "Model weights — the trained parameters of a "
+         "neural network. Never the sense of heaviness or of weighting a value. "
+         "Many languages keep the English term.")
+
+annotate("queue.hold", "Imperative verb on a button: keep this job in the queue "
+         "but do not start it. The opposite of queue.release. Not the noun "
+         "\"a hold\", and not \"hold\" as in grip.")
+annotate("queue.release", "Imperative verb: let a held job run again. The "
+         "opposite of queue.hold. NOT a software release or version — a common "
+         "and damaging mistranslation.")
+annotate("queue.stop", "Imperative verb: cancel the render that is running. Not "
+         "\"pause\"; the work is discarded.")
+annotate("compose.generate", "Imperative verb on the main action button: start "
+         "the render. Not the noun, and not \"generation\" in the sense of a "
+         "cohort.")
+
+annotate("summary.task", "The particular job a checkpoint was trained for — "
+         "first-frame continuation or reference conditioning. A machine-learning "
+         "sense, not a to-do item or a queued job.")
+annotate("summary.length", "The duration of the clip in time. Not physical "
+         "length, and not the length of a list. Compare sampling.duration.")
+annotate("sampling.steps", "Denoising steps — iterations of the sampler. Not "
+         "stairs, and not steps in a set of instructions.")
+annotate("library.seed", "The random seed that determines a render's noise. A "
+         "number, not a plant seed. Most languages keep the English term or "
+         "transliterate it.")
+annotate("compose.engine.label", "Which backend runs the model — MLX or ComfyUI. "
+         "Not a motor, and not a game engine. Usually kept in English.")
+annotate("compose.resolution", "Pixel dimensions of the output. Not resolution "
+         "in the sense of resolving a dispute or a decision.")
+annotate("onboarding.total", "The combined download size of the recommended "
+         "model set. A sum of bytes, not a count of files.")
+annotate("provenance.official", "Marks a model published by the original "
+         "authors, as opposed to provenance.community. About who released the "
+         "weights, not about approval or certification.")
+annotate("provenance.community", "Marks a model published by someone other than "
+         "the original authors — a conversion or a fine-tune. Neutral: it "
+         "describes origin, not quality. See provenance.official.")
+annotate("refs.kind.image", "Names the still-image kind in the reference list, "
+         "beside Video and Audio. A file category.")
+annotate("refs.kind.video", "Names the video kind in the reference list, beside "
+         "Image and Audio. A file category.")
+annotate("onboarding.back", "Navigates to the previous onboarding step. The "
+         "direction, not the body part — and specifically \"previous\", which "
+         "some languages word differently from \"backwards\".")
+
+
+# ── Counts, and languages with more plural forms than English ──────────────
+#
+# WARNING, because the construction cannot express what several languages
+# require. "%@ frames" has exactly two forms available in English — and the
+# app only ever supplies the plural one, so English itself already reads
+# "1 frames" if the count is ever 1.
+#
+# Arabic, which ships today, has six plural categories (zero, one, two, few,
+# many, other). The translations here settle on one form: إطارًا and خطوة are
+# the singular accusative used after 11-99, which is right in that range and
+# wrong for 1, 2 and 3-10. German needs "1 Bild" but gets "1 Bilder". This is
+# tolerable now only because these counts are rarely 1 — frames follow the
+# 17n+5 grid and so start at 5.
+#
+# Russian and Polish need four forms, Irish five. The real fix is a .stringsdict
+# with NSStringPluralRuleType, which lets each language declare its own
+# categories; the call site then passes the number and the system picks. Until
+# then, adding any Slavic language means revisiting every key below.
+
+_PLURAL = ("Takes a count. English offers only two forms and this string "
+           "supplies one, so \"1 {0}\" is already wrong; Arabic needs six "
+           "categories and settles for a single compromise form. Any language "
+           "with Slavic-style plurals will need a .stringsdict before this can "
+           "be translated correctly.")
+
+annotate("format.frames", _PLURAL.format("frames") + " Counts start at 5 here "
+         "because frames follow the VAE's 17n+5 grid, which is why nobody has "
+         "hit the singular case.", WARNING)
+annotate("format.steps", _PLURAL.format("steps") + " GenerationSpec.stepsRange "
+         "is 4...60, so the singular is unreachable today — but that range is a "
+         "UI choice, not a property of the sampler.", WARNING)
+annotate("library.seconds", _PLURAL.format("seconds"), WARNING)
+annotate("queue.tokens", _PLURAL.format("tokens"), WARNING)
+annotate("problem.tooManyTotal", "Takes a count of reference files, though the "
+         "value is always ReferenceAsset.totalFileLimit, which is 12. A "
+         "placeholder that only ever holds one constant: the plural risk is "
+         "theoretical, and the number could as easily be written into each "
+         "translation, which would let every language inflect around it.",
+         WARNING)
+annotate("queue.ahead", "Takes a count of jobs waiting in front of this one. "
+         "The count is 1 whenever a single job is ahead, which is the common "
+         "case, so plural-sensitive languages will read wrongly here.", WARNING)
+annotate("status.queued.count", "Takes a count of queued jobs. Safer than the "
+         "other counts because no noun follows the number in English, but "
+         "languages that inflect the verb or add a classifier still need the "
+         "count itself.", WARNING)
+annotate("a11y.percent", "Spoken by VoiceOver. Percentages take plural "
+         "agreement in several languages — Russian distinguishes 1, 2-4 and "
+         "5-20 — and this has one form.", WARNING)
+
+
+# ── Names and nouns injected into a sentence ───────────────────────────────
+#
+# WARNING. The placeholder takes a model name, a file name or a term, and the
+# surrounding words have to agree with it. English needs nothing. Spanish,
+# French and Portuguese choose an article by gender; Russian needs a case
+# ending; Finnish, Hungarian and Turkish attach a suffix whose vowels harmonise
+# with the word it joins; Japanese and Korean choose a particle by whether the
+# noun ends in a consonant.
+#
+# A translator cannot solve this, because the inserted word is not known until
+# it runs. The general fix is to stop injecting the noun — word the sentence so
+# the name stands apart, as a separate line or in quotation marks, which is
+# already what compose.preset.duplicate and compose.preset.saved do.
+
+_INJECT = ("Injects a name into a sentence. Languages that inflect a noun for "
+           "case, choose an article by gender, or attach a vowel-harmonising "
+           "suffix cannot do it without knowing the word, and it is only known "
+           "at runtime. Prefer wording that sets the name apart — quoted, or on "
+           "its own line.")
+
+annotate("models.delete.title", _INJECT, WARNING)
+annotate("models.revealInFinder", _INJECT, WARNING)
+annotate("models.cancelDownload", _INJECT, WARNING)
+annotate("refs.remove", _INJECT, WARNING)
+annotate("library.copySeed", _INJECT, WARNING)
+annotate("quantization.unloadable.other", _INJECT, WARNING)
+annotate("problem.noMetalKernel", _INJECT + " Here the name also begins the "
+         "sentence, which forces capitalisation the model name may not want.",
+         WARNING)
+annotate("problem.upscale", _INJECT + " Sentence-initial, as in "
+         "problem.noMetalKernel.", WARNING)
+annotate("problem.refUntagged", _INJECT, WARNING)
+annotate("problem.chooseCheckpoint", "Injects a task name into the noun phrase "
+         "\"a %@ checkpoint\". The English article is fixed as \"a\", so a name "
+         "beginning with a vowel sound already reads \"a FL2VA\" wrongly, and "
+         "gendered languages cannot choose their article at all.", WARNING)
+annotate("problem.tooManyKind", "Dead: nothing calls this. It duplicates "
+         "problem.tooManyOfKind word for word, and only that one is used, from "
+         "GenerationSpec. Worth deleting rather than translating again.",
+         WARNING)
+annotate("problem.tooManyOfKind", "Injects a count, then a *noun* naming the "
+         "file kind, then a second count. The noun has to agree with the "
+         "numeral in most inflecting languages, and it arrives lowercased by "
+         "the call site, which is an assumption German does not share. The "
+         "counts themselves never reach 1 — the per-kind limits are 9, 3 and 3 "
+         "— so only the noun is a live problem. See also problem.tooManyKind, "
+         "its unused twin.", WARNING)
+
+
+# ── Sentences assembled at runtime ─────────────────────────────────────────
+#
+# WARNING. These are fragments joined by Swift, so no translator ever sees the
+# finished sentence and none of them can change the order of its parts.
+
+annotate("status.step", "Built without positional specifiers — \"%@/%@\" rather "
+         "than \"%1$@/%2$@\" — so a translator cannot swap the two numbers. "
+         "Every other multi-argument string in this file is positional; this "
+         "one is the exception and should be brought into line.", WARNING)
+annotate("status.remaining", "Joined to status.step with \" · \" in StatusBar, "
+         "so the two halves are translated apart and assembled in a fixed "
+         "order. The duration inside is already localized.", WARNING)
+annotate("queue.a11y.held", "A lowercase fragment appended to a longer spoken "
+         "string. Languages that inflect or that put the qualifier first cannot "
+         "produce a correct sentence from a fragment, and lowercase is itself "
+         "an assumption German does not share.", WARNING)
+annotate("compose.mode.task.fl2va", "Begins with a space because it is appended "
+         "to the sentence before it — U+3000 for Chinese. Runtime "
+         "concatenation: the two halves cannot be reordered, and a language "
+         "needing the clause first cannot have it.", WARNING)
+annotate("compose.mode.task.ref2va", "See compose.mode.task.fl2va — same "
+         "leading space, same concatenation.", WARNING)
+annotate("problem.blocking", "Wraps another translated sentence as \"Blocking "
+         "issue. %@\". Two sentences glued together; the inner one was "
+         "translated without knowing it would be prefixed.", WARNING)
+annotate("problem.note", "See problem.blocking — the same prefix-plus-sentence "
+         "construction.", WARNING)

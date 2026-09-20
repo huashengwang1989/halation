@@ -2,6 +2,7 @@
 
 "a11y.elapsed" = "已用 %@";
 
+/* WARNING: Spoken by VoiceOver. Percentages take plural agreement in several languages — Russian distinguishes 1, 2-4 and 5-20 — and this has one form. */
 "a11y.percent" = "%@%%";
 
 "a11y.remaining" = "約剩 %@";
@@ -20,7 +21,7 @@
 
 "common.cancel" = "取消";
 
-/* macOS uses 拷貝 in Traditional Chinese, 复制 in Simplified. */
+/* Imperative verb on a button — copy this to the clipboard. Never the noun "a copy". macOS uses 拷貝 in Traditional Chinese, 复制 in Simplified. */
 "common.copy" = "拷貝";
 
 "common.delete" = "刪除";
@@ -29,13 +30,15 @@
 
 "common.download" = "下載";
 
+/* Noun: the name of a preset or a file. A field label, not the verb "to name". */
 "common.name" = "名稱";
 
 "common.refresh" = "重新整理";
 
-/* Reveal in Finder. */
+/* Imperative verb: show this file in the Finder, selected in its folder. Follow whatever the platform calls it — it is a Finder idiom, not a general "show". */
 "common.reveal" = "顯示";
 
+/* Imperative verb on a button: write to disk. Not the sense of rescuing or of saving money. */
 "common.save" = "儲存";
 
 "compose.aspect" = "長寬比";
@@ -46,6 +49,7 @@
 
 "compose.aspect.pixels" = "%1$@ 乘 %2$@ 像素";
 
+/* Labels the switch for whether the render produces sound. A property of the output. Distinct from refs.kind.audio, which names a kind of file the user attaches. */
 "compose.audio" = "音訊";
 
 "compose.audio.footnote" = "H3 會在生成畫面的同一次運算中產生 32 kHz 立體聲音訊；沒有更快的無聲模式。";
@@ -54,13 +58,14 @@
 
 "compose.engine.comfy.note" = "透過 ComfyUI 以 PyTorch/Metal 執行，可載入 4 步 turbo LoRA。四個蒸餾步驟所需時間與 MLX 上五個未蒸餾步驟相當，而這正是該 LoRA 訓練的目標。";
 
+/* Which backend runs the model — MLX or ComfyUI. Not a motor, and not a game engine. Usually kept in English. */
 "compose.engine.label" = "引擎";
 
 "compose.engine.mlx.note" = "以 MLX 原生執行，不需伺服器，也是預設選項。其權重未經蒸餾，步數太低會偏離訓練分布；要求品質請用移植版預設的 16 步以上。";
 
 "compose.framerate" = "影格率";
 
-/* Button that queues a render — the verb, not a noun. */
+/* Imperative verb on the main action button: start the render. Not the noun, and not "generation" in the sense of a cohort. */
 "compose.generate" = "生成";
 
 "compose.generate.blocked.generic" = "請先處理「生成前請確認」列出的問題。";
@@ -71,14 +76,18 @@
 
 "compose.generate.why" = "為什麼無法使用？";
 
+/* WARNING: Begins with a space because it is appended to the sentence before it — U+3000 for Chinese. Runtime concatenation: the two halves cannot be reordered, and a language needing the clause first cannot have it. */
 "compose.mode.task.fl2va" = "　使用 FL2VA 檢查點。";
 
+/* WARNING: See compose.mode.task.fl2va — same leading space, same concatenation. */
 "compose.mode.task.ref2va" = "　使用 Ref2VA 檢查點。";
 
+/* Labels the picker choosing between text-to-video and reference modes. A choice the user makes. Distinct from library.mode, which reports what a finished render used. */
 "compose.mode.title" = "模式";
 
 "compose.output.footnote" = "模型固定以 24 fps、短邊 768 px 算圖。此卡片上的其他設定都是事後在編碼階段套用。";
 
+/* Heads the card for how the video is encoded — codec, resolution, frame rate. Output as in the result of a render. Distinct from settings.folder.output, a folder. */
 "compose.output.title" = "輸出";
 
 "compose.preset.delete" = "刪除自訂預設組合";
@@ -104,6 +113,7 @@
 
 "compose.prompt.title" = "提示詞";
 
+/* Pixel dimensions of the output. Not resolution in the sense of resolving a dispute or a decision. */
 "compose.resolution" = "解析度";
 
 "format.audio.muxed" = "混流至影片中";
@@ -126,6 +136,7 @@
 
 "format.fps.native.detail" = "模型本身的節奏，不會憑空產生或丟棄影格。";
 
+/* WARNING: Takes a count. English offers only two forms and this string supplies one, so "1 frames" is already wrong; Arabic needs six categories and settles for a single compromise form. Any language with Slavic-style plurals will need a .stringsdict before this can be translated correctly. Counts start at 5 here because frames follow the VAE's 17n+5 grid, which is why nobody has hit the singular case. */
 "format.frames" = "%@ 影格";
 
 "format.framesAndLength" = "%1$@ 影格 · %2$@ 秒";
@@ -152,12 +163,15 @@
 
 "format.seconds" = "%@ 秒";
 
+/* WARNING: Takes a count. English offers only two forms and this string supplies one, so "1 steps" is already wrong; Arabic needs six categories and settles for a single compromise form. Any language with Slavic-style plurals will need a .stringsdict before this can be translated correctly. GenerationSpec.stepsRange is 4...60, so the singular is unreachable today — but that range is a UI choice, not a property of the sampler. */
 "format.steps" = "%@ 步";
 
 "library.copied" = "已拷貝";
 
+/* WARNING: Injects a name into a sentence. Languages that inflect a noun for case, choose an article by gender, or attach a vowel-harmonising suffix cannot do it without knowing the word, and it is only known at runtime. Prefer wording that sets the name apart — quoted, or on its own line. */
 "library.copySeed" = "拷貝%@";
 
+/* A Library column giving the length of a finished video. Reports a fact; sampling.duration sets a target. */
 "library.duration" = "長度";
 
 "library.empty.detail" = "完成的算圖會存到 %@，每支影片都附一個 JSON 檔，記下產生它的完整設定。";
@@ -168,11 +182,13 @@
 
 "library.missing" = "這個檔案已不在磁碟上";
 
+/* A column in the Library listing which mode produced a finished video. Reporting a past fact, where compose.mode.title is a control. Some languages prefer different words for the two. */
 "library.mode" = "模式";
 
 /* macOS calls it 垃圾桶 in TW, 废纸篓 in CN. */
 "library.moveToTrash" = "移到垃圾桶";
 
+/* Imperative verb: open the finished video in another app. Not the adjective. */
 "library.open" = "打開";
 
 "library.renderTime" = "算圖時間";
@@ -183,8 +199,10 @@
 
 "library.search" = "搜尋提示詞";
 
+/* WARNING: Takes a count. English offers only two forms and this string supplies one, so "1 seconds" is already wrong; Arabic needs six categories and settles for a single compromise form. Any language with Slavic-style plurals will need a .stringsdict before this can be translated correctly. */
 "library.seconds" = "%@ 秒";
 
+/* The random seed that determines a render's noise. A number, not a plant seed. Most languages keep the English term or transliterate it. */
 "library.seed" = "種子";
 
 "library.settings" = "設定";
@@ -204,7 +222,7 @@
 
 "mlx.runtimeNotReady" = "Python 執行環境尚未就緒。請開啟「設定 › 執行環境」。";
 
-/* The opening frame of the clip. */
+/* The name of the first-frame mode in the mode picker: the render continues from a supplied image. Distinct from refs.slot.first, which labels the slot that image goes in. */
 "mode.first" = "首格";
 
 "mode.first.detail" = "以你提供的靜態圖片為起點延伸動態。";
@@ -213,7 +231,7 @@
 
 "mode.firstlast.detail" = "提供鏡頭的起點與終點，模型補出中間的動態。";
 
-/* Reference images/videos/audio that define subject or style. */
+/* The name of the reference mode in the mode picker — the mode that conditions on supplied images or video. Distinct from refs.title.references, which heads the list of the files themselves. */
 "mode.reference" = "參考素材";
 
 "mode.reference.detail" = "提供參考圖片、片段或音訊，用來固定主體、風格或聲音。";
@@ -304,12 +322,14 @@
 
 "models.cancelAll" = "全部取消";
 
+/* WARNING: Injects a name into a sentence. Languages that inflect a noun for case, choose an article by gender, or attach a vowel-harmonising suffix cannot do it without knowing the word, and it is only known at runtime. Prefer wording that sets the name apart — quoted, or on its own line. */
 "models.cancelDownload" = "取消下載 %@";
 
 "models.change" = "更改…";
 
 "models.chooseFolder.message" = "選擇各專案共用模型權重的資料夾";
 
+/* Removes completed downloads from the transfer list in Models. Same English as queue.clearFinished, different object — see it. */
 "models.clearFinished" = "清除已完成";
 
 "models.copyFilename" = "拷貝檔案名稱";
@@ -328,6 +348,7 @@
 
 "models.delete.message" = "可釋出約 %1$@ 的共用模型資料夾空間；本機其他專案可能也在使用，任何依賴 %2$@ 的程式都得重新下載。檔案會移到垃圾桶，清空前都還能還原。";
 
+/* WARNING: Injects a name into a sentence. Languages that inflect a noun for case, choose an article by gender, or attach a vowel-harmonising suffix cannot do it without knowing the word, and it is only known at runtime. Prefer wording that sets the name apart — quoted, or on its own line. */
 "models.delete.title" = "要刪除%@嗎？";
 
 "models.download.starting" = "正在開始傳輸…";
@@ -380,10 +401,12 @@
 
 "models.rescan.help" = "重新讀取共用模型資料夾";
 
+/* WARNING: Injects a name into a sentence. Languages that inflect a noun for case, choose an article by gender, or attach a vowel-harmonising suffix cannot do it without knowing the word, and it is only known at runtime. Prefer wording that sets the name apart — quoted, or on its own line. */
 "models.revealInFinder" = "在 Finder 中顯示 %@";
 
 "models.savingTo" = "儲存至 %1$@，可用空間 %2$@。";
 
+/* Adjective describing a model the user has picked for a render. Not a verb, and not a count. */
 "models.selected" = "已選擇";
 
 "models.showIncompatible" = "顯示不相容項目";
@@ -396,6 +419,7 @@
 
 "models.status.missing" = "本次算圖需要，但尚未下載";
 
+/* Imperative verb on a button — select these weights for the next render. Not the noun "usage". */
 "models.use" = "使用";
 
 "models.use.help.download" = "請先下載";
@@ -406,6 +430,7 @@
 
 "models.willDownload" = "即將下載：";
 
+/* Navigates to the previous onboarding step. The direction, not the body part — and specifically "previous", which some languages word differently from "backwards". */
 "onboarding.back" = "上一步";
 
 "onboarding.continue" = "繼續";
@@ -441,6 +466,7 @@
 
 "onboarding.startDownload" = "開始下載";
 
+/* The combined download size of the recommended model set. A sum of bytes, not a count of files. */
 "onboarding.total" = "總計";
 
 "onboarding.welcome.title" = "在這台 Mac 上生成影片";
@@ -451,8 +477,10 @@
 
 "preset.vertical" = "直式社群影片";
 
+/* WARNING: Wraps another translated sentence as "Blocking issue. %@". Two sentences glued together; the inner one was translated without knowing it would be prefixed. */
 "problem.blocking" = "阻擋問題：%@";
 
+/* WARNING: Injects a task name into the noun phrase "a %@ checkpoint". The English article is fixed as "a", so a name beginning with a vowel sound already reads "a FL2VA" wrongly, and gendered languages cannot choose their article at all. */
 "problem.chooseCheckpoint" = "請在「模型」中選擇 %@ 檢查點。";
 
 "problem.duration" = "H3 只能生成 4–15 秒的片段。";
@@ -469,30 +497,39 @@
 
 "problem.needReference" = "Ref2VA 至少需要一個參考檔案。";
 
+/* WARNING: Injects a name into a sentence. Languages that inflect a noun for case, choose an article by gender, or attach a vowel-harmonising suffix cannot do it without knowing the word, and it is only known at runtime. Prefer wording that sets the name apart — quoted, or on its own line. Here the name also begins the sentence, which forces capitalisation the model name may not want. */
 "problem.noMetalKernel" = "%@ 沒有對應的 Metal kernel，無法在 Apple 晶片上執行。";
 
 "problem.notInstalled" = "所選的檢查點尚未安裝。";
 
+/* WARNING: See problem.blocking — the same prefix-plus-sentence construction. */
 "problem.note" = "提醒：%@";
 
 "problem.prompt.empty" = "請寫一段描述鏡頭的提示詞。";
 
 "problem.refSlow" = "參考模式透過 ComfyUI 而非 MLX 執行，每步較慢。4 步 turbo LoRA 正是把時間控制在數分鐘而非數小時的關鍵。";
 
+/* WARNING: Injects a name into a sentence. Languages that inflect a noun for case, choose an article by gender, or attach a vowel-harmonising suffix cannot do it without knowing the word, and it is only known at runtime. Prefer wording that sets the name apart — quoted, or on its own line. */
 "problem.refUntagged" = "提示詞中沒有提到 %@。H3 透過這些標記對參考素材做條件化，沒被標記的影響力小得多。";
 
 "problem.t2v.extraFiles" = "文字轉影片會忽略附加檔案。若要使用，請切換模式。";
 
+/* WARNING: Dead: nothing calls this. It duplicates problem.tooManyOfKind word for word, and only that one is used, from GenerationSpec. Worth deleting rather than translating again. */
 "problem.tooManyKind" = "參考%2$@最多 %1$@ 個，目前有 %3$@ 個。";
 
+/* WARNING: Injects a count, then a *noun* naming the file kind, then a second count. The noun has to agree with the numeral in most inflecting languages, and it arrives lowercased by the call site, which is an assumption German does not share. The counts themselves never reach 1 — the per-kind limits are 9, 3 and 3 — so only the noun is a live problem. See also problem.tooManyKind, its unused twin. */
 "problem.tooManyOfKind" = "參考%2$@檔案最多 %1$@ 個——目前有 %3$@ 個。";
 
+/* WARNING: Takes a count of reference files, though the value is always ReferenceAsset.totalFileLimit, which is 12. A placeholder that only ever holds one constant: the plural risk is theoretical, and the number could as easily be written into each translation, which would let every language inflect around it. */
 "problem.tooManyTotal" = "Ref2VA 總共最多接受 %@ 個參考檔案。";
 
+/* WARNING: Injects a name into a sentence. Languages that inflect a noun for case, choose an article by gender, or attach a vowel-harmonising suffix cannot do it without knowing the word, and it is only known at runtime. Prefer wording that sets the name apart — quoted, or on its own line. Sentence-initial, as in problem.noMetalKernel. */
 "problem.upscale" = "%@ 只是模型 768p 輸出的重新取樣。H3 真正的 2K 模式未開源，無法在本機執行。";
 
+/* Marks a model published by someone other than the original authors — a conversion or a fine-tune. Neutral: it describes origin, not quality. See provenance.official. */
 "provenance.community" = "社群";
 
+/* Marks a model published by the original authors, as opposed to provenance.community. About who released the weights, not about approval or certification. */
 "provenance.official" = "官方";
 
 "provenance.port" = "MLX 移植";
@@ -501,12 +538,16 @@
 
 "quantization.unloadable.nvfp4" = "NVFP4 是 NVIDIA Blackwell 的格式，沒有對應的 Metal 執行路徑。";
 
+/* WARNING: Injects a name into a sentence. Languages that inflect a noun for case, choose an article by gender, or attach a vowel-harmonising suffix cannot do it without knowing the word, and it is only known at runtime. Prefer wording that sets the name apart — quoted, or on its own line. */
 "quantization.unloadable.other" = "此處的任何引擎都無法載入 %@。";
 
+/* WARNING: A lowercase fragment appended to a longer spoken string. Languages that inflect or that put the qualifier first cannot produce a correct sentence from a fragment, and lowercase is itself an assumption German does not share. */
 "queue.a11y.held" = "已暫停";
 
+/* WARNING: Takes a count of jobs waiting in front of this one. The count is 1 whenever a single job is ahead, which is the common case, so plural-sensitive languages will read wrongly here. */
 "queue.ahead" = "等待中 — 前面還有 %@";
 
+/* Removes finished jobs from the render queue. The English matches models.clearFinished exactly but the object differs — jobs, not downloads — and languages that inflect the verb for its object will need different wording. */
 "queue.clearFinished" = "清除已完成";
 
 "queue.clearFinished.help" = "從清單移除已完成、失敗與已取消的算圖";
@@ -521,7 +562,7 @@
 
 "queue.held" = "已暫緩，恢復後才會開始";
 
-/* Hold a queued job back so it is skipped, not cancel it. */
+/* Imperative verb on a button: keep this job in the queue but do not start it. The opposite of queue.release. Not the noun "a hold", and not "hold" as in grip. */
 "queue.hold" = "暫緩";
 
 "queue.hold.help" = "暫緩這次算圖";
@@ -550,6 +591,7 @@
 
 "queue.perStep.now" = "目前 %@/步";
 
+/* Imperative verb: let a held job run again. The opposite of queue.hold. NOT a software release or version — a common and damaging mistranslation. */
 "queue.release" = "恢復";
 
 "queue.release.help" = "允許這次算圖開始";
@@ -574,10 +616,12 @@
 
 "queue.step" = "第 %1$@ 步，共 %2$@ 步";
 
+/* Imperative verb: cancel the render that is running. Not "pause"; the work is discarded. */
 "queue.stop" = "停止";
 
 "queue.stop.help" = "停止這次算圖。進度會遺失，算圖無法續算。";
 
+/* WARNING: Takes a count. English offers only two forms and this string supplies one, so "1 tokens" is already wrong; Arabic needs six categories and settles for a single compromise form. Any language with Slavic-style plurals will need a .stringsdict before this can be translated correctly. */
 "queue.tokens" = "%@ 個 token";
 
 "queue.tokens.help" = "文字編碼器讀取的序列長度：共 %1$@ 個 token，其中 %2$@ 個來自提示詞，其餘是視覺 token，每張參考圖片一段。這段序列在去噪開始前只讀取一次——此處並非逐 token 生成。";
@@ -606,16 +650,21 @@
 
 "refs.insertTags.help" = "將 %@ 附加到提示詞";
 
+/* Names the audio *file* kind in the reference list, beside Image and Video. A category of attachment — see compose.audio. */
 "refs.kind.audio" = "音訊";
 
+/* Names the still-image kind in the reference list, beside Video and Audio. A file category. */
 "refs.kind.image" = "圖片";
 
+/* Names the video kind in the reference list, beside Image and Audio. A file category. */
 "refs.kind.video" = "影片";
 
+/* WARNING: Injects a name into a sentence. Languages that inflect a noun for case, choose an article by gender, or attach a vowel-harmonising suffix cannot do it without knowing the word, and it is only known at runtime. Prefer wording that sets the name apart — quoted, or on its own line. */
 "refs.remove" = "移除 %@";
 
 "refs.removeAll" = "全部移除";
 
+/* Labels the drop target for the first-frame image. A place to put a file, where mode.first is a mode — see it. */
 "refs.slot.first" = "首格";
 
 "refs.slot.last" = "末格";
@@ -624,6 +673,7 @@
 
 "refs.title.keyframes" = "關鍵格";
 
+/* Heads the card listing the reference files the user has attached. The files, not the mode — see mode.reference. */
 "refs.title.references" = "參考素材";
 
 "role.accelerator" = "加速 LoRA";
@@ -634,6 +684,7 @@
 
 "role.support.detail" = "檔案小、必要，且所有項目共用。安裝一次即可。";
 
+/* Names the text-encoder role in the model catalogue — a kind of model file. Distinct from summary.textEncoder, which names the specific encoder a render will use. */
 "role.textEncoder" = "文字編碼器";
 
 "role.textEncoder.detail" = "H3 以 Qwen3-VL-32B 作為條件輸入。這是單一檔案中最大的下載項目，兩種任務共用。";
@@ -648,6 +699,7 @@
 
 "runtime.ready" = "執行環境就緒 — Python %1$@，MLX on Metal";
 
+/* How long the finished clip will be, in the Sampling card. A length the user is choosing. Distinct from library.duration, which reports the length of a video already made. */
 "sampling.duration" = "長度";
 
 /* 'Seed' is kept in English; the qualifier is translated. */
@@ -661,6 +713,7 @@
 
 "sampling.snapped.inexact" = "算出 %1$@ 格 — 在 24 fps 下為 %2$@ 秒，是 video VAE 能編碼的最接近長度。";
 
+/* Denoising steps — iterations of the sampler. Not stairs, and not steps in a set of instructions. */
 "sampling.steps" = "步數";
 
 "sampling.steps.note" = "步數就是實際的去噪次數，幾乎線性決定算圖時間。%1$@時長會對齊 video VAE 的 17n+5 影格格線，因此顯示的數值就是實際會算出的長度。";
@@ -671,12 +724,13 @@
 
 "sampling.title" = "取樣";
 
-/* The screen where you write a prompt and set up a render. */
+/* The Compose tab: the screen where a render is set up. Not the verb. Distinct from settings.remember.section, which is the name of a group of settings *about* that screen. */
 "section.compose" = "編寫";
 
 /* Collection of finished videos — not a code library. */
 "section.library" = "媒體庫";
 
+/* The Models tab in the sidebar. Distinct from settings.folder.models (a folder on disk) and summary.models (the weights a particular render will load). */
 "section.models" = "模型";
 
 "section.queue" = "佇列";
@@ -697,6 +751,7 @@
 
 "settings.architecture" = "架構";
 
+/* Imperative verb on a button. Not the noun "installation", which is a different word in most languages. */
 "settings.comfy.install" = "安裝";
 
 "settings.comfy.notRunning" = "未執行";
@@ -709,14 +764,18 @@
 
 "settings.comfy.stop" = "停止伺服器";
 
+/* Model weights — the trained parameters of a neural network. Never the sense of heaviness or of weighting a value. Many languages keep the English term. */
 "settings.comfy.weights" = "權重";
 
 "settings.comfy.why" = "參考模式在此執行，而非 MLX，因為 MLX 的管線只接受關鍵格。ComfyUI 還能載入 4 步 turbo LoRA，這正是參考模式算圖得以可行的原因。";
 
+/* Adjective: the app found this component on the machine by itself. Reports a discovery, not an action available. */
 "settings.detected" = "已偵測";
 
+/* Labels the folder on disk where weights are stored, in Settings ▸ Folders. A location, not the tab — see section.models. */
 "settings.folder.models" = "模型";
 
+/* Labels the folder finished videos are written to, in Settings ▸ Folders. A location — see compose.output.title. */
 "settings.folder.output" = "輸出";
 
 "settings.folders" = "資料夾";
@@ -737,10 +796,12 @@
 
 "settings.language.system" = "跟隨系統（%@）";
 
+/* Noun: the record of what the runtime printed. Not the verb "to log", and not a logarithm. */
 "settings.log" = "記錄";
 
 "settings.log.accessibility" = "安裝記錄";
 
+/* Imperative verb: empty the log. Not the adjective "clear" meaning legible or transparent. */
 "settings.log.clear" = "清除";
 
 "settings.mlxMetal" = "MLX on Metal";
@@ -773,8 +834,10 @@
 
 "settings.remember.sampling" = "記住取樣設定";
 
+/* Names the group of Compose-screen settings in Settings ▸ General. A heading over a set of options, not the tab itself — see section.compose. */
 "settings.remember.section" = "編寫";
 
+/* Imperative verb on a button: reinstall the broken parts of the runtime. Not a noun. */
 "settings.repair" = "修復";
 
 /* The Python environment the app manages, not a term of art: TW says 執行環境, mainland 运行时. */
@@ -782,10 +845,13 @@
 
 "settings.runtime.rebuild.note" = "完全重建會刪除並重新建立 Python 執行環境，不會動到已下載的模型權重。";
 
+/* Labels one row reporting the runtime's condition. German separates this (Zustand) from Status; English does not. If a language has only one word, using it for both is fine. */
 "settings.state" = "狀態";
 
+/* Heads the runtime status section in Settings. A section heading, not the status-bar label — see status.label. */
 "settings.status" = "狀態";
 
+/* Means the runtime is functioning correctly — NOT "in progress". The value shown beside settings.state when nothing is wrong. Translate as "OK" or "functioning", never as "busy". */
 "settings.working" = "正常";
 
 "sidebar.hide" = "隱藏側邊欄";
@@ -810,15 +876,17 @@
 
 "status.checking" = "檢查中…";
 
+/* Labels the health indicator in the status bar along the bottom of the window. Distinct from settings.status, which heads a whole section, and from settings.state. */
 "status.label" = "狀態";
 
 "status.memory.help" = "算圖程序佔用的實體記憶體，以及在本機 %@ 中的佔比";
 
+/* WARNING: Takes a count of queued jobs. Safer than the other counts because no noun follows the number in English, but languages that inflect the verb or add a classifier still need the count itself. */
 "status.queued.count" = "佇列中 %@";
 
 "status.ready" = "就緒";
 
-/* Estimated time still to run. The duration is already localized. */
+/* WARNING: Joined to status.step with " · " in StatusBar, so the two halves are translated apart and assembled in a fixed order. The duration inside is already localized. */
 "status.remaining" = "剩餘 %@";
 
 "status.runtime.error" = "執行環境錯誤";
@@ -827,7 +895,7 @@
 
 "status.runtime.missing" = "尚未安裝執行環境";
 
-/* Progress through the sampler's steps, shown in the status bar during a render. Lower-case in English because it sits inside a sentence fragment. */
+/* WARNING: Built without positional specifiers — "%@/%@" rather than "%1$@/%2$@" — so a translator cannot swap the two numbers. Every other multi-argument string in this file is positional; this one is the exception and should be brought into line. */
 "status.step" = "步驟 %@/%@";
 
 "summary.bitrate" = "目標位元率";
@@ -848,10 +916,12 @@
 
 "summary.generates" = "生成解析度";
 
+/* The duration of the clip in time. Not physical length, and not the length of a list. Compare sampling.duration. */
 "summary.length" = "長度";
 
 "summary.length.value" = "%1$@ 格 · %2$@ 秒";
 
+/* Heads the list of weights a render will load, in the Compose summary. Means these specific files, not the tab and not the folder. */
 "summary.models" = "模型";
 
 "summary.notSelected" = "未選擇";
@@ -860,8 +930,10 @@
 
 "summary.render" = "本次算圖";
 
+/* The particular job a checkpoint was trained for — first-frame continuation or reference conditioning. A machine-learning sense, not a to-do item or a queued job. */
 "summary.task" = "任務";
 
+/* Names the encoder chosen for this render, in the Compose summary. A particular file; role.textEncoder is the category. */
 "summary.textEncoder" = "文字編碼器";
 
 /* Architecture name; left in English. */

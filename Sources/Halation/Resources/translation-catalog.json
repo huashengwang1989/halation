@@ -16,7 +16,8 @@
         "de": "%@ vergangen",
         "ar": "انقضى %@"
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "a11y.percent",
@@ -27,7 +28,8 @@
         "de": "%@ Prozent",
         "ar": "%@ بالمئة"
       },
-      "note": ""
+      "note": "Spoken by VoiceOver. Percentages take plural agreement in several languages — Russian distinguishes 1, 2-4 and 5-20 — and this has one form.",
+      "level": "warning"
     },
     {
       "key": "a11y.remaining",
@@ -38,7 +40,8 @@
         "de": "noch etwa %@",
         "ar": "يتبقى نحو %@"
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "a11y.usingMemory",
@@ -49,7 +52,8 @@
         "de": "belegt %@",
         "ar": "يستخدم %@"
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "backend.comfy.detail",
@@ -60,7 +64,8 @@
         "de": "PyTorch auf Metal. Das einzige Backend mit Referenzen und das einzige, das die 4-Schritt-Turbo-LoRAs laden kann.",
         "ar": "PyTorch على Metal. الواجهة الخلفية الوحيدة التي تدعم المراجع، والوحيدة القادرة على تحميل نماذج turbo LoRA ذات الأربع خطوات."
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "backend.mlx.detail",
@@ -71,7 +76,8 @@
         "de": "Apples eigenes Framework, das Modell läuft nativ. Nur Text-zu-Video und Keyframes — die Portierung kennt keine Referenzkonditionierung.",
         "ar": "إطار عمل Apple، يشغّل النموذج أصليًا. يدعم النص إلى فيديو والإطارات المفتاحية فقط، إذ لا يتضمّن النقل شرطنة المراجع."
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "comfy.executionError",
@@ -82,7 +88,8 @@
         "de": "ComfyUI hat einen Ausführungsfehler gemeldet.",
         "ar": "أبلغ ComfyUI عن خطأ أثناء التنفيذ."
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "comfy.missingWeights",
@@ -93,7 +100,8 @@
         "de": "Fehlende ComfyUI-Gewichte: %@",
         "ar": "أوزان ComfyUI ناقصة: %@"
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "comfy.notInstalled",
@@ -104,7 +112,8 @@
         "de": "ComfyUI ist nicht installiert. Installieren Sie es unter „Einstellungen › ComfyUI“.",
         "ar": "‏ComfyUI غير مثبَّت. ثبّته من «الإعدادات › ComfyUI»."
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "common.cancel",
@@ -115,7 +124,8 @@
         "de": "Abbrechen",
         "ar": "إلغاء"
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "common.copy",
@@ -126,7 +136,8 @@
         "de": "Kopieren",
         "ar": "نسخ"
       },
-      "note": "macOS uses 拷貝 in Traditional Chinese, 复制 in Simplified."
+      "note": "Imperative verb on a button — copy this to the clipboard. Never the noun \"a copy\". macOS uses 拷貝 in Traditional Chinese, 复制 in Simplified.",
+      "level": "info"
     },
     {
       "key": "common.delete",
@@ -137,7 +148,8 @@
         "de": "Löschen",
         "ar": "حذف"
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "common.done",
@@ -148,7 +160,8 @@
         "de": "Fertig",
         "ar": "تم"
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "common.download",
@@ -159,7 +172,8 @@
         "de": "Laden",
         "ar": "تنزيل"
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "common.name",
@@ -170,7 +184,8 @@
         "de": "Name",
         "ar": "الاسم"
       },
-      "note": ""
+      "note": "Noun: the name of a preset or a file. A field label, not the verb \"to name\".",
+      "level": "info"
     },
     {
       "key": "common.refresh",
@@ -181,7 +196,8 @@
         "de": "Aktualisieren",
         "ar": "تحديث"
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "common.reveal",
@@ -192,7 +208,8 @@
         "de": "Anzeigen",
         "ar": "إظهار"
       },
-      "note": "Reveal in Finder."
+      "note": "Imperative verb: show this file in the Finder, selected in its folder. Follow whatever the platform calls it — it is a Finder idiom, not a general \"show\".",
+      "level": "info"
     },
     {
       "key": "common.save",
@@ -203,7 +220,8 @@
         "de": "Sichern",
         "ar": "حفظ"
       },
-      "note": ""
+      "note": "Imperative verb on a button: write to disk. Not the sense of rescuing or of saving money.",
+      "level": "info"
     },
     {
       "key": "compose.aspect",
@@ -214,7 +232,8 @@
         "de": "Seitenverhältnis",
         "ar": "نسبة العرض إلى الارتفاع"
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "compose.aspect.accessibility",
@@ -225,7 +244,8 @@
         "de": "Seitenverhältnis %@",
         "ar": "نسبة عرض إلى ارتفاع %@"
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "compose.aspect.help",
@@ -236,7 +256,8 @@
         "de": "%1$@ — rendert mit %2$@",
         "ar": "%1$@ — يُصيَّر بمقاس %2$@"
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "compose.aspect.pixels",
@@ -247,7 +268,8 @@
         "de": "%1$@ mal %2$@ Pixel",
         "ar": "%1$@ في %2$@ بكسل"
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "compose.audio",
@@ -258,7 +280,8 @@
         "de": "Audio",
         "ar": "الصوت"
       },
-      "note": ""
+      "note": "Labels the switch for whether the render produces sound. A property of the output. Distinct from refs.kind.audio, which names a kind of file the user attaches.",
+      "level": "info"
     },
     {
       "key": "compose.audio.footnote",
@@ -269,7 +292,8 @@
         "de": "H3 erzeugt 32-kHz-Stereo-Audio im selben Durchgang wie das Bild; einen schnelleren stummen Modus gibt es nicht.",
         "ar": "يولّد H3 صوتًا ستيريو بتردد 32 kHz في المسار نفسه الذي يولّد فيه الصورة؛ ولا يوجد وضع صامت أسرع."
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "compose.codec",
@@ -280,7 +304,8 @@
         "de": "Codec",
         "ar": "الترميز"
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "compose.engine.comfy.note",
@@ -291,7 +316,8 @@
         "de": "Läuft über ComfyUI auf PyTorch/Metal und kann die 4-Schritt-Turbo-LoRA laden. Vier destillierte Schritte dauern etwa so lange wie fünf undestillierte auf MLX — und genau dafür wurde die LoRA trainiert.",
         "ar": "يعمل عبر ComfyUI على PyTorch/Metal، ويستطيع تحميل turbo LoRA ذات الأربع خطوات. أربع خطوات مقطّرة تستغرق زمنًا قريبًا من خمس خطوات غير مقطّرة على MLX، وهي ما دُرّبت عليه الـ LoRA."
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "compose.engine.label",
@@ -302,7 +328,8 @@
         "de": "Engine",
         "ar": "المحرّك"
       },
-      "note": ""
+      "note": "Which backend runs the model — MLX or ComfyUI. Not a motor, and not a game engine. Usually kept in English.",
+      "level": "info"
     },
     {
       "key": "compose.engine.mlx.note",
@@ -313,7 +340,8 @@
         "de": "Läuft nativ auf MLX. Kein Server, und die Voreinstellung. Die Gewichte sind nicht destilliert, niedrige Schrittzahlen liegen daher außerhalb der Verteilung — für Qualität die 16 Schritte der Portierung oder mehr.",
         "ar": "يعمل أصليًا على MLX. بلا خادم، وهو الخيار الافتراضي. أوزانه غير مقطّرة، لذا فإن أعداد الخطوات المنخفضة تخرج عن التوزيع — استخدم 16 خطوة أو أكثر للجودة."
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "compose.framerate",
@@ -324,7 +352,8 @@
         "de": "Bildrate",
         "ar": "معدل الإطارات"
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "compose.generate",
@@ -335,7 +364,8 @@
         "de": "Erzeugen",
         "ar": "توليد"
       },
-      "note": "Button that queues a render — the verb, not a noun."
+      "note": "Imperative verb on the main action button: start the render. Not the noun, and not \"generation\" in the sense of a cohort.",
+      "level": "info"
     },
     {
       "key": "compose.generate.blocked.generic",
@@ -346,7 +376,8 @@
         "de": "Behebe die unter „Vor dem Erzeugen“ aufgeführten Punkte.",
         "ar": "عالِج المشكلات المذكورة تحت «قبل التوليد»."
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "compose.generate.blocked.runtime",
@@ -357,7 +388,8 @@
         "de": "Die Python-Laufzeitumgebung ist nicht bereit. Öffne „Einstellungen › Runtime“.",
         "ar": "بيئة تشغيل Python غير جاهزة. افتح «الإعدادات › Runtime»."
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "compose.generate.help.ready",
@@ -368,7 +400,8 @@
         "de": "Diesen Render der Warteschlange hinzufügen",
         "ar": "أضف هذا التصيير إلى قائمة الانتظار"
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "compose.generate.why",
@@ -379,7 +412,8 @@
         "de": "Warum ist das deaktiviert?",
         "ar": "لماذا هذا معطّل؟"
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "compose.mode.task.fl2va",
@@ -390,7 +424,8 @@
         "de": " Verwendet den FL2VA-Checkpoint.",
         "ar": " يستخدم نقطة التحقق FL2VA."
       },
-      "note": ""
+      "note": "Begins with a space because it is appended to the sentence before it — U+3000 for Chinese. Runtime concatenation: the two halves cannot be reordered, and a language needing the clause first cannot have it.",
+      "level": "warning"
     },
     {
       "key": "compose.mode.task.ref2va",
@@ -401,7 +436,8 @@
         "de": " Verwendet den Ref2VA-Checkpoint.",
         "ar": " يستخدم نقطة التحقق Ref2VA."
       },
-      "note": ""
+      "note": "See compose.mode.task.fl2va — same leading space, same concatenation.",
+      "level": "warning"
     },
     {
       "key": "compose.mode.title",
@@ -412,7 +448,8 @@
         "de": "Modus",
         "ar": "الوضع"
       },
-      "note": ""
+      "note": "Labels the picker choosing between text-to-video and reference modes. A choice the user makes. Distinct from library.mode, which reports what a finished render used.",
+      "level": "info"
     },
     {
       "key": "compose.output.footnote",
@@ -423,7 +460,8 @@
         "de": "Das Modell rendert immer 24 fps mit 768 px kurzer Kante. Alles andere auf dieser Karte wird erst beim Kodieren angewandt.",
         "ar": "يصيّر النموذج دائمًا بمعدل 24 fps وبحافة قصيرة قدرها 768 بكسل. وكل ما عدا ذلك في هذه البطاقة يُطبَّق لاحقًا أثناء الترميز."
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "compose.output.title",
@@ -434,7 +472,8 @@
         "de": "Ausgabe",
         "ar": "الإخراج"
       },
-      "note": ""
+      "note": "Heads the card for how the video is encoded — codec, resolution, frame rate. Output as in the result of a render. Distinct from settings.folder.output, a folder.",
+      "level": "info"
     },
     {
       "key": "compose.preset.delete",
@@ -445,7 +484,8 @@
         "de": "Eigene Vorlage löschen",
         "ar": "حذف إعداد مخصّص"
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "compose.preset.duplicate",
@@ -456,7 +496,8 @@
         "de": "Eine Vorlage namens „%@“ gibt es bereits. Wählen Sie einen anderen Namen.",
         "ar": "يوجد إعداد باسم «%@» مسبقًا. اختر اسمًا آخر."
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "compose.preset.save",
@@ -467,7 +508,8 @@
         "de": "Als Vorlage sichern …",
         "ar": "حفظ كإعداد محفوظ…"
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "compose.preset.save.message",
@@ -478,7 +520,8 @@
         "de": "Sichert die aktuellen Einstellungen als wiederverwendbares Rezept. Prompt, Seed und angehängte Dateien sind nicht enthalten.",
         "ar": "يحفظ الإعدادات الحالية كوصفة قابلة لإعادة الاستخدام. لا يشمل الموجّه أو قيمة seed أو الملفات المرفقة."
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "compose.preset.save.title",
@@ -489,7 +532,8 @@
         "de": "Vorlage sichern",
         "ar": "حفظ الإعداد"
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "compose.preset.saved",
@@ -500,7 +544,8 @@
         "de": "„%@“ unter Voreinstellungen gesichert",
         "ar": "حُفِظ «%@» ضمن الإعدادات المُسبَقة"
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "compose.presets",
@@ -511,7 +556,8 @@
         "de": "Vorlagen",
         "ar": "إعدادات محفوظة"
       },
-      "note": "Saved combinations of settings — not 'default' in the factory sense."
+      "note": "Saved combinations of settings — not 'default' in the factory sense.",
+      "level": "info"
     },
     {
       "key": "compose.presets.help",
@@ -522,7 +568,8 @@
         "de": "Eine gespeicherte Einstellungskombination anwenden",
         "ar": "تطبيق مجموعة إعدادات محفوظة"
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "compose.prompt.footnote",
@@ -533,7 +580,8 @@
         "de": "H3 reagiert gut auf Kamerasprache — Einstellungsgröße, Objektiv, Bewegung, Licht — und auf beschriebene Klangbilder, da Audio im selben Durchgang entsteht. Es gibt keinen Negativ-Prompt: die veröffentlichten Gewichte sind CFG-destilliert, Guidance-Regler hätten keine Wirkung.",
         "ar": "يستجيب H3 جيدًا للغة الكاميرا — حجم اللقطة والعدسة والحركة والإضاءة — وكذلك لوصف المشهد الصوتي، لأنه يولّد الصوت في المسار نفسه. لا يوجد موجّه سلبي: الأوزان المنشورة مقطّرة بأسلوب CFG، لذا لن يكون لعناصر التوجيه أي أثر."
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "compose.prompt.hint",
@@ -544,7 +592,8 @@
         "de": "Beschreibe die Einstellung. Tab wechselt weiter, Wahl-Tab fügt einen Tabulator ein.",
         "ar": "صِف اللقطة. اضغط Tab للانتقال، وOption-Tab لإدراج علامة جدولة."
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "compose.prompt.title",
@@ -555,7 +604,8 @@
         "de": "Prompt",
         "ar": "الموجّه"
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "compose.resolution",
@@ -566,7 +616,8 @@
         "de": "Auflösung",
         "ar": "الدقة"
       },
-      "note": ""
+      "note": "Pixel dimensions of the output. Not resolution in the sense of resolving a dispute or a decision.",
+      "level": "info"
     },
     {
       "key": "format.audio.muxed",
@@ -577,7 +628,8 @@
         "de": "In das Video gemuxt",
         "ar": "مدمج داخل الفيديو"
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "format.audio.wav",
@@ -588,7 +640,8 @@
         "de": "Gemuxt, plus separate WAV-Datei",
         "ar": "مدمج، مع ملف WAV منفصل"
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "format.clipLength",
@@ -599,7 +652,8 @@
         "de": "%@ s",
         "ar": "%@ ث"
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "format.codec.av1.detail",
@@ -610,7 +664,8 @@
         "de": "Etwa halb so groß bei gleicher Qualität. Wird in Software kodiert, da Apple Silicon keinen AV1-Encoder hat — SVT-AV1 schafft einen Fünf-Sekunden-Clip aber in ein bis zwei Sekunden, gegenüber der Erzeugung also vernachlässigbar.",
         "ar": "نحو نصف الحجم بالجودة نفسها. يُرمَّز برمجيًا لأن معالجات Apple لا تتضمّن مرمِّز AV1 — غير أن SVT-AV1 ينهي مقطعًا من خمس ثوانٍ في ثانية أو اثنتين، وهو زمن ضئيل مقارنةً بالتوليد."
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "format.codec.h264.detail",
@@ -621,7 +676,8 @@
         "de": "Was das Modell erzeugt. Wird unverändert ausgeliefert, ohne zweite Kodierung, und läuft überall.",
         "ar": "ما ينتجه النموذج. يُسلَّم كما صُيِّر، دون ترميز ثانٍ، ويعمل في كل مكان."
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "format.fps.30.detail",
@@ -632,7 +688,8 @@
         "de": "Bilder werden auf eine 30-fps-Zeitleiste dupliziert. Die Bewegung kann leicht ruckeln.",
         "ar": "تُكرَّر الإطارات على خط زمني بمعدل 30 fps. قد تبدو الحركة متقطّعة قليلًا."
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "format.fps.60.detail",
@@ -643,7 +700,8 @@
         "de": "Bilder werden auf eine 60-fps-Zeitleiste dupliziert. Es wird keine neue Bewegung erzeugt.",
         "ar": "تُكرَّر الإطارات على خط زمني بمعدل 60 fps. لا تُصطنَع حركة جديدة."
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "format.fps.conformed",
@@ -654,7 +712,8 @@
         "de": "%@ fps — angepasst",
         "ar": "‏%@ fps — مُوائَم"
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "format.fps.native",
@@ -665,7 +724,8 @@
         "de": "24 fps — nativ",
         "ar": "‏24 fps — أصلي"
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "format.fps.native.detail",
@@ -676,7 +736,8 @@
         "de": "Die eigene Kadenz des Modells. Es werden keine Bilder erfunden oder verworfen.",
         "ar": "إيقاع النموذج نفسه. لا تُختلق إطارات ولا تُحذف."
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "format.frames",
@@ -687,7 +748,8 @@
         "de": "%@ Bilder",
         "ar": "%@ إطارًا"
       },
-      "note": ""
+      "note": "Takes a count. English offers only two forms and this string supplies one, so \"1 frames\" is already wrong; Arabic needs six categories and settles for a single compromise form. Any language with Slavic-style plurals will need a .stringsdict before this can be translated correctly. Counts start at 5 here because frames follow the VAE's 17n+5 grid, which is why nobody has hit the singular case.",
+      "level": "warning"
     },
     {
       "key": "format.framesAndLength",
@@ -698,7 +760,8 @@
         "de": "%1$@ Bilder · %2$@ s",
         "ar": "%1$@ إطارًا · %2$@ ث"
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "format.hours",
@@ -709,7 +772,8 @@
         "de": "%@ Std.",
         "ar": "%@ س"
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "format.hoursMinutes",
@@ -720,7 +784,8 @@
         "de": "%1$@ Std. %2$@ Min.",
         "ar": "%1$@ س %2$@ د"
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "format.minutes",
@@ -731,7 +796,8 @@
         "de": "%@ Min.",
         "ar": "%@ د"
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "format.ofTotal",
@@ -742,7 +808,8 @@
         "de": "%1$@ von %2$@",
         "ar": "%1$@ من %2$@"
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "format.res.1080",
@@ -753,7 +820,8 @@
         "de": "1080p — hochskaliert",
         "ar": "‏1080p — مُكبَّر"
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "format.res.1080.detail",
@@ -764,7 +832,8 @@
         "de": "Nach der Erzeugung auf eine 1080p-Auslieferung resampelt. Es kommen keine Details hinzu.",
         "ar": "يُعاد أخذ العيّنات بعد التوليد ليلائم مسار تسليم 1080p. لا تُضاف أي تفاصيل."
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "format.res.1440",
@@ -775,7 +844,8 @@
         "de": "1440p — hochskaliert",
         "ar": "‏1440p — مُكبَّر"
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "format.res.1440.detail",
@@ -786,7 +856,8 @@
         "de": "Auf 1440p resampelt. Größere Dateien bei gleichem echten Detail; nur sinnvoll, wenn ein nachgelagertes Werkzeug diese Größe verlangt.",
         "ar": "يُعاد أخذ العيّنات إلى 1440p. ملفات أكبر بالتفاصيل الحقيقية نفسها؛ مفيد فقط إذا طلبت أداة لاحقة هذا الحجم."
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "format.res.native",
@@ -797,7 +868,8 @@
         "de": "768p — nativ",
         "ar": "‏768p — أصلي"
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "format.res.native.detail",
@@ -808,7 +880,8 @@
         "de": "Genau das, was das Modell erzeugt, ohne Resampling. Empfohlen.",
         "ar": "ما ينتجه النموذج تمامًا، دون إعادة أخذ عيّنات. موصى به."
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "format.seconds",
@@ -819,7 +892,8 @@
         "de": "%@ s",
         "ar": "%@ ث"
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "format.steps",
@@ -830,7 +904,8 @@
         "de": "%@ Schritte",
         "ar": "%@ خطوة"
       },
-      "note": ""
+      "note": "Takes a count. English offers only two forms and this string supplies one, so \"1 steps\" is already wrong; Arabic needs six categories and settles for a single compromise form. Any language with Slavic-style plurals will need a .stringsdict before this can be translated correctly. GenerationSpec.stepsRange is 4...60, so the singular is unreachable today — but that range is a UI choice, not a property of the sampler.",
+      "level": "warning"
     },
     {
       "key": "library.copied",
@@ -841,7 +916,8 @@
         "de": "Kopiert",
         "ar": "تم النسخ"
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "library.copySeed",
@@ -852,7 +928,8 @@
         "de": "%@ kopieren",
         "ar": "نسخ %@"
       },
-      "note": ""
+      "note": "Injects a name into a sentence. Languages that inflect a noun for case, choose an article by gender, or attach a vowel-harmonising suffix cannot do it without knowing the word, and it is only known at runtime. Prefer wording that sets the name apart — quoted, or on its own line.",
+      "level": "warning"
     },
     {
       "key": "library.duration",
@@ -863,7 +940,8 @@
         "de": "Dauer",
         "ar": "المدة"
       },
-      "note": ""
+      "note": "A Library column giving the length of a finished video. Reports a fact; sampling.duration sets a target.",
+      "level": "info"
     },
     {
       "key": "library.empty.detail",
@@ -874,7 +952,8 @@
         "de": "Fertige Renderings werden unter %@ gesichert, jeweils mit einer JSON-Datei, die die genauen Einstellungen festhält.",
         "ar": "تُحفظ عمليات التصيير المنجزة في %@، مع ملف JSON لكل منها يسجّل الإعدادات التي أنتجته بالضبط."
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "library.empty.title",
@@ -885,7 +964,8 @@
         "de": "Noch keine Videos",
         "ar": "لا توجد مقاطع بعد"
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "library.filesize",
@@ -896,7 +976,8 @@
         "de": "Dateigröße",
         "ar": "حجم الملف"
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "library.missing",
@@ -907,7 +988,8 @@
         "de": "Diese Datei ist nicht mehr auf dem Volume",
         "ar": "لم يعد هذا الملف موجودًا على القرص"
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "library.mode",
@@ -918,7 +1000,8 @@
         "de": "Modus",
         "ar": "الوضع"
       },
-      "note": ""
+      "note": "A column in the Library listing which mode produced a finished video. Reporting a past fact, where compose.mode.title is a control. Some languages prefer different words for the two.",
+      "level": "info"
     },
     {
       "key": "library.moveToTrash",
@@ -929,7 +1012,8 @@
         "de": "In den Papierkorb legen",
         "ar": "نقل إلى المهملات"
       },
-      "note": "macOS calls it 垃圾桶 in TW, 废纸篓 in CN."
+      "note": "macOS calls it 垃圾桶 in TW, 废纸篓 in CN.",
+      "level": "info"
     },
     {
       "key": "library.open",
@@ -940,7 +1024,8 @@
         "de": "Öffnen",
         "ar": "فتح"
       },
-      "note": ""
+      "note": "Imperative verb: open the finished video in another app. Not the adjective.",
+      "level": "info"
     },
     {
       "key": "library.renderTime",
@@ -951,7 +1036,8 @@
         "de": "Renderdauer",
         "ar": "زمن التصيير"
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "library.revealFolder",
@@ -962,7 +1048,8 @@
         "de": "Ordner anzeigen",
         "ar": "إظهار المجلد"
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "library.revealWav",
@@ -973,7 +1060,8 @@
         "de": "WAV anzeigen",
         "ar": "إظهار ملف WAV"
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "library.search",
@@ -984,7 +1072,8 @@
         "de": "Prompts durchsuchen",
         "ar": "البحث في الموجّهات"
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "library.seconds",
@@ -995,7 +1084,8 @@
         "de": "%@ Sekunden",
         "ar": "%@ ثانية"
       },
-      "note": ""
+      "note": "Takes a count. English offers only two forms and this string supplies one, so \"1 seconds\" is already wrong; Arabic needs six categories and settles for a single compromise form. Any language with Slavic-style plurals will need a .stringsdict before this can be translated correctly.",
+      "level": "warning"
     },
     {
       "key": "library.seed",
@@ -1006,7 +1096,8 @@
         "de": "Seed",
         "ar": "البذرة"
       },
-      "note": ""
+      "note": "The random seed that determines a render's noise. A number, not a plant seed. Most languages keep the English term or transliterate it.",
+      "level": "info"
     },
     {
       "key": "library.settings",
@@ -1017,7 +1108,8 @@
         "de": "Einstellungen",
         "ar": "الإعدادات"
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "library.useSettings",
@@ -1028,7 +1120,8 @@
         "de": "Diese Einstellungen übernehmen",
         "ar": "استخدام هذه الإعدادات"
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "menu.licenses",
@@ -1039,7 +1132,8 @@
         "de": "Lizenzen",
         "ar": "التراخيص"
       },
-      "note": "Help menu item opening the licence window. The window's own text is English only — see LicensesView."
+      "note": "Help menu item opening the licence window. The window's own text is English only — see LicensesView.",
+      "level": "info"
     },
     {
       "key": "menu.newRender",
@@ -1050,7 +1144,8 @@
         "de": "Neuer Render",
         "ar": "تصيير جديد"
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "menu.rescanModels",
@@ -1061,7 +1156,8 @@
         "de": "Modellordner neu einlesen",
         "ar": "إعادة فحص مجلد النماذج"
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "menu.revealModels",
@@ -1072,7 +1168,8 @@
         "de": "Modellordner im Finder zeigen",
         "ar": "إظهار مجلد النماذج في Finder"
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "mlx.checkpointMissing",
@@ -1083,7 +1180,8 @@
         "de": "Der gewählte Checkpoint ist nicht installiert.",
         "ar": "نقطة التحقّق المختارة غير مثبَّتة."
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "mlx.runtimeNotReady",
@@ -1094,7 +1192,8 @@
         "de": "Die Python-Umgebung ist nicht bereit. Öffnen Sie „Einstellungen › Laufzeitumgebung“.",
         "ar": "‏بيئة Python غير جاهزة. افتح «الإعدادات › بيئة التشغيل»."
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "mode.first",
@@ -1105,7 +1204,8 @@
         "de": "Erstes Bild",
         "ar": "الإطار الأول"
       },
-      "note": "The opening frame of the clip."
+      "note": "The name of the first-frame mode in the mode picker: the render continues from a supplied image. Distinct from refs.slot.first, which labels the slot that image goes in.",
+      "level": "info"
     },
     {
       "key": "mode.first.detail",
@@ -1116,7 +1216,8 @@
         "de": "Ausgehend von einem Standbild animieren.",
         "ar": "تحريك انطلاقًا من صورة ثابتة تقدّمها."
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "mode.firstlast",
@@ -1127,7 +1228,8 @@
         "de": "Erstes & letztes Bild",
         "ar": "الإطار الأول والأخير"
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "mode.firstlast.detail",
@@ -1138,7 +1240,8 @@
         "de": "Beide Enden der Einstellung vorgeben; das Modell erzeugt die Bewegung dazwischen.",
         "ar": "قدّم بداية اللقطة ونهايتها، ويولّد النموذج الحركة بينهما."
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "mode.reference",
@@ -1149,7 +1252,8 @@
         "de": "Referenzen",
         "ar": "مراجع"
       },
-      "note": "Reference images/videos/audio that define subject or style."
+      "note": "The name of the reference mode in the mode picker — the mode that conditions on supplied images or video. Distinct from refs.title.references, which heads the list of the files themselves.",
+      "level": "info"
     },
     {
       "key": "mode.reference.detail",
@@ -1160,7 +1264,8 @@
         "de": "Referenzbilder, -clips oder -audio vorgeben, um Motiv, Stil oder Stimme festzulegen.",
         "ar": "قدّم صورًا أو مقاطع أو أصواتًا مرجعية لتثبيت الموضوع أو الأسلوب أو الصوت."
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "mode.t2v",
@@ -1171,7 +1276,8 @@
         "de": "Text zu Video",
         "ar": "نص إلى فيديو"
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "mode.t2v.detail",
@@ -1182,7 +1288,8 @@
         "de": "Ausschließlich aus einer Beschreibung erzeugen.",
         "ar": "التوليد من وصف نصي فقط."
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "model.comfy.audioVAE",
@@ -1193,7 +1300,8 @@
         "de": "Audio-VAE in fp32, für die Stereospur, die H3 zusätzlich zum Bild erzeugt.",
         "ar": "‏audio VAE بدقة fp32، للمسار الصوتي المجسَّم الذي يولّده H3 إلى جانب الصورة."
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "model.comfy.fl2va",
@@ -1204,7 +1312,8 @@
         "de": "FL2VA-Transformer für ComfyUI. Nur nötig, wenn Sie Text-zu-Video oder Keyframes über ComfyUI statt über MLX laufen lassen wollen.",
         "ar": "محوّل FL2VA الخاص بـ ComfyUI. لا يلزم إلا إذا أردت تشغيل التحويل من نص إلى فيديو أو الإطارات المفتاحية عبر ComfyUI بدل MLX."
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "model.comfy.lora.fl2va",
@@ -1215,7 +1324,8 @@
         "de": "4-Schritt-Turbo-LoRA für FL2VA. Auf vier Schritte destilliert, während die undestillierten MLX-Gewichte sechzehn brauchen.",
         "ar": "نموذج LoRA السريع لـ FL2VA بأربع خطوات. مُقطَّر لأربع خطوات، بينما تحتاج أوزان MLX غير المقطَّرة إلى ستّ عشرة."
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "model.comfy.lora.ref2va",
@@ -1226,7 +1336,8 @@
         "de": "4-Schritt-Turbo-LoRA für Ref2VA. Sie macht Referenz-Renderings überhaupt erst praktikabel – vier Schritte statt fünfzig, also Dutzende Minuten statt vieler Stunden.",
         "ar": "نموذج LoRA السريع لـ Ref2VA بأربع خطوات. هو ما يجعل التصيير المرجعي عمليًا أصلًا — أربع خطوات بدل خمسين، أي عشرات الدقائق بدل ساعات طويلة."
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "model.comfy.ref2va",
@@ -1237,7 +1348,8 @@
         "de": "Ref2VA-Transformer für ComfyUI. Erforderlich für den Referenzmodus, den die MLX-Portierung überhaupt nicht beherrscht.",
         "ar": "محوّل Ref2VA الخاص بـ ComfyUI. لازم لوضع المراجع، وهو ما لا تستطيعه نسخة MLX إطلاقًا."
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "model.comfy.textEncoder",
@@ -1248,7 +1360,8 @@
         "de": "Qwen3-VL-32B für ComfyUI. Von beiden Aufgaben genutzt – einmal laden.",
         "ar": "‏Qwen3-VL-32B الخاص بـ ComfyUI. تشترك فيه المهمتان — نزّله مرة واحدة."
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "model.comfy.videoVAE",
@@ -1259,7 +1372,8 @@
         "de": "Video-VAE in fp16. Dem INT8-Build vorgezogen: klein, und die Decodier-Qualität ist sichtbar.",
         "ar": "‏video VAE بدقة fp16. فُضّل على نسخة INT8: حجمه صغير وجودة فك الترميز ملحوظة."
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "model.fl2va.bf16",
@@ -1270,7 +1384,8 @@
         "de": "Referenzpräzision, gegen die diffusers-Implementierung validiert. Die langsamste Option und allein schon rund 41 GB resident – zusammen mit dem Text-Encoder sollten es 128 GB Unified Memory sein.",
         "ar": "دقة مرجعية، جرى التحقق منها مقابل تنفيذ diffusers. الخيار الأبطأ، ويشغل وحده نحو 41 غيغابايت — ومع تحميل مشفّر النص أيضًا، يُنصح بذاكرة موحّدة سعتها 128 غيغابايت."
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "model.fl2va.gguf",
@@ -1281,7 +1396,8 @@
         "de": "GGUF-Quantisierungen, auch sehr kleine. Wird von ComfyUI geladen, nicht von MLX – nützlich, falls Sie das Modell stattdessen über ComfyUI laufen lassen.",
         "ar": "تكميمات بصيغة GGUF، منها نسخ صغيرة جدًا. يحمّلها ComfyUI لا MLX — مفيدة إن شغّلت هذا النموذج عبر ComfyUI بدلًا من ذلك."
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "model.fl2va.nvfp4",
@@ -1292,7 +1408,8 @@
         "de": "Community-Prune im NVFP4-Format von NVIDIA. Der Vollständigkeit halber aufgeführt.",
         "ar": "نسخة مُقلَّمة من المجتمع بصيغة NVFP4 من NVIDIA. مُدرجة لاكتمال القائمة."
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "model.fl2va.q4",
@@ -1303,7 +1420,8 @@
         "de": "4 Bit, Gruppengröße 64. Die schnellste dieser Varianten und rund 12 GB resident. Verliert etwas Feintextur. Der beste Einstieg – die Speicheruntergrenze setzt allerdings der Text-Encoder, nicht diese Datei.",
         "ar": "‏4-bit بحجم مجموعة 64. الأسرع بينها ويشغل نحو 12 غيغابايت. يفقد بعض التفاصيل الدقيقة. أفضل نقطة للبدء — غير أن الحدّ الأدنى للذاكرة يفرضه مشفّر النص لا هذا الملف."
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "model.fl2va.q6",
@@ -1314,7 +1432,8 @@
         "de": "6 Bit. Ein Mittelweg, wenn 4 Bit zu weich wirkt und 8 Bit zu langsam ist.",
         "ar": "‏6-bit. حل وسط إذا بدا 4-bit ناعمًا أكثر من اللازم وكان 8-bit بطيئًا."
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "model.fl2va.q8",
@@ -1325,7 +1444,8 @@
         "de": "Das beste Verhältnis von Qualität zu Gigabyte – optisch sehr nah an bf16.",
         "ar": "أفضل توازن بين الجودة وحجم التخزين — قريب بصريًا جدًا من bf16."
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "model.lora.fl2va.mlx",
@@ -1336,7 +1456,8 @@
         "de": "Eine 4-Schritt-Destillations-LoRA für FL2VA bei 768p – der größte verfügbare Geschwindigkeitsgewinn für dieses Modell. Die MLX-Portierung hat noch keinen LoRA-Loader, daher steht sie hier zum Beobachten, nicht zum Installieren.",
         "ar": "نموذج LoRA مُقطَّر بأربع خطوات لـ FL2VA بدقة 768p — أكبر مكسب في السرعة متاح لهذا النموذج. لا تملك نسخة MLX محمِّل LoRA بعد، لذا يُدرج هنا للمتابعة لا للتثبيت."
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "model.lora.fl2va.mlx.blocked",
@@ -1347,7 +1468,8 @@
         "de": "Die MLX-Portierung hat noch keinen LoRA-Loader. Zum Einbinden wäre ein zusammengeführter Checkpoint nötig, nicht die LoRA allein.",
         "ar": "لا تملك نسخة MLX محمِّل LoRA بعد. ودمجه يتطلب نقطة تحقّق مدموجة بدل ملف LoRA وحده."
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "model.name.comfy.audioVAE",
@@ -1358,7 +1480,8 @@
         "de": "Audio-VAE – fp32",
         "ar": "‏VAE الصوت — ‏fp32"
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "model.name.comfy.fl2va",
@@ -1369,7 +1492,8 @@
         "de": "FL2VA-Transformer – INT8 ConvRot",
         "ar": "محوّل FL2VA — ‏INT8 ConvRot"
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "model.name.comfy.lora.fl2va",
@@ -1380,7 +1504,8 @@
         "de": "FL2VA-Turbo-LoRA – 4 Schritte, ComfyUI-Format",
         "ar": "‏FL2VA turbo LoRA — أربع خطوات، بصيغة ComfyUI"
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "model.name.comfy.lora.ref2va",
@@ -1391,7 +1516,8 @@
         "de": "Ref2VA-Turbo-LoRA – 4 Schritte",
         "ar": "‏Ref2VA turbo LoRA — أربع خطوات"
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "model.name.comfy.ref2va",
@@ -1402,7 +1528,8 @@
         "de": "Ref2VA-Transformer – INT8 ConvRot",
         "ar": "محوّل Ref2VA — ‏INT8 ConvRot"
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "model.name.comfy.textEncoder",
@@ -1413,7 +1540,8 @@
         "de": "Text-Encoder – INT8 ConvRot",
         "ar": "مشفّر النص — ‏INT8 ConvRot"
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "model.name.comfy.videoVAE",
@@ -1424,7 +1552,8 @@
         "de": "Video-VAE – fp16",
         "ar": "‏VAE الفيديو — ‏fp16"
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "model.name.fl2va.bf16",
@@ -1435,7 +1564,8 @@
         "de": "FL2VA-Transformer – bfloat16",
         "ar": "محوّل FL2VA — ‏bfloat16"
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "model.name.fl2va.gguf",
@@ -1446,7 +1576,8 @@
         "de": "FL2VA-Transformer – GGUF",
         "ar": "محوّل FL2VA — ‏GGUF"
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "model.name.fl2va.nvfp4",
@@ -1457,7 +1588,8 @@
         "de": "FL2VA-Transformer – NVFP4",
         "ar": "محوّل FL2VA — ‏NVFP4"
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "model.name.fl2va.q4",
@@ -1468,7 +1600,8 @@
         "de": "FL2VA-Transformer – 4-bit (MLX)",
         "ar": "محوّل FL2VA — ‏4-bit ‏(MLX)"
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "model.name.fl2va.q6",
@@ -1479,7 +1612,8 @@
         "de": "FL2VA-Transformer – 6-bit (MLX)",
         "ar": "محوّل FL2VA — ‏6-bit ‏(MLX)"
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "model.name.fl2va.q8",
@@ -1490,7 +1624,8 @@
         "de": "FL2VA-Transformer – 8-bit (MLX)",
         "ar": "محوّل FL2VA — ‏8-bit ‏(MLX)"
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "model.name.lora.fl2va.mlx",
@@ -1501,7 +1636,8 @@
         "de": "FL2VA-Turbo-LoRA – 4 Schritte, MLX-Format",
         "ar": "‏FL2VA turbo LoRA — أربع خطوات، بصيغة MLX"
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "model.name.ref2va.bf16",
@@ -1512,7 +1648,8 @@
         "de": "Ref2VA-Transformer – bfloat16",
         "ar": "محوّل Ref2VA — ‏bfloat16"
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "model.name.support.mlx",
@@ -1523,7 +1660,8 @@
         "de": "FL2VA-VAEs, Prozessor und Tokenizer",
         "ar": "‏VAE ومعالج و‏tokenizer لـ FL2VA"
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "model.name.textEncoder.mlx",
@@ -1534,7 +1672,8 @@
         "de": "Text-Encoder – bfloat16",
         "ar": "مشفّر النص — bfloat16"
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "model.name.textEncoder.uncensored",
@@ -1545,7 +1684,8 @@
         "de": "Text-Encoder – INT8 ConvRot, ohne Filter",
         "ar": "مشفّر النص — ‏INT8 ConvRot، بلا رقابة"
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "model.ref2va.bf16",
@@ -1556,7 +1696,8 @@
         "de": "Upstream-bf16-Checkpoint für Ref2VA. Nur aufgeführt, damit die Option sichtbar ist: Die Pipeline der MLX-Portierung akzeptiert ausschließlich Keyframes und kennt keinen Pfad für Referenzkonditionierung, lässt sich also aus dieser App noch nicht ansteuern.",
         "ar": "نقطة تحقّق Ref2VA الأصلية بدقة bf16. مُدرجة ليظهر الخيار فحسب، لكن منظومة نسخة MLX لا تقبل سوى الإطارات المفتاحية ولا تملك مسارًا للاشتراط المرجعي، لذا لا يمكن تشغيلها من هذا التطبيق بعد."
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "model.ref2va.bf16.blocked",
@@ -1567,7 +1708,8 @@
         "de": "Die MLX-Portierung implementiert keine Referenzkonditionierung. Ref2VA benötigt derzeit den CUDA-Stack (SGLang, vLLM oder ComfyUI).",
         "ar": "لا تنفّذ نسخة MLX الاشتراط المرجعي. يحتاج Ref2VA حاليًا إلى منظومة CUDA ‏(SGLang أو vLLM أو ComfyUI)."
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "model.support.mlx",
@@ -1578,7 +1720,8 @@
         "de": "Video-VAE (10,4 GB), Audio-VAE, Prozessor und Tokenizer aus dem FL2VA-Aufgabenverzeichnis, das die Pipeline als Einheit lädt. Für jeden Lauf erforderlich.",
         "ar": "‏video VAE (10.4 GB) و‏audio VAE والمعالج و‏tokenizer، مأخوذة من مجلد مهمة FL2VA الذي تحمّله المنظومة ككتلة واحدة. مطلوبة في كل تشغيل."
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "model.textEncoder.mlx",
@@ -1589,7 +1732,8 @@
         "de": "Qwen3-VL-32B in bfloat16 – H3 liest dessen Hidden States aus Schicht 50. Der größte Einzeldownload und derzeit der einzige Text-Encoder, den die MLX-Pipeline laden kann. Mit rund 34 GB resident entscheidet er, nicht der Transformer, ob die App auf einem Mac läuft: mit dem kleinsten Transformer sind das etwa 46 GB, praktisch also rund 64 GB Unified Memory als Untergrenze. Wird neben den VAEs unter FL2VA/ installiert.",
         "ar": "‏Qwen3-VL-32B بدقة bfloat16 — يقرأ H3 الحالات المخفية من طبقته الخمسين. أكبر تنزيل مفرد، وهو حاليًا مشفّر النص الوحيد الذي تستطيع منظومة MLX تحميله. وبإشغاله نحو 34 غيغابايت، فهو — لا المحوّل — ما يحدّد إمكانية تشغيل التطبيق على جهاز بعينه: مع أصغر محوّل يبلغ المجموع نحو 46 غيغابايت، أي أن الحدّ العملي هو ذاكرة موحّدة بنحو 64 غيغابايت. يُثبَّت بجانب الـ VAE داخل ‎FL2VA/‎."
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "model.textEncoder.uncensored",
@@ -1600,7 +1744,8 @@
         "de": "Qwen3-VL-32B, dem das Verweigerungsverhalten abtrainiert wurde. Direkter Ersatz für den Standard-Encoder – H3 selbst bleibt unverändert, da Verweigerungen im Sprachmodell sitzen, nicht im Diffusion-Transformer. Nur ComfyUI; MLX hat keinen Loader für dieses Format.",
         "ar": "‏Qwen3-VL-32B بعد تدريبه على التخلّي عن سلوك الرفض. بديل مباشر للمشفّر القياسي — ويبقى H3 نفسه دون تغيير، لأن الرفض يقيم في نموذج اللغة لا في محوّل الانتشار. يعمل مع ComfyUI فقط؛ ولا يملك MLX محمِّلًا لهذه الصيغة."
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "models.alreadyInstalled",
@@ -1611,7 +1756,8 @@
         "de": "Bereits installiert, wird übersprungen:",
         "ar": "مثبَّت مسبقًا، وسيُتخطّى:"
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "models.bytesOf",
@@ -1622,7 +1768,8 @@
         "de": "%1$@ von %2$@",
         "ar": "%1$@ من %2$@"
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "models.cancelAll",
@@ -1633,7 +1780,8 @@
         "de": "Alle abbrechen",
         "ar": "إلغاء الكل"
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "models.cancelDownload",
@@ -1644,7 +1792,8 @@
         "de": "Download von %@ abbrechen",
         "ar": "إلغاء تنزيل %@"
       },
-      "note": ""
+      "note": "Injects a name into a sentence. Languages that inflect a noun for case, choose an article by gender, or attach a vowel-harmonising suffix cannot do it without knowing the word, and it is only known at runtime. Prefer wording that sets the name apart — quoted, or on its own line.",
+      "level": "warning"
     },
     {
       "key": "models.change",
@@ -1655,7 +1804,8 @@
         "de": "Ändern …",
         "ar": "تغيير…"
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "models.chooseFolder.message",
@@ -1666,7 +1816,8 @@
         "de": "Wählen Sie den Ordner, in dem Modellgewichte projektübergreifend geteilt werden",
         "ar": "اختر المجلد الذي تُشارَك فيه أوزان النماذج بين المشاريع"
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "models.clearFinished",
@@ -1677,7 +1828,8 @@
         "de": "Fertige entfernen",
         "ar": "مسح المكتملة"
       },
-      "note": ""
+      "note": "Removes completed downloads from the transfer list in Models. Same English as queue.clearFinished, different object — see it.",
+      "level": "info"
     },
     {
       "key": "models.copyFilename",
@@ -1688,7 +1840,8 @@
         "de": "Dateinamen kopieren",
         "ar": "نسخ اسم الملف"
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "models.copyLink",
@@ -1699,7 +1852,8 @@
         "de": "Link kopieren",
         "ar": "نسخ الرابط"
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "models.copyRepoID",
@@ -1710,7 +1864,8 @@
         "de": "Repository-ID kopieren",
         "ar": "نسخ معرّف المستودع"
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "models.delete.freed",
@@ -1721,7 +1876,8 @@
         "de": "%@ in den Papierkorb gelegt.",
         "ar": "نُقل %@ إلى المهملات."
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "models.delete.help.inUse",
@@ -1732,7 +1888,8 @@
         "de": "Wird für den aktuellen Render verwendet — zuerst ein anderes wählen",
         "ar": "مستخدَم في التصيير الحالي — اختر غيره أولًا"
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "models.delete.help.ok",
@@ -1743,7 +1900,8 @@
         "de": "Dieses Modell in den Papierkorb legen",
         "ar": "نقل هذا النموذج إلى المهملات"
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "models.delete.help.running",
@@ -1754,7 +1912,8 @@
         "de": "Nicht während ein Render läuft",
         "ar": "غير ممكن أثناء تشغيل تصيير"
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "models.delete.message",
@@ -1765,7 +1924,8 @@
         "de": "Gibt etwa %1$@ im gemeinsamen Modellordner frei, den andere Projekte auf diesem Mac ebenfalls nutzen könnten — alles, was auf %2$@ angewiesen ist, müsste es erneut laden. Die Dateien wandern in den Papierkorb und lassen sich bis zum Leeren wiederherstellen.",
         "ar": "يحرّر نحو %1$@ من مجلد النماذج المشترك، وقد تستخدمه مشاريع أخرى على هذا الـ Mac — وأي شيء يعتمد على %2$@ سيحتاج إلى تنزيله مجددًا. تنتقل الملفات إلى المهملات، فيمكن التراجع حتى تفريغها."
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "models.delete.title",
@@ -1776,7 +1936,8 @@
         "de": "%@ löschen?",
         "ar": "هل تريد حذف %@؟"
       },
-      "note": ""
+      "note": "Injects a name into a sentence. Languages that inflect a noun for case, choose an article by gender, or attach a vowel-harmonising suffix cannot do it without knowing the word, and it is only known at runtime. Prefer wording that sets the name apart — quoted, or on its own line.",
+      "level": "warning"
     },
     {
       "key": "models.download.starting",
@@ -1787,7 +1948,8 @@
         "de": "Übertragung wird gestartet…",
         "ar": "جارٍ بدء النقل…"
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "models.downloadAmount",
@@ -1798,7 +1960,8 @@
         "de": "%@ laden",
         "ar": "تنزيل %@"
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "models.downloadFailed",
@@ -1809,7 +1972,8 @@
         "de": "Download fehlgeschlagen",
         "ar": "فشل التنزيل"
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "models.downloaded",
@@ -1820,7 +1984,8 @@
         "de": "Geladen",
         "ar": "تم التنزيل"
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "models.downloading",
@@ -1831,7 +1996,8 @@
         "de": "Wird geladen…",
         "ar": "جارٍ التنزيل…"
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "models.downloads",
@@ -1842,7 +2008,8 @@
         "de": "Downloads",
         "ar": "التنزيلات"
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "models.downloads.footnote",
@@ -1853,7 +2020,8 @@
         "de": "Diese Liste gilt für die aktuelle Sitzung. Ein abgeschlossener Download bleibt hier, bis er entfernt wird; was installiert ist, steht unten bei jedem Modell.",
         "ar": "تغطي هذه القائمة الجلسة الحالية. يبقى التنزيل المكتمل هنا حتى يُمسح؛ أما ما هو مثبَّت فيظهر بجانب كل نموذج أدناه."
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "models.folder.footnote",
@@ -1864,7 +2032,8 @@
         "de": "Downloads landen im Hugging-Face-Cache in diesem Ordner. Jedes andere Projekt, das auf denselben Ordner zeigt, verwendet sie weiter, statt eine zweite Kopie zu laden.",
         "ar": "تُحفظ التنزيلات في ذاكرة Hugging Face المؤقتة داخل هذا المجلد. وأي مشروع آخر موجَّه إلى المجلد نفسه يعيد استخدامها بدل تنزيل نسخة ثانية."
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "models.folder.title",
@@ -1875,7 +2044,8 @@
         "de": "Gemeinsamer Modellordner",
         "ar": "مجلد النماذج المشترك"
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "models.found",
@@ -1886,7 +2056,8 @@
         "de": "Gefundene Modelle",
         "ar": "النماذج المعثور عليها"
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "models.freeSpace",
@@ -1897,7 +2068,8 @@
         "de": "Freier Speicher",
         "ar": "المساحة الحرة"
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "models.inMemory",
@@ -1908,7 +2080,8 @@
         "de": "%@ im Arbeitsspeicher",
         "ar": "%@ في الذاكرة"
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "models.inUse",
@@ -1919,7 +2092,8 @@
         "de": "In Verwendung",
         "ar": "قيد الاستخدام"
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "models.installRecommended",
@@ -1930,7 +2104,8 @@
         "de": "Empfohlene installieren",
         "ar": "تثبيت الموصى به"
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "models.installRecommended.title",
@@ -1941,7 +2116,8 @@
         "de": "Die empfohlenen Modelle installieren?",
         "ar": "هل تريد تثبيت النماذج الموصى بها؟"
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "models.installed",
@@ -1952,7 +2128,8 @@
         "de": "Installiert",
         "ar": "مثبَّت"
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "models.memory.tight",
@@ -1963,7 +2140,8 @@
         "de": "Benötigt etwa %1$@ von den rund %2$@, die dieser Mac einem Modell geben kann. Es passt, aber knapp.",
         "ar": "يحتاج نحو %1$@ من أصل %2$@ تقريبًا يمكن لهذا الـ Mac منحها لنموذج. سيتّسع، لكن دون هامش يُذكر."
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "models.memory.tooLarge",
@@ -1974,7 +2152,8 @@
         "de": "Benötigt etwa %1$@ Arbeitsspeicher. Dieser Mac kann einem Modell etwa %2$@ geben, es würde also auslagern statt zu laufen.",
         "ar": "يحتاج نحو %1$@ من الذاكرة. ولا يستطيع هذا الـ Mac منح النموذج سوى %2$@ تقريبًا، لذا سيلجأ إلى التبديل بدل التشغيل."
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "models.notInstalled",
@@ -1985,7 +2164,8 @@
         "de": "Nicht installiert",
         "ar": "غير مثبَّت"
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "models.notRunnable",
@@ -1996,7 +2176,8 @@
         "de": "Hier nicht lauffähig",
         "ar": "غير قابل للتشغيل هنا"
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "models.other.footnote",
@@ -2007,7 +2188,8 @@
         "de": "Diese gehören zu anderen Projekten. Diese App rührt sie nicht an.",
         "ar": "هذه تخص مشاريع أخرى، ولا يمسّها هذا التطبيق."
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "models.other.title",
@@ -2018,7 +2200,8 @@
         "de": "Weitere Modelle in diesem Ordner",
         "ar": "نماذج أخرى في هذا المجلد"
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "models.progress",
@@ -2029,7 +2212,8 @@
         "de": "Download-Fortschritt",
         "ar": "تقدّم التنزيل"
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "models.rescan",
@@ -2040,7 +2224,8 @@
         "de": "Neu einlesen",
         "ar": "إعادة الفحص"
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "models.rescan.help",
@@ -2051,7 +2236,8 @@
         "de": "Den gemeinsamen Modellordner neu einlesen",
         "ar": "إعادة قراءة مجلد النماذج المشترك"
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "models.revealInFinder",
@@ -2062,7 +2248,8 @@
         "de": "%@ im Finder zeigen",
         "ar": "إظهار %@ في Finder"
       },
-      "note": ""
+      "note": "Injects a name into a sentence. Languages that inflect a noun for case, choose an article by gender, or attach a vowel-harmonising suffix cannot do it without knowing the word, and it is only known at runtime. Prefer wording that sets the name apart — quoted, or on its own line.",
+      "level": "warning"
     },
     {
       "key": "models.savingTo",
@@ -2073,7 +2260,8 @@
         "de": "Wird in %1$@ gesichert, %2$@ frei.",
         "ar": "سيُحفظ في %1$@، والمساحة الحرة %2$@."
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "models.selected",
@@ -2084,7 +2272,8 @@
         "de": "Ausgewählt",
         "ar": "محدَّد"
       },
-      "note": ""
+      "note": "Adjective describing a model the user has picked for a render. Not a verb, and not a count.",
+      "level": "info"
     },
     {
       "key": "models.showIncompatible",
@@ -2095,7 +2284,8 @@
         "de": "Inkompatible anzeigen",
         "ar": "إظهار غير المتوافق"
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "models.showIncompatible.help",
@@ -2106,7 +2296,8 @@
         "de": "Auch Checkpoints in Formaten zeigen, die dieser Mac nicht ausführen kann",
         "ar": "تضمين نقاط التحقق بصيغ لا يستطيع هذا الـ Mac تشغيلها"
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "models.spaceWarning",
@@ -2117,7 +2308,8 @@
         "de": "Der empfohlene Satz benötigt etwa %@, zuzüglich Arbeitsspeicherplatz beim Rendern.",
         "ar": "تحتاج المجموعة الموصى بها نحو %@، إضافةً إلى مساحة مؤقتة أثناء التصيير."
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "models.status.inUse",
@@ -2128,7 +2320,8 @@
         "de": "Geladen und für dieses Rendering verwendet",
         "ar": "مُنزَّل، ويُستخدم في هذا التصيير"
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "models.status.missing",
@@ -2139,7 +2332,8 @@
         "de": "Für dieses Rendering erforderlich, aber nicht geladen",
         "ar": "مطلوب لهذا التصيير، لكنه غير مُنزَّل"
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "models.use",
@@ -2150,7 +2344,8 @@
         "de": "Verwenden",
         "ar": "استخدام"
       },
-      "note": ""
+      "note": "Imperative verb on a button — select these weights for the next render. Not the noun \"usage\".",
+      "level": "info"
     },
     {
       "key": "models.use.help.download",
@@ -2161,7 +2356,8 @@
         "de": "Zuerst laden",
         "ar": "نزّله أولًا"
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "models.use.help.inUse",
@@ -2172,7 +2368,8 @@
         "de": "Wird für den aktuellen Render bereits verwendet",
         "ar": "مستخدَم بالفعل في التصيير الحالي"
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "models.use.help.select",
@@ -2183,7 +2380,8 @@
         "de": "Für den aktuellen Render verwenden",
         "ar": "استخدامه في التصيير الحالي"
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "models.willDownload",
@@ -2194,7 +2392,8 @@
         "de": "Wird geladen:",
         "ar": "سيتم تنزيل:"
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "onboarding.back",
@@ -2205,7 +2404,8 @@
         "de": "Zurück",
         "ar": "رجوع"
       },
-      "note": ""
+      "note": "Navigates to the previous onboarding step. The direction, not the body part — and specifically \"previous\", which some languages word differently from \"backwards\".",
+      "level": "info"
     },
     {
       "key": "onboarding.continue",
@@ -2216,7 +2416,8 @@
         "de": "Fortfahren",
         "ar": "متابعة"
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "onboarding.diskTitle",
@@ -2227,7 +2428,8 @@
         "de": "Die Einrichtung lädt viel herunter",
         "ar": "الإعداد يتطلّب تنزيلًا كبيرًا"
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "onboarding.freeOnDisk",
@@ -2238,7 +2440,8 @@
         "de": "Frei auf dem Volume",
         "ar": "المساحة الحرة على القرص"
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "onboarding.installRuntime",
@@ -2249,7 +2452,8 @@
         "de": "Laufzeitumgebung installieren",
         "ar": "تثبيت بيئة التشغيل"
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "onboarding.installing",
@@ -2260,7 +2464,8 @@
         "de": "Wird installiert …",
         "ar": "جارٍ التثبيت…"
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "onboarding.licence.acknowledge",
@@ -2271,7 +2476,8 @@
         "de": "Ich habe die Lizenz gelesen und bin berechtigt, diese Gewichte hier zu verwenden",
         "ar": "لقد قرأت الترخيص وأنا مخوَّل باستخدام هذه الأوزان في موقعي"
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "onboarding.licence.heading",
@@ -2282,7 +2488,8 @@
         "de": "MiniMax H3 Community License",
         "ar": "ترخيص مجتمع MiniMax H3"
       },
-      "note": "The licence's proper name stays in English; TW/CN gloss it."
+      "note": "The licence's proper name stays in English; TW/CN gloss it.",
+      "level": "info"
     },
     {
       "key": "onboarding.licence.readFull",
@@ -2293,7 +2500,8 @@
         "de": "Vollständige Lizenz auf Hugging Face lesen",
         "ar": "اقرأ الترخيص كاملًا على Hugging Face"
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "onboarding.licence.title",
@@ -2304,7 +2512,8 @@
         "de": "Modelllizenz",
         "ar": "ترخيص النموذج"
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "onboarding.models.title",
@@ -2315,7 +2524,8 @@
         "de": "Modellgewichte",
         "ar": "أوزان النموذج"
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "onboarding.runtime.title",
@@ -2326,7 +2536,8 @@
         "de": "Python-Laufzeitumgebung",
         "ar": "بيئة تشغيل Python"
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "onboarding.savingTo",
@@ -2337,7 +2548,8 @@
         "de": "Wird gesichert in %@",
         "ar": "سيُحفظ في %@"
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "onboarding.skip",
@@ -2348,7 +2560,8 @@
         "de": "Einrichtung überspringen",
         "ar": "تخطّي الإعداد"
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "onboarding.slowTitle",
@@ -2359,7 +2572,8 @@
         "de": "Renders dauern Stunden, nicht Sekunden",
         "ar": "يستغرق التصيير ساعات لا ثوانٍ"
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "onboarding.spaceTight",
@@ -2370,7 +2584,8 @@
         "de": "Zusammen mit dem temporären Speicher fürs Rendern könnte der freie Platz nicht reichen.",
         "ar": "قد لا تكفي المساحة الحرة بعد احتساب المساحة المؤقتة اللازمة للتصيير."
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "onboarding.startDownload",
@@ -2381,7 +2596,8 @@
         "de": "Download starten",
         "ar": "بدء التنزيل"
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "onboarding.total",
@@ -2392,7 +2608,8 @@
         "de": "Gesamt",
         "ar": "الإجمالي"
       },
-      "note": ""
+      "note": "The combined download size of the recommended model set. A sum of bytes, not a count of files.",
+      "level": "info"
     },
     {
       "key": "onboarding.welcome.title",
@@ -2403,7 +2620,8 @@
         "de": "Video auf diesem Mac erzeugen",
         "ar": "توليد الفيديو على هذا الـ Mac"
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "preset.fastPreview",
@@ -2414,7 +2632,8 @@
         "de": "Schnelle Vorschau",
         "ar": "معاينة سريعة"
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "preset.quality",
@@ -2425,7 +2644,8 @@
         "de": "Hohe Qualität – über Nacht",
         "ar": "جودة عالية — طوال الليل"
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "preset.vertical",
@@ -2436,7 +2656,8 @@
         "de": "Hochformat für Social Media",
         "ar": "فيديو رأسي للتواصل الاجتماعي"
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "problem.blocking",
@@ -2447,7 +2668,8 @@
         "de": "Blockierendes Problem. %@",
         "ar": "مشكلة مانعة. %@"
       },
-      "note": ""
+      "note": "Wraps another translated sentence as \"Blocking issue. %@\". Two sentences glued together; the inner one was translated without knowing it would be prefixed.",
+      "level": "warning"
     },
     {
       "key": "problem.chooseCheckpoint",
@@ -2458,7 +2680,8 @@
         "de": "Wähle unter „Modelle“ einen %@-Checkpoint.",
         "ar": "اختر نقطة تحقق %@ من «النماذج»."
       },
-      "note": ""
+      "note": "Injects a task name into the noun phrase \"a %@ checkpoint\". The English article is fixed as \"a\", so a name beginning with a vowel sound already reads \"a FL2VA\" wrongly, and gendered languages cannot choose their article at all.",
+      "level": "warning"
     },
     {
       "key": "problem.duration",
@@ -2469,7 +2692,8 @@
         "de": "H3 erzeugt nur Clips von 4–15 Sekunden.",
         "ar": "يولّد H3 مقاطع مدتها 4–15 ثانية فقط."
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "problem.longOvernight",
@@ -2480,7 +2704,8 @@
         "de": "Lange Clips mit hoher Schrittzahl können über Nacht laufen. Erst einen kurzen Test erwägen.",
         "ar": "قد تستغرق المقاطع الطويلة بأعداد خطوات كبيرة ليلة كاملة. جرّب اختبارًا قصيرًا أولًا."
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "problem.lowSteps",
@@ -2491,7 +2716,8 @@
         "de": "Unter 8 Schritten erzeugt das Modell eher weiche, instabile Bewegung.",
         "ar": "دون 8 خطوات يميل النموذج إلى حركة ناعمة غير مستقرة."
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "problem.memory",
@@ -2502,7 +2728,8 @@
         "de": "Die gewählten Gewichte brauchen zusammen etwa %1$@ Arbeitsspeicher. Dieser Mac kann einem Modell etwa %2$@ geben. Wählen Sie eine kleinere Quantisierung, oder rechnen Sie mit Auslagerung.",
         "ar": "تحتاج الأوزان المختارة معًا نحو %1$@ من الذاكرة، ولا يستطيع هذا الـ Mac منح النموذج سوى %2$@ تقريبًا. اختر تكميمًا أصغر، أو توقّع اللجوء إلى التبديل."
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "problem.needFirst",
@@ -2513,7 +2740,8 @@
         "de": "Füge ein Bild für das erste Bild hinzu.",
         "ar": "أضف صورة للإطار الأول."
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "problem.needLast",
@@ -2524,7 +2752,8 @@
         "de": "Füge ein Bild für das letzte Bild hinzu.",
         "ar": "أضف صورة للإطار الأخير."
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "problem.needReference",
@@ -2535,7 +2764,8 @@
         "de": "Ref2VA benötigt mindestens eine Referenzdatei.",
         "ar": "يتطلّب Ref2VA ملف مرجع واحدًا على الأقل."
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "problem.noMetalKernel",
@@ -2546,7 +2776,8 @@
         "de": "%@ hat keinen Metal-Kernel und läuft nicht auf Apple Silicon.",
         "ar": "لا يملك %@ نواة Metal، ولا يمكن تشغيله على شرائح Apple."
       },
-      "note": ""
+      "note": "Injects a name into a sentence. Languages that inflect a noun for case, choose an article by gender, or attach a vowel-harmonising suffix cannot do it without knowing the word, and it is only known at runtime. Prefer wording that sets the name apart — quoted, or on its own line. Here the name also begins the sentence, which forces capitalisation the model name may not want.",
+      "level": "warning"
     },
     {
       "key": "problem.notInstalled",
@@ -2557,7 +2788,8 @@
         "de": "Der gewählte Checkpoint ist noch nicht installiert.",
         "ar": "نقطة التحقق المحددة غير مثبتة بعد."
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "problem.note",
@@ -2568,7 +2800,8 @@
         "de": "Hinweis. %@",
         "ar": "ملاحظة. %@"
       },
-      "note": ""
+      "note": "See problem.blocking — the same prefix-plus-sentence construction.",
+      "level": "warning"
     },
     {
       "key": "problem.prompt.empty",
@@ -2579,7 +2812,8 @@
         "de": "Schreibe einen Prompt, der die Einstellung beschreibt.",
         "ar": "اكتب موجّهًا يصف اللقطة."
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "problem.refSlow",
@@ -2590,7 +2824,8 @@
         "de": "Der Referenzmodus läuft über ComfyUI statt MLX und ist pro Schritt langsamer. Die 4-Schritt-Turbo-LoRA hält es bei Minuten statt Stunden.",
         "ar": "يعمل وضع المراجع عبر ComfyUI بدل MLX، وهو أبطأ لكل خطوة. ونموذج turbo LoRA ذو الأربع خطوات هو ما يبقي الزمن بالدقائق لا بالساعات."
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "problem.refUntagged",
@@ -2601,7 +2836,8 @@
         "de": "Der Prompt erwähnt %@ nie. H3 konditioniert Referenzen über diese Tags — ohne Tag ist der Einfluss deutlich geringer.",
         "ar": "لا يذكر الموجّه %@ إطلاقًا. يشترط H3 على المراجع عبر هذه الوسوم، وما لا يُذكر يكون تأثيره أضعف بكثير."
       },
-      "note": ""
+      "note": "Injects a name into a sentence. Languages that inflect a noun for case, choose an article by gender, or attach a vowel-harmonising suffix cannot do it without knowing the word, and it is only known at runtime. Prefer wording that sets the name apart — quoted, or on its own line.",
+      "level": "warning"
     },
     {
       "key": "problem.t2v.extraFiles",
@@ -2612,7 +2848,8 @@
         "de": "Text-zu-Video ignoriert angehängte Dateien. Wechsle den Modus, um sie zu nutzen.",
         "ar": "يتجاهل وضع النص إلى فيديو الملفات المرفقة. بدّل الوضع لاستخدامها."
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "problem.tooManyKind",
@@ -2623,7 +2860,8 @@
         "de": "Höchstens %1$@ Referenzdateien vom Typ %2$@ — du hast %3$@.",
         "ar": "بحد أقصى %1$@ من ملفات %2$@ المرجعية — لديك %3$@."
       },
-      "note": ""
+      "note": "Dead: nothing calls this. It duplicates problem.tooManyOfKind word for word, and only that one is used, from GenerationSpec. Worth deleting rather than translating again.",
+      "level": "warning"
     },
     {
       "key": "problem.tooManyOfKind",
@@ -2634,7 +2872,8 @@
         "de": "Höchstens %1$@ Referenzdateien vom Typ %2$@ – Sie haben %3$@.",
         "ar": "بحد أقصى %1$@ من ملفات %2$@ المرجعية — لديك %3$@."
       },
-      "note": ""
+      "note": "Injects a count, then a *noun* naming the file kind, then a second count. The noun has to agree with the numeral in most inflecting languages, and it arrives lowercased by the call site, which is an assumption German does not share. The counts themselves never reach 1 — the per-kind limits are 9, 3 and 3 — so only the noun is a live problem. See also problem.tooManyKind, its unused twin.",
+      "level": "warning"
     },
     {
       "key": "problem.tooManyTotal",
@@ -2645,7 +2884,8 @@
         "de": "Ref2VA akzeptiert insgesamt %@ Referenzdateien.",
         "ar": "يقبل Ref2VA %@ ملف مرجع بالإجمال."
       },
-      "note": ""
+      "note": "Takes a count of reference files, though the value is always ReferenceAsset.totalFileLimit, which is 12. A placeholder that only ever holds one constant: the plural risk is theoretical, and the number could as easily be written into each translation, which would let every language inflect around it.",
+      "level": "warning"
     },
     {
       "key": "problem.upscale",
@@ -2656,7 +2896,8 @@
         "de": "%@ ist ein Resampling der 768p-Ausgabe des Modells. Der echte 2K-Modus von H3 ist nicht quelloffen und läuft nicht lokal.",
         "ar": "‏%@ مجرد إعادة أخذ عيّنات لإخراج النموذج بدقة 768p. أما وضع 2K الحقيقي في H3 فليس مفتوح المصدر ولا يمكن تشغيله محليًا."
       },
-      "note": ""
+      "note": "Injects a name into a sentence. Languages that inflect a noun for case, choose an article by gender, or attach a vowel-harmonising suffix cannot do it without knowing the word, and it is only known at runtime. Prefer wording that sets the name apart — quoted, or on its own line. Sentence-initial, as in problem.noMetalKernel.",
+      "level": "warning"
     },
     {
       "key": "provenance.community",
@@ -2667,7 +2908,8 @@
         "de": "Community",
         "ar": "المجتمع"
       },
-      "note": ""
+      "note": "Marks a model published by someone other than the original authors — a conversion or a fine-tune. Neutral: it describes origin, not quality. See provenance.official.",
+      "level": "info"
     },
     {
       "key": "provenance.official",
@@ -2678,7 +2920,8 @@
         "de": "Offiziell",
         "ar": "رسمي"
       },
-      "note": ""
+      "note": "Marks a model published by the original authors, as opposed to provenance.community. About who released the weights, not about approval or certification.",
+      "level": "info"
     },
     {
       "key": "provenance.port",
@@ -2689,7 +2932,8 @@
         "de": "MLX-Portierung",
         "ar": "نقل MLX"
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "quantization.unloadable.gguf",
@@ -2700,7 +2944,8 @@
         "de": "GGUF benötigt eine ComfyUI-Erweiterung, die diese App nicht installiert.",
         "ar": "يحتاج GGUF إلى عقدة مخصّصة في ComfyUI لا يثبّتها هذا التطبيق."
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "quantization.unloadable.nvfp4",
@@ -2711,7 +2956,8 @@
         "de": "NVFP4 ist ein NVIDIA-Blackwell-Format. Einen Metal-Pfad dafür gibt es nicht.",
         "ar": "‏NVFP4 صيغة خاصة ببنية NVIDIA Blackwell. ولا يوجد مسار عبر Metal لتشغيلها."
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "quantization.unloadable.other",
@@ -2722,7 +2968,8 @@
         "de": "Keine Engine hier kann %@ laden.",
         "ar": "لا يستطيع أي محرّك هنا تحميل %@."
       },
-      "note": ""
+      "note": "Injects a name into a sentence. Languages that inflect a noun for case, choose an article by gender, or attach a vowel-harmonising suffix cannot do it without knowing the word, and it is only known at runtime. Prefer wording that sets the name apart — quoted, or on its own line.",
+      "level": "warning"
     },
     {
       "key": "queue.a11y.held",
@@ -2733,7 +2980,8 @@
         "de": "angehalten",
         "ar": "مُعلَّق"
       },
-      "note": ""
+      "note": "A lowercase fragment appended to a longer spoken string. Languages that inflect or that put the qualifier first cannot produce a correct sentence from a fragment, and lowercase is itself an assumption German does not share.",
+      "level": "warning"
     },
     {
       "key": "queue.ahead",
@@ -2744,7 +2992,8 @@
         "de": "In Warteschlange — %@ davor",
         "ar": "في الانتظار — %@ قبله"
       },
-      "note": ""
+      "note": "Takes a count of jobs waiting in front of this one. The count is 1 whenever a single job is ahead, which is the common case, so plural-sensitive languages will read wrongly here.",
+      "level": "warning"
     },
     {
       "key": "queue.clearFinished",
@@ -2755,7 +3004,8 @@
         "de": "Fertige entfernen",
         "ar": "مسح المكتملة"
       },
-      "note": ""
+      "note": "Removes finished jobs from the render queue. The English matches models.clearFinished exactly but the object differs — jobs, not downloads — and languages that inflect the verb for its object will need different wording.",
+      "level": "info"
     },
     {
       "key": "queue.clearFinished.help",
@@ -2766,7 +3016,8 @@
         "de": "Fertige, fehlgeschlagene und abgebrochene Renders aus dieser Liste entfernen",
         "ar": "إزالة عمليات التصيير المكتملة والفاشلة والملغاة من هذه القائمة"
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "queue.editCopy",
@@ -2777,7 +3028,8 @@
         "de": "Kopie bearbeiten",
         "ar": "تحرير نسخة"
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "queue.empty.detail",
@@ -2788,7 +3040,8 @@
         "de": "Renders, die du unter „Erstellen“ startest, erscheinen hier. Sie laufen weiter, während du arbeitest, und überstehen das Beenden der App.",
         "ar": "تظهر هنا عمليات التصيير التي تبدأها من «إنشاء». تستمر أثناء عملك، وتبقى حتى بعد إغلاق التطبيق."
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "queue.empty.title",
@@ -2799,7 +3052,8 @@
         "de": "Nichts in der Warteschlange",
         "ar": "لا شيء في قائمة الانتظار"
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "queue.goCompose",
@@ -2810,7 +3064,8 @@
         "de": "Zu „Erstellen“",
         "ar": "الانتقال إلى «إنشاء»"
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "queue.held",
@@ -2821,7 +3076,8 @@
         "de": "Zurückgestellt — startet erst nach Freigabe",
         "ar": "معلّق — لن يبدأ حتى يُستأنف"
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "queue.hold",
@@ -2832,7 +3088,8 @@
         "de": "Zurückstellen",
         "ar": "تعليق"
       },
-      "note": "Hold a queued job back so it is skipped, not cancel it."
+      "note": "Imperative verb on a button: keep this job in the queue but do not start it. The opposite of queue.release. Not the noun \"a hold\", and not \"hold\" as in grip.",
+      "level": "info"
     },
     {
       "key": "queue.hold.help",
@@ -2843,7 +3100,8 @@
         "de": "Diesen Render zurückstellen",
         "ar": "تعليق هذا التصيير"
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "queue.log.copyAll",
@@ -2854,7 +3112,8 @@
         "de": "Alles kopieren",
         "ar": "نسخ الكل"
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "queue.log.empty.detail",
@@ -2865,7 +3124,8 @@
         "de": "Sobald dieser Render startet, erscheint die Ausgabe hier. Protokolle gelten nur für die aktuelle Sitzung.",
         "ar": "يظهر الإخراج هنا فور بدء التصيير. تُحفظ السجلات للجلسة الحالية فقط."
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "queue.log.empty.title",
@@ -2876,7 +3136,8 @@
         "de": "Noch kein Protokoll",
         "ar": "لا يوجد سجل بعد"
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "queue.log.help",
@@ -2887,7 +3148,8 @@
         "de": "Protokoll dieses Renders anzeigen",
         "ar": "عرض سجل هذا التصيير"
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "queue.log.title",
@@ -2898,7 +3160,8 @@
         "de": "Render-Protokoll",
         "ar": "سجل التصيير"
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "queue.moveToFront",
@@ -2909,7 +3172,8 @@
         "de": "Nach vorne verschieben",
         "ar": "نقل إلى المقدمة"
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "queue.nextUp",
@@ -2920,7 +3184,8 @@
         "de": "Als Nächstes",
         "ar": "التالي"
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "queue.openSettings",
@@ -2931,7 +3196,8 @@
         "de": "Einstellungen öffnen",
         "ar": "فتح الإعدادات"
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "queue.peak",
@@ -2942,7 +3208,8 @@
         "de": "%@ Spitze",
         "ar": "الذروة %@"
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "queue.perStep",
@@ -2953,7 +3220,8 @@
         "de": "%@/Schritt",
         "ar": "%@/خطوة"
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "queue.perStep.average",
@@ -2964,7 +3232,8 @@
         "de": "im Mittel %@/Schritt",
         "ar": "%@/خطوة في المتوسط"
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "queue.perStep.now",
@@ -2975,7 +3244,8 @@
         "de": "jetzt %@/Schritt",
         "ar": "%@/خطوة الآن"
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "queue.release",
@@ -2986,7 +3256,8 @@
         "de": "Freigeben",
         "ar": "استئناف"
       },
-      "note": ""
+      "note": "Imperative verb: let a held job run again. The opposite of queue.hold. NOT a software release or version — a common and damaging mistranslation.",
+      "level": "info"
     },
     {
       "key": "queue.release.help",
@@ -2997,7 +3268,8 @@
         "de": "Diesen Render starten lassen",
         "ar": "السماح ببدء هذا التصيير"
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "queue.remaining",
@@ -3008,7 +3280,8 @@
         "de": "noch %@",
         "ar": "يتبقى %@"
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "queue.remainingUnknown",
@@ -3019,7 +3292,8 @@
         "de": "Restzeit erst ab Beginn der Erzeugung bekannt",
         "ar": "الوقت المتبقي غير معروف حتى يبدأ التوليد"
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "queue.remove",
@@ -3030,7 +3304,8 @@
         "de": "Aus Warteschlange entfernen",
         "ar": "إزالة من قائمة الانتظار"
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "queue.renderAgain",
@@ -3041,7 +3316,8 @@
         "de": "Erneut rendern",
         "ar": "إعادة التصيير"
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "queue.renderAgain.help",
@@ -3052,7 +3328,8 @@
         "de": "Erneut mit neuem Seed einreihen",
         "ar": "إعادة الإدراج ببذرة جديدة"
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "queue.reproduce",
@@ -3063,7 +3340,8 @@
         "de": "Exakt reproduzieren",
         "ar": "إعادة إنتاج مطابقة"
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "queue.revealInFinder",
@@ -3074,7 +3352,8 @@
         "de": "Im Finder zeigen",
         "ar": "إظهار في Finder"
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "queue.runtimeWarning",
@@ -3085,7 +3364,8 @@
         "de": "Die Python-Laufzeitumgebung ist nicht bereit, daher können wartende Renders nicht starten.",
         "ar": "بيئة تشغيل Python غير جاهزة، لذا لا يمكن بدء عمليات التصيير المنتظرة."
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "queue.showLog",
@@ -3096,7 +3376,8 @@
         "de": "Protokoll anzeigen",
         "ar": "عرض السجل"
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "queue.step",
@@ -3107,7 +3388,8 @@
         "de": "Schritt %1$@ von %2$@",
         "ar": "الخطوة %1$@ من %2$@"
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "queue.stop",
@@ -3118,7 +3400,8 @@
         "de": "Anhalten",
         "ar": "إيقاف"
       },
-      "note": ""
+      "note": "Imperative verb: cancel the render that is running. Not \"pause\"; the work is discarded.",
+      "level": "info"
     },
     {
       "key": "queue.stop.help",
@@ -3129,7 +3412,8 @@
         "de": "Diesen Render anhalten. Der Fortschritt geht verloren — ein Render lässt sich nicht fortsetzen.",
         "ar": "إيقاف هذا التصيير. سيضيع التقدّم، إذ لا يمكن استئناف التصيير."
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "queue.tokens",
@@ -3140,7 +3424,8 @@
         "de": "%@ Tokens",
         "ar": "%@ توكن"
       },
-      "note": ""
+      "note": "Takes a count. English offers only two forms and this string supplies one, so \"1 tokens\" is already wrong; Arabic needs six categories and settles for a single compromise form. Any language with Slavic-style plurals will need a .stringsdict before this can be translated correctly.",
+      "level": "warning"
     },
     {
       "key": "queue.tokens.help",
@@ -3151,7 +3436,8 @@
         "de": "Länge der Sequenz, die der Text-Encoder liest: insgesamt %1$@ Tokens, davon %2$@ aus dem Prompt. Der Rest sind Vision-Tokens, ein Block je Referenzbild. Sie wird einmal vor dem Entrauschen gelesen — hier wird nichts Token für Token erzeugt.",
         "ar": "طول المتسلسلة التي يقرأها مشفّر النص: %1$@ توكن إجمالًا، منها %2$@ من المطالبة، والباقي توكنات بصرية بمقدار كتلة لكل صورة مرجعية. تُقرأ مرة واحدة قبل بدء إزالة التشويش — ولا يُولَّد هنا شيء توكنًا بتوكن."
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "queue.took",
@@ -3162,7 +3448,8 @@
         "de": "Dauerte %@",
         "ar": "استغرق %@"
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "queue.untitled",
@@ -3173,7 +3460,8 @@
         "de": "Unbenannter Render",
         "ar": "تصيير بلا عنوان"
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "refs.addFiles",
@@ -3184,7 +3472,8 @@
         "de": "Dateien hinzufügen …",
         "ar": "إضافة ملفات…"
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "refs.choose.any",
@@ -3195,7 +3484,8 @@
         "de": "Referenzbilder, -videos oder -audio wählen",
         "ar": "اختر صورًا أو مقاطع فيديو أو صوتًا مرجعية"
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "refs.choose.image",
@@ -3206,7 +3496,8 @@
         "de": "Keyframe-Bild wählen",
         "ar": "اختر صورة إطار مفتاحي"
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "refs.drop",
@@ -3217,7 +3508,8 @@
         "de": "Dateien hierher ziehen",
         "ar": "أفلِت الملفات هنا"
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "refs.footnote.first",
@@ -3228,7 +3520,8 @@
         "de": "Ein Bild als Anfangsbild. Der Clip animiert von dort aus.",
         "ar": "صورة واحدة تُستخدم كإطار افتتاحي، وينطلق منها تحريك المقطع."
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "refs.footnote.firstlast",
@@ -3239,7 +3532,8 @@
         "de": "Zwei Bilder. Das erste wird Bild eins, das zweite das Schlussbild; H3 erzeugt die Bewegung dazwischen.",
         "ar": "صورتان: الأولى تصبح الإطار الأول والثانية الإطار الأخير، ويولّد H3 الحركة بينهما."
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "refs.footnote.reference",
@@ -3250,7 +3544,8 @@
         "de": "Bis zu 9 Bilder, 3 Videos und 3 Audioclips, insgesamt 12 Dateien. Im Prompt als <Picture 1>, <Video 1>, <Audio 1> ansprechen — H3 konditioniert über diese Tags, eine nicht erwähnte Referenz wirkt kaum.",
         "ar": "حتى 9 صور و3 مقاطع فيديو و3 مقاطع صوتية، بمجموع 12 ملفًا. أشِر إليها في الموجّه بصيغة <Picture 1> و<Video 1> و<Audio 1> — إذ يشترط H3 عليها عبر هذه الوسوم، فالمرجع غير المذكور يكاد لا يؤثّر."
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "refs.insertTag",
@@ -3261,7 +3556,8 @@
         "de": "Tag einfügen",
         "ar": "إدراج وسم"
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "refs.insertTags",
@@ -3272,7 +3568,8 @@
         "de": "Tags einfügen",
         "ar": "إدراج وسوم"
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "refs.insertTags.help",
@@ -3283,7 +3580,8 @@
         "de": "%@ an den Prompt anhängen",
         "ar": "إلحاق %@ بالموجّه"
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "refs.kind.audio",
@@ -3294,7 +3592,8 @@
         "de": "Audio",
         "ar": "صوت"
       },
-      "note": ""
+      "note": "Names the audio *file* kind in the reference list, beside Image and Video. A category of attachment — see compose.audio.",
+      "level": "info"
     },
     {
       "key": "refs.kind.image",
@@ -3305,7 +3604,8 @@
         "de": "Bild",
         "ar": "صورة"
       },
-      "note": ""
+      "note": "Names the still-image kind in the reference list, beside Video and Audio. A file category.",
+      "level": "info"
     },
     {
       "key": "refs.kind.video",
@@ -3316,7 +3616,8 @@
         "de": "Video",
         "ar": "فيديو"
       },
-      "note": ""
+      "note": "Names the video kind in the reference list, beside Image and Audio. A file category.",
+      "level": "info"
     },
     {
       "key": "refs.remove",
@@ -3327,7 +3628,8 @@
         "de": "%@ entfernen",
         "ar": "إزالة %@"
       },
-      "note": ""
+      "note": "Injects a name into a sentence. Languages that inflect a noun for case, choose an article by gender, or attach a vowel-harmonising suffix cannot do it without knowing the word, and it is only known at runtime. Prefer wording that sets the name apart — quoted, or on its own line.",
+      "level": "warning"
     },
     {
       "key": "refs.removeAll",
@@ -3338,7 +3640,8 @@
         "de": "Alle entfernen",
         "ar": "إزالة الكل"
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "refs.slot.first",
@@ -3349,7 +3652,8 @@
         "de": "Erstes Bild",
         "ar": "الإطار الأول"
       },
-      "note": ""
+      "note": "Labels the drop target for the first-frame image. A place to put a file, where mode.first is a mode — see it.",
+      "level": "info"
     },
     {
       "key": "refs.slot.last",
@@ -3360,7 +3664,8 @@
         "de": "Letztes Bild",
         "ar": "الإطار الأخير"
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "refs.slot.reference",
@@ -3371,7 +3676,8 @@
         "de": "Referenz",
         "ar": "مرجع"
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "refs.title.keyframes",
@@ -3382,7 +3688,8 @@
         "de": "Keyframes",
         "ar": "الإطارات المفتاحية"
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "refs.title.references",
@@ -3393,7 +3700,8 @@
         "de": "Referenzen",
         "ar": "المراجع"
       },
-      "note": ""
+      "note": "Heads the card listing the reference files the user has attached. The files, not the mode — see mode.reference.",
+      "level": "info"
     },
     {
       "key": "role.accelerator",
@@ -3404,7 +3712,8 @@
         "de": "Beschleunigungs-LoRAs",
         "ar": "نماذج LoRA للتسريع"
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "role.accelerator.detail",
@@ -3415,7 +3724,8 @@
         "de": "Optionale LoRAs, trainiert für brauchbares Video in etwa 4 statt 50 Schritten.",
         "ar": "نماذج LoRA اختيارية مدرَّبة لإنتاج فيديو صالح في نحو 4 خطوات بدل 50."
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "role.support",
@@ -3426,7 +3736,8 @@
         "de": "VAEs & Prozessoren",
         "ar": "‏VAE والمعالِجات"
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "role.support.detail",
@@ -3437,7 +3748,8 @@
         "de": "Klein, zwingend erforderlich und von allem gemeinsam genutzt. Einmal installieren.",
         "ar": "صغيرة وإلزامية ومشتركة بين كل شيء. تُثبَّت مرة واحدة."
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "role.textEncoder",
@@ -3448,7 +3760,8 @@
         "de": "Text-Encoder",
         "ar": "مُرمِّز النص"
       },
-      "note": ""
+      "note": "Names the text-encoder role in the model catalogue — a kind of model file. Distinct from summary.textEncoder, which names the specific encoder a render will use.",
+      "level": "info"
     },
     {
       "key": "role.textEncoder.detail",
@@ -3459,7 +3772,8 @@
         "de": "H3 wird auf Qwen3-VL-32B konditioniert. Das ist der größte Einzeldownload und wird von beiden Aufgaben genutzt.",
         "ar": "يعتمد H3 على Qwen3-VL-32B. وهو أكبر تنزيل مفرد، وتشترك فيه المهمتان."
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "role.transformer",
@@ -3470,7 +3784,8 @@
         "de": "Diffusion-Transformer",
         "ar": "مُحوِّل الانتشار"
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "role.transformer.detail",
@@ -3481,7 +3796,8 @@
         "de": "Das Modell selbst. Wählen Sie eine Quantisierung; höhere Präzision kostet Speicherplatz, Arbeitsspeicher und Zeit.",
         "ar": "النموذج نفسه. اختر تكميمًا واحدًا؛ فكلما ارتفعت الدقة زاد استهلاك القرص والذاكرة والوقت."
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "runtime.installedNotUsable",
@@ -3492,7 +3808,8 @@
         "de": "Installiert, aber noch nicht nutzbar",
         "ar": "مثبَّت، لكنه غير قابل للاستخدام بعد"
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "runtime.notInstalledYet",
@@ -3503,7 +3820,8 @@
         "de": "Noch nicht installiert.",
         "ar": "غير مثبَّت بعد."
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "runtime.ready",
@@ -3514,7 +3832,8 @@
         "de": "Laufzeitumgebung bereit — Python %1$@, MLX auf Metal",
         "ar": "بيئة التشغيل جاهزة — Python %1$@، وMLX على Metal"
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "sampling.duration",
@@ -3525,7 +3844,8 @@
         "de": "Dauer",
         "ar": "المدة"
       },
-      "note": ""
+      "note": "How long the finished clip will be, in the Sampling card. A length the user is choosing. Distinct from library.duration, which reports the length of a video already made.",
+      "level": "info"
     },
     {
       "key": "sampling.seed.fixed",
@@ -3536,7 +3856,8 @@
         "de": "Fester Seed",
         "ar": "بذرة ثابتة"
       },
-      "note": "'Seed' is kept in English; the qualifier is translated."
+      "note": "'Seed' is kept in English; the qualifier is translated.",
+      "level": "info"
     },
     {
       "key": "sampling.seed.note",
@@ -3547,7 +3868,8 @@
         "de": "Ein fester Seed macht einen Render wiederholbar. Ändert man eine andere Einstellung, ändert sich das Ergebnis trotzdem.",
         "ar": "تجعل البذرة الثابتة التصيير قابلًا للتكرار. لكن تغيير أي إعداد آخر يغيّر النتيجة على أي حال."
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "sampling.seed.randomise",
@@ -3558,7 +3880,8 @@
         "de": "Zufällig",
         "ar": "عشوائي"
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "sampling.snapped.exact",
@@ -3569,7 +3892,8 @@
         "de": "Rendert %1$@ Bilder — exakt %2$@ s bei 24 fps.",
         "ar": "يُصيَّر %1$@ إطارًا — أي %2$@ ثانية بالضبط عند 24 fps."
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "sampling.snapped.inexact",
@@ -3580,7 +3904,8 @@
         "de": "Rendert %1$@ Bilder — %2$@ s bei 24 fps, die nächstliegende Länge, die die Video-VAE kodieren kann.",
         "ar": "يُصيَّر %1$@ إطارًا — أي %2$@ ثانية عند 24 fps، وهي أقرب مدة يستطيع video VAE ترميزها."
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "sampling.steps",
@@ -3591,7 +3916,8 @@
         "de": "Schritte",
         "ar": "الخطوات"
       },
-      "note": ""
+      "note": "Denoising steps — iterations of the sampler. Not stairs, and not steps in a set of instructions.",
+      "level": "info"
     },
     {
       "key": "sampling.steps.note",
@@ -3602,7 +3928,8 @@
         "de": "Schritte sind echte Entrausch-Durchgänge und bestimmen die Renderzeit nahezu linear. %1$@ Die Dauer rastet auf das 17n+5-Bildraster des Video-VAE ein, der angezeigte Wert ist also der, der gerendert wird.",
         "ar": "الخطوات هي مرات إزالة التشويش الفعلية، وتحدّد زمن التصيير تحديدًا خطّيًا تقريبًا. %1$@ وتنحاز المدة إلى شبكة إطارات video VAE ‏(17n+5)، لذا فالقيمة المعروضة هي ما سيُصيَّر فعلًا."
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "sampling.steps.note.turbo",
@@ -3613,7 +3940,8 @@
         "de": "Diese Engine lädt eine Turbo-LoRA für %1$@ Schritte, genau darauf destilliert – mehr Schritte kosten meist nur Zeit.",
         "ar": "يحمّل هذا المحرّك نموذج LoRA سريعًا بـ %1$@ خطوات، مُقطَّرًا لهذا العدد تحديدًا — والمزيد من الخطوات يكلّف وقتًا في الغالب."
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "sampling.steps.note.undistilled",
@@ -3624,7 +3952,8 @@
         "de": "Diese Gewichte sind undestilliert, brauchbar ist daher der Bereich um %1$@ Schritte; deutlich weniger liegt außerhalb der Verteilung und wirkt weich.",
         "ar": "هذه الأوزان غير مقطَّرة، لذا فالمجال العملي نحو %1$@ خطوة؛ وما دون ذلك بكثير يخرج عن التوزيع ويبدو ناعمًا."
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "sampling.title",
@@ -3635,7 +3964,8 @@
         "de": "Sampling",
         "ar": "المعاينة"
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "section.compose",
@@ -3646,7 +3976,8 @@
         "de": "Erstellen",
         "ar": "إنشاء"
       },
-      "note": "The screen where you write a prompt and set up a render."
+      "note": "The Compose tab: the screen where a render is set up. Not the verb. Distinct from settings.remember.section, which is the name of a group of settings *about* that screen.",
+      "level": "info"
     },
     {
       "key": "section.library",
@@ -3657,7 +3988,8 @@
         "de": "Mediathek",
         "ar": "المكتبة"
       },
-      "note": "Collection of finished videos — not a code library."
+      "note": "Collection of finished videos — not a code library.",
+      "level": "info"
     },
     {
       "key": "section.models",
@@ -3668,7 +4000,8 @@
         "de": "Modelle",
         "ar": "النماذج"
       },
-      "note": ""
+      "note": "The Models tab in the sidebar. Distinct from settings.folder.models (a folder on disk) and summary.models (the weights a particular render will load).",
+      "level": "info"
     },
     {
       "key": "section.queue",
@@ -3679,7 +4012,8 @@
         "de": "Warteschlange",
         "ar": "قائمة الانتظار"
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "settings.advanced",
@@ -3690,7 +4024,8 @@
         "de": "Erweitert",
         "ar": "متقدّم"
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "settings.advanced.checkout",
@@ -3701,7 +4036,8 @@
         "de": "Checkout-Pfad",
         "ar": "مسار النسخة"
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "settings.advanced.checkout.hint",
@@ -3712,7 +4048,8 @@
         "de": "Leer lassen, um das installierte Paket zu verwenden",
         "ar": "اتركه فارغًا لاستخدام الحزمة المثبتة"
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "settings.advanced.port",
@@ -3723,7 +4060,8 @@
         "de": "MiniMax-H3-Portierung",
         "ar": "نقل MiniMax-H3"
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "settings.advanced.reveal",
@@ -3734,7 +4072,8 @@
         "de": "Ordner „Application Support“ zeigen",
         "ar": "إظهار مجلد Application Support"
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "settings.advanced.support.note",
@@ -3745,7 +4084,8 @@
         "de": "Enthält die Python-Umgebung, die Renderwarteschlange und temporäre Dateien laufender Rendervorgänge.",
         "ar": "يحتوي على بيئة Python وقائمة انتظار التصيير والملفات المؤقتة لعمليات التصيير الجارية."
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "settings.advanced.supportNote",
@@ -3756,7 +4096,8 @@
         "de": "Enthält die Python-Umgebung, die Render-Warteschlange und Zwischendateien laufender Renders.",
         "ar": "يضم بيئة Python وقائمة انتظار التصيير والملفات المؤقتة لعمليات التصيير الجارية."
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "settings.architecture",
@@ -3767,7 +4108,8 @@
         "de": "Architektur",
         "ar": "البنية"
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "settings.comfy.install",
@@ -3778,7 +4120,8 @@
         "de": "Installieren",
         "ar": "تثبيت"
       },
-      "note": ""
+      "note": "Imperative verb on a button. Not the noun \"installation\", which is a different word in most languages.",
+      "level": "info"
     },
     {
       "key": "settings.comfy.notRunning",
@@ -3789,7 +4132,8 @@
         "de": "läuft nicht",
         "ar": "لا يعمل"
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "settings.comfy.note",
@@ -3800,7 +4144,8 @@
         "de": "Das eigene headless ComfyUI der App, getrennt von jedem selbst installierten. Der Server startet bei Bedarf und endet mit der App.",
         "ar": "نسخة ComfyUI الخاصة بالتطبيق بلا واجهة، منفصلة عن أي نسخة ثبّتها بنفسك. يبدأ الخادم عند الحاجة ويتوقف مع إغلاق التطبيق."
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "settings.comfy.running",
@@ -3811,7 +4156,8 @@
         "de": "läuft auf Port %@",
         "ar": "يعمل على المنفذ %@"
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "settings.comfy.server",
@@ -3822,7 +4168,8 @@
         "de": "Server",
         "ar": "الخادم"
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "settings.comfy.stop",
@@ -3833,7 +4180,8 @@
         "de": "Server anhalten",
         "ar": "إيقاف الخادم"
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "settings.comfy.weights",
@@ -3844,7 +4192,8 @@
         "de": "Gewichte",
         "ar": "الأوزان"
       },
-      "note": ""
+      "note": "Model weights — the trained parameters of a neural network. Never the sense of heaviness or of weighting a value. Many languages keep the English term.",
+      "level": "info"
     },
     {
       "key": "settings.comfy.why",
@@ -3855,7 +4204,8 @@
         "de": "Der Referenzmodus läuft hier statt auf MLX, dessen Pipeline nur Keyframes annimmt. ComfyUI lädt zudem die 4-Schritt-Turbo-LoRAs — erst dadurch werden Referenz-Renders überhaupt praktikabel.",
         "ar": "يعمل وضع المراجع هنا بدل MLX، إذ لا تقبل منظومته سوى الإطارات المفتاحية. كما يحمّل ComfyUI نماذج turbo LoRA ذات الأربع خطوات، وهو ما يجعل التصيير المرجعي عمليًا أصلًا."
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "settings.detected",
@@ -3866,7 +4216,8 @@
         "de": "Erkannt",
         "ar": "تم الكشف"
       },
-      "note": ""
+      "note": "Adjective: the app found this component on the machine by itself. Reports a discovery, not an action available.",
+      "level": "info"
     },
     {
       "key": "settings.folder.models",
@@ -3877,7 +4228,8 @@
         "de": "Modelle",
         "ar": "النماذج"
       },
-      "note": ""
+      "note": "Labels the folder on disk where weights are stored, in Settings ▸ Folders. A location, not the tab — see section.models.",
+      "level": "info"
     },
     {
       "key": "settings.folder.output",
@@ -3888,7 +4240,8 @@
         "de": "Ausgabe",
         "ar": "الإخراج"
       },
-      "note": ""
+      "note": "Labels the folder finished videos are written to, in Settings ▸ Folders. A location — see compose.output.title.",
+      "level": "info"
     },
     {
       "key": "settings.folders",
@@ -3899,7 +4252,8 @@
         "de": "Ordner",
         "ar": "المجلدات"
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "settings.general",
@@ -3910,7 +4264,8 @@
         "de": "Allgemein",
         "ar": "عام"
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "settings.h3Pipeline",
@@ -3921,7 +4276,8 @@
         "de": "H3-Pipeline",
         "ar": "خط معالجة H3"
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "settings.language.label",
@@ -3932,7 +4288,8 @@
         "de": "Sprache der Benutzeroberfläche (Interface Language)",
         "ar": "لغة الواجهة ⁨(Interface Language)⁩"
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "settings.language.relaunch",
@@ -3943,7 +4300,8 @@
         "de": "Jetzt neu starten",
         "ar": "أعِد التشغيل الآن"
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "settings.language.restart",
@@ -3954,7 +4312,8 @@
         "de": "Texte wechseln sofort. Die Menüleiste am oberen Bildschirmrand folgt, sobald Sie die App neu starten.",
         "ar": "تتغيّر النصوص فورًا. أمّا شريط القوائم أعلى الشاشة فيتبعها عند إعادة تشغيل التطبيق."
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "settings.language.restart.direction",
@@ -3965,7 +4324,8 @@
         "de": "Texte wechseln sofort. Diese Sprache wird in der anderen Richtung gelesen, daher tauscht das Fenster die Seiten. Das und die Menüleiste am oberen Bildschirmrand folgen, sobald Sie die App neu starten.",
         "ar": "تتغيّر النصوص فورًا. تُقرأ هذه اللغة في الاتجاه المعاكس، لذا تتبادل عناصر النافذة جانبيها. يحدث ذلك، مع شريط القوائم أعلى الشاشة، عند إعادة تشغيل التطبيق."
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "settings.language.section",
@@ -3976,7 +4336,8 @@
         "de": "Sprache (Language)",
         "ar": "اللغة ⁨(Language)⁩"
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "settings.language.system",
@@ -3987,7 +4348,8 @@
         "de": "Systemsprache (%@)",
         "ar": "اتّباع النظام (%@)"
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "settings.log",
@@ -3998,7 +4360,8 @@
         "de": "Protokoll",
         "ar": "السجل"
       },
-      "note": ""
+      "note": "Noun: the record of what the runtime printed. Not the verb \"to log\", and not a logarithm.",
+      "level": "info"
     },
     {
       "key": "settings.log.accessibility",
@@ -4009,7 +4372,8 @@
         "de": "Installationsprotokoll",
         "ar": "سجل التثبيت"
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "settings.log.clear",
@@ -4020,7 +4384,8 @@
         "de": "Leeren",
         "ar": "مسح"
       },
-      "note": ""
+      "note": "Imperative verb: empty the log. Not the adjective \"clear\" meaning legible or transparent.",
+      "level": "info"
     },
     {
       "key": "settings.mlxMetal",
@@ -4031,7 +4396,8 @@
         "de": "MLX auf Metal",
         "ar": "‏MLX على Metal"
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "settings.notDetected",
@@ -4042,7 +4408,8 @@
         "de": "Nicht erkannt",
         "ar": "لم يُكتشف"
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "settings.notFound",
@@ -4053,7 +4420,8 @@
         "de": "Nicht gefunden",
         "ar": "غير موجود"
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "settings.notInstalled",
@@ -4064,7 +4432,8 @@
         "de": "Nicht installiert.",
         "ar": "غير مثبَّت."
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "settings.notWorking",
@@ -4075,7 +4444,8 @@
         "de": "Funktioniert nicht",
         "ar": "لا يعمل"
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "settings.python",
@@ -4086,7 +4456,8 @@
         "de": "Python",
         "ar": "Python"
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "settings.queue.note",
@@ -4097,7 +4468,8 @@
         "de": "Renders halten zig Gigabyte an Gewichten im Speicher, daher läuft immer nur einer. Einzelne Renders lassen sich in ihrer Zeile in der Warteschlange zurückstellen oder anhalten.",
         "ar": "يحتفظ التصيير بعشرات الغيغابايتات من الأوزان في الذاكرة، لذا يعمل واحد فقط في كل مرة. يمكنك تعليق أو إيقاف أي تصيير من صفّه في قائمة الانتظار."
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "settings.rebuild",
@@ -4108,7 +4480,8 @@
         "de": "Komplett neu aufbauen",
         "ar": "إعادة البناء من الصفر"
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "settings.rebuild.note",
@@ -4119,7 +4492,8 @@
         "de": "Beim Neuaufbau wird die Python-Umgebung gelöscht und neu erstellt. Heruntergeladene Gewichte bleiben unberührt.",
         "ar": "تؤدي إعادة البناء إلى حذف بيئة Python وإنشائها من جديد، دون المساس بالأوزان المنزَّلة."
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "settings.recheck",
@@ -4130,7 +4504,8 @@
         "de": "Erneut prüfen",
         "ar": "إعادة الفحص"
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "settings.remember.engine",
@@ -4141,7 +4516,8 @@
         "de": "Zuletzt verwendete Engine merken",
         "ar": "تذكّر المحرّك المستخدم آخر مرة"
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "settings.remember.mode",
@@ -4152,7 +4528,8 @@
         "de": "Zuletzt verwendeten Modus merken",
         "ar": "تذكّر الوضع المستخدم آخر مرة"
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "settings.remember.note",
@@ -4163,7 +4540,8 @@
         "de": "Prompt, Seed und angehängte Dateien werden nie übernommen: Sie gehören zu einem einzelnen Rendering und beginnen immer leer.",
         "ar": "لا تُنقل أبدًا المطالبة ولا البذرة ولا الملفات المرفقة: فهي تخصّ تصييرًا واحدًا، وتبدأ فارغة في كل مرة."
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "settings.remember.output",
@@ -4174,7 +4552,8 @@
         "de": "Ausgabeeinstellungen merken",
         "ar": "تذكّر إعدادات الإخراج"
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "settings.remember.sampling",
@@ -4185,7 +4564,8 @@
         "de": "Sampling-Einstellungen merken",
         "ar": "تذكّر إعدادات المعاينة"
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "settings.remember.section",
@@ -4196,7 +4576,8 @@
         "de": "Erstellen",
         "ar": "الإنشاء"
       },
-      "note": ""
+      "note": "Names the group of Compose-screen settings in Settings ▸ General. A heading over a set of options, not the tab itself — see section.compose.",
+      "level": "info"
     },
     {
       "key": "settings.repair",
@@ -4207,7 +4588,8 @@
         "de": "Reparieren",
         "ar": "إصلاح"
       },
-      "note": ""
+      "note": "Imperative verb on a button: reinstall the broken parts of the runtime. Not a noun.",
+      "level": "info"
     },
     {
       "key": "settings.runtime",
@@ -4218,7 +4600,8 @@
         "de": "Laufzeitumgebung",
         "ar": "بيئة التشغيل"
       },
-      "note": "The Python environment the app manages, not a term of art: TW says 執行環境, mainland 运行时."
+      "note": "The Python environment the app manages, not a term of art: TW says 執行環境, mainland 运行时.",
+      "level": "info"
     },
     {
       "key": "settings.runtime.rebuild.note",
@@ -4229,7 +4612,8 @@
         "de": "Beim vollständigen Neuaufbau wird die Python-Umgebung gelöscht und neu erstellt. Geladene Gewichte bleiben unberührt.",
         "ar": "تؤدي إعادة البناء إلى حذف بيئة Python وإنشائها من جديد. ولا تمسّ الأوزان التي جرى تنزيلها."
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "settings.state",
@@ -4240,7 +4624,8 @@
         "de": "Zustand",
         "ar": "الحالة"
       },
-      "note": ""
+      "note": "Labels one row reporting the runtime's condition. German separates this (Zustand) from Status; English does not. If a language has only one word, using it for both is fine.",
+      "level": "info"
     },
     {
       "key": "settings.status",
@@ -4251,7 +4636,8 @@
         "de": "Status",
         "ar": "الحالة"
       },
-      "note": ""
+      "note": "Heads the runtime status section in Settings. A section heading, not the status-bar label — see status.label.",
+      "level": "info"
     },
     {
       "key": "settings.working",
@@ -4262,7 +4648,8 @@
         "de": "Funktioniert",
         "ar": "يعمل"
       },
-      "note": ""
+      "note": "Means the runtime is functioning correctly — NOT \"in progress\". The value shown beside settings.state when nothing is wrong. Translate as \"OK\" or \"functioning\", never as \"busy\".",
+      "level": "info"
     },
     {
       "key": "sidebar.hide",
@@ -4273,7 +4660,8 @@
         "de": "Seitenleiste ausblenden",
         "ar": "إخفاء الشريط الجانبي"
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "sidebar.show",
@@ -4284,7 +4672,8 @@
         "de": "Seitenleiste einblenden",
         "ar": "إظهار الشريط الجانبي"
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "state.cancelled",
@@ -4295,7 +4684,8 @@
         "de": "Abgebrochen",
         "ar": "أُلغي"
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "state.decoding",
@@ -4306,7 +4696,8 @@
         "de": "Wird dekodiert",
         "ar": "جارٍ فك الترميز"
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "state.encoding",
@@ -4317,7 +4708,8 @@
         "de": "Wird kodiert",
         "ar": "جارٍ الترميز"
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "state.failed",
@@ -4328,7 +4720,8 @@
         "de": "Fehlgeschlagen",
         "ar": "فشل"
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "state.finished",
@@ -4339,7 +4732,8 @@
         "de": "Fertig",
         "ar": "اكتمل"
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "state.generating",
@@ -4350,7 +4744,8 @@
         "de": "Wird erzeugt",
         "ar": "جارٍ التوليد"
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "state.preparing",
@@ -4361,7 +4756,8 @@
         "de": "Modell wird geladen",
         "ar": "جارٍ تحميل النموذج"
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "state.queued",
@@ -4372,7 +4768,8 @@
         "de": "In Warteschlange",
         "ar": "في الانتظار"
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "status.checking",
@@ -4383,7 +4780,8 @@
         "de": "Wird geprüft …",
         "ar": "جارٍ التحقق…"
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "status.label",
@@ -4394,7 +4792,8 @@
         "de": "Status",
         "ar": "الحالة"
       },
-      "note": ""
+      "note": "Labels the health indicator in the status bar along the bottom of the window. Distinct from settings.status, which heads a whole section, and from settings.state.",
+      "level": "info"
     },
     {
       "key": "status.memory.help",
@@ -4405,7 +4804,8 @@
         "de": "Vom Renderprozess belegter Arbeitsspeicher und sein Anteil an den %@ dieses Mac",
         "ar": "الذاكرة المقيمة لعملية التصيير ونسبتها من ذاكرة هذا الـ Mac البالغة %@"
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "status.queued.count",
@@ -4416,7 +4816,8 @@
         "de": "%@ in Warteschlange",
         "ar": "%@ في قائمة الانتظار"
       },
-      "note": ""
+      "note": "Takes a count of queued jobs. Safer than the other counts because no noun follows the number in English, but languages that inflect the verb or add a classifier still need the count itself.",
+      "level": "warning"
     },
     {
       "key": "status.ready",
@@ -4427,7 +4828,8 @@
         "de": "Bereit",
         "ar": "جاهز"
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "status.remaining",
@@ -4438,7 +4840,8 @@
         "de": "noch %@",
         "ar": "%@ متبقٍ"
       },
-      "note": "Estimated time still to run. The duration is already localized."
+      "note": "Joined to status.step with \" · \" in StatusBar, so the two halves are translated apart and assembled in a fixed order. The duration inside is already localized.",
+      "level": "warning"
     },
     {
       "key": "status.runtime.error",
@@ -4449,7 +4852,8 @@
         "de": "Laufzeitfehler",
         "ar": "خطأ في بيئة التشغيل"
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "status.runtime.incomplete",
@@ -4460,7 +4864,8 @@
         "de": "Laufzeitumgebung unvollständig",
         "ar": "بيئة التشغيل غير مكتملة"
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "status.runtime.missing",
@@ -4471,7 +4876,8 @@
         "de": "Laufzeitumgebung nicht installiert",
         "ar": "بيئة التشغيل غير مثبتة"
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "status.step",
@@ -4482,7 +4888,8 @@
         "de": "Schritt %@/%@",
         "ar": "الخطوة %@/%@"
       },
-      "note": "Progress through the sampler's steps, shown in the status bar during a render. Lower-case in English because it sits inside a sentence fragment."
+      "note": "Built without positional specifiers — \"%@/%@\" rather than \"%1$@/%2$@\" — so a translator cannot swap the two numbers. Every other multi-argument string in this file is positional; this one is the exception and should be brought into line.",
+      "level": "warning"
     },
     {
       "key": "summary.bitrate",
@@ -4493,7 +4900,8 @@
         "de": "Ziel-Bitrate",
         "ar": "معدل البت المستهدف"
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "summary.chooseInModels",
@@ -4504,7 +4912,8 @@
         "de": "Unter „Modelle“ wählen …",
         "ar": "اختر من «النماذج»…"
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "summary.delivers",
@@ -4515,7 +4924,8 @@
         "de": "Ausgeliefert mit",
         "ar": "يُسلَّم بمقاس"
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "summary.engineNotReady",
@@ -4526,7 +4936,8 @@
         "de": "Engine nicht bereit",
         "ar": "المحرّك غير جاهز"
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "summary.eta",
@@ -4537,7 +4948,8 @@
         "de": "Geschätzte Dauer",
         "ar": "الوقت المقدَّر"
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "summary.eta.footnote.measured",
@@ -4548,7 +4960,8 @@
         "de": "Aus den Renderings dieses Macs mit dieser Engine gemessen (bisher %@).",
         "ar": "مقيس من عمليات التصيير على هذا الـ Mac بهذا المحرّك (%@ حتى الآن)."
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "summary.eta.footnote.predicted",
@@ -4559,7 +4972,8 @@
         "de": "Eine Schätzung für %@, hochgerechnet aus einem veröffentlichten Wert für einen anderen Mac. Nach Ihrem ersten Render wird sie durch eine Messung ersetzt.",
         "ar": "تقدير لجهاز %@، محسوب من رقم منشور لجهاز Mac مختلف. وسيحلّ محلّه قياس فعلي بعد أول تصيير تجريه."
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "summary.eta.noModel",
@@ -4570,7 +4984,8 @@
         "de": "Modell wählen",
         "ar": "اختر نموذجًا"
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "summary.generates",
@@ -4581,7 +4996,8 @@
         "de": "Erzeugt mit",
         "ar": "يُولَّد بمقاس"
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "summary.length",
@@ -4592,7 +5008,8 @@
         "de": "Länge",
         "ar": "الطول"
       },
-      "note": ""
+      "note": "The duration of the clip in time. Not physical length, and not the length of a list. Compare sampling.duration.",
+      "level": "info"
     },
     {
       "key": "summary.length.value",
@@ -4603,7 +5020,8 @@
         "de": "%1$@ Bilder · %2$@ s",
         "ar": "%1$@ إطارًا · %2$@ ثانية"
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "summary.models",
@@ -4614,7 +5032,8 @@
         "de": "Modelle",
         "ar": "النماذج"
       },
-      "note": ""
+      "note": "Heads the list of weights a render will load, in the Compose summary. Means these specific files, not the tab and not the folder.",
+      "level": "info"
     },
     {
       "key": "summary.notSelected",
@@ -4625,7 +5044,8 @@
         "de": "Nicht gewählt",
         "ar": "لم يُحدَّد"
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "summary.problems",
@@ -4636,7 +5056,8 @@
         "de": "Vor dem Erzeugen",
         "ar": "قبل التوليد"
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "summary.render",
@@ -4647,7 +5068,8 @@
         "de": "Dieser Render",
         "ar": "هذا التصيير"
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "summary.task",
@@ -4658,7 +5080,8 @@
         "de": "Aufgabe",
         "ar": "المهمة"
       },
-      "note": ""
+      "note": "The particular job a checkpoint was trained for — first-frame continuation or reference conditioning. A machine-learning sense, not a to-do item or a queued job.",
+      "level": "info"
     },
     {
       "key": "summary.textEncoder",
@@ -4669,7 +5092,8 @@
         "de": "Text-Encoder",
         "ar": "مُرمِّز النص"
       },
-      "note": ""
+      "note": "Names the encoder chosen for this render, in the Compose summary. A particular file; role.textEncoder is the category.",
+      "level": "info"
     },
     {
       "key": "summary.transformer",
@@ -4680,7 +5104,8 @@
         "de": "Transformer",
         "ar": "Transformer"
       },
-      "note": "Architecture name; left in English."
+      "note": "Architecture name; left in English.",
+      "level": "info"
     },
     {
       "key": "task.fl2va",
@@ -4691,7 +5116,8 @@
         "de": "FL2VA — Text & Keyframes",
         "ar": "‏FL2VA — نص وإطارات مفتاحية"
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "task.fl2va.detail",
@@ -4702,7 +5128,8 @@
         "de": "Text zu Video, dazu optional Bilder für das erste und/oder letzte Bild. Für die meisten Arbeiten geeignet.",
         "ar": "من نص إلى فيديو، مع إمكانية تحديد صورة للإطار الأول و/أو الأخير. استخدم هذا في معظم الأعمال."
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "task.ref2va",
@@ -4713,7 +5140,8 @@
         "de": "Ref2VA — Referenzen",
         "ar": "‏Ref2VA — مراجع"
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     },
     {
       "key": "task.ref2va.detail",
@@ -4724,7 +5152,8 @@
         "de": "Konditioniert auf bis zu 9 Referenzbilder, 3 Referenzvideos und 3 Referenz-Audioclips.",
         "ar": "يعتمد على ما يصل إلى 9 صور و3 مقاطع فيديو و3 مقاطع صوتية مرجعية."
       },
-      "note": ""
+      "note": "",
+      "level": "info"
     }
   ]
 }

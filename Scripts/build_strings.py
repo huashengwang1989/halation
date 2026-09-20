@@ -25,7 +25,8 @@ for lang in LANGS:
             missing += 1
             value = entry["en"]
         if entry.get("note"):
-            lines.append(f'/* {entry["note"]} */')
+            prefix = "WARNING: " if entry.get("level") == "warning" else ""
+            lines.append(f'/* {prefix}{entry["note"]} */')
         lines.append(f'"{key}" = "{esc(value)}";')
         lines.append('')
     target = ROOT / f"{lang}.lproj" / "Localizable.strings"
@@ -41,6 +42,7 @@ catalog = {
             "key": key,
             "values": {lang: T[key].get(lang) or "" for lang in LANGS},
             "note": T[key].get("note") or "",
+            "level": T[key].get("level") or "info",
         }
         for key in sorted(T)
     ],
@@ -50,7 +52,8 @@ catalog_path.write_text(
     json.dumps(catalog, ensure_ascii=False, indent=2, sort_keys=False) + "\n",
     encoding="utf-8")
 noted = sum(1 for e in catalog["entries"] if e["note"])
-print(f"  catalog  {len(T)} keys, {noted} notes -> {catalog_path.name}")
+warned = sum(1 for e in catalog["entries"] if e["level"] == "warning")
+print(f"  catalog  {len(T)} keys, {noted} notes ({warned} warnings) -> {catalog_path.name}")
 
 if missing:
     print(f"  WARNING: {missing} missing translations fell back to English")

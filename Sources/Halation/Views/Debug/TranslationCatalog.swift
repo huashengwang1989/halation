@@ -6,10 +6,29 @@ import Foundation
 /// folders. The .strings files themselves cannot serve this: each carries one
 /// language, and the notes are C comments in them, which nothing reads back.
 struct TranslationCatalog: Decodable {
+    /// How much attention a note is asking for. See Scripts/translations.py.
+    enum Level: String, Decodable {
+        /// Context a translator needs: which sense of an ambiguous word is
+        /// meant, and where it appears.
+        case info
+        /// The key translates into the five languages shipped today, but the
+        /// way it is assembled will not generalise — a plural count, a noun
+        /// injected into a sentence, or a phrase built at runtime.
+        case warning
+
+        var symbolName: String {
+            switch self {
+            case .info: "info.circle"
+            case .warning: "exclamationmark.triangle.fill"
+            }
+        }
+    }
+
     struct Entry: Decodable, Identifiable {
         let key: String
         let values: [String: String]
         let note: String
+        let level: Level
 
         var id: String { key }
         var hasNote: Bool { !note.isEmpty }
