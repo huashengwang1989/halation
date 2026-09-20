@@ -10,3 +10,9 @@ dist/
 # Python bytecode from the sidecar and the build scripts.
 __pycache__/
 *.pyc
+
+# Intermediate icon renders. Scripts/make_icon.sh regenerates them from
+# Design/RenderIcon.swift; only the .icns it assembles is checked in, because
+# Scripts/make_app.sh installs that one directly.
+Design/out/*
+!Design/out/Halation.icns

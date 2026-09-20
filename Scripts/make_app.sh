@@ -53,6 +53,11 @@ cat > "$APP/Contents/Info.plist" <<'PLIST'
     <key>NSDownloadsFolderUsageDescription</key>
     <string>Halation needs access if you choose a model or output folder in Downloads.</string>
     <key>LSApplicationCategoryType</key>     <string>public.app-category.video</string>
+    <!-- Both, deliberately. macOS 26 reads CFBundleIconName and renders the
+         layered icon out of Assets.car; earlier systems know only
+         CFBundleIconFile and take the flattened .icns. -->
+    <key>CFBundleIconName</key>              <string>Halation</string>
+    <key>CFBundleIconFile</key>              <string>Halation</string>
     <!-- The languages AppKit may localize its own chrome into come from the
          .lproj folders copied in below; this only names the fallback. Listing them
          again in CFBundleLocalizations just duplicates every entry in
@@ -73,6 +78,33 @@ for LPROJ in "$ROOT"/Sources/Halation/Resources/Localizations/*.lproj; do
   mkdir -p "$DEST"
   cp "$LPROJ"/*.strings "$DEST/"
 done
+
+echo "==> Icon"
+ICON_SRC="$ROOT/Design/out/Halation.icns"
+if [ -f "$ICON_SRC" ]; then
+  cp "$ICON_SRC" "$APP/Contents/Resources/Halation.icns"
+  echo "    Halation.icns (all systems)"
+else
+  echo "    no .icns yet — run Scripts/make_icon.sh"
+fi
+
+# The layered icon is compiled by actool, which ships with Xcode. Without it the
+# app still has an icon, just the flat one, so a missing toolchain is a
+# downgrade rather than a build failure.
+if [ -d "$ROOT/Design/Halation.icon" ] && xcrun --find actool >/dev/null 2>&1; then
+  if xcrun actool "$ROOT/Design/Halation.icon" \
+        --compile "$APP/Contents/Resources" \
+        --app-icon Halation --platform macosx \
+        --minimum-deployment-target 26.0 \
+        --output-partial-info-plist "$(mktemp -t halicon)" >/dev/null 2>&1; then
+    # actool also drops its own thin .icns beside the catalogue; ours covers
+    # more sizes, so put it back.
+    [ -f "$ICON_SRC" ] && cp "$ICON_SRC" "$APP/Contents/Resources/Halation.icns"
+    echo "    Assets.car (layered, macOS 26+)"
+  else
+    echo "    actool could not compile the layered icon; flat icon only"
+  fi
+fi
 
 # Ad-hoc signature: enough for local use, and required for the app to keep its
 # TCC permissions across rebuilds. Replace with a Developer ID to distribute.
