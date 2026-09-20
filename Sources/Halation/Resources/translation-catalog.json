@@ -1760,18 +1760,6 @@
       "level": "info"
     },
     {
-      "key": "models.bytesOf",
-      "values": {
-        "en": "%1$@ of %2$@",
-        "zh-Hant": "%1$@ / %2$@",
-        "zh-Hans": "%1$@ / %2$@",
-        "de": "%1$@ von %2$@",
-        "ar": "%1$@ من %2$@"
-      },
-      "note": "",
-      "level": "info"
-    },
-    {
       "key": "models.cancelAll",
       "values": {
         "en": "Cancel All",
@@ -2852,18 +2840,6 @@
       "level": "info"
     },
     {
-      "key": "problem.tooManyKind",
-      "values": {
-        "en": "At most %1$@ reference %2$@ files — you have %3$@.",
-        "zh-Hant": "參考%2$@最多 %1$@ 個，目前有 %3$@ 個。",
-        "zh-Hans": "参考%2$@最多 %1$@ 个，当前有 %3$@ 个。",
-        "de": "Höchstens %1$@ Referenzdateien vom Typ %2$@ — du hast %3$@.",
-        "ar": "بحد أقصى %1$@ من ملفات %2$@ المرجعية — لديك %3$@."
-      },
-      "note": "Dead: nothing calls this. It duplicates problem.tooManyOfKind word for word, and only that one is used, from GenerationSpec. Worth deleting rather than translating again.",
-      "level": "warning"
-    },
-    {
       "key": "problem.tooManyOfKind",
       "values": {
         "en": "At most %1$@ reference %2$@ files — you have %3$@.",
@@ -2872,7 +2848,7 @@
         "de": "Höchstens %1$@ Referenzdateien vom Typ %2$@ – Sie haben %3$@.",
         "ar": "بحد أقصى %1$@ من ملفات %2$@ المرجعية — لديك %3$@."
       },
-      "note": "Injects a count, then a *noun* naming the file kind, then a second count. The noun has to agree with the numeral in most inflecting languages, and it arrives lowercased by the call site, which is an assumption German does not share. The counts themselves never reach 1 — the per-kind limits are 9, 3 and 3 — so only the noun is a live problem. See also problem.tooManyKind, its unused twin.",
+      "note": "Injects a count, then a *noun* naming the file kind, then a second count. The noun has to agree with the numeral in most inflecting languages, and it arrives lowercased by the call site, which is an assumption German does not share. The counts themselves never reach 1 — the per-kind limits are 9, 3 and 3 — so only the noun is a live problem.",
       "level": "warning"
     },
     {
@@ -4088,18 +4064,6 @@
       "level": "info"
     },
     {
-      "key": "settings.advanced.supportNote",
-      "values": {
-        "en": "Holds the Python environment, the render queue, and scratch files for in-flight renders.",
-        "zh-Hant": "存放 Python 環境、算圖佇列，以及進行中算圖的暫存檔。",
-        "zh-Hans": "存放 Python 环境、渲染队列，以及进行中渲染的暂存文件。",
-        "de": "Enthält die Python-Umgebung, die Render-Warteschlange und Zwischendateien laufender Renders.",
-        "ar": "يضم بيئة Python وقائمة انتظار التصيير والملفات المؤقتة لعمليات التصيير الجارية."
-      },
-      "note": "",
-      "level": "info"
-    },
-    {
       "key": "settings.architecture",
       "values": {
         "en": "Architecture",
@@ -4479,18 +4443,6 @@
         "zh-Hans": "完全重建",
         "de": "Komplett neu aufbauen",
         "ar": "إعادة البناء من الصفر"
-      },
-      "note": "",
-      "level": "info"
-    },
-    {
-      "key": "settings.rebuild.note",
-      "values": {
-        "en": "Rebuilding deletes and recreates the Python environment. It does not touch downloaded weights.",
-        "zh-Hant": "重建會刪除並重新建立 Python 環境，不會動到已下載的權重。",
-        "zh-Hans": "重建会删除并重新创建 Python 环境，不会动到已下载的权重。",
-        "de": "Beim Neuaufbau wird die Python-Umgebung gelöscht und neu erstellt. Heruntergeladene Gewichte bleiben unberührt.",
-        "ar": "تؤدي إعادة البناء إلى حذف بيئة Python وإنشائها من جديد، دون المساس بالأوزان المنزَّلة."
       },
       "note": "",
       "level": "info"
@@ -4882,13 +4834,13 @@
     {
       "key": "status.step",
       "values": {
-        "en": "step %@/%@",
-        "zh-Hant": "步驟 %@/%@",
-        "zh-Hans": "步骤 %@/%@",
-        "de": "Schritt %@/%@",
-        "ar": "الخطوة %@/%@"
+        "en": "step %1$@/%2$@",
+        "zh-Hant": "步驟 %1$@/%2$@",
+        "zh-Hans": "步骤 %1$@/%2$@",
+        "de": "Schritt %1$@/%2$@",
+        "ar": "الخطوة %1$@/%2$@"
       },
-      "note": "Built without positional specifiers — \"%@/%@\" rather than \"%1$@/%2$@\" — so a translator cannot swap the two numbers. Every other multi-argument string in this file is positional; this one is the exception and should be brought into line.",
+      "note": "Positional, so the two numbers can be reordered — Arabic in particular may want the total first. Still a warning because it is joined to status.remaining with \" · \" in StatusBar: the halves are translated separately and assembled in a fixed order, which no translator can change.",
       "level": "warning"
     },
     {
@@ -5009,18 +4961,6 @@
         "ar": "الطول"
       },
       "note": "The duration of the clip in time. Not physical length, and not the length of a list. Compare sampling.duration.",
-      "level": "info"
-    },
-    {
-      "key": "summary.length.value",
-      "values": {
-        "en": "%1$@ frames · %2$@ s",
-        "zh-Hant": "%1$@ 格 · %2$@ 秒",
-        "zh-Hans": "%1$@ 帧 · %2$@ 秒",
-        "de": "%1$@ Bilder · %2$@ s",
-        "ar": "%1$@ إطارًا · %2$@ ثانية"
-      },
-      "note": "",
       "level": "info"
     },
     {

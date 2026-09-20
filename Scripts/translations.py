@@ -65,8 +65,8 @@ add("status.runtime.missing", "Runtime not installed", "尚未安裝執行環境
 add("status.queued.count", "%@ queued", "佇列中 %@", "队列中 %@",
     "%@ in Warteschlange", "%@ في قائمة الانتظار")
 add("status.label", "Status", "狀態", "状态", "Status", "الحالة")
-add("status.step", "step %@/%@", "步驟 %@/%@", "步骤 %@/%@", "Schritt %@/%@",
-    "الخطوة %@/%@",
+add("status.step", "step %1$@/%2$@", "步驟 %1$@/%2$@", "步骤 %1$@/%2$@",
+    "Schritt %1$@/%2$@", "الخطوة %1$@/%2$@",
     "Progress through the sampler's steps, shown in the status bar during a "
     "render. Lower-case in English because it sits inside a sentence fragment.")
 add("status.remaining", "%@ left", "剩餘 %@", "剩余 %@", "noch %@", "%@ متبقٍ",
@@ -461,8 +461,6 @@ add("summary.generates", "Generates at", "生成解析度", "生成分辨率", "
 add("summary.delivers", "Delivered at", "輸出解析度", "输出分辨率", "Ausgeliefert mit",
     "يُسلَّم بمقاس")
 add("summary.length", "Length", "長度", "时长", "Länge", "الطول")
-add("summary.length.value", "%1$@ frames · %2$@ s", "%1$@ 格 · %2$@ 秒",
-    "%1$@ 帧 · %2$@ 秒", "%1$@ Bilder · %2$@ s", "%1$@ إطارًا · %2$@ ثانية")
 add("summary.bitrate", "Target bitrate", "目標位元率", "目标码率", "Ziel-Bitrate",
     "معدل البت المستهدف")
 add("summary.eta", "Estimated time", "預估時間", "预计时间", "Geschätzte Dauer",
@@ -755,8 +753,6 @@ add("models.cancelDownload", "Cancel download of %@", "取消下載 %@", "取消
     "Download von %@ abbrechen", "إلغاء تنزيل %@")
 add("models.progress", "Download progress", "下載進度", "下载进度",
     "Download-Fortschritt", "تقدّم التنزيل")
-add("models.bytesOf", "%1$@ of %2$@", "%1$@ / %2$@", "%1$@ / %2$@",
-    "%1$@ von %2$@", "%1$@ من %2$@")
 add("models.notInstalled", "Not installed", "未安裝", "未安装",
     "Nicht installiert", "غير مثبَّت")
 
@@ -923,11 +919,6 @@ add("problem.needReference", "Ref2VA needs at least one reference file.",
     "Ref2VA 至少需要一個參考檔案。", "Ref2VA 至少需要一个参考文件。",
     "Ref2VA benötigt mindestens eine Referenzdatei.",
     "يتطلّب Ref2VA ملف مرجع واحدًا على الأقل.")
-add("problem.tooManyKind", "At most %1$@ reference %2$@ files — you have %3$@.",
-    "參考%2$@最多 %1$@ 個，目前有 %3$@ 個。",
-    "参考%2$@最多 %1$@ 个，当前有 %3$@ 个。",
-    "Höchstens %1$@ Referenzdateien vom Typ %2$@ — du hast %3$@.",
-    "بحد أقصى %1$@ من ملفات %2$@ المرجعية — لديك %3$@.")
 add("problem.tooManyTotal", "Ref2VA accepts %@ reference files in total.",
     "Ref2VA 總共最多接受 %@ 個參考檔案。", "Ref2VA 总共最多接受 %@ 个参考文件。",
     "Ref2VA akzeptiert insgesamt %@ Referenzdateien.",
@@ -1045,15 +1036,6 @@ add("settings.recheck", "Re-check", "重新檢查", "重新检查", "Erneut prü
 add("settings.repair", "Repair", "修復", "修复", "Reparieren", "إصلاح")
 add("settings.rebuild", "Rebuild from Scratch", "完全重建", "完全重建",
     "Komplett neu aufbauen", "إعادة البناء من الصفر")
-add("settings.rebuild.note",
-    "Rebuilding deletes and recreates the Python environment. It does not touch "
-    "downloaded weights.",
-    "重建會刪除並重新建立 Python 環境，不會動到已下載的權重。",
-    "重建会删除并重新创建 Python 环境，不会动到已下载的权重。",
-    "Beim Neuaufbau wird die Python-Umgebung gelöscht und neu erstellt. "
-    "Heruntergeladene Gewichte bleiben unberührt.",
-    "تؤدي إعادة البناء إلى حذف بيئة Python وإنشائها من جديد، دون المساس بالأوزان "
-    "المنزَّلة.")
 add("settings.log", "Log", "記錄", "日志", "Protokoll", "السجل")
 add("settings.notInstalled", "Not installed.", "尚未安裝。", "尚未安装。",
     "Nicht installiert.", "غير مثبَّت.")
@@ -1095,14 +1077,6 @@ add("settings.advanced.checkout.hint", "Leave empty to use the installed package
 add("settings.advanced.reveal", "Reveal Application Support Folder",
     "顯示 Application Support 資料夾", "显示 Application Support 文件夹",
     "Ordner „Application Support“ zeigen", "إظهار مجلد Application Support")
-add("settings.advanced.supportNote",
-    "Holds the Python environment, the render queue, and scratch files for "
-    "in-flight renders.",
-    "存放 Python 環境、算圖佇列，以及進行中算圖的暫存檔。",
-    "存放 Python 环境、渲染队列，以及进行中渲染的暂存文件。",
-    "Enthält die Python-Umgebung, die Render-Warteschlange und Zwischendateien "
-    "laufender Renders.",
-    "يضم بيئة Python وقائمة انتظار التصيير والملفات المؤقتة لعمليات التصيير الجارية.")
 
 # ── Remaining onboarding / runtime prose ─────────────────────────────────────
 add("onboarding.licence.heading", "MiniMax H3 Community License",
@@ -1971,17 +1945,12 @@ annotate("problem.chooseCheckpoint", "Injects a task name into the noun phrase "
          "\"a %@ checkpoint\". The English article is fixed as \"a\", so a name "
          "beginning with a vowel sound already reads \"a FL2VA\" wrongly, and "
          "gendered languages cannot choose their article at all.", WARNING)
-annotate("problem.tooManyKind", "Dead: nothing calls this. It duplicates "
-         "problem.tooManyOfKind word for word, and only that one is used, from "
-         "GenerationSpec. Worth deleting rather than translating again.",
-         WARNING)
 annotate("problem.tooManyOfKind", "Injects a count, then a *noun* naming the "
          "file kind, then a second count. The noun has to agree with the "
          "numeral in most inflecting languages, and it arrives lowercased by "
          "the call site, which is an assumption German does not share. The "
          "counts themselves never reach 1 — the per-kind limits are 9, 3 and 3 "
-         "— so only the noun is a live problem. See also problem.tooManyKind, "
-         "its unused twin.", WARNING)
+         "— so only the noun is a live problem.", WARNING)
 
 
 # ── Sentences assembled at runtime ─────────────────────────────────────────
@@ -1989,10 +1958,11 @@ annotate("problem.tooManyOfKind", "Injects a count, then a *noun* naming the "
 # WARNING. These are fragments joined by Swift, so no translator ever sees the
 # finished sentence and none of them can change the order of its parts.
 
-annotate("status.step", "Built without positional specifiers — \"%@/%@\" rather "
-         "than \"%1$@/%2$@\" — so a translator cannot swap the two numbers. "
-         "Every other multi-argument string in this file is positional; this "
-         "one is the exception and should be brought into line.", WARNING)
+annotate("status.step", "Positional, so the two numbers can be reordered — "
+         "Arabic in particular may want the total first. Still a warning "
+         "because it is joined to status.remaining with \" · \" in StatusBar: "
+         "the halves are translated separately and assembled in a fixed order, "
+         "which no translator can change.", WARNING)
 annotate("status.remaining", "Joined to status.step with \" · \" in StatusBar, "
          "so the two halves are translated apart and assembled in a fixed "
          "order. The duration inside is already localized.", WARNING)

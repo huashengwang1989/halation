@@ -318,8 +318,6 @@
 
 "models.alreadyInstalled" = "Bereits installiert, wird übersprungen:";
 
-"models.bytesOf" = "%1$@ von %2$@";
-
 "models.cancelAll" = "Alle abbrechen";
 
 /* WARNING: Injects a name into a sentence. Languages that inflect a noun for case, choose an article by gender, or attach a vowel-harmonising suffix cannot do it without knowing the word, and it is only known at runtime. Prefer wording that sets the name apart — quoted, or on its own line. */
@@ -514,10 +512,7 @@
 
 "problem.t2v.extraFiles" = "Text-zu-Video ignoriert angehängte Dateien. Wechsle den Modus, um sie zu nutzen.";
 
-/* WARNING: Dead: nothing calls this. It duplicates problem.tooManyOfKind word for word, and only that one is used, from GenerationSpec. Worth deleting rather than translating again. */
-"problem.tooManyKind" = "Höchstens %1$@ Referenzdateien vom Typ %2$@ — du hast %3$@.";
-
-/* WARNING: Injects a count, then a *noun* naming the file kind, then a second count. The noun has to agree with the numeral in most inflecting languages, and it arrives lowercased by the call site, which is an assumption German does not share. The counts themselves never reach 1 — the per-kind limits are 9, 3 and 3 — so only the noun is a live problem. See also problem.tooManyKind, its unused twin. */
+/* WARNING: Injects a count, then a *noun* naming the file kind, then a second count. The noun has to agree with the numeral in most inflecting languages, and it arrives lowercased by the call site, which is an assumption German does not share. The counts themselves never reach 1 — the per-kind limits are 9, 3 and 3 — so only the noun is a live problem. */
 "problem.tooManyOfKind" = "Höchstens %1$@ Referenzdateien vom Typ %2$@ – Sie haben %3$@.";
 
 /* WARNING: Takes a count of reference files, though the value is always ReferenceAsset.totalFileLimit, which is 12. A placeholder that only ever holds one constant: the plural risk is theoretical, and the number could as easily be written into each translation, which would let every language inflect around it. */
@@ -747,8 +742,6 @@
 
 "settings.advanced.support.note" = "Enthält die Python-Umgebung, die Renderwarteschlange und temporäre Dateien laufender Rendervorgänge.";
 
-"settings.advanced.supportNote" = "Enthält die Python-Umgebung, die Render-Warteschlange und Zwischendateien laufender Renders.";
-
 "settings.architecture" = "Architektur";
 
 /* Imperative verb on a button. Not the noun "installation", which is a different word in most languages. */
@@ -819,8 +812,6 @@
 "settings.queue.note" = "Renders halten zig Gigabyte an Gewichten im Speicher, daher läuft immer nur einer. Einzelne Renders lassen sich in ihrer Zeile in der Warteschlange zurückstellen oder anhalten.";
 
 "settings.rebuild" = "Komplett neu aufbauen";
-
-"settings.rebuild.note" = "Beim Neuaufbau wird die Python-Umgebung gelöscht und neu erstellt. Heruntergeladene Gewichte bleiben unberührt.";
 
 "settings.recheck" = "Erneut prüfen";
 
@@ -895,8 +886,8 @@
 
 "status.runtime.missing" = "Laufzeitumgebung nicht installiert";
 
-/* WARNING: Built without positional specifiers — "%@/%@" rather than "%1$@/%2$@" — so a translator cannot swap the two numbers. Every other multi-argument string in this file is positional; this one is the exception and should be brought into line. */
-"status.step" = "Schritt %@/%@";
+/* WARNING: Positional, so the two numbers can be reordered — Arabic in particular may want the total first. Still a warning because it is joined to status.remaining with " · " in StatusBar: the halves are translated separately and assembled in a fixed order, which no translator can change. */
+"status.step" = "Schritt %1$@/%2$@";
 
 "summary.bitrate" = "Ziel-Bitrate";
 
@@ -918,8 +909,6 @@
 
 /* The duration of the clip in time. Not physical length, and not the length of a list. Compare sampling.duration. */
 "summary.length" = "Länge";
-
-"summary.length.value" = "%1$@ Bilder · %2$@ s";
 
 /* Heads the list of weights a render will load, in the Compose summary. Means these specific files, not the tab and not the folder. */
 "summary.models" = "Modelle";

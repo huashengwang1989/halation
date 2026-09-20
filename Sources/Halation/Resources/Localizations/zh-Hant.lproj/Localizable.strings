@@ -318,8 +318,6 @@
 
 "models.alreadyInstalled" = "已安裝，將略過：";
 
-"models.bytesOf" = "%1$@ / %2$@";
-
 "models.cancelAll" = "全部取消";
 
 /* WARNING: Injects a name into a sentence. Languages that inflect a noun for case, choose an article by gender, or attach a vowel-harmonising suffix cannot do it without knowing the word, and it is only known at runtime. Prefer wording that sets the name apart — quoted, or on its own line. */
@@ -514,10 +512,7 @@
 
 "problem.t2v.extraFiles" = "文字轉影片會忽略附加檔案。若要使用，請切換模式。";
 
-/* WARNING: Dead: nothing calls this. It duplicates problem.tooManyOfKind word for word, and only that one is used, from GenerationSpec. Worth deleting rather than translating again. */
-"problem.tooManyKind" = "參考%2$@最多 %1$@ 個，目前有 %3$@ 個。";
-
-/* WARNING: Injects a count, then a *noun* naming the file kind, then a second count. The noun has to agree with the numeral in most inflecting languages, and it arrives lowercased by the call site, which is an assumption German does not share. The counts themselves never reach 1 — the per-kind limits are 9, 3 and 3 — so only the noun is a live problem. See also problem.tooManyKind, its unused twin. */
+/* WARNING: Injects a count, then a *noun* naming the file kind, then a second count. The noun has to agree with the numeral in most inflecting languages, and it arrives lowercased by the call site, which is an assumption German does not share. The counts themselves never reach 1 — the per-kind limits are 9, 3 and 3 — so only the noun is a live problem. */
 "problem.tooManyOfKind" = "參考%2$@檔案最多 %1$@ 個——目前有 %3$@ 個。";
 
 /* WARNING: Takes a count of reference files, though the value is always ReferenceAsset.totalFileLimit, which is 12. A placeholder that only ever holds one constant: the plural risk is theoretical, and the number could as easily be written into each translation, which would let every language inflect around it. */
@@ -747,8 +742,6 @@
 
 "settings.advanced.support.note" = "存放 Python 執行環境、算圖佇列，以及算圖進行中的暫存檔案。";
 
-"settings.advanced.supportNote" = "存放 Python 環境、算圖佇列，以及進行中算圖的暫存檔。";
-
 "settings.architecture" = "架構";
 
 /* Imperative verb on a button. Not the noun "installation", which is a different word in most languages. */
@@ -819,8 +812,6 @@
 "settings.queue.note" = "算圖會在記憶體中保留數十 GB 的權重，因此一次只執行一個。要暫緩或停止個別算圖，請在「佇列」中該列操作。";
 
 "settings.rebuild" = "完全重建";
-
-"settings.rebuild.note" = "重建會刪除並重新建立 Python 環境，不會動到已下載的權重。";
 
 "settings.recheck" = "重新檢查";
 
@@ -895,8 +886,8 @@
 
 "status.runtime.missing" = "尚未安裝執行環境";
 
-/* WARNING: Built without positional specifiers — "%@/%@" rather than "%1$@/%2$@" — so a translator cannot swap the two numbers. Every other multi-argument string in this file is positional; this one is the exception and should be brought into line. */
-"status.step" = "步驟 %@/%@";
+/* WARNING: Positional, so the two numbers can be reordered — Arabic in particular may want the total first. Still a warning because it is joined to status.remaining with " · " in StatusBar: the halves are translated separately and assembled in a fixed order, which no translator can change. */
+"status.step" = "步驟 %1$@/%2$@";
 
 "summary.bitrate" = "目標位元率";
 
@@ -918,8 +909,6 @@
 
 /* The duration of the clip in time. Not physical length, and not the length of a list. Compare sampling.duration. */
 "summary.length" = "長度";
-
-"summary.length.value" = "%1$@ 格 · %2$@ 秒";
 
 /* Heads the list of weights a render will load, in the Compose summary. Means these specific files, not the tab and not the folder. */
 "summary.models" = "模型";

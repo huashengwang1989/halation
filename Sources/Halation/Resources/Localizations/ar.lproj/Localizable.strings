@@ -318,8 +318,6 @@
 
 "models.alreadyInstalled" = "مثبَّت مسبقًا، وسيُتخطّى:";
 
-"models.bytesOf" = "%1$@ من %2$@";
-
 "models.cancelAll" = "إلغاء الكل";
 
 /* WARNING: Injects a name into a sentence. Languages that inflect a noun for case, choose an article by gender, or attach a vowel-harmonising suffix cannot do it without knowing the word, and it is only known at runtime. Prefer wording that sets the name apart — quoted, or on its own line. */
@@ -514,10 +512,7 @@
 
 "problem.t2v.extraFiles" = "يتجاهل وضع النص إلى فيديو الملفات المرفقة. بدّل الوضع لاستخدامها.";
 
-/* WARNING: Dead: nothing calls this. It duplicates problem.tooManyOfKind word for word, and only that one is used, from GenerationSpec. Worth deleting rather than translating again. */
-"problem.tooManyKind" = "بحد أقصى %1$@ من ملفات %2$@ المرجعية — لديك %3$@.";
-
-/* WARNING: Injects a count, then a *noun* naming the file kind, then a second count. The noun has to agree with the numeral in most inflecting languages, and it arrives lowercased by the call site, which is an assumption German does not share. The counts themselves never reach 1 — the per-kind limits are 9, 3 and 3 — so only the noun is a live problem. See also problem.tooManyKind, its unused twin. */
+/* WARNING: Injects a count, then a *noun* naming the file kind, then a second count. The noun has to agree with the numeral in most inflecting languages, and it arrives lowercased by the call site, which is an assumption German does not share. The counts themselves never reach 1 — the per-kind limits are 9, 3 and 3 — so only the noun is a live problem. */
 "problem.tooManyOfKind" = "بحد أقصى %1$@ من ملفات %2$@ المرجعية — لديك %3$@.";
 
 /* WARNING: Takes a count of reference files, though the value is always ReferenceAsset.totalFileLimit, which is 12. A placeholder that only ever holds one constant: the plural risk is theoretical, and the number could as easily be written into each translation, which would let every language inflect around it. */
@@ -747,8 +742,6 @@
 
 "settings.advanced.support.note" = "يحتوي على بيئة Python وقائمة انتظار التصيير والملفات المؤقتة لعمليات التصيير الجارية.";
 
-"settings.advanced.supportNote" = "يضم بيئة Python وقائمة انتظار التصيير والملفات المؤقتة لعمليات التصيير الجارية.";
-
 "settings.architecture" = "البنية";
 
 /* Imperative verb on a button. Not the noun "installation", which is a different word in most languages. */
@@ -819,8 +812,6 @@
 "settings.queue.note" = "يحتفظ التصيير بعشرات الغيغابايتات من الأوزان في الذاكرة، لذا يعمل واحد فقط في كل مرة. يمكنك تعليق أو إيقاف أي تصيير من صفّه في قائمة الانتظار.";
 
 "settings.rebuild" = "إعادة البناء من الصفر";
-
-"settings.rebuild.note" = "تؤدي إعادة البناء إلى حذف بيئة Python وإنشائها من جديد، دون المساس بالأوزان المنزَّلة.";
 
 "settings.recheck" = "إعادة الفحص";
 
@@ -895,8 +886,8 @@
 
 "status.runtime.missing" = "بيئة التشغيل غير مثبتة";
 
-/* WARNING: Built without positional specifiers — "%@/%@" rather than "%1$@/%2$@" — so a translator cannot swap the two numbers. Every other multi-argument string in this file is positional; this one is the exception and should be brought into line. */
-"status.step" = "الخطوة %@/%@";
+/* WARNING: Positional, so the two numbers can be reordered — Arabic in particular may want the total first. Still a warning because it is joined to status.remaining with " · " in StatusBar: the halves are translated separately and assembled in a fixed order, which no translator can change. */
+"status.step" = "الخطوة %1$@/%2$@";
 
 "summary.bitrate" = "معدل البت المستهدف";
 
@@ -918,8 +909,6 @@
 
 /* The duration of the clip in time. Not physical length, and not the length of a list. Compare sampling.duration. */
 "summary.length" = "الطول";
-
-"summary.length.value" = "%1$@ إطارًا · %2$@ ثانية";
 
 /* Heads the list of weights a render will load, in the Compose summary. Means these specific files, not the tab and not the folder. */
 "summary.models" = "النماذج";
