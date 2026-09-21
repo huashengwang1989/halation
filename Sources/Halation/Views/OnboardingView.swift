@@ -1,3 +1,4 @@
+import AppKit
 import SwiftUI
 
 /// First-run setup: licence acknowledgement, runtime install, model download.
@@ -83,12 +84,18 @@ struct OnboardingView: View {
 
     private var welcome: some View {
         VStack(alignment: .leading, spacing: 16) {
-            Image(systemName: "wand.and.sparkles")
-                .font(.system(size: 44))
-                .foregroundStyle(.tint)
-                .accessibilityHidden(true)
-            Text(loc("onboarding.welcome.title"))
-                .font(.largeTitle.weight(.semibold))
+            HStack(spacing: 14) {
+                // The app's own icon rather than a generic symbol, taken from
+                // NSApplication so it follows whatever the bundle carries —
+                // the layered icon on macOS 26, the flat one before it — with
+                // no second copy of the artwork to keep in step.
+                Image(nsImage: NSApplication.shared.applicationIconImage)
+                    .resizable()
+                    .frame(width: 52, height: 52)
+                    .accessibilityHidden(true)
+                Text(loc("onboarding.welcome.title"))
+                    .font(.largeTitle.weight(.semibold))
+            }
             Text(loc("onboarding.welcome.body"))
                 .foregroundStyle(.secondary)
                 // Without this the paragraph is squeezed to a single truncated
