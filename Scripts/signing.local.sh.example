@@ -1,0 +1,24 @@
+# Copy to Scripts/signing.local.sh, which is gitignored, and fill in.
+# Both make_app.sh and make_dmg.sh source it when it exists, so `make dmg`
+# produces a signed, notarized build with no arguments and nothing to remember.
+#
+# None of this is secret — see .agent/conventions.md. The certificate's private
+# key stays in the keychain and is never exported into the repo; the
+# app-specific password lives in the keychain too, put there once by
+# `xcrun notarytool store-credentials`.
+
+# Matching by prefix rather than by full name: codesign accepts this as long as
+# exactly one Developer ID Application identity is in the keychain, which keeps
+# the team identifier out of the file entirely.
+export CODESIGN_IDENTITY="Developer ID Application"
+
+# A bundle identifier you own. Change it before the first signed build: it is
+# what TCC and the notary service key off, and changing it later resets every
+# permission the user has granted.
+export BUNDLE_ID="com.example.halation"
+
+# The keychain profile created by:
+#   xcrun notarytool store-credentials halation-notary \
+#       --apple-id you@example.com --team-id TEAMID \
+#       --password <app-specific-password>
+export NOTARY_PROFILE="halation-notary"

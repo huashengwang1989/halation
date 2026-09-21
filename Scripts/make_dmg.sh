@@ -53,6 +53,12 @@ cd "$ROOT"
 
 APP="$ROOT/dist/Halation.app"
 VOLUME="Halation"
+# Local signing configuration, if there is any. Gitignored, so a Developer ID
+# never reaches the repository — see Scripts/signing.local.sh.example.
+LOCAL_SIGNING="$ROOT/Scripts/signing.local.sh"
+# shellcheck source=/dev/null
+[ -f "$LOCAL_SIGNING" ] && . "$LOCAL_SIGNING"
+
 IDENTITY="${CODESIGN_IDENTITY:--}"
 
 [ -d "$APP" ] || { echo "No $APP — run 'make app' first."; exit 1; }

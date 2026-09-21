@@ -25,6 +25,12 @@ BUILD="${BUILD:-$(git -C "$ROOT" rev-list --count HEAD 2>/dev/null || echo 1)}"
 # needs a real one — see Scripts/make_dmg.sh, which explains the whole path.
 #
 #   CODESIGN_IDENTITY="Developer ID Application: Your Name (TEAMID)" make dmg
+# Local signing configuration, if there is any. Gitignored, so a Developer ID
+# never reaches the repository — see Scripts/signing.local.sh.example.
+LOCAL_SIGNING="$ROOT/Scripts/signing.local.sh"
+# shellcheck source=/dev/null
+[ -f "$LOCAL_SIGNING" ] && . "$LOCAL_SIGNING"
+
 IDENTITY="${CODESIGN_IDENTITY:--}"
 
 # com.local.* is fine until the app is signed, at which point the identifier has

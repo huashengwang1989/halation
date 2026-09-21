@@ -16,3 +16,7 @@ __pycache__/
 # Scripts/make_app.sh installs that one directly.
 Design/out/*
 !Design/out/Halation.icns
+
+# Local signing configuration. Keeps a Developer ID out of the repository; see
+# Scripts/signing.local.sh.example for the shape.
+Scripts/signing.local.sh

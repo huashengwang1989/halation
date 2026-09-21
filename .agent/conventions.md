@@ -278,3 +278,39 @@ the commit for whoever clones next. And `make hooks` points `core.hooksPath` at
 Note the shell trap this hit twice: a pipeline takes the exit status of its
 *last* command, so `check_translations.py | grep …` reports grep's success and
 lets a failing check through. Capture the output instead.
+
+## A Developer ID never goes in the repository
+
+Nothing about signing is hardcoded. `make_app.sh` and `make_dmg.sh` read
+`CODESIGN_IDENTITY`, `BUNDLE_ID` and `NOTARY_PROFILE` from the environment, and
+source `Scripts/signing.local.sh` if it exists — which is gitignored.
+`Scripts/signing.local.sh.example` shows the shape. Unset, everything falls back
+to an ad-hoc signature, so a clone builds and runs with no setup.
+
+Worth being precise about what is actually secret, because the instinct to hide
+all of it is half right.
+
+**Not secret.** Your name, your team identifier and the bundle identifier are
+embedded in every signed binary you ship, and anyone who downloads one reads
+them with `codesign -dvvv`:
+
+    Authority=Developer ID Application: Your Name (TEAMID)
+    TeamIdentifier=TEAMID
+
+Keeping them out of the repository is tidiness, not security. They are
+identifiers, not credentials — publishing them grants nobody anything.
+
+**Secret, and never in the repository.** The certificate's *private key* — the
+`.p12` you get from exporting the identity — along with its password. The
+app-specific password used for notarization, which belongs in the keychain via
+`xcrun notarytool store-credentials`, never in a file. An App Store Connect
+`.p8` API key, if CI ever notarizes. Anyone holding the private key can sign
+software as you, which is the whole of the risk.
+
+`CODESIGN_IDENTITY="Developer ID Application"` is enough on its own: codesign
+matches by prefix when exactly one such identity is in the keychain, so even the
+team identifier need not appear in a local file.
+
+For CI, the usual shape is a base64-encoded `.p12` and its password as
+repository secrets, imported into a temporary keychain that is deleted at the
+end of the job — never committed, never echoed into a log.
