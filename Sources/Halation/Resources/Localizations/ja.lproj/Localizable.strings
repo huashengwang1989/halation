@@ -802,6 +802,35 @@
 
 "settings.architecture" = "アーキテクチャ";
 
+/* Settings tab listing what the app has left on disk that can be deleted without losing anything. Model weights and finished videos are not here. */
+"settings.cache" = "キャッシュ";
+
+/* Shown when the clear buttons are disabled. These files are in use mid-render, so deleting them would break the job in flight. */
+"settings.cache.busy" = "レンダリングやダウンロードの実行中はできません。";
+
+"settings.cache.bytecode" = "Python のバイトコード";
+
+"settings.cache.bytecode.detail" = "ComfyUI が動作中に書き出す __pycache__ フォルダです。次回起動時に作り直されますが、その分だけ少し遅くなります。";
+
+"settings.cache.clearAll" = "すべて消去";
+
+"settings.cache.comfyOutput" = "ComfyUI の残りファイル";
+
+"settings.cache.comfyOutput.detail" = "ComfyUI が自分の output と input フォルダに書いた複製です。必要なものはアプリがすでにライブラリへ移してあります。";
+
+"settings.cache.empty" = "キャッシュなし";
+
+"settings.cache.note" = "ここにあるものはすべて削除しても作業は失われません——必要になれば作り直すか再ダウンロードします。モデルの重みと完成した動画はここには出ません。それらは「フォルダ」タブにあり、ここから触ることはありません。";
+
+"settings.cache.scratch" = "レンダリングの作業ファイル";
+
+"settings.cache.scratch.detail" = "中断されたレンダリングが残した作業ファイルです。最後まで終わったものは自分で片づけます。";
+
+"settings.cache.uv" = "パッケージのダウンロード（uv）";
+
+/* The shared-cache caveat is the point: this folder is not the app's alone, and the user should know before emptying it. */
+"settings.cache.uv.detail" = "Python 環境を作るときに uv が保存した wheel です。この Mac の他の uv プロジェクトとも共有しているので、消すとそれらの次回インストールも遅くなります——失われるものはありません。";
+
 /* Imperative verb on a button. Not the noun "installation", which is a different word in most languages. */
 "settings.comfy.install" = "インストール";
 

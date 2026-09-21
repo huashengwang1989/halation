@@ -802,6 +802,35 @@
 
 "settings.architecture" = "สถาปัตยกรรม";
 
+/* Settings tab listing what the app has left on disk that can be deleted without losing anything. Model weights and finished videos are not here. */
+"settings.cache" = "แคช";
+
+/* Shown when the clear buttons are disabled. These files are in use mid-render, so deleting them would break the job in flight. */
+"settings.cache.busy" = "ทำไม่ได้ขณะกำลังเรนเดอร์หรือดาวน์โหลด";
+
+"settings.cache.bytecode" = "ไบต์โค้ดของ Python";
+
+"settings.cache.bytecode.detail" = "โฟลเดอร์ __pycache__ ที่ ComfyUI เขียนไว้ขณะทำงาน จะถูกสร้างใหม่เมื่อเริ่มครั้งหน้า เพียงแต่ช้าลงเล็กน้อย";
+
+"settings.cache.clearAll" = "ล้างทั้งหมด";
+
+"settings.cache.comfyOutput" = "ไฟล์ตกค้างของ ComfyUI";
+
+"settings.cache.comfyOutput.detail" = "สำเนาที่ ComfyUI เขียนไว้ในโฟลเดอร์ output และ input ของตัวเอง ส่วนที่จำเป็นแอปย้ายเข้าคลังของคุณไปแล้ว";
+
+"settings.cache.empty" = "ไม่มีแคช";
+
+"settings.cache.note" = "ทุกอย่างที่นี่ลบได้โดยไม่เสียงาน เพราะจะถูกสร้างใหม่หรือดาวน์โหลดใหม่เมื่อจำเป็น ไฟล์น้ำหนักโมเดลและวิดีโอที่เสร็จแล้วไม่อยู่ในรายการนี้ — อยู่ในแท็บโฟลเดอร์ และจะไม่ถูกแตะจากที่นี่";
+
+"settings.cache.scratch" = "ไฟล์ชั่วคราวของการเรนเดอร์";
+
+"settings.cache.scratch.detail" = "ไฟล์ทำงานจากการเรนเดอร์ที่ถูกขัดจังหวะ ส่วนที่เรนเดอร์จนเสร็จจะล้างของตัวเอง";
+
+"settings.cache.uv" = "แพ็กเกจที่ดาวน์โหลด (uv)";
+
+/* The shared-cache caveat is the point: this folder is not the app's alone, and the user should know before emptying it. */
+"settings.cache.uv.detail" = "ไฟล์ wheel ที่ uv เก็บไว้ตอนสร้างสภาพแวดล้อม Python ใช้ร่วมกับโปรเจกต์ uv อื่นบน Mac เครื่องนี้ ล้างแล้วการติดตั้งครั้งหน้าของโปรเจกต์เหล่านั้นจะช้าลงด้วย แต่ไม่มีอะไรสูญหาย";
+
 /* Imperative verb on a button. Not the noun "installation", which is a different word in most languages. */
 "settings.comfy.install" = "ติดตั้ง";
 

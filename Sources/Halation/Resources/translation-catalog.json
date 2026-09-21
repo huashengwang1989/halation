@@ -6201,6 +6201,227 @@
       "level": "info"
     },
     {
+      "key": "settings.cache",
+      "values": {
+        "en": "Cache",
+        "zh-Hant": "快取",
+        "zh-Hans": "缓存",
+        "de": "Cache",
+        "ar": "ذاكرة مؤقتة",
+        "ja": "キャッシュ",
+        "ko": "캐시",
+        "th": "แคช",
+        "yue-Hant": "快取",
+        "en-SG": "Cache"
+      },
+      "note": "Settings tab listing what the app has left on disk that can be deleted without losing anything. Model weights and finished videos are not here.",
+      "level": "info"
+    },
+    {
+      "key": "settings.cache.busy",
+      "values": {
+        "en": "Not while a render or a download is running.",
+        "zh-Hant": "算圖或下載進行中時無法清除。",
+        "zh-Hans": "渲染或下载进行中时无法清除。",
+        "de": "Nicht, solange ein Render oder ein Download läuft.",
+        "ar": "غير متاح أثناء تشغيل تصيير أو تنزيل.",
+        "ja": "レンダリングやダウンロードの実行中はできません。",
+        "ko": "렌더링이나 다운로드가 실행 중일 때는 할 수 없습니다.",
+        "th": "ทำไม่ได้ขณะกำลังเรนเดอร์หรือดาวน์โหลด",
+        "yue-Hant": "算緊圖或者下載緊嗰陣做唔到。",
+        "en-SG": "Cannot, render or download is running."
+      },
+      "note": "Shown when the clear buttons are disabled. These files are in use mid-render, so deleting them would break the job in flight.",
+      "level": "info"
+    },
+    {
+      "key": "settings.cache.bytecode",
+      "values": {
+        "en": "Python bytecode",
+        "zh-Hant": "Python 位元碼",
+        "zh-Hans": "Python 字节码",
+        "de": "Python-Bytecode",
+        "ar": "شِفرة Python الوسيطة",
+        "ja": "Python のバイトコード",
+        "ko": "Python 바이트코드",
+        "th": "ไบต์โค้ดของ Python",
+        "yue-Hant": "Python 位元碼",
+        "en-SG": "Python bytecode"
+      },
+      "note": "",
+      "level": "info"
+    },
+    {
+      "key": "settings.cache.bytecode.detail",
+      "values": {
+        "en": "__pycache__ folders written by ComfyUI as it runs. Regenerated the next time it starts, a little more slowly.",
+        "zh-Hant": "ComfyUI 執行時寫入的 __pycache__ 資料夾。下次啟動會重新產生，只是稍微慢一點。",
+        "zh-Hans": "ComfyUI 运行时写入的 __pycache__ 文件夹。下次启动会重新生成，只是稍微慢一点。",
+        "de": "__pycache__-Ordner, die ComfyUI im Betrieb schreibt. Werden beim nächsten Start neu erzeugt, nur etwas langsamer.",
+        "ar": "مجلدات __pycache__ التي يكتبها ComfyUI أثناء عمله. تُعاد كتابتها عند التشغيل التالي، وإن كان أبطأ قليلًا.",
+        "ja": "ComfyUI が動作中に書き出す __pycache__ フォルダです。次回起動時に作り直されますが、その分だけ少し遅くなります。",
+        "ko": "ComfyUI가 실행되면서 만드는 __pycache__ 폴더입니다. 다음 시작 때 다시 만들어지며, 그만큼 조금 느려집니다.",
+        "th": "โฟลเดอร์ __pycache__ ที่ ComfyUI เขียนไว้ขณะทำงาน จะถูกสร้างใหม่เมื่อเริ่มครั้งหน้า เพียงแต่ช้าลงเล็กน้อย",
+        "yue-Hant": "ComfyUI 行嗰陣寫低嘅 __pycache__ 資料夾。下次開會再整返，不過會慢少少。",
+        "en-SG": "__pycache__ folders ComfyUI writes while it runs. Made again next time it starts, just a bit slower."
+      },
+      "note": "",
+      "level": "info"
+    },
+    {
+      "key": "settings.cache.clearAll",
+      "values": {
+        "en": "Clear All",
+        "zh-Hant": "全部清除",
+        "zh-Hans": "全部清除",
+        "de": "Alle leeren",
+        "ar": "مسح الكل",
+        "ja": "すべて消去",
+        "ko": "모두 지우기",
+        "th": "ล้างทั้งหมด",
+        "yue-Hant": "全部清走",
+        "en-SG": "Clear All"
+      },
+      "note": "",
+      "level": "info"
+    },
+    {
+      "key": "settings.cache.comfyOutput",
+      "values": {
+        "en": "ComfyUI leftovers",
+        "zh-Hant": "ComfyUI 殘留檔",
+        "zh-Hans": "ComfyUI 残留文件",
+        "de": "ComfyUI-Reste",
+        "ar": "بقايا ComfyUI",
+        "ja": "ComfyUI の残りファイル",
+        "ko": "ComfyUI 잔여 파일",
+        "th": "ไฟล์ตกค้างของ ComfyUI",
+        "yue-Hant": "ComfyUI 剩低嘅檔",
+        "en-SG": "ComfyUI leftovers"
+      },
+      "note": "",
+      "level": "info"
+    },
+    {
+      "key": "settings.cache.comfyOutput.detail",
+      "values": {
+        "en": "Copies ComfyUI wrote into its own output and input folders. The app already moved what it needed into your Library.",
+        "zh-Hant": "ComfyUI 寫進自己 output 與 input 資料夾的副本。App 需要的東西已經搬到你的媒體庫了。",
+        "zh-Hans": "ComfyUI 写进自己 output 与 input 文件夹的副本。App 需要的东西已经搬到你的媒体库了。",
+        "de": "Kopien, die ComfyUI in seine eigenen Ordner output und input geschrieben hat. Was gebraucht wurde, hat die App längst in deine Mediathek verschoben.",
+        "ar": "نسخ كتبها ComfyUI في مجلدي output وinput الخاصين به. أما ما يلزم فقد نقله التطبيق إلى مكتبتك بالفعل.",
+        "ja": "ComfyUI が自分の output と input フォルダに書いた複製です。必要なものはアプリがすでにライブラリへ移してあります。",
+        "ko": "ComfyUI가 자체 output, input 폴더에 남긴 복사본입니다. 필요한 것은 앱이 이미 라이브러리로 옮겼습니다.",
+        "th": "สำเนาที่ ComfyUI เขียนไว้ในโฟลเดอร์ output และ input ของตัวเอง ส่วนที่จำเป็นแอปย้ายเข้าคลังของคุณไปแล้ว",
+        "yue-Hant": "ComfyUI 寫入佢自己 output 同 input 資料夾嘅副本。App 要用嘅嘢已經搬咗去你個媒體庫。",
+        "en-SG": "Copies ComfyUI wrote into its own output and input folders. The app already moved whatever it needed into your Library."
+      },
+      "note": "",
+      "level": "info"
+    },
+    {
+      "key": "settings.cache.empty",
+      "values": {
+        "en": "Nothing cached",
+        "zh-Hant": "沒有快取",
+        "zh-Hans": "没有缓存",
+        "de": "Nichts im Cache",
+        "ar": "لا شيء مخزَّن",
+        "ja": "キャッシュなし",
+        "ko": "캐시 없음",
+        "th": "ไม่มีแคช",
+        "yue-Hant": "冇快取",
+        "en-SG": "Nothing cached"
+      },
+      "note": "",
+      "level": "info"
+    },
+    {
+      "key": "settings.cache.note",
+      "values": {
+        "en": "Everything here can be deleted without losing work — it is rebuilt or re-downloaded when needed. Model weights and finished videos are not listed: those are in the Folders tab and are never touched from here.",
+        "zh-Hant": "這裡的東西都可以刪除，不會弄丟任何成果——需要時會重建或重新下載。模型權重與完成的影片不在此列：它們在「資料夾」分頁，這裡永遠不會動到。",
+        "zh-Hans": "这里的东西都可以删除，不会丢失任何成果——需要时会重建或重新下载。模型权重与完成的视频不在此列：它们在“文件夹”分页，这里永远不会动到。",
+        "de": "Alles hier lässt sich löschen, ohne Arbeit zu verlieren — es wird bei Bedarf neu erzeugt oder geladen. Modellgewichte und fertige Videos stehen nicht hier: die liegen im Tab „Ordner“ und werden von hier aus nie angerührt.",
+        "ar": "كل ما هنا يمكن حذفه دون فقدان أي عمل — يُعاد بناؤه أو تنزيله عند الحاجة. أوزان النماذج ومقاطع الفيديو المنجزة ليست هنا: مكانها تبويب المجلدات، ولا تُمَس من هذه الصفحة أبدًا.",
+        "ja": "ここにあるものはすべて削除しても作業は失われません——必要になれば作り直すか再ダウンロードします。モデルの重みと完成した動画はここには出ません。それらは「フォルダ」タブにあり、ここから触ることはありません。",
+        "ko": "여기 있는 것은 모두 지워도 작업이 사라지지 않습니다 — 필요하면 다시 만들거나 내려받습니다. 모델 가중치와 완성된 영상은 여기 없습니다. 그것들은 폴더 탭에 있고, 이 화면에서는 절대 건드리지 않습니다.",
+        "th": "ทุกอย่างที่นี่ลบได้โดยไม่เสียงาน เพราะจะถูกสร้างใหม่หรือดาวน์โหลดใหม่เมื่อจำเป็น ไฟล์น้ำหนักโมเดลและวิดีโอที่เสร็จแล้วไม่อยู่ในรายการนี้ — อยู่ในแท็บโฟลเดอร์ และจะไม่ถูกแตะจากที่นี่",
+        "yue-Hant": "呢度啲嘢全部刪得，唔會蝕咗任何成果——要用嗰陣會重建或者再下載。模型權重同算好嘅片唔喺呢度：佢哋喺「資料夾」嗰版，呢度永遠唔會郁佢哋。",
+        "en-SG": "Everything here can delete without losing any work — it gets rebuilt or downloaded again when needed. Model weights and finished videos not listed here: those sit in the Folders tab and never get touched from here."
+      },
+      "note": "",
+      "level": "info"
+    },
+    {
+      "key": "settings.cache.scratch",
+      "values": {
+        "en": "Render scratch",
+        "zh-Hant": "算圖暫存",
+        "zh-Hans": "渲染暂存",
+        "de": "Render-Zwischendateien",
+        "ar": "ملفات التصيير المؤقتة",
+        "ja": "レンダリングの作業ファイル",
+        "ko": "렌더링 임시 파일",
+        "th": "ไฟล์ชั่วคราวของการเรนเดอร์",
+        "yue-Hant": "算圖暫存",
+        "en-SG": "Render scratch"
+      },
+      "note": "",
+      "level": "info"
+    },
+    {
+      "key": "settings.cache.scratch.detail",
+      "values": {
+        "en": "Working files from renders that were interrupted. A finished render clears its own.",
+        "zh-Hant": "中斷的算圖留下的工作檔。順利完成的算圖會自行清掉。",
+        "zh-Hans": "中断的渲染留下的工作文件。顺利完成的渲染会自行清掉。",
+        "de": "Arbeitsdateien abgebrochener Renders. Ein fertig gewordener Render räumt seine eigenen weg.",
+        "ar": "ملفات عمل من عمليات تصيير انقطعت. أما التصيير الذي يكتمل فينظّف ملفاته بنفسه.",
+        "ja": "中断されたレンダリングが残した作業ファイルです。最後まで終わったものは自分で片づけます。",
+        "ko": "중단된 렌더링이 남긴 작업 파일입니다. 끝까지 마친 렌더링은 스스로 지웁니다.",
+        "th": "ไฟล์ทำงานจากการเรนเดอร์ที่ถูกขัดจังหวะ ส่วนที่เรนเดอร์จนเสร็จจะล้างของตัวเอง",
+        "yue-Hant": "中途斷咗嘅算圖留低嘅工作檔。行得完嗰啲會自己清走。",
+        "en-SG": "Working files from renders that got interrupted. A render that finishes clears its own."
+      },
+      "note": "",
+      "level": "info"
+    },
+    {
+      "key": "settings.cache.uv",
+      "values": {
+        "en": "Package downloads (uv)",
+        "zh-Hant": "套件下載快取（uv）",
+        "zh-Hans": "包下载缓存（uv）",
+        "de": "Paket-Downloads (uv)",
+        "ar": "تنزيلات الحزم (uv)",
+        "ja": "パッケージのダウンロード（uv）",
+        "ko": "패키지 다운로드 (uv)",
+        "th": "แพ็กเกจที่ดาวน์โหลด (uv)",
+        "yue-Hant": "套件下載快取（uv）",
+        "en-SG": "Package downloads (uv)"
+      },
+      "note": "",
+      "level": "info"
+    },
+    {
+      "key": "settings.cache.uv.detail",
+      "values": {
+        "en": "Wheels uv kept while building the Python runtime. Shared with any other uv project on this Mac, so clearing it makes their next install slower too — nothing is lost either way.",
+        "zh-Hant": "uv 在建立 Python 執行環境時保留的套件檔。這台 Mac 上其他使用 uv 的專案也共用它，所以清掉之後它們下次安裝也會變慢——但不會遺失任何東西。",
+        "zh-Hans": "uv 在建立 Python 运行环境时保留的包文件。这台 Mac 上其他使用 uv 的项目也共用它，所以清掉之后它们下次安装也会变慢——但不会丢失任何东西。",
+        "de": "Wheels, die uv beim Bau der Python-Umgebung behalten hat. Wird mit jedem anderen uv-Projekt auf diesem Mac geteilt, deren nächste Installation also ebenfalls langsamer wird — verloren geht dabei nichts.",
+        "ar": "حزم احتفظ بها uv أثناء بناء بيئة Python. وهي مشتركة مع أي مشروع uv آخر على هذا الـ Mac، فمسحها يبطئ تثبيتها التالي أيضًا — دون فقدان أي شيء.",
+        "ja": "Python 環境を作るときに uv が保存した wheel です。この Mac の他の uv プロジェクトとも共有しているので、消すとそれらの次回インストールも遅くなります——失われるものはありません。",
+        "ko": "Python 환경을 만들 때 uv가 보관한 휠입니다. 이 Mac의 다른 uv 프로젝트와 공유하므로, 지우면 그쪽의 다음 설치도 느려집니다 — 잃는 것은 없습니다.",
+        "th": "ไฟล์ wheel ที่ uv เก็บไว้ตอนสร้างสภาพแวดล้อม Python ใช้ร่วมกับโปรเจกต์ uv อื่นบน Mac เครื่องนี้ ล้างแล้วการติดตั้งครั้งหน้าของโปรเจกต์เหล่านั้นจะช้าลงด้วย แต่ไม่มีอะไรสูญหาย",
+        "yue-Hant": "uv 整 Python 環境嗰陣留低嘅套件檔。呢部 Mac 上面其他用 uv 嘅專案都共用，所以清咗佢哋下次裝嘢都會慢啲——不過乜都唔會冇咗。",
+        "en-SG": "Wheels uv kept while building the Python runtime. Shared with any other uv project on this Mac, so clearing it makes their next install slower also — nothing lost either way."
+      },
+      "note": "The shared-cache caveat is the point: this folder is not the app's alone, and the user should know before emptying it.",
+      "level": "info"
+    },
+    {
       "key": "settings.comfy.install",
       "values": {
         "en": "Install",

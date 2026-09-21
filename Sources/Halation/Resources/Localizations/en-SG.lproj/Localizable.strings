@@ -802,6 +802,35 @@
 
 "settings.architecture" = "Architecture";
 
+/* Settings tab listing what the app has left on disk that can be deleted without losing anything. Model weights and finished videos are not here. */
+"settings.cache" = "Cache";
+
+/* Shown when the clear buttons are disabled. These files are in use mid-render, so deleting them would break the job in flight. */
+"settings.cache.busy" = "Cannot, render or download is running.";
+
+"settings.cache.bytecode" = "Python bytecode";
+
+"settings.cache.bytecode.detail" = "__pycache__ folders ComfyUI writes while it runs. Made again next time it starts, just a bit slower.";
+
+"settings.cache.clearAll" = "Clear All";
+
+"settings.cache.comfyOutput" = "ComfyUI leftovers";
+
+"settings.cache.comfyOutput.detail" = "Copies ComfyUI wrote into its own output and input folders. The app already moved whatever it needed into your Library.";
+
+"settings.cache.empty" = "Nothing cached";
+
+"settings.cache.note" = "Everything here can delete without losing any work — it gets rebuilt or downloaded again when needed. Model weights and finished videos not listed here: those sit in the Folders tab and never get touched from here.";
+
+"settings.cache.scratch" = "Render scratch";
+
+"settings.cache.scratch.detail" = "Working files from renders that got interrupted. A render that finishes clears its own.";
+
+"settings.cache.uv" = "Package downloads (uv)";
+
+/* The shared-cache caveat is the point: this folder is not the app's alone, and the user should know before emptying it. */
+"settings.cache.uv.detail" = "Wheels uv kept while building the Python runtime. Shared with any other uv project on this Mac, so clearing it makes their next install slower also — nothing lost either way.";
+
 /* Imperative verb on a button. Not the noun "installation", which is a different word in most languages. */
 "settings.comfy.install" = "Install";
 

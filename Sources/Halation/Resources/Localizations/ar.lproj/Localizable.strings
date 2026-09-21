@@ -802,6 +802,35 @@
 
 "settings.architecture" = "البنية";
 
+/* Settings tab listing what the app has left on disk that can be deleted without losing anything. Model weights and finished videos are not here. */
+"settings.cache" = "ذاكرة مؤقتة";
+
+/* Shown when the clear buttons are disabled. These files are in use mid-render, so deleting them would break the job in flight. */
+"settings.cache.busy" = "غير متاح أثناء تشغيل تصيير أو تنزيل.";
+
+"settings.cache.bytecode" = "شِفرة Python الوسيطة";
+
+"settings.cache.bytecode.detail" = "مجلدات __pycache__ التي يكتبها ComfyUI أثناء عمله. تُعاد كتابتها عند التشغيل التالي، وإن كان أبطأ قليلًا.";
+
+"settings.cache.clearAll" = "مسح الكل";
+
+"settings.cache.comfyOutput" = "بقايا ComfyUI";
+
+"settings.cache.comfyOutput.detail" = "نسخ كتبها ComfyUI في مجلدي output وinput الخاصين به. أما ما يلزم فقد نقله التطبيق إلى مكتبتك بالفعل.";
+
+"settings.cache.empty" = "لا شيء مخزَّن";
+
+"settings.cache.note" = "كل ما هنا يمكن حذفه دون فقدان أي عمل — يُعاد بناؤه أو تنزيله عند الحاجة. أوزان النماذج ومقاطع الفيديو المنجزة ليست هنا: مكانها تبويب المجلدات، ولا تُمَس من هذه الصفحة أبدًا.";
+
+"settings.cache.scratch" = "ملفات التصيير المؤقتة";
+
+"settings.cache.scratch.detail" = "ملفات عمل من عمليات تصيير انقطعت. أما التصيير الذي يكتمل فينظّف ملفاته بنفسه.";
+
+"settings.cache.uv" = "تنزيلات الحزم (uv)";
+
+/* The shared-cache caveat is the point: this folder is not the app's alone, and the user should know before emptying it. */
+"settings.cache.uv.detail" = "حزم احتفظ بها uv أثناء بناء بيئة Python. وهي مشتركة مع أي مشروع uv آخر على هذا الـ Mac، فمسحها يبطئ تثبيتها التالي أيضًا — دون فقدان أي شيء.";
+
 /* Imperative verb on a button. Not the noun "installation", which is a different word in most languages. */
 "settings.comfy.install" = "تثبيت";
 

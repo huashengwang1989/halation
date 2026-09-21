@@ -15,6 +15,9 @@ struct SettingsView: View {
             Tab("ComfyUI", systemImage: "square.stack.3d.up", value: SettingsTab.comfyUI) {
                 ComfyUISettings()
             }
+            Tab(loc("settings.cache"), systemImage: "trash", value: SettingsTab.cache) {
+                CacheSettings()
+            }
             Tab(loc("settings.advanced"), systemImage: "wrench.and.screwdriver", value: SettingsTab.advanced) {
                 AdvancedSettings()
             }
@@ -24,7 +27,7 @@ struct SettingsView: View {
     }
 }
 
-enum SettingsTab: Hashable { case general, runtime, comfyUI, advanced }
+enum SettingsTab: Hashable { case general, runtime, comfyUI, cache, advanced }
 
 /// Stops AppKit drawing a focus ring on the Settings tab bar.
 ///
@@ -358,5 +361,79 @@ private struct LanguagePicker: View {
                     .controlSize(.small)
             }
         }
+    }
+}
+
+/// Settings ▸ Cache: what is on disk that can go, and a button to make it go.
+private struct CacheSettings: View {
+    @Environment(AppState.self) private var app
+    @State private var inventory = CacheInventory()
+    @State private var working = false
+
+    /// Deleting these mid-render would pull files out from under the job: the
+    /// scratch directory *is* the render's working space, and ComfyUI is reading
+    /// its own input folder. A download is rebuilding the runtime the uv cache
+    /// feeds. So the whole tab waits rather than trying to be clever per row.
+    private var isBusy: Bool {
+        app.engine.isRunning || app.downloads.transfers.contains { !$0.state.isTerminal }
+    }
+
+    var body: some View {
+        Form {
+            Section {
+                ForEach(inventory.categories) { category in
+                    LabeledContent {
+                        HStack(spacing: 8) {
+                            Text(category.bytes > 0
+                                 ? Format.bytes(category.bytes)
+                                 : loc("settings.cache.empty"))
+                                .monospacedDigit()
+                                .foregroundStyle(.secondary)
+                            Button(loc("settings.log.clear")) {
+                                Task { await run { await inventory.clear(category) } }
+                            }
+                            .disabled(isBusy || working || category.bytes == 0)
+                        }
+                    } label: {
+                        VStack(alignment: .leading, spacing: 2) {
+                            Text(loc(category.titleKey))
+                            Text(loc(category.detailKey))
+                                .font(.caption)
+                                .foregroundStyle(.secondary)
+                                .fixedSize(horizontal: false, vertical: true)
+                        }
+                    }
+                }
+            } header: {
+                Text(loc("settings.cache"))
+            } footer: {
+                VStack(alignment: .leading, spacing: 6) {
+                    Text(loc("settings.cache.note"))
+                    if isBusy { Text(loc("settings.cache.busy")).foregroundStyle(.orange) }
+                    HStack {
+                        if inventory.isMeasuring || working { ProgressView().controlSize(.small) }
+                        Spacer()
+                        Text(Format.bytes(inventory.totalBytes)).monospacedDigit()
+                        Button(loc("settings.cache.clearAll")) {
+                            Task { await run { await inventory.clearAll() } }
+                        }
+                        .disabled(isBusy || working || inventory.totalBytes == 0)
+                    }
+                }
+                .font(.caption)
+                .foregroundStyle(.secondary)
+                .fixedSize(horizontal: false, vertical: true)
+            }
+        }
+        .formStyle(.grouped)
+        // Measured on appearance rather than kept live: walking a 3 GB directory
+        // is not something to repeat on a timer for a tab nobody is looking at.
+        .task { await inventory.refresh() }
+    }
+
+    private func run(_ work: () async -> Void) async {
+        working = true
+        await work()
+        working = false
     }
 }

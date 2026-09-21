@@ -802,6 +802,35 @@
 
 "settings.architecture" = "架構";
 
+/* Settings tab listing what the app has left on disk that can be deleted without losing anything. Model weights and finished videos are not here. */
+"settings.cache" = "快取";
+
+/* Shown when the clear buttons are disabled. These files are in use mid-render, so deleting them would break the job in flight. */
+"settings.cache.busy" = "算緊圖或者下載緊嗰陣做唔到。";
+
+"settings.cache.bytecode" = "Python 位元碼";
+
+"settings.cache.bytecode.detail" = "ComfyUI 行嗰陣寫低嘅 __pycache__ 資料夾。下次開會再整返，不過會慢少少。";
+
+"settings.cache.clearAll" = "全部清走";
+
+"settings.cache.comfyOutput" = "ComfyUI 剩低嘅檔";
+
+"settings.cache.comfyOutput.detail" = "ComfyUI 寫入佢自己 output 同 input 資料夾嘅副本。App 要用嘅嘢已經搬咗去你個媒體庫。";
+
+"settings.cache.empty" = "冇快取";
+
+"settings.cache.note" = "呢度啲嘢全部刪得，唔會蝕咗任何成果——要用嗰陣會重建或者再下載。模型權重同算好嘅片唔喺呢度：佢哋喺「資料夾」嗰版，呢度永遠唔會郁佢哋。";
+
+"settings.cache.scratch" = "算圖暫存";
+
+"settings.cache.scratch.detail" = "中途斷咗嘅算圖留低嘅工作檔。行得完嗰啲會自己清走。";
+
+"settings.cache.uv" = "套件下載快取（uv）";
+
+/* The shared-cache caveat is the point: this folder is not the app's alone, and the user should know before emptying it. */
+"settings.cache.uv.detail" = "uv 整 Python 環境嗰陣留低嘅套件檔。呢部 Mac 上面其他用 uv 嘅專案都共用，所以清咗佢哋下次裝嘢都會慢啲——不過乜都唔會冇咗。";
+
 /* Imperative verb on a button. Not the noun "installation", which is a different word in most languages. */
 "settings.comfy.install" = "安裝";
 
