@@ -23,9 +23,16 @@ struct OnboardingView: View {
 
     var body: some View {
         VStack(spacing: 0) {
-            content
-                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
-                .padding(28)
+            // Scrolling, so the buttons below can never be pushed off. The first
+            // step already overflowed in English; a language that runs longer,
+            // or a short display like an iPad used over Sidecar, would push the
+            // whole footer out of reach and leave no way forward.
+            ScrollView {
+                content
+                    .frame(maxWidth: .infinity, alignment: .topLeading)
+                    .padding(28)
+            }
+            .frame(maxHeight: .infinity)
 
             Divider()
 
@@ -51,7 +58,13 @@ struct OnboardingView: View {
             }
             .padding(16)
         }
-        .frame(width: 720, height: 560)
+        // Taller than it was, and bounded rather than fixed: 700 is comfortable
+        // on a desktop display, and the minimum keeps the footer reachable on a
+        // small one. The content scrolls between the two.
+        // The flexible overload throughout: `width:` is the fixed-frame form and
+        // cannot be mixed with height bounds.
+        .frame(minWidth: 720, idealWidth: 720, maxWidth: 720,
+               minHeight: 480, idealHeight: 700, maxHeight: 700)
         .defaultFocus($primaryFocused, true)
         // `.keyboardShortcut(.cancelAction)` does not fire inside this sheet, so
         // Escape is handled explicitly. This is the macOS-native hook for it.
@@ -76,21 +89,14 @@ struct OnboardingView: View {
                 .accessibilityHidden(true)
             Text(loc("onboarding.welcome.title"))
                 .font(.largeTitle.weight(.semibold))
-            Text("""
-                This app runs MiniMax H3 entirely on your own machine. Nothing is sent \
-                to a server, and there is no account or API key.
-
-                Two things are worth knowing before you start.
-                """)
+            Text(loc("onboarding.welcome.body"))
                 .foregroundStyle(.secondary)
+                // Without this the paragraph is squeezed to a single truncated
+                // line whenever the dialog is shorter than its content.
+                .fixedSize(horizontal: false, vertical: true)
 
             GlassCard(title: loc("onboarding.slowTitle"), systemImage: "clock") {
-                Text("""
-                    H3 is a 33-billion-parameter diffusion model. On an M4 Max, a 5-second \
-                    clip at the fast-preview settings takes roughly one to two hours; at \
-                    50 steps it is an overnight job. The queue is built for that — it keeps \
-                    running while you use the Mac for other things, and it survives a quit.
-                    """)
+                Text(loc("onboarding.slow.body"))
                 .font(.callout)
                 .foregroundStyle(.secondary)
                 .fixedSize(horizontal: false, vertical: true)
@@ -111,11 +117,7 @@ struct OnboardingView: View {
             }
 
             GlassCard(title: loc("onboarding.diskTitle"), systemImage: "internaldrive") {
-                Text("""
-                    The recommended set of weights is a little over 100 GB — most of it the \
-                    Qwen3-VL-32B text encoder. They are stored in a shared folder so other \
-                    projects on this Mac can use the same copy.
-                    """)
+                Text(loc("onboarding.disk.body"))
                 .font(.callout)
                 .foregroundStyle(.secondary)
                 .fixedSize(horizontal: false, vertical: true)
@@ -127,22 +129,17 @@ struct OnboardingView: View {
         VStack(alignment: .leading, spacing: 16) {
             Text(loc("onboarding.licence.heading"))
                 .font(.title.weight(.semibold))
-            Text("""
-                The weights are open, but not unconditionally. The terms you are agreeing \
-                to are MiniMax's, not this app's, and it is worth reading them on the model \
-                card before you download 60 GB.
-                """)
+            Text(loc("onboarding.licence.body"))
                 .foregroundStyle(.secondary)
+                .fixedSize(horizontal: false, vertical: true)
 
-            GlassCard(title: "The restrictions that actually bite", systemImage: "exclamationmark.shield") {
+            GlassCard(title: loc("onboarding.licence.restrictions"),
+                      systemImage: "exclamationmark.shield") {
                 VStack(alignment: .leading, spacing: 10) {
-                    Bullet("Local use is restricted in the USA, the EU, the UK and South Korea. Running the model in "
-                           + "those territories needs a separate application to MiniMax.")
-                    Bullet("Organisations above roughly US$20 million in annual revenue need authorisation.")
-                    Bullet("Training another model on H3's output is prohibited.")
-                    Bullet("Unlawful and pornographic output is prohibited by the licence, "
-                           + "wherever you are. There is no server-side filter on a local run, so "
-                           + "this is on you rather than on the software.")
+                    Bullet(loc("onboarding.licence.bullet.territory"))
+                    Bullet(loc("onboarding.licence.bullet.revenue"))
+                    Bullet(loc("onboarding.licence.bullet.training"))
+                    Bullet(loc("onboarding.licence.bullet.unlawful"))
                 }
             }
 
@@ -158,9 +155,9 @@ struct OnboardingView: View {
                 // whose system keyboard-navigation is off can reach the button but
                 // never enable it — a dead end in the only mandatory step.
                 .keyboardShortcut("l", modifiers: .command)
-                .help("⌘L toggles this")
+                .help(loc("onboarding.licence.toggleHelp"))
 
-            Text("⌘L accepts · Return continues · Space activates whichever button has focus")
+            Text(loc("onboarding.licence.keys"))
                 .font(.caption)
                 .foregroundStyle(.tertiary)
         }
@@ -169,18 +166,15 @@ struct OnboardingView: View {
     private var runtime: some View {
         VStack(alignment: .leading, spacing: 16) {
             Text(loc("onboarding.runtime.title")).font(.title.weight(.semibold))
-            Text("""
-                H3 has no native Swift implementation. The app drives the MLX port through \
-                its own private Python environment, kept separate from any Python you \
-                already have so it cannot break yours or be broken by it.
-                """)
+            Text(loc("onboarding.runtime.body"))
                 .foregroundStyle(.secondary)
+                .fixedSize(horizontal: false, vertical: true)
 
-            GlassCard(title: "What gets installed", systemImage: "shippingbox") {
+            GlassCard(title: loc("onboarding.runtime.installs"), systemImage: "shippingbox") {
                 VStack(alignment: .leading, spacing: 8) {
-                    Bullet("uv, into this app's Application Support folder")
-                    Bullet("A Python 3.12 virtual environment, about 1.5 GB with MLX")
-                    Bullet("minimax-h3-mlx, the Apache-2.0 Apple-silicon port")
+                    Bullet(loc("onboarding.runtime.bullet.uv"))
+                    Bullet(loc("onboarding.runtime.bullet.venv"))
+                    Bullet(loc("onboarding.runtime.bullet.port"))
                 }
             }
 
@@ -224,15 +218,12 @@ struct OnboardingView: View {
     private var models: some View {
         VStack(alignment: .leading, spacing: 16) {
             Text(loc("onboarding.models.title")).font(.title.weight(.semibold))
-            Text("""
-                The recommended set is the 4-bit FL2VA transformer plus the bfloat16 text \
-                encoder and the shared VAEs — the fastest combination the MLX port can \
-                currently load. Higher-precision transformers can be added later from the \
-                Models tab without re-downloading the encoder.
-                """)
+            Text(loc("onboarding.models.body"))
                 .foregroundStyle(.secondary)
+                .fixedSize(horizontal: false, vertical: true)
 
-            GlassCard(title: "About to download", systemImage: "arrow.down.circle") {
+            GlassCard(title: loc("onboarding.models.aboutToDownload"),
+                      systemImage: "arrow.down.circle") {
                 VStack(spacing: 8) {
                     ForEach(ModelCatalog.recommendedBundle) { entry in
                         VStack(alignment: .leading, spacing: 2) {

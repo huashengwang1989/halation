@@ -453,6 +453,8 @@
 
 "onboarding.continue" = "続ける";
 
+"onboarding.disk.body" = "推奨の重み一式は 100 GB を少し超えます。その大半は Qwen3-VL-32B テキストエンコーダです。共有フォルダに置かれるので、この Mac の他のプロジェクトも同じものを使えます。";
+
 "onboarding.diskTitle" = "セットアップは大きなダウンロードです";
 
 "onboarding.freeOnDisk" = "ディスクの空き";
@@ -463,20 +465,54 @@
 
 "onboarding.licence.acknowledge" = "ライセンスを読み、自分のいる地域でこの重みを使う資格があることを確認しました";
 
+"onboarding.licence.body" = "重みは公開されていますが、無条件ではありません。同意するのは MiniMax の条件であって、このアプリの条件ではありません。60 GB をダウンロードする前に、モデルカードで読んでおく価値があります。";
+
+"onboarding.licence.bullet.revenue" = "年間売上がおよそ 2,000 万米ドルを超える組織には、許諾が必要です。";
+
+"onboarding.licence.bullet.territory" = "アメリカ、EU、イギリス、韓国ではローカル利用が制限されています。これらの地域でモデルを動かすには、MiniMax への個別の申請が必要です。";
+
+"onboarding.licence.bullet.training" = "H3 の出力を使って別のモデルを学習させることは禁止されています。";
+
+"onboarding.licence.bullet.unlawful" = "どこにいても、違法な出力と性的な出力はライセンスで禁止されています。ローカル実行にサーバー側のフィルタはないので、これはソフトウェアではなくあなたの責任です。";
+
 /* The licence's proper name stays in English; TW/CN gloss it. */
 "onboarding.licence.heading" = "MiniMax H3 コミュニティライセンス";
 
+/* Keyboard hints under the licence checkbox. The key names are what macOS prints on the keys, so they stay in English. */
+"onboarding.licence.keys" = "⌘L で同意 · Return で次へ · Space でフォーカス中のボタンを実行";
+
 "onboarding.licence.readFull" = "Hugging Face で全文を読む";
+
+/* Card heading. "Bite" as in restrictions that have real consequences, not a warning about danger. */
+"onboarding.licence.restrictions" = "実際に効いてくる制限";
 
 "onboarding.licence.title" = "モデルのライセンス";
 
+"onboarding.licence.toggleHelp" = "⌘L で切り替えます";
+
+"onboarding.models.aboutToDownload" = "これからダウンロードするもの";
+
+"onboarding.models.body" = "推奨は 4-bit の FL2VA transformer に bfloat16 のテキストエンコーダと共有 VAE を組み合わせたもの——現時点で MLX 移植版が読み込める最速の構成です。より高精度の transformer は、あとから「モデル」タブで追加でき、エンコーダを再ダウンロードする必要はありません。";
+
 "onboarding.models.title" = "モデルの重み";
+
+"onboarding.runtime.body" = "H3 にネイティブな Swift 実装はありません。このアプリは専用の Python 環境を通して MLX 移植版を動かします。既存の Python とは分けてあるので、互いに壊し合うことはありません。";
+
+"onboarding.runtime.bullet.port" = "minimax-h3-mlx（Apache-2.0 の Apple シリコン移植版）";
+
+"onboarding.runtime.bullet.uv" = "uv（このアプリの Application Support フォルダ内）";
+
+"onboarding.runtime.bullet.venv" = "Python 3.12 の仮想環境（MLX 込みで約 1.5 GB）";
+
+"onboarding.runtime.installs" = "インストールされるもの";
 
 "onboarding.runtime.title" = "Python 実行環境";
 
 "onboarding.savingTo" = "%@ に保存";
 
 "onboarding.skip" = "セットアップをスキップ";
+
+"onboarding.slow.body" = "H3 は 330 億パラメータの拡散モデルです。M4 Max では、高速プレビュー設定の 5 秒クリップでおよそ 1〜2 時間、50 ステップなら一晩仕事になります。キューはそのために作られています——Mac で別の作業をしていても動き続け、アプリを終了しても消えません。";
 
 "onboarding.slowTitle" = "レンダリングは秒ではなく時間の単位です";
 
@@ -486,6 +522,8 @@
 
 /* The combined download size of the recommended model set. A sum of bytes, not a count of files. */
 "onboarding.total" = "合計";
+
+"onboarding.welcome.body" = "このアプリは MiniMax H3 をすべてあなたのマシン上で実行します。サーバーには何も送りませんし、アカウントも API キーも要りません。\n\n始める前に、知っておくとよいことが二つあります。";
 
 "onboarding.welcome.title" = "この Mac で動画を生成";
 

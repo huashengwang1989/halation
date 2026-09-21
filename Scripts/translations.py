@@ -6052,3 +6052,305 @@ add("notify.test.body", {
     "yue-Hant": "算圖或者下載完咗嗰陣，你收到嘅就係咁樣。",
     "en-SG": "This is what you will get when a render or download ends.",
 })
+
+# ── Onboarding body copy ─────────────────────────────────────────────────────
+#
+# These were literals in OnboardingView until now, which made the first screen a
+# new user sees the only untranslated surface in the app.
+add("onboarding.welcome.body", {
+    "en": "This app runs MiniMax H3 entirely on your own machine. Nothing is sent "
+          "to a server, and there is no account or API key.\n\nTwo things are "
+          "worth knowing before you start.",
+    "zh-Hant": "這個 App 完全在你自己的機器上執行 MiniMax H3。不會傳送任何資料到伺服器，也不需要帳號或 API 金鑰。\n\n開始之前，有兩件事值得先知道。",
+    "zh-Hans": "这个 App 完全在你自己的机器上运行 MiniMax H3。不会发送任何数据到服务器，也不需要账号或 API 密钥。\n\n开始之前，有两件事值得先知道。",
+    "de": "Diese App führt MiniMax H3 vollständig auf deinem eigenen Rechner aus. "
+          "Nichts wird an einen Server gesendet, und es gibt weder Konto noch "
+          "API-Schlüssel.\n\nZwei Dinge solltest du vorher wissen.",
+    "ar": "يشغّل هذا التطبيق MiniMax H3 على جهازك بالكامل. لا يُرسَل شيء إلى أي "
+          "خادم، ولا حاجة إلى حساب أو مفتاح API.\n\nهناك أمران يستحقان المعرفة قبل البدء.",
+    "ja": "このアプリは MiniMax H3 をすべてあなたのマシン上で実行します。サーバーには何も送りませんし、アカウントも API キーも要りません。\n\n始める前に、知っておくとよいことが二つあります。",
+    "ko": "이 앱은 MiniMax H3를 전적으로 여러분의 기기에서 실행합니다. 서버로 아무것도 보내지 않으며, 계정이나 API 키도 필요 없습니다.\n\n시작하기 전에 알아 둘 것이 두 가지 있습니다.",
+    "th": "แอปนี้รัน MiniMax H3 บนเครื่องของคุณทั้งหมด ไม่มีการส่งข้อมูลไปยังเซิร์ฟเวอร์ "
+          "และไม่ต้องใช้บัญชีหรือคีย์ API\n\nมีสองเรื่องที่ควรรู้ก่อนเริ่ม",
+    "yue-Hant": "呢個 App 完全喺你自己部機度行 MiniMax H3。乜都唔會send去伺服器，亦都唔使帳號或者 API key。\n\n開始之前，有兩樣嘢值得知。",
+    "en-SG": "This app runs MiniMax H3 fully on your own machine. Nothing send to any "
+             "server, and no account or API key needed.\n\nTwo things worth knowing "
+             "before you start.",
+})
+add("onboarding.slow.body", {
+    "en": "H3 is a 33-billion-parameter diffusion model. On an M4 Max, a 5-second "
+          "clip at the fast-preview settings takes roughly one to two hours; at 50 "
+          "steps it is an overnight job. The queue is built for that — it keeps "
+          "running while you use the Mac for other things, and it survives a quit.",
+    "zh-Hant": "H3 是一個 330 億參數的擴散模型。在 M4 Max 上，用快速預覽設定算一段 5 秒的片子大約要一到兩小時；50 步則是整夜的工作。佇列正是為此而設——你拿 Mac 做別的事時它照跑，結束 App 也不會中斷。",
+    "zh-Hans": "H3 是一个 330 亿参数的扩散模型。在 M4 Max 上，用快速预览设置算一段 5 秒的片子大约要一到两小时；50 步则是整夜的工作。队列正是为此而设——你拿 Mac 做别的事时它照跑，退出 App 也不会中断。",
+    "de": "H3 ist ein Diffusionsmodell mit 33 Milliarden Parametern. Auf einem M4 Max "
+          "dauert ein 5-Sekunden-Clip mit den Schnellvorschau-Einstellungen etwa ein "
+          "bis zwei Stunden; mit 50 Schritten wird daraus eine Nachtschicht. Die "
+          "Warteschlange ist dafür gebaut — sie läuft weiter, während du den Mac "
+          "anders nutzt, und übersteht ein Beenden.",
+    "ar": "‏H3 نموذج انتشار بثلاثة وثلاثين مليار معامل. على M4 Max يستغرق مقطع من خمس "
+          "ثوانٍ بإعدادات المعاينة السريعة ساعة إلى ساعتين تقريبًا، وعند خمسين خطوة "
+          "يصبح عملًا ليليًا. قائمة الانتظار مصمَّمة لذلك — تواصل العمل بينما تستخدم "
+          "الـ Mac في أمور أخرى، وتبقى بعد إنهاء التطبيق.",
+    "ja": "H3 は 330 億パラメータの拡散モデルです。M4 Max では、高速プレビュー設定の 5 秒クリップでおよそ 1〜2 時間、50 ステップなら一晩仕事になります。キューはそのために作られています——Mac で別の作業をしていても動き続け、アプリを終了しても消えません。",
+    "ko": "H3는 330억 파라미터 디퓨전 모델입니다. M4 Max에서 빠른 미리보기 설정의 5초 클립은 대략 한두 시간, 50스텝이면 밤샘 작업이 됩니다. 대기열은 바로 그것을 위해 만들었습니다 — Mac으로 다른 일을 하는 동안에도 계속 돌아가고, 앱을 종료해도 남습니다.",
+    "th": "H3 เป็นโมเดลดิฟฟิวชันขนาด 33 พันล้านพารามิเตอร์ บน M4 Max คลิปห้าวินาทีที่ค่าพรีวิวเร็ว "
+          "ใช้เวลาราวหนึ่งถึงสองชั่วโมง ส่วนที่ 50 สเต็ปคืองานข้ามคืน คิวถูกออกแบบมาเพื่อสิ่งนี้ "
+          "— ทำงานต่อไปขณะคุณใช้ Mac ทำอย่างอื่น และยังอยู่แม้ปิดแอป",
+    "yue-Hant": "H3 係一個 330 億參數嘅擴散模型。喺 M4 Max 上面，用快手預覽設定算一段 5 秒片大概要一至兩個鐘；50 步就係成晚嘅嘢。佇列就係為咗呢樣而整——你攞部 Mac 做第二樣嘢佢照跑，收咗 App 都仲喺度。",
+    "en-SG": "H3 is a 33-billion-parameter diffusion model. On an M4 Max, a 5-second "
+             "clip at fast-preview settings takes about one to two hours; at 50 steps "
+             "it is an overnight job. The queue is built for that — it keeps running "
+             "while you use the Mac for other things, and it still there after you quit.",
+})
+add("onboarding.disk.body", {
+    "en": "The recommended set of weights is a little over 100 GB — most of it the "
+          "Qwen3-VL-32B text encoder. They are stored in a shared folder so other "
+          "projects on this Mac can use the same copy.",
+    "zh-Hant": "建議的權重組合略多於 100 GB，其中大部分是 Qwen3-VL-32B 文字編碼器。它們存放在共用資料夾，讓這台 Mac 上的其他專案可以共用同一份。",
+    "zh-Hans": "建议的权重组合略多于 100 GB，其中大部分是 Qwen3-VL-32B 文本编码器。它们存放在共享文件夹，让这台 Mac 上的其他项目可以共用同一份。",
+    "de": "Der empfohlene Satz Gewichte liegt bei etwas über 100 GB — das meiste davon "
+          "der Qwen3-VL-32B-Textencoder. Sie liegen in einem gemeinsamen Ordner, "
+          "damit andere Projekte auf diesem Mac dieselbe Kopie nutzen können.",
+    "ar": "المجموعة الموصى بها من الأوزان تتجاوز 100 غيغابايت بقليل، ومعظمها مرمِّز النص "
+          "‏Qwen3-VL-32B. تُحفَظ في مجلد مشترك كي تستخدم مشاريع أخرى على هذا الـ Mac النسخة نفسها.",
+    "ja": "推奨の重み一式は 100 GB を少し超えます。その大半は Qwen3-VL-32B テキストエンコーダです。共有フォルダに置かれるので、この Mac の他のプロジェクトも同じものを使えます。",
+    "ko": "권장 가중치 모음은 100 GB를 조금 넘고, 대부분이 Qwen3-VL-32B 텍스트 인코더입니다. 공유 폴더에 저장되므로 이 Mac의 다른 프로젝트도 같은 사본을 쓸 수 있습니다.",
+    "th": "ชุดไฟล์น้ำหนักที่แนะนำมีขนาดเกิน 100 GB เล็กน้อย ส่วนใหญ่เป็นตัวเข้ารหัสข้อความ "
+          "Qwen3-VL-32B เก็บไว้ในโฟลเดอร์ที่ใช้ร่วมกัน เพื่อให้โปรเจกต์อื่นบน Mac เครื่องนี้ใช้ชุดเดียวกันได้",
+    "yue-Hant": "建議嗰套權重多過 100 GB 少少，大部分係 Qwen3-VL-32B 文字編碼器。佢哋擺喺共用資料夾，等呢部 Mac 上面其他專案用返同一份。",
+    "en-SG": "The recommended set of weights is a bit over 100 GB — most of it the "
+             "Qwen3-VL-32B text encoder. They sit inside a shared folder so other "
+             "projects on this Mac can tompang the same copy.",
+})
+add("onboarding.licence.body", {
+    "en": "The weights are open, but not unconditionally. The terms you are agreeing "
+          "to are MiniMax's, not this app's, and it is worth reading them on the "
+          "model card before you download 60 GB.",
+    "zh-Hant": "權重是開放的，但不是無條件的。你要同意的是 MiniMax 的條款，不是這個 App 的；在下載 60 GB 之前，值得先到模型頁面讀一遍。",
+    "zh-Hans": "权重是开放的，但不是无条件的。你要同意的是 MiniMax 的条款，不是这个 App 的；在下载 60 GB 之前，值得先到模型页面读一遍。",
+    "de": "Die Gewichte sind offen, aber nicht bedingungslos. Die Bedingungen, denen du "
+          "zustimmst, sind die von MiniMax und nicht die dieser App — lies sie auf der "
+          "Modellseite, bevor du 60 GB herunterlädst.",
+    "ar": "الأوزان مفتوحة، لكن ليست بلا شروط. الشروط التي توافق عليها هي شروط MiniMax لا "
+          "شروط هذا التطبيق، ويستحق الأمر قراءتها في صفحة النموذج قبل تنزيل 60 غيغابايت.",
+    "ja": "重みは公開されていますが、無条件ではありません。同意するのは MiniMax の条件であって、このアプリの条件ではありません。60 GB をダウンロードする前に、モデルカードで読んでおく価値があります。",
+    "ko": "가중치는 공개되어 있지만 무조건은 아닙니다. 동의하는 것은 이 앱이 아니라 MiniMax의 약관이며, 60 GB를 내려받기 전에 모델 카드에서 읽어 볼 만합니다.",
+    "th": "ไฟล์น้ำหนักเปิดให้ใช้ แต่ไม่ใช่แบบไร้เงื่อนไข สิ่งที่คุณกำลังยอมรับคือเงื่อนไขของ MiniMax "
+          "ไม่ใช่ของแอปนี้ และควรอ่านในหน้าโมเดลก่อนจะดาวน์โหลด 60 GB",
+    "yue-Hant": "權重係開放嘅，但唔係冇條件。你要同意嘅係 MiniMax 嘅條款，唔係呢個 App 嘅；下載 60 GB 之前，值得去模型頁度睇一次。",
+    "en-SG": "The weights are open, but not unconditionally. The terms you agreeing to "
+             "are MiniMax's, not this app's, so better go read them on the model card "
+             "before you download 60 GB.",
+})
+add("onboarding.licence.restrictions", {
+    "en": "The restrictions that actually bite",
+    "zh-Hant": "真正會影響你的限制",
+    "zh-Hans": "真正会影响你的限制",
+    "de": "Die Einschränkungen, die wirklich greifen",
+    "ar": "القيود التي تُحدث فرقًا فعليًا",
+    "ja": "実際に効いてくる制限",
+    "ko": "실제로 발목을 잡는 제한",
+    "th": "ข้อจำกัดที่ส่งผลจริง",
+    "yue-Hant": "真係會影響你嘅限制",
+    "en-SG": "The restrictions that really bite",
+}, note="Card heading. \"Bite\" as in restrictions that have real consequences, "
+        "not a warning about danger.")
+add("onboarding.licence.bullet.territory", {
+    "en": "Local use is restricted in the USA, the EU, the UK and South Korea. "
+          "Running the model in those territories needs a separate application to "
+          "MiniMax.",
+    "zh-Hant": "在美國、歐盟、英國與南韓，本機使用受到限制。要在這些地區執行本模型，需另外向 MiniMax 申請。",
+    "zh-Hans": "在美国、欧盟、英国与韩国，本机使用受到限制。要在这些地区运行本模型，需另外向 MiniMax 申请。",
+    "de": "Die lokale Nutzung ist in den USA, der EU, dem Vereinigten Königreich und "
+          "Südkorea eingeschränkt. Dort braucht der Betrieb des Modells einen eigenen "
+          "Antrag bei MiniMax.",
+    "ar": "الاستخدام المحلي مقيَّد في الولايات المتحدة والاتحاد الأوروبي والمملكة المتحدة "
+          "وكوريا الجنوبية. تشغيل النموذج في تلك المناطق يتطلب طلبًا منفصلًا إلى MiniMax.",
+    "ja": "アメリカ、EU、イギリス、韓国ではローカル利用が制限されています。これらの地域でモデルを動かすには、MiniMax への個別の申請が必要です。",
+    "ko": "미국, EU, 영국, 한국에서는 로컬 사용이 제한됩니다. 해당 지역에서 모델을 실행하려면 MiniMax에 별도로 신청해야 합니다.",
+    "th": "การใช้งานในเครื่องถูกจำกัดในสหรัฐอเมริกา สหภาพยุโรป สหราชอาณาจักร และเกาหลีใต้ "
+          "การรันโมเดลในพื้นที่เหล่านั้นต้องยื่นคำขอแยกต่างหากกับ MiniMax",
+    "yue-Hant": "喺美國、歐盟、英國同南韓，本機使用受限。要喺呢啲地方行呢個模型，要另外向 MiniMax 申請。",
+    "en-SG": "Local use is restricted in the USA, the EU, the UK and South Korea. To "
+             "run the model in those places, must apply to MiniMax separately.",
+})
+add("onboarding.licence.bullet.revenue", {
+    "en": "Organisations above roughly US$20 million in annual revenue need "
+          "authorisation.",
+    "zh-Hant": "年營收約超過 2,000 萬美元的組織需要取得授權。",
+    "zh-Hans": "年营收约超过 2,000 万美元的组织需要取得授权。",
+    "de": "Organisationen mit mehr als rund 20 Millionen US-Dollar Jahresumsatz "
+          "brauchen eine Genehmigung.",
+    "ar": "المؤسسات التي تتجاوز إيراداتها السنوية نحو عشرين مليون دولار أمريكي تحتاج إلى تصريح.",
+    "ja": "年間売上がおよそ 2,000 万米ドルを超える組織には、許諾が必要です。",
+    "ko": "연 매출이 약 2,000만 달러를 넘는 조직은 별도의 승인이 필요합니다.",
+    "th": "องค์กรที่มีรายได้ต่อปีเกินราว 20 ล้านดอลลาร์สหรัฐ ต้องขออนุญาตก่อน",
+    "yue-Hant": "年收入大概超過 2,000 萬美金嘅機構，要攞授權。",
+    "en-SG": "Organisations above around US$20 million yearly revenue need "
+             "authorisation.",
+})
+add("onboarding.licence.bullet.training", {
+    "en": "Training another model on H3's output is prohibited.",
+    "zh-Hant": "禁止用 H3 的輸出去訓練其他模型。",
+    "zh-Hans": "禁止用 H3 的输出去训练其他模型。",
+    "de": "Ein anderes Modell mit den Ausgaben von H3 zu trainieren, ist untersagt.",
+    "ar": "يُحظر تدريب نموذج آخر على مخرجات H3.",
+    "ja": "H3 の出力を使って別のモデルを学習させることは禁止されています。",
+    "ko": "H3의 출력으로 다른 모델을 학습시키는 것은 금지되어 있습니다.",
+    "th": "ห้ามนำผลลัพธ์จาก H3 ไปฝึกโมเดลอื่น",
+    "yue-Hant": "唔准攞 H3 嘅輸出去訓練第二個模型。",
+    "en-SG": "Cannot use H3's output to train another model.",
+})
+add("onboarding.licence.bullet.unlawful", {
+    "en": "Unlawful and pornographic output is prohibited by the licence, wherever "
+          "you are. There is no server-side filter on a local run, so this is on you "
+          "rather than on the software.",
+    "zh-Hant": "不論你身在何處，授權條款都禁止產生違法內容與色情內容。本機執行沒有伺服器端過濾，因此這是你的責任，而非軟體的。",
+    "zh-Hans": "不论你身在何处，许可条款都禁止产生违法内容与色情内容。本机运行没有服务器端过滤，因此这是你的责任，而非软件的。",
+    "de": "Rechtswidrige und pornografische Ausgaben sind durch die Lizenz untersagt, "
+          "wo auch immer du bist. Bei einem lokalen Lauf gibt es keinen serverseitigen "
+          "Filter — das liegt also bei dir und nicht bei der Software.",
+    "ar": "يحظر الترخيص المخرجات غير القانونية والإباحية أينما كنت. ولا يوجد مرشِّح على "
+          "الخادم في التشغيل المحلي، فالمسؤولية عليك لا على البرنامج.",
+    "ja": "どこにいても、違法な出力と性的な出力はライセンスで禁止されています。ローカル実行にサーバー側のフィルタはないので、これはソフトウェアではなくあなたの責任です。",
+    "ko": "어디에 있든 불법적이거나 음란한 출력은 라이선스로 금지됩니다. 로컬 실행에는 서버 측 필터가 없으므로, 이는 소프트웨어가 아니라 사용자의 책임입니다.",
+    "th": "สัญญาอนุญาตห้ามผลลัพธ์ที่ผิดกฎหมายและลามกอนาจาร ไม่ว่าคุณจะอยู่ที่ใด "
+          "การรันในเครื่องไม่มีตัวกรองฝั่งเซิร์ฟเวอร์ เรื่องนี้จึงเป็นความรับผิดชอบของคุณ ไม่ใช่ของซอฟต์แวร์",
+    "yue-Hant": "無論你喺邊度，授權都禁止產生違法同色情內容。本機行冇伺服器端過濾，所以呢樣係你嘅責任，唔係軟件嘅。",
+    "en-SG": "Unlawful and pornographic output is prohibited by the licence, wherever "
+             "you are. Local run got no server-side filter, so this one is on you, not "
+             "on the software.",
+})
+add("onboarding.licence.toggleHelp", {
+    "en": "⌘L toggles this",
+    "zh-Hant": "⌘L 可切換此項",
+    "zh-Hans": "⌘L 可切换此项",
+    "de": "⌘L schaltet dies um",
+    "ar": "‏⌘L يبدّل هذا الخيار",
+    "ja": "⌘L で切り替えます",
+    "ko": "⌘L로 전환합니다",
+    "th": "⌘L สลับตัวเลือกนี้",
+    "yue-Hant": "⌘L 可以切換呢項",
+    "en-SG": "⌘L toggles this",
+})
+add("onboarding.licence.keys", {
+    "en": "⌘L accepts · Return continues · Space activates whichever button has focus",
+    "zh-Hant": "⌘L 同意 · Return 繼續 · Space 啟動目前聚焦的按鈕",
+    "zh-Hans": "⌘L 同意 · Return 继续 · Space 启动当前聚焦的按钮",
+    "de": "⌘L akzeptiert · Return fährt fort · Leertaste aktiviert den fokussierten Knopf",
+    "ar": "‏⌘L للموافقة · Return للمتابعة · المسافة تُفعّل الزر الذي عليه التركيز",
+    "ja": "⌘L で同意 · Return で次へ · Space でフォーカス中のボタンを実行",
+    "ko": "⌘L 동의 · Return 계속 · Space 포커스된 버튼 실행",
+    "th": "⌘L ยอมรับ · Return ไปต่อ · Space สั่งทำงานปุ่มที่กำลังโฟกัส",
+    "yue-Hant": "⌘L 同意 · Return 繼續 · Space 撳落focus緊嗰個掣",
+    "en-SG": "⌘L accepts · Return continues · Space presses whichever button got focus",
+}, note="Keyboard hints under the licence checkbox. The key names are what macOS "
+        "prints on the keys, so they stay in English.")
+add("onboarding.runtime.body", {
+    "en": "H3 has no native Swift implementation. The app drives the MLX port through "
+          "its own private Python environment, kept separate from any Python you "
+          "already have so it cannot break yours or be broken by it.",
+    "zh-Hant": "H3 沒有原生的 Swift 實作。這個 App 透過自己專屬的 Python 環境驅動 MLX 移植版，與你既有的任何 Python 互不干擾——不會弄壞你的，也不會被你的弄壞。",
+    "zh-Hans": "H3 没有原生的 Swift 实现。这个 App 通过自己专属的 Python 环境驱动 MLX 移植版，与你已有的任何 Python 互不干扰——不会弄坏你的，也不会被你的弄坏。",
+    "de": "Für H3 gibt es keine native Swift-Implementierung. Die App steuert den "
+          "MLX-Port über eine eigene, private Python-Umgebung, getrennt von jedem "
+          "Python, das du schon hast — sie kann deines nicht beschädigen und deines "
+          "nicht sie.",
+    "ar": "لا توجد لـ H3 نسخة أصلية بلغة Swift. يشغّل التطبيق منفذ MLX عبر بيئة Python "
+          "خاصة به، منفصلة عن أي Python لديك، فلا يفسد بيئتك ولا تفسدها بيئتك.",
+    "ja": "H3 にネイティブな Swift 実装はありません。このアプリは専用の Python 環境を通して MLX 移植版を動かします。既存の Python とは分けてあるので、互いに壊し合うことはありません。",
+    "ko": "H3에는 네이티브 Swift 구현이 없습니다. 이 앱은 자체 전용 Python 환경을 통해 MLX 이식판을 구동하며, 기존에 쓰던 Python과 분리되어 있어 서로 망가뜨리지 않습니다.",
+    "th": "H3 ไม่มีการพัฒนาแบบเนทีฟด้วย Swift แอปนี้จึงขับพอร์ต MLX ผ่านสภาพแวดล้อม Python "
+          "ของตัวเอง แยกจาก Python ที่คุณมีอยู่ จึงไม่ทำให้ของคุณพัง และไม่ถูกของคุณทำให้พัง",
+    "yue-Hant": "H3 冇原生嘅 Swift 實作。呢個 App 用自己專屬嘅 Python 環境去行 MLX 移植版，同你本身嗰啲 Python 分開，唔會整壞你嘅，亦唔會俾你嘅整壞。",
+    "en-SG": "H3 got no native Swift implementation. The app drives the MLX port through "
+             "its own private Python environment, kept separate from whatever Python you "
+             "already have, so it cannot spoil yours and yours cannot spoil it.",
+})
+add("onboarding.runtime.installs", {
+    "en": "What gets installed",
+    "zh-Hant": "會安裝哪些東西",
+    "zh-Hans": "会安装哪些东西",
+    "de": "Was installiert wird",
+    "ar": "ما الذي سيُثبَّت",
+    "ja": "インストールされるもの",
+    "ko": "설치되는 것",
+    "th": "สิ่งที่จะถูกติดตั้ง",
+    "yue-Hant": "會裝啲乜",
+    "en-SG": "What will be installed",
+})
+add("onboarding.runtime.bullet.uv", {
+    "en": "uv, into this app's Application Support folder",
+    "zh-Hant": "uv，安裝到這個 App 的 Application Support 資料夾",
+    "zh-Hans": "uv，安装到这个 App 的 Application Support 文件夹",
+    "de": "uv, in den Application-Support-Ordner dieser App",
+    "ar": "‏uv، داخل مجلد Application Support الخاص بهذا التطبيق",
+    "ja": "uv（このアプリの Application Support フォルダ内）",
+    "ko": "uv — 이 앱의 Application Support 폴더 안에",
+    "th": "uv ลงในโฟลเดอร์ Application Support ของแอปนี้",
+    "yue-Hant": "uv，裝落呢個 App 嘅 Application Support 資料夾",
+    "en-SG": "uv, inside this app's Application Support folder",
+})
+add("onboarding.runtime.bullet.venv", {
+    "en": "A Python 3.12 virtual environment, about 1.5 GB with MLX",
+    "zh-Hant": "一個 Python 3.12 虛擬環境，連同 MLX 約 1.5 GB",
+    "zh-Hans": "一个 Python 3.12 虚拟环境，连同 MLX 约 1.5 GB",
+    "de": "Eine virtuelle Python-3.12-Umgebung, mit MLX rund 1,5 GB",
+    "ar": "بيئة Python 3.12 افتراضية، نحو 1.5 غيغابايت مع MLX",
+    "ja": "Python 3.12 の仮想環境（MLX 込みで約 1.5 GB）",
+    "ko": "Python 3.12 가상 환경 — MLX 포함 약 1.5 GB",
+    "th": "สภาพแวดล้อมเสมือนของ Python 3.12 ขนาดราว 1.5 GB เมื่อรวม MLX",
+    "yue-Hant": "一個 Python 3.12 虛擬環境，連 MLX 大概 1.5 GB",
+    "en-SG": "A Python 3.12 virtual environment, about 1.5 GB with MLX",
+})
+add("onboarding.runtime.bullet.port", {
+    "en": "minimax-h3-mlx, the Apache-2.0 Apple-silicon port",
+    "zh-Hant": "minimax-h3-mlx，Apache-2.0 授權的 Apple 晶片移植版",
+    "zh-Hans": "minimax-h3-mlx，Apache-2.0 许可的 Apple 芯片移植版",
+    "de": "minimax-h3-mlx, der Apple-Silicon-Port unter Apache 2.0",
+    "ar": "‏minimax-h3-mlx، منفذ Apple silicon برخصة Apache-2.0",
+    "ja": "minimax-h3-mlx（Apache-2.0 の Apple シリコン移植版）",
+    "ko": "minimax-h3-mlx — Apache-2.0 라이선스의 Apple 실리콘 이식판",
+    "th": "minimax-h3-mlx พอร์ตสำหรับ Apple silicon ภายใต้สัญญาอนุญาต Apache-2.0",
+    "yue-Hant": "minimax-h3-mlx，Apache-2.0 授權嘅 Apple 晶片移植版",
+    "en-SG": "minimax-h3-mlx, the Apache-2.0 Apple-silicon port",
+})
+add("onboarding.models.body", {
+    "en": "The recommended set is the 4-bit FL2VA transformer plus the bfloat16 text "
+          "encoder and the shared VAEs — the fastest combination the MLX port can "
+          "currently load. Higher-precision transformers can be added later from the "
+          "Models tab without re-downloading the encoder.",
+    "zh-Hant": "建議的組合是 4-bit FL2VA transformer，加上 bfloat16 文字編碼器與共用的 VAE——這是目前 MLX 移植版能載入的最快組合。之後可以從「模型」分頁再加上更高精度的 transformer，不必重新下載編碼器。",
+    "zh-Hans": "建议的组合是 4-bit FL2VA transformer，加上 bfloat16 文本编码器与共用的 VAE——这是目前 MLX 移植版能载入的最快组合。之后可以从“模型”分页再加上更高精度的 transformer，不必重新下载编码器。",
+    "de": "Empfohlen sind der 4-Bit-FL2VA-Transformer, der bfloat16-Textencoder und die "
+          "gemeinsamen VAEs — die schnellste Kombination, die der MLX-Port derzeit "
+          "laden kann. Transformer höherer Präzision lassen sich später im Tab "
+          "„Modelle“ ergänzen, ohne den Encoder erneut zu laden.",
+    "ar": "المجموعة الموصى بها هي محوّل FL2VA بأربع بتات مع مرمِّز النص bfloat16 ووحدات "
+          "الـ VAE المشتركة — أسرع تركيبة يستطيع منفذ MLX تحميلها حاليًا. ويمكن لاحقًا "
+          "إضافة محوّلات أعلى دقة من تبويب النماذج دون إعادة تنزيل المرمِّز.",
+    "ja": "推奨は 4-bit の FL2VA transformer に bfloat16 のテキストエンコーダと共有 VAE を組み合わせたもの——現時点で MLX 移植版が読み込める最速の構成です。より高精度の transformer は、あとから「モデル」タブで追加でき、エンコーダを再ダウンロードする必要はありません。",
+    "ko": "권장 구성은 4비트 FL2VA 트랜스포머에 bfloat16 텍스트 인코더와 공용 VAE를 더한 것으로, 현재 MLX 이식판이 불러올 수 있는 가장 빠른 조합입니다. 더 높은 정밀도의 트랜스포머는 나중에 모델 탭에서 추가할 수 있고, 인코더를 다시 내려받을 필요는 없습니다.",
+    "th": "ชุดที่แนะนำคือ FL2VA transformer แบบ 4 บิต บวกกับตัวเข้ารหัสข้อความ bfloat16 "
+          "และ VAE ที่ใช้ร่วมกัน ซึ่งเป็นชุดที่เร็วที่สุดที่พอร์ต MLX โหลดได้ในตอนนี้ "
+          "transformer ความแม่นยำสูงกว่าเพิ่มทีหลังได้จากแท็บโมเดล โดยไม่ต้องดาวน์โหลดตัวเข้ารหัสซ้ำ",
+    "yue-Hant": "建議嗰套係 4-bit FL2VA transformer，加 bfloat16 文字編碼器同共用嘅 VAE——係而家 MLX 移植版載入得到最快嘅組合。想要精度高啲嘅 transformer，之後喺「模型」度加得，唔使再下載多次編碼器。",
+    "en-SG": "The recommended set is the 4-bit FL2VA transformer plus the bfloat16 text "
+             "encoder and the shared VAEs — fastest combination the MLX port can load "
+             "right now. Higher-precision transformers can add later from the Models "
+             "tab, no need download the encoder again.",
+})
+add("onboarding.models.aboutToDownload", {
+    "en": "About to download",
+    "zh-Hant": "即將下載",
+    "zh-Hans": "即将下载",
+    "de": "Wird gleich geladen",
+    "ar": "على وشك التنزيل",
+    "ja": "これからダウンロードするもの",
+    "ko": "곧 내려받을 항목",
+    "th": "กำลังจะดาวน์โหลด",
+    "yue-Hant": "就快下載",
+    "en-SG": "About to download",
+})

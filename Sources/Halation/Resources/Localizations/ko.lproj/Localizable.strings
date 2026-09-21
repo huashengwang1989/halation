@@ -453,6 +453,8 @@
 
 "onboarding.continue" = "계속";
 
+"onboarding.disk.body" = "권장 가중치 모음은 100 GB를 조금 넘고, 대부분이 Qwen3-VL-32B 텍스트 인코더입니다. 공유 폴더에 저장되므로 이 Mac의 다른 프로젝트도 같은 사본을 쓸 수 있습니다.";
+
 "onboarding.diskTitle" = "설치에는 큰 다운로드가 필요합니다";
 
 "onboarding.freeOnDisk" = "디스크 여유 공간";
@@ -463,20 +465,54 @@
 
 "onboarding.licence.acknowledge" = "라이선스를 읽었으며, 내가 있는 지역에서 이 가중치를 쓸 자격이 있음을 확인합니다";
 
+"onboarding.licence.body" = "가중치는 공개되어 있지만 무조건은 아닙니다. 동의하는 것은 이 앱이 아니라 MiniMax의 약관이며, 60 GB를 내려받기 전에 모델 카드에서 읽어 볼 만합니다.";
+
+"onboarding.licence.bullet.revenue" = "연 매출이 약 2,000만 달러를 넘는 조직은 별도의 승인이 필요합니다.";
+
+"onboarding.licence.bullet.territory" = "미국, EU, 영국, 한국에서는 로컬 사용이 제한됩니다. 해당 지역에서 모델을 실행하려면 MiniMax에 별도로 신청해야 합니다.";
+
+"onboarding.licence.bullet.training" = "H3의 출력으로 다른 모델을 학습시키는 것은 금지되어 있습니다.";
+
+"onboarding.licence.bullet.unlawful" = "어디에 있든 불법적이거나 음란한 출력은 라이선스로 금지됩니다. 로컬 실행에는 서버 측 필터가 없으므로, 이는 소프트웨어가 아니라 사용자의 책임입니다.";
+
 /* The licence's proper name stays in English; TW/CN gloss it. */
 "onboarding.licence.heading" = "MiniMax H3 커뮤니티 라이선스";
 
+/* Keyboard hints under the licence checkbox. The key names are what macOS prints on the keys, so they stay in English. */
+"onboarding.licence.keys" = "⌘L 동의 · Return 계속 · Space 포커스된 버튼 실행";
+
 "onboarding.licence.readFull" = "Hugging Face에서 전문 읽기";
+
+/* Card heading. "Bite" as in restrictions that have real consequences, not a warning about danger. */
+"onboarding.licence.restrictions" = "실제로 발목을 잡는 제한";
 
 "onboarding.licence.title" = "모델 라이선스";
 
+"onboarding.licence.toggleHelp" = "⌘L로 전환합니다";
+
+"onboarding.models.aboutToDownload" = "곧 내려받을 항목";
+
+"onboarding.models.body" = "권장 구성은 4비트 FL2VA 트랜스포머에 bfloat16 텍스트 인코더와 공용 VAE를 더한 것으로, 현재 MLX 이식판이 불러올 수 있는 가장 빠른 조합입니다. 더 높은 정밀도의 트랜스포머는 나중에 모델 탭에서 추가할 수 있고, 인코더를 다시 내려받을 필요는 없습니다.";
+
 "onboarding.models.title" = "모델 가중치";
+
+"onboarding.runtime.body" = "H3에는 네이티브 Swift 구현이 없습니다. 이 앱은 자체 전용 Python 환경을 통해 MLX 이식판을 구동하며, 기존에 쓰던 Python과 분리되어 있어 서로 망가뜨리지 않습니다.";
+
+"onboarding.runtime.bullet.port" = "minimax-h3-mlx — Apache-2.0 라이선스의 Apple 실리콘 이식판";
+
+"onboarding.runtime.bullet.uv" = "uv — 이 앱의 Application Support 폴더 안에";
+
+"onboarding.runtime.bullet.venv" = "Python 3.12 가상 환경 — MLX 포함 약 1.5 GB";
+
+"onboarding.runtime.installs" = "설치되는 것";
 
 "onboarding.runtime.title" = "Python 런타임";
 
 "onboarding.savingTo" = "%@ 에 저장";
 
 "onboarding.skip" = "설치 건너뛰기";
+
+"onboarding.slow.body" = "H3는 330억 파라미터 디퓨전 모델입니다. M4 Max에서 빠른 미리보기 설정의 5초 클립은 대략 한두 시간, 50스텝이면 밤샘 작업이 됩니다. 대기열은 바로 그것을 위해 만들었습니다 — Mac으로 다른 일을 하는 동안에도 계속 돌아가고, 앱을 종료해도 남습니다.";
 
 "onboarding.slowTitle" = "렌더링은 초가 아니라 시간 단위입니다";
 
@@ -486,6 +522,8 @@
 
 /* The combined download size of the recommended model set. A sum of bytes, not a count of files. */
 "onboarding.total" = "합계";
+
+"onboarding.welcome.body" = "이 앱은 MiniMax H3를 전적으로 여러분의 기기에서 실행합니다. 서버로 아무것도 보내지 않으며, 계정이나 API 키도 필요 없습니다.\n\n시작하기 전에 알아 둘 것이 두 가지 있습니다.";
 
 "onboarding.welcome.title" = "이 Mac에서 비디오 생성";
 

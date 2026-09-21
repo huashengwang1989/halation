@@ -453,6 +453,8 @@
 
 "onboarding.continue" = "متابعة";
 
+"onboarding.disk.body" = "المجموعة الموصى بها من الأوزان تتجاوز 100 غيغابايت بقليل، ومعظمها مرمِّز النص ‏Qwen3-VL-32B. تُحفَظ في مجلد مشترك كي تستخدم مشاريع أخرى على هذا الـ Mac النسخة نفسها.";
+
 "onboarding.diskTitle" = "الإعداد يتطلّب تنزيلًا كبيرًا";
 
 "onboarding.freeOnDisk" = "المساحة الحرة على القرص";
@@ -463,20 +465,54 @@
 
 "onboarding.licence.acknowledge" = "لقد قرأت الترخيص وأنا مخوَّل باستخدام هذه الأوزان في موقعي";
 
+"onboarding.licence.body" = "الأوزان مفتوحة، لكن ليست بلا شروط. الشروط التي توافق عليها هي شروط MiniMax لا شروط هذا التطبيق، ويستحق الأمر قراءتها في صفحة النموذج قبل تنزيل 60 غيغابايت.";
+
+"onboarding.licence.bullet.revenue" = "المؤسسات التي تتجاوز إيراداتها السنوية نحو عشرين مليون دولار أمريكي تحتاج إلى تصريح.";
+
+"onboarding.licence.bullet.territory" = "الاستخدام المحلي مقيَّد في الولايات المتحدة والاتحاد الأوروبي والمملكة المتحدة وكوريا الجنوبية. تشغيل النموذج في تلك المناطق يتطلب طلبًا منفصلًا إلى MiniMax.";
+
+"onboarding.licence.bullet.training" = "يُحظر تدريب نموذج آخر على مخرجات H3.";
+
+"onboarding.licence.bullet.unlawful" = "يحظر الترخيص المخرجات غير القانونية والإباحية أينما كنت. ولا يوجد مرشِّح على الخادم في التشغيل المحلي، فالمسؤولية عليك لا على البرنامج.";
+
 /* The licence's proper name stays in English; TW/CN gloss it. */
 "onboarding.licence.heading" = "ترخيص مجتمع MiniMax H3";
 
+/* Keyboard hints under the licence checkbox. The key names are what macOS prints on the keys, so they stay in English. */
+"onboarding.licence.keys" = "‏⌘L للموافقة · Return للمتابعة · المسافة تُفعّل الزر الذي عليه التركيز";
+
 "onboarding.licence.readFull" = "اقرأ الترخيص كاملًا على Hugging Face";
+
+/* Card heading. "Bite" as in restrictions that have real consequences, not a warning about danger. */
+"onboarding.licence.restrictions" = "القيود التي تُحدث فرقًا فعليًا";
 
 "onboarding.licence.title" = "ترخيص النموذج";
 
+"onboarding.licence.toggleHelp" = "‏⌘L يبدّل هذا الخيار";
+
+"onboarding.models.aboutToDownload" = "على وشك التنزيل";
+
+"onboarding.models.body" = "المجموعة الموصى بها هي محوّل FL2VA بأربع بتات مع مرمِّز النص bfloat16 ووحدات الـ VAE المشتركة — أسرع تركيبة يستطيع منفذ MLX تحميلها حاليًا. ويمكن لاحقًا إضافة محوّلات أعلى دقة من تبويب النماذج دون إعادة تنزيل المرمِّز.";
+
 "onboarding.models.title" = "أوزان النموذج";
+
+"onboarding.runtime.body" = "لا توجد لـ H3 نسخة أصلية بلغة Swift. يشغّل التطبيق منفذ MLX عبر بيئة Python خاصة به، منفصلة عن أي Python لديك، فلا يفسد بيئتك ولا تفسدها بيئتك.";
+
+"onboarding.runtime.bullet.port" = "‏minimax-h3-mlx، منفذ Apple silicon برخصة Apache-2.0";
+
+"onboarding.runtime.bullet.uv" = "‏uv، داخل مجلد Application Support الخاص بهذا التطبيق";
+
+"onboarding.runtime.bullet.venv" = "بيئة Python 3.12 افتراضية، نحو 1.5 غيغابايت مع MLX";
+
+"onboarding.runtime.installs" = "ما الذي سيُثبَّت";
 
 "onboarding.runtime.title" = "بيئة تشغيل Python";
 
 "onboarding.savingTo" = "سيُحفظ في %@";
 
 "onboarding.skip" = "تخطّي الإعداد";
+
+"onboarding.slow.body" = "‏H3 نموذج انتشار بثلاثة وثلاثين مليار معامل. على M4 Max يستغرق مقطع من خمس ثوانٍ بإعدادات المعاينة السريعة ساعة إلى ساعتين تقريبًا، وعند خمسين خطوة يصبح عملًا ليليًا. قائمة الانتظار مصمَّمة لذلك — تواصل العمل بينما تستخدم الـ Mac في أمور أخرى، وتبقى بعد إنهاء التطبيق.";
 
 "onboarding.slowTitle" = "يستغرق التصيير ساعات لا ثوانٍ";
 
@@ -486,6 +522,8 @@
 
 /* The combined download size of the recommended model set. A sum of bytes, not a count of files. */
 "onboarding.total" = "الإجمالي";
+
+"onboarding.welcome.body" = "يشغّل هذا التطبيق MiniMax H3 على جهازك بالكامل. لا يُرسَل شيء إلى أي خادم، ولا حاجة إلى حساب أو مفتاح API.\n\nهناك أمران يستحقان المعرفة قبل البدء.";
 
 "onboarding.welcome.title" = "توليد الفيديو على هذا الـ Mac";
 

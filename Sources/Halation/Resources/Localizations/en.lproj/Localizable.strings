@@ -453,6 +453,8 @@
 
 "onboarding.continue" = "Continue";
 
+"onboarding.disk.body" = "The recommended set of weights is a little over 100 GB — most of it the Qwen3-VL-32B text encoder. They are stored in a shared folder so other projects on this Mac can use the same copy.";
+
 "onboarding.diskTitle" = "Setup is a large download";
 
 "onboarding.freeOnDisk" = "Free on disk";
@@ -463,20 +465,54 @@
 
 "onboarding.licence.acknowledge" = "I have read the licence and I am entitled to use these weights where I am";
 
+"onboarding.licence.body" = "The weights are open, but not unconditionally. The terms you are agreeing to are MiniMax's, not this app's, and it is worth reading them on the model card before you download 60 GB.";
+
+"onboarding.licence.bullet.revenue" = "Organisations above roughly US$20 million in annual revenue need authorisation.";
+
+"onboarding.licence.bullet.territory" = "Local use is restricted in the USA, the EU, the UK and South Korea. Running the model in those territories needs a separate application to MiniMax.";
+
+"onboarding.licence.bullet.training" = "Training another model on H3's output is prohibited.";
+
+"onboarding.licence.bullet.unlawful" = "Unlawful and pornographic output is prohibited by the licence, wherever you are. There is no server-side filter on a local run, so this is on you rather than on the software.";
+
 /* The licence's proper name stays in English; TW/CN gloss it. */
 "onboarding.licence.heading" = "MiniMax H3 Community License";
 
+/* Keyboard hints under the licence checkbox. The key names are what macOS prints on the keys, so they stay in English. */
+"onboarding.licence.keys" = "⌘L accepts · Return continues · Space activates whichever button has focus";
+
 "onboarding.licence.readFull" = "Read the full licence on Hugging Face";
+
+/* Card heading. "Bite" as in restrictions that have real consequences, not a warning about danger. */
+"onboarding.licence.restrictions" = "The restrictions that actually bite";
 
 "onboarding.licence.title" = "Model licence";
 
+"onboarding.licence.toggleHelp" = "⌘L toggles this";
+
+"onboarding.models.aboutToDownload" = "About to download";
+
+"onboarding.models.body" = "The recommended set is the 4-bit FL2VA transformer plus the bfloat16 text encoder and the shared VAEs — the fastest combination the MLX port can currently load. Higher-precision transformers can be added later from the Models tab without re-downloading the encoder.";
+
 "onboarding.models.title" = "Model weights";
+
+"onboarding.runtime.body" = "H3 has no native Swift implementation. The app drives the MLX port through its own private Python environment, kept separate from any Python you already have so it cannot break yours or be broken by it.";
+
+"onboarding.runtime.bullet.port" = "minimax-h3-mlx, the Apache-2.0 Apple-silicon port";
+
+"onboarding.runtime.bullet.uv" = "uv, into this app's Application Support folder";
+
+"onboarding.runtime.bullet.venv" = "A Python 3.12 virtual environment, about 1.5 GB with MLX";
+
+"onboarding.runtime.installs" = "What gets installed";
 
 "onboarding.runtime.title" = "Python runtime";
 
 "onboarding.savingTo" = "Saving to %@";
 
 "onboarding.skip" = "Skip setup";
+
+"onboarding.slow.body" = "H3 is a 33-billion-parameter diffusion model. On an M4 Max, a 5-second clip at the fast-preview settings takes roughly one to two hours; at 50 steps it is an overnight job. The queue is built for that — it keeps running while you use the Mac for other things, and it survives a quit.";
 
 "onboarding.slowTitle" = "Renders take hours, not seconds";
 
@@ -486,6 +522,8 @@
 
 /* The combined download size of the recommended model set. A sum of bytes, not a count of files. */
 "onboarding.total" = "Total";
+
+"onboarding.welcome.body" = "This app runs MiniMax H3 entirely on your own machine. Nothing is sent to a server, and there is no account or API key.\n\nTwo things are worth knowing before you start.";
 
 "onboarding.welcome.title" = "Generate video on this Mac";
 

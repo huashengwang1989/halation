@@ -453,6 +453,8 @@
 
 "onboarding.continue" = "ดำเนินการต่อ";
 
+"onboarding.disk.body" = "ชุดไฟล์น้ำหนักที่แนะนำมีขนาดเกิน 100 GB เล็กน้อย ส่วนใหญ่เป็นตัวเข้ารหัสข้อความ Qwen3-VL-32B เก็บไว้ในโฟลเดอร์ที่ใช้ร่วมกัน เพื่อให้โปรเจกต์อื่นบน Mac เครื่องนี้ใช้ชุดเดียวกันได้";
+
 "onboarding.diskTitle" = "การตั้งค่าต้องดาวน์โหลดขนาดใหญ่";
 
 "onboarding.freeOnDisk" = "พื้นที่ว่างบนดิสก์";
@@ -463,20 +465,54 @@
 
 "onboarding.licence.acknowledge" = "ข้าพเจ้าได้อ่านสัญญาอนุญาตแล้ว และมีสิทธิ์ใช้ไฟล์น้ำหนักเหล่านี้ในพื้นที่ที่ข้าพเจ้าอยู่";
 
+"onboarding.licence.body" = "ไฟล์น้ำหนักเปิดให้ใช้ แต่ไม่ใช่แบบไร้เงื่อนไข สิ่งที่คุณกำลังยอมรับคือเงื่อนไขของ MiniMax ไม่ใช่ของแอปนี้ และควรอ่านในหน้าโมเดลก่อนจะดาวน์โหลด 60 GB";
+
+"onboarding.licence.bullet.revenue" = "องค์กรที่มีรายได้ต่อปีเกินราว 20 ล้านดอลลาร์สหรัฐ ต้องขออนุญาตก่อน";
+
+"onboarding.licence.bullet.territory" = "การใช้งานในเครื่องถูกจำกัดในสหรัฐอเมริกา สหภาพยุโรป สหราชอาณาจักร และเกาหลีใต้ การรันโมเดลในพื้นที่เหล่านั้นต้องยื่นคำขอแยกต่างหากกับ MiniMax";
+
+"onboarding.licence.bullet.training" = "ห้ามนำผลลัพธ์จาก H3 ไปฝึกโมเดลอื่น";
+
+"onboarding.licence.bullet.unlawful" = "สัญญาอนุญาตห้ามผลลัพธ์ที่ผิดกฎหมายและลามกอนาจาร ไม่ว่าคุณจะอยู่ที่ใด การรันในเครื่องไม่มีตัวกรองฝั่งเซิร์ฟเวอร์ เรื่องนี้จึงเป็นความรับผิดชอบของคุณ ไม่ใช่ของซอฟต์แวร์";
+
 /* The licence's proper name stays in English; TW/CN gloss it. */
 "onboarding.licence.heading" = "สัญญาอนุญาตชุมชน MiniMax H3";
 
+/* Keyboard hints under the licence checkbox. The key names are what macOS prints on the keys, so they stay in English. */
+"onboarding.licence.keys" = "⌘L ยอมรับ · Return ไปต่อ · Space สั่งทำงานปุ่มที่กำลังโฟกัส";
+
 "onboarding.licence.readFull" = "อ่านสัญญาอนุญาตฉบับเต็มบน Hugging Face";
+
+/* Card heading. "Bite" as in restrictions that have real consequences, not a warning about danger. */
+"onboarding.licence.restrictions" = "ข้อจำกัดที่ส่งผลจริง";
 
 "onboarding.licence.title" = "สัญญาอนุญาตของโมเดล";
 
+"onboarding.licence.toggleHelp" = "⌘L สลับตัวเลือกนี้";
+
+"onboarding.models.aboutToDownload" = "กำลังจะดาวน์โหลด";
+
+"onboarding.models.body" = "ชุดที่แนะนำคือ FL2VA transformer แบบ 4 บิต บวกกับตัวเข้ารหัสข้อความ bfloat16 และ VAE ที่ใช้ร่วมกัน ซึ่งเป็นชุดที่เร็วที่สุดที่พอร์ต MLX โหลดได้ในตอนนี้ transformer ความแม่นยำสูงกว่าเพิ่มทีหลังได้จากแท็บโมเดล โดยไม่ต้องดาวน์โหลดตัวเข้ารหัสซ้ำ";
+
 "onboarding.models.title" = "ไฟล์น้ำหนักโมเดล";
+
+"onboarding.runtime.body" = "H3 ไม่มีการพัฒนาแบบเนทีฟด้วย Swift แอปนี้จึงขับพอร์ต MLX ผ่านสภาพแวดล้อม Python ของตัวเอง แยกจาก Python ที่คุณมีอยู่ จึงไม่ทำให้ของคุณพัง และไม่ถูกของคุณทำให้พัง";
+
+"onboarding.runtime.bullet.port" = "minimax-h3-mlx พอร์ตสำหรับ Apple silicon ภายใต้สัญญาอนุญาต Apache-2.0";
+
+"onboarding.runtime.bullet.uv" = "uv ลงในโฟลเดอร์ Application Support ของแอปนี้";
+
+"onboarding.runtime.bullet.venv" = "สภาพแวดล้อมเสมือนของ Python 3.12 ขนาดราว 1.5 GB เมื่อรวม MLX";
+
+"onboarding.runtime.installs" = "สิ่งที่จะถูกติดตั้ง";
 
 "onboarding.runtime.title" = "Runtime Python";
 
 "onboarding.savingTo" = "บันทึกไปที่ %@";
 
 "onboarding.skip" = "ข้ามการตั้งค่า";
+
+"onboarding.slow.body" = "H3 เป็นโมเดลดิฟฟิวชันขนาด 33 พันล้านพารามิเตอร์ บน M4 Max คลิปห้าวินาทีที่ค่าพรีวิวเร็ว ใช้เวลาราวหนึ่งถึงสองชั่วโมง ส่วนที่ 50 สเต็ปคืองานข้ามคืน คิวถูกออกแบบมาเพื่อสิ่งนี้ — ทำงานต่อไปขณะคุณใช้ Mac ทำอย่างอื่น และยังอยู่แม้ปิดแอป";
 
 "onboarding.slowTitle" = "การเรนเดอร์ใช้เวลาเป็นชั่วโมง ไม่ใช่วินาที";
 
@@ -486,6 +522,8 @@
 
 /* The combined download size of the recommended model set. A sum of bytes, not a count of files. */
 "onboarding.total" = "รวม";
+
+"onboarding.welcome.body" = "แอปนี้รัน MiniMax H3 บนเครื่องของคุณทั้งหมด ไม่มีการส่งข้อมูลไปยังเซิร์ฟเวอร์ และไม่ต้องใช้บัญชีหรือคีย์ API\n\nมีสองเรื่องที่ควรรู้ก่อนเริ่ม";
 
 "onboarding.welcome.title" = "สร้างวิดีโอบน Mac เครื่องนี้";
 

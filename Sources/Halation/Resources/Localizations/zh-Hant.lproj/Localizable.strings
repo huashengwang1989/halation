@@ -453,6 +453,8 @@
 
 "onboarding.continue" = "繼續";
 
+"onboarding.disk.body" = "建議的權重組合略多於 100 GB，其中大部分是 Qwen3-VL-32B 文字編碼器。它們存放在共用資料夾，讓這台 Mac 上的其他專案可以共用同一份。";
+
 "onboarding.diskTitle" = "初始設定的下載量很大";
 
 "onboarding.freeOnDisk" = "磁碟可用空間";
@@ -463,20 +465,54 @@
 
 "onboarding.licence.acknowledge" = "我已閱讀授權條款，並確認在我所在地有權使用這些權重";
 
+"onboarding.licence.body" = "權重是開放的，但不是無條件的。你要同意的是 MiniMax 的條款，不是這個 App 的；在下載 60 GB 之前，值得先到模型頁面讀一遍。";
+
+"onboarding.licence.bullet.revenue" = "年營收約超過 2,000 萬美元的組織需要取得授權。";
+
+"onboarding.licence.bullet.territory" = "在美國、歐盟、英國與南韓，本機使用受到限制。要在這些地區執行本模型，需另外向 MiniMax 申請。";
+
+"onboarding.licence.bullet.training" = "禁止用 H3 的輸出去訓練其他模型。";
+
+"onboarding.licence.bullet.unlawful" = "不論你身在何處，授權條款都禁止產生違法內容與色情內容。本機執行沒有伺服器端過濾，因此這是你的責任，而非軟體的。";
+
 /* The licence's proper name stays in English; TW/CN gloss it. */
 "onboarding.licence.heading" = "MiniMax H3 社群授權條款";
 
+/* Keyboard hints under the licence checkbox. The key names are what macOS prints on the keys, so they stay in English. */
+"onboarding.licence.keys" = "⌘L 同意 · Return 繼續 · Space 啟動目前聚焦的按鈕";
+
 "onboarding.licence.readFull" = "在 Hugging Face 閱讀完整授權";
+
+/* Card heading. "Bite" as in restrictions that have real consequences, not a warning about danger. */
+"onboarding.licence.restrictions" = "真正會影響你的限制";
 
 "onboarding.licence.title" = "模型授權";
 
+"onboarding.licence.toggleHelp" = "⌘L 可切換此項";
+
+"onboarding.models.aboutToDownload" = "即將下載";
+
+"onboarding.models.body" = "建議的組合是 4-bit FL2VA transformer，加上 bfloat16 文字編碼器與共用的 VAE——這是目前 MLX 移植版能載入的最快組合。之後可以從「模型」分頁再加上更高精度的 transformer，不必重新下載編碼器。";
+
 "onboarding.models.title" = "模型權重";
+
+"onboarding.runtime.body" = "H3 沒有原生的 Swift 實作。這個 App 透過自己專屬的 Python 環境驅動 MLX 移植版，與你既有的任何 Python 互不干擾——不會弄壞你的，也不會被你的弄壞。";
+
+"onboarding.runtime.bullet.port" = "minimax-h3-mlx，Apache-2.0 授權的 Apple 晶片移植版";
+
+"onboarding.runtime.bullet.uv" = "uv，安裝到這個 App 的 Application Support 資料夾";
+
+"onboarding.runtime.bullet.venv" = "一個 Python 3.12 虛擬環境，連同 MLX 約 1.5 GB";
+
+"onboarding.runtime.installs" = "會安裝哪些東西";
 
 "onboarding.runtime.title" = "Python 執行環境";
 
 "onboarding.savingTo" = "儲存至 %@";
 
 "onboarding.skip" = "略過設定";
+
+"onboarding.slow.body" = "H3 是一個 330 億參數的擴散模型。在 M4 Max 上，用快速預覽設定算一段 5 秒的片子大約要一到兩小時；50 步則是整夜的工作。佇列正是為此而設——你拿 Mac 做別的事時它照跑，結束 App 也不會中斷。";
 
 "onboarding.slowTitle" = "算圖需要數小時，而非數秒";
 
@@ -486,6 +522,8 @@
 
 /* The combined download size of the recommended model set. A sum of bytes, not a count of files. */
 "onboarding.total" = "總計";
+
+"onboarding.welcome.body" = "這個 App 完全在你自己的機器上執行 MiniMax H3。不會傳送任何資料到伺服器，也不需要帳號或 API 金鑰。\n\n開始之前，有兩件事值得先知道。";
 
 "onboarding.welcome.title" = "在這台 Mac 上生成影片";
 

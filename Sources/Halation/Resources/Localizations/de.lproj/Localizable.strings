@@ -453,6 +453,8 @@
 
 "onboarding.continue" = "Fortfahren";
 
+"onboarding.disk.body" = "Der empfohlene Satz Gewichte liegt bei etwas über 100 GB — das meiste davon der Qwen3-VL-32B-Textencoder. Sie liegen in einem gemeinsamen Ordner, damit andere Projekte auf diesem Mac dieselbe Kopie nutzen können.";
+
 "onboarding.diskTitle" = "Die Einrichtung lädt viel herunter";
 
 "onboarding.freeOnDisk" = "Frei auf dem Volume";
@@ -463,20 +465,54 @@
 
 "onboarding.licence.acknowledge" = "Ich habe die Lizenz gelesen und bin berechtigt, diese Gewichte hier zu verwenden";
 
+"onboarding.licence.body" = "Die Gewichte sind offen, aber nicht bedingungslos. Die Bedingungen, denen du zustimmst, sind die von MiniMax und nicht die dieser App — lies sie auf der Modellseite, bevor du 60 GB herunterlädst.";
+
+"onboarding.licence.bullet.revenue" = "Organisationen mit mehr als rund 20 Millionen US-Dollar Jahresumsatz brauchen eine Genehmigung.";
+
+"onboarding.licence.bullet.territory" = "Die lokale Nutzung ist in den USA, der EU, dem Vereinigten Königreich und Südkorea eingeschränkt. Dort braucht der Betrieb des Modells einen eigenen Antrag bei MiniMax.";
+
+"onboarding.licence.bullet.training" = "Ein anderes Modell mit den Ausgaben von H3 zu trainieren, ist untersagt.";
+
+"onboarding.licence.bullet.unlawful" = "Rechtswidrige und pornografische Ausgaben sind durch die Lizenz untersagt, wo auch immer du bist. Bei einem lokalen Lauf gibt es keinen serverseitigen Filter — das liegt also bei dir und nicht bei der Software.";
+
 /* The licence's proper name stays in English; TW/CN gloss it. */
 "onboarding.licence.heading" = "MiniMax H3 Community License";
 
+/* Keyboard hints under the licence checkbox. The key names are what macOS prints on the keys, so they stay in English. */
+"onboarding.licence.keys" = "⌘L akzeptiert · Return fährt fort · Leertaste aktiviert den fokussierten Knopf";
+
 "onboarding.licence.readFull" = "Vollständige Lizenz auf Hugging Face lesen";
+
+/* Card heading. "Bite" as in restrictions that have real consequences, not a warning about danger. */
+"onboarding.licence.restrictions" = "Die Einschränkungen, die wirklich greifen";
 
 "onboarding.licence.title" = "Modelllizenz";
 
+"onboarding.licence.toggleHelp" = "⌘L schaltet dies um";
+
+"onboarding.models.aboutToDownload" = "Wird gleich geladen";
+
+"onboarding.models.body" = "Empfohlen sind der 4-Bit-FL2VA-Transformer, der bfloat16-Textencoder und die gemeinsamen VAEs — die schnellste Kombination, die der MLX-Port derzeit laden kann. Transformer höherer Präzision lassen sich später im Tab „Modelle“ ergänzen, ohne den Encoder erneut zu laden.";
+
 "onboarding.models.title" = "Modellgewichte";
+
+"onboarding.runtime.body" = "Für H3 gibt es keine native Swift-Implementierung. Die App steuert den MLX-Port über eine eigene, private Python-Umgebung, getrennt von jedem Python, das du schon hast — sie kann deines nicht beschädigen und deines nicht sie.";
+
+"onboarding.runtime.bullet.port" = "minimax-h3-mlx, der Apple-Silicon-Port unter Apache 2.0";
+
+"onboarding.runtime.bullet.uv" = "uv, in den Application-Support-Ordner dieser App";
+
+"onboarding.runtime.bullet.venv" = "Eine virtuelle Python-3.12-Umgebung, mit MLX rund 1,5 GB";
+
+"onboarding.runtime.installs" = "Was installiert wird";
 
 "onboarding.runtime.title" = "Python-Laufzeitumgebung";
 
 "onboarding.savingTo" = "Wird gesichert in %@";
 
 "onboarding.skip" = "Einrichtung überspringen";
+
+"onboarding.slow.body" = "H3 ist ein Diffusionsmodell mit 33 Milliarden Parametern. Auf einem M4 Max dauert ein 5-Sekunden-Clip mit den Schnellvorschau-Einstellungen etwa ein bis zwei Stunden; mit 50 Schritten wird daraus eine Nachtschicht. Die Warteschlange ist dafür gebaut — sie läuft weiter, während du den Mac anders nutzt, und übersteht ein Beenden.";
 
 "onboarding.slowTitle" = "Renders dauern Stunden, nicht Sekunden";
 
@@ -486,6 +522,8 @@
 
 /* The combined download size of the recommended model set. A sum of bytes, not a count of files. */
 "onboarding.total" = "Gesamt";
+
+"onboarding.welcome.body" = "Diese App führt MiniMax H3 vollständig auf deinem eigenen Rechner aus. Nichts wird an einen Server gesendet, und es gibt weder Konto noch API-Schlüssel.\n\nZwei Dinge solltest du vorher wissen.";
 
 "onboarding.welcome.title" = "Video auf diesem Mac erzeugen";
 
