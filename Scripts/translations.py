@@ -803,7 +803,7 @@ add("compose.prompt.title", {
     "ar": "الموجّه",
     "ja": "プロンプト",
     "ko": "프롬프트",
-    "th": "Prompt",
+    "th": "พรอมต์ (Prompt)",
 })
 add("compose.prompt.hint", {
     "en": "Describe the shot. Press Tab to move on, Option-Tab to insert a tab.",
@@ -886,7 +886,7 @@ add("compose.engine.label", {
     "ar": "المحرّك",
     "ja": "エンジン",
     "ko": "엔진",
-    "th": "Engine",
+    "th": "เอนจิน (Engine)",
 }, note="Which backend runs the model — MLX or ComfyUI. Not a motor, and not a game "
         "engine. Usually kept in English.")
 add("compose.engine.mlx.note", {
@@ -1098,7 +1098,7 @@ add("compose.output.title", {
     "ar": "الإخراج",
     "ja": "出力",
     "ko": "출력",
-    "th": "Output",
+    "th": "เอาต์พุต (Output)",
 }, note="Heads the card for how the video is encoded — codec, resolution, frame rate. "
         "Output as in the result of a render. Distinct from settings.folder.output, a "
         "folder.")

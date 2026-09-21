@@ -55,9 +55,16 @@ struct SamplingCard: View {
                             // Whole seconds: one tick, one second. The grid-snapped
                             // result is reported underneath rather than here, so the
                             // control itself stays predictable.
-                            Text("\(spec.sampling.durationSeconds) s")
+                            // Formatted, not "\(seconds) s": the unit is a
+                            // translated string, and the slider's own end
+                            // labels already go through Format.clipLength.
+                            // minWidth rather than a fixed width, because the
+                            // unit is one character in English and six in Thai;
+                            // the minimum is still enough that the number
+                            // changing from 9 to 10 does not shift the row.
+                            Text(Format.clipLength(spec.sampling.durationSeconds))
                                 .monospacedDigit()
-                                .frame(width: 42, alignment: .trailing)
+                                .frame(minWidth: 42, alignment: .trailing)
                         }
                     }
                     Text(snappedNote)

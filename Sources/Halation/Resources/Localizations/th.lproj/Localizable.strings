@@ -59,7 +59,7 @@
 "compose.engine.comfy.note" = "ทำงานผ่าน ComfyUI บน PyTorch/Metal ซึ่งโหลด turbo LoRA แบบ 4 step ได้ สี่ step ที่กลั่นแล้วใช้เวลาพอ ๆ กับห้า step ที่ยังไม่กลั่นบน MLX และเป็นจำนวนที่ LoRA ถูกฝึกมา";
 
 /* Which backend runs the model — MLX or ComfyUI. Not a motor, and not a game engine. Usually kept in English. */
-"compose.engine.label" = "Engine";
+"compose.engine.label" = "เอนจิน (Engine)";
 
 "compose.engine.mlx.note" = "ทำงานแบบเนทีฟบน MLX ไม่ต้องใช้เซิร์ฟเวอร์ และเป็นค่าเริ่มต้น น้ำหนักยังไม่ผ่านการกลั่น step น้อยจึงหลุดจากการกระจายที่ฝึกมา ถ้าต้องการคุณภาพให้ใช้ 16 step ขึ้นไปตามพอร์ตนี้";
 
@@ -88,7 +88,7 @@
 "compose.output.footnote" = "โมเดลเรนเดอร์ที่ 24 fps และด้านสั้น 768 px เสมอ ค่าอื่นในการ์ดนี้จะถูกนำไปใช้ภายหลังตอนเข้ารหัส";
 
 /* Heads the card for how the video is encoded — codec, resolution, frame rate. Output as in the result of a render. Distinct from settings.folder.output, a folder. */
-"compose.output.title" = "Output";
+"compose.output.title" = "เอาต์พุต (Output)";
 
 "compose.preset.delete" = "ลบ preset ที่สร้างเอง";
 
@@ -111,7 +111,7 @@
 
 "compose.prompt.hint" = "บรรยายช็อตที่ต้องการ กด Tab เพื่อไปต่อ กด Option-Tab เพื่อแทรกแท็บ";
 
-"compose.prompt.title" = "Prompt";
+"compose.prompt.title" = "พรอมต์ (Prompt)";
 
 /* Pixel dimensions of the output. Not resolution in the sense of resolving a dispute or a decision. */
 "compose.resolution" = "ความละเอียด";
