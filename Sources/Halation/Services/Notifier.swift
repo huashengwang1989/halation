@@ -26,6 +26,35 @@ final class Notifier: NSObject, UNUserNotificationCenterDelegate {
 
     private var askedForPermission = false
 
+    /// What macOS currently allows, for the row in Settings ▸ General.
+    ///
+    /// Worth showing, because the failure it describes is silent: with
+    /// notifications switched off the app posts as usual and nothing arrives,
+    /// which looks exactly like a bug in the app. macOS owns this switch, so the
+    /// most the app can do is report it and offer to open the right pane.
+    enum Permission { case notAsked, allowed, denied, unavailable }
+
+    private(set) var permission: Permission = .notAsked
+
+    func refreshPermission() async {
+        guard isAvailable else { permission = .unavailable; return }
+        let settings = await UNUserNotificationCenter.current().notificationSettings()
+        permission = switch settings.authorizationStatus {
+        case .authorized, .provisional, .ephemeral: .allowed
+        case .denied: .denied
+        case .notDetermined: .notAsked
+        @unknown default: .notAsked
+        }
+    }
+
+    /// Opens System Settings at the pane that owns this decision.
+    func openSystemSettings() {
+        guard let url = URL(string:
+            "x-apple.systempreferences:com.apple.Notifications-Settings.extension")
+        else { return }
+        NSWorkspace.shared.open(url)
+    }
+
     /// UNUserNotificationCenter traps when the process has no app bundle —
     /// `swift run` straight from the package, for instance. Everything here is a
     /// no-op in that case rather than a crash, because a developer running the
@@ -46,7 +75,9 @@ final class Notifier: NSObject, UNUserNotificationCenterDelegate {
         guard isAvailable, !askedForPermission else { return }
         askedForPermission = true
         UNUserNotificationCenter.current()
-            .requestAuthorization(options: [.alert, .sound]) { _, _ in }
+            .requestAuthorization(options: [.alert, .sound]) { _, _ in
+                Task { @MainActor in await self.refreshPermission() }
+            }
     }
 
     func renderFinished(_ job: RenderJob) {

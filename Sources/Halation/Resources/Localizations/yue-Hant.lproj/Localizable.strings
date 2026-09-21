@@ -822,6 +822,20 @@
 
 "settings.notWorking" = "唔正常";
 
+"settings.notifications" = "通知";
+
+/* Shown when macOS has notifications switched off for Halation. Without this the app simply stays silent and looks broken. */
+"settings.notifications.denied" = "喺系統設定度熄咗";
+
+/* Shown before permission has been requested at all. */
+"settings.notifications.notYetAsked" = "第一次排隊嗰陣先會問你";
+
+/* Explains the notification row in Settings ▸ General, including why nothing arrives while the app is in front. */
+"settings.notifications.note" = "算圖或者下載可以跑幾個鐘，所以完咗個 App 會話你知。Halation 喺最前嗰陣唔會send，因為佇列度已經睇到。";
+
+/* Button opening System Settings ▸ Notifications, where macOS — not this app — controls whether notifications are allowed. */
+"settings.notifications.open" = "開通知設定";
+
 "settings.python" = "Python";
 
 "settings.queue.note" = "算圖會喺記憶體度攞住幾十 GB 權重，所以一次得一個跑。想暫緩或者停某一個，喺「佇列」入面嗰行做。";

@@ -822,6 +822,20 @@
 
 "settings.notWorking" = "動作していません";
 
+"settings.notifications" = "通知";
+
+/* Shown when macOS has notifications switched off for Halation. Without this the app simply stays silent and looks broken. */
+"settings.notifications.denied" = "システム設定でオフになっています";
+
+/* Shown before permission has been requested at all. */
+"settings.notifications.notYetAsked" = "最初にキューに入れたときに確認します";
+
+/* Explains the notification row in Settings ▸ General, including why nothing arrives while the app is in front. */
+"settings.notifications.note" = "レンダリングやダウンロードは何時間もかかることがあるので、終わったらアプリが知らせます。Halation が最前面のときは送りません——キューを見れば分かるからです。";
+
+/* Button opening System Settings ▸ Notifications, where macOS — not this app — controls whether notifications are allowed. */
+"settings.notifications.open" = "通知設定を開く";
+
 "settings.python" = "Python";
 
 "settings.queue.note" = "レンダリングは数十 GB の重みをメモリに保持するため、同時に走るのは 1 件だけです。個々のレンダリングの保留や停止は、キューの各行から行えます。";

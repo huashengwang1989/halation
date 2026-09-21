@@ -6337,6 +6337,91 @@
       "level": "info"
     },
     {
+      "key": "settings.notifications",
+      "values": {
+        "en": "Notifications",
+        "zh-Hant": "通知",
+        "zh-Hans": "通知",
+        "de": "Mitteilungen",
+        "ar": "الإشعارات",
+        "ja": "通知",
+        "ko": "알림",
+        "th": "การแจ้งเตือน",
+        "yue-Hant": "通知",
+        "en-SG": "Notifications"
+      },
+      "note": "",
+      "level": "info"
+    },
+    {
+      "key": "settings.notifications.denied",
+      "values": {
+        "en": "Turned off in System Settings",
+        "zh-Hant": "已在系統設定中關閉",
+        "zh-Hans": "已在系统设置中关闭",
+        "de": "In den Systemeinstellungen deaktiviert",
+        "ar": "مُعطَّلة في إعدادات النظام",
+        "ja": "システム設定でオフになっています",
+        "ko": "시스템 설정에서 꺼져 있음",
+        "th": "ปิดอยู่ในการตั้งค่าระบบ",
+        "yue-Hant": "喺系統設定度熄咗",
+        "en-SG": "Off inside System Settings"
+      },
+      "note": "Shown when macOS has notifications switched off for Halation. Without this the app simply stays silent and looks broken.",
+      "level": "info"
+    },
+    {
+      "key": "settings.notifications.notYetAsked",
+      "values": {
+        "en": "Asked when you first queue something",
+        "zh-Hant": "第一次排入佇列時才會詢問",
+        "zh-Hans": "第一次排入队列时才会询问",
+        "de": "Wird bei der ersten Warteschlange abgefragt",
+        "ar": "يُطلَب عند أول إضافة إلى قائمة الانتظار",
+        "ja": "最初にキューに入れたときに確認します",
+        "ko": "처음 대기열에 넣을 때 물어봅니다",
+        "th": "จะถามเมื่อคุณเข้าคิวครั้งแรก",
+        "yue-Hant": "第一次排隊嗰陣先會問你",
+        "en-SG": "Will ask you when you first queue something"
+      },
+      "note": "Shown before permission has been requested at all.",
+      "level": "info"
+    },
+    {
+      "key": "settings.notifications.note",
+      "values": {
+        "en": "A render or a download can run for hours, so the app tells you when one ends. Nothing is sent while Halation is the front app — the queue already shows it.",
+        "zh-Hant": "算圖或下載可能要跑上數小時，所以結束時 App 會通知你。當 Halation 在最前面時不會發送，因為佇列已經看得到。",
+        "zh-Hans": "渲染或下载可能要跑上数小时，所以结束时 App 会通知你。当 Halation 在最前面时不会发送，因为队列已经看得到。",
+        "de": "Ein Render oder ein Download kann stundenlang laufen, daher meldet sich die App, wenn etwas endet. Solange Halation im Vordergrund ist, wird nichts gesendet — die Warteschlange zeigt es bereits.",
+        "ar": "قد يستغرق التصيير أو التنزيل ساعات، لذا يخبرك التطبيق عند انتهاء أيٍّ منهما. ولا يُرسَل شيء ما دام Halation في المقدمة، فقائمة الانتظار تُظهره أصلًا.",
+        "ja": "レンダリングやダウンロードは何時間もかかることがあるので、終わったらアプリが知らせます。Halation が最前面のときは送りません——キューを見れば分かるからです。",
+        "ko": "렌더링이나 다운로드는 몇 시간씩 걸릴 수 있어서, 끝나면 앱이 알려 줍니다. Halation이 맨 앞에 있을 때는 보내지 않습니다 — 대기열에 이미 보이니까요.",
+        "th": "การเรนเดอร์หรือการดาวน์โหลดอาจใช้เวลาหลายชั่วโมง แอปจึงแจ้งเมื่อเสร็จ จะไม่ส่งขณะที่ Halation อยู่หน้าสุด เพราะคิวแสดงให้เห็นอยู่แล้ว",
+        "yue-Hant": "算圖或者下載可以跑幾個鐘，所以完咗個 App 會話你知。Halation 喺最前嗰陣唔會send，因為佇列度已經睇到。",
+        "en-SG": "Render or download can run for hours, so the app will tell you when it ends. Nothing send while Halation is the front app — the queue already show you."
+      },
+      "note": "Explains the notification row in Settings ▸ General, including why nothing arrives while the app is in front.",
+      "level": "info"
+    },
+    {
+      "key": "settings.notifications.open",
+      "values": {
+        "en": "Open Notification Settings",
+        "zh-Hant": "開啟通知設定",
+        "zh-Hans": "打开通知设置",
+        "de": "Mitteilungseinstellungen öffnen",
+        "ar": "فتح إعدادات الإشعارات",
+        "ja": "通知設定を開く",
+        "ko": "알림 설정 열기",
+        "th": "เปิดการตั้งค่าการแจ้งเตือน",
+        "yue-Hant": "開通知設定",
+        "en-SG": "Open Notification Settings"
+      },
+      "note": "Button opening System Settings ▸ Notifications, where macOS — not this app — controls whether notifications are allowed.",
+      "level": "info"
+    },
+    {
       "key": "settings.python",
       "values": {
         "en": "Python",

@@ -822,6 +822,20 @@
 
 "settings.notWorking" = "작동하지 않음";
 
+"settings.notifications" = "알림";
+
+/* Shown when macOS has notifications switched off for Halation. Without this the app simply stays silent and looks broken. */
+"settings.notifications.denied" = "시스템 설정에서 꺼져 있음";
+
+/* Shown before permission has been requested at all. */
+"settings.notifications.notYetAsked" = "처음 대기열에 넣을 때 물어봅니다";
+
+/* Explains the notification row in Settings ▸ General, including why nothing arrives while the app is in front. */
+"settings.notifications.note" = "렌더링이나 다운로드는 몇 시간씩 걸릴 수 있어서, 끝나면 앱이 알려 줍니다. Halation이 맨 앞에 있을 때는 보내지 않습니다 — 대기열에 이미 보이니까요.";
+
+/* Button opening System Settings ▸ Notifications, where macOS — not this app — controls whether notifications are allowed. */
+"settings.notifications.open" = "알림 설정 열기";
+
 "settings.python" = "Python";
 
 "settings.queue.note" = "렌더링은 수십 GB의 가중치를 메모리에 올리므로 한 번에 하나만 돌아갑니다. 개별 렌더링의 보류나 정지는 대기열의 각 행에서 할 수 있습니다.";

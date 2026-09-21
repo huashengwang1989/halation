@@ -822,6 +822,20 @@
 
 "settings.notWorking" = "Funktioniert nicht";
 
+"settings.notifications" = "Mitteilungen";
+
+/* Shown when macOS has notifications switched off for Halation. Without this the app simply stays silent and looks broken. */
+"settings.notifications.denied" = "In den Systemeinstellungen deaktiviert";
+
+/* Shown before permission has been requested at all. */
+"settings.notifications.notYetAsked" = "Wird bei der ersten Warteschlange abgefragt";
+
+/* Explains the notification row in Settings ▸ General, including why nothing arrives while the app is in front. */
+"settings.notifications.note" = "Ein Render oder ein Download kann stundenlang laufen, daher meldet sich die App, wenn etwas endet. Solange Halation im Vordergrund ist, wird nichts gesendet — die Warteschlange zeigt es bereits.";
+
+/* Button opening System Settings ▸ Notifications, where macOS — not this app — controls whether notifications are allowed. */
+"settings.notifications.open" = "Mitteilungseinstellungen öffnen";
+
 "settings.python" = "Python";
 
 "settings.queue.note" = "Renders halten zig Gigabyte an Gewichten im Speicher, daher läuft immer nur einer. Einzelne Renders lassen sich in ihrer Zeile in der Warteschlange zurückstellen oder anhalten.";

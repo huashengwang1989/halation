@@ -822,6 +822,20 @@
 
 "settings.notWorking" = "لا يعمل";
 
+"settings.notifications" = "الإشعارات";
+
+/* Shown when macOS has notifications switched off for Halation. Without this the app simply stays silent and looks broken. */
+"settings.notifications.denied" = "مُعطَّلة في إعدادات النظام";
+
+/* Shown before permission has been requested at all. */
+"settings.notifications.notYetAsked" = "يُطلَب عند أول إضافة إلى قائمة الانتظار";
+
+/* Explains the notification row in Settings ▸ General, including why nothing arrives while the app is in front. */
+"settings.notifications.note" = "قد يستغرق التصيير أو التنزيل ساعات، لذا يخبرك التطبيق عند انتهاء أيٍّ منهما. ولا يُرسَل شيء ما دام Halation في المقدمة، فقائمة الانتظار تُظهره أصلًا.";
+
+/* Button opening System Settings ▸ Notifications, where macOS — not this app — controls whether notifications are allowed. */
+"settings.notifications.open" = "فتح إعدادات الإشعارات";
+
 "settings.python" = "Python";
 
 "settings.queue.note" = "يحتفظ التصيير بعشرات الغيغابايتات من الأوزان في الذاكرة، لذا يعمل واحد فقط في كل مرة. يمكنك تعليق أو إيقاف أي تصيير من صفّه في قائمة الانتظار.";

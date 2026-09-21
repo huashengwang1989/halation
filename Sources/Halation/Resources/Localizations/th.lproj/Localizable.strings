@@ -822,6 +822,20 @@
 
 "settings.notWorking" = "ใช้งานไม่ได้";
 
+"settings.notifications" = "การแจ้งเตือน";
+
+/* Shown when macOS has notifications switched off for Halation. Without this the app simply stays silent and looks broken. */
+"settings.notifications.denied" = "ปิดอยู่ในการตั้งค่าระบบ";
+
+/* Shown before permission has been requested at all. */
+"settings.notifications.notYetAsked" = "จะถามเมื่อคุณเข้าคิวครั้งแรก";
+
+/* Explains the notification row in Settings ▸ General, including why nothing arrives while the app is in front. */
+"settings.notifications.note" = "การเรนเดอร์หรือการดาวน์โหลดอาจใช้เวลาหลายชั่วโมง แอปจึงแจ้งเมื่อเสร็จ จะไม่ส่งขณะที่ Halation อยู่หน้าสุด เพราะคิวแสดงให้เห็นอยู่แล้ว";
+
+/* Button opening System Settings ▸ Notifications, where macOS — not this app — controls whether notifications are allowed. */
+"settings.notifications.open" = "เปิดการตั้งค่าการแจ้งเตือน";
+
 "settings.python" = "Python";
 
 "settings.queue.note" = "การเรนเดอร์ต้องเก็บไฟล์น้ำหนักหลายสิบกิกะไบต์ไว้ในหน่วยความจำ จึงทำได้ครั้งละหนึ่งงาน สั่งพักหรือหยุดแต่ละงานได้จากแถวของงานนั้นในคิว";

@@ -822,6 +822,20 @@
 
 "settings.notWorking" = "Not working";
 
+"settings.notifications" = "Notifications";
+
+/* Shown when macOS has notifications switched off for Halation. Without this the app simply stays silent and looks broken. */
+"settings.notifications.denied" = "Off inside System Settings";
+
+/* Shown before permission has been requested at all. */
+"settings.notifications.notYetAsked" = "Will ask you when you first queue something";
+
+/* Explains the notification row in Settings ▸ General, including why nothing arrives while the app is in front. */
+"settings.notifications.note" = "Render or download can run for hours, so the app will tell you when it ends. Nothing send while Halation is the front app — the queue already show you.";
+
+/* Button opening System Settings ▸ Notifications, where macOS — not this app — controls whether notifications are allowed. */
+"settings.notifications.open" = "Open Notification Settings";
+
 "settings.python" = "Python";
 
 "settings.queue.note" = "Renders hold tens of gigabytes of weights inside memory, so only one can run at a time. Want to hold or stop one particular render, use its own row inside the Queue.";
