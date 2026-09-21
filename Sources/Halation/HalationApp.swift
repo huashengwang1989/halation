@@ -99,9 +99,18 @@ struct HalationApp: App {
                     Button("Show Welcome Dialog") {
                         app.showingOnboarding = true
                     }
-                    Button("Test Notifications (in 5s)") {
-                        Notifier.shared.requestPermissionIfNeeded()
-                        Notifier.shared.postTestNotifications()
+                    Menu("Test Notifications") {
+                        Button("Immediately") {
+                            Notifier.shared.requestPermissionIfNeeded()
+                            Notifier.shared.postTestNotifications(after: nil)
+                        }
+                        // Still useful: with a Focus off and the app frontmost,
+                        // five seconds is enough to switch away and watch one
+                        // arrive the way a user would.
+                        Button("In 5 seconds") {
+                            Notifier.shared.requestPermissionIfNeeded()
+                            Notifier.shared.postTestNotifications(after: 5)
+                        }
                     }
                 }
             }

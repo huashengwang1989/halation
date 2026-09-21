@@ -93,7 +93,11 @@ final class Notifier: NSObject, UNUserNotificationCenterDelegate {
         guard isAvailable, !askedForPermission else { return }
         askedForPermission = true
         UNUserNotificationCenter.current()
-            .requestAuthorization(options: [.alert, .sound]) { granted, error in
+        // .timeSensitive is asked for alongside the rest: it is what lets these
+        // through a Focus, and a render that ended after two hours is exactly
+        // the case the level exists for. It needs the matching entitlement to
+        // take effect, so on an ad-hoc build the level is quietly downgraded.
+            .requestAuthorization(options: [.alert, .sound, .timeSensitive]) { granted, error in
                 if let error { Self.log("authorization failed: \(error)") }
                 Self.log("authorization granted: \(granted)")
                 Task { @MainActor in await self.refreshPermission() }
@@ -117,19 +121,32 @@ final class Notifier: NSObject, UNUserNotificationCenterDelegate {
     /// The delay is the point: macOS suppresses a notification while its app is
     /// in front, so without time to switch away you would see nothing and
     /// conclude it was broken. Reached from Debug ▸ Test Notifications.
-    func postTestNotifications(after seconds: TimeInterval = 5) {
+    /// One harmless notification, for the button in Settings and onboarding.
+    ///
+    /// Its purpose is to answer "will I actually see these?" now, rather than
+    /// after waiting two hours for a render to answer it.
+    func postSample() {
+        post(id: UUID().uuidString, title: loc("notify.test.title"),
+             subtitle: "", body: loc("notify.test.body"),
+             userInfo: [:], after: nil)
+    }
+
+    func postTestNotifications(after seconds: TimeInterval?) {
+        // Staggered only when delayed. Fired immediately they arrive together,
+        // which is what Notification Center would do with them anyway.
+        func delay(_ step: Double) -> TimeInterval? { seconds.map { $0 + step } }
         post(id: UUID().uuidString, title: loc("notify.finished.title"),
              subtitle: "A test render", body: loc("queue.took", Format.duration(4_231)),
-             userInfo: ["state": RenderJob.State.finished.rawValue], after: seconds)
+             userInfo: ["state": RenderJob.State.finished.rawValue], after: delay(0))
         post(id: UUID().uuidString, title: loc("notify.failed.title"),
              subtitle: "A test render", body: loc("notify.failed.body"),
-             userInfo: ["state": RenderJob.State.failed.rawValue], after: seconds + 1)
+             userInfo: ["state": RenderJob.State.failed.rawValue], after: delay(1))
         post(id: UUID().uuidString, title: loc("notify.download.finished.title"),
              subtitle: "A test model", body: Format.bytes(67 * 1_073_741_824),
-             userInfo: ["section": "models"], after: seconds + 2)
+             userInfo: ["section": "models"], after: delay(2))
         post(id: UUID().uuidString, title: loc("notify.download.failed.title"),
              subtitle: "A test model", body: "The network connection was lost.",
-             userInfo: ["section": "models"], after: seconds + 3)
+             userInfo: ["section": "models"], after: delay(3))
     }
 
     /// Weights run to tens of gigabytes, so a download ends long after anyone
@@ -166,6 +183,11 @@ final class Notifier: NSObject, UNUserNotificationCenterDelegate {
         content.subtitle = subtitle
         content.body = body
         content.sound = .default
+        // Breaks through a Focus, once the user permits time-sensitive
+        // notifications for Halation. Everything here is something the user
+        // started deliberately and then walked away from, which is the whole
+        // reason the level exists — nothing else in the app ever uses it.
+        content.interruptionLevel = .timeSensitive
         content.userInfo = userInfo
 
         // A nil trigger means deliver now.

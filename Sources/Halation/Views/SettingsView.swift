@@ -85,10 +85,13 @@ private struct GeneralSettings: View {
 
             Section(loc("settings.notifications")) {
                 NotificationPermissionRow()
-                Text(loc("settings.notifications.note"))
-                    .font(.caption)
-                    .foregroundStyle(.secondary)
-                    .fixedSize(horizontal: false, vertical: true)
+                VStack(alignment: .leading, spacing: 4) {
+                    Text(loc("settings.notifications.note"))
+                    Text(loc("settings.notifications.focusNote"))
+                }
+                .font(.caption)
+                .foregroundStyle(.secondary)
+                .fixedSize(horizontal: false, vertical: true)
             }
 
             Section(loc("settings.folders")) {

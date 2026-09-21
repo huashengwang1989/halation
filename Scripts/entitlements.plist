@@ -23,6 +23,15 @@
     Add com.apple.security.cs.disable-library-validation only if the app itself
     ever dlopens a library signed by someone else. Today nothing does, and
     granting it weakens the app for no gain.
+
+    The one entitlement below is what lets a render-finished notification
+    through a Focus. It is a restricted entitlement: Apple has to enable it for
+    the App ID, and it only takes effect with a provisioning profile, so an
+    ad-hoc build silently downgrades those notifications to the ordinary level.
+    That is a degradation rather than a failure — the notification still
+    arrives, it just waits in Notification Center while a Focus is on.
     -->
+    <key>com.apple.developer.usernotifications.time-sensitive</key>
+    <true/>
 </dict>
 </plist>

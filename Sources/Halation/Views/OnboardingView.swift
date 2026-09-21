@@ -102,6 +102,10 @@ struct OnboardingView: View {
                         .font(.callout)
                         .foregroundStyle(.secondary)
                         .fixedSize(horizontal: false, vertical: true)
+                    Text(loc("settings.notifications.focusNote"))
+                        .font(.caption)
+                        .foregroundStyle(.secondary)
+                        .fixedSize(horizontal: false, vertical: true)
                     NotificationPermissionRow()
                 }
             }

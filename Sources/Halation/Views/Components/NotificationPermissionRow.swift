@@ -29,6 +29,10 @@ struct NotificationPermissionRow: View {
                 case .unavailable:
                     Text(loc("settings.notFound")).foregroundStyle(.secondary)
                 }
+                Button(loc("settings.notifications.test")) {
+                    Notifier.shared.requestPermissionIfNeeded()
+                    Notifier.shared.postSample()
+                }
                 Button(loc("settings.notifications.open")) {
                     Notifier.shared.openSystemSettings()
                 }

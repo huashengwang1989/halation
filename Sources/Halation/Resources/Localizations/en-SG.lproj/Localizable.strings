@@ -443,6 +443,11 @@
 /* Notification title when a render succeeds. Kept short — macOS truncates a notification title to roughly one line. */
 "notify.finished.title" = "Render done liao";
 
+"notify.test.body" = "This is what you will get when a render or download ends.";
+
+/* Title of the test notification. Phrased as the conclusion the reader should draw, since seeing it at all is the whole message. */
+"notify.test.title" = "Notifications can already";
+
 /* Navigates to the previous onboarding step. The direction, not the body part — and specifically "previous", which some languages word differently from "backwards". */
 "onboarding.back" = "Go Back";
 
@@ -827,6 +832,9 @@
 /* Shown when macOS has notifications switched off for Halation. Without this the app simply stays silent and looks broken. */
 "settings.notifications.denied" = "Off inside System Settings";
 
+/* Explains the most common reason a notification arrives but is never seen. Shown under the permission row in Settings and in the welcome dialog. */
+"settings.notifications.focusNote" = "Focus or Do Not Disturb will keep these inside Notification Center and not show any banner. That one is macOS, not Halation — allow Halation inside that Focus and you will see them as they come.";
+
 /* macOS separates permission from alert style. A user can allow notifications and still set the style to None, and then nothing ever appears on screen — which is indistinguishable from the app being broken unless this says otherwise. */
 "settings.notifications.noBanner" = "Allowed, but banner off";
 
@@ -838,6 +846,9 @@
 
 /* Button opening System Settings ▸ Notifications, where macOS — not this app — controls whether notifications are allowed. */
 "settings.notifications.open" = "Open Notification Settings";
+
+/* Button beside the permission row. Fires one harmless notification, so a user can find out whether they will actually see these before waiting two hours for a render to prove it. */
+"settings.notifications.test" = "Send Test Notification";
 
 "settings.python" = "Python";
 

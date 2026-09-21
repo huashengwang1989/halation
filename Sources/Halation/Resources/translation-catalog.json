@@ -3464,6 +3464,40 @@
       "level": "info"
     },
     {
+      "key": "notify.test.body",
+      "values": {
+        "en": "This is what you will get when a render or a download ends.",
+        "zh-Hant": "算圖或下載結束時，你會收到的就是這樣的通知。",
+        "zh-Hans": "渲染或下载结束时，你会收到的就是这样的通知。",
+        "de": "So sieht es aus, wenn ein Render oder ein Download endet.",
+        "ar": "هكذا سيصلك الإشعار عند انتهاء تصيير أو تنزيل.",
+        "ja": "レンダリングやダウンロードが終わったときは、これと同じ形で届きます。",
+        "ko": "렌더링이나 다운로드가 끝나면 이런 알림을 받게 됩니다.",
+        "th": "นี่คือสิ่งที่คุณจะได้รับเมื่อการเรนเดอร์หรือการดาวน์โหลดเสร็จ",
+        "yue-Hant": "算圖或者下載完咗嗰陣，你收到嘅就係咁樣。",
+        "en-SG": "This is what you will get when a render or download ends."
+      },
+      "note": "",
+      "level": "info"
+    },
+    {
+      "key": "notify.test.title",
+      "values": {
+        "en": "Notifications are working",
+        "zh-Hant": "通知運作正常",
+        "zh-Hans": "通知工作正常",
+        "de": "Mitteilungen funktionieren",
+        "ar": "الإشعارات تعمل",
+        "ja": "通知は届いています",
+        "ko": "알림이 작동합니다",
+        "th": "การแจ้งเตือนทำงานปกติ",
+        "yue-Hant": "通知冇問題",
+        "en-SG": "Notifications can already"
+      },
+      "note": "Title of the test notification. Phrased as the conclusion the reader should draw, since seeing it at all is the whole message.",
+      "level": "info"
+    },
+    {
       "key": "onboarding.back",
       "values": {
         "en": "Back",
@@ -6371,6 +6405,23 @@
       "level": "info"
     },
     {
+      "key": "settings.notifications.focusNote",
+      "values": {
+        "en": "A Focus, or Do Not Disturb, holds these in Notification Center instead of showing a banner. That is macOS rather than Halation — allow Halation inside that Focus to see them as they arrive.",
+        "zh-Hant": "開啟「專注模式」或「勿擾模式」時，這些通知會留在通知中心，不會顯示橫幅。這是 macOS 的行為，不是 Halation —— 在該專注模式中允許 Halation，就能即時看到。",
+        "zh-Hans": "开启“专注模式”或“勿扰模式”时，这些通知会留在通知中心，不会显示横幅。这是 macOS 的行为，不是 Halation —— 在该专注模式中允许 Halation，就能即时看到。",
+        "de": "Ein Fokus oder „Nicht stören“ behält diese in der Mitteilungszentrale, statt ein Banner zu zeigen. Das ist macOS, nicht Halation — erlaube Halation in diesem Fokus, um sie sofort zu sehen.",
+        "ar": "يحتفظ وضع التركيز أو «عدم الإزعاج» بهذه الإشعارات في مركز الإشعارات بدل عرض لافتة. هذا سلوك macOS وليس Halation — اسمح بـ Halation داخل وضع التركيز لتراها فور وصولها.",
+        "ja": "集中モードやおやすみモードのあいだは、バナーを出さずに通知センターに溜まります。これは Halation ではなく macOS の動作です——その集中モードで Halation を許可すると、届いたときに表示されます。",
+        "ko": "집중 모드나 방해금지 모드에서는 배너를 띄우지 않고 알림 센터에 쌓아 둡니다. Halation이 아니라 macOS의 동작입니다 — 해당 집중 모드에서 Halation을 허용하면 도착할 때 바로 보입니다.",
+        "th": "โหมดโฟกัสหรือห้ามรบกวนจะเก็บการแจ้งเตือนเหล่านี้ไว้ในศูนย์การแจ้งเตือนแทนการแสดงแบนเนอร์ นี่เป็นพฤติกรรมของ macOS ไม่ใช่ Halation — อนุญาต Halation ในโหมดโฟกัสนั้นเพื่อให้เห็นทันทีที่มาถึง",
+        "yue-Hant": "開咗「專注模式」或者「勿擾」嗰陣，呢啲通知會留喺通知中心，唔會出橫額。呢個係 macOS 嘅行為，唔關 Halation 事——喺嗰個專注模式度准咗 Halation，就即刻見到。",
+        "en-SG": "Focus or Do Not Disturb will keep these inside Notification Center and not show any banner. That one is macOS, not Halation — allow Halation inside that Focus and you will see them as they come."
+      },
+      "note": "Explains the most common reason a notification arrives but is never seen. Shown under the permission row in Settings and in the welcome dialog.",
+      "level": "info"
+    },
+    {
       "key": "settings.notifications.noBanner",
       "values": {
         "en": "Allowed, but banners are switched off",
@@ -6436,6 +6487,23 @@
         "en-SG": "Open Notification Settings"
       },
       "note": "Button opening System Settings ▸ Notifications, where macOS — not this app — controls whether notifications are allowed.",
+      "level": "info"
+    },
+    {
+      "key": "settings.notifications.test",
+      "values": {
+        "en": "Send a Test Notification",
+        "zh-Hant": "傳送測試通知",
+        "zh-Hans": "发送测试通知",
+        "de": "Testmitteilung senden",
+        "ar": "إرسال إشعار تجريبي",
+        "ja": "テスト通知を送る",
+        "ko": "테스트 알림 보내기",
+        "th": "ส่งการแจ้งเตือนทดสอบ",
+        "yue-Hant": "send 個測試通知",
+        "en-SG": "Send Test Notification"
+      },
+      "note": "Button beside the permission row. Fires one harmless notification, so a user can find out whether they will actually see these before waiting two hours for a render to prove it.",
       "level": "info"
     },
     {
