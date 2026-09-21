@@ -757,3 +757,31 @@ default to gate the app's own Debug menu, so the two appear and disappear
 together. UserDefaults searches the global domain, so nothing per-app is needed,
 and the argument domain still wins for a single run:
 `open -a Halation --args -_NS_4445425547 NO`.
+
+## Notifications are accepted and then silently dropped, unsigned
+
+Halation posts notifications that never arrive, and every layer says it is fine.
+Measured rather than assumed, in this order:
+
+- `UNUserNotificationCenter.requestAuthorization` returns `granted: true`.
+- `notificationSettings()` reports `.authorized`, with `alertStyle` and
+  `alertSetting` both enabled — so the in-app permission row shows green.
+- `add(_:)` calls back with a nil error.
+- Nothing appears as a banner, and nothing is listed in Notification Center.
+
+Things ruled out along the way, each by test: the foreground-suppression default
+(the delegate now returns `.banner` from `willPresent`); a second copy of the app
+stealing the menu click (two instances were running at one point, one from
+`make run`); launching the executable directly versus through LaunchServices
+(both behave the same); and the app not being registered at all — System
+Settings ▸ Notifications lists Halation, and the first permission prompt
+appeared with the right icon.
+
+What remains is the ad-hoc signature. `usernoted` validates the posting app
+against the record it holds, an ad-hoc signature carries no stable identity, and
+the cdhash changes on every rebuild. The API surface has no way to report that:
+`add` takes the request, and the drop happens elsewhere. It is the same root
+cause as the Documents permission prompt returning after every build.
+
+This is unproven, because proving it needs a Developer ID. Anyone who signs the
+app should check whether notifications start arriving, and correct this note.

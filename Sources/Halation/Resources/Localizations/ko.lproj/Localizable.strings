@@ -827,11 +827,14 @@
 /* Shown when macOS has notifications switched off for Halation. Without this the app simply stays silent and looks broken. */
 "settings.notifications.denied" = "시스템 설정에서 꺼져 있음";
 
+/* macOS separates permission from alert style. A user can allow notifications and still set the style to None, and then nothing ever appears on screen — which is indistinguishable from the app being broken unless this says otherwise. */
+"settings.notifications.noBanner" = "허용됐지만 배너가 꺼져 있음";
+
 /* Shown before permission has been requested at all. */
 "settings.notifications.notYetAsked" = "처음 대기열에 넣을 때 물어봅니다";
 
-/* Explains the notification row in Settings ▸ General, including why nothing arrives while the app is in front. */
-"settings.notifications.note" = "렌더링이나 다운로드는 몇 시간씩 걸릴 수 있어서, 끝나면 앱이 알려 줍니다. Halation이 맨 앞에 있을 때는 보내지 않습니다 — 대기열에 이미 보이니까요.";
+/* Explains the notification row in Settings ▸ General and in the welcome dialog. Banners arrive even when the app is frontmost, which is a deliberate opt-in — see Notifier. */
+"settings.notifications.note" = "렌더링이나 다운로드는 몇 시간씩 걸릴 수 있어서, 끝나면 앱이 알려 줍니다 — 지금 보고 있는 앱이 Halation이든 아니든 상관없습니다.";
 
 /* Button opening System Settings ▸ Notifications, where macOS — not this app — controls whether notifications are allowed. */
 "settings.notifications.open" = "알림 설정 열기";

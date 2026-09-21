@@ -96,6 +96,9 @@ struct HalationApp: App {
                     Button("Localisations (i18n)") {
                         openWindow(id: Self.localizationWindowID)
                     }
+                    Button("Show Welcome Dialog") {
+                        app.showingOnboarding = true
+                    }
                     Button("Test Notifications (in 5s)") {
                         Notifier.shared.requestPermissionIfNeeded()
                         Notifier.shared.postTestNotifications()

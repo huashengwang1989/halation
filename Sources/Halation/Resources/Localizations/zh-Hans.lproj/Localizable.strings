@@ -827,11 +827,14 @@
 /* Shown when macOS has notifications switched off for Halation. Without this the app simply stays silent and looks broken. */
 "settings.notifications.denied" = "已在系统设置中关闭";
 
+/* macOS separates permission from alert style. A user can allow notifications and still set the style to None, and then nothing ever appears on screen — which is indistinguishable from the app being broken unless this says otherwise. */
+"settings.notifications.noBanner" = "已允许，但横幅已关闭";
+
 /* Shown before permission has been requested at all. */
 "settings.notifications.notYetAsked" = "第一次排入队列时才会询问";
 
-/* Explains the notification row in Settings ▸ General, including why nothing arrives while the app is in front. */
-"settings.notifications.note" = "渲染或下载可能要跑上数小时，所以结束时 App 会通知你。当 Halation 在最前面时不会发送，因为队列已经看得到。";
+/* Explains the notification row in Settings ▸ General and in the welcome dialog. Banners arrive even when the app is frontmost, which is a deliberate opt-in — see Notifier. */
+"settings.notifications.note" = "渲染或下载可能要跑上数小时，所以结束时 App 会通知你——不论你当下看的是不是 Halation。";
 
 /* Button opening System Settings ▸ Notifications, where macOS — not this app — controls whether notifications are allowed. */
 "settings.notifications.open" = "打开通知设置";

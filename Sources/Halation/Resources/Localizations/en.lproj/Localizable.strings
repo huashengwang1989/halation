@@ -827,11 +827,14 @@
 /* Shown when macOS has notifications switched off for Halation. Without this the app simply stays silent and looks broken. */
 "settings.notifications.denied" = "Turned off in System Settings";
 
+/* macOS separates permission from alert style. A user can allow notifications and still set the style to None, and then nothing ever appears on screen — which is indistinguishable from the app being broken unless this says otherwise. */
+"settings.notifications.noBanner" = "Allowed, but banners are switched off";
+
 /* Shown before permission has been requested at all. */
 "settings.notifications.notYetAsked" = "Asked when you first queue something";
 
-/* Explains the notification row in Settings ▸ General, including why nothing arrives while the app is in front. */
-"settings.notifications.note" = "A render or a download can run for hours, so the app tells you when one ends. Nothing is sent while Halation is the front app — the queue already shows it.";
+/* Explains the notification row in Settings ▸ General and in the welcome dialog. Banners arrive even when the app is frontmost, which is a deliberate opt-in — see Notifier. */
+"settings.notifications.note" = "A render or a download can run for hours, so the app says so when one ends — whether or not Halation is the app you happen to be looking at.";
 
 /* Button opening System Settings ▸ Notifications, where macOS — not this app — controls whether notifications are allowed. */
 "settings.notifications.open" = "Open Notification Settings";

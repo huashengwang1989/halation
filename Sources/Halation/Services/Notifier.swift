@@ -10,10 +10,13 @@ import UserNotifications
 /// moment the request explains itself, and someone who never renders is never
 /// asked at all.
 ///
-/// Nothing here forces a banner while the app is in front. macOS suppresses
-/// foreground notifications unless a delegate opts in, and that default is the
-/// behaviour we want: if the window is visible the queue already shows the
-/// state, and a banner on top of it is noise.
+/// Banners are shown even while Halation is the front app, which takes an
+/// explicit opt-in: macOS suppresses foreground notifications unless the
+/// delegate asks for them. Letting the default stand seemed reasonable — the
+/// queue is right there — but it fails in practice. Someone waiting on a render
+/// is not staring at the queue; they have the window open behind a browser, or
+/// they are on another Space, and by macOS's reckoning the app is still
+/// "front". The result was a feature that appeared to do nothing.
 @MainActor
 final class Notifier: NSObject, UNUserNotificationCenterDelegate {
     static let shared = Notifier()
@@ -32,18 +35,29 @@ final class Notifier: NSObject, UNUserNotificationCenterDelegate {
     /// notifications switched off the app posts as usual and nothing arrives,
     /// which looks exactly like a bug in the app. macOS owns this switch, so the
     /// most the app can do is report it and offer to open the right pane.
-    enum Permission { case notAsked, allowed, denied, unavailable }
+    /// `allowedButSilent` is the one that matters in practice. macOS keeps
+    /// permission and alert style as separate switches, so a user can allow
+    /// notifications and still have the style set to None — delivery succeeds,
+    /// Notification Center records it, and nothing ever appears on screen. From
+    /// inside the app that is indistinguishable from a bug.
+    enum Permission { case notAsked, allowed, allowedButSilent, denied, unavailable }
 
     private(set) var permission: Permission = .notAsked
 
     func refreshPermission() async {
         guard isAvailable else { permission = .unavailable; return }
         let settings = await UNUserNotificationCenter.current().notificationSettings()
-        permission = switch settings.authorizationStatus {
-        case .authorized, .provisional, .ephemeral: .allowed
-        case .denied: .denied
-        case .notDetermined: .notAsked
-        @unknown default: .notAsked
+        switch settings.authorizationStatus {
+        case .authorized, .provisional, .ephemeral:
+            let silent = settings.alertStyle == .none
+                || settings.alertSetting == .disabled
+            permission = silent ? .allowedButSilent : .allowed
+        case .denied:
+            permission = .denied
+        case .notDetermined:
+            permission = .notAsked
+        @unknown default:
+            permission = .notAsked
         }
     }
 
@@ -66,6 +80,10 @@ final class Notifier: NSObject, UNUserNotificationCenterDelegate {
     /// Called at launch. Registering the delegate this early is what lets a
     /// click on a notification that *launched* the app still be delivered.
     func prepare() {
+        FileHandle.standardError.write(Data("""
+        [Notifier] bundleID=\(Bundle.main.bundleIdentifier ?? "nil")         url=\(Bundle.main.bundleURL.lastPathComponent) available=\(isAvailable)
+
+        """.utf8))
         guard isAvailable else { return }
         UNUserNotificationCenter.current().delegate = self
     }
@@ -75,7 +93,9 @@ final class Notifier: NSObject, UNUserNotificationCenterDelegate {
         guard isAvailable, !askedForPermission else { return }
         askedForPermission = true
         UNUserNotificationCenter.current()
-            .requestAuthorization(options: [.alert, .sound]) { _, _ in
+            .requestAuthorization(options: [.alert, .sound]) { granted, error in
+                if let error { Self.log("authorization failed: \(error)") }
+                Self.log("authorization granted: \(granted)")
                 Task { @MainActor in await self.refreshPermission() }
             }
     }
@@ -153,10 +173,35 @@ final class Notifier: NSObject, UNUserNotificationCenterDelegate {
             UNTimeIntervalNotificationTrigger(timeInterval: $0, repeats: false)
         }
         UNUserNotificationCenter.current()
-            .add(UNNotificationRequest(identifier: id, content: content, trigger: trigger))
+            .add(UNNotificationRequest(identifier: id, content: content, trigger: trigger)) {
+                // Ignoring this is how the feature came to look silently
+                // broken: add() reports refusal here rather than throwing.
+                if let error = $0 { Self.log("add failed: \(error)") }
+            }
     }
 
+    /// Diagnostics to stderr, on only when the debug menu is.
+    ///
+    /// Every failure in this file is silent by design of the API: add() hands
+    /// back an error rather than throwing, and a notification that is accepted
+    /// and then dropped by the system reports nothing at all. Without somewhere
+    /// to look, "no notification appeared" has no way to become a cause.
+    nonisolated static func log(_ message: String) {
+        guard AppDebug.isEnabled else { return }
+        FileHandle.standardError.write(Data("[Notifier] \(message)\n".utf8))
+    }
+
+    nonisolated func log(_ message: String) { Self.log(message) }
+
     // MARK: - UNUserNotificationCenterDelegate
+
+    /// Show the banner even when Halation is frontmost — see the note above.
+    nonisolated func userNotificationCenter(
+        _ center: UNUserNotificationCenter,
+        willPresent notification: UNNotification
+    ) async -> UNNotificationPresentationOptions {
+        [.banner, .sound]
+    }
 
     nonisolated func userNotificationCenter(
         _ center: UNUserNotificationCenter,

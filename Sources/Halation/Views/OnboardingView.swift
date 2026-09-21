@@ -96,6 +96,16 @@ struct OnboardingView: View {
                 .fixedSize(horizontal: false, vertical: true)
             }
 
+            GlassCard(title: loc("settings.notifications"), systemImage: "bell.badge") {
+                VStack(alignment: .leading, spacing: 8) {
+                    Text(loc("settings.notifications.note"))
+                        .font(.callout)
+                        .foregroundStyle(.secondary)
+                        .fixedSize(horizontal: false, vertical: true)
+                    NotificationPermissionRow()
+                }
+            }
+
             GlassCard(title: loc("onboarding.diskTitle"), systemImage: "internaldrive") {
                 Text("""
                     The recommended set of weights is a little over 100 GB — most of it the \

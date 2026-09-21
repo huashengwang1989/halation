@@ -5918,26 +5918,25 @@ add("settings.notifications", {
     "en-SG": "Notifications",
 })
 add("settings.notifications.note", {
-    "en": "A render or a download can run for hours, so the app tells you when "
-          "one ends. Nothing is sent while Halation is the front app — the queue "
-          "already shows it.",
-    "zh-Hant": "算圖或下載可能要跑上數小時，所以結束時 App 會通知你。當 Halation 在最前面時不會發送，因為佇列已經看得到。",
-    "zh-Hans": "渲染或下载可能要跑上数小时，所以结束时 App 会通知你。当 Halation 在最前面时不会发送，因为队列已经看得到。",
+    "en": "A render or a download can run for hours, so the app says so when one "
+          "ends — whether or not Halation is the app you happen to be looking at.",
+    "zh-Hant": "算圖或下載可能要跑上數小時，所以結束時 App 會通知你——不論你當下看的是不是 Halation。",
+    "zh-Hans": "渲染或下载可能要跑上数小时，所以结束时 App 会通知你——不论你当下看的是不是 Halation。",
     "de": "Ein Render oder ein Download kann stundenlang laufen, daher meldet sich "
-          "die App, wenn etwas endet. Solange Halation im Vordergrund ist, wird "
-          "nichts gesendet — die Warteschlange zeigt es bereits.",
+          "die App, wenn etwas endet — ganz gleich, ob Halation gerade im "
+          "Vordergrund ist.",
     "ar": "قد يستغرق التصيير أو التنزيل ساعات، لذا يخبرك التطبيق عند انتهاء أيٍّ "
-          "منهما. ولا يُرسَل شيء ما دام Halation في المقدمة، فقائمة الانتظار تُظهره أصلًا.",
-    "ja": "レンダリングやダウンロードは何時間もかかることがあるので、終わったらアプリが知らせます。Halation が最前面のときは送りません——キューを見れば分かるからです。",
-    "ko": "렌더링이나 다운로드는 몇 시간씩 걸릴 수 있어서, 끝나면 앱이 알려 줍니다. Halation이 맨 앞에 있을 때는 보내지 않습니다 — 대기열에 이미 보이니까요.",
+          "منهما، سواء كان Halation أمامك أم لا.",
+    "ja": "レンダリングやダウンロードは何時間もかかることがあるので、終わったらアプリが知らせます——Halation を見ているかどうかに関係なく通知します。",
+    "ko": "렌더링이나 다운로드는 몇 시간씩 걸릴 수 있어서, 끝나면 앱이 알려 줍니다 — 지금 보고 있는 앱이 Halation이든 아니든 상관없습니다.",
     "th": "การเรนเดอร์หรือการดาวน์โหลดอาจใช้เวลาหลายชั่วโมง แอปจึงแจ้งเมื่อเสร็จ "
-          "จะไม่ส่งขณะที่ Halation อยู่หน้าสุด เพราะคิวแสดงให้เห็นอยู่แล้ว",
-    "yue-Hant": "算圖或者下載可以跑幾個鐘，所以完咗個 App 會話你知。Halation 喺最前嗰陣唔會send，因為佇列度已經睇到。",
+          "ไม่ว่าตอนนั้นคุณจะกำลังดู Halation อยู่หรือไม่",
+    "yue-Hant": "算圖或者下載可以跑幾個鐘，所以完咗個 App 會話你知——你當時睇唔睇緊 Halation 都一樣。",
     "en-SG": "Render or download can run for hours, so the app will tell you when it "
-             "ends. Nothing send while Halation is the front app — the queue already "
-             "show you.",
-}, note="Explains the notification row in Settings ▸ General, including why "
-        "nothing arrives while the app is in front.")
+             "ends — never mind whether you looking at Halation or not.",
+}, note="Explains the notification row in Settings ▸ General and in the welcome "
+        "dialog. Banners arrive even when the app is frontmost, which is a "
+        "deliberate opt-in — see Notifier.")
 add("settings.notifications.open", {
     "en": "Open Notification Settings",
     "zh-Hant": "開啟通知設定",
@@ -5976,3 +5975,18 @@ add("settings.notifications.notYetAsked", {
     "yue-Hant": "第一次排隊嗰陣先會問你",
     "en-SG": "Will ask you when you first queue something",
 }, note="Shown before permission has been requested at all.")
+add("settings.notifications.noBanner", {
+    "en": "Allowed, but banners are switched off",
+    "zh-Hant": "已允許，但橫幅已關閉",
+    "zh-Hans": "已允许，但横幅已关闭",
+    "de": "Erlaubt, aber Banner sind deaktiviert",
+    "ar": "مسموح بها، لكن اللافتات مُعطَّلة",
+    "ja": "許可されていますが、バナーがオフです",
+    "ko": "허용됐지만 배너가 꺼져 있음",
+    "th": "อนุญาตแล้ว แต่แบนเนอร์ถูกปิดอยู่",
+    "yue-Hant": "准咗，但係橫額熄咗",
+    "en-SG": "Allowed, but banner off",
+}, note="macOS separates permission from alert style. A user can allow "
+        "notifications and still set the style to None, and then nothing ever "
+        "appears on screen — which is indistinguishable from the app being "
+        "broken unless this says otherwise.")
