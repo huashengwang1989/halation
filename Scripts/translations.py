@@ -182,7 +182,7 @@ add("status.runtime.incomplete", {
     "ar": "بيئة التشغيل غير مكتملة",
     "ja": "実行環境が不完全",
     "ko": "런타임 불완전",
-    "th": "รันไทม์ไม่สมบูรณ์",
+    "th": "Runtime ไม่สมบูรณ์",
 })
 add("status.runtime.error", {
     "en": "Runtime error",
@@ -192,7 +192,7 @@ add("status.runtime.error", {
     "ar": "خطأ في بيئة التشغيل",
     "ja": "実行環境のエラー",
     "ko": "런타임 오류",
-    "th": "รันไทม์ผิดพลาด",
+    "th": "Runtime ผิดพลาด",
 })
 add("status.runtime.missing", {
     "en": "Runtime not installed",
@@ -202,7 +202,7 @@ add("status.runtime.missing", {
     "ar": "بيئة التشغيل غير مثبتة",
     "ja": "実行環境が未インストール",
     "ko": "런타임 미설치",
-    "th": "ยังไม่ได้ติดตั้งรันไทม์",
+    "th": "ยังไม่ได้ติดตั้ง runtime",
 })
 add("status.queued.count", {
     "en": "%@ queued",
@@ -239,7 +239,7 @@ add("status.step", {
     "ar": "الخطوة %1$@/%2$@",
     "ja": "ステップ %1$@/%2$@",
     "ko": "스텝 %1$@/%2$@",
-    "th": "สเต็ป %1$@/%2$@",
+    "th": "step %1$@/%2$@",
 }, note={
     "content": "Positional, so the two numbers can be reordered — Arabic in particular may want "
                "the total first. Still a warning because it is joined to status.remaining with \" "
@@ -568,7 +568,7 @@ add("backend.mlx.detail", {
           "فقط، إذ لا يتضمّن النقل شرطنة المراجع.",
     "ja": "Apple 自社のフレームワークで、モデルをネイティブに実行します。テキストからの生成とキーフレームのみ対応で、移植版に参考素材の条件付けはありません。",
     "ko": "Apple 자체 프레임워크로 모델을 네이티브로 실행합니다. 텍스트-비디오와 키프레임만 지원하며, 이식판에는 참조 조건화가 없습니다.",
-    "th": "เฟรมเวิร์กของ Apple เองที่รันโมเดลแบบเนทีฟ รองรับเฉพาะข้อความเป็นวิดีโอและคีย์เฟรม เพราะพอร์ตนี้ไม่มีการกำหนดเงื่อนไขจากไฟล์อ้างอิง",
+    "th": "เฟรมเวิร์กของ Apple เองที่รันโมเดลแบบเนทีฟ รองรับเฉพาะข้อความเป็นวิดีโอและ keyframe เพราะพอร์ตนี้ไม่มีการกำหนดเงื่อนไขจากไฟล์อ้างอิง",
 })
 add("backend.comfy.detail", {
     "en": "PyTorch on Metal. The only backend that supports references, and the only one "
@@ -581,7 +581,7 @@ add("backend.comfy.detail", {
           "على تحميل نماذج turbo LoRA ذات الأربع خطوات.",
     "ja": "Metal 上の PyTorch。参考素材に対応する唯一のバックエンドで、4 ステップの turbo LoRA を読み込めるのもこれだけです。",
     "ko": "Metal 기반 PyTorch. 참조 자료를 지원하는 유일한 백엔드이며, 4스텝 turbo LoRA를 불러올 수 있는 것도 이것뿐입니다.",
-    "th": "PyTorch บน Metal เป็นแบ็กเอนด์เดียวที่รองรับไฟล์อ้างอิง และเป็นตัวเดียวที่โหลด turbo LoRA แบบ 4 สเต็ปได้",
+    "th": "PyTorch บน Metal เป็น backend เดียวที่รองรับไฟล์อ้างอิง และเป็นตัวเดียวที่โหลด turbo LoRA แบบ 4 step ได้",
 })
 
 # ── Compose: buttons and chrome ──────────────────────────────────────────────
@@ -624,7 +624,7 @@ add("compose.generate.blocked.runtime", {
     "ar": "بيئة تشغيل Python غير جاهزة. افتح «الإعدادات › Runtime».",
     "ja": "Python 実行環境が準備できていません。「設定 › 実行環境」を開いてください。",
     "ko": "Python 런타임이 준비되지 않았습니다. 설정 › 런타임을 여세요.",
-    "th": "รันไทม์ Python ยังไม่พร้อม เปิด การตั้งค่า › รันไทม์",
+    "th": "Runtime Python ยังไม่พร้อม เปิด การตั้งค่า › runtime",
 })
 add("compose.generate.blocked.generic", {
     "en": "Resolve the issues listed under “Before you generate”.",
@@ -644,7 +644,7 @@ add("compose.presets", {
     "ar": "إعدادات محفوظة",
     "ja": "プリセット",
     "ko": "프리셋",
-    "th": "พรีเซ็ต",
+    "th": "Preset",
 }, note="Saved combinations of settings — not 'default' in the factory sense.")
 add("compose.presets.help", {
     "en": "Apply a saved combination of settings",
@@ -664,7 +664,7 @@ add("compose.preset.delete", {
     "ar": "حذف إعداد مخصّص",
     "ja": "カスタムプリセットを削除",
     "ko": "사용자 프리셋 삭제",
-    "th": "ลบพรีเซ็ตที่สร้างเอง",
+    "th": "ลบ preset ที่สร้างเอง",
 })
 add("compose.preset.save", {
     "en": "Save as Preset…",
@@ -674,7 +674,7 @@ add("compose.preset.save", {
     "ar": "حفظ كإعداد محفوظ…",
     "ja": "プリセットとして保存…",
     "ko": "프리셋으로 저장…",
-    "th": "บันทึกเป็นพรีเซ็ต…",
+    "th": "บันทึกเป็น preset …",
 })
 add("compose.preset.save.title", {
     "en": "Save preset",
@@ -684,7 +684,7 @@ add("compose.preset.save.title", {
     "ar": "حفظ الإعداد",
     "ja": "プリセットを保存",
     "ko": "프리셋 저장",
-    "th": "บันทึกพรีเซ็ต",
+    "th": "บันทึก preset",
 })
 add("compose.preset.save.message", {
     "en": "Saves the current settings as a reusable recipe. The prompt, seed and attached "
@@ -697,7 +697,7 @@ add("compose.preset.save.message", {
           "seed أو الملفات المرفقة.",
     "ja": "現在の設定を再利用できるレシピとして保存します。プロンプト・シード・添付ファイルは含まれません。",
     "ko": "현재 설정을 다시 쓸 수 있는 조합으로 저장합니다. 프롬프트와 시드, 첨부 파일은 포함되지 않습니다.",
-    "th": "บันทึกการตั้งค่าปัจจุบันเป็นสูตรที่นำกลับมาใช้ได้ โดยไม่รวมพรอมต์ ซีด และไฟล์แนบ",
+    "th": "บันทึกการตั้งค่าปัจจุบันเป็นสูตรที่นำกลับมาใช้ได้ โดยไม่รวม prompt seed และไฟล์แนบ",
 })
 add("common.name", {
     "en": "Name",
@@ -803,7 +803,7 @@ add("compose.prompt.title", {
     "ar": "الموجّه",
     "ja": "プロンプト",
     "ko": "프롬프트",
-    "th": "พรอมต์",
+    "th": "Prompt",
 })
 add("compose.prompt.hint", {
     "en": "Describe the shot. Press Tab to move on, Option-Tab to insert a tab.",
@@ -834,7 +834,7 @@ add("compose.prompt.footnote", {
           "المنشورة مقطّرة بأسلوب CFG، لذا لن يكون لعناصر التوجيه أي أثر.",
     "ja": "H3 はカメラ用語（画角・レンズ・カメラワーク・照明）によく反応し、音を同じパスで生成するため、音の情景描写にも反応します。ネガティブプロンプトはありません。公開された重みは CFG 蒸留済みで、ガイダンス系の操作は何も起こさないからです。",
     "ko": "H3는 카메라 언어(샷 크기, 렌즈, 움직임, 조명)에 잘 반응하고, 소리를 같은 패스에서 만들기 때문에 묘사된 소리 풍경에도 반응합니다. 네거티브 프롬프트는 없습니다. 공개된 가중치가 CFG 증류를 거쳐 가이던스 조절이 아무 일도 하지 않기 때문입니다.",
-    "th": "H3 ตอบสนองดีกับภาษาของกล้อง — ขนาดภาพ เลนส์ การเคลื่อนกล้อง แสง — และกับการบรรยายบรรยากาศเสียง เพราะสร้างเสียงในรอบเดียวกัน ไม่มีพรอมต์เชิงลบ เพราะน้ำหนักที่เผยแพร่ผ่านการกลั่นแบบ CFG แล้ว การปรับ guidance จึงไม่มีผลใด ๆ",
+    "th": "H3 ตอบสนองดีกับภาษาของกล้อง — ขนาดภาพ เลนส์ การเคลื่อนกล้อง แสง — และกับการบรรยายบรรยากาศเสียง เพราะสร้างเสียงในรอบเดียวกัน ไม่มี prompt เชิงลบ เพราะน้ำหนักที่เผยแพร่ผ่านการกลั่นแบบ CFG แล้ว การปรับ guidance จึงไม่มีผลใด ๆ",
 })
 
 # ── Compose: mode card ───────────────────────────────────────────────────────
@@ -858,7 +858,7 @@ add("compose.mode.task.fl2va", {
     "ar": " يستخدم نقطة التحقق FL2VA.",
     "ja": "　FL2VA のチェックポイントを使います。",
     "ko": "　FL2VA 체크포인트를 사용합니다.",
-    "th": " ใช้เช็กพอยต์ FL2VA",
+    "th": " ใช้ checkpoint FL2VA",
 }, note={
     "content": "Begins with a space because it is appended to the sentence before it — U+3000 "
                "for Chinese. Runtime concatenation: the two halves cannot be reordered, and a "
@@ -873,7 +873,7 @@ add("compose.mode.task.ref2va", {
     "ar": " يستخدم نقطة التحقق Ref2VA.",
     "ja": "　Ref2VA のチェックポイントを使います。",
     "ko": "　Ref2VA 체크포인트를 사용합니다.",
-    "th": " ใช้เช็กพอยต์ Ref2VA",
+    "th": " ใช้ checkpoint Ref2VA",
 }, note={
     "content": "See compose.mode.task.fl2va — same leading space, same concatenation.",
     "level": WARNING,
@@ -886,7 +886,7 @@ add("compose.engine.label", {
     "ar": "المحرّك",
     "ja": "エンジン",
     "ko": "엔진",
-    "th": "เอนจิน",
+    "th": "Engine",
 }, note="Which backend runs the model — MLX or ComfyUI. Not a motor, and not a game "
         "engine. Usually kept in English.")
 add("compose.engine.mlx.note", {
@@ -902,7 +902,7 @@ add("compose.engine.mlx.note", {
           "أعداد الخطوات المنخفضة تخرج عن التوزيع — استخدم 16 خطوة أو أكثر للجودة.",
     "ja": "MLX 上でネイティブに動作します。サーバー不要で、こちらが既定です。重みは未蒸留のため、ステップ数が少ないと分布から外れます。品質を求めるなら移植版の 16 ステップ以上を使ってください。",
     "ko": "MLX에서 네이티브로 실행됩니다. 서버가 필요 없으며 기본값입니다. 가중치가 비증류라 스텝 수가 적으면 분포를 벗어나므로, 품질을 원하면 이식판의 16스텝 이상을 쓰세요.",
-    "th": "ทำงานแบบเนทีฟบน MLX ไม่ต้องใช้เซิร์ฟเวอร์ และเป็นค่าเริ่มต้น น้ำหนักยังไม่ผ่านการกลั่น สเต็ปน้อยจึงหลุดจากการกระจายที่ฝึกมา ถ้าต้องการคุณภาพให้ใช้ 16 สเต็ปขึ้นไปตามพอร์ตนี้",
+    "th": "ทำงานแบบเนทีฟบน MLX ไม่ต้องใช้เซิร์ฟเวอร์ และเป็นค่าเริ่มต้น น้ำหนักยังไม่ผ่านการกลั่น step น้อยจึงหลุดจากการกระจายที่ฝึกมา ถ้าต้องการคุณภาพให้ใช้ 16 step ขึ้นไปตามพอร์ตนี้",
 })
 add("compose.engine.comfy.note", {
     "en": "Runs through ComfyUI on PyTorch/Metal, which can load the 4-step turbo LoRA. "
@@ -920,7 +920,7 @@ add("compose.engine.comfy.note", {
           "دُرّبت عليه الـ LoRA.",
     "ja": "PyTorch/Metal 上の ComfyUI で動作し、4 ステップの turbo LoRA を読み込めます。蒸留された 4 ステップは MLX の未蒸留 5 ステップとほぼ同じ時間で、LoRA はそのために学習されています。",
     "ko": "PyTorch/Metal 기반 ComfyUI로 실행되며 4스텝 turbo LoRA를 불러올 수 있습니다. 증류된 4스텝은 MLX의 비증류 5스텝과 비슷한 시간이 걸리며, LoRA는 바로 그 스텝 수에 맞춰 학습되었습니다.",
-    "th": "ทำงานผ่าน ComfyUI บน PyTorch/Metal ซึ่งโหลด turbo LoRA แบบ 4 สเต็ปได้ สี่สเต็ปที่กลั่นแล้วใช้เวลาพอ ๆ กับห้าสเต็ปที่ยังไม่กลั่นบน MLX และเป็นจำนวนที่ LoRA ถูกฝึกมา",
+    "th": "ทำงานผ่าน ComfyUI บน PyTorch/Metal ซึ่งโหลด turbo LoRA แบบ 4 step ได้ สี่ step ที่กลั่นแล้วใช้เวลาพอ ๆ กับห้า step ที่ยังไม่กลั่นบน MLX และเป็นจำนวนที่ LoRA ถูกฝึกมา",
 })
 
 # ── Output format vocabulary ─────────────────────────────────────────────────
@@ -1027,7 +1027,7 @@ add("format.fps.30.detail", {
     "ar": "تُكرَّر الإطارات على خط زمني بمعدل 30 fps. قد تبدو الحركة متقطّعة قليلًا.",
     "ja": "フレームを複製して 30 fps のタイムラインに合わせます。動きがわずかにぎこちなくなることがあります。",
     "ko": "프레임을 복제해 30 fps 타임라인에 맞춥니다. 움직임이 약간 끊겨 보일 수 있습니다.",
-    "th": "ทำซ้ำเฟรมให้เข้ากับไทม์ไลน์ 30 fps การเคลื่อนไหวอาจสะดุดเล็กน้อย",
+    "th": "ทำซ้ำเฟรมให้เข้ากับ timeline 30 fps การเคลื่อนไหวอาจสะดุดเล็กน้อย",
 })
 add("format.fps.60.detail", {
     "en": "Frames are duplicated to a 60 fps timeline. No new motion is synthesised.",
@@ -1038,7 +1038,7 @@ add("format.fps.60.detail", {
     "ar": "تُكرَّر الإطارات على خط زمني بمعدل 60 fps. لا تُصطنَع حركة جديدة.",
     "ja": "フレームを複製して 60 fps のタイムラインに合わせます。新しい動きは作られません。",
     "ko": "프레임을 복제해 60 fps 타임라인에 맞춥니다. 새로운 움직임을 만들어 내지는 않습니다.",
-    "th": "ทำซ้ำเฟรมให้เข้ากับไทม์ไลน์ 60 fps โดยไม่สร้างการเคลื่อนไหวใหม่",
+    "th": "ทำซ้ำเฟรมให้เข้ากับ timeline 60 fps โดยไม่สร้างการเคลื่อนไหวใหม่",
 })
 add("format.codec.h264.detail", {
     "en": "What the model produces. Delivered as rendered, with no second encode, and plays "
@@ -1098,7 +1098,7 @@ add("compose.output.title", {
     "ar": "الإخراج",
     "ja": "出力",
     "ko": "출력",
-    "th": "เอาต์พุต",
+    "th": "Output",
 }, note="Heads the card for how the video is encoded — codec, resolution, frame rate. "
         "Output as in the result of a render. Distinct from settings.folder.output, a "
         "folder.")
@@ -1209,7 +1209,7 @@ add("compose.audio.footnote", {
           "يوجد وضع صامت أسرع.",
     "ja": "H3 は映像と同じパスで 32 kHz ステレオ音声を生成します。音声を切って速くするモードはありません。",
     "ko": "H3는 영상과 같은 패스에서 32 kHz 스테레오 오디오를 생성합니다. 소리를 끄고 더 빨리 렌더링하는 모드는 없습니다.",
-    "th": "H3 สร้างเสียงสเตอริโอ 32 kHz ไปพร้อมกับภาพในรอบเดียวกัน จึงไม่มีโหมดเงียบที่เรนเดอร์เร็วกว่า",
+    "th": "H3 สร้างเสียง stereo 32 kHz ไปพร้อมกับภาพในรอบเดียวกัน จึงไม่มีโหมดเงียบที่เรนเดอร์เร็วกว่า",
 })
 
 # ── Sampling card ────────────────────────────────────────────────────────────
@@ -1243,7 +1243,7 @@ add("sampling.steps", {
     "ar": "الخطوات",
     "ja": "ステップ数",
     "ko": "스텝 수",
-    "th": "จำนวนสเต็ป",
+    "th": "จำนวน step",
 }, note="Denoising steps — iterations of the sampler. Not stairs, and not steps in a "
         "set of instructions.")
 add("sampling.seed.fixed", {
@@ -1254,7 +1254,7 @@ add("sampling.seed.fixed", {
     "ar": "بذرة ثابتة",
     "ja": "シード固定",
     "ko": "시드 고정",
-    "th": "ล็อกซีด",
+    "th": "ล็อก seed",
 }, note="'Seed' is kept in English; the qualifier is translated.")
 add("sampling.seed.randomise", {
     "en": "Randomise",
@@ -1277,7 +1277,7 @@ add("sampling.seed.note", {
           "على أي حال.",
     "ja": "シードを固定すると同じ結果を再現できます。ほかの設定を変えれば、いずれにせよ結果は変わります。",
     "ko": "시드를 고정하면 같은 결과를 다시 낼 수 있습니다. 다른 설정을 바꾸면 결과는 어차피 달라집니다.",
-    "th": "การล็อกซีดทำให้เรนเดอร์ซ้ำได้ผลเดิม แต่ถ้าเปลี่ยนค่าอื่นผลลัพธ์ก็เปลี่ยนอยู่ดี",
+    "th": "การล็อก seed ทำให้เรนเดอร์ซ้ำได้ผลเดิม แต่ถ้าเปลี่ยนค่าอื่นผลลัพธ์ก็เปลี่ยนอยู่ดี",
 })
 add("sampling.snapped.exact", {
     "en": "Renders %1$@ frames — exactly %2$@ s at 24 fps.",
@@ -1365,7 +1365,7 @@ add("summary.bitrate", {
     "ar": "معدل البت المستهدف",
     "ja": "目標ビットレート",
     "ko": "목표 비트레이트",
-    "th": "บิตเรตเป้าหมาย",
+    "th": "Bitrate เป้าหมาย",
 })
 add("summary.eta", {
     "en": "Estimated time",
@@ -1416,7 +1416,7 @@ add("summary.transformer", {
     "ar": "Transformer",
     "ja": "トランスフォーマー",
     "ko": "트랜스포머",
-    "th": "ทรานส์ฟอร์เมอร์",
+    "th": "Transformer",
 }, note="Architecture name; left in English.")
 add("summary.textEncoder", {
     "en": "Text encoder",
@@ -1457,7 +1457,7 @@ add("summary.engineNotReady", {
     "ar": "المحرّك غير جاهز",
     "ja": "エンジンが未準備",
     "ko": "엔진 준비 안 됨",
-    "th": "เอนจินยังไม่พร้อม",
+    "th": "Engine ยังไม่พร้อม",
 })
 
 # ── Queue ────────────────────────────────────────────────────────────────────
@@ -1526,7 +1526,7 @@ add("queue.runtimeWarning", {
     "ar": "بيئة تشغيل Python غير جاهزة، لذا لا يمكن بدء عمليات التصيير المنتظرة.",
     "ja": "Python 実行環境が準備できていないため、待機中のレンダリングを開始できません。",
     "ko": "Python 런타임이 준비되지 않아 대기 중인 렌더링을 시작할 수 없습니다.",
-    "th": "รันไทม์ Python ยังไม่พร้อม การเรนเดอร์ในคิวจึงเริ่มไม่ได้",
+    "th": "Runtime Python ยังไม่พร้อม การเรนเดอร์ในคิวจึงเริ่มไม่ได้",
 })
 add("queue.openSettings", {
     "en": "Open Settings",
@@ -1631,7 +1631,7 @@ add("queue.renderAgain.help", {
     "ar": "إعادة الإدراج ببذرة جديدة",
     "ja": "新しいシードでもう一度キューに入れます",
     "ko": "새 시드로 다시 대기열에 넣습니다",
-    "th": "เข้าคิวอีกครั้งด้วยซีดใหม่",
+    "th": "เข้าคิวอีกครั้งด้วย seed ใหม่",
 })
 add("queue.reproduce", {
     "en": "Reproduce Exactly",
@@ -1746,7 +1746,7 @@ add("queue.step", {
     "ar": "الخطوة %1$@ من %2$@",
     "ja": "ステップ %2$@ 中 %1$@",
     "ko": "%2$@ 스텝 중 %1$@",
-    "th": "สเต็ปที่ %1$@ จาก %2$@",
+    "th": "step ที่ %1$@ จาก %2$@",
 })
 add("queue.perStep", {
     "en": "%@/step",
@@ -1756,7 +1756,7 @@ add("queue.perStep", {
     "ar": "%@/خطوة",
     "ja": "%@/ステップ",
     "ko": "%@/스텝",
-    "th": "%@/สเต็ป",
+    "th": "%@/ step",
 })
 add("queue.peak", {
     "en": "%@ peak",
@@ -1863,7 +1863,7 @@ add("library.search", {
     "ar": "البحث في الموجّهات",
     "ja": "プロンプトを検索",
     "ko": "프롬프트 검색",
-    "th": "ค้นหาพรอมต์",
+    "th": "ค้นหา prompt",
 })
 add("library.revealFolder", {
     "en": "Reveal Folder",
@@ -1944,7 +1944,7 @@ add("library.seed", {
     "ar": "البذرة",
     "ja": "シード",
     "ko": "시드",
-    "th": "ซีด",
+    "th": "Seed",
 }, note="The random seed that determines a render's noise. A number, not a plant "
         "seed. Most languages keep the English term or transliterate it.")
 add("library.filesize", {
@@ -2055,7 +2055,7 @@ add("models.folder.footnote", {
           "موجَّه إلى المجلد نفسه يعيد استخدامها بدل تنزيل نسخة ثانية.",
     "ja": "ダウンロードはこのフォルダ内の Hugging Face キャッシュに入ります。同じフォルダを指す他のプロジェクトは、二重にダウンロードせずそれを再利用します。",
     "ko": "다운로드는 이 폴더 안의 Hugging Face 캐시에 들어갑니다. 같은 폴더를 가리키는 다른 프로젝트는 다시 내려받지 않고 그대로 씁니다.",
-    "th": "ไฟล์ที่ดาวน์โหลดจะไปอยู่ในแคช Hugging Face ภายในโฟลเดอร์นี้ โปรเจกต์อื่นที่ชี้มาที่โฟลเดอร์เดียวกันจะใช้ซ้ำแทนการดาวน์โหลดอีกชุด",
+    "th": "ไฟล์ที่ดาวน์โหลดจะไปอยู่ใน cache Hugging Face ภายในโฟลเดอร์นี้ โปรเจกต์อื่นที่ชี้มาที่โฟลเดอร์เดียวกันจะใช้ซ้ำแทนการดาวน์โหลดอีกชุด",
 })
 add("models.change", {
     "en": "Change…",
@@ -2190,7 +2190,7 @@ add("models.showIncompatible.help", {
     "ar": "تضمين نقاط التحقق بصيغ لا يستطيع هذا الـ Mac تشغيلها",
     "ja": "この Mac で実行できない形式のチェックポイントも含めます",
     "ko": "이 Mac에서 실행할 수 없는 형식의 체크포인트도 포함합니다",
-    "th": "รวมเช็กพอยต์ในรูปแบบที่ Mac เครื่องนี้รันไม่ได้ด้วย",
+    "th": "รวม checkpoint ในรูปแบบที่ Mac เครื่องนี้รันไม่ได้ด้วย",
 })
 add("models.installRecommended", {
     "en": "Install Recommended",
@@ -2493,7 +2493,7 @@ add("role.transformer", {
     "ar": "مُحوِّل الانتشار",
     "ja": "拡散トランスフォーマー",
     "ko": "디퓨전 트랜스포머",
-    "th": "ดิฟฟิวชันทรานส์ฟอร์เมอร์",
+    "th": "Diffusion transformer",
 })
 add("role.textEncoder", {
     "en": "Text encoder",
@@ -2569,7 +2569,7 @@ add("task.fl2va", {
     "ar": "‏FL2VA — نص وإطارات مفتاحية",
     "ja": "FL2VA — テキストとキーフレーム",
     "ko": "FL2VA — 텍스트와 키프레임",
-    "th": "FL2VA — ข้อความและคีย์เฟรม",
+    "th": "FL2VA — ข้อความและ keyframe",
 })
 add("task.ref2va", {
     "en": "Ref2VA — references",
@@ -2643,7 +2643,7 @@ add("onboarding.runtime.title", {
     "ar": "بيئة تشغيل Python",
     "ja": "Python 実行環境",
     "ko": "Python 런타임",
-    "th": "รันไทม์ Python",
+    "th": "Runtime Python",
 })
 add("onboarding.models.title", {
     "en": "Model weights",
@@ -2663,7 +2663,7 @@ add("onboarding.installRuntime", {
     "ar": "تثبيت بيئة التشغيل",
     "ja": "実行環境をインストール",
     "ko": "런타임 설치",
-    "th": "ติดตั้งรันไทม์",
+    "th": "ติดตั้ง runtime",
 })
 add("onboarding.installing", {
     "en": "Installing…",
@@ -2829,7 +2829,7 @@ add("refs.title.keyframes", {
     "ar": "الإطارات المفتاحية",
     "ja": "キーフレーム",
     "ko": "키프레임",
-    "th": "คีย์เฟรม",
+    "th": "Keyframe",
 })
 add("refs.title.references", {
     "en": "References",
@@ -2900,7 +2900,7 @@ add("refs.insertTags.help", {
     "ar": "إلحاق %@ بالموجّه",
     "ja": "プロンプトに %@ を追記します",
     "ko": "프롬프트에 %@ 을(를) 덧붙입니다",
-    "th": "เพิ่ม %@ ต่อท้ายพรอมต์",
+    "th": "เพิ่ม %@ ต่อท้าย prompt",
 })
 add("refs.remove", {
     "en": "Remove %@",
@@ -2926,7 +2926,7 @@ add("refs.choose.image", {
     "ar": "اختر صورة إطار مفتاحي",
     "ja": "キーフレーム画像を選択",
     "ko": "키프레임 이미지 선택",
-    "th": "เลือกภาพคีย์เฟรม",
+    "th": "เลือกภาพ keyframe",
 })
 add("refs.choose.any", {
     "en": "Choose reference images, videos or audio",
@@ -3041,7 +3041,7 @@ add("refs.footnote.reference", {
           "فالمرجع غير المذكور يكاد لا يؤثّر.",
     "ja": "画像は最大 9 枚、動画 3 本、音声 3 本、合わせて 12 ファイルまで。プロンプトからは <Picture 1>、<Video 1>、<Audio 1> のように参照します。H3 はこのタグを通して条件付けするので、言及されていない参考素材はほとんど効きません。",
     "ko": "이미지 최대 9개, 비디오 3개, 오디오 3개로 모두 12개까지. 프롬프트에서는 <Picture 1>, <Video 1>, <Audio 1> 처럼 가리킵니다. H3가 그 태그를 통해 조건화하므로, 언급하지 않은 참조는 거의 영향이 없습니다.",
-    "th": "ภาพได้สูงสุด 9 ภาพ วิดีโอ 3 คลิป และเสียง 3 คลิป รวม 12 ไฟล์ อ้างถึงในพรอมต์ว่า <Picture 1>, <Video 1>, <Audio 1> เพราะ H3 กำหนดเงื่อนไขผ่านแท็กเหล่านี้ ไฟล์อ้างอิงที่ไม่ได้เอ่ยถึงจึงแทบไม่มีผล",
+    "th": "ภาพได้สูงสุด 9 ภาพ วิดีโอ 3 คลิป และเสียง 3 คลิป รวม 12 ไฟล์ อ้างถึงใน prompt ว่า <Picture 1>, <Video 1>, <Audio 1> เพราะ H3 กำหนดเงื่อนไขผ่านแท็กเหล่านี้ ไฟล์อ้างอิงที่ไม่ได้เอ่ยถึงจึงแทบไม่มีผล",
 })
 
 # ── Validation messages ──────────────────────────────────────────────────────
@@ -3053,7 +3053,7 @@ add("problem.prompt.empty", {
     "ar": "اكتب موجّهًا يصف اللقطة.",
     "ja": "ショットを説明するプロンプトを書いてください。",
     "ko": "장면을 설명하는 프롬프트를 쓰세요.",
-    "th": "เขียนพรอมต์บรรยายช็อตที่ต้องการ",
+    "th": "เขียน prompt บรรยายช็อตที่ต้องการ",
 })
 add("problem.duration", {
     "en": "H3 only generates 4–15 second clips.",
@@ -3129,7 +3129,7 @@ add("problem.notInstalled", {
     "ar": "نقطة التحقق المحددة غير مثبتة بعد.",
     "ja": "選択したチェックポイントはまだインストールされていません。",
     "ko": "선택한 체크포인트가 아직 설치되지 않았습니다.",
-    "th": "ยังไม่ได้ติดตั้งเช็กพอยต์ที่เลือก",
+    "th": "ยังไม่ได้ติดตั้ง checkpoint ที่เลือก",
 })
 add("problem.chooseCheckpoint", {
     "en": "Choose a %@ checkpoint in Models.",
@@ -3139,7 +3139,7 @@ add("problem.chooseCheckpoint", {
     "ar": "اختر نقطة تحقق %@ من «النماذج».",
     "ja": "「モデル」で %@ のチェックポイントを選んでください。",
     "ko": "모델에서 %@ 체크포인트를 고르세요.",
-    "th": "เลือกเช็กพอยต์ %@ ในหน้าโมเดล",
+    "th": "เลือก checkpoint %@ ในหน้าโมเดล",
 }, note={
     "content": "Injects a task name into the noun phrase \"a %@ checkpoint\". The English article "
                "is fixed as \"a\", so a name beginning with a vowel sound already reads \"a FL2VA\" "
@@ -3154,7 +3154,7 @@ add("problem.lowSteps", {
     "ar": "دون 8 خطوات يميل النموذج إلى حركة ناعمة غير مستقرة.",
     "ja": "8 ステップを下回ると、動きが眠く不安定になりがちです。",
     "ko": "8스텝 아래에서는 움직임이 흐릿하고 불안정해지는 경향이 있습니다.",
-    "th": "ต่ำกว่า 8 สเต็ป โมเดลมักให้การเคลื่อนไหวที่เบลอและไม่นิ่ง",
+    "th": "ต่ำกว่า 8 step โมเดลมักให้การเคลื่อนไหวที่เบลอและไม่นิ่ง",
 })
 add("problem.longOvernight", {
     "en": "Long clips at high step counts can run overnight. Consider a short test first.",
@@ -3166,7 +3166,7 @@ add("problem.longOvernight", {
           "أولًا.",
     "ja": "ステップ数の多い長いクリップは一晩かかることがあります。まず短いテストを試すことをおすすめします。",
     "ko": "스텝 수가 많은 긴 클립은 밤새 걸릴 수 있습니다. 먼저 짧게 시험해 보세요.",
-    "th": "คลิปยาวที่ใช้สเต็ปมากอาจกินเวลาข้ามคืน ลองทดสอบสั้น ๆ ก่อนดีกว่า",
+    "th": "คลิปยาวที่ใช้ step มากอาจกินเวลาข้ามคืน ลองทดสอบสั้น ๆ ก่อนดีกว่า",
 })
 add("problem.upscale", {
     "en": "%@ is a resample of the model's 768p output. H3's true 2K mode is not "
@@ -3179,7 +3179,7 @@ add("problem.upscale", {
           "فليس مفتوح المصدر ولا يمكن تشغيله محليًا.",
     "ja": "%@ はモデルの 768p 出力をリサンプルしたものです。H3 本来の 2K モードは公開されておらず、ローカルでは動きません。",
     "ko": "%@ 은(는) 모델의 768p 출력을 리샘플링한 것입니다. H3의 진짜 2K 모드는 공개되지 않았고 로컬에서는 돌릴 수 없습니다.",
-    "th": "%@ เป็นการปรับขนาดจากเอาต์พุต 768p ของโมเดล โหมด 2K จริงของ H3 ไม่ได้เปิดซอร์สและรันในเครื่องไม่ได้",
+    "th": "%@ เป็นการปรับขนาดจาก output 768p ของโมเดล โหมด 2K จริงของ H3 ไม่ได้เปิดซอร์สและรันในเครื่องไม่ได้",
 }, note={
     "content": "Injects a name into a sentence. Languages that inflect a noun for case, choose "
                "an article by gender, or attach a vowel-harmonising suffix cannot do it without "
@@ -3199,7 +3199,7 @@ add("problem.refUntagged", {
           "يكون تأثيره أضعف بكثير.",
     "ja": "プロンプトが %@ に触れていません。H3 はこのタグを通して参考素材を条件付けするため、言及のないものは影響がずっと小さくなります。",
     "ko": "프롬프트가 %@ 을(를) 전혀 언급하지 않습니다. H3는 그 태그를 통해 참조를 조건화하므로, 언급되지 않은 참조는 영향이 훨씬 작습니다.",
-    "th": "พรอมต์ไม่ได้เอ่ยถึง %@ เลย H3 กำหนดเงื่อนไขจากไฟล์อ้างอิงผ่านแท็กเหล่านั้น ไฟล์ที่ไม่ถูกเอ่ยถึงจึงมีผลน้อยกว่ามาก",
+    "th": "Prompt ไม่ได้เอ่ยถึง %@ เลย H3 กำหนดเงื่อนไขจากไฟล์อ้างอิงผ่านแท็กเหล่านั้น ไฟล์ที่ไม่ถูกเอ่ยถึงจึงมีผลน้อยกว่ามาก",
 }, note={
     "content": "Injects a name into a sentence. Languages that inflect a noun for case, choose "
                "an article by gender, or attach a vowel-harmonising suffix cannot do it without "
@@ -3218,7 +3218,7 @@ add("problem.refSlow", {
           "الأربع خطوات هو ما يبقي الزمن بالدقائق لا بالساعات.",
     "ja": "参考素材モードは MLX ではなく ComfyUI を通るため、1 ステップあたりは遅くなります。4 ステップの turbo LoRA があるおかげで、何時間もではなく数十分で済んでいます。",
     "ko": "참조 모드는 MLX가 아니라 ComfyUI를 거치므로 스텝당 속도가 느립니다. 4스텝 turbo LoRA 덕분에 몇 시간이 아니라 수십 분으로 끝납니다.",
-    "th": "โหมดไฟล์อ้างอิงทำงานผ่าน ComfyUI แทน MLX จึงช้ากว่าต่อสเต็ป turbo LoRA แบบ 4 สเต็ปคือสิ่งที่ทำให้ใช้เวลาเป็นนาทีแทนที่จะเป็นชั่วโมง",
+    "th": "โหมดไฟล์อ้างอิงทำงานผ่าน ComfyUI แทน MLX จึงช้ากว่าต่อ step turbo LoRA แบบ 4 step คือสิ่งที่ทำให้ใช้เวลาเป็นนาทีแทนที่จะเป็นชั่วโมง",
 })
 add("problem.blocking", {
     "en": "Blocking issue. %@",
@@ -3267,7 +3267,7 @@ add("settings.runtime", {
     "ar": "بيئة التشغيل",
     "ja": "実行環境",
     "ko": "런타임",
-    "th": "รันไทม์",
+    "th": "Runtime",
 }, note="The Python environment the app manages, not a term of art: TW says 執行環境, "
         "mainland 运行时.")
 add("settings.advanced", {
@@ -3356,7 +3356,7 @@ add("settings.folder.output", {
     "ar": "الإخراج",
     "ja": "出力",
     "ko": "출력",
-    "th": "เอาต์พุต",
+    "th": "Output",
 }, note="Labels the folder finished videos are written to, in Settings ▸ Folders. A "
         "location — see compose.output.title.")
 add("settings.queue.note", {
@@ -3617,7 +3617,7 @@ add("settings.comfy.why", {
           "عمليًا أصلًا.",
     "ja": "参考素材モードは、キーフレームしか受け付けない MLX ではなくこちらで動きます。ComfyUI は 4 ステップの turbo LoRA も読み込め、それが参考素材のレンダリングを現実的にしています。",
     "ko": "참조 모드는 키프레임만 받는 MLX가 아니라 여기서 돌아갑니다. ComfyUI는 4스텝 turbo LoRA도 불러올 수 있는데, 그것이 참조 렌더링을 현실적으로 만들어 줍니다.",
-    "th": "โหมดไฟล์อ้างอิงทำงานที่นี่แทน MLX ซึ่งไปป์ไลน์รับได้เฉพาะคีย์เฟรม ComfyUI ยังโหลด turbo LoRA แบบ 4 สเต็ปได้ ซึ่งเป็นสิ่งที่ทำให้การเรนเดอร์ด้วยไฟล์อ้างอิงเป็นไปได้จริง",
+    "th": "โหมดไฟล์อ้างอิงทำงานที่นี่แทน MLX ซึ่งไปป์ไลน์รับได้เฉพาะ keyframe ComfyUI ยังโหลด turbo LoRA แบบ 4 step ได้ ซึ่งเป็นสิ่งที่ทำให้การเรนเดอร์ด้วยไฟล์อ้างอิงเป็นไปได้จริง",
 })
 add("settings.comfy.note", {
     "en": "The app's own headless ComfyUI, kept apart from any you have installed yourself. "
@@ -3650,7 +3650,7 @@ add("settings.advanced.checkout", {
     "ar": "مسار النسخة",
     "ja": "チェックアウトのパス",
     "ko": "체크아웃 경로",
-    "th": "พาธของเช็กเอาต์",
+    "th": "Path ของ checkout",
 })
 add("settings.advanced.checkout.hint", {
     "en": "Leave empty to use the installed package",
@@ -3692,7 +3692,7 @@ add("runtime.ready", {
     "ar": "بيئة التشغيل جاهزة — Python %1$@، وMLX على Metal",
     "ja": "実行環境の準備完了 — Python %1$@、Metal 上の MLX",
     "ko": "런타임 준비 완료 — Python %1$@, Metal 기반 MLX",
-    "th": "รันไทม์พร้อมแล้ว — Python %1$@, MLX บน Metal",
+    "th": "Runtime พร้อมแล้ว — Python %1$@, MLX บน Metal",
 })
 add("runtime.installedNotUsable", {
     "en": "Installed, but not usable yet",
@@ -3785,7 +3785,7 @@ add("role.transformer.detail", {
           "والوقت.",
     "ja": "モデル本体です。量子化をひとつ選びます。精度を上げるほどディスク・メモリ・時間を使います。",
     "ko": "모델 본체입니다. 양자화를 하나 고르세요. 정밀도가 높을수록 디스크와 메모리, 시간을 더 씁니다.",
-    "th": "ตัวโมเดลเอง เลือกการควอนไทซ์หนึ่งแบบ ยิ่งความแม่นยำสูง ยิ่งกินพื้นที่ หน่วยความจำ และเวลา",
+    "th": "ตัวโมเดลเอง เลือก quantization หนึ่งแบบ ยิ่งความแม่นยำสูง ยิ่งกินพื้นที่ หน่วยความจำ และเวลา",
 })
 add("role.textEncoder.detail", {
     "en": "H3 conditions on Qwen3-VL-32B. This is the largest single download and is shared "
@@ -3818,7 +3818,7 @@ add("role.accelerator.detail", {
     "ar": "نماذج LoRA اختيارية مدرَّبة لإنتاج فيديو صالح في نحو 4 خطوات بدل 50.",
     "ja": "50 ステップではなく約 4 ステップで使える映像を出すために学習された、任意の LoRA です。",
     "ko": "50스텝 대신 약 4스텝만으로 쓸 만한 영상을 내도록 학습된 선택적 LoRA입니다.",
-    "th": "LoRA เสริมที่ฝึกมาให้ได้วิดีโอที่ใช้งานได้ในราว 4 สเต็ป แทนที่จะเป็น 50",
+    "th": "LoRA เสริมที่ฝึกมาให้ได้วิดีโอที่ใช้งานได้ในราว 4 step แทนที่จะเป็น 50",
 })
 add("task.fl2va.detail", {
     "en": "Text-to-video, plus optional first and/or last frame images. Use this for most "
@@ -3863,7 +3863,7 @@ add("model.support.mlx", {
           "الذي تحمّله المنظومة ككتلة واحدة. مطلوبة في كل تشغيل.",
     "ja": "動画 VAE（10.4 GB）、音声 VAE、プロセッサ、トークナイザで、パイプラインがひとまとまりで読み込む FL2VA のタスクディレクトリから取得します。すべての実行に必要です。",
     "ko": "비디오 VAE(10.4 GB), 오디오 VAE, 프로세서, 토크나이저로, 파이프라인이 한 덩어리로 불러오는 FL2VA 작업 디렉터리에서 가져옵니다. 모든 실행에 필요합니다.",
-    "th": "VAE วิดีโอ (10.4 GB), VAE เสียง, ตัวประมวลผล และโทเคนไนเซอร์ นำมาจากไดเรกทอรีงาน FL2VA ที่ไปป์ไลน์โหลดเป็นชุดเดียว จำเป็นต่อการรันทุกครั้ง",
+    "th": "VAE วิดีโอ (10.4 GB), VAE เสียง, ตัวประมวลผล และ tokenizer นำมาจากไดเรกทอรีงาน FL2VA ที่ไปป์ไลน์โหลดเป็นชุดเดียว จำเป็นต่อการรันทุกครั้ง",
 })
 add("model.textEncoder.mlx", {
     "en": "Qwen3-VL-32B in bfloat16 — H3 reads its 50th-layer hidden states. The largest "
@@ -3891,7 +3891,7 @@ add("model.textEncoder.mlx", {
           "موحّدة بنحو 64 غيغابايت. يُثبَّت بجانب الـ VAE داخل ‎FL2VA/‎.",
     "ja": "bfloat16 の Qwen3-VL-32B。H3 はその第 50 層の隠れ状態を読みます。単体では最大のダウンロードで、現在 MLX パイプラインが読み込める唯一のテキストエンコーダです。常駐約 34 GB で、このアプリがその Mac で動くかどうかを決めるのはトランスフォーマーではなくこちらです。最小のトランスフォーマーと合わせて約 46 GB になるため、実質的な下限はユニファイドメモリ 64 GB ほどです。VAE と同じ FL2VA/ に入ります。",
     "ko": "bfloat16 Qwen3-VL-32B — H3는 이 모델의 50번째 층 은닉 상태를 읽습니다. 단일 항목으로 가장 큰 다운로드이며, 현재 MLX 파이프라인이 불러올 수 있는 유일한 텍스트 인코더입니다. 상주 약 34 GB로, 이 앱이 특정 Mac에서 돌아가는지를 정하는 것은 트랜스포머가 아니라 이것입니다. 가장 작은 트랜스포머와 합치면 약 46 GB이므로 통합 메모리 64 GB 정도가 현실적인 하한입니다. VAE와 나란히 FL2VA/ 에 설치됩니다.",
-    "th": "Qwen3-VL-32B แบบ bfloat16 — H3 อ่านสถานะซ่อนของชั้นที่ 50 เป็นไฟล์ดาวน์โหลดเดี่ยวที่ใหญ่ที่สุด และตอนนี้เป็นตัวเข้ารหัสข้อความเพียงตัวเดียวที่ไปป์ไลน์ MLX โหลดได้ ด้วยหน่วยความจำราว 34 GB สิ่งที่ตัดสินว่าแอปนี้รันบน Mac เครื่องใดได้คือตัวนี้ ไม่ใช่ทรานส์ฟอร์เมอร์ เมื่อรวมกับทรานส์ฟอร์เมอร์ตัวเล็กที่สุดจะราว 46 GB ขีดล่างที่ใช้ได้จริงจึงอยู่ราวหน่วยความจำรวม 64 GB และติดตั้งไว้ข้าง VAE ใน FL2VA/",
+    "th": "Qwen3-VL-32B แบบ bfloat16 — H3 อ่านสถานะซ่อนของชั้นที่ 50 เป็นไฟล์ดาวน์โหลดเดี่ยวที่ใหญ่ที่สุด และตอนนี้เป็นตัวเข้ารหัสข้อความเพียงตัวเดียวที่ไปป์ไลน์ MLX โหลดได้ ด้วยหน่วยความจำราว 34 GB สิ่งที่ตัดสินว่าแอปนี้รันบน Mac เครื่องใดได้คือตัวนี้ ไม่ใช่ transformer เมื่อรวมกับ transformer ตัวเล็กที่สุดจะราว 46 GB ขีดล่างที่ใช้ได้จริงจึงอยู่ราวหน่วยความจำรวม 64 GB และติดตั้งไว้ข้าง VAE ใน FL2VA/",
 })
 add("model.fl2va.q4", {
     "en": "4-bit, group size 64. The fastest of these and about 12 GB resident. Loses some "
@@ -3962,7 +3962,7 @@ add("model.ref2va.bf16", {
           "تشغيلها من هذا التطبيق بعد.",
     "ja": "上流の bf16 Ref2VA チェックポイントです。選択肢として見えるように載せていますが、MLX 移植版のパイプラインはキーフレームしか受け付けず参考素材の条件付け経路がないため、現時点ではこのアプリから動かせません。",
     "ko": "업스트림 bf16 Ref2VA 체크포인트입니다. 선택지가 보이도록 실어 두었지만, MLX 이식판 파이프라인은 키프레임만 받고 참조 조건화 경로가 없어 아직 이 앱에서는 구동할 수 없습니다.",
-    "th": "เช็กพอยต์ Ref2VA แบบ bf16 จากต้นทาง แสดงไว้ให้เห็นเป็นตัวเลือก แต่ไปป์ไลน์ของพอร์ต MLX รับได้เฉพาะคีย์เฟรมและไม่มีเส้นทางกำหนดเงื่อนไขจากไฟล์อ้างอิง จึงยังสั่งงานจากแอปนี้ไม่ได้",
+    "th": "Checkpoint Ref2VA แบบ bf16 จากต้นทาง แสดงไว้ให้เห็นเป็นตัวเลือก แต่ไปป์ไลน์ของพอร์ต MLX รับได้เฉพาะ keyframe และไม่มีเส้นทางกำหนดเงื่อนไขจากไฟล์อ้างอิง จึงยังสั่งงานจากแอปนี้ไม่ได้",
 })
 add("model.ref2va.bf16.blocked", {
     "en": "The MLX port does not implement reference conditioning. Ref2VA currently needs "
@@ -3991,7 +3991,7 @@ add("model.lora.fl2va.mlx", {
           "للتثبيت.",
     "ja": "768p の FL2VA 向け 4 ステップ蒸留 LoRA で、このモデルで得られる最大の高速化です。MLX 移植版にはまだ LoRA ローダーがないため、導入用ではなく様子見として掲載しています。",
     "ko": "768p FL2VA용 4스텝 증류 LoRA로, 이 모델에서 얻을 수 있는 가장 큰 속도 향상입니다. MLX 이식판에는 아직 LoRA 로더가 없어 설치용이 아니라 지켜보기 위해 실어 둡니다.",
-    "th": "LoRA กลั่นแบบ 4 สเต็ปสำหรับ FL2VA ที่ 768p เป็นการเร่งความเร็วที่ได้ผลที่สุดของโมเดลนี้ พอร์ต MLX ยังไม่มีตัวโหลด LoRA จึงแสดงไว้ให้ติดตาม ไม่ใช่ให้ติดตั้ง",
+    "th": "LoRA กลั่นแบบ 4 step สำหรับ FL2VA ที่ 768p เป็นการเร่งความเร็วที่ได้ผลที่สุดของโมเดลนี้ พอร์ต MLX ยังไม่มีตัวโหลด LoRA จึงแสดงไว้ให้ติดตาม ไม่ใช่ให้ติดตั้ง",
 })
 add("model.lora.fl2va.mlx.blocked", {
     "en": "The MLX port has no LoRA loader yet. Fusing this would need a merged checkpoint "
@@ -4004,7 +4004,7 @@ add("model.lora.fl2va.mlx.blocked", {
           "وحده.",
     "ja": "MLX 移植版にはまだ LoRA ローダーがありません。これを使うには LoRA 単体ではなく、統合済みのチェックポイントが必要です。",
     "ko": "MLX 이식판에는 아직 LoRA 로더가 없습니다. 이것을 쓰려면 LoRA 단독이 아니라 병합된 체크포인트가 필요합니다.",
-    "th": "พอร์ต MLX ยังไม่มีตัวโหลด LoRA การหลอมรวมตัวนี้ต้องใช้เช็กพอยต์ที่ผสานไว้แล้ว ไม่ใช่ LoRA เดี่ยว ๆ",
+    "th": "พอร์ต MLX ยังไม่มีตัวโหลด LoRA การหลอมรวมตัวนี้ต้องใช้ checkpoint ที่ผสานไว้แล้ว ไม่ใช่ LoRA เดี่ยว ๆ",
 })
 add("model.comfy.ref2va", {
     "en": "Ref2VA transformer for ComfyUI. Required for reference mode, which the MLX port "
@@ -4017,7 +4017,7 @@ add("model.comfy.ref2va", {
           "إطلاقًا.",
     "ja": "ComfyUI 用の Ref2VA トランスフォーマー。参考素材モードに必須で、MLX 移植版では一切できません。",
     "ko": "ComfyUI용 Ref2VA 트랜스포머. 참조 모드에 필수이며, MLX 이식판으로는 아예 할 수 없습니다.",
-    "th": "ทรานส์ฟอร์เมอร์ Ref2VA สำหรับ ComfyUI จำเป็นต่อโหมดไฟล์อ้างอิง ซึ่งพอร์ต MLX ทำไม่ได้เลย",
+    "th": "Transformer Ref2VA สำหรับ ComfyUI จำเป็นต่อโหมดไฟล์อ้างอิง ซึ่งพอร์ต MLX ทำไม่ได้เลย",
 })
 add("model.comfy.fl2va", {
     "en": "FL2VA transformer for ComfyUI. Only needed if you want to run text-to-video or "
@@ -4030,7 +4030,7 @@ add("model.comfy.fl2va", {
           "أو الإطارات المفتاحية عبر ComfyUI بدل MLX.",
     "ja": "ComfyUI 用の FL2VA トランスフォーマー。MLX ではなく ComfyUI でテキストからの生成やキーフレームを回す場合にだけ必要です。",
     "ko": "ComfyUI용 FL2VA 트랜스포머. MLX 대신 ComfyUI로 텍스트-비디오나 키프레임을 돌릴 때만 필요합니다.",
-    "th": "ทรานส์ฟอร์เมอร์ FL2VA สำหรับ ComfyUI จำเป็นเฉพาะเมื่อต้องการรันข้อความเป็นวิดีโอหรือคีย์เฟรมผ่าน ComfyUI แทน MLX",
+    "th": "Transformer FL2VA สำหรับ ComfyUI จำเป็นเฉพาะเมื่อต้องการรันข้อความเป็นวิดีโอหรือ keyframe ผ่าน ComfyUI แทน MLX",
 })
 add("model.comfy.textEncoder", {
     "en": "Qwen3-VL-32B for ComfyUI. Shared by both tasks — download once.",
@@ -4062,7 +4062,7 @@ add("model.comfy.audioVAE", {
     "ar": "‏audio VAE بدقة fp32، للمسار الصوتي المجسَّم الذي يولّده H3 إلى جانب الصورة.",
     "ja": "fp32 の音声 VAE。H3 が映像と一緒に生成するステレオトラック用です。",
     "ko": "fp32 오디오 VAE. H3가 영상과 함께 만드는 스테레오 트랙에 씁니다.",
-    "th": "VAE เสียงแบบ fp32 สำหรับแทร็กสเตอริโอที่ H3 สร้างพร้อมกับภาพ",
+    "th": "VAE เสียงแบบ fp32 สำหรับแทร็ก stereo ที่ H3 สร้างพร้อมกับภาพ",
 })
 add("model.comfy.lora.ref2va", {
     "en": "4-step Ref2VA turbo LoRA. This is what makes reference renders practical at all "
@@ -4076,7 +4076,7 @@ add("model.comfy.lora.ref2va", {
           "— أربع خطوات بدل خمسين، أي عشرات الدقائق بدل ساعات طويلة.",
     "ja": "4 ステップの Ref2VA turbo LoRA。参考素材を使うレンダリングを現実的にしているのはこれです。50 ステップが 4 ステップになるので、何時間もかかっていたものが数十分で済みます。",
     "ko": "4스텝 Ref2VA turbo LoRA. 참조 렌더링을 현실적으로 만들어 주는 것이 바로 이것입니다. 50스텝이 4스텝이 되므로 몇 시간이 수십 분으로 줄어듭니다.",
-    "th": "turbo LoRA ของ Ref2VA แบบ 4 สเต็ป ตัวนี้คือสิ่งที่ทำให้การเรนเดอร์ด้วยไฟล์อ้างอิงเป็นไปได้จริง จากห้าสิบสเต็ปเหลือสี่ จากหลายชั่วโมงเหลือหลายสิบนาที",
+    "th": "Turbo LoRA ของ Ref2VA แบบ 4 step ตัวนี้คือสิ่งที่ทำให้การเรนเดอร์ด้วยไฟล์อ้างอิงเป็นไปได้จริง จากห้าสิบ step เหลือสี่ จากหลายชั่วโมงเหลือหลายสิบนาที",
 })
 add("model.comfy.lora.fl2va", {
     "en": "4-step FL2VA turbo LoRA. Distilled for four steps, where MLX's undistilled "
@@ -4089,7 +4089,7 @@ add("model.comfy.lora.fl2va", {
           "MLX غير المقطَّرة إلى ستّ عشرة.",
     "ja": "4 ステップの FL2VA turbo LoRA。4 ステップ用に蒸留されており、MLX の未蒸留の重みは 16 ステップを要します。",
     "ko": "4스텝 FL2VA turbo LoRA. 4스텝에 맞춰 증류되었으며, MLX의 비증류 가중치는 16스텝이 필요합니다.",
-    "th": "turbo LoRA ของ FL2VA แบบ 4 สเต็ป กลั่นมาเพื่อสี่สเต็ป ขณะที่น้ำหนักที่ยังไม่กลั่นของ MLX ต้องใช้สิบหกสเต็ป",
+    "th": "Turbo LoRA ของ FL2VA แบบ 4 step กลั่นมาเพื่อสี่ step ขณะที่น้ำหนักที่ยังไม่กลั่นของ MLX ต้องใช้สิบหก step",
 })
 add("model.textEncoder.uncensored", {
     "en": "Qwen3-VL-32B with its refusal behaviour trained out. Drop-in replacement for the "
@@ -4109,7 +4109,7 @@ add("model.textEncoder.uncensored", {
           "يعمل مع ComfyUI فقط؛ ولا يملك MLX محمِّلًا لهذه الصيغة.",
     "ja": "拒否の振る舞いを学習から取り除いた Qwen3-VL-32B です。標準のエンコーダとそのまま差し替えられます。拒否は言語モデル側にあり拡散トランスフォーマーにはないため、H3 自体は変わりません。ComfyUI 専用で、MLX にはこの形式のローダーがありません。",
     "ko": "거부 동작을 학습에서 제거한 Qwen3-VL-32B입니다. 기본 인코더와 그대로 바꿔 쓸 수 있습니다. 거부는 언어 모델 쪽에 있고 디퓨전 트랜스포머에는 없으므로 H3 자체는 달라지지 않습니다. ComfyUI 전용이며 MLX에는 이 형식의 로더가 없습니다.",
-    "th": "Qwen3-VL-32B ที่ฝึกให้ไม่มีพฤติกรรมปฏิเสธ ใช้แทนตัวเข้ารหัสมาตรฐานได้ทันที ตัว H3 เองไม่เปลี่ยน เพราะการปฏิเสธอยู่ในโมเดลภาษา ไม่ใช่ในดิฟฟิวชันทรานส์ฟอร์เมอร์ ใช้ได้กับ ComfyUI เท่านั้น เพราะ MLX ไม่มีตัวโหลดสำหรับรูปแบบนี้",
+    "th": "Qwen3-VL-32B ที่ฝึกให้ไม่มีพฤติกรรมปฏิเสธ ใช้แทนตัวเข้ารหัสมาตรฐานได้ทันที ตัว H3 เองไม่เปลี่ยน เพราะการปฏิเสธอยู่ในโมเดลภาษา ไม่ใช่ใน diffusion transformer ใช้ได้กับ ComfyUI เท่านั้น เพราะ MLX ไม่มีตัวโหลดสำหรับรูปแบบนี้",
 })
 add("model.fl2va.gguf", {
     "en": "GGUF quantizations, including very small ones. Loaded by ComfyUI, not by MLX — "
@@ -4122,7 +4122,7 @@ add("model.fl2va.gguf", {
           "هذا النموذج عبر ComfyUI بدلًا من ذلك.",
     "ja": "非常に小さいものを含む GGUF 量子化です。MLX ではなく ComfyUI が読み込みます。このモデルを ComfyUI 側で回す場合に役立ちます。",
     "ko": "아주 작은 것까지 포함한 GGUF 양자화입니다. MLX가 아니라 ComfyUI가 불러옵니다. 이 모델을 ComfyUI로 돌릴 때 쓸모가 있습니다.",
-    "th": "การควอนไทซ์แบบ GGUF รวมถึงรุ่นที่เล็กมาก โหลดด้วย ComfyUI ไม่ใช่ MLX มีประโยชน์หากคุณรันโมเดลนี้ผ่าน ComfyUI แทน",
+    "th": "Quantization แบบ GGUF รวมถึงรุ่นที่เล็กมาก โหลดด้วย ComfyUI ไม่ใช่ MLX มีประโยชน์หากคุณรันโมเดลนี้ผ่าน ComfyUI แทน",
 })
 add("model.fl2va.nvfp4", {
     "en": "Community prune in NVIDIA's NVFP4 format. Listed for completeness.",
@@ -4172,7 +4172,7 @@ add("format.steps", {
     "ar": "%@ خطوة",
     "ja": "%@ ステップ",
     "ko": "%@ 스텝",
-    "th": "%@ สเต็ป",
+    "th": "%@ step",
 }, note={
     "content": "Takes a count. English offers only two forms and this string supplies one, so \"1 "
                "steps\" is already wrong; Arabic needs six categories and settles for a single "
@@ -4206,7 +4206,7 @@ add("sampling.steps.note", {
           "المعروضة هي ما سيُصيَّر فعلًا.",
     "ja": "ステップはノイズ除去の実回数で、レンダリング時間をほぼ線形に左右します。%1$@ 長さは動画 VAE の 17n+5 のフレーム格子に丸められるので、表示される値がそのままレンダリングされます。",
     "ko": "스텝은 실제 디노이징 횟수이며 렌더링 시간을 거의 선형으로 좌우합니다. %1$@ 길이는 비디오 VAE의 17n+5 프레임 격자에 맞춰지므로, 표시된 값이 그대로 렌더링됩니다.",
-    "th": "สเต็ปคือรอบการลดนอยส์จริง และกำหนดเวลาเรนเดอร์เกือบเป็นเส้นตรง %1$@ ความยาวจะถูกปัดเข้าตาราง 17n+5 เฟรมของ VAE วิดีโอ ค่าที่เห็นจึงคือค่าที่เรนเดอร์จริง",
+    "th": "Step คือรอบการลด noise จริง และกำหนดเวลาเรนเดอร์เกือบเป็นเส้นตรง %1$@ ความยาวจะถูกปัดเข้าตาราง 17n+5 เฟรมของ VAE วิดีโอ ค่าที่เห็นจึงคือค่าที่เรนเดอร์จริง",
 })
 add("sampling.steps.note.turbo", {
     "en": "This engine loads a %1$@-step turbo LoRA, distilled for exactly that many — more "
@@ -4219,7 +4219,7 @@ add("sampling.steps.note.turbo", {
           "— والمزيد من الخطوات يكلّف وقتًا في الغالب.",
     "ja": "このエンジンは %1$@ ステップ用の turbo LoRA を読み込みます。ちょうどその回数で蒸留されているため、増やしても主に時間が増えるだけです。",
     "ko": "이 엔진은 %1$@ 스텝용 turbo LoRA를 불러옵니다. 딱 그 횟수에 맞춰 증류되었기 때문에 스텝을 늘려도 대체로 시간만 늘어납니다.",
-    "th": "เอนจินนี้โหลด turbo LoRA สำหรับ %1$@ สเต็ป ซึ่งกลั่นมาเพื่อจำนวนนั้นพอดี เพิ่มสเต็ปจึงเปลืองเวลาเป็นหลัก",
+    "th": "Engine นี้โหลด turbo LoRA สำหรับ %1$@ step ซึ่งกลั่นมาเพื่อจำนวนนั้นพอดี เพิ่ม step จึงเปลืองเวลาเป็นหลัก",
 })
 add("sampling.steps.note.undistilled", {
     "en": "These weights are undistilled, so around %1$@ steps is the working range; far "
@@ -4232,7 +4232,7 @@ add("sampling.steps.note.undistilled", {
           "يخرج عن التوزيع ويبدو ناعمًا.",
     "ja": "この重みは未蒸留なので、実用域は %1$@ ステップ前後です。大幅に減らすと分布から外れ、眠い絵になります。",
     "ko": "이 가중치는 비증류라 %1$@ 스텝 안팎이 실용 범위입니다. 그보다 훨씬 적으면 분포를 벗어나 흐릿해 보입니다.",
-    "th": "น้ำหนักชุดนี้ยังไม่ผ่านการกลั่น ช่วงที่ใช้ได้จริงจึงราว %1$@ สเต็ป ถ้าน้อยกว่านี้มากจะหลุดการกระจายและดูเบลอ",
+    "th": "น้ำหนักชุดนี้ยังไม่ผ่านการกลั่น ช่วงที่ใช้ได้จริงจึงราว %1$@ step ถ้าน้อยกว่านี้มากจะหลุดการกระจายและดูเบลอ",
 })
 
 # ── Models: why a format will not load ───────────────────────────────────────
@@ -4264,7 +4264,7 @@ add("quantization.unloadable.other", {
     "ar": "لا يستطيع أي محرّك هنا تحميل %@.",
     "ja": "ここにあるどのエンジンも %@ を読み込めません。",
     "ko": "여기 있는 어떤 엔진도 %@ 을(를) 불러올 수 없습니다.",
-    "th": "ไม่มีเอนจินใดที่นี่โหลด %@ ได้",
+    "th": "ไม่มี engine ใดที่นี่โหลด %@ ได้",
 }, note={
     "content": "Injects a name into a sentence. Languages that inflect a noun for case, choose "
                "an article by gender, or attach a vowel-harmonising suffix cannot do it without "
@@ -4334,7 +4334,7 @@ add("summary.eta.footnote.measured", {
     "ar": "مقيس من عمليات التصيير على هذا الـ Mac بهذا المحرّك (%@ حتى الآن).",
     "ja": "この Mac でこのエンジンを使った実測値です（これまで %@ 件）。",
     "ko": "이 Mac에서 이 엔진으로 실제 측정한 값입니다(지금까지 %@ 회).",
-    "th": "วัดจากการเรนเดอร์จริงบน Mac เครื่องนี้ด้วยเอนจินนี้ (%@ ครั้งจนถึงตอนนี้)",
+    "th": "วัดจากการเรนเดอร์จริงบน Mac เครื่องนี้ด้วย engine นี้ (%@ ครั้งจนถึงตอนนี้)",
 })
 add("models.memory.tooLarge", {
     "en": "Needs about %1$@ in memory. This Mac can give about %2$@ to a model, so this "
@@ -4374,7 +4374,7 @@ add("problem.memory", {
           "النموذج سوى %2$@ تقريبًا. اختر تكميمًا أصغر، أو توقّع اللجوء إلى التبديل.",
     "ja": "選択した重みは合わせて約 %1$@ のメモリを必要とします。この Mac がモデルに割けるのは約 %2$@ です。より小さい量子化を選ぶか、スワップを覚悟してください。",
     "ko": "선택한 가중치는 합쳐서 약 %1$@ 의 메모리가 필요합니다. 이 Mac이 모델에 줄 수 있는 양은 약 %2$@ 입니다. 더 작은 양자화를 고르거나 스와핑을 감수하세요.",
-    "th": "น้ำหนักที่เลือกต้องใช้หน่วยความจำรวมราว %1$@ แต่ Mac เครื่องนี้ให้โมเดลได้ราว %2$@ เลือกการควอนไทซ์ที่เล็กลง หรือยอมให้สลับหน่วยความจำ",
+    "th": "น้ำหนักที่เลือกต้องใช้หน่วยความจำรวมราว %1$@ แต่ Mac เครื่องนี้ให้โมเดลได้ราว %2$@ เลือก quantization ที่เล็กลง หรือยอมให้สลับหน่วยความจำ",
 })
 add("problem.noMetalKernel", {
     "en": "%@ has no Metal kernel and cannot run on Apple silicon.",
@@ -4405,7 +4405,7 @@ add("model.name.support.mlx", {
     "ar": "‏VAE ومعالج و‏tokenizer لـ FL2VA",
     "ja": "FL2VA の VAE・プロセッサ・トークナイザ",
     "ko": "FL2VA VAE, 프로세서 및 토크나이저",
-    "th": "VAE ตัวประมวลผล และโทเคนไนเซอร์ของ FL2VA",
+    "th": "VAE ตัวประมวลผล และ tokenizer ของ FL2VA",
 })
 add("model.name.textEncoder.mlx", {
     "en": "Text encoder — bfloat16",
@@ -4425,7 +4425,7 @@ add("model.name.fl2va.q4", {
     "ar": "محوّل FL2VA — ‏4-bit ‏(MLX)",
     "ja": "FL2VA トランスフォーマー — 4 ビット（MLX）",
     "ko": "FL2VA 트랜스포머 — 4비트(MLX)",
-    "th": "ทรานส์ฟอร์เมอร์ FL2VA — 4 บิต (MLX)",
+    "th": "Transformer FL2VA — 4 บิต (MLX)",
 })
 add("model.name.fl2va.q6", {
     "en": "FL2VA transformer — 6-bit (MLX)",
@@ -4435,7 +4435,7 @@ add("model.name.fl2va.q6", {
     "ar": "محوّل FL2VA — ‏6-bit ‏(MLX)",
     "ja": "FL2VA トランスフォーマー — 6 ビット（MLX）",
     "ko": "FL2VA 트랜스포머 — 6비트(MLX)",
-    "th": "ทรานส์ฟอร์เมอร์ FL2VA — 6 บิต (MLX)",
+    "th": "Transformer FL2VA — 6 บิต (MLX)",
 })
 add("model.name.fl2va.q8", {
     "en": "FL2VA transformer — 8-bit (MLX)",
@@ -4445,7 +4445,7 @@ add("model.name.fl2va.q8", {
     "ar": "محوّل FL2VA — ‏8-bit ‏(MLX)",
     "ja": "FL2VA トランスフォーマー — 8 ビット（MLX）",
     "ko": "FL2VA 트랜스포머 — 8비트(MLX)",
-    "th": "ทรานส์ฟอร์เมอร์ FL2VA — 8 บิต (MLX)",
+    "th": "Transformer FL2VA — 8 บิต (MLX)",
 })
 add("model.name.fl2va.bf16", {
     "en": "FL2VA transformer — bfloat16",
@@ -4455,7 +4455,7 @@ add("model.name.fl2va.bf16", {
     "ar": "محوّل FL2VA — ‏bfloat16",
     "ja": "FL2VA トランスフォーマー — bfloat16",
     "ko": "FL2VA 트랜스포머 — bfloat16",
-    "th": "ทรานส์ฟอร์เมอร์ FL2VA — bfloat16",
+    "th": "Transformer FL2VA — bfloat16",
 })
 add("model.name.ref2va.bf16", {
     "en": "Ref2VA transformer — bfloat16",
@@ -4465,7 +4465,7 @@ add("model.name.ref2va.bf16", {
     "ar": "محوّل Ref2VA — ‏bfloat16",
     "ja": "Ref2VA トランスフォーマー — bfloat16",
     "ko": "Ref2VA 트랜스포머 — bfloat16",
-    "th": "ทรานส์ฟอร์เมอร์ Ref2VA — bfloat16",
+    "th": "Transformer Ref2VA — bfloat16",
 })
 add("model.name.lora.fl2va.mlx", {
     "en": "FL2VA turbo LoRA — 4-step, MLX format",
@@ -4475,7 +4475,7 @@ add("model.name.lora.fl2va.mlx", {
     "ar": "‏FL2VA turbo LoRA — أربع خطوات، بصيغة MLX",
     "ja": "FL2VA turbo LoRA — 4 ステップ、MLX 形式",
     "ko": "FL2VA turbo LoRA — 4스텝, MLX 형식",
-    "th": "turbo LoRA ของ FL2VA — 4 สเต็ป รูปแบบ MLX",
+    "th": "Turbo LoRA ของ FL2VA — 4 step รูปแบบ MLX",
 })
 add("model.name.comfy.ref2va", {
     "en": "Ref2VA transformer — INT8 ConvRot",
@@ -4485,7 +4485,7 @@ add("model.name.comfy.ref2va", {
     "ar": "محوّل Ref2VA — ‏INT8 ConvRot",
     "ja": "Ref2VA トランスフォーマー — INT8 ConvRot",
     "ko": "Ref2VA 트랜스포머 — INT8 ConvRot",
-    "th": "ทรานส์ฟอร์เมอร์ Ref2VA — INT8 ConvRot",
+    "th": "Transformer Ref2VA — INT8 ConvRot",
 })
 add("model.name.comfy.fl2va", {
     "en": "FL2VA transformer — INT8 ConvRot",
@@ -4495,7 +4495,7 @@ add("model.name.comfy.fl2va", {
     "ar": "محوّل FL2VA — ‏INT8 ConvRot",
     "ja": "FL2VA トランスフォーマー — INT8 ConvRot",
     "ko": "FL2VA 트랜스포머 — INT8 ConvRot",
-    "th": "ทรานส์ฟอร์เมอร์ FL2VA — INT8 ConvRot",
+    "th": "Transformer FL2VA — INT8 ConvRot",
 })
 add("model.name.comfy.textEncoder", {
     "en": "Text encoder — INT8 ConvRot",
@@ -4535,7 +4535,7 @@ add("model.name.comfy.lora.ref2va", {
     "ar": "‏Ref2VA turbo LoRA — أربع خطوات",
     "ja": "Ref2VA turbo LoRA — 4 ステップ",
     "ko": "Ref2VA turbo LoRA — 4스텝",
-    "th": "turbo LoRA ของ Ref2VA — 4 สเต็ป",
+    "th": "Turbo LoRA ของ Ref2VA — 4 step",
 })
 add("model.name.comfy.lora.fl2va", {
     "en": "FL2VA turbo LoRA — 4-step, ComfyUI format",
@@ -4545,7 +4545,7 @@ add("model.name.comfy.lora.fl2va", {
     "ar": "‏FL2VA turbo LoRA — أربع خطوات، بصيغة ComfyUI",
     "ja": "FL2VA turbo LoRA — 4 ステップ、ComfyUI 形式",
     "ko": "FL2VA turbo LoRA — 4스텝, ComfyUI 형식",
-    "th": "turbo LoRA ของ FL2VA — 4 สเต็ป รูปแบบ ComfyUI",
+    "th": "Turbo LoRA ของ FL2VA — 4 step รูปแบบ ComfyUI",
 })
 add("model.name.textEncoder.uncensored", {
     "en": "Text encoder — INT8 ConvRot, uncensored",
@@ -4565,7 +4565,7 @@ add("model.name.fl2va.gguf", {
     "ar": "محوّل FL2VA — ‏GGUF",
     "ja": "FL2VA トランスフォーマー — GGUF",
     "ko": "FL2VA 트랜스포머 — GGUF",
-    "th": "ทรานส์ฟอร์เมอร์ FL2VA — GGUF",
+    "th": "Transformer FL2VA — GGUF",
 })
 add("model.name.fl2va.nvfp4", {
     "en": "FL2VA transformer — NVFP4",
@@ -4575,7 +4575,7 @@ add("model.name.fl2va.nvfp4", {
     "ar": "محوّل FL2VA — ‏NVFP4",
     "ja": "FL2VA トランスフォーマー — NVFP4",
     "ko": "FL2VA 트랜스포머 — NVFP4",
-    "th": "ทรานส์ฟอร์เมอร์ FL2VA — NVFP4",
+    "th": "Transformer FL2VA — NVFP4",
 })
 
 # ── ComfyUI availability ─────────────────────────────────────────────────────
@@ -4676,7 +4676,7 @@ add("queue.perStep.now", {
     "ar": "%@/خطوة الآن",
     "ja": "現在 %@/ステップ",
     "ko": "현재 %@/스텝",
-    "th": "ตอนนี้ %@/สเต็ป",
+    "th": "ตอนนี้ %@/ step",
 })
 add("queue.perStep.average", {
     "en": "%@/step average",
@@ -4686,7 +4686,7 @@ add("queue.perStep.average", {
     "ar": "%@/خطوة في المتوسط",
     "ja": "平均 %@/ステップ",
     "ko": "평균 %@/스텝",
-    "th": "เฉลี่ย %@/สเต็ป",
+    "th": "เฉลี่ย %@/ step",
 })
 add("queue.tokens", {
     "en": "%@ tokens",
@@ -4696,7 +4696,7 @@ add("queue.tokens", {
     "ar": "%@ توكن",
     "ja": "%@ トークン",
     "ko": "%@ 토큰",
-    "th": "%@ โทเคน",
+    "th": "%@ token",
 }, note={
     "content": "Takes a count. English offers only two forms and this string supplies one, so \"1 "
                "tokens\" is already wrong; Arabic needs six categories and settles for a single "
@@ -4720,7 +4720,7 @@ add("queue.tokens.help", {
           "التشويش — ولا يُولَّد هنا شيء توكنًا بتوكن.",
     "ja": "テキストエンコーダが読む系列の長さです。全体で %1$@ トークン、うち %2$@ がプロンプトです。残りは視覚トークンで、参考画像ごとに 1 ブロックです。ノイズ除去が始まる前に一度だけ読まれ、ここで 1 トークンずつ生成されるものはありません。",
     "ko": "텍스트 인코더가 읽는 시퀀스 길이입니다. 전체 %1$@ 토큰 중 %2$@ 개가 프롬프트이고, 나머지는 참조 이미지마다 한 블록씩인 비전 토큰입니다. 디노이징이 시작되기 전에 한 번만 읽으며, 여기서 토큰을 하나씩 생성하지는 않습니다.",
-    "th": "ความยาวของลำดับที่ตัวเข้ารหัสข้อความอ่าน ทั้งหมด %1$@ โทเคน โดย %2$@ โทเคนเป็นพรอมต์ ที่เหลือเป็นโทเคนภาพ หนึ่งบล็อกต่อภาพอ้างอิงหนึ่งภาพ อ่านเพียงครั้งเดียวก่อนเริ่มลดนอยส์ ไม่มีอะไรตรงนี้ที่สร้างทีละโทเคน",
+    "th": "ความยาวของลำดับที่ตัวเข้ารหัสข้อความอ่าน ทั้งหมด %1$@ token โดย %2$@ token เป็น prompt ที่เหลือเป็น token ภาพ หนึ่งบล็อกต่อภาพอ้างอิงหนึ่งภาพ อ่านเพียงครั้งเดียวก่อนเริ่มลด noise ไม่มีอะไรตรงนี้ที่สร้างทีละ token",
 })
 add("compose.preset.saved", {
     "en": "Saved “%@” to Presets",
@@ -4730,7 +4730,7 @@ add("compose.preset.saved", {
     "ar": "حُفِظ «%@» ضمن الإعدادات المُسبَقة",
     "ja": "「%@」をプリセットに保存しました",
     "ko": "'%@' 을(를) 프리셋에 저장했습니다",
-    "th": "บันทึก “%@” ลงในพรีเซ็ตแล้ว",
+    "th": "บันทึก “%@” ลงใน preset แล้ว",
 })
 add("compose.preset.duplicate", {
     "en": "A preset called “%@” already exists. Choose another name.",
@@ -4740,7 +4740,7 @@ add("compose.preset.duplicate", {
     "ar": "يوجد إعداد باسم «%@» مسبقًا. اختر اسمًا آخر.",
     "ja": "「%@」という名前のプリセットは既にあります。別の名前を選んでください。",
     "ko": "'%@' 이름의 프리셋이 이미 있습니다. 다른 이름을 고르세요.",
-    "th": "มีพรีเซ็ตชื่อ “%@” อยู่แล้ว กรุณาตั้งชื่ออื่น",
+    "th": "มี preset ชื่อ “%@” อยู่แล้ว กรุณาตั้งชื่ออื่น",
 })
 add("models.download.starting", {
     "en": "Starting transfer…",
@@ -4846,7 +4846,7 @@ add("mlx.runtimeNotReady", {
     "ar": "‏بيئة Python غير جاهزة. افتح «الإعدادات › بيئة التشغيل».",
     "ja": "Python 実行環境が準備できていません。「設定 › 実行環境」を開いてください。",
     "ko": "Python 런타임이 준비되지 않았습니다. 설정 › 런타임을 여세요.",
-    "th": "รันไทม์ Python ยังไม่พร้อม เปิด การตั้งค่า › รันไทม์",
+    "th": "Runtime Python ยังไม่พร้อม เปิด การตั้งค่า › runtime",
 })
 add("mlx.checkpointMissing", {
     "en": "The selected checkpoint is not installed.",
@@ -4856,7 +4856,7 @@ add("mlx.checkpointMissing", {
     "ar": "نقطة التحقّق المختارة غير مثبَّتة.",
     "ja": "選択したチェックポイントがインストールされていません。",
     "ko": "선택한 체크포인트가 설치되어 있지 않습니다.",
-    "th": "ยังไม่ได้ติดตั้งเช็กพอยต์ที่เลือก",
+    "th": "ยังไม่ได้ติดตั้ง checkpoint ที่เลือก",
 })
 add("onboarding.spaceTight", {
     "en": "There may not be enough free space once scratch space for rendering is taken "
@@ -4901,7 +4901,7 @@ add("settings.remember.engine", {
     "ar": "تذكّر المحرّك المستخدم آخر مرة",
     "ja": "前回のエンジンを覚えておく",
     "ko": "마지막 엔진 기억하기",
-    "th": "จำเอนจินล่าสุด",
+    "th": "จำ engine ล่าสุด",
 })
 add("settings.remember.note", {
     "en": "The prompt, the seed and any attached files are never carried over: they belong "
@@ -4914,7 +4914,7 @@ add("settings.remember.note", {
           "وتبدأ فارغة في كل مرة.",
     "ja": "プロンプト・シード・添付ファイルは決して引き継がれません。これらは 1 回のレンダリングに属するもので、常に空の状態から始まります。",
     "ko": "프롬프트와 시드, 첨부 파일은 절대 이어지지 않습니다. 한 번의 렌더링에 속하는 것이라 언제나 비운 채로 시작합니다.",
-    "th": "พรอมต์ ซีด และไฟล์แนบจะไม่ถูกนำมาใช้ต่อ เพราะเป็นของการเรนเดอร์ครั้งเดียว และเริ่มใหม่เปล่า ๆ เสมอ",
+    "th": "Prompt, seed และไฟล์แนบจะไม่ถูกนำมาใช้ต่อ เพราะเป็นของการเรนเดอร์ครั้งเดียว และเริ่มใหม่เปล่า ๆ เสมอ",
 })
 add("settings.remember.sampling", {
     "en": "Remember sampling settings",
@@ -4934,7 +4934,7 @@ add("settings.remember.output", {
     "ar": "تذكّر إعدادات الإخراج",
     "ja": "出力設定を覚えておく",
     "ko": "출력 설정 기억하기",
-    "th": "จำการตั้งค่าเอาต์พุต",
+    "th": "จำการตั้งค่า output",
 })
 
 # ── Touch Bar ────────────────────────────────────────────────────────────────

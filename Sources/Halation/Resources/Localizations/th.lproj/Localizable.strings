@@ -9,9 +9,9 @@
 
 "a11y.usingMemory" = "ใช้ %@";
 
-"backend.comfy.detail" = "PyTorch บน Metal เป็นแบ็กเอนด์เดียวที่รองรับไฟล์อ้างอิง และเป็นตัวเดียวที่โหลด turbo LoRA แบบ 4 สเต็ปได้";
+"backend.comfy.detail" = "PyTorch บน Metal เป็น backend เดียวที่รองรับไฟล์อ้างอิง และเป็นตัวเดียวที่โหลด turbo LoRA แบบ 4 step ได้";
 
-"backend.mlx.detail" = "เฟรมเวิร์กของ Apple เองที่รันโมเดลแบบเนทีฟ รองรับเฉพาะข้อความเป็นวิดีโอและคีย์เฟรม เพราะพอร์ตนี้ไม่มีการกำหนดเงื่อนไขจากไฟล์อ้างอิง";
+"backend.mlx.detail" = "เฟรมเวิร์กของ Apple เองที่รันโมเดลแบบเนทีฟ รองรับเฉพาะข้อความเป็นวิดีโอและ keyframe เพราะพอร์ตนี้ไม่มีการกำหนดเงื่อนไขจากไฟล์อ้างอิง";
 
 "comfy.executionError" = "ComfyUI รายงานข้อผิดพลาดขณะทำงาน";
 
@@ -52,16 +52,16 @@
 /* Labels the switch for whether the render produces sound. A property of the output. Distinct from refs.kind.audio, which names a kind of file the user attaches. */
 "compose.audio" = "เสียง";
 
-"compose.audio.footnote" = "H3 สร้างเสียงสเตอริโอ 32 kHz ไปพร้อมกับภาพในรอบเดียวกัน จึงไม่มีโหมดเงียบที่เรนเดอร์เร็วกว่า";
+"compose.audio.footnote" = "H3 สร้างเสียง stereo 32 kHz ไปพร้อมกับภาพในรอบเดียวกัน จึงไม่มีโหมดเงียบที่เรนเดอร์เร็วกว่า";
 
 "compose.codec" = "ตัวแปลงสัญญาณ";
 
-"compose.engine.comfy.note" = "ทำงานผ่าน ComfyUI บน PyTorch/Metal ซึ่งโหลด turbo LoRA แบบ 4 สเต็ปได้ สี่สเต็ปที่กลั่นแล้วใช้เวลาพอ ๆ กับห้าสเต็ปที่ยังไม่กลั่นบน MLX และเป็นจำนวนที่ LoRA ถูกฝึกมา";
+"compose.engine.comfy.note" = "ทำงานผ่าน ComfyUI บน PyTorch/Metal ซึ่งโหลด turbo LoRA แบบ 4 step ได้ สี่ step ที่กลั่นแล้วใช้เวลาพอ ๆ กับห้า step ที่ยังไม่กลั่นบน MLX และเป็นจำนวนที่ LoRA ถูกฝึกมา";
 
 /* Which backend runs the model — MLX or ComfyUI. Not a motor, and not a game engine. Usually kept in English. */
-"compose.engine.label" = "เอนจิน";
+"compose.engine.label" = "Engine";
 
-"compose.engine.mlx.note" = "ทำงานแบบเนทีฟบน MLX ไม่ต้องใช้เซิร์ฟเวอร์ และเป็นค่าเริ่มต้น น้ำหนักยังไม่ผ่านการกลั่น สเต็ปน้อยจึงหลุดจากการกระจายที่ฝึกมา ถ้าต้องการคุณภาพให้ใช้ 16 สเต็ปขึ้นไปตามพอร์ตนี้";
+"compose.engine.mlx.note" = "ทำงานแบบเนทีฟบน MLX ไม่ต้องใช้เซิร์ฟเวอร์ และเป็นค่าเริ่มต้น น้ำหนักยังไม่ผ่านการกลั่น step น้อยจึงหลุดจากการกระจายที่ฝึกมา ถ้าต้องการคุณภาพให้ใช้ 16 step ขึ้นไปตามพอร์ตนี้";
 
 "compose.framerate" = "อัตราเฟรม";
 
@@ -70,17 +70,17 @@
 
 "compose.generate.blocked.generic" = "แก้ปัญหาที่แสดงไว้ใต้ “ก่อนเริ่มสร้าง” ให้เรียบร้อยก่อน";
 
-"compose.generate.blocked.runtime" = "รันไทม์ Python ยังไม่พร้อม เปิด การตั้งค่า › รันไทม์";
+"compose.generate.blocked.runtime" = "Runtime Python ยังไม่พร้อม เปิด การตั้งค่า › runtime";
 
 "compose.generate.help.ready" = "เพิ่มการเรนเดอร์นี้เข้าคิว";
 
 "compose.generate.why" = "ทำไมจึงใช้ไม่ได้";
 
 /* WARNING: Begins with a space because it is appended to the sentence before it — U+3000 for Chinese. Runtime concatenation: the two halves cannot be reordered, and a language needing the clause first cannot have it. */
-"compose.mode.task.fl2va" = " ใช้เช็กพอยต์ FL2VA";
+"compose.mode.task.fl2va" = " ใช้ checkpoint FL2VA";
 
 /* WARNING: See compose.mode.task.fl2va — same leading space, same concatenation. */
-"compose.mode.task.ref2va" = " ใช้เช็กพอยต์ Ref2VA";
+"compose.mode.task.ref2va" = " ใช้ checkpoint Ref2VA";
 
 /* Labels the picker choosing between text-to-video and reference modes. A choice the user makes. Distinct from library.mode, which reports what a finished render used. */
 "compose.mode.title" = "โหมด";
@@ -88,30 +88,30 @@
 "compose.output.footnote" = "โมเดลเรนเดอร์ที่ 24 fps และด้านสั้น 768 px เสมอ ค่าอื่นในการ์ดนี้จะถูกนำไปใช้ภายหลังตอนเข้ารหัส";
 
 /* Heads the card for how the video is encoded — codec, resolution, frame rate. Output as in the result of a render. Distinct from settings.folder.output, a folder. */
-"compose.output.title" = "เอาต์พุต";
+"compose.output.title" = "Output";
 
-"compose.preset.delete" = "ลบพรีเซ็ตที่สร้างเอง";
+"compose.preset.delete" = "ลบ preset ที่สร้างเอง";
 
-"compose.preset.duplicate" = "มีพรีเซ็ตชื่อ “%@” อยู่แล้ว กรุณาตั้งชื่ออื่น";
+"compose.preset.duplicate" = "มี preset ชื่อ “%@” อยู่แล้ว กรุณาตั้งชื่ออื่น";
 
-"compose.preset.save" = "บันทึกเป็นพรีเซ็ต…";
+"compose.preset.save" = "บันทึกเป็น preset …";
 
-"compose.preset.save.message" = "บันทึกการตั้งค่าปัจจุบันเป็นสูตรที่นำกลับมาใช้ได้ โดยไม่รวมพรอมต์ ซีด และไฟล์แนบ";
+"compose.preset.save.message" = "บันทึกการตั้งค่าปัจจุบันเป็นสูตรที่นำกลับมาใช้ได้ โดยไม่รวม prompt seed และไฟล์แนบ";
 
-"compose.preset.save.title" = "บันทึกพรีเซ็ต";
+"compose.preset.save.title" = "บันทึก preset";
 
-"compose.preset.saved" = "บันทึก “%@” ลงในพรีเซ็ตแล้ว";
+"compose.preset.saved" = "บันทึก “%@” ลงใน preset แล้ว";
 
 /* Saved combinations of settings — not 'default' in the factory sense. */
-"compose.presets" = "พรีเซ็ต";
+"compose.presets" = "Preset";
 
 "compose.presets.help" = "ใช้ชุดการตั้งค่าที่บันทึกไว้";
 
-"compose.prompt.footnote" = "H3 ตอบสนองดีกับภาษาของกล้อง — ขนาดภาพ เลนส์ การเคลื่อนกล้อง แสง — และกับการบรรยายบรรยากาศเสียง เพราะสร้างเสียงในรอบเดียวกัน ไม่มีพรอมต์เชิงลบ เพราะน้ำหนักที่เผยแพร่ผ่านการกลั่นแบบ CFG แล้ว การปรับ guidance จึงไม่มีผลใด ๆ";
+"compose.prompt.footnote" = "H3 ตอบสนองดีกับภาษาของกล้อง — ขนาดภาพ เลนส์ การเคลื่อนกล้อง แสง — และกับการบรรยายบรรยากาศเสียง เพราะสร้างเสียงในรอบเดียวกัน ไม่มี prompt เชิงลบ เพราะน้ำหนักที่เผยแพร่ผ่านการกลั่นแบบ CFG แล้ว การปรับ guidance จึงไม่มีผลใด ๆ";
 
 "compose.prompt.hint" = "บรรยายช็อตที่ต้องการ กด Tab เพื่อไปต่อ กด Option-Tab เพื่อแทรกแท็บ";
 
-"compose.prompt.title" = "พรอมต์";
+"compose.prompt.title" = "Prompt";
 
 /* Pixel dimensions of the output. Not resolution in the sense of resolving a dispute or a decision. */
 "compose.resolution" = "ความละเอียด";
@@ -126,9 +126,9 @@
 
 "format.codec.h264.detail" = "เป็นสิ่งที่โมเดลสร้างออกมาโดยตรง ส่งออกตามที่เรนเดอร์โดยไม่เข้ารหัสซ้ำ และเล่นได้ทุกที่";
 
-"format.fps.30.detail" = "ทำซ้ำเฟรมให้เข้ากับไทม์ไลน์ 30 fps การเคลื่อนไหวอาจสะดุดเล็กน้อย";
+"format.fps.30.detail" = "ทำซ้ำเฟรมให้เข้ากับ timeline 30 fps การเคลื่อนไหวอาจสะดุดเล็กน้อย";
 
-"format.fps.60.detail" = "ทำซ้ำเฟรมให้เข้ากับไทม์ไลน์ 60 fps โดยไม่สร้างการเคลื่อนไหวใหม่";
+"format.fps.60.detail" = "ทำซ้ำเฟรมให้เข้ากับ timeline 60 fps โดยไม่สร้างการเคลื่อนไหวใหม่";
 
 "format.fps.conformed" = "%@ fps — ปรับแล้ว";
 
@@ -164,7 +164,7 @@
 "format.seconds" = "%@ วินาที";
 
 /* WARNING: Takes a count. English offers only two forms and this string supplies one, so "1 steps" is already wrong; Arabic needs six categories and settles for a single compromise form. Any language with Slavic-style plurals will need a .stringsdict before this can be translated correctly. GenerationSpec.stepsRange is 4...60, so the singular is unreachable today — but that range is a UI choice, not a property of the sampler. */
-"format.steps" = "%@ สเต็ป";
+"format.steps" = "%@ step";
 
 "library.copied" = "คัดลอกแล้ว";
 
@@ -197,13 +197,13 @@
 
 "library.revealWav" = "แสดงไฟล์ WAV";
 
-"library.search" = "ค้นหาพรอมต์";
+"library.search" = "ค้นหา prompt";
 
 /* WARNING: Takes a count. English offers only two forms and this string supplies one, so "1 seconds" is already wrong; Arabic needs six categories and settles for a single compromise form. Any language with Slavic-style plurals will need a .stringsdict before this can be translated correctly. */
 "library.seconds" = "%@ วินาที";
 
 /* The random seed that determines a render's noise. A number, not a plant seed. Most languages keep the English term or transliterate it. */
-"library.seed" = "ซีด";
+"library.seed" = "Seed";
 
 "library.settings" = "การตั้งค่า";
 
@@ -218,9 +218,9 @@
 
 "menu.revealModels" = "แสดงโฟลเดอร์โมเดลใน Finder";
 
-"mlx.checkpointMissing" = "ยังไม่ได้ติดตั้งเช็กพอยต์ที่เลือก";
+"mlx.checkpointMissing" = "ยังไม่ได้ติดตั้ง checkpoint ที่เลือก";
 
-"mlx.runtimeNotReady" = "รันไทม์ Python ยังไม่พร้อม เปิด การตั้งค่า › รันไทม์";
+"mlx.runtimeNotReady" = "Runtime Python ยังไม่พร้อม เปิด การตั้งค่า › runtime";
 
 /* The name of the first-frame mode in the mode picker: the render continues from a supplied image. Distinct from refs.slot.first, which labels the slot that image goes in. */
 "mode.first" = "เฟรมแรก";
@@ -240,15 +240,15 @@
 
 "mode.t2v.detail" = "สร้างจากคำบรรยายที่เขียนเพียงอย่างเดียว";
 
-"model.comfy.audioVAE" = "VAE เสียงแบบ fp32 สำหรับแทร็กสเตอริโอที่ H3 สร้างพร้อมกับภาพ";
+"model.comfy.audioVAE" = "VAE เสียงแบบ fp32 สำหรับแทร็ก stereo ที่ H3 สร้างพร้อมกับภาพ";
 
-"model.comfy.fl2va" = "ทรานส์ฟอร์เมอร์ FL2VA สำหรับ ComfyUI จำเป็นเฉพาะเมื่อต้องการรันข้อความเป็นวิดีโอหรือคีย์เฟรมผ่าน ComfyUI แทน MLX";
+"model.comfy.fl2va" = "Transformer FL2VA สำหรับ ComfyUI จำเป็นเฉพาะเมื่อต้องการรันข้อความเป็นวิดีโอหรือ keyframe ผ่าน ComfyUI แทน MLX";
 
-"model.comfy.lora.fl2va" = "turbo LoRA ของ FL2VA แบบ 4 สเต็ป กลั่นมาเพื่อสี่สเต็ป ขณะที่น้ำหนักที่ยังไม่กลั่นของ MLX ต้องใช้สิบหกสเต็ป";
+"model.comfy.lora.fl2va" = "Turbo LoRA ของ FL2VA แบบ 4 step กลั่นมาเพื่อสี่ step ขณะที่น้ำหนักที่ยังไม่กลั่นของ MLX ต้องใช้สิบหก step";
 
-"model.comfy.lora.ref2va" = "turbo LoRA ของ Ref2VA แบบ 4 สเต็ป ตัวนี้คือสิ่งที่ทำให้การเรนเดอร์ด้วยไฟล์อ้างอิงเป็นไปได้จริง จากห้าสิบสเต็ปเหลือสี่ จากหลายชั่วโมงเหลือหลายสิบนาที";
+"model.comfy.lora.ref2va" = "Turbo LoRA ของ Ref2VA แบบ 4 step ตัวนี้คือสิ่งที่ทำให้การเรนเดอร์ด้วยไฟล์อ้างอิงเป็นไปได้จริง จากห้าสิบ step เหลือสี่ จากหลายชั่วโมงเหลือหลายสิบนาที";
 
-"model.comfy.ref2va" = "ทรานส์ฟอร์เมอร์ Ref2VA สำหรับ ComfyUI จำเป็นต่อโหมดไฟล์อ้างอิง ซึ่งพอร์ต MLX ทำไม่ได้เลย";
+"model.comfy.ref2va" = "Transformer Ref2VA สำหรับ ComfyUI จำเป็นต่อโหมดไฟล์อ้างอิง ซึ่งพอร์ต MLX ทำไม่ได้เลย";
 
 "model.comfy.textEncoder" = "Qwen3-VL-32B สำหรับ ComfyUI ใช้ร่วมกันทั้งสองงาน ดาวน์โหลดครั้งเดียวพอ";
 
@@ -256,7 +256,7 @@
 
 "model.fl2va.bf16" = "ความแม่นยำอ้างอิง ตรวจสอบเทียบกับการพัฒนาแบบ diffusers ช้าที่สุด และกินหน่วยความจำราว 41 GB เพียงตัวเดียว หากโหลดตัวเข้ารหัสข้อความด้วย ควรเผื่อหน่วยความจำรวม 128 GB";
 
-"model.fl2va.gguf" = "การควอนไทซ์แบบ GGUF รวมถึงรุ่นที่เล็กมาก โหลดด้วย ComfyUI ไม่ใช่ MLX มีประโยชน์หากคุณรันโมเดลนี้ผ่าน ComfyUI แทน";
+"model.fl2va.gguf" = "Quantization แบบ GGUF รวมถึงรุ่นที่เล็กมาก โหลดด้วย ComfyUI ไม่ใช่ MLX มีประโยชน์หากคุณรันโมเดลนี้ผ่าน ComfyUI แทน";
 
 "model.fl2va.nvfp4" = "เวอร์ชันตัดแต่งโดยชุมชนในรูปแบบ NVFP4 ของ NVIDIA แสดงไว้เพื่อความครบถ้วน";
 
@@ -266,55 +266,55 @@
 
 "model.fl2va.q8" = "จุดคุ้มค่าที่สุดระหว่างคุณภาพกับขนาด ดูแล้วใกล้เคียง bf16 มาก";
 
-"model.lora.fl2va.mlx" = "LoRA กลั่นแบบ 4 สเต็ปสำหรับ FL2VA ที่ 768p เป็นการเร่งความเร็วที่ได้ผลที่สุดของโมเดลนี้ พอร์ต MLX ยังไม่มีตัวโหลด LoRA จึงแสดงไว้ให้ติดตาม ไม่ใช่ให้ติดตั้ง";
+"model.lora.fl2va.mlx" = "LoRA กลั่นแบบ 4 step สำหรับ FL2VA ที่ 768p เป็นการเร่งความเร็วที่ได้ผลที่สุดของโมเดลนี้ พอร์ต MLX ยังไม่มีตัวโหลด LoRA จึงแสดงไว้ให้ติดตาม ไม่ใช่ให้ติดตั้ง";
 
-"model.lora.fl2va.mlx.blocked" = "พอร์ต MLX ยังไม่มีตัวโหลด LoRA การหลอมรวมตัวนี้ต้องใช้เช็กพอยต์ที่ผสานไว้แล้ว ไม่ใช่ LoRA เดี่ยว ๆ";
+"model.lora.fl2va.mlx.blocked" = "พอร์ต MLX ยังไม่มีตัวโหลด LoRA การหลอมรวมตัวนี้ต้องใช้ checkpoint ที่ผสานไว้แล้ว ไม่ใช่ LoRA เดี่ยว ๆ";
 
 "model.name.comfy.audioVAE" = "VAE เสียง — fp32";
 
-"model.name.comfy.fl2va" = "ทรานส์ฟอร์เมอร์ FL2VA — INT8 ConvRot";
+"model.name.comfy.fl2va" = "Transformer FL2VA — INT8 ConvRot";
 
-"model.name.comfy.lora.fl2va" = "turbo LoRA ของ FL2VA — 4 สเต็ป รูปแบบ ComfyUI";
+"model.name.comfy.lora.fl2va" = "Turbo LoRA ของ FL2VA — 4 step รูปแบบ ComfyUI";
 
-"model.name.comfy.lora.ref2va" = "turbo LoRA ของ Ref2VA — 4 สเต็ป";
+"model.name.comfy.lora.ref2va" = "Turbo LoRA ของ Ref2VA — 4 step";
 
-"model.name.comfy.ref2va" = "ทรานส์ฟอร์เมอร์ Ref2VA — INT8 ConvRot";
+"model.name.comfy.ref2va" = "Transformer Ref2VA — INT8 ConvRot";
 
 "model.name.comfy.textEncoder" = "ตัวเข้ารหัสข้อความ — INT8 ConvRot";
 
 "model.name.comfy.videoVAE" = "VAE วิดีโอ — fp16";
 
-"model.name.fl2va.bf16" = "ทรานส์ฟอร์เมอร์ FL2VA — bfloat16";
+"model.name.fl2va.bf16" = "Transformer FL2VA — bfloat16";
 
-"model.name.fl2va.gguf" = "ทรานส์ฟอร์เมอร์ FL2VA — GGUF";
+"model.name.fl2va.gguf" = "Transformer FL2VA — GGUF";
 
-"model.name.fl2va.nvfp4" = "ทรานส์ฟอร์เมอร์ FL2VA — NVFP4";
+"model.name.fl2va.nvfp4" = "Transformer FL2VA — NVFP4";
 
-"model.name.fl2va.q4" = "ทรานส์ฟอร์เมอร์ FL2VA — 4 บิต (MLX)";
+"model.name.fl2va.q4" = "Transformer FL2VA — 4 บิต (MLX)";
 
-"model.name.fl2va.q6" = "ทรานส์ฟอร์เมอร์ FL2VA — 6 บิต (MLX)";
+"model.name.fl2va.q6" = "Transformer FL2VA — 6 บิต (MLX)";
 
-"model.name.fl2va.q8" = "ทรานส์ฟอร์เมอร์ FL2VA — 8 บิต (MLX)";
+"model.name.fl2va.q8" = "Transformer FL2VA — 8 บิต (MLX)";
 
-"model.name.lora.fl2va.mlx" = "turbo LoRA ของ FL2VA — 4 สเต็ป รูปแบบ MLX";
+"model.name.lora.fl2va.mlx" = "Turbo LoRA ของ FL2VA — 4 step รูปแบบ MLX";
 
-"model.name.ref2va.bf16" = "ทรานส์ฟอร์เมอร์ Ref2VA — bfloat16";
+"model.name.ref2va.bf16" = "Transformer Ref2VA — bfloat16";
 
-"model.name.support.mlx" = "VAE ตัวประมวลผล และโทเคนไนเซอร์ของ FL2VA";
+"model.name.support.mlx" = "VAE ตัวประมวลผล และ tokenizer ของ FL2VA";
 
 "model.name.textEncoder.mlx" = "ตัวเข้ารหัสข้อความ — bfloat16";
 
 "model.name.textEncoder.uncensored" = "ตัวเข้ารหัสข้อความ — INT8 ConvRot ไม่เซ็นเซอร์";
 
-"model.ref2va.bf16" = "เช็กพอยต์ Ref2VA แบบ bf16 จากต้นทาง แสดงไว้ให้เห็นเป็นตัวเลือก แต่ไปป์ไลน์ของพอร์ต MLX รับได้เฉพาะคีย์เฟรมและไม่มีเส้นทางกำหนดเงื่อนไขจากไฟล์อ้างอิง จึงยังสั่งงานจากแอปนี้ไม่ได้";
+"model.ref2va.bf16" = "Checkpoint Ref2VA แบบ bf16 จากต้นทาง แสดงไว้ให้เห็นเป็นตัวเลือก แต่ไปป์ไลน์ของพอร์ต MLX รับได้เฉพาะ keyframe และไม่มีเส้นทางกำหนดเงื่อนไขจากไฟล์อ้างอิง จึงยังสั่งงานจากแอปนี้ไม่ได้";
 
 "model.ref2va.bf16.blocked" = "พอร์ต MLX ไม่ได้รองรับการกำหนดเงื่อนไขจากไฟล์อ้างอิง ขณะนี้ Ref2VA ต้องใช้ชุด CUDA (SGLang, vLLM หรือ ComfyUI)";
 
-"model.support.mlx" = "VAE วิดีโอ (10.4 GB), VAE เสียง, ตัวประมวลผล และโทเคนไนเซอร์ นำมาจากไดเรกทอรีงาน FL2VA ที่ไปป์ไลน์โหลดเป็นชุดเดียว จำเป็นต่อการรันทุกครั้ง";
+"model.support.mlx" = "VAE วิดีโอ (10.4 GB), VAE เสียง, ตัวประมวลผล และ tokenizer นำมาจากไดเรกทอรีงาน FL2VA ที่ไปป์ไลน์โหลดเป็นชุดเดียว จำเป็นต่อการรันทุกครั้ง";
 
-"model.textEncoder.mlx" = "Qwen3-VL-32B แบบ bfloat16 — H3 อ่านสถานะซ่อนของชั้นที่ 50 เป็นไฟล์ดาวน์โหลดเดี่ยวที่ใหญ่ที่สุด และตอนนี้เป็นตัวเข้ารหัสข้อความเพียงตัวเดียวที่ไปป์ไลน์ MLX โหลดได้ ด้วยหน่วยความจำราว 34 GB สิ่งที่ตัดสินว่าแอปนี้รันบน Mac เครื่องใดได้คือตัวนี้ ไม่ใช่ทรานส์ฟอร์เมอร์ เมื่อรวมกับทรานส์ฟอร์เมอร์ตัวเล็กที่สุดจะราว 46 GB ขีดล่างที่ใช้ได้จริงจึงอยู่ราวหน่วยความจำรวม 64 GB และติดตั้งไว้ข้าง VAE ใน FL2VA/";
+"model.textEncoder.mlx" = "Qwen3-VL-32B แบบ bfloat16 — H3 อ่านสถานะซ่อนของชั้นที่ 50 เป็นไฟล์ดาวน์โหลดเดี่ยวที่ใหญ่ที่สุด และตอนนี้เป็นตัวเข้ารหัสข้อความเพียงตัวเดียวที่ไปป์ไลน์ MLX โหลดได้ ด้วยหน่วยความจำราว 34 GB สิ่งที่ตัดสินว่าแอปนี้รันบน Mac เครื่องใดได้คือตัวนี้ ไม่ใช่ transformer เมื่อรวมกับ transformer ตัวเล็กที่สุดจะราว 46 GB ขีดล่างที่ใช้ได้จริงจึงอยู่ราวหน่วยความจำรวม 64 GB และติดตั้งไว้ข้าง VAE ใน FL2VA/";
 
-"model.textEncoder.uncensored" = "Qwen3-VL-32B ที่ฝึกให้ไม่มีพฤติกรรมปฏิเสธ ใช้แทนตัวเข้ารหัสมาตรฐานได้ทันที ตัว H3 เองไม่เปลี่ยน เพราะการปฏิเสธอยู่ในโมเดลภาษา ไม่ใช่ในดิฟฟิวชันทรานส์ฟอร์เมอร์ ใช้ได้กับ ComfyUI เท่านั้น เพราะ MLX ไม่มีตัวโหลดสำหรับรูปแบบนี้";
+"model.textEncoder.uncensored" = "Qwen3-VL-32B ที่ฝึกให้ไม่มีพฤติกรรมปฏิเสธ ใช้แทนตัวเข้ารหัสมาตรฐานได้ทันที ตัว H3 เองไม่เปลี่ยน เพราะการปฏิเสธอยู่ในโมเดลภาษา ไม่ใช่ใน diffusion transformer ใช้ได้กับ ComfyUI เท่านั้น เพราะ MLX ไม่มีตัวโหลดสำหรับรูปแบบนี้";
 
 "models.alreadyInstalled" = "ติดตั้งอยู่แล้ว จึงข้ามไป:";
 
@@ -363,7 +363,7 @@
 
 "models.downloads.footnote" = "รายการนี้ครอบคลุมเฉพาะเซสชันปัจจุบัน รายการที่ดาวน์โหลดเสร็จจะอยู่จนกว่าจะล้าง ส่วนสิ่งที่ติดตั้งแล้วจะแสดงไว้ข้างโมเดลแต่ละตัวด้านล่าง";
 
-"models.folder.footnote" = "ไฟล์ที่ดาวน์โหลดจะไปอยู่ในแคช Hugging Face ภายในโฟลเดอร์นี้ โปรเจกต์อื่นที่ชี้มาที่โฟลเดอร์เดียวกันจะใช้ซ้ำแทนการดาวน์โหลดอีกชุด";
+"models.folder.footnote" = "ไฟล์ที่ดาวน์โหลดจะไปอยู่ใน cache Hugging Face ภายในโฟลเดอร์นี้ โปรเจกต์อื่นที่ชี้มาที่โฟลเดอร์เดียวกันจะใช้ซ้ำแทนการดาวน์โหลดอีกชุด";
 
 "models.folder.title" = "โฟลเดอร์โมเดลที่ใช้ร่วมกัน";
 
@@ -409,7 +409,7 @@
 
 "models.showIncompatible" = "แสดงตัวที่ใช้ไม่ได้";
 
-"models.showIncompatible.help" = "รวมเช็กพอยต์ในรูปแบบที่ Mac เครื่องนี้รันไม่ได้ด้วย";
+"models.showIncompatible.help" = "รวม checkpoint ในรูปแบบที่ Mac เครื่องนี้รันไม่ได้ด้วย";
 
 "models.spaceWarning" = "ชุดที่แนะนำต้องใช้ราว %@ บวกกับพื้นที่ทำงานชั่วคราวขณะเรนเดอร์";
 
@@ -437,7 +437,7 @@
 
 "onboarding.freeOnDisk" = "พื้นที่ว่างบนดิสก์";
 
-"onboarding.installRuntime" = "ติดตั้งรันไทม์";
+"onboarding.installRuntime" = "ติดตั้ง runtime";
 
 "onboarding.installing" = "กำลังติดตั้ง…";
 
@@ -452,7 +452,7 @@
 
 "onboarding.models.title" = "ไฟล์น้ำหนักโมเดล";
 
-"onboarding.runtime.title" = "รันไทม์ Python";
+"onboarding.runtime.title" = "Runtime Python";
 
 "onboarding.savingTo" = "บันทึกไปที่ %@";
 
@@ -479,15 +479,15 @@
 "problem.blocking" = "ปัญหาที่ต้องแก้ก่อน %@";
 
 /* WARNING: Injects a task name into the noun phrase "a %@ checkpoint". The English article is fixed as "a", so a name beginning with a vowel sound already reads "a FL2VA" wrongly, and gendered languages cannot choose their article at all. */
-"problem.chooseCheckpoint" = "เลือกเช็กพอยต์ %@ ในหน้าโมเดล";
+"problem.chooseCheckpoint" = "เลือก checkpoint %@ ในหน้าโมเดล";
 
 "problem.duration" = "H3 สร้างได้เฉพาะคลิปยาว 4–15 วินาทีเท่านั้น";
 
-"problem.longOvernight" = "คลิปยาวที่ใช้สเต็ปมากอาจกินเวลาข้ามคืน ลองทดสอบสั้น ๆ ก่อนดีกว่า";
+"problem.longOvernight" = "คลิปยาวที่ใช้ step มากอาจกินเวลาข้ามคืน ลองทดสอบสั้น ๆ ก่อนดีกว่า";
 
-"problem.lowSteps" = "ต่ำกว่า 8 สเต็ป โมเดลมักให้การเคลื่อนไหวที่เบลอและไม่นิ่ง";
+"problem.lowSteps" = "ต่ำกว่า 8 step โมเดลมักให้การเคลื่อนไหวที่เบลอและไม่นิ่ง";
 
-"problem.memory" = "น้ำหนักที่เลือกต้องใช้หน่วยความจำรวมราว %1$@ แต่ Mac เครื่องนี้ให้โมเดลได้ราว %2$@ เลือกการควอนไทซ์ที่เล็กลง หรือยอมให้สลับหน่วยความจำ";
+"problem.memory" = "น้ำหนักที่เลือกต้องใช้หน่วยความจำรวมราว %1$@ แต่ Mac เครื่องนี้ให้โมเดลได้ราว %2$@ เลือก quantization ที่เล็กลง หรือยอมให้สลับหน่วยความจำ";
 
 "problem.needFirst" = "เพิ่มภาพสำหรับเฟรมแรก";
 
@@ -498,17 +498,17 @@
 /* WARNING: Injects a name into a sentence. Languages that inflect a noun for case, choose an article by gender, or attach a vowel-harmonising suffix cannot do it without knowing the word, and it is only known at runtime. Prefer wording that sets the name apart — quoted, or on its own line. Here the name also begins the sentence, which forces capitalisation the model name may not want. */
 "problem.noMetalKernel" = "%@ ไม่มีเคอร์เนล Metal จึงรันบน Apple silicon ไม่ได้";
 
-"problem.notInstalled" = "ยังไม่ได้ติดตั้งเช็กพอยต์ที่เลือก";
+"problem.notInstalled" = "ยังไม่ได้ติดตั้ง checkpoint ที่เลือก";
 
 /* WARNING: See problem.blocking — the same prefix-plus-sentence construction. */
 "problem.note" = "หมายเหตุ %@";
 
-"problem.prompt.empty" = "เขียนพรอมต์บรรยายช็อตที่ต้องการ";
+"problem.prompt.empty" = "เขียน prompt บรรยายช็อตที่ต้องการ";
 
-"problem.refSlow" = "โหมดไฟล์อ้างอิงทำงานผ่าน ComfyUI แทน MLX จึงช้ากว่าต่อสเต็ป turbo LoRA แบบ 4 สเต็ปคือสิ่งที่ทำให้ใช้เวลาเป็นนาทีแทนที่จะเป็นชั่วโมง";
+"problem.refSlow" = "โหมดไฟล์อ้างอิงทำงานผ่าน ComfyUI แทน MLX จึงช้ากว่าต่อ step turbo LoRA แบบ 4 step คือสิ่งที่ทำให้ใช้เวลาเป็นนาทีแทนที่จะเป็นชั่วโมง";
 
 /* WARNING: Injects a name into a sentence. Languages that inflect a noun for case, choose an article by gender, or attach a vowel-harmonising suffix cannot do it without knowing the word, and it is only known at runtime. Prefer wording that sets the name apart — quoted, or on its own line. */
-"problem.refUntagged" = "พรอมต์ไม่ได้เอ่ยถึง %@ เลย H3 กำหนดเงื่อนไขจากไฟล์อ้างอิงผ่านแท็กเหล่านั้น ไฟล์ที่ไม่ถูกเอ่ยถึงจึงมีผลน้อยกว่ามาก";
+"problem.refUntagged" = "Prompt ไม่ได้เอ่ยถึง %@ เลย H3 กำหนดเงื่อนไขจากไฟล์อ้างอิงผ่านแท็กเหล่านั้น ไฟล์ที่ไม่ถูกเอ่ยถึงจึงมีผลน้อยกว่ามาก";
 
 "problem.t2v.extraFiles" = "โหมดข้อความเป็นวิดีโอจะไม่สนใจไฟล์แนบ ให้สลับโหมดหากต้องการใช้";
 
@@ -519,7 +519,7 @@
 "problem.tooManyTotal" = "Ref2VA รับไฟล์อ้างอิงได้รวมทั้งหมด %@ ไฟล์";
 
 /* WARNING: Injects a name into a sentence. Languages that inflect a noun for case, choose an article by gender, or attach a vowel-harmonising suffix cannot do it without knowing the word, and it is only known at runtime. Prefer wording that sets the name apart — quoted, or on its own line. Sentence-initial, as in problem.noMetalKernel. */
-"problem.upscale" = "%@ เป็นการปรับขนาดจากเอาต์พุต 768p ของโมเดล โหมด 2K จริงของ H3 ไม่ได้เปิดซอร์สและรันในเครื่องไม่ได้";
+"problem.upscale" = "%@ เป็นการปรับขนาดจาก output 768p ของโมเดล โหมด 2K จริงของ H3 ไม่ได้เปิดซอร์สและรันในเครื่องไม่ได้";
 
 /* Marks a model published by someone other than the original authors — a conversion or a fine-tune. Neutral: it describes origin, not quality. See provenance.official. */
 "provenance.community" = "ชุมชน";
@@ -534,7 +534,7 @@
 "quantization.unloadable.nvfp4" = "NVFP4 เป็นรูปแบบของ NVIDIA Blackwell จึงไม่มีทางรันบน Metal";
 
 /* WARNING: Injects a name into a sentence. Languages that inflect a noun for case, choose an article by gender, or attach a vowel-harmonising suffix cannot do it without knowing the word, and it is only known at runtime. Prefer wording that sets the name apart — quoted, or on its own line. */
-"quantization.unloadable.other" = "ไม่มีเอนจินใดที่นี่โหลด %@ ได้";
+"quantization.unloadable.other" = "ไม่มี engine ใดที่นี่โหลด %@ ได้";
 
 /* WARNING: A lowercase fragment appended to a longer spoken string. Languages that inflect or that put the qualifier first cannot produce a correct sentence from a fragment, and lowercase is itself an assumption German does not share. */
 "queue.a11y.held" = "พักไว้";
@@ -580,11 +580,11 @@
 
 "queue.peak" = "สูงสุด %@";
 
-"queue.perStep" = "%@/สเต็ป";
+"queue.perStep" = "%@/ step";
 
-"queue.perStep.average" = "เฉลี่ย %@/สเต็ป";
+"queue.perStep.average" = "เฉลี่ย %@/ step";
 
-"queue.perStep.now" = "ตอนนี้ %@/สเต็ป";
+"queue.perStep.now" = "ตอนนี้ %@/ step";
 
 /* Imperative verb: let a held job run again. The opposite of queue.hold. NOT a software release or version — a common and damaging mistranslation. */
 "queue.release" = "ปล่อย";
@@ -599,17 +599,17 @@
 
 "queue.renderAgain" = "เรนเดอร์อีกครั้ง";
 
-"queue.renderAgain.help" = "เข้าคิวอีกครั้งด้วยซีดใหม่";
+"queue.renderAgain.help" = "เข้าคิวอีกครั้งด้วย seed ใหม่";
 
 "queue.reproduce" = "ทำซ้ำให้เหมือนเดิม";
 
 "queue.revealInFinder" = "แสดงใน Finder";
 
-"queue.runtimeWarning" = "รันไทม์ Python ยังไม่พร้อม การเรนเดอร์ในคิวจึงเริ่มไม่ได้";
+"queue.runtimeWarning" = "Runtime Python ยังไม่พร้อม การเรนเดอร์ในคิวจึงเริ่มไม่ได้";
 
 "queue.showLog" = "ดูบันทึก";
 
-"queue.step" = "สเต็ปที่ %1$@ จาก %2$@";
+"queue.step" = "step ที่ %1$@ จาก %2$@";
 
 /* Imperative verb: cancel the render that is running. Not "pause"; the work is discarded. */
 "queue.stop" = "หยุด";
@@ -617,9 +617,9 @@
 "queue.stop.help" = "หยุดการเรนเดอร์นี้ ความคืบหน้าจะหายไปและเริ่มต่อไม่ได้";
 
 /* WARNING: Takes a count. English offers only two forms and this string supplies one, so "1 tokens" is already wrong; Arabic needs six categories and settles for a single compromise form. Any language with Slavic-style plurals will need a .stringsdict before this can be translated correctly. */
-"queue.tokens" = "%@ โทเคน";
+"queue.tokens" = "%@ token";
 
-"queue.tokens.help" = "ความยาวของลำดับที่ตัวเข้ารหัสข้อความอ่าน ทั้งหมด %1$@ โทเคน โดย %2$@ โทเคนเป็นพรอมต์ ที่เหลือเป็นโทเคนภาพ หนึ่งบล็อกต่อภาพอ้างอิงหนึ่งภาพ อ่านเพียงครั้งเดียวก่อนเริ่มลดนอยส์ ไม่มีอะไรตรงนี้ที่สร้างทีละโทเคน";
+"queue.tokens.help" = "ความยาวของลำดับที่ตัวเข้ารหัสข้อความอ่าน ทั้งหมด %1$@ token โดย %2$@ token เป็น prompt ที่เหลือเป็น token ภาพ หนึ่งบล็อกต่อภาพอ้างอิงหนึ่งภาพ อ่านเพียงครั้งเดียวก่อนเริ่มลด noise ไม่มีอะไรตรงนี้ที่สร้างทีละ token";
 
 "queue.took" = "ใช้เวลา %@";
 
@@ -629,7 +629,7 @@
 
 "refs.choose.any" = "เลือกภาพ วิดีโอ หรือเสียงสำหรับอ้างอิง";
 
-"refs.choose.image" = "เลือกภาพคีย์เฟรม";
+"refs.choose.image" = "เลือกภาพ keyframe";
 
 "refs.drop" = "วางไฟล์ที่นี่";
 
@@ -637,13 +637,13 @@
 
 "refs.footnote.firstlast" = "ภาพสองภาพ ภาพแรกเป็นเฟรมที่หนึ่ง ภาพที่สองเป็นเฟรมสุดท้าย แล้ว H3 จะสร้างการเคลื่อนไหวระหว่างกลาง";
 
-"refs.footnote.reference" = "ภาพได้สูงสุด 9 ภาพ วิดีโอ 3 คลิป และเสียง 3 คลิป รวม 12 ไฟล์ อ้างถึงในพรอมต์ว่า <Picture 1>, <Video 1>, <Audio 1> เพราะ H3 กำหนดเงื่อนไขผ่านแท็กเหล่านี้ ไฟล์อ้างอิงที่ไม่ได้เอ่ยถึงจึงแทบไม่มีผล";
+"refs.footnote.reference" = "ภาพได้สูงสุด 9 ภาพ วิดีโอ 3 คลิป และเสียง 3 คลิป รวม 12 ไฟล์ อ้างถึงใน prompt ว่า <Picture 1>, <Video 1>, <Audio 1> เพราะ H3 กำหนดเงื่อนไขผ่านแท็กเหล่านี้ ไฟล์อ้างอิงที่ไม่ได้เอ่ยถึงจึงแทบไม่มีผล";
 
 "refs.insertTag" = "แทรกแท็ก";
 
 "refs.insertTags" = "แทรกแท็ก";
 
-"refs.insertTags.help" = "เพิ่ม %@ ต่อท้ายพรอมต์";
+"refs.insertTags.help" = "เพิ่ม %@ ต่อท้าย prompt";
 
 /* Names the audio *file* kind in the reference list, beside Image and Video. A category of attachment — see compose.audio. */
 "refs.kind.audio" = "เสียง";
@@ -666,14 +666,14 @@
 
 "refs.slot.reference" = "ไฟล์อ้างอิง";
 
-"refs.title.keyframes" = "คีย์เฟรม";
+"refs.title.keyframes" = "Keyframe";
 
 /* Heads the card listing the reference files the user has attached. The files, not the mode — see mode.reference. */
 "refs.title.references" = "ไฟล์อ้างอิง";
 
 "role.accelerator" = "LoRA เร่งความเร็ว";
 
-"role.accelerator.detail" = "LoRA เสริมที่ฝึกมาให้ได้วิดีโอที่ใช้งานได้ในราว 4 สเต็ป แทนที่จะเป็น 50";
+"role.accelerator.detail" = "LoRA เสริมที่ฝึกมาให้ได้วิดีโอที่ใช้งานได้ในราว 4 step แทนที่จะเป็น 50";
 
 "role.support" = "VAE และตัวประมวลผล";
 
@@ -684,23 +684,23 @@
 
 "role.textEncoder.detail" = "H3 ใช้ Qwen3-VL-32B เป็นเงื่อนไข เป็นไฟล์ดาวน์โหลดเดี่ยวที่ใหญ่ที่สุด และใช้ร่วมกันทั้งสองงาน";
 
-"role.transformer" = "ดิฟฟิวชันทรานส์ฟอร์เมอร์";
+"role.transformer" = "Diffusion transformer";
 
-"role.transformer.detail" = "ตัวโมเดลเอง เลือกการควอนไทซ์หนึ่งแบบ ยิ่งความแม่นยำสูง ยิ่งกินพื้นที่ หน่วยความจำ และเวลา";
+"role.transformer.detail" = "ตัวโมเดลเอง เลือก quantization หนึ่งแบบ ยิ่งความแม่นยำสูง ยิ่งกินพื้นที่ หน่วยความจำ และเวลา";
 
 "runtime.installedNotUsable" = "ติดตั้งแล้ว แต่ยังใช้งานไม่ได้";
 
 "runtime.notInstalledYet" = "ยังไม่ได้ติดตั้ง";
 
-"runtime.ready" = "รันไทม์พร้อมแล้ว — Python %1$@, MLX บน Metal";
+"runtime.ready" = "Runtime พร้อมแล้ว — Python %1$@, MLX บน Metal";
 
 /* How long the finished clip will be, in the Sampling card. A length the user is choosing. Distinct from library.duration, which reports the length of a video already made. */
 "sampling.duration" = "ความยาว";
 
 /* 'Seed' is kept in English; the qualifier is translated. */
-"sampling.seed.fixed" = "ล็อกซีด";
+"sampling.seed.fixed" = "ล็อก seed";
 
-"sampling.seed.note" = "การล็อกซีดทำให้เรนเดอร์ซ้ำได้ผลเดิม แต่ถ้าเปลี่ยนค่าอื่นผลลัพธ์ก็เปลี่ยนอยู่ดี";
+"sampling.seed.note" = "การล็อก seed ทำให้เรนเดอร์ซ้ำได้ผลเดิม แต่ถ้าเปลี่ยนค่าอื่นผลลัพธ์ก็เปลี่ยนอยู่ดี";
 
 "sampling.seed.randomise" = "สุ่ม";
 
@@ -709,13 +709,13 @@
 "sampling.snapped.inexact" = "เรนเดอร์ %1$@ เฟรม — %2$@ วินาทีที่ 24 fps ซึ่งเป็นความยาวใกล้ที่สุดที่ VAE ของวิดีโอเข้ารหัสได้";
 
 /* Denoising steps — iterations of the sampler. Not stairs, and not steps in a set of instructions. */
-"sampling.steps" = "จำนวนสเต็ป";
+"sampling.steps" = "จำนวน step";
 
-"sampling.steps.note" = "สเต็ปคือรอบการลดนอยส์จริง และกำหนดเวลาเรนเดอร์เกือบเป็นเส้นตรง %1$@ ความยาวจะถูกปัดเข้าตาราง 17n+5 เฟรมของ VAE วิดีโอ ค่าที่เห็นจึงคือค่าที่เรนเดอร์จริง";
+"sampling.steps.note" = "Step คือรอบการลด noise จริง และกำหนดเวลาเรนเดอร์เกือบเป็นเส้นตรง %1$@ ความยาวจะถูกปัดเข้าตาราง 17n+5 เฟรมของ VAE วิดีโอ ค่าที่เห็นจึงคือค่าที่เรนเดอร์จริง";
 
-"sampling.steps.note.turbo" = "เอนจินนี้โหลด turbo LoRA สำหรับ %1$@ สเต็ป ซึ่งกลั่นมาเพื่อจำนวนนั้นพอดี เพิ่มสเต็ปจึงเปลืองเวลาเป็นหลัก";
+"sampling.steps.note.turbo" = "Engine นี้โหลด turbo LoRA สำหรับ %1$@ step ซึ่งกลั่นมาเพื่อจำนวนนั้นพอดี เพิ่ม step จึงเปลืองเวลาเป็นหลัก";
 
-"sampling.steps.note.undistilled" = "น้ำหนักชุดนี้ยังไม่ผ่านการกลั่น ช่วงที่ใช้ได้จริงจึงราว %1$@ สเต็ป ถ้าน้อยกว่านี้มากจะหลุดการกระจายและดูเบลอ";
+"sampling.steps.note.undistilled" = "น้ำหนักชุดนี้ยังไม่ผ่านการกลั่น ช่วงที่ใช้ได้จริงจึงราว %1$@ step ถ้าน้อยกว่านี้มากจะหลุดการกระจายและดูเบลอ";
 
 "sampling.title" = "การสุ่มตัวอย่าง";
 
@@ -732,7 +732,7 @@
 
 "settings.advanced" = "ขั้นสูง";
 
-"settings.advanced.checkout" = "พาธของเช็กเอาต์";
+"settings.advanced.checkout" = "Path ของ checkout";
 
 "settings.advanced.checkout.hint" = "เว้นว่างไว้เพื่อใช้แพ็กเกจที่ติดตั้งไว้";
 
@@ -760,7 +760,7 @@
 /* Model weights — the trained parameters of a neural network. Never the sense of heaviness or of weighting a value. Many languages keep the English term. */
 "settings.comfy.weights" = "ไฟล์น้ำหนัก";
 
-"settings.comfy.why" = "โหมดไฟล์อ้างอิงทำงานที่นี่แทน MLX ซึ่งไปป์ไลน์รับได้เฉพาะคีย์เฟรม ComfyUI ยังโหลด turbo LoRA แบบ 4 สเต็ปได้ ซึ่งเป็นสิ่งที่ทำให้การเรนเดอร์ด้วยไฟล์อ้างอิงเป็นไปได้จริง";
+"settings.comfy.why" = "โหมดไฟล์อ้างอิงทำงานที่นี่แทน MLX ซึ่งไปป์ไลน์รับได้เฉพาะ keyframe ComfyUI ยังโหลด turbo LoRA แบบ 4 step ได้ ซึ่งเป็นสิ่งที่ทำให้การเรนเดอร์ด้วยไฟล์อ้างอิงเป็นไปได้จริง";
 
 /* Adjective: the app found this component on the machine by itself. Reports a discovery, not an action available. */
 "settings.detected" = "ตรวจพบแล้ว";
@@ -769,7 +769,7 @@
 "settings.folder.models" = "โมเดล";
 
 /* Labels the folder finished videos are written to, in Settings ▸ Folders. A location — see compose.output.title. */
-"settings.folder.output" = "เอาต์พุต";
+"settings.folder.output" = "Output";
 
 "settings.folders" = "โฟลเดอร์";
 
@@ -815,13 +815,13 @@
 
 "settings.recheck" = "ตรวจสอบอีกครั้ง";
 
-"settings.remember.engine" = "จำเอนจินล่าสุด";
+"settings.remember.engine" = "จำ engine ล่าสุด";
 
 "settings.remember.mode" = "จำโหมดล่าสุด";
 
-"settings.remember.note" = "พรอมต์ ซีด และไฟล์แนบจะไม่ถูกนำมาใช้ต่อ เพราะเป็นของการเรนเดอร์ครั้งเดียว และเริ่มใหม่เปล่า ๆ เสมอ";
+"settings.remember.note" = "Prompt, seed และไฟล์แนบจะไม่ถูกนำมาใช้ต่อ เพราะเป็นของการเรนเดอร์ครั้งเดียว และเริ่มใหม่เปล่า ๆ เสมอ";
 
-"settings.remember.output" = "จำการตั้งค่าเอาต์พุต";
+"settings.remember.output" = "จำการตั้งค่า output";
 
 "settings.remember.sampling" = "จำการตั้งค่าการสุ่มตัวอย่าง";
 
@@ -832,7 +832,7 @@
 "settings.repair" = "ซ่อมแซม";
 
 /* The Python environment the app manages, not a term of art: TW says 執行環境, mainland 运行时. */
-"settings.runtime" = "รันไทม์";
+"settings.runtime" = "Runtime";
 
 "settings.runtime.rebuild.note" = "การสร้างใหม่จะลบและสร้างสภาพแวดล้อม Python ขึ้นใหม่ โดยไม่แตะไฟล์น้ำหนักที่ดาวน์โหลดไว้";
 
@@ -880,26 +880,26 @@
 /* WARNING: Joined to status.step with " · " in StatusBar, so the two halves are translated apart and assembled in a fixed order. The duration inside is already localized. */
 "status.remaining" = "เหลือ %@";
 
-"status.runtime.error" = "รันไทม์ผิดพลาด";
+"status.runtime.error" = "Runtime ผิดพลาด";
 
-"status.runtime.incomplete" = "รันไทม์ไม่สมบูรณ์";
+"status.runtime.incomplete" = "Runtime ไม่สมบูรณ์";
 
-"status.runtime.missing" = "ยังไม่ได้ติดตั้งรันไทม์";
+"status.runtime.missing" = "ยังไม่ได้ติดตั้ง runtime";
 
 /* WARNING: Positional, so the two numbers can be reordered — Arabic in particular may want the total first. Still a warning because it is joined to status.remaining with " · " in StatusBar: the halves are translated separately and assembled in a fixed order, which no translator can change. */
-"status.step" = "สเต็ป %1$@/%2$@";
+"status.step" = "step %1$@/%2$@";
 
-"summary.bitrate" = "บิตเรตเป้าหมาย";
+"summary.bitrate" = "Bitrate เป้าหมาย";
 
 "summary.chooseInModels" = "เลือกในโมเดล…";
 
 "summary.delivers" = "ส่งออกที่";
 
-"summary.engineNotReady" = "เอนจินยังไม่พร้อม";
+"summary.engineNotReady" = "Engine ยังไม่พร้อม";
 
 "summary.eta" = "เวลาโดยประมาณ";
 
-"summary.eta.footnote.measured" = "วัดจากการเรนเดอร์จริงบน Mac เครื่องนี้ด้วยเอนจินนี้ (%@ ครั้งจนถึงตอนนี้)";
+"summary.eta.footnote.measured" = "วัดจากการเรนเดอร์จริงบน Mac เครื่องนี้ด้วย engine นี้ (%@ ครั้งจนถึงตอนนี้)";
 
 "summary.eta.footnote.predicted" = "เป็นค่าประมาณสำหรับ %@ ที่ปรับมาจากตัวเลขที่เผยแพร่ของ Mac รุ่นอื่น จะถูกแทนด้วยค่าที่วัดได้จริงหลังการเรนเดอร์ครั้งแรก";
 
@@ -926,9 +926,9 @@
 "summary.textEncoder" = "ตัวเข้ารหัสข้อความ";
 
 /* Architecture name; left in English. */
-"summary.transformer" = "ทรานส์ฟอร์เมอร์";
+"summary.transformer" = "Transformer";
 
-"task.fl2va" = "FL2VA — ข้อความและคีย์เฟรม";
+"task.fl2va" = "FL2VA — ข้อความและ keyframe";
 
 "task.fl2va.detail" = "สร้างวิดีโอจากข้อความ พร้อมใส่ภาพเฟรมแรกและ/หรือเฟรมสุดท้ายได้ตามต้องการ ใช้ตัวนี้กับงานส่วนใหญ่";
 
