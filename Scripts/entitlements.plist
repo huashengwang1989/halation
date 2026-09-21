@@ -24,14 +24,12 @@
     ever dlopens a library signed by someone else. Today nothing does, and
     granting it weakens the app for no gain.
 
-    The one entitlement below is what lets a render-finished notification
-    through a Focus. It is a restricted entitlement: Apple has to enable it for
-    the App ID, and it only takes effect with a provisioning profile, so an
-    ad-hoc build silently downgrades those notifications to the ordinary level.
-    That is a degradation rather than a failure — the notification still
-    arrives, it just waits in Notification Center while a Focus is on.
+    com.apple.developer.usernotifications.time-sensitive was tried and removed.
+    It is what would let a render-finished notification through a Focus, and on
+    the merits these qualify — but it is restricted: Apple must enable it for
+    the App ID, and it only applies with a provisioning profile. Claiming it
+    anyway would leave the code looking as though Focus were handled while the
+    system quietly ignored it. Settings explains the Focus behaviour instead.
     -->
-    <key>com.apple.developer.usernotifications.time-sensitive</key>
-    <true/>
 </dict>
 </plist>

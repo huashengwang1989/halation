@@ -93,11 +93,7 @@ final class Notifier: NSObject, UNUserNotificationCenterDelegate {
         guard isAvailable, !askedForPermission else { return }
         askedForPermission = true
         UNUserNotificationCenter.current()
-        // .timeSensitive is asked for alongside the rest: it is what lets these
-        // through a Focus, and a render that ended after two hours is exactly
-        // the case the level exists for. It needs the matching entitlement to
-        // take effect, so on an ad-hoc build the level is quietly downgraded.
-            .requestAuthorization(options: [.alert, .sound, .timeSensitive]) { granted, error in
+            .requestAuthorization(options: [.alert, .sound]) { granted, error in
                 if let error { Self.log("authorization failed: \(error)") }
                 Self.log("authorization granted: \(granted)")
                 Task { @MainActor in await self.refreshPermission() }
@@ -183,11 +179,15 @@ final class Notifier: NSObject, UNUserNotificationCenterDelegate {
         content.subtitle = subtitle
         content.body = body
         content.sound = .default
-        // Breaks through a Focus, once the user permits time-sensitive
-        // notifications for Halation. Everything here is something the user
-        // started deliberately and then walked away from, which is the whole
-        // reason the level exists — nothing else in the app ever uses it.
-        content.interruptionLevel = .timeSensitive
+        // Deliberately the default interruption level. .timeSensitive would let
+        // these through a Focus, and on the merits they qualify — a render the
+        // user started and walked away from is exactly the case for it — but it
+        // needs a restricted entitlement that Apple has to enable per App ID,
+        // and without one the level is silently downgraded. Declaring an
+        // entitlement that never takes effect is worse than not claiming it:
+        // the code reads as though Focus is handled when it is not. The Focus
+        // behaviour is explained in Settings instead, where the user can act on
+        // it by allowing Halation inside their Focus.
         content.userInfo = userInfo
 
         // A nil trigger means deliver now.
