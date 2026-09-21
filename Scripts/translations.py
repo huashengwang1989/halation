@@ -17,7 +17,7 @@ Run Scripts/build_strings.py to regenerate the .lproj files.
 #
 # Order matters only for presentation: it sets the column order in
 # Debug ▸ Localisations (i18n).
-LANGS = ["en", "zh-Hant", "zh-Hans", "de", "ar"]
+LANGS = ["en", "zh-Hant", "zh-Hans", "de", "ar", "ja", "ko", "th"]
 
 SOURCE_LANG = "en"
 
@@ -114,6 +114,9 @@ add("section.compose", {
     "zh-Hans": "编写",
     "de": "Erstellen",
     "ar": "إنشاء",
+    "ja": "作成",
+    "ko": "작성",
+    "th": "เรียบเรียง",
 }, note="The Compose tab: the screen where a render is set up. Not the verb. Distinct "
         "from settings.remember.section, which is the name of a group of settings "
         "*about* that screen.")
@@ -123,6 +126,9 @@ add("section.queue", {
     "zh-Hans": "队列",
     "de": "Warteschlange",
     "ar": "قائمة الانتظار",
+    "ja": "キュー",
+    "ko": "대기열",
+    "th": "คิว",
 })
 add("section.library", {
     "en": "Library",
@@ -130,6 +136,9 @@ add("section.library", {
     "zh-Hans": "媒体库",
     "de": "Mediathek",
     "ar": "المكتبة",
+    "ja": "ライブラリ",
+    "ko": "라이브러리",
+    "th": "คลัง",
 }, note="Collection of finished videos — not a code library.")
 add("section.models", {
     "en": "Models",
@@ -137,6 +146,9 @@ add("section.models", {
     "zh-Hans": "模型",
     "de": "Modelle",
     "ar": "النماذج",
+    "ja": "モデル",
+    "ko": "모델",
+    "th": "โมเดล",
 }, note="The Models tab in the sidebar. Distinct from settings.folder.models (a "
         "folder on disk) and summary.models (the weights a particular render will "
         "load).")
@@ -148,6 +160,9 @@ add("status.ready", {
     "zh-Hans": "就绪",
     "de": "Bereit",
     "ar": "جاهز",
+    "ja": "準備完了",
+    "ko": "준비됨",
+    "th": "พร้อม",
 })
 add("status.checking", {
     "en": "Checking…",
@@ -155,6 +170,9 @@ add("status.checking", {
     "zh-Hans": "检查中…",
     "de": "Wird geprüft …",
     "ar": "جارٍ التحقق…",
+    "ja": "確認中…",
+    "ko": "확인 중…",
+    "th": "กำลังตรวจสอบ…",
 })
 add("status.runtime.incomplete", {
     "en": "Runtime incomplete",
@@ -162,6 +180,9 @@ add("status.runtime.incomplete", {
     "zh-Hans": "运行环境不完整",
     "de": "Laufzeitumgebung unvollständig",
     "ar": "بيئة التشغيل غير مكتملة",
+    "ja": "実行環境が不完全",
+    "ko": "런타임 불완전",
+    "th": "รันไทม์ไม่สมบูรณ์",
 })
 add("status.runtime.error", {
     "en": "Runtime error",
@@ -169,6 +190,9 @@ add("status.runtime.error", {
     "zh-Hans": "运行环境错误",
     "de": "Laufzeitfehler",
     "ar": "خطأ في بيئة التشغيل",
+    "ja": "実行環境のエラー",
+    "ko": "런타임 오류",
+    "th": "รันไทม์ผิดพลาด",
 })
 add("status.runtime.missing", {
     "en": "Runtime not installed",
@@ -176,6 +200,9 @@ add("status.runtime.missing", {
     "zh-Hans": "尚未安装运行环境",
     "de": "Laufzeitumgebung nicht installiert",
     "ar": "بيئة التشغيل غير مثبتة",
+    "ja": "実行環境が未インストール",
+    "ko": "런타임 미설치",
+    "th": "ยังไม่ได้ติดตั้งรันไทม์",
 })
 add("status.queued.count", {
     "en": "%@ queued",
@@ -183,6 +210,9 @@ add("status.queued.count", {
     "zh-Hans": "队列中 %@",
     "de": "%@ in Warteschlange",
     "ar": "%@ في قائمة الانتظار",
+    "ja": "%@ 件待機中",
+    "ko": "%@ 개 대기 중",
+    "th": "%@ รายการในคิว",
 }, note={
     "content": "Takes a count of queued jobs. Safer than the other counts because no noun "
                "follows the number in English, but languages that inflect the verb or add a "
@@ -195,6 +225,9 @@ add("status.label", {
     "zh-Hans": "状态",
     "de": "Status",
     "ar": "الحالة",
+    "ja": "状態",
+    "ko": "상태",
+    "th": "สถานะ",
 }, note="Labels the health indicator in the status bar along the bottom of the "
         "window. Distinct from settings.status, which heads a whole section, and from "
         "settings.state.")
@@ -204,6 +237,9 @@ add("status.step", {
     "zh-Hans": "步骤 %1$@/%2$@",
     "de": "Schritt %1$@/%2$@",
     "ar": "الخطوة %1$@/%2$@",
+    "ja": "ステップ %1$@/%2$@",
+    "ko": "스텝 %1$@/%2$@",
+    "th": "สเต็ป %1$@/%2$@",
 }, note={
     "content": "Positional, so the two numbers can be reordered — Arabic in particular may want "
                "the total first. Still a warning because it is joined to status.remaining with \" "
@@ -217,6 +253,9 @@ add("status.remaining", {
     "zh-Hans": "剩余 %@",
     "de": "noch %@",
     "ar": "%@ متبقٍ",
+    "ja": "残り %@",
+    "ko": "%@ 남음",
+    "th": "เหลือ %@",
 }, note={
     "content": "Joined to status.step with \" · \" in StatusBar, so the two halves are translated "
                "apart and assembled in a fixed order. The duration inside is already localized.",
@@ -228,6 +267,9 @@ add("status.memory.help", {
     "zh-Hans": "渲染进程占用的物理内存，以及在本机 %@ 中的占比",
     "de": "Vom Renderprozess belegter Arbeitsspeicher und sein Anteil an den %@ dieses Mac",
     "ar": "الذاكرة المقيمة لعملية التصيير ونسبتها من ذاكرة هذا الـ Mac البالغة %@",
+    "ja": "レンダリングプロセスの常駐メモリと、この Mac の %@ に対する割合",
+    "ko": "렌더링 프로세스의 상주 메모리와, 이 Mac의 %@ 중 차지하는 비율",
+    "th": "หน่วยความจำที่กระบวนการเรนเดอร์ใช้อยู่ และสัดส่วนเทียบกับ %@ ของ Mac เครื่องนี้",
 })
 
 # ── Built-in presets ─────────────────────────────────────────────────────────
@@ -239,6 +281,9 @@ add("preset.fastPreview", {
     "zh-Hans": "快速预览",
     "de": "Schnelle Vorschau",
     "ar": "معاينة سريعة",
+    "ja": "高速プレビュー",
+    "ko": "빠른 미리보기",
+    "th": "พรีวิวเร็ว",
 })
 add("preset.quality", {
     "en": "Quality — overnight",
@@ -246,6 +291,9 @@ add("preset.quality", {
     "zh-Hans": "高质量——整夜渲染",
     "de": "Hohe Qualität – über Nacht",
     "ar": "جودة عالية — طوال الليل",
+    "ja": "高品質 — 一晩",
+    "ko": "고품질 — 밤새",
+    "th": "คุณภาพสูง — ข้ามคืน",
 })
 add("preset.vertical", {
     "en": "Vertical social",
@@ -253,6 +301,9 @@ add("preset.vertical", {
     "zh-Hans": "竖屏社交视频",
     "de": "Hochformat für Social Media",
     "ar": "فيديو رأسي للتواصل الاجتماعي",
+    "ja": "縦型 SNS",
+    "ko": "세로형 소셜",
+    "th": "แนวตั้งสำหรับโซเชียล",
 })
 
 # ── Settings: language ───────────────────────────────────────────────────────
@@ -265,6 +316,9 @@ add("settings.language.section", {
     "zh-Hans": "语言 (Language)",
     "de": "Sprache (Language)",
     "ar": "اللغة ⁨(Language)⁩",
+    "ja": "言語",
+    "ko": "언어",
+    "th": "ภาษา",
 })
 add("settings.language.label", {
     "en": "Interface language",
@@ -272,6 +326,9 @@ add("settings.language.label", {
     "zh-Hans": "界面语言 (Interface Language)",
     "de": "Sprache der Benutzeroberfläche (Interface Language)",
     "ar": "لغة الواجهة ⁨(Interface Language)⁩",
+    "ja": "表示言語",
+    "ko": "인터페이스 언어",
+    "th": "ภาษาของส่วนติดต่อ",
 })
 add("settings.language.system", {
     "en": "Follow system (%@)",
@@ -279,6 +336,9 @@ add("settings.language.system", {
     "zh-Hans": "跟随系统（%@）",
     "de": "Systemsprache (%@)",
     "ar": "اتّباع النظام (%@)",
+    "ja": "システムに合わせる（%@）",
+    "ko": "시스템 설정에 따름(%@)",
+    "th": "ตามระบบ (%@)",
 })
 
 # Two notes, chosen by whether the writing direction actually changes. Telling
@@ -293,6 +353,9 @@ add("settings.language.restart", {
           "die App neu starten.",
     "ar": "تتغيّر النصوص فورًا. أمّا شريط القوائم أعلى الشاشة فيتبعها عند إعادة تشغيل "
           "التطبيق.",
+    "ja": "文言はすぐ切り替わります。画面上部のメニューバーはアプリを再起動すると追随します。",
+    "ko": "본문은 즉시 바뀝니다. 화면 위쪽 메뉴 막대는 앱을 다시 실행하면 따라갑니다.",
+    "th": "ข้อความเปลี่ยนทันที ส่วนแถบเมนูด้านบนจอจะเปลี่ยนตามเมื่อเปิดแอปใหม่",
 })
 add("settings.language.restart.direction", {
     "en": "Text changes immediately. This language reads in the other direction, so the "
@@ -305,6 +368,9 @@ add("settings.language.restart.direction", {
           "folgen, sobald Sie die App neu starten.",
     "ar": "تتغيّر النصوص فورًا. تُقرأ هذه اللغة في الاتجاه المعاكس، لذا تتبادل عناصر "
           "النافذة جانبيها. يحدث ذلك، مع شريط القوائم أعلى الشاشة، عند إعادة تشغيل التطبيق.",
+    "ja": "文言はすぐ切り替わります。この言語は書字方向が逆なので、ウィンドウの左右も入れ替わります。それと画面上部のメニューバーは、アプリを再起動すると追随します。",
+    "ko": "본문은 즉시 바뀝니다. 이 언어는 읽는 방향이 반대라 창의 좌우도 뒤바뀝니다. 그 점과 화면 위쪽 메뉴 막대는 앱을 다시 실행하면 따라갑니다.",
+    "th": "ข้อความเปลี่ยนทันที ภาษานี้อ่านจากอีกทิศทางหนึ่ง หน้าต่างจึงสลับด้านให้เข้ากัน ทั้งสองอย่างนี้และแถบเมนูด้านบนจอจะเปลี่ยนตามเมื่อเปิดแอปใหม่",
 })
 add("settings.language.relaunch", {
     "en": "Relaunch now",
@@ -312,6 +378,9 @@ add("settings.language.relaunch", {
     "zh-Hans": "立即重新启动",
     "de": "Jetzt neu starten",
     "ar": "أعِد التشغيل الآن",
+    "ja": "今すぐ再起動",
+    "ko": "지금 다시 실행",
+    "th": "เปิดใหม่ตอนนี้",
 })
 
 # ── Generation modes ─────────────────────────────────────────────────────────
@@ -323,6 +392,9 @@ add("mode.t2v", {
     "zh-Hans": "文字转视频",
     "de": "Text zu Video",
     "ar": "نص إلى فيديو",
+    "ja": "テキストから動画",
+    "ko": "텍스트로 비디오",
+    "th": "ข้อความเป็นวิดีโอ",
 })
 add("mode.first", {
     "en": "First frame",
@@ -330,6 +402,9 @@ add("mode.first", {
     "zh-Hans": "首帧",
     "de": "Erstes Bild",
     "ar": "الإطار الأول",
+    "ja": "先頭フレーム",
+    "ko": "첫 프레임",
+    "th": "เฟรมแรก",
 }, note="The name of the first-frame mode in the mode picker: the render continues "
         "from a supplied image. Distinct from refs.slot.first, which labels the slot "
         "that image goes in.")
@@ -339,6 +414,9 @@ add("mode.firstlast", {
     "zh-Hans": "首尾帧",
     "de": "Erstes & letztes Bild",
     "ar": "الإطار الأول والأخير",
+    "ja": "先頭と末尾のフレーム",
+    "ko": "첫 프레임과 마지막 프레임",
+    "th": "เฟรมแรกและเฟรมสุดท้าย",
 })
 add("mode.reference", {
     "en": "References",
@@ -346,6 +424,9 @@ add("mode.reference", {
     "zh-Hans": "参考素材",
     "de": "Referenzen",
     "ar": "مراجع",
+    "ja": "参考素材",
+    "ko": "참조 자료",
+    "th": "ไฟล์อ้างอิง",
 }, note="The name of the reference mode in the mode picker — the mode that conditions "
         "on supplied images or video. Distinct from refs.title.references, which "
         "heads the list of the files themselves.")
@@ -355,6 +436,9 @@ add("mode.t2v.detail", {
     "zh-Hans": "仅依文字描述生成。",
     "de": "Ausschließlich aus einer Beschreibung erzeugen.",
     "ar": "التوليد من وصف نصي فقط.",
+    "ja": "文章による説明だけから生成します。",
+    "ko": "글로 쓴 설명만으로 생성합니다.",
+    "th": "สร้างจากคำบรรยายที่เขียนเพียงอย่างเดียว",
 })
 add("mode.first.detail", {
     "en": "Animate outward from a still image you supply.",
@@ -362,6 +446,9 @@ add("mode.first.detail", {
     "zh-Hans": "以你提供的静态图片为起点延伸动态。",
     "de": "Ausgehend von einem Standbild animieren.",
     "ar": "تحريك انطلاقًا من صورة ثابتة تقدّمها.",
+    "ja": "用意した静止画から動きを広げていきます。",
+    "ko": "제공한 정지 이미지에서 바깥으로 움직임을 만듭니다.",
+    "th": "สร้างการเคลื่อนไหวต่อจากภาพนิ่งที่คุณใส่",
 })
 add("mode.firstlast.detail", {
     "en": "Supply both ends of the shot; the model fills in the motion between them.",
@@ -370,6 +457,9 @@ add("mode.firstlast.detail", {
     "de": "Beide Enden der Einstellung vorgeben; das Modell erzeugt die Bewegung "
           "dazwischen.",
     "ar": "قدّم بداية اللقطة ونهايتها، ويولّد النموذج الحركة بينهما.",
+    "ja": "ショットの両端を指定すると、モデルがその間の動きを補います。",
+    "ko": "장면의 양 끝을 제공하면 모델이 그 사이의 움직임을 채웁니다.",
+    "th": "ใส่ภาพทั้งต้นและท้ายช็อต แล้วโมเดลจะเติมการเคลื่อนไหวระหว่างกลางให้",
 })
 add("mode.reference.detail", {
     "en": "Supply reference images, clips or audio to pin down a subject, style or voice.",
@@ -378,6 +468,9 @@ add("mode.reference.detail", {
     "de": "Referenzbilder, -clips oder -audio vorgeben, um Motiv, Stil oder Stimme "
           "festzulegen.",
     "ar": "قدّم صورًا أو مقاطع أو أصواتًا مرجعية لتثبيت الموضوع أو الأسلوب أو الصوت.",
+    "ja": "参考画像・クリップ・音声を渡して、被写体やスタイル、声を固定します。",
+    "ko": "참조 이미지, 클립, 오디오를 제공해 인물, 스타일, 목소리를 고정합니다.",
+    "th": "ใส่ภาพ คลิป หรือเสียงอ้างอิง เพื่อกำหนดตัวแบบ สไตล์ หรือน้ำเสียง",
 })
 
 # ── Job states ───────────────────────────────────────────────────────────────
@@ -387,6 +480,9 @@ add("state.queued", {
     "zh-Hans": "等待中",
     "de": "In Warteschlange",
     "ar": "في الانتظار",
+    "ja": "待機中",
+    "ko": "대기 중",
+    "th": "อยู่ในคิว",
 })
 add("state.preparing", {
     "en": "Loading model",
@@ -394,6 +490,9 @@ add("state.preparing", {
     "zh-Hans": "加载模型中",
     "de": "Modell wird geladen",
     "ar": "جارٍ تحميل النموذج",
+    "ja": "モデルを読み込み中",
+    "ko": "모델 불러오는 중",
+    "th": "กำลังโหลดโมเดล",
 })
 add("state.generating", {
     "en": "Generating",
@@ -401,6 +500,9 @@ add("state.generating", {
     "zh-Hans": "生成中",
     "de": "Wird erzeugt",
     "ar": "جارٍ التوليد",
+    "ja": "生成中",
+    "ko": "생성 중",
+    "th": "กำลังสร้าง",
 })
 add("state.decoding", {
     "en": "Decoding",
@@ -408,6 +510,9 @@ add("state.decoding", {
     "zh-Hans": "解码中",
     "de": "Wird dekodiert",
     "ar": "جارٍ فك الترميز",
+    "ja": "デコード中",
+    "ko": "디코딩 중",
+    "th": "กำลังถอดรหัส",
 })
 add("state.encoding", {
     "en": "Encoding",
@@ -415,6 +520,9 @@ add("state.encoding", {
     "zh-Hans": "编码中",
     "de": "Wird kodiert",
     "ar": "جارٍ الترميز",
+    "ja": "エンコード中",
+    "ko": "인코딩 중",
+    "th": "กำลังเข้ารหัส",
 })
 add("state.finished", {
     "en": "Finished",
@@ -422,6 +530,9 @@ add("state.finished", {
     "zh-Hans": "已完成",
     "de": "Fertig",
     "ar": "اكتمل",
+    "ja": "完了",
+    "ko": "완료",
+    "th": "เสร็จแล้ว",
 })
 add("state.failed", {
     "en": "Failed",
@@ -429,6 +540,9 @@ add("state.failed", {
     "zh-Hans": "失败",
     "de": "Fehlgeschlagen",
     "ar": "فشل",
+    "ja": "失敗",
+    "ko": "실패",
+    "th": "ล้มเหลว",
 })
 add("state.cancelled", {
     "en": "Cancelled",
@@ -436,6 +550,9 @@ add("state.cancelled", {
     "zh-Hans": "已取消",
     "de": "Abgebrochen",
     "ar": "أُلغي",
+    "ja": "キャンセル済み",
+    "ko": "취소됨",
+    "th": "ยกเลิกแล้ว",
 })
 
 # ── Engines ──────────────────────────────────────────────────────────────────
@@ -449,6 +566,9 @@ add("backend.mlx.detail", {
           "Keyframes — die Portierung kennt keine Referenzkonditionierung.",
     "ar": "إطار عمل Apple، يشغّل النموذج أصليًا. يدعم النص إلى فيديو والإطارات المفتاحية "
           "فقط، إذ لا يتضمّن النقل شرطنة المراجع.",
+    "ja": "Apple 自社のフレームワークで、モデルをネイティブに実行します。テキストからの生成とキーフレームのみ対応で、移植版に参考素材の条件付けはありません。",
+    "ko": "Apple 자체 프레임워크로 모델을 네이티브로 실행합니다. 텍스트-비디오와 키프레임만 지원하며, 이식판에는 참조 조건화가 없습니다.",
+    "th": "เฟรมเวิร์กของ Apple เองที่รันโมเดลแบบเนทีฟ รองรับเฉพาะข้อความเป็นวิดีโอและคีย์เฟรม เพราะพอร์ตนี้ไม่มีการกำหนดเงื่อนไขจากไฟล์อ้างอิง",
 })
 add("backend.comfy.detail", {
     "en": "PyTorch on Metal. The only backend that supports references, and the only one "
@@ -459,6 +579,9 @@ add("backend.comfy.detail", {
           "4-Schritt-Turbo-LoRAs laden kann.",
     "ar": "PyTorch على Metal. الواجهة الخلفية الوحيدة التي تدعم المراجع، والوحيدة القادرة "
           "على تحميل نماذج turbo LoRA ذات الأربع خطوات.",
+    "ja": "Metal 上の PyTorch。参考素材に対応する唯一のバックエンドで、4 ステップの turbo LoRA を読み込めるのもこれだけです。",
+    "ko": "Metal 기반 PyTorch. 참조 자료를 지원하는 유일한 백엔드이며, 4스텝 turbo LoRA를 불러올 수 있는 것도 이것뿐입니다.",
+    "th": "PyTorch บน Metal เป็นแบ็กเอนด์เดียวที่รองรับไฟล์อ้างอิง และเป็นตัวเดียวที่โหลด turbo LoRA แบบ 4 สเต็ปได้",
 })
 
 # ── Compose: buttons and chrome ──────────────────────────────────────────────
@@ -468,6 +591,9 @@ add("compose.generate", {
     "zh-Hans": "生成",
     "de": "Erzeugen",
     "ar": "توليد",
+    "ja": "生成",
+    "ko": "생성",
+    "th": "สร้าง",
 }, note="Imperative verb on the main action button: start the render. Not the noun, "
         "and not \"generation\" in the sense of a cohort.")
 add("compose.generate.help.ready", {
@@ -476,6 +602,9 @@ add("compose.generate.help.ready", {
     "zh-Hans": "将这次渲染加入队列",
     "de": "Diesen Render der Warteschlange hinzufügen",
     "ar": "أضف هذا التصيير إلى قائمة الانتظار",
+    "ja": "このレンダリングをキューに追加します",
+    "ko": "이 렌더링을 대기열에 추가합니다",
+    "th": "เพิ่มการเรนเดอร์นี้เข้าคิว",
 })
 add("compose.generate.why", {
     "en": "Why is this disabled?",
@@ -483,6 +612,9 @@ add("compose.generate.why", {
     "zh-Hans": "为什么无法使用？",
     "de": "Warum ist das deaktiviert?",
     "ar": "لماذا هذا معطّل؟",
+    "ja": "なぜ使えないのか",
+    "ko": "왜 사용할 수 없나요?",
+    "th": "ทำไมจึงใช้ไม่ได้",
 })
 add("compose.generate.blocked.runtime", {
     "en": "The Python runtime is not ready. Open Settings › Runtime.",
@@ -490,6 +622,9 @@ add("compose.generate.blocked.runtime", {
     "zh-Hans": "Python 运行环境尚未就绪。请打开“设置 › Runtime”。",
     "de": "Die Python-Laufzeitumgebung ist nicht bereit. Öffne „Einstellungen › Runtime“.",
     "ar": "بيئة تشغيل Python غير جاهزة. افتح «الإعدادات › Runtime».",
+    "ja": "Python 実行環境が準備できていません。「設定 › 実行環境」を開いてください。",
+    "ko": "Python 런타임이 준비되지 않았습니다. 설정 › 런타임을 여세요.",
+    "th": "รันไทม์ Python ยังไม่พร้อม เปิด การตั้งค่า › รันไทม์",
 })
 add("compose.generate.blocked.generic", {
     "en": "Resolve the issues listed under “Before you generate”.",
@@ -497,6 +632,9 @@ add("compose.generate.blocked.generic", {
     "zh-Hans": "请先处理“生成前请确认”列出的问题。",
     "de": "Behebe die unter „Vor dem Erzeugen“ aufgeführten Punkte.",
     "ar": "عالِج المشكلات المذكورة تحت «قبل التوليد».",
+    "ja": "「生成する前に」に挙がっている問題を解決してください。",
+    "ko": "'생성하기 전에'에 나열된 문제를 해결하세요.",
+    "th": "แก้ปัญหาที่แสดงไว้ใต้ “ก่อนเริ่มสร้าง” ให้เรียบร้อยก่อน",
 })
 add("compose.presets", {
     "en": "Presets",
@@ -504,6 +642,9 @@ add("compose.presets", {
     "zh-Hans": "预设组合",
     "de": "Vorlagen",
     "ar": "إعدادات محفوظة",
+    "ja": "プリセット",
+    "ko": "프리셋",
+    "th": "พรีเซ็ต",
 }, note="Saved combinations of settings — not 'default' in the factory sense.")
 add("compose.presets.help", {
     "en": "Apply a saved combination of settings",
@@ -511,6 +652,9 @@ add("compose.presets.help", {
     "zh-Hans": "应用已保存的设置组合",
     "de": "Eine gespeicherte Einstellungskombination anwenden",
     "ar": "تطبيق مجموعة إعدادات محفوظة",
+    "ja": "保存した設定の組み合わせを適用します",
+    "ko": "저장해 둔 설정 조합을 적용합니다",
+    "th": "ใช้ชุดการตั้งค่าที่บันทึกไว้",
 })
 add("compose.preset.delete", {
     "en": "Delete Custom Preset",
@@ -518,6 +662,9 @@ add("compose.preset.delete", {
     "zh-Hans": "删除自定义预设组合",
     "de": "Eigene Vorlage löschen",
     "ar": "حذف إعداد مخصّص",
+    "ja": "カスタムプリセットを削除",
+    "ko": "사용자 프리셋 삭제",
+    "th": "ลบพรีเซ็ตที่สร้างเอง",
 })
 add("compose.preset.save", {
     "en": "Save as Preset…",
@@ -525,6 +672,9 @@ add("compose.preset.save", {
     "zh-Hans": "另存为预设组合…",
     "de": "Als Vorlage sichern …",
     "ar": "حفظ كإعداد محفوظ…",
+    "ja": "プリセットとして保存…",
+    "ko": "프리셋으로 저장…",
+    "th": "บันทึกเป็นพรีเซ็ต…",
 })
 add("compose.preset.save.title", {
     "en": "Save preset",
@@ -532,6 +682,9 @@ add("compose.preset.save.title", {
     "zh-Hans": "保存预设组合",
     "de": "Vorlage sichern",
     "ar": "حفظ الإعداد",
+    "ja": "プリセットを保存",
+    "ko": "프리셋 저장",
+    "th": "บันทึกพรีเซ็ต",
 })
 add("compose.preset.save.message", {
     "en": "Saves the current settings as a reusable recipe. The prompt, seed and attached "
@@ -542,6 +695,9 @@ add("compose.preset.save.message", {
           "und angehängte Dateien sind nicht enthalten.",
     "ar": "يحفظ الإعدادات الحالية كوصفة قابلة لإعادة الاستخدام. لا يشمل الموجّه أو قيمة "
           "seed أو الملفات المرفقة.",
+    "ja": "現在の設定を再利用できるレシピとして保存します。プロンプト・シード・添付ファイルは含まれません。",
+    "ko": "현재 설정을 다시 쓸 수 있는 조합으로 저장합니다. 프롬프트와 시드, 첨부 파일은 포함되지 않습니다.",
+    "th": "บันทึกการตั้งค่าปัจจุบันเป็นสูตรที่นำกลับมาใช้ได้ โดยไม่รวมพรอมต์ ซีด และไฟล์แนบ",
 })
 add("common.name", {
     "en": "Name",
@@ -549,6 +705,9 @@ add("common.name", {
     "zh-Hans": "名称",
     "de": "Name",
     "ar": "الاسم",
+    "ja": "名前",
+    "ko": "이름",
+    "th": "ชื่อ",
 }, note="Noun: the name of a preset or a file. A field label, not the verb \"to name\".")
 add("common.cancel", {
     "en": "Cancel",
@@ -556,6 +715,9 @@ add("common.cancel", {
     "zh-Hans": "取消",
     "de": "Abbrechen",
     "ar": "إلغاء",
+    "ja": "キャンセル",
+    "ko": "취소",
+    "th": "ยกเลิก",
 })
 add("common.save", {
     "en": "Save",
@@ -563,6 +725,9 @@ add("common.save", {
     "zh-Hans": "保存",
     "de": "Sichern",
     "ar": "حفظ",
+    "ja": "保存",
+    "ko": "저장",
+    "th": "บันทึก",
 }, note="Imperative verb on a button: write to disk. Not the sense of rescuing or of "
         "saving money.")
 add("common.done", {
@@ -571,6 +736,9 @@ add("common.done", {
     "zh-Hans": "完成",
     "de": "Fertig",
     "ar": "تم",
+    "ja": "完了",
+    "ko": "완료",
+    "th": "เสร็จสิ้น",
 })
 add("common.delete", {
     "en": "Delete",
@@ -578,6 +746,9 @@ add("common.delete", {
     "zh-Hans": "删除",
     "de": "Löschen",
     "ar": "حذف",
+    "ja": "削除",
+    "ko": "삭제",
+    "th": "ลบ",
 })
 add("common.download", {
     "en": "Download",
@@ -585,6 +756,9 @@ add("common.download", {
     "zh-Hans": "下载",
     "de": "Laden",
     "ar": "تنزيل",
+    "ja": "ダウンロード",
+    "ko": "다운로드",
+    "th": "ดาวน์โหลด",
 })
 add("common.reveal", {
     "en": "Reveal",
@@ -592,6 +766,9 @@ add("common.reveal", {
     "zh-Hans": "显示",
     "de": "Anzeigen",
     "ar": "إظهار",
+    "ja": "表示",
+    "ko": "표시",
+    "th": "แสดง",
 }, note="Imperative verb: show this file in the Finder, selected in its folder. "
         "Follow whatever the platform calls it — it is a Finder idiom, not a general "
         "\"show\".")
@@ -601,6 +778,9 @@ add("common.refresh", {
     "zh-Hans": "刷新",
     "de": "Aktualisieren",
     "ar": "تحديث",
+    "ja": "更新",
+    "ko": "새로 고침",
+    "th": "รีเฟรช",
 })
 add("common.copy", {
     "en": "Copy",
@@ -608,6 +788,9 @@ add("common.copy", {
     "zh-Hans": "复制",
     "de": "Kopieren",
     "ar": "نسخ",
+    "ja": "コピー",
+    "ko": "복사",
+    "th": "คัดลอก",
 }, note="Imperative verb on a button — copy this to the clipboard. Never the noun \"a "
         "copy\". macOS uses 拷貝 in Traditional Chinese, 复制 in Simplified.")
 
@@ -618,6 +801,9 @@ add("compose.prompt.title", {
     "zh-Hans": "提示词",
     "de": "Prompt",
     "ar": "الموجّه",
+    "ja": "プロンプト",
+    "ko": "프롬프트",
+    "th": "พรอมต์",
 })
 add("compose.prompt.hint", {
     "en": "Describe the shot. Press Tab to move on, Option-Tab to insert a tab.",
@@ -626,6 +812,9 @@ add("compose.prompt.hint", {
     "de": "Beschreibe die Einstellung. Tab wechselt weiter, Wahl-Tab fügt einen Tabulator "
           "ein.",
     "ar": "صِف اللقطة. اضغط Tab للانتقال، وOption-Tab لإدراج علامة جدولة.",
+    "ja": "ショットを説明してください。Tab で次へ、Option-Tab でタブを入力します。",
+    "ko": "장면을 설명하세요. Tab으로 다음으로 이동하고, Option-Tab으로 탭 문자를 넣습니다.",
+    "th": "บรรยายช็อตที่ต้องการ กด Tab เพื่อไปต่อ กด Option-Tab เพื่อแทรกแท็บ",
 })
 add("compose.prompt.footnote", {
     "en": "H3 responds well to camera language — shot size, lens, movement, lighting — and "
@@ -643,6 +832,9 @@ add("compose.prompt.footnote", {
     "ar": "يستجيب H3 جيدًا للغة الكاميرا — حجم اللقطة والعدسة والحركة والإضاءة — وكذلك لوصف "
           "المشهد الصوتي، لأنه يولّد الصوت في المسار نفسه. لا يوجد موجّه سلبي: الأوزان "
           "المنشورة مقطّرة بأسلوب CFG، لذا لن يكون لعناصر التوجيه أي أثر.",
+    "ja": "H3 はカメラ用語（画角・レンズ・カメラワーク・照明）によく反応し、音を同じパスで生成するため、音の情景描写にも反応します。ネガティブプロンプトはありません。公開された重みは CFG 蒸留済みで、ガイダンス系の操作は何も起こさないからです。",
+    "ko": "H3는 카메라 언어(샷 크기, 렌즈, 움직임, 조명)에 잘 반응하고, 소리를 같은 패스에서 만들기 때문에 묘사된 소리 풍경에도 반응합니다. 네거티브 프롬프트는 없습니다. 공개된 가중치가 CFG 증류를 거쳐 가이던스 조절이 아무 일도 하지 않기 때문입니다.",
+    "th": "H3 ตอบสนองดีกับภาษาของกล้อง — ขนาดภาพ เลนส์ การเคลื่อนกล้อง แสง — และกับการบรรยายบรรยากาศเสียง เพราะสร้างเสียงในรอบเดียวกัน ไม่มีพรอมต์เชิงลบ เพราะน้ำหนักที่เผยแพร่ผ่านการกลั่นแบบ CFG แล้ว การปรับ guidance จึงไม่มีผลใด ๆ",
 })
 
 # ── Compose: mode card ───────────────────────────────────────────────────────
@@ -652,6 +844,9 @@ add("compose.mode.title", {
     "zh-Hans": "模式",
     "de": "Modus",
     "ar": "الوضع",
+    "ja": "モード",
+    "ko": "모드",
+    "th": "โหมด",
 }, note="Labels the picker choosing between text-to-video and reference modes. A "
         "choice the user makes. Distinct from library.mode, which reports what a "
         "finished render used.")
@@ -661,6 +856,9 @@ add("compose.mode.task.fl2va", {
     "zh-Hans": "　使用 FL2VA 检查点。",
     "de": " Verwendet den FL2VA-Checkpoint.",
     "ar": " يستخدم نقطة التحقق FL2VA.",
+    "ja": "　FL2VA のチェックポイントを使います。",
+    "ko": "　FL2VA 체크포인트를 사용합니다.",
+    "th": " ใช้เช็กพอยต์ FL2VA",
 }, note={
     "content": "Begins with a space because it is appended to the sentence before it — U+3000 "
                "for Chinese. Runtime concatenation: the two halves cannot be reordered, and a "
@@ -673,6 +871,9 @@ add("compose.mode.task.ref2va", {
     "zh-Hans": "　使用 Ref2VA 检查点。",
     "de": " Verwendet den Ref2VA-Checkpoint.",
     "ar": " يستخدم نقطة التحقق Ref2VA.",
+    "ja": "　Ref2VA のチェックポイントを使います。",
+    "ko": "　Ref2VA 체크포인트를 사용합니다.",
+    "th": " ใช้เช็กพอยต์ Ref2VA",
 }, note={
     "content": "See compose.mode.task.fl2va — same leading space, same concatenation.",
     "level": WARNING,
@@ -683,6 +884,9 @@ add("compose.engine.label", {
     "zh-Hans": "引擎",
     "de": "Engine",
     "ar": "المحرّك",
+    "ja": "エンジン",
+    "ko": "엔진",
+    "th": "เอนจิน",
 }, note="Which backend runs the model — MLX or ComfyUI. Not a motor, and not a game "
         "engine. Usually kept in English.")
 add("compose.engine.mlx.note", {
@@ -696,6 +900,9 @@ add("compose.engine.mlx.note", {
           "— für Qualität die 16 Schritte der Portierung oder mehr.",
     "ar": "يعمل أصليًا على MLX. بلا خادم، وهو الخيار الافتراضي. أوزانه غير مقطّرة، لذا فإن "
           "أعداد الخطوات المنخفضة تخرج عن التوزيع — استخدم 16 خطوة أو أكثر للجودة.",
+    "ja": "MLX 上でネイティブに動作します。サーバー不要で、こちらが既定です。重みは未蒸留のため、ステップ数が少ないと分布から外れます。品質を求めるなら移植版の 16 ステップ以上を使ってください。",
+    "ko": "MLX에서 네이티브로 실행됩니다. 서버가 필요 없으며 기본값입니다. 가중치가 비증류라 스텝 수가 적으면 분포를 벗어나므로, 품질을 원하면 이식판의 16스텝 이상을 쓰세요.",
+    "th": "ทำงานแบบเนทีฟบน MLX ไม่ต้องใช้เซิร์ฟเวอร์ และเป็นค่าเริ่มต้น น้ำหนักยังไม่ผ่านการกลั่น สเต็ปน้อยจึงหลุดจากการกระจายที่ฝึกมา ถ้าต้องการคุณภาพให้ใช้ 16 สเต็ปขึ้นไปตามพอร์ตนี้",
 })
 add("compose.engine.comfy.note", {
     "en": "Runs through ComfyUI on PyTorch/Metal, which can load the 4-step turbo LoRA. "
@@ -711,6 +918,9 @@ add("compose.engine.comfy.note", {
     "ar": "يعمل عبر ComfyUI على PyTorch/Metal، ويستطيع تحميل turbo LoRA ذات الأربع خطوات. "
           "أربع خطوات مقطّرة تستغرق زمنًا قريبًا من خمس خطوات غير مقطّرة على MLX، وهي ما "
           "دُرّبت عليه الـ LoRA.",
+    "ja": "PyTorch/Metal 上の ComfyUI で動作し、4 ステップの turbo LoRA を読み込めます。蒸留された 4 ステップは MLX の未蒸留 5 ステップとほぼ同じ時間で、LoRA はそのために学習されています。",
+    "ko": "PyTorch/Metal 기반 ComfyUI로 실행되며 4스텝 turbo LoRA를 불러올 수 있습니다. 증류된 4스텝은 MLX의 비증류 5스텝과 비슷한 시간이 걸리며, LoRA는 바로 그 스텝 수에 맞춰 학습되었습니다.",
+    "th": "ทำงานผ่าน ComfyUI บน PyTorch/Metal ซึ่งโหลด turbo LoRA แบบ 4 สเต็ปได้ สี่สเต็ปที่กลั่นแล้วใช้เวลาพอ ๆ กับห้าสเต็ปที่ยังไม่กลั่นบน MLX และเป็นจำนวนที่ LoRA ถูกฝึกมา",
 })
 
 # ── Output format vocabulary ─────────────────────────────────────────────────
@@ -720,6 +930,9 @@ add("format.res.native", {
     "zh-Hans": "768p — 原生",
     "de": "768p — nativ",
     "ar": "‏768p — أصلي",
+    "ja": "768p — ネイティブ",
+    "ko": "768p — 네이티브",
+    "th": "768p — ดั้งเดิม",
 })
 add("format.res.1080", {
     "en": "1080p — upscaled",
@@ -727,6 +940,9 @@ add("format.res.1080", {
     "zh-Hans": "1080p — 放大",
     "de": "1080p — hochskaliert",
     "ar": "‏1080p — مُكبَّر",
+    "ja": "1080p — アップスケール",
+    "ko": "1080p — 업스케일",
+    "th": "1080p — ขยายขนาด",
 })
 add("format.res.1440", {
     "en": "1440p — upscaled",
@@ -734,6 +950,9 @@ add("format.res.1440", {
     "zh-Hans": "1440p — 放大",
     "de": "1440p — hochskaliert",
     "ar": "‏1440p — مُكبَّر",
+    "ja": "1440p — アップスケール",
+    "ko": "1440p — 업스케일",
+    "th": "1440p — ขยายขนาด",
 })
 add("format.res.native.detail", {
     "en": "Exactly what the model produces, with no resampling. Recommended.",
@@ -741,6 +960,9 @@ add("format.res.native.detail", {
     "zh-Hans": "模型的原始输出，不做重新采样。建议使用。",
     "de": "Genau das, was das Modell erzeugt, ohne Resampling. Empfohlen.",
     "ar": "ما ينتجه النموذج تمامًا، دون إعادة أخذ عيّنات. موصى به.",
+    "ja": "モデルの出力そのままで、リサンプルしません。おすすめです。",
+    "ko": "모델이 만든 그대로이며 리샘플링하지 않습니다. 권장합니다.",
+    "th": "ตรงตามที่โมเดลสร้างโดยไม่ปรับขนาด แนะนำให้ใช้ค่านี้",
 })
 add("format.res.1080.detail", {
     "en": "Resampled after generation to fit a 1080p delivery pipeline. No detail is added.",
@@ -749,6 +971,9 @@ add("format.res.1080.detail", {
     "de": "Nach der Erzeugung auf eine 1080p-Auslieferung resampelt. Es kommen keine "
           "Details hinzu.",
     "ar": "يُعاد أخذ العيّنات بعد التوليد ليلائم مسار تسليم 1080p. لا تُضاف أي تفاصيل.",
+    "ja": "生成後に 1080p の納品フローに合わせてリサンプルします。ディテールが増えるわけではありません。",
+    "ko": "생성 후 1080p 납품 파이프라인에 맞춰 리샘플링합니다. 디테일이 늘어나지는 않습니다.",
+    "th": "ปรับขนาดหลังสร้างเสร็จให้เข้ากับงานส่งมอบแบบ 1080p โดยไม่ได้เพิ่มรายละเอียด",
 })
 add("format.res.1440.detail", {
     "en": "Resampled to 1440p. Larger files for the same real detail; useful only if a "
@@ -759,6 +984,9 @@ add("format.res.1440.detail", {
           "wenn ein nachgelagertes Werkzeug diese Größe verlangt.",
     "ar": "يُعاد أخذ العيّنات إلى 1440p. ملفات أكبر بالتفاصيل الحقيقية نفسها؛ مفيد فقط إذا "
           "طلبت أداة لاحقة هذا الحجم.",
+    "ja": "1440p にリサンプルします。実際のディテールは同じままファイルだけ大きくなるので、後工程がこのサイズを要求する場合にだけ使ってください。",
+    "ko": "1440p로 리샘플링합니다. 실제 디테일은 그대로인데 파일만 커지므로, 후속 도구가 이 크기를 요구할 때만 쓰세요.",
+    "th": "ปรับขนาดเป็น 1440p ไฟล์ใหญ่ขึ้นโดยรายละเอียดจริงเท่าเดิม ใช้เมื่อเครื่องมือปลายทางต้องการขนาดนี้เท่านั้น",
 })
 add("format.fps.native", {
     "en": "24 fps — native",
@@ -766,6 +994,9 @@ add("format.fps.native", {
     "zh-Hans": "24 fps — 原生",
     "de": "24 fps — nativ",
     "ar": "‏24 fps — أصلي",
+    "ja": "24 fps — ネイティブ",
+    "ko": "24 fps — 네이티브",
+    "th": "24 fps — ดั้งเดิม",
 })
 add("format.fps.conformed", {
     "en": "%@ fps — conformed",
@@ -773,6 +1004,9 @@ add("format.fps.conformed", {
     "zh-Hans": "%@ fps — 转换",
     "de": "%@ fps — angepasst",
     "ar": "‏%@ fps — مُوائَم",
+    "ja": "%@ fps — 変換",
+    "ko": "%@ fps — 변환됨",
+    "th": "%@ fps — ปรับแล้ว",
 })
 add("format.fps.native.detail", {
     "en": "The model's own cadence. No frames are invented or dropped.",
@@ -780,6 +1014,9 @@ add("format.fps.native.detail", {
     "zh-Hans": "模型本身的节奏，不会凭空产生或丢弃帧。",
     "de": "Die eigene Kadenz des Modells. Es werden keine Bilder erfunden oder verworfen.",
     "ar": "إيقاع النموذج نفسه. لا تُختلق إطارات ولا تُحذف.",
+    "ja": "モデル本来のテンポです。フレームの生成も間引きもありません。",
+    "ko": "모델 본래의 박자입니다. 프레임을 만들지도 버리지도 않습니다.",
+    "th": "จังหวะดั้งเดิมของโมเดล ไม่มีการสร้างหรือตัดเฟรมทิ้ง",
 })
 add("format.fps.30.detail", {
     "en": "Frames are duplicated to a 30 fps timeline. Motion may judder slightly.",
@@ -788,6 +1025,9 @@ add("format.fps.30.detail", {
     "de": "Bilder werden auf eine 30-fps-Zeitleiste dupliziert. Die Bewegung kann leicht "
           "ruckeln.",
     "ar": "تُكرَّر الإطارات على خط زمني بمعدل 30 fps. قد تبدو الحركة متقطّعة قليلًا.",
+    "ja": "フレームを複製して 30 fps のタイムラインに合わせます。動きがわずかにぎこちなくなることがあります。",
+    "ko": "프레임을 복제해 30 fps 타임라인에 맞춥니다. 움직임이 약간 끊겨 보일 수 있습니다.",
+    "th": "ทำซ้ำเฟรมให้เข้ากับไทม์ไลน์ 30 fps การเคลื่อนไหวอาจสะดุดเล็กน้อย",
 })
 add("format.fps.60.detail", {
     "en": "Frames are duplicated to a 60 fps timeline. No new motion is synthesised.",
@@ -796,6 +1036,9 @@ add("format.fps.60.detail", {
     "de": "Bilder werden auf eine 60-fps-Zeitleiste dupliziert. Es wird keine neue Bewegung "
           "erzeugt.",
     "ar": "تُكرَّر الإطارات على خط زمني بمعدل 60 fps. لا تُصطنَع حركة جديدة.",
+    "ja": "フレームを複製して 60 fps のタイムラインに合わせます。新しい動きは作られません。",
+    "ko": "프레임을 복제해 60 fps 타임라인에 맞춥니다. 새로운 움직임을 만들어 내지는 않습니다.",
+    "th": "ทำซ้ำเฟรมให้เข้ากับไทม์ไลน์ 60 fps โดยไม่สร้างการเคลื่อนไหวใหม่",
 })
 add("format.codec.h264.detail", {
     "en": "What the model produces. Delivered as rendered, with no second encode, and plays "
@@ -805,6 +1048,9 @@ add("format.codec.h264.detail", {
     "de": "Was das Modell erzeugt. Wird unverändert ausgeliefert, ohne zweite Kodierung, "
           "und läuft überall.",
     "ar": "ما ينتجه النموذج. يُسلَّم كما صُيِّر، دون ترميز ثانٍ، ويعمل في كل مكان.",
+    "ja": "モデルが出力するそのままの形式です。再エンコードせずに書き出され、どこでも再生できます。",
+    "ko": "모델이 만들어 내는 그대로입니다. 다시 인코딩하지 않고 내보내며 어디서나 재생됩니다.",
+    "th": "เป็นสิ่งที่โมเดลสร้างออกมาโดยตรง ส่งออกตามที่เรนเดอร์โดยไม่เข้ารหัสซ้ำ และเล่นได้ทุกที่",
 })
 add("format.codec.av1.detail", {
     "en": "About half the size for the same quality. Encoded in software, since Apple "
@@ -818,6 +1064,9 @@ add("format.codec.av1.detail", {
     "ar": "نحو نصف الحجم بالجودة نفسها. يُرمَّز برمجيًا لأن معالجات Apple لا تتضمّن مرمِّز "
           "AV1 — غير أن SVT-AV1 ينهي مقطعًا من خمس ثوانٍ في ثانية أو اثنتين، وهو زمن ضئيل "
           "مقارنةً بالتوليد.",
+    "ja": "同じ画質でおよそ半分のサイズです。Apple シリコンに AV1 エンコーダがないためソフトウェアで符号化しますが、SVT-AV1 なら 5 秒のクリップを 1〜2 秒で処理するので、生成時間に比べれば無視できます。",
+    "ko": "같은 품질에 크기는 약 절반입니다. Apple 실리콘에 AV1 인코더가 없어 소프트웨어로 인코딩하지만, SVT-AV1은 5초 클립을 1~2초에 처리하므로 생성 시간에 비하면 무시할 만합니다.",
+    "th": "ขนาดราวครึ่งเดียวที่คุณภาพเท่ากัน เข้ารหัสด้วยซอฟต์แวร์เพราะ Apple silicon ไม่มีตัวเข้ารหัส AV1 แต่ SVT-AV1 จัดการคลิปห้าวินาทีได้ในหนึ่งถึงสองวินาที จึงน้อยมากเมื่อเทียบกับเวลาสร้าง",
 })
 add("format.audio.muxed", {
     "en": "Muxed into the video",
@@ -825,6 +1074,9 @@ add("format.audio.muxed", {
     "zh-Hans": "混流至视频中",
     "de": "In das Video gemuxt",
     "ar": "مدمج داخل الفيديو",
+    "ja": "動画に多重化",
+    "ko": "비디오에 다중화",
+    "th": "รวมไว้ในวิดีโอ",
 })
 add("format.audio.wav", {
     "en": "Muxed, plus a separate WAV",
@@ -832,6 +1084,9 @@ add("format.audio.wav", {
     "zh-Hans": "混流，并另存 WAV",
     "de": "Gemuxt, plus separate WAV-Datei",
     "ar": "مدمج، مع ملف WAV منفصل",
+    "ja": "多重化に加えて WAV を別途出力",
+    "ko": "다중화에 더해 별도 WAV 파일",
+    "th": "รวมในวิดีโอ พร้อมไฟล์ WAV แยก",
 })
 
 # ── Compose: output card ─────────────────────────────────────────────────────
@@ -841,6 +1096,9 @@ add("compose.output.title", {
     "zh-Hans": "输出",
     "de": "Ausgabe",
     "ar": "الإخراج",
+    "ja": "出力",
+    "ko": "출력",
+    "th": "เอาต์พุต",
 }, note="Heads the card for how the video is encoded — codec, resolution, frame rate. "
         "Output as in the result of a render. Distinct from settings.folder.output, a "
         "folder.")
@@ -853,6 +1111,9 @@ add("compose.output.footnote", {
           "Karte wird erst beim Kodieren angewandt.",
     "ar": "يصيّر النموذج دائمًا بمعدل 24 fps وبحافة قصيرة قدرها 768 بكسل. وكل ما عدا ذلك في "
           "هذه البطاقة يُطبَّق لاحقًا أثناء الترميز.",
+    "ja": "モデルは常に短辺 768 px・24 fps でレンダリングします。このカードのそれ以外の設定は、あとからエンコード時に適用されます。",
+    "ko": "모델은 항상 짧은 변 768 px, 24 fps로 렌더링합니다. 이 카드의 나머지 설정은 그 뒤 인코딩 단계에서 적용됩니다.",
+    "th": "โมเดลเรนเดอร์ที่ 24 fps และด้านสั้น 768 px เสมอ ค่าอื่นในการ์ดนี้จะถูกนำไปใช้ภายหลังตอนเข้ารหัส",
 })
 add("compose.aspect", {
     "en": "Aspect ratio",
@@ -860,6 +1121,9 @@ add("compose.aspect", {
     "zh-Hans": "宽高比",
     "de": "Seitenverhältnis",
     "ar": "نسبة العرض إلى الارتفاع",
+    "ja": "アスペクト比",
+    "ko": "화면 비율",
+    "th": "อัตราส่วนภาพ",
 })
 add("compose.aspect.help", {
     "en": "%1$@ — renders at %2$@",
@@ -867,6 +1131,9 @@ add("compose.aspect.help", {
     "zh-Hans": "%1$@ — 以 %2$@ 渲染",
     "de": "%1$@ — rendert mit %2$@",
     "ar": "%1$@ — يُصيَّر بمقاس %2$@",
+    "ja": "%1$@ — %2$@ でレンダリング",
+    "ko": "%1$@ — %2$@ 로 렌더링",
+    "th": "%1$@ — เรนเดอร์ที่ %2$@",
 })
 add("compose.aspect.accessibility", {
     "en": "%@ aspect ratio",
@@ -874,6 +1141,9 @@ add("compose.aspect.accessibility", {
     "zh-Hans": "%@ 宽高比",
     "de": "Seitenverhältnis %@",
     "ar": "نسبة عرض إلى ارتفاع %@",
+    "ja": "アスペクト比 %@",
+    "ko": "%@ 화면 비율",
+    "th": "อัตราส่วนภาพ %@",
 })
 add("compose.aspect.pixels", {
     "en": "%1$@ by %2$@ pixels",
@@ -881,6 +1151,9 @@ add("compose.aspect.pixels", {
     "zh-Hans": "%1$@ 乘 %2$@ 像素",
     "de": "%1$@ mal %2$@ Pixel",
     "ar": "%1$@ في %2$@ بكسل",
+    "ja": "%1$@ × %2$@ ピクセル",
+    "ko": "%1$@ × %2$@ 픽셀",
+    "th": "%1$@ × %2$@ พิกเซล",
 })
 add("compose.resolution", {
     "en": "Resolution",
@@ -888,6 +1161,9 @@ add("compose.resolution", {
     "zh-Hans": "分辨率",
     "de": "Auflösung",
     "ar": "الدقة",
+    "ja": "解像度",
+    "ko": "해상도",
+    "th": "ความละเอียด",
 }, note="Pixel dimensions of the output. Not resolution in the sense of resolving a "
         "dispute or a decision.")
 add("compose.framerate", {
@@ -896,6 +1172,9 @@ add("compose.framerate", {
     "zh-Hans": "帧率",
     "de": "Bildrate",
     "ar": "معدل الإطارات",
+    "ja": "フレームレート",
+    "ko": "프레임 레이트",
+    "th": "อัตราเฟรม",
 })
 add("compose.codec", {
     "en": "Codec",
@@ -903,6 +1182,9 @@ add("compose.codec", {
     "zh-Hans": "编码格式",
     "de": "Codec",
     "ar": "الترميز",
+    "ja": "コーデック",
+    "ko": "코덱",
+    "th": "ตัวแปลงสัญญาณ",
 })
 add("compose.audio", {
     "en": "Audio",
@@ -910,6 +1192,9 @@ add("compose.audio", {
     "zh-Hans": "音频",
     "de": "Audio",
     "ar": "الصوت",
+    "ja": "オーディオ",
+    "ko": "오디오",
+    "th": "เสียง",
 }, note="Labels the switch for whether the render produces sound. A property of the "
         "output. Distinct from refs.kind.audio, which names a kind of file the user "
         "attaches.")
@@ -922,6 +1207,9 @@ add("compose.audio.footnote", {
           "schnelleren stummen Modus gibt es nicht.",
     "ar": "يولّد H3 صوتًا ستيريو بتردد 32 kHz في المسار نفسه الذي يولّد فيه الصورة؛ ولا "
           "يوجد وضع صامت أسرع.",
+    "ja": "H3 は映像と同じパスで 32 kHz ステレオ音声を生成します。音声を切って速くするモードはありません。",
+    "ko": "H3는 영상과 같은 패스에서 32 kHz 스테레오 오디오를 생성합니다. 소리를 끄고 더 빨리 렌더링하는 모드는 없습니다.",
+    "th": "H3 สร้างเสียงสเตอริโอ 32 kHz ไปพร้อมกับภาพในรอบเดียวกัน จึงไม่มีโหมดเงียบที่เรนเดอร์เร็วกว่า",
 })
 
 # ── Sampling card ────────────────────────────────────────────────────────────
@@ -931,6 +1219,9 @@ add("sampling.title", {
     "zh-Hans": "采样",
     "de": "Sampling",
     "ar": "المعاينة",
+    "ja": "サンプリング",
+    "ko": "샘플링",
+    "th": "การสุ่มตัวอย่าง",
 })
 add("sampling.duration", {
     "en": "Duration",
@@ -938,6 +1229,9 @@ add("sampling.duration", {
     "zh-Hans": "时长",
     "de": "Dauer",
     "ar": "المدة",
+    "ja": "長さ",
+    "ko": "길이",
+    "th": "ความยาว",
 }, note="How long the finished clip will be, in the Sampling card. A length the user "
         "is choosing. Distinct from library.duration, which reports the length of a "
         "video already made.")
@@ -947,6 +1241,9 @@ add("sampling.steps", {
     "zh-Hans": "步数",
     "de": "Schritte",
     "ar": "الخطوات",
+    "ja": "ステップ数",
+    "ko": "스텝 수",
+    "th": "จำนวนสเต็ป",
 }, note="Denoising steps — iterations of the sampler. Not stairs, and not steps in a "
         "set of instructions.")
 add("sampling.seed.fixed", {
@@ -955,6 +1252,9 @@ add("sampling.seed.fixed", {
     "zh-Hans": "固定种子",
     "de": "Fester Seed",
     "ar": "بذرة ثابتة",
+    "ja": "シード固定",
+    "ko": "시드 고정",
+    "th": "ล็อกซีด",
 }, note="'Seed' is kept in English; the qualifier is translated.")
 add("sampling.seed.randomise", {
     "en": "Randomise",
@@ -962,6 +1262,9 @@ add("sampling.seed.randomise", {
     "zh-Hans": "随机",
     "de": "Zufällig",
     "ar": "عشوائي",
+    "ja": "ランダム",
+    "ko": "무작위",
+    "th": "สุ่ม",
 })
 add("sampling.seed.note", {
     "en": "A fixed seed makes a render repeatable. Change any other setting and the result "
@@ -972,6 +1275,9 @@ add("sampling.seed.note", {
           "Einstellung, ändert sich das Ergebnis trotzdem.",
     "ar": "تجعل البذرة الثابتة التصيير قابلًا للتكرار. لكن تغيير أي إعداد آخر يغيّر النتيجة "
           "على أي حال.",
+    "ja": "シードを固定すると同じ結果を再現できます。ほかの設定を変えれば、いずれにせよ結果は変わります。",
+    "ko": "시드를 고정하면 같은 결과를 다시 낼 수 있습니다. 다른 설정을 바꾸면 결과는 어차피 달라집니다.",
+    "th": "การล็อกซีดทำให้เรนเดอร์ซ้ำได้ผลเดิม แต่ถ้าเปลี่ยนค่าอื่นผลลัพธ์ก็เปลี่ยนอยู่ดี",
 })
 add("sampling.snapped.exact", {
     "en": "Renders %1$@ frames — exactly %2$@ s at 24 fps.",
@@ -979,6 +1285,9 @@ add("sampling.snapped.exact", {
     "zh-Hans": "渲染 %1$@ 帧 — 在 24 fps 下正好 %2$@ 秒。",
     "de": "Rendert %1$@ Bilder — exakt %2$@ s bei 24 fps.",
     "ar": "يُصيَّر %1$@ إطارًا — أي %2$@ ثانية بالضبط عند 24 fps.",
+    "ja": "%1$@ フレームをレンダリング — 24 fps でちょうど %2$@ 秒です。",
+    "ko": "%1$@ 프레임 렌더링 — 24 fps에서 정확히 %2$@ 초입니다.",
+    "th": "เรนเดอร์ %1$@ เฟรม — เท่ากับ %2$@ วินาทีพอดีที่ 24 fps",
 })
 add("sampling.snapped.inexact", {
     "en": "Renders %1$@ frames — %2$@ s at 24 fps, the nearest length the video VAE can "
@@ -989,6 +1298,9 @@ add("sampling.snapped.inexact", {
           "Video-VAE kodieren kann.",
     "ar": "يُصيَّر %1$@ إطارًا — أي %2$@ ثانية عند 24 fps، وهي أقرب مدة يستطيع video VAE "
           "ترميزها.",
+    "ja": "%1$@ フレームをレンダリング — 24 fps で %2$@ 秒。動画 VAE がエンコードできる最も近い長さです。",
+    "ko": "%1$@ 프레임 렌더링 — 24 fps에서 %2$@ 초로, 비디오 VAE가 인코딩할 수 있는 가장 가까운 길이입니다.",
+    "th": "เรนเดอร์ %1$@ เฟรม — %2$@ วินาทีที่ 24 fps ซึ่งเป็นความยาวใกล้ที่สุดที่ VAE ของวิดีโอเข้ารหัสได้",
 })
 
 # ── Compose summary ──────────────────────────────────────────────────────────
@@ -998,6 +1310,9 @@ add("summary.render", {
     "zh-Hans": "本次渲染",
     "de": "Dieser Render",
     "ar": "هذا التصيير",
+    "ja": "このレンダリング",
+    "ko": "이번 렌더링",
+    "th": "การเรนเดอร์นี้",
 })
 add("summary.task", {
     "en": "Task",
@@ -1005,6 +1320,9 @@ add("summary.task", {
     "zh-Hans": "任务",
     "de": "Aufgabe",
     "ar": "المهمة",
+    "ja": "タスク",
+    "ko": "작업",
+    "th": "งาน",
 }, note="The particular job a checkpoint was trained for — first-frame continuation "
         "or reference conditioning. A machine-learning sense, not a to-do item or a "
         "queued job.")
@@ -1014,6 +1332,9 @@ add("summary.generates", {
     "zh-Hans": "生成分辨率",
     "de": "Erzeugt mit",
     "ar": "يُولَّد بمقاس",
+    "ja": "生成",
+    "ko": "생성",
+    "th": "สร้างที่",
 })
 add("summary.delivers", {
     "en": "Delivered at",
@@ -1021,6 +1342,9 @@ add("summary.delivers", {
     "zh-Hans": "输出分辨率",
     "de": "Ausgeliefert mit",
     "ar": "يُسلَّم بمقاس",
+    "ja": "書き出し",
+    "ko": "출력",
+    "th": "ส่งออกที่",
 })
 add("summary.length", {
     "en": "Length",
@@ -1028,6 +1352,9 @@ add("summary.length", {
     "zh-Hans": "时长",
     "de": "Länge",
     "ar": "الطول",
+    "ja": "長さ",
+    "ko": "길이",
+    "th": "ความยาว",
 }, note="The duration of the clip in time. Not physical length, and not the length of "
         "a list. Compare sampling.duration.")
 add("summary.bitrate", {
@@ -1036,6 +1363,9 @@ add("summary.bitrate", {
     "zh-Hans": "目标码率",
     "de": "Ziel-Bitrate",
     "ar": "معدل البت المستهدف",
+    "ja": "目標ビットレート",
+    "ko": "목표 비트레이트",
+    "th": "บิตเรตเป้าหมาย",
 })
 add("summary.eta", {
     "en": "Estimated time",
@@ -1043,6 +1373,9 @@ add("summary.eta", {
     "zh-Hans": "预计时间",
     "de": "Geschätzte Dauer",
     "ar": "الوقت المقدَّر",
+    "ja": "予想時間",
+    "ko": "예상 시간",
+    "th": "เวลาโดยประมาณ",
 })
 add("summary.eta.noModel", {
     "en": "Select a model",
@@ -1050,6 +1383,9 @@ add("summary.eta.noModel", {
     "zh-Hans": "请选择模型",
     "de": "Modell wählen",
     "ar": "اختر نموذجًا",
+    "ja": "モデルを選択してください",
+    "ko": "모델을 선택하세요",
+    "th": "เลือกโมเดล",
 })
 add("summary.problems", {
     "en": "Before you generate",
@@ -1057,6 +1393,9 @@ add("summary.problems", {
     "zh-Hans": "生成前请确认",
     "de": "Vor dem Erzeugen",
     "ar": "قبل التوليد",
+    "ja": "生成する前に",
+    "ko": "생성하기 전에",
+    "th": "ก่อนเริ่มสร้าง",
 })
 add("summary.models", {
     "en": "Models",
@@ -1064,6 +1403,9 @@ add("summary.models", {
     "zh-Hans": "模型",
     "de": "Modelle",
     "ar": "النماذج",
+    "ja": "モデル",
+    "ko": "모델",
+    "th": "โมเดล",
 }, note="Heads the list of weights a render will load, in the Compose summary. Means "
         "these specific files, not the tab and not the folder.")
 add("summary.transformer", {
@@ -1072,6 +1414,9 @@ add("summary.transformer", {
     "zh-Hans": "Transformer",
     "de": "Transformer",
     "ar": "Transformer",
+    "ja": "トランスフォーマー",
+    "ko": "트랜스포머",
+    "th": "ทรานส์ฟอร์เมอร์",
 }, note="Architecture name; left in English.")
 add("summary.textEncoder", {
     "en": "Text encoder",
@@ -1079,6 +1424,9 @@ add("summary.textEncoder", {
     "zh-Hans": "文本编码器",
     "de": "Text-Encoder",
     "ar": "مُرمِّز النص",
+    "ja": "テキストエンコーダ",
+    "ko": "텍스트 인코더",
+    "th": "ตัวเข้ารหัสข้อความ",
 }, note="Names the encoder chosen for this render, in the Compose summary. A "
         "particular file; role.textEncoder is the category.")
 add("summary.notSelected", {
@@ -1087,6 +1435,9 @@ add("summary.notSelected", {
     "zh-Hans": "未选择",
     "de": "Nicht gewählt",
     "ar": "لم يُحدَّد",
+    "ja": "未選択",
+    "ko": "선택 안 됨",
+    "th": "ยังไม่ได้เลือก",
 })
 add("summary.chooseInModels", {
     "en": "Choose in Models…",
@@ -1094,6 +1445,9 @@ add("summary.chooseInModels", {
     "zh-Hans": "在“模型”中选择…",
     "de": "Unter „Modelle“ wählen …",
     "ar": "اختر من «النماذج»…",
+    "ja": "「モデル」で選択…",
+    "ko": "모델에서 선택…",
+    "th": "เลือกในโมเดล…",
 })
 add("summary.engineNotReady", {
     "en": "Engine not ready",
@@ -1101,6 +1455,9 @@ add("summary.engineNotReady", {
     "zh-Hans": "引擎尚未就绪",
     "de": "Engine nicht bereit",
     "ar": "المحرّك غير جاهز",
+    "ja": "エンジンが未準備",
+    "ko": "엔진 준비 안 됨",
+    "th": "เอนจินยังไม่พร้อม",
 })
 
 # ── Queue ────────────────────────────────────────────────────────────────────
@@ -1110,6 +1467,9 @@ add("queue.empty.title", {
     "zh-Hans": "队列是空的",
     "de": "Nichts in der Warteschlange",
     "ar": "لا شيء في قائمة الانتظار",
+    "ja": "キューは空です",
+    "ko": "대기열이 비어 있음",
+    "th": "ไม่มีรายการในคิว",
 })
 add("queue.empty.detail", {
     "en": "Renders you start from Compose appear here. They keep running while you work, "
@@ -1120,6 +1480,9 @@ add("queue.empty.detail", {
           "während du arbeitest, und überstehen das Beenden der App.",
     "ar": "تظهر هنا عمليات التصيير التي تبدأها من «إنشاء». تستمر أثناء عملك، وتبقى حتى بعد "
           "إغلاق التطبيق.",
+    "ja": "「作成」から始めたレンダリングがここに並びます。作業中も動き続け、アプリを終了しても残ります。",
+    "ko": "작성 화면에서 시작한 렌더링이 여기 나타납니다. 다른 작업을 하는 동안에도 계속 돌아가며, 앱을 종료해도 남습니다.",
+    "th": "การเรนเดอร์ที่เริ่มจากหน้าเรียบเรียงจะมาอยู่ที่นี่ ทำงานต่อไปขณะคุณใช้งานอย่างอื่น และยังอยู่แม้ปิดแอป",
 })
 add("queue.goCompose", {
     "en": "Go to Compose",
@@ -1127,6 +1490,9 @@ add("queue.goCompose", {
     "zh-Hans": "前往“编写”",
     "de": "Zu „Erstellen“",
     "ar": "الانتقال إلى «إنشاء»",
+    "ja": "「作成」へ",
+    "ko": "작성으로 이동",
+    "th": "ไปที่หน้าเรียบเรียง",
 })
 add("queue.clearFinished", {
     "en": "Clear Finished",
@@ -1134,6 +1500,9 @@ add("queue.clearFinished", {
     "zh-Hans": "清除已完成",
     "de": "Fertige entfernen",
     "ar": "مسح المكتملة",
+    "ja": "完了分を消去",
+    "ko": "완료 항목 지우기",
+    "th": "ล้างรายการที่เสร็จแล้ว",
 }, note="Removes finished jobs from the render queue. The English matches "
         "models.clearFinished exactly but the object differs — jobs, not downloads — "
         "and languages that inflect the verb for its object will need different "
@@ -1144,6 +1513,9 @@ add("queue.clearFinished.help", {
     "zh-Hans": "从列表移除已完成、失败与已取消的渲染",
     "de": "Fertige, fehlgeschlagene und abgebrochene Renders aus dieser Liste entfernen",
     "ar": "إزالة عمليات التصيير المكتملة والفاشلة والملغاة من هذه القائمة",
+    "ja": "完了・失敗・キャンセルされたレンダリングをこの一覧から取り除きます",
+    "ko": "완료, 실패, 취소된 렌더링을 이 목록에서 제거합니다",
+    "th": "เอาการเรนเดอร์ที่เสร็จ ล้มเหลว และถูกยกเลิกออกจากรายการนี้",
 })
 add("queue.runtimeWarning", {
     "en": "The Python runtime is not ready, so queued renders cannot start.",
@@ -1152,6 +1524,9 @@ add("queue.runtimeWarning", {
     "de": "Die Python-Laufzeitumgebung ist nicht bereit, daher können wartende Renders "
           "nicht starten.",
     "ar": "بيئة تشغيل Python غير جاهزة، لذا لا يمكن بدء عمليات التصيير المنتظرة.",
+    "ja": "Python 実行環境が準備できていないため、待機中のレンダリングを開始できません。",
+    "ko": "Python 런타임이 준비되지 않아 대기 중인 렌더링을 시작할 수 없습니다.",
+    "th": "รันไทม์ Python ยังไม่พร้อม การเรนเดอร์ในคิวจึงเริ่มไม่ได้",
 })
 add("queue.openSettings", {
     "en": "Open Settings",
@@ -1159,6 +1534,9 @@ add("queue.openSettings", {
     "zh-Hans": "打开设置",
     "de": "Einstellungen öffnen",
     "ar": "فتح الإعدادات",
+    "ja": "設定を開く",
+    "ko": "설정 열기",
+    "th": "เปิดการตั้งค่า",
 })
 add("queue.hold", {
     "en": "Hold",
@@ -1166,6 +1544,9 @@ add("queue.hold", {
     "zh-Hans": "暂缓",
     "de": "Zurückstellen",
     "ar": "تعليق",
+    "ja": "保留",
+    "ko": "보류",
+    "th": "พักไว้",
 }, note="Imperative verb on a button: keep this job in the queue but do not start it. "
         "The opposite of queue.release. Not the noun \"a hold\", and not \"hold\" as in "
         "grip.")
@@ -1175,6 +1556,9 @@ add("queue.release", {
     "zh-Hans": "恢复",
     "de": "Freigeben",
     "ar": "استئناف",
+    "ja": "再開",
+    "ko": "해제",
+    "th": "ปล่อย",
 }, note="Imperative verb: let a held job run again. The opposite of queue.hold. NOT a "
         "software release or version — a common and damaging mistranslation.")
 add("queue.hold.help", {
@@ -1183,6 +1567,9 @@ add("queue.hold.help", {
     "zh-Hans": "暂缓这次渲染",
     "de": "Diesen Render zurückstellen",
     "ar": "تعليق هذا التصيير",
+    "ja": "このレンダリングの開始を止めておきます",
+    "ko": "이 렌더링을 시작하지 않도록 붙잡아 둡니다",
+    "th": "หน่วงการเรนเดอร์นี้ไว้ก่อน",
 })
 add("queue.release.help", {
     "en": "Allow this render to start",
@@ -1190,6 +1577,9 @@ add("queue.release.help", {
     "zh-Hans": "允许这次渲染开始",
     "de": "Diesen Render starten lassen",
     "ar": "السماح ببدء هذا التصيير",
+    "ja": "このレンダリングの開始を許可します",
+    "ko": "이 렌더링이 시작되도록 허용합니다",
+    "th": "อนุญาตให้การเรนเดอร์นี้เริ่มได้",
 })
 add("queue.moveToFront", {
     "en": "Move to Front",
@@ -1197,6 +1587,9 @@ add("queue.moveToFront", {
     "zh-Hans": "移到最前",
     "de": "Nach vorne verschieben",
     "ar": "نقل إلى المقدمة",
+    "ja": "先頭へ移動",
+    "ko": "맨 앞으로 이동",
+    "th": "ย้ายไปต้นคิว",
 })
 add("queue.stop", {
     "en": "Stop",
@@ -1204,6 +1597,9 @@ add("queue.stop", {
     "zh-Hans": "停止",
     "de": "Anhalten",
     "ar": "إيقاف",
+    "ja": "停止",
+    "ko": "정지",
+    "th": "หยุด",
 }, note="Imperative verb: cancel the render that is running. Not \"pause\"; the work is "
         "discarded.")
 add("queue.stop.help", {
@@ -1213,6 +1609,9 @@ add("queue.stop.help", {
     "de": "Diesen Render anhalten. Der Fortschritt geht verloren — ein Render lässt sich "
           "nicht fortsetzen.",
     "ar": "إيقاف هذا التصيير. سيضيع التقدّم، إذ لا يمكن استئناف التصيير.",
+    "ja": "このレンダリングを停止します。途中経過は失われ、再開はできません。",
+    "ko": "이 렌더링을 정지합니다. 진행분은 사라지며 이어서 할 수 없습니다.",
+    "th": "หยุดการเรนเดอร์นี้ ความคืบหน้าจะหายไปและเริ่มต่อไม่ได้",
 })
 add("queue.renderAgain", {
     "en": "Render Again",
@@ -1220,6 +1619,9 @@ add("queue.renderAgain", {
     "zh-Hans": "重新渲染",
     "de": "Erneut rendern",
     "ar": "إعادة التصيير",
+    "ja": "もう一度レンダリング",
+    "ko": "다시 렌더링",
+    "th": "เรนเดอร์อีกครั้ง",
 })
 add("queue.renderAgain.help", {
     "en": "Queue this again with a new seed",
@@ -1227,6 +1629,9 @@ add("queue.renderAgain.help", {
     "zh-Hans": "以新的种子重新排入队列",
     "de": "Erneut mit neuem Seed einreihen",
     "ar": "إعادة الإدراج ببذرة جديدة",
+    "ja": "新しいシードでもう一度キューに入れます",
+    "ko": "새 시드로 다시 대기열에 넣습니다",
+    "th": "เข้าคิวอีกครั้งด้วยซีดใหม่",
 })
 add("queue.reproduce", {
     "en": "Reproduce Exactly",
@@ -1234,6 +1639,9 @@ add("queue.reproduce", {
     "zh-Hans": "完全重现",
     "de": "Exakt reproduzieren",
     "ar": "إعادة إنتاج مطابقة",
+    "ja": "まったく同じに再現",
+    "ko": "똑같이 재현",
+    "th": "ทำซ้ำให้เหมือนเดิม",
 })
 add("queue.editCopy", {
     "en": "Edit a Copy",
@@ -1241,6 +1649,9 @@ add("queue.editCopy", {
     "zh-Hans": "编辑副本",
     "de": "Kopie bearbeiten",
     "ar": "تحرير نسخة",
+    "ja": "複製して編集",
+    "ko": "복사본 편집",
+    "th": "แก้ไขสำเนา",
 })
 add("queue.showLog", {
     "en": "Show Log",
@@ -1248,6 +1659,9 @@ add("queue.showLog", {
     "zh-Hans": "显示日志",
     "de": "Protokoll anzeigen",
     "ar": "عرض السجل",
+    "ja": "ログを表示",
+    "ko": "로그 보기",
+    "th": "ดูบันทึก",
 })
 add("queue.log.help", {
     "en": "Show this render's log",
@@ -1255,6 +1669,9 @@ add("queue.log.help", {
     "zh-Hans": "显示这次渲染的日志",
     "de": "Protokoll dieses Renders anzeigen",
     "ar": "عرض سجل هذا التصيير",
+    "ja": "このレンダリングのログを表示します",
+    "ko": "이 렌더링의 로그를 봅니다",
+    "th": "ดูบันทึกของการเรนเดอร์นี้",
 })
 add("queue.revealInFinder", {
     "en": "Reveal in Finder",
@@ -1262,6 +1679,9 @@ add("queue.revealInFinder", {
     "zh-Hans": "在 Finder 中显示",
     "de": "Im Finder zeigen",
     "ar": "إظهار في Finder",
+    "ja": "Finder に表示",
+    "ko": "Finder에서 보기",
+    "th": "แสดงใน Finder",
 })
 add("queue.remove", {
     "en": "Remove from Queue",
@@ -1269,6 +1689,9 @@ add("queue.remove", {
     "zh-Hans": "从队列移除",
     "de": "Aus Warteschlange entfernen",
     "ar": "إزالة من قائمة الانتظار",
+    "ja": "キューから削除",
+    "ko": "대기열에서 제거",
+    "th": "เอาออกจากคิว",
 })
 add("queue.held", {
     "en": "Held — will not start until released",
@@ -1276,6 +1699,9 @@ add("queue.held", {
     "zh-Hans": "已暂缓，恢复后才会开始",
     "de": "Zurückgestellt — startet erst nach Freigabe",
     "ar": "معلّق — لن يبدأ حتى يُستأنف",
+    "ja": "保留中 — 解除するまで開始しません",
+    "ko": "보류됨 — 해제할 때까지 시작하지 않습니다",
+    "th": "พักไว้ — จะยังไม่เริ่มจนกว่าจะปล่อย",
 })
 add("queue.nextUp", {
     "en": "Next up",
@@ -1283,6 +1709,9 @@ add("queue.nextUp", {
     "zh-Hans": "下一个",
     "de": "Als Nächstes",
     "ar": "التالي",
+    "ja": "次はこれ",
+    "ko": "다음 차례",
+    "th": "ลำดับถัดไป",
 })
 add("queue.ahead", {
     "en": "Queued — %@ ahead",
@@ -1290,6 +1719,9 @@ add("queue.ahead", {
     "zh-Hans": "等待中 — 前面还有 %@",
     "de": "In Warteschlange — %@ davor",
     "ar": "في الانتظار — %@ قبله",
+    "ja": "待機中 — 前に %@ 件",
+    "ko": "대기 중 — 앞에 %@ 개",
+    "th": "อยู่ในคิว — มีอีก %@ รายการก่อนหน้า",
 }, note={
     "content": "Takes a count of jobs waiting in front of this one. The count is 1 whenever a "
                "single job is ahead, which is the common case, so plural-sensitive languages "
@@ -1302,6 +1734,9 @@ add("queue.took", {
     "zh-Hans": "耗时 %@",
     "de": "Dauerte %@",
     "ar": "استغرق %@",
+    "ja": "所要 %@",
+    "ko": "%@ 걸림",
+    "th": "ใช้เวลา %@",
 })
 add("queue.step", {
     "en": "step %1$@ of %2$@",
@@ -1309,6 +1744,9 @@ add("queue.step", {
     "zh-Hans": "第 %1$@ 步，共 %2$@ 步",
     "de": "Schritt %1$@ von %2$@",
     "ar": "الخطوة %1$@ من %2$@",
+    "ja": "ステップ %2$@ 中 %1$@",
+    "ko": "%2$@ 스텝 중 %1$@",
+    "th": "สเต็ปที่ %1$@ จาก %2$@",
 })
 add("queue.perStep", {
     "en": "%@/step",
@@ -1316,6 +1754,9 @@ add("queue.perStep", {
     "zh-Hans": "%@/步",
     "de": "%@/Schritt",
     "ar": "%@/خطوة",
+    "ja": "%@/ステップ",
+    "ko": "%@/스텝",
+    "th": "%@/สเต็ป",
 })
 add("queue.peak", {
     "en": "%@ peak",
@@ -1323,6 +1764,9 @@ add("queue.peak", {
     "zh-Hans": "峰值 %@",
     "de": "%@ Spitze",
     "ar": "الذروة %@",
+    "ja": "ピーク %@",
+    "ko": "최대 %@",
+    "th": "สูงสุด %@",
 })
 add("queue.remaining", {
     "en": "%@ remaining",
@@ -1330,6 +1774,9 @@ add("queue.remaining", {
     "zh-Hans": "剩余 %@",
     "de": "noch %@",
     "ar": "يتبقى %@",
+    "ja": "残り %@",
+    "ko": "%@ 남음",
+    "th": "เหลือ %@",
 })
 add("queue.remainingUnknown", {
     "en": "remaining unknown until generation starts",
@@ -1337,6 +1784,9 @@ add("queue.remainingUnknown", {
     "zh-Hans": "开始生成前无法估算剩余时间",
     "de": "Restzeit erst ab Beginn der Erzeugung bekannt",
     "ar": "الوقت المتبقي غير معروف حتى يبدأ التوليد",
+    "ja": "生成が始まるまで残り時間は不明です",
+    "ko": "생성이 시작되기 전까지는 남은 시간을 알 수 없습니다",
+    "th": "ยังไม่ทราบเวลาที่เหลือจนกว่าการสร้างจะเริ่ม",
 })
 add("queue.log.title", {
     "en": "Render log",
@@ -1344,6 +1794,9 @@ add("queue.log.title", {
     "zh-Hans": "渲染日志",
     "de": "Render-Protokoll",
     "ar": "سجل التصيير",
+    "ja": "レンダリングログ",
+    "ko": "렌더링 로그",
+    "th": "บันทึกการเรนเดอร์",
 })
 add("queue.log.copyAll", {
     "en": "Copy All",
@@ -1351,6 +1804,9 @@ add("queue.log.copyAll", {
     "zh-Hans": "全部复制",
     "de": "Alles kopieren",
     "ar": "نسخ الكل",
+    "ja": "すべてコピー",
+    "ko": "전체 복사",
+    "th": "คัดลอกทั้งหมด",
 })
 add("queue.log.empty.title", {
     "en": "No log yet",
@@ -1358,6 +1814,9 @@ add("queue.log.empty.title", {
     "zh-Hans": "尚无日志",
     "de": "Noch kein Protokoll",
     "ar": "لا يوجد سجل بعد",
+    "ja": "ログはまだありません",
+    "ko": "아직 로그가 없음",
+    "th": "ยังไม่มีบันทึก",
 })
 add("queue.log.empty.detail", {
     "en": "Output appears here once this render starts. Logs are kept for the current "
@@ -1367,6 +1826,9 @@ add("queue.log.empty.detail", {
     "de": "Sobald dieser Render startet, erscheint die Ausgabe hier. Protokolle gelten nur "
           "für die aktuelle Sitzung.",
     "ar": "يظهر الإخراج هنا فور بدء التصيير. تُحفظ السجلات للجلسة الحالية فقط.",
+    "ja": "このレンダリングが始まると、ここに出力が表示されます。ログは今回のセッション中だけ保持されます。",
+    "ko": "이 렌더링이 시작되면 출력이 여기에 표시됩니다. 로그는 현재 세션 동안만 보관됩니다.",
+    "th": "ผลลัพธ์จะปรากฏที่นี่เมื่อการเรนเดอร์เริ่มขึ้น บันทึกจะเก็บไว้เฉพาะเซสชันนี้",
 })
 
 # ── Library ──────────────────────────────────────────────────────────────────
@@ -1376,6 +1838,9 @@ add("library.empty.title", {
     "zh-Hans": "还没有视频",
     "de": "Noch keine Videos",
     "ar": "لا توجد مقاطع بعد",
+    "ja": "動画はまだありません",
+    "ko": "아직 비디오가 없음",
+    "th": "ยังไม่มีวิดีโอ",
 })
 add("library.empty.detail", {
     "en": "Finished renders are saved to %@, each with a JSON file recording the exact "
@@ -1386,6 +1851,9 @@ add("library.empty.detail", {
           "die genauen Einstellungen festhält.",
     "ar": "تُحفظ عمليات التصيير المنجزة في %@، مع ملف JSON لكل منها يسجّل الإعدادات التي "
           "أنتجته بالضبط.",
+    "ja": "完了したレンダリングは %@ に保存され、生成時の設定を記録した JSON ファイルが一緒に付きます。",
+    "ko": "완료된 렌더링은 %@ 에 저장되며, 생성 당시 설정을 기록한 JSON 파일이 함께 붙습니다.",
+    "th": "งานที่เรนเดอร์เสร็จจะถูกบันทึกไว้ที่ %@ พร้อมไฟล์ JSON ที่บันทึกการตั้งค่าที่ใช้สร้างไว้ด้วย",
 })
 add("library.search", {
     "en": "Search prompts",
@@ -1393,6 +1861,9 @@ add("library.search", {
     "zh-Hans": "搜索提示词",
     "de": "Prompts durchsuchen",
     "ar": "البحث في الموجّهات",
+    "ja": "プロンプトを検索",
+    "ko": "프롬프트 검색",
+    "th": "ค้นหาพรอมต์",
 })
 add("library.revealFolder", {
     "en": "Reveal Folder",
@@ -1400,6 +1871,9 @@ add("library.revealFolder", {
     "zh-Hans": "显示文件夹",
     "de": "Ordner anzeigen",
     "ar": "إظهار المجلد",
+    "ja": "フォルダを表示",
+    "ko": "폴더 보기",
+    "th": "แสดงโฟลเดอร์",
 })
 add("library.open", {
     "en": "Open",
@@ -1407,6 +1881,9 @@ add("library.open", {
     "zh-Hans": "打开",
     "de": "Öffnen",
     "ar": "فتح",
+    "ja": "開く",
+    "ko": "열기",
+    "th": "เปิด",
 }, note="Imperative verb: open the finished video in another app. Not the adjective.")
 add("library.useSettings", {
     "en": "Use These Settings",
@@ -1414,6 +1891,9 @@ add("library.useSettings", {
     "zh-Hans": "沿用这些设置",
     "de": "Diese Einstellungen übernehmen",
     "ar": "استخدام هذه الإعدادات",
+    "ja": "この設定を使う",
+    "ko": "이 설정 사용",
+    "th": "ใช้การตั้งค่านี้",
 })
 add("library.moveToTrash", {
     "en": "Move to Trash",
@@ -1421,6 +1901,9 @@ add("library.moveToTrash", {
     "zh-Hans": "移到废纸篓",
     "de": "In den Papierkorb legen",
     "ar": "نقل إلى المهملات",
+    "ja": "ゴミ箱に入れる",
+    "ko": "휴지통으로 옮기기",
+    "th": "ย้ายไปถังขยะ",
 }, note="macOS calls it 垃圾桶 in TW, 废纸篓 in CN.")
 add("library.revealWav", {
     "en": "Reveal WAV",
@@ -1428,6 +1911,9 @@ add("library.revealWav", {
     "zh-Hans": "显示 WAV",
     "de": "WAV anzeigen",
     "ar": "إظهار ملف WAV",
+    "ja": "WAV を表示",
+    "ko": "WAV 보기",
+    "th": "แสดงไฟล์ WAV",
 })
 add("library.settings", {
     "en": "Settings",
@@ -1435,6 +1921,9 @@ add("library.settings", {
     "zh-Hans": "设置",
     "de": "Einstellungen",
     "ar": "الإعدادات",
+    "ja": "設定",
+    "ko": "설정",
+    "th": "การตั้งค่า",
 })
 add("library.duration", {
     "en": "Duration",
@@ -1442,6 +1931,9 @@ add("library.duration", {
     "zh-Hans": "时长",
     "de": "Dauer",
     "ar": "المدة",
+    "ja": "再生時間",
+    "ko": "재생 시간",
+    "th": "ความยาว",
 }, note="A Library column giving the length of a finished video. Reports a fact; "
         "sampling.duration sets a target.")
 add("library.seed", {
@@ -1450,6 +1942,9 @@ add("library.seed", {
     "zh-Hans": "种子",
     "de": "Seed",
     "ar": "البذرة",
+    "ja": "シード",
+    "ko": "시드",
+    "th": "ซีด",
 }, note="The random seed that determines a render's noise. A number, not a plant "
         "seed. Most languages keep the English term or transliterate it.")
 add("library.filesize", {
@@ -1458,6 +1953,9 @@ add("library.filesize", {
     "zh-Hans": "文件大小",
     "de": "Dateigröße",
     "ar": "حجم الملف",
+    "ja": "ファイルサイズ",
+    "ko": "파일 크기",
+    "th": "ขนาดไฟล์",
 })
 add("library.renderTime", {
     "en": "Render time",
@@ -1465,6 +1963,9 @@ add("library.renderTime", {
     "zh-Hans": "渲染时间",
     "de": "Renderdauer",
     "ar": "زمن التصيير",
+    "ja": "レンダリング時間",
+    "ko": "렌더링 시간",
+    "th": "เวลาที่ใช้เรนเดอร์",
 })
 add("library.mode", {
     "en": "Mode",
@@ -1472,6 +1973,9 @@ add("library.mode", {
     "zh-Hans": "模式",
     "de": "Modus",
     "ar": "الوضع",
+    "ja": "モード",
+    "ko": "모드",
+    "th": "โหมด",
 }, note="A column in the Library listing which mode produced a finished video. "
         "Reporting a past fact, where compose.mode.title is a control. Some languages "
         "prefer different words for the two.")
@@ -1481,6 +1985,9 @@ add("library.missing", {
     "zh-Hans": "这个文件已不在磁盘上",
     "de": "Diese Datei ist nicht mehr auf dem Volume",
     "ar": "لم يعد هذا الملف موجودًا على القرص",
+    "ja": "このファイルはディスク上にもうありません",
+    "ko": "이 파일은 디스크에 더 이상 없습니다",
+    "th": "ไม่มีไฟล์นี้อยู่บนดิสก์แล้ว",
 })
 add("library.copySeed", {
     "en": "Copy %@",
@@ -1488,6 +1995,9 @@ add("library.copySeed", {
     "zh-Hans": "复制%@",
     "de": "%@ kopieren",
     "ar": "نسخ %@",
+    "ja": "%@ をコピー",
+    "ko": "%@ 복사",
+    "th": "คัดลอก %@",
 }, note={
     "content": "Injects a name into a sentence. Languages that inflect a noun for case, choose "
                "an article by gender, or attach a vowel-harmonising suffix cannot do it without "
@@ -1501,6 +2011,9 @@ add("library.copied", {
     "zh-Hans": "已复制",
     "de": "Kopiert",
     "ar": "تم النسخ",
+    "ja": "コピーしました",
+    "ko": "복사됨",
+    "th": "คัดลอกแล้ว",
 })
 add("library.seconds", {
     "en": "%@ seconds",
@@ -1508,6 +2021,9 @@ add("library.seconds", {
     "zh-Hans": "%@ 秒",
     "de": "%@ Sekunden",
     "ar": "%@ ثانية",
+    "ja": "%@ 秒",
+    "ko": "%@ 초",
+    "th": "%@ วินาที",
 }, note={
     "content": "Takes a count. English offers only two forms and this string supplies one, so \"1 "
                "seconds\" is already wrong; Arabic needs six categories and settles for a single "
@@ -1523,6 +2039,9 @@ add("models.folder.title", {
     "zh-Hans": "共享模型文件夹",
     "de": "Gemeinsamer Modellordner",
     "ar": "مجلد النماذج المشترك",
+    "ja": "共有モデルフォルダ",
+    "ko": "공유 모델 폴더",
+    "th": "โฟลเดอร์โมเดลที่ใช้ร่วมกัน",
 })
 add("models.folder.footnote", {
     "en": "Downloads go into the Hugging Face cache inside this folder. Any other project "
@@ -1534,6 +2053,9 @@ add("models.folder.footnote", {
           "laden.",
     "ar": "تُحفظ التنزيلات في ذاكرة Hugging Face المؤقتة داخل هذا المجلد. وأي مشروع آخر "
           "موجَّه إلى المجلد نفسه يعيد استخدامها بدل تنزيل نسخة ثانية.",
+    "ja": "ダウンロードはこのフォルダ内の Hugging Face キャッシュに入ります。同じフォルダを指す他のプロジェクトは、二重にダウンロードせずそれを再利用します。",
+    "ko": "다운로드는 이 폴더 안의 Hugging Face 캐시에 들어갑니다. 같은 폴더를 가리키는 다른 프로젝트는 다시 내려받지 않고 그대로 씁니다.",
+    "th": "ไฟล์ที่ดาวน์โหลดจะไปอยู่ในแคช Hugging Face ภายในโฟลเดอร์นี้ โปรเจกต์อื่นที่ชี้มาที่โฟลเดอร์เดียวกันจะใช้ซ้ำแทนการดาวน์โหลดอีกชุด",
 })
 add("models.change", {
     "en": "Change…",
@@ -1541,6 +2063,9 @@ add("models.change", {
     "zh-Hans": "更改…",
     "de": "Ändern …",
     "ar": "تغيير…",
+    "ja": "変更…",
+    "ko": "변경…",
+    "th": "เปลี่ยน…",
 })
 add("models.installed", {
     "en": "Installed",
@@ -1548,6 +2073,9 @@ add("models.installed", {
     "zh-Hans": "已安装",
     "de": "Installiert",
     "ar": "مثبَّت",
+    "ja": "インストール済み",
+    "ko": "설치됨",
+    "th": "ติดตั้งแล้ว",
 })
 add("models.freeSpace", {
     "en": "Free space",
@@ -1555,6 +2083,9 @@ add("models.freeSpace", {
     "zh-Hans": "可用空间",
     "de": "Freier Speicher",
     "ar": "المساحة الحرة",
+    "ja": "空き容量",
+    "ko": "남은 공간",
+    "th": "พื้นที่ว่าง",
 })
 add("models.found", {
     "en": "Models found",
@@ -1562,6 +2093,9 @@ add("models.found", {
     "zh-Hans": "找到的模型",
     "de": "Gefundene Modelle",
     "ar": "النماذج المعثور عليها",
+    "ja": "見つかったモデル",
+    "ko": "찾은 모델",
+    "th": "โมเดลที่พบ",
 })
 add("models.spaceWarning", {
     "en": "The recommended set needs about %@, plus scratch space while rendering.",
@@ -1570,6 +2104,9 @@ add("models.spaceWarning", {
     "de": "Der empfohlene Satz benötigt etwa %@, zuzüglich Arbeitsspeicherplatz beim "
           "Rendern.",
     "ar": "تحتاج المجموعة الموصى بها نحو %@، إضافةً إلى مساحة مؤقتة أثناء التصيير.",
+    "ja": "推奨セットには約 %@ に加えて、レンダリング中の作業用領域が必要です。",
+    "ko": "권장 세트에는 약 %@ 에 더해 렌더링 중 임시 공간이 필요합니다.",
+    "th": "ชุดที่แนะนำต้องใช้ราว %@ บวกกับพื้นที่ทำงานชั่วคราวขณะเรนเดอร์",
 })
 add("models.downloads", {
     "en": "Downloads",
@@ -1577,6 +2114,9 @@ add("models.downloads", {
     "zh-Hans": "下载",
     "de": "Downloads",
     "ar": "التنزيلات",
+    "ja": "ダウンロード",
+    "ko": "다운로드",
+    "th": "การดาวน์โหลด",
 })
 add("models.downloads.footnote", {
     "en": "This list covers the current session. A finished download stays here until "
@@ -1587,6 +2127,9 @@ add("models.downloads.footnote", {
           "hier, bis er entfernt wird; was installiert ist, steht unten bei jedem Modell.",
     "ar": "تغطي هذه القائمة الجلسة الحالية. يبقى التنزيل المكتمل هنا حتى يُمسح؛ أما ما هو "
           "مثبَّت فيظهر بجانب كل نموذج أدناه.",
+    "ja": "この一覧は今回のセッション分です。完了したダウンロードは消去するまで残ります。実際に入っているものは下の各モデルの欄に表示されます。",
+    "ko": "이 목록은 현재 세션의 것입니다. 완료된 다운로드는 지울 때까지 남아 있으며, 실제 설치 여부는 아래 각 모델 옆에 표시됩니다.",
+    "th": "รายการนี้ครอบคลุมเฉพาะเซสชันปัจจุบัน รายการที่ดาวน์โหลดเสร็จจะอยู่จนกว่าจะล้าง ส่วนสิ่งที่ติดตั้งแล้วจะแสดงไว้ข้างโมเดลแต่ละตัวด้านล่าง",
 })
 add("models.cancelAll", {
     "en": "Cancel All",
@@ -1594,6 +2137,9 @@ add("models.cancelAll", {
     "zh-Hans": "全部取消",
     "de": "Alle abbrechen",
     "ar": "إلغاء الكل",
+    "ja": "すべてキャンセル",
+    "ko": "모두 취소",
+    "th": "ยกเลิกทั้งหมด",
 })
 add("models.clearFinished", {
     "en": "Clear Finished",
@@ -1601,6 +2147,9 @@ add("models.clearFinished", {
     "zh-Hans": "清除已完成",
     "de": "Fertige entfernen",
     "ar": "مسح المكتملة",
+    "ja": "完了分を消去",
+    "ko": "완료 항목 지우기",
+    "th": "ล้างรายการที่เสร็จแล้ว",
 }, note="Removes completed downloads from the transfer list in Models. Same English "
         "as queue.clearFinished, different object — see it.")
 add("models.rescan", {
@@ -1609,6 +2158,9 @@ add("models.rescan", {
     "zh-Hans": "重新扫描",
     "de": "Neu einlesen",
     "ar": "إعادة الفحص",
+    "ja": "再スキャン",
+    "ko": "다시 검사",
+    "th": "สแกนใหม่",
 })
 add("models.rescan.help", {
     "en": "Re-read the shared models folder",
@@ -1616,6 +2168,9 @@ add("models.rescan.help", {
     "zh-Hans": "重新读取共享模型文件夹",
     "de": "Den gemeinsamen Modellordner neu einlesen",
     "ar": "إعادة قراءة مجلد النماذج المشترك",
+    "ja": "共有モデルフォルダを読み直します",
+    "ko": "공유 모델 폴더를 다시 읽습니다",
+    "th": "อ่านโฟลเดอร์โมเดลที่ใช้ร่วมกันอีกครั้ง",
 })
 add("models.showIncompatible", {
     "en": "Show Incompatible",
@@ -1623,6 +2178,9 @@ add("models.showIncompatible", {
     "zh-Hans": "显示不兼容项目",
     "de": "Inkompatible anzeigen",
     "ar": "إظهار غير المتوافق",
+    "ja": "非対応も表示",
+    "ko": "호환되지 않는 항목도 표시",
+    "th": "แสดงตัวที่ใช้ไม่ได้",
 })
 add("models.showIncompatible.help", {
     "en": "Include checkpoints in formats this Mac cannot run",
@@ -1630,6 +2188,9 @@ add("models.showIncompatible.help", {
     "zh-Hans": "一并显示本机无法运行之格式的检查点",
     "de": "Auch Checkpoints in Formaten zeigen, die dieser Mac nicht ausführen kann",
     "ar": "تضمين نقاط التحقق بصيغ لا يستطيع هذا الـ Mac تشغيلها",
+    "ja": "この Mac で実行できない形式のチェックポイントも含めます",
+    "ko": "이 Mac에서 실행할 수 없는 형식의 체크포인트도 포함합니다",
+    "th": "รวมเช็กพอยต์ในรูปแบบที่ Mac เครื่องนี้รันไม่ได้ด้วย",
 })
 add("models.installRecommended", {
     "en": "Install Recommended",
@@ -1637,6 +2198,9 @@ add("models.installRecommended", {
     "zh-Hans": "安装建议组合",
     "de": "Empfohlene installieren",
     "ar": "تثبيت الموصى به",
+    "ja": "推奨セットを導入",
+    "ko": "권장 모델 설치",
+    "th": "ติดตั้งชุดที่แนะนำ",
 })
 add("models.installRecommended.title", {
     "en": "Install the recommended models?",
@@ -1644,6 +2208,9 @@ add("models.installRecommended.title", {
     "zh-Hans": "要安装建议的模型吗？",
     "de": "Die empfohlenen Modelle installieren?",
     "ar": "هل تريد تثبيت النماذج الموصى بها؟",
+    "ja": "推奨モデルをインストールしますか？",
+    "ko": "권장 모델을 설치할까요?",
+    "th": "ติดตั้งโมเดลที่แนะนำหรือไม่",
 })
 add("models.willDownload", {
     "en": "Will download:",
@@ -1651,6 +2218,9 @@ add("models.willDownload", {
     "zh-Hans": "即将下载：",
     "de": "Wird geladen:",
     "ar": "سيتم تنزيل:",
+    "ja": "ダウンロードするもの：",
+    "ko": "다운로드할 항목:",
+    "th": "จะดาวน์โหลด:",
 })
 add("models.alreadyInstalled", {
     "en": "Already installed, and skipped:",
@@ -1658,6 +2228,9 @@ add("models.alreadyInstalled", {
     "zh-Hans": "已安装，将跳过：",
     "de": "Bereits installiert, wird übersprungen:",
     "ar": "مثبَّت مسبقًا، وسيُتخطّى:",
+    "ja": "インストール済みのためスキップ：",
+    "ko": "이미 설치되어 있어 건너뜀:",
+    "th": "ติดตั้งอยู่แล้ว จึงข้ามไป:",
 })
 add("models.savingTo", {
     "en": "Saving to %1$@, with %2$@ free.",
@@ -1665,6 +2238,9 @@ add("models.savingTo", {
     "zh-Hans": "保存至 %1$@，可用空间 %2$@。",
     "de": "Wird in %1$@ gesichert, %2$@ frei.",
     "ar": "سيُحفظ في %1$@، والمساحة الحرة %2$@.",
+    "ja": "%1$@ に保存します。空き %2$@。",
+    "ko": "%1$@ 에 저장합니다. 남은 공간 %2$@.",
+    "th": "บันทึกไปที่ %1$@ เหลือพื้นที่ว่าง %2$@",
 })
 add("models.downloadAmount", {
     "en": "Download %@",
@@ -1672,6 +2248,9 @@ add("models.downloadAmount", {
     "zh-Hans": "下载 %@",
     "de": "%@ laden",
     "ar": "تنزيل %@",
+    "ja": "%@ をダウンロード",
+    "ko": "%@ 다운로드",
+    "th": "ดาวน์โหลด %@",
 })
 add("models.other.title", {
     "en": "Other models in this folder",
@@ -1679,6 +2258,9 @@ add("models.other.title", {
     "zh-Hans": "此文件夹中的其他模型",
     "de": "Weitere Modelle in diesem Ordner",
     "ar": "نماذج أخرى في هذا المجلد",
+    "ja": "このフォルダ内の他のモデル",
+    "ko": "이 폴더의 다른 모델",
+    "th": "โมเดลอื่นในโฟลเดอร์นี้",
 })
 add("models.other.footnote", {
     "en": "These belong to other projects. This app leaves them alone.",
@@ -1686,6 +2268,9 @@ add("models.other.footnote", {
     "zh-Hans": "这些属于其他项目，本 App 不会动它们。",
     "de": "Diese gehören zu anderen Projekten. Diese App rührt sie nicht an.",
     "ar": "هذه تخص مشاريع أخرى، ولا يمسّها هذا التطبيق.",
+    "ja": "これらは他のプロジェクトのものです。このアプリは手を触れません。",
+    "ko": "이것들은 다른 프로젝트의 파일입니다. 이 앱은 건드리지 않습니다.",
+    "th": "ไฟล์เหล่านี้เป็นของโปรเจกต์อื่น แอปนี้จะไม่ไปยุ่งด้วย",
 })
 add("models.inUse", {
     "en": "In use",
@@ -1693,6 +2278,9 @@ add("models.inUse", {
     "zh-Hans": "使用中",
     "de": "In Verwendung",
     "ar": "قيد الاستخدام",
+    "ja": "使用中",
+    "ko": "사용 중",
+    "th": "กำลังใช้",
 })
 add("models.notRunnable", {
     "en": "Not runnable here",
@@ -1700,6 +2288,9 @@ add("models.notRunnable", {
     "zh-Hans": "此设备无法运行",
     "de": "Hier nicht lauffähig",
     "ar": "غير قابل للتشغيل هنا",
+    "ja": "ここでは実行できません",
+    "ko": "여기서는 실행할 수 없음",
+    "th": "รันที่นี่ไม่ได้",
 })
 add("models.use", {
     "en": "Use",
@@ -1707,6 +2298,9 @@ add("models.use", {
     "zh-Hans": "使用",
     "de": "Verwenden",
     "ar": "استخدام",
+    "ja": "使用",
+    "ko": "사용",
+    "th": "ใช้",
 }, note="Imperative verb on a button — select these weights for the next render. Not "
         "the noun \"usage\".")
 add("models.selected", {
@@ -1715,6 +2309,9 @@ add("models.selected", {
     "zh-Hans": "已选择",
     "de": "Ausgewählt",
     "ar": "محدَّد",
+    "ja": "選択済み",
+    "ko": "선택됨",
+    "th": "เลือกแล้ว",
 }, note="Adjective describing a model the user has picked for a render. Not a verb, "
         "and not a count.")
 add("models.use.help.download", {
@@ -1723,6 +2320,9 @@ add("models.use.help.download", {
     "zh-Hans": "请先下载",
     "de": "Zuerst laden",
     "ar": "نزّله أولًا",
+    "ja": "先にダウンロードしてください",
+    "ko": "먼저 다운로드하세요",
+    "th": "ดาวน์โหลดก่อน",
 })
 add("models.use.help.inUse", {
     "en": "Already in use for the current render",
@@ -1730,6 +2330,9 @@ add("models.use.help.inUse", {
     "zh-Hans": "当前的渲染已在使用",
     "de": "Wird für den aktuellen Render bereits verwendet",
     "ar": "مستخدَم بالفعل في التصيير الحالي",
+    "ja": "現在のレンダリングで既に使用中です",
+    "ko": "현재 렌더링에서 이미 쓰고 있습니다",
+    "th": "ใช้กับการเรนเดอร์ปัจจุบันอยู่แล้ว",
 })
 add("models.use.help.select", {
     "en": "Use this for the current render",
@@ -1737,6 +2340,9 @@ add("models.use.help.select", {
     "zh-Hans": "用于当前的渲染",
     "de": "Für den aktuellen Render verwenden",
     "ar": "استخدامه في التصيير الحالي",
+    "ja": "これを現在のレンダリングに使います",
+    "ko": "이것을 현재 렌더링에 사용합니다",
+    "th": "ใช้ตัวนี้กับการเรนเดอร์ปัจจุบัน",
 })
 add("models.delete.title", {
     "en": "Delete %@?",
@@ -1744,6 +2350,9 @@ add("models.delete.title", {
     "zh-Hans": "要删除%@吗？",
     "de": "%@ löschen?",
     "ar": "هل تريد حذف %@؟",
+    "ja": "%@ を削除しますか？",
+    "ko": "%@ 을(를) 삭제할까요?",
+    "th": "ลบ %@ หรือไม่",
 }, note={
     "content": "Injects a name into a sentence. Languages that inflect a noun for case, choose "
                "an article by gender, or attach a vowel-harmonising suffix cannot do it without "
@@ -1764,6 +2373,9 @@ add("models.delete.message", {
     "ar": "يحرّر نحو %1$@ من مجلد النماذج المشترك، وقد تستخدمه مشاريع أخرى على هذا الـ Mac "
           "— وأي شيء يعتمد على %2$@ سيحتاج إلى تنزيله مجددًا. تنتقل الملفات إلى المهملات، "
           "فيمكن التراجع حتى تفريغها.",
+    "ja": "共有モデルフォルダから約 %1$@ を解放します。このフォルダはこの Mac の他のプロジェクトも使っている可能性があり、%2$@ に依存しているものは再ダウンロードが必要になります。ファイルはゴミ箱に入るので、空にするまでは取り消せます。",
+    "ko": "공유 모델 폴더에서 약 %1$@ 을(를) 확보합니다. 이 Mac의 다른 프로젝트도 이 폴더를 쓸 수 있으며, %2$@ 에 의존하는 것은 다시 내려받아야 합니다. 파일은 휴지통으로 가므로 비우기 전까지는 되돌릴 수 있습니다.",
+    "th": "คืนพื้นที่ราว %1$@ จากโฟลเดอร์โมเดลที่ใช้ร่วมกัน ซึ่งโปรเจกต์อื่นบน Mac เครื่องนี้อาจใช้อยู่ด้วย สิ่งที่พึ่งพา %2$@ จะต้องดาวน์โหลดใหม่ ไฟล์จะไปอยู่ในถังขยะ จึงกู้คืนได้จนกว่าจะล้างถังขยะ",
 })
 add("models.delete.help.running", {
     "en": "Not while a render is running",
@@ -1771,6 +2383,9 @@ add("models.delete.help.running", {
     "zh-Hans": "渲染进行中无法删除",
     "de": "Nicht während ein Render läuft",
     "ar": "غير ممكن أثناء تشغيل تصيير",
+    "ja": "レンダリング中はできません",
+    "ko": "렌더링이 실행 중일 때는 할 수 없습니다",
+    "th": "ทำไม่ได้ขณะกำลังเรนเดอร์",
 })
 add("models.delete.help.inUse", {
     "en": "In use for the current render — choose another first",
@@ -1778,6 +2393,9 @@ add("models.delete.help.inUse", {
     "zh-Hans": "当前的渲染正在使用，请先改选其他",
     "de": "Wird für den aktuellen Render verwendet — zuerst ein anderes wählen",
     "ar": "مستخدَم في التصيير الحالي — اختر غيره أولًا",
+    "ja": "現在のレンダリングで使用中です。先に別のものを選んでください",
+    "ko": "현재 렌더링에서 쓰는 중입니다. 먼저 다른 것을 고르세요",
+    "th": "กำลังใช้กับการเรนเดอร์ปัจจุบัน เลือกตัวอื่นก่อน",
 })
 add("models.delete.help.ok", {
     "en": "Move this model to the Trash",
@@ -1785,6 +2403,9 @@ add("models.delete.help.ok", {
     "zh-Hans": "将此模型移到废纸篓",
     "de": "Dieses Modell in den Papierkorb legen",
     "ar": "نقل هذا النموذج إلى المهملات",
+    "ja": "このモデルをゴミ箱に移動します",
+    "ko": "이 모델을 휴지통으로 옮깁니다",
+    "th": "ย้ายโมเดลนี้ไปถังขยะ",
 })
 add("models.delete.freed", {
     "en": "Moved %@ to the Trash.",
@@ -1792,6 +2413,9 @@ add("models.delete.freed", {
     "zh-Hans": "已将 %@ 移到废纸篓。",
     "de": "%@ in den Papierkorb gelegt.",
     "ar": "نُقل %@ إلى المهملات.",
+    "ja": "%@ をゴミ箱に移動しました。",
+    "ko": "%@ 을(를) 휴지통으로 옮겼습니다.",
+    "th": "ย้าย %@ ไปที่ถังขยะแล้ว",
 })
 add("models.inMemory", {
     "en": "%@ in memory",
@@ -1799,6 +2423,9 @@ add("models.inMemory", {
     "zh-Hans": "内存 %@",
     "de": "%@ im Arbeitsspeicher",
     "ar": "%@ في الذاكرة",
+    "ja": "メモリ上 %@",
+    "ko": "메모리 %@",
+    "th": "ในหน่วยความจำ %@",
 })
 add("models.downloaded", {
     "en": "Downloaded",
@@ -1806,6 +2433,9 @@ add("models.downloaded", {
     "zh-Hans": "已下载",
     "de": "Geladen",
     "ar": "تم التنزيل",
+    "ja": "ダウンロード済み",
+    "ko": "다운로드됨",
+    "th": "ดาวน์โหลดแล้ว",
 })
 add("models.downloadFailed", {
     "en": "Download failed",
@@ -1813,6 +2443,9 @@ add("models.downloadFailed", {
     "zh-Hans": "下载失败",
     "de": "Download fehlgeschlagen",
     "ar": "فشل التنزيل",
+    "ja": "ダウンロードに失敗",
+    "ko": "다운로드 실패",
+    "th": "ดาวน์โหลดล้มเหลว",
 })
 add("models.cancelDownload", {
     "en": "Cancel download of %@",
@@ -1820,6 +2453,9 @@ add("models.cancelDownload", {
     "zh-Hans": "取消下载 %@",
     "de": "Download von %@ abbrechen",
     "ar": "إلغاء تنزيل %@",
+    "ja": "%@ のダウンロードをキャンセル",
+    "ko": "%@ 다운로드 취소",
+    "th": "ยกเลิกการดาวน์โหลด %@",
 }, note={
     "content": "Injects a name into a sentence. Languages that inflect a noun for case, choose "
                "an article by gender, or attach a vowel-harmonising suffix cannot do it without "
@@ -1833,6 +2469,9 @@ add("models.progress", {
     "zh-Hans": "下载进度",
     "de": "Download-Fortschritt",
     "ar": "تقدّم التنزيل",
+    "ja": "ダウンロードの進捗",
+    "ko": "다운로드 진행률",
+    "th": "ความคืบหน้าการดาวน์โหลด",
 })
 add("models.notInstalled", {
     "en": "Not installed",
@@ -1840,6 +2479,9 @@ add("models.notInstalled", {
     "zh-Hans": "未安装",
     "de": "Nicht installiert",
     "ar": "غير مثبَّت",
+    "ja": "未インストール",
+    "ko": "설치되지 않음",
+    "th": "ยังไม่ได้ติดตั้ง",
 })
 
 # ── Model roles and provenance ───────────────────────────────────────────────
@@ -1849,6 +2491,9 @@ add("role.transformer", {
     "zh-Hans": "扩散 Transformer",
     "de": "Diffusion-Transformer",
     "ar": "مُحوِّل الانتشار",
+    "ja": "拡散トランスフォーマー",
+    "ko": "디퓨전 트랜스포머",
+    "th": "ดิฟฟิวชันทรานส์ฟอร์เมอร์",
 })
 add("role.textEncoder", {
     "en": "Text encoder",
@@ -1856,6 +2501,9 @@ add("role.textEncoder", {
     "zh-Hans": "文本编码器",
     "de": "Text-Encoder",
     "ar": "مُرمِّز النص",
+    "ja": "テキストエンコーダ",
+    "ko": "텍스트 인코더",
+    "th": "ตัวเข้ารหัสข้อความ",
 }, note="Names the text-encoder role in the model catalogue — a kind of model file. "
         "Distinct from summary.textEncoder, which names the specific encoder a render "
         "will use.")
@@ -1865,6 +2513,9 @@ add("role.support", {
     "zh-Hans": "VAE 与预处理器",
     "de": "VAEs & Prozessoren",
     "ar": "‏VAE والمعالِجات",
+    "ja": "VAE とプロセッサ",
+    "ko": "VAE 및 프로세서",
+    "th": "VAE และตัวประมวลผล",
 })
 add("role.accelerator", {
     "en": "Acceleration LoRAs",
@@ -1872,6 +2523,9 @@ add("role.accelerator", {
     "zh-Hans": "加速 LoRA",
     "de": "Beschleunigungs-LoRAs",
     "ar": "نماذج LoRA للتسريع",
+    "ja": "高速化 LoRA",
+    "ko": "가속 LoRA",
+    "th": "LoRA เร่งความเร็ว",
 })
 add("provenance.official", {
     "en": "Official",
@@ -1879,6 +2533,9 @@ add("provenance.official", {
     "zh-Hans": "官方",
     "de": "Offiziell",
     "ar": "رسمي",
+    "ja": "公式",
+    "ko": "공식",
+    "th": "ทางการ",
 }, note="Marks a model published by the original authors, as opposed to "
         "provenance.community. About who released the weights, not about approval or "
         "certification.")
@@ -1888,6 +2545,9 @@ add("provenance.port", {
     "zh-Hans": "MLX 移植",
     "de": "MLX-Portierung",
     "ar": "نقل MLX",
+    "ja": "MLX 移植版",
+    "ko": "MLX 이식판",
+    "th": "พอร์ต MLX",
 })
 add("provenance.community", {
     "en": "Community",
@@ -1895,6 +2555,9 @@ add("provenance.community", {
     "zh-Hans": "社区",
     "de": "Community",
     "ar": "المجتمع",
+    "ja": "コミュニティ",
+    "ko": "커뮤니티",
+    "th": "ชุมชน",
 }, note="Marks a model published by someone other than the original authors — a "
         "conversion or a fine-tune. Neutral: it describes origin, not quality. See "
         "provenance.official.")
@@ -1904,6 +2567,9 @@ add("task.fl2va", {
     "zh-Hans": "FL2VA — 文字与关键帧",
     "de": "FL2VA — Text & Keyframes",
     "ar": "‏FL2VA — نص وإطارات مفتاحية",
+    "ja": "FL2VA — テキストとキーフレーム",
+    "ko": "FL2VA — 텍스트와 키프레임",
+    "th": "FL2VA — ข้อความและคีย์เฟรม",
 })
 add("task.ref2va", {
     "en": "Ref2VA — references",
@@ -1911,6 +2577,9 @@ add("task.ref2va", {
     "zh-Hans": "Ref2VA — 参考素材",
     "de": "Ref2VA — Referenzen",
     "ar": "‏Ref2VA — مراجع",
+    "ja": "Ref2VA — 参考素材",
+    "ko": "Ref2VA — 참조 자료",
+    "th": "Ref2VA — ไฟล์อ้างอิง",
 })
 
 # ── Onboarding ───────────────────────────────────────────────────────────────
@@ -1920,6 +2589,9 @@ add("onboarding.skip", {
     "zh-Hans": "跳过设置",
     "de": "Einrichtung überspringen",
     "ar": "تخطّي الإعداد",
+    "ja": "セットアップをスキップ",
+    "ko": "설치 건너뛰기",
+    "th": "ข้ามการตั้งค่า",
 })
 add("onboarding.back", {
     "en": "Back",
@@ -1927,6 +2599,9 @@ add("onboarding.back", {
     "zh-Hans": "上一步",
     "de": "Zurück",
     "ar": "رجوع",
+    "ja": "戻る",
+    "ko": "뒤로",
+    "th": "ย้อนกลับ",
 }, note="Navigates to the previous onboarding step. The direction, not the body part "
         "— and specifically \"previous\", which some languages word differently from "
         "\"backwards\".")
@@ -1936,6 +2611,9 @@ add("onboarding.continue", {
     "zh-Hans": "继续",
     "de": "Fortfahren",
     "ar": "متابعة",
+    "ja": "続ける",
+    "ko": "계속",
+    "th": "ดำเนินการต่อ",
 })
 add("onboarding.welcome.title", {
     "en": "Generate video on this Mac",
@@ -1943,6 +2621,9 @@ add("onboarding.welcome.title", {
     "zh-Hans": "在这台 Mac 上生成视频",
     "de": "Video auf diesem Mac erzeugen",
     "ar": "توليد الفيديو على هذا الـ Mac",
+    "ja": "この Mac で動画を生成",
+    "ko": "이 Mac에서 비디오 생성",
+    "th": "สร้างวิดีโอบน Mac เครื่องนี้",
 })
 add("onboarding.licence.title", {
     "en": "Model licence",
@@ -1950,6 +2631,9 @@ add("onboarding.licence.title", {
     "zh-Hans": "模型许可",
     "de": "Modelllizenz",
     "ar": "ترخيص النموذج",
+    "ja": "モデルのライセンス",
+    "ko": "모델 라이선스",
+    "th": "สัญญาอนุญาตของโมเดล",
 })
 add("onboarding.runtime.title", {
     "en": "Python runtime",
@@ -1957,6 +2641,9 @@ add("onboarding.runtime.title", {
     "zh-Hans": "Python 运行环境",
     "de": "Python-Laufzeitumgebung",
     "ar": "بيئة تشغيل Python",
+    "ja": "Python 実行環境",
+    "ko": "Python 런타임",
+    "th": "รันไทม์ Python",
 })
 add("onboarding.models.title", {
     "en": "Model weights",
@@ -1964,6 +2651,9 @@ add("onboarding.models.title", {
     "zh-Hans": "模型权重",
     "de": "Modellgewichte",
     "ar": "أوزان النموذج",
+    "ja": "モデルの重み",
+    "ko": "모델 가중치",
+    "th": "ไฟล์น้ำหนักโมเดล",
 })
 add("onboarding.installRuntime", {
     "en": "Install Runtime",
@@ -1971,6 +2661,9 @@ add("onboarding.installRuntime", {
     "zh-Hans": "安装运行环境",
     "de": "Laufzeitumgebung installieren",
     "ar": "تثبيت بيئة التشغيل",
+    "ja": "実行環境をインストール",
+    "ko": "런타임 설치",
+    "th": "ติดตั้งรันไทม์",
 })
 add("onboarding.installing", {
     "en": "Installing…",
@@ -1978,6 +2671,9 @@ add("onboarding.installing", {
     "zh-Hans": "安装中…",
     "de": "Wird installiert …",
     "ar": "جارٍ التثبيت…",
+    "ja": "インストール中…",
+    "ko": "설치 중…",
+    "th": "กำลังติดตั้ง…",
 })
 add("onboarding.startDownload", {
     "en": "Start Download",
@@ -1985,6 +2681,9 @@ add("onboarding.startDownload", {
     "zh-Hans": "开始下载",
     "de": "Download starten",
     "ar": "بدء التنزيل",
+    "ja": "ダウンロードを開始",
+    "ko": "다운로드 시작",
+    "th": "เริ่มดาวน์โหลด",
 })
 add("onboarding.slowTitle", {
     "en": "Renders take hours, not seconds",
@@ -1992,6 +2691,9 @@ add("onboarding.slowTitle", {
     "zh-Hans": "渲染需要数小时，而非数秒",
     "de": "Renders dauern Stunden, nicht Sekunden",
     "ar": "يستغرق التصيير ساعات لا ثوانٍ",
+    "ja": "レンダリングは秒ではなく時間の単位です",
+    "ko": "렌더링은 초가 아니라 시간 단위입니다",
+    "th": "การเรนเดอร์ใช้เวลาเป็นชั่วโมง ไม่ใช่วินาที",
 })
 add("onboarding.diskTitle", {
     "en": "Setup is a large download",
@@ -1999,6 +2701,9 @@ add("onboarding.diskTitle", {
     "zh-Hans": "初始设置的下载量很大",
     "de": "Die Einrichtung lädt viel herunter",
     "ar": "الإعداد يتطلّب تنزيلًا كبيرًا",
+    "ja": "セットアップは大きなダウンロードです",
+    "ko": "설치에는 큰 다운로드가 필요합니다",
+    "th": "การตั้งค่าต้องดาวน์โหลดขนาดใหญ่",
 })
 add("onboarding.licence.acknowledge", {
     "en": "I have read the licence and I am entitled to use these weights where I am",
@@ -2006,6 +2711,9 @@ add("onboarding.licence.acknowledge", {
     "zh-Hans": "我已阅读许可条款，并确认在我所在地有权使用这些权重",
     "de": "Ich habe die Lizenz gelesen und bin berechtigt, diese Gewichte hier zu verwenden",
     "ar": "لقد قرأت الترخيص وأنا مخوَّل باستخدام هذه الأوزان في موقعي",
+    "ja": "ライセンスを読み、自分のいる地域でこの重みを使う資格があることを確認しました",
+    "ko": "라이선스를 읽었으며, 내가 있는 지역에서 이 가중치를 쓸 자격이 있음을 확인합니다",
+    "th": "ข้าพเจ้าได้อ่านสัญญาอนุญาตแล้ว และมีสิทธิ์ใช้ไฟล์น้ำหนักเหล่านี้ในพื้นที่ที่ข้าพเจ้าอยู่",
 })
 add("onboarding.licence.readFull", {
     "en": "Read the full licence on Hugging Face",
@@ -2013,6 +2721,9 @@ add("onboarding.licence.readFull", {
     "zh-Hans": "在 Hugging Face 阅读完整许可",
     "de": "Vollständige Lizenz auf Hugging Face lesen",
     "ar": "اقرأ الترخيص كاملًا على Hugging Face",
+    "ja": "Hugging Face で全文を読む",
+    "ko": "Hugging Face에서 전문 읽기",
+    "th": "อ่านสัญญาอนุญาตฉบับเต็มบน Hugging Face",
 })
 add("onboarding.total", {
     "en": "Total",
@@ -2020,6 +2731,9 @@ add("onboarding.total", {
     "zh-Hans": "总计",
     "de": "Gesamt",
     "ar": "الإجمالي",
+    "ja": "合計",
+    "ko": "합계",
+    "th": "รวม",
 }, note="The combined download size of the recommended model set. A sum of bytes, not "
         "a count of files.")
 add("onboarding.freeOnDisk", {
@@ -2028,6 +2742,9 @@ add("onboarding.freeOnDisk", {
     "zh-Hans": "磁盘可用空间",
     "de": "Frei auf dem Volume",
     "ar": "المساحة الحرة على القرص",
+    "ja": "ディスクの空き",
+    "ko": "디스크 여유 공간",
+    "th": "พื้นที่ว่างบนดิสก์",
 })
 add("onboarding.savingTo", {
     "en": "Saving to %@",
@@ -2035,6 +2752,9 @@ add("onboarding.savingTo", {
     "zh-Hans": "保存至 %@",
     "de": "Wird gesichert in %@",
     "ar": "سيُحفظ في %@",
+    "ja": "%@ に保存",
+    "ko": "%@ 에 저장",
+    "th": "บันทึกไปที่ %@",
 })
 
 # ── Sidebar / window chrome ──────────────────────────────────────────────────
@@ -2044,6 +2764,9 @@ add("sidebar.show", {
     "zh-Hans": "显示边栏",
     "de": "Seitenleiste einblenden",
     "ar": "إظهار الشريط الجانبي",
+    "ja": "サイドバーを表示",
+    "ko": "사이드바 보기",
+    "th": "แสดงแถบด้านข้าง",
 })
 add("sidebar.hide", {
     "en": "Hide Sidebar",
@@ -2051,6 +2774,9 @@ add("sidebar.hide", {
     "zh-Hans": "隐藏边栏",
     "de": "Seitenleiste ausblenden",
     "ar": "إخفاء الشريط الجانبي",
+    "ja": "サイドバーを隠す",
+    "ko": "사이드바 가리기",
+    "th": "ซ่อนแถบด้านข้าง",
 })
 add("menu.newRender", {
     "en": "New Render",
@@ -2058,6 +2784,9 @@ add("menu.newRender", {
     "zh-Hans": "新建渲染",
     "de": "Neuer Render",
     "ar": "تصيير جديد",
+    "ja": "新規レンダリング",
+    "ko": "새 렌더링",
+    "th": "เรนเดอร์ใหม่",
 })
 add("menu.rescanModels", {
     "en": "Rescan Models Folder",
@@ -2065,6 +2794,9 @@ add("menu.rescanModels", {
     "zh-Hans": "重新扫描模型文件夹",
     "de": "Modellordner neu einlesen",
     "ar": "إعادة فحص مجلد النماذج",
+    "ja": "モデルフォルダを再スキャン",
+    "ko": "모델 폴더 다시 검사",
+    "th": "สแกนโฟลเดอร์โมเดลอีกครั้ง",
 })
 add("menu.revealModels", {
     "en": "Reveal Models Folder in Finder",
@@ -2072,6 +2804,9 @@ add("menu.revealModels", {
     "zh-Hans": "在 Finder 中显示模型文件夹",
     "de": "Modellordner im Finder zeigen",
     "ar": "إظهار مجلد النماذج في Finder",
+    "ja": "モデルフォルダを Finder に表示",
+    "ko": "Finder에서 모델 폴더 보기",
+    "th": "แสดงโฟลเดอร์โมเดลใน Finder",
 })
 add("menu.licenses", {
     "en": "Licenses",
@@ -2079,6 +2814,9 @@ add("menu.licenses", {
     "zh-Hans": "许可",
     "de": "Lizenzen",
     "ar": "التراخيص",
+    "ja": "ライセンス",
+    "ko": "라이선스",
+    "th": "สัญญาอนุญาต",
 }, note="Help menu item opening the licence window. The window's own text is English "
         "only — see LicensesView.")
 
@@ -2089,6 +2827,9 @@ add("refs.title.keyframes", {
     "zh-Hans": "关键帧",
     "de": "Keyframes",
     "ar": "الإطارات المفتاحية",
+    "ja": "キーフレーム",
+    "ko": "키프레임",
+    "th": "คีย์เฟรม",
 })
 add("refs.title.references", {
     "en": "References",
@@ -2096,6 +2837,9 @@ add("refs.title.references", {
     "zh-Hans": "参考素材",
     "de": "Referenzen",
     "ar": "المراجع",
+    "ja": "参考素材",
+    "ko": "참조 자료",
+    "th": "ไฟล์อ้างอิง",
 }, note="Heads the card listing the reference files the user has attached. The files, "
         "not the mode — see mode.reference.")
 add("refs.addFiles", {
@@ -2104,6 +2848,9 @@ add("refs.addFiles", {
     "zh-Hans": "添加文件…",
     "de": "Dateien hinzufügen …",
     "ar": "إضافة ملفات…",
+    "ja": "ファイルを追加…",
+    "ko": "파일 추가…",
+    "th": "เพิ่มไฟล์…",
 })
 add("refs.removeAll", {
     "en": "Remove All",
@@ -2111,6 +2858,9 @@ add("refs.removeAll", {
     "zh-Hans": "全部移除",
     "de": "Alle entfernen",
     "ar": "إزالة الكل",
+    "ja": "すべて削除",
+    "ko": "모두 제거",
+    "th": "เอาออกทั้งหมด",
 })
 add("refs.drop", {
     "en": "Drop files here",
@@ -2118,6 +2868,9 @@ add("refs.drop", {
     "zh-Hans": "把文件拖到这里",
     "de": "Dateien hierher ziehen",
     "ar": "أفلِت الملفات هنا",
+    "ja": "ここにファイルをドロップ",
+    "ko": "여기에 파일을 놓으세요",
+    "th": "วางไฟล์ที่นี่",
 })
 add("refs.insertTag", {
     "en": "Insert Tag",
@@ -2125,6 +2878,9 @@ add("refs.insertTag", {
     "zh-Hans": "插入标记",
     "de": "Tag einfügen",
     "ar": "إدراج وسم",
+    "ja": "タグを挿入",
+    "ko": "태그 삽입",
+    "th": "แทรกแท็ก",
 })
 add("refs.insertTags", {
     "en": "Insert Tags",
@@ -2132,6 +2888,9 @@ add("refs.insertTags", {
     "zh-Hans": "插入标记",
     "de": "Tags einfügen",
     "ar": "إدراج وسوم",
+    "ja": "タグを挿入",
+    "ko": "태그 삽입",
+    "th": "แทรกแท็ก",
 })
 add("refs.insertTags.help", {
     "en": "Append %@ to the prompt",
@@ -2139,6 +2898,9 @@ add("refs.insertTags.help", {
     "zh-Hans": "将 %@ 附加到提示词",
     "de": "%@ an den Prompt anhängen",
     "ar": "إلحاق %@ بالموجّه",
+    "ja": "プロンプトに %@ を追記します",
+    "ko": "프롬프트에 %@ 을(를) 덧붙입니다",
+    "th": "เพิ่ม %@ ต่อท้ายพรอมต์",
 })
 add("refs.remove", {
     "en": "Remove %@",
@@ -2146,6 +2908,9 @@ add("refs.remove", {
     "zh-Hans": "移除 %@",
     "de": "%@ entfernen",
     "ar": "إزالة %@",
+    "ja": "%@ を削除",
+    "ko": "%@ 제거",
+    "th": "เอา %@ ออก",
 }, note={
     "content": "Injects a name into a sentence. Languages that inflect a noun for case, choose "
                "an article by gender, or attach a vowel-harmonising suffix cannot do it without "
@@ -2159,6 +2924,9 @@ add("refs.choose.image", {
     "zh-Hans": "选择关键帧图片",
     "de": "Keyframe-Bild wählen",
     "ar": "اختر صورة إطار مفتاحي",
+    "ja": "キーフレーム画像を選択",
+    "ko": "키프레임 이미지 선택",
+    "th": "เลือกภาพคีย์เฟรม",
 })
 add("refs.choose.any", {
     "en": "Choose reference images, videos or audio",
@@ -2166,6 +2934,9 @@ add("refs.choose.any", {
     "zh-Hans": "选择参考图片、视频或音频",
     "de": "Referenzbilder, -videos oder -audio wählen",
     "ar": "اختر صورًا أو مقاطع فيديو أو صوتًا مرجعية",
+    "ja": "参考用の画像・動画・音声を選択",
+    "ko": "참조용 이미지, 비디오 또는 오디오 선택",
+    "th": "เลือกภาพ วิดีโอ หรือเสียงสำหรับอ้างอิง",
 })
 add("refs.slot.first", {
     "en": "First frame",
@@ -2173,6 +2944,9 @@ add("refs.slot.first", {
     "zh-Hans": "首帧",
     "de": "Erstes Bild",
     "ar": "الإطار الأول",
+    "ja": "先頭フレーム",
+    "ko": "첫 프레임",
+    "th": "เฟรมแรก",
 }, note="Labels the drop target for the first-frame image. A place to put a file, "
         "where mode.first is a mode — see it.")
 add("refs.slot.last", {
@@ -2181,6 +2955,9 @@ add("refs.slot.last", {
     "zh-Hans": "末帧",
     "de": "Letztes Bild",
     "ar": "الإطار الأخير",
+    "ja": "末尾フレーム",
+    "ko": "마지막 프레임",
+    "th": "เฟรมสุดท้าย",
 })
 add("refs.slot.reference", {
     "en": "Reference",
@@ -2188,6 +2965,9 @@ add("refs.slot.reference", {
     "zh-Hans": "参考",
     "de": "Referenz",
     "ar": "مرجع",
+    "ja": "参考素材",
+    "ko": "참조 자료",
+    "th": "ไฟล์อ้างอิง",
 })
 add("refs.kind.image", {
     "en": "Image",
@@ -2195,6 +2975,9 @@ add("refs.kind.image", {
     "zh-Hans": "图片",
     "de": "Bild",
     "ar": "صورة",
+    "ja": "画像",
+    "ko": "이미지",
+    "th": "ภาพ",
 }, note="Names the still-image kind in the reference list, beside Video and Audio. A "
         "file category.")
 add("refs.kind.video", {
@@ -2203,6 +2986,9 @@ add("refs.kind.video", {
     "zh-Hans": "视频",
     "de": "Video",
     "ar": "فيديو",
+    "ja": "動画",
+    "ko": "비디오",
+    "th": "วิดีโอ",
 }, note="Names the video kind in the reference list, beside Image and Audio. A file "
         "category.")
 add("refs.kind.audio", {
@@ -2211,6 +2997,9 @@ add("refs.kind.audio", {
     "zh-Hans": "音频",
     "de": "Audio",
     "ar": "صوت",
+    "ja": "オーディオ",
+    "ko": "오디오",
+    "th": "เสียง",
 }, note="Names the audio *file* kind in the reference list, beside Image and Video. A "
         "category of attachment — see compose.audio.")
 add("refs.footnote.first", {
@@ -2219,6 +3008,9 @@ add("refs.footnote.first", {
     "zh-Hans": "一张图片，作为开场帧，片段会由此延伸动态。",
     "de": "Ein Bild als Anfangsbild. Der Clip animiert von dort aus.",
     "ar": "صورة واحدة تُستخدم كإطار افتتاحي، وينطلق منها تحريك المقطع.",
+    "ja": "最初のフレームとして使う画像を 1 枚。クリップはそこから動き出します。",
+    "ko": "첫 프레임으로 쓸 이미지 한 장. 클립은 거기서부터 움직이기 시작합니다.",
+    "th": "ภาพหนึ่งภาพใช้เป็นเฟรมเปิด คลิปจะเคลื่อนไหวต่อออกไปจากภาพนั้น",
 })
 add("refs.footnote.firstlast", {
     "en": "Two images. The first becomes frame one, the second the final frame, and H3 "
@@ -2229,6 +3021,9 @@ add("refs.footnote.firstlast", {
           "die Bewegung dazwischen.",
     "ar": "صورتان: الأولى تصبح الإطار الأول والثانية الإطار الأخير، ويولّد H3 الحركة "
           "بينهما.",
+    "ja": "画像を 2 枚。1 枚目が最初のフレーム、2 枚目が最後のフレームになり、H3 がその間の動きを生成します。",
+    "ko": "이미지 두 장. 첫 장이 첫 프레임, 둘째 장이 마지막 프레임이 되고 H3가 그 사이의 움직임을 만듭니다.",
+    "th": "ภาพสองภาพ ภาพแรกเป็นเฟรมที่หนึ่ง ภาพที่สองเป็นเฟรมสุดท้าย แล้ว H3 จะสร้างการเคลื่อนไหวระหว่างกลาง",
 })
 add("refs.footnote.reference", {
     "en": "Up to 9 images, 3 videos and 3 audio clips, 12 files in total. Refer to them "
@@ -2244,6 +3039,9 @@ add("refs.footnote.reference", {
     "ar": "حتى 9 صور و3 مقاطع فيديو و3 مقاطع صوتية، بمجموع 12 ملفًا. أشِر إليها في الموجّه "
           "بصيغة <Picture 1> و<Video 1> و<Audio 1> — إذ يشترط H3 عليها عبر هذه الوسوم، "
           "فالمرجع غير المذكور يكاد لا يؤثّر.",
+    "ja": "画像は最大 9 枚、動画 3 本、音声 3 本、合わせて 12 ファイルまで。プロンプトからは <Picture 1>、<Video 1>、<Audio 1> のように参照します。H3 はこのタグを通して条件付けするので、言及されていない参考素材はほとんど効きません。",
+    "ko": "이미지 최대 9개, 비디오 3개, 오디오 3개로 모두 12개까지. 프롬프트에서는 <Picture 1>, <Video 1>, <Audio 1> 처럼 가리킵니다. H3가 그 태그를 통해 조건화하므로, 언급하지 않은 참조는 거의 영향이 없습니다.",
+    "th": "ภาพได้สูงสุด 9 ภาพ วิดีโอ 3 คลิป และเสียง 3 คลิป รวม 12 ไฟล์ อ้างถึงในพรอมต์ว่า <Picture 1>, <Video 1>, <Audio 1> เพราะ H3 กำหนดเงื่อนไขผ่านแท็กเหล่านี้ ไฟล์อ้างอิงที่ไม่ได้เอ่ยถึงจึงแทบไม่มีผล",
 })
 
 # ── Validation messages ──────────────────────────────────────────────────────
@@ -2253,6 +3051,9 @@ add("problem.prompt.empty", {
     "zh-Hans": "请写一段描述镜头的提示词。",
     "de": "Schreibe einen Prompt, der die Einstellung beschreibt.",
     "ar": "اكتب موجّهًا يصف اللقطة.",
+    "ja": "ショットを説明するプロンプトを書いてください。",
+    "ko": "장면을 설명하는 프롬프트를 쓰세요.",
+    "th": "เขียนพรอมต์บรรยายช็อตที่ต้องการ",
 })
 add("problem.duration", {
     "en": "H3 only generates 4–15 second clips.",
@@ -2260,6 +3061,9 @@ add("problem.duration", {
     "zh-Hans": "H3 只能生成 4–15 秒的片段。",
     "de": "H3 erzeugt nur Clips von 4–15 Sekunden.",
     "ar": "يولّد H3 مقاطع مدتها 4–15 ثانية فقط.",
+    "ja": "H3 が生成できるのは 4〜15 秒のクリップだけです。",
+    "ko": "H3는 4~15초 길이의 클립만 생성합니다.",
+    "th": "H3 สร้างได้เฉพาะคลิปยาว 4–15 วินาทีเท่านั้น",
 })
 add("problem.t2v.extraFiles", {
     "en": "Text-to-video ignores attached files. Switch modes to use them.",
@@ -2267,6 +3071,9 @@ add("problem.t2v.extraFiles", {
     "zh-Hans": "文字转视频会忽略附加文件。若要使用，请切换模式。",
     "de": "Text-zu-Video ignoriert angehängte Dateien. Wechsle den Modus, um sie zu nutzen.",
     "ar": "يتجاهل وضع النص إلى فيديو الملفات المرفقة. بدّل الوضع لاستخدامها.",
+    "ja": "テキストから動画では添付ファイルは無視されます。使うにはモードを切り替えてください。",
+    "ko": "텍스트-비디오는 첨부 파일을 무시합니다. 쓰려면 모드를 바꾸세요.",
+    "th": "โหมดข้อความเป็นวิดีโอจะไม่สนใจไฟล์แนบ ให้สลับโหมดหากต้องการใช้",
 })
 add("problem.needFirst", {
     "en": "Add a first-frame image.",
@@ -2274,6 +3081,9 @@ add("problem.needFirst", {
     "zh-Hans": "请添加首帧图片。",
     "de": "Füge ein Bild für das erste Bild hinzu.",
     "ar": "أضف صورة للإطار الأول.",
+    "ja": "最初のフレームになる画像を追加してください。",
+    "ko": "첫 프레임이 될 이미지를 추가하세요.",
+    "th": "เพิ่มภาพสำหรับเฟรมแรก",
 })
 add("problem.needLast", {
     "en": "Add a last-frame image.",
@@ -2281,6 +3091,9 @@ add("problem.needLast", {
     "zh-Hans": "请添加末帧图片。",
     "de": "Füge ein Bild für das letzte Bild hinzu.",
     "ar": "أضف صورة للإطار الأخير.",
+    "ja": "最後のフレームになる画像を追加してください。",
+    "ko": "마지막 프레임이 될 이미지를 추가하세요.",
+    "th": "เพิ่มภาพสำหรับเฟรมสุดท้าย",
 })
 add("problem.needReference", {
     "en": "Ref2VA needs at least one reference file.",
@@ -2288,6 +3101,9 @@ add("problem.needReference", {
     "zh-Hans": "Ref2VA 至少需要一个参考文件。",
     "de": "Ref2VA benötigt mindestens eine Referenzdatei.",
     "ar": "يتطلّب Ref2VA ملف مرجع واحدًا على الأقل.",
+    "ja": "Ref2VA には参考ファイルが少なくとも 1 つ必要です。",
+    "ko": "Ref2VA에는 참조 파일이 최소 하나 필요합니다.",
+    "th": "Ref2VA ต้องมีไฟล์อ้างอิงอย่างน้อยหนึ่งไฟล์",
 })
 add("problem.tooManyTotal", {
     "en": "Ref2VA accepts %@ reference files in total.",
@@ -2295,6 +3111,9 @@ add("problem.tooManyTotal", {
     "zh-Hans": "Ref2VA 总共最多接受 %@ 个参考文件。",
     "de": "Ref2VA akzeptiert insgesamt %@ Referenzdateien.",
     "ar": "يقبل Ref2VA %@ ملف مرجع بالإجمال.",
+    "ja": "Ref2VA が受け付ける参考ファイルは合計 %@ 件までです。",
+    "ko": "Ref2VA는 참조 파일을 모두 합쳐 %@ 개까지 받습니다.",
+    "th": "Ref2VA รับไฟล์อ้างอิงได้รวมทั้งหมด %@ ไฟล์",
 }, note={
     "content": "Takes a count of reference files, though the value is always "
                "ReferenceAsset.totalFileLimit, which is 12. A placeholder that only ever holds "
@@ -2308,6 +3127,9 @@ add("problem.notInstalled", {
     "zh-Hans": "所选的检查点尚未安装。",
     "de": "Der gewählte Checkpoint ist noch nicht installiert.",
     "ar": "نقطة التحقق المحددة غير مثبتة بعد.",
+    "ja": "選択したチェックポイントはまだインストールされていません。",
+    "ko": "선택한 체크포인트가 아직 설치되지 않았습니다.",
+    "th": "ยังไม่ได้ติดตั้งเช็กพอยต์ที่เลือก",
 })
 add("problem.chooseCheckpoint", {
     "en": "Choose a %@ checkpoint in Models.",
@@ -2315,6 +3137,9 @@ add("problem.chooseCheckpoint", {
     "zh-Hans": "请在“模型”中选择 %@ 检查点。",
     "de": "Wähle unter „Modelle“ einen %@-Checkpoint.",
     "ar": "اختر نقطة تحقق %@ من «النماذج».",
+    "ja": "「モデル」で %@ のチェックポイントを選んでください。",
+    "ko": "모델에서 %@ 체크포인트를 고르세요.",
+    "th": "เลือกเช็กพอยต์ %@ ในหน้าโมเดล",
 }, note={
     "content": "Injects a task name into the noun phrase \"a %@ checkpoint\". The English article "
                "is fixed as \"a\", so a name beginning with a vowel sound already reads \"a FL2VA\" "
@@ -2327,6 +3152,9 @@ add("problem.lowSteps", {
     "zh-Hans": "低于 8 步时，模型容易产生模糊、不稳定的动态。",
     "de": "Unter 8 Schritten erzeugt das Modell eher weiche, instabile Bewegung.",
     "ar": "دون 8 خطوات يميل النموذج إلى حركة ناعمة غير مستقرة.",
+    "ja": "8 ステップを下回ると、動きが眠く不安定になりがちです。",
+    "ko": "8스텝 아래에서는 움직임이 흐릿하고 불안정해지는 경향이 있습니다.",
+    "th": "ต่ำกว่า 8 สเต็ป โมเดลมักให้การเคลื่อนไหวที่เบลอและไม่นิ่ง",
 })
 add("problem.longOvernight", {
     "en": "Long clips at high step counts can run overnight. Consider a short test first.",
@@ -2336,6 +3164,9 @@ add("problem.longOvernight", {
           "Test erwägen.",
     "ar": "قد تستغرق المقاطع الطويلة بأعداد خطوات كبيرة ليلة كاملة. جرّب اختبارًا قصيرًا "
           "أولًا.",
+    "ja": "ステップ数の多い長いクリップは一晩かかることがあります。まず短いテストを試すことをおすすめします。",
+    "ko": "스텝 수가 많은 긴 클립은 밤새 걸릴 수 있습니다. 먼저 짧게 시험해 보세요.",
+    "th": "คลิปยาวที่ใช้สเต็ปมากอาจกินเวลาข้ามคืน ลองทดสอบสั้น ๆ ก่อนดีกว่า",
 })
 add("problem.upscale", {
     "en": "%@ is a resample of the model's 768p output. H3's true 2K mode is not "
@@ -2346,6 +3177,9 @@ add("problem.upscale", {
           "ist nicht quelloffen und läuft nicht lokal.",
     "ar": "‏%@ مجرد إعادة أخذ عيّنات لإخراج النموذج بدقة 768p. أما وضع 2K الحقيقي في H3 "
           "فليس مفتوح المصدر ولا يمكن تشغيله محليًا.",
+    "ja": "%@ はモデルの 768p 出力をリサンプルしたものです。H3 本来の 2K モードは公開されておらず、ローカルでは動きません。",
+    "ko": "%@ 은(는) 모델의 768p 출력을 리샘플링한 것입니다. H3의 진짜 2K 모드는 공개되지 않았고 로컬에서는 돌릴 수 없습니다.",
+    "th": "%@ เป็นการปรับขนาดจากเอาต์พุต 768p ของโมเดล โหมด 2K จริงของ H3 ไม่ได้เปิดซอร์สและรันในเครื่องไม่ได้",
 }, note={
     "content": "Injects a name into a sentence. Languages that inflect a noun for case, choose "
                "an article by gender, or attach a vowel-harmonising suffix cannot do it without "
@@ -2363,6 +3197,9 @@ add("problem.refUntagged", {
           "Tag ist der Einfluss deutlich geringer.",
     "ar": "لا يذكر الموجّه %@ إطلاقًا. يشترط H3 على المراجع عبر هذه الوسوم، وما لا يُذكر "
           "يكون تأثيره أضعف بكثير.",
+    "ja": "プロンプトが %@ に触れていません。H3 はこのタグを通して参考素材を条件付けするため、言及のないものは影響がずっと小さくなります。",
+    "ko": "프롬프트가 %@ 을(를) 전혀 언급하지 않습니다. H3는 그 태그를 통해 참조를 조건화하므로, 언급되지 않은 참조는 영향이 훨씬 작습니다.",
+    "th": "พรอมต์ไม่ได้เอ่ยถึง %@ เลย H3 กำหนดเงื่อนไขจากไฟล์อ้างอิงผ่านแท็กเหล่านั้น ไฟล์ที่ไม่ถูกเอ่ยถึงจึงมีผลน้อยกว่ามาก",
 }, note={
     "content": "Injects a name into a sentence. Languages that inflect a noun for case, choose "
                "an article by gender, or attach a vowel-harmonising suffix cannot do it without "
@@ -2379,6 +3216,9 @@ add("problem.refSlow", {
           "Die 4-Schritt-Turbo-LoRA hält es bei Minuten statt Stunden.",
     "ar": "يعمل وضع المراجع عبر ComfyUI بدل MLX، وهو أبطأ لكل خطوة. ونموذج turbo LoRA ذو "
           "الأربع خطوات هو ما يبقي الزمن بالدقائق لا بالساعات.",
+    "ja": "参考素材モードは MLX ではなく ComfyUI を通るため、1 ステップあたりは遅くなります。4 ステップの turbo LoRA があるおかげで、何時間もではなく数十分で済んでいます。",
+    "ko": "참조 모드는 MLX가 아니라 ComfyUI를 거치므로 스텝당 속도가 느립니다. 4스텝 turbo LoRA 덕분에 몇 시간이 아니라 수십 분으로 끝납니다.",
+    "th": "โหมดไฟล์อ้างอิงทำงานผ่าน ComfyUI แทน MLX จึงช้ากว่าต่อสเต็ป turbo LoRA แบบ 4 สเต็ปคือสิ่งที่ทำให้ใช้เวลาเป็นนาทีแทนที่จะเป็นชั่วโมง",
 })
 add("problem.blocking", {
     "en": "Blocking issue. %@",
@@ -2386,6 +3226,9 @@ add("problem.blocking", {
     "zh-Hans": "阻塞问题：%@",
     "de": "Blockierendes Problem. %@",
     "ar": "مشكلة مانعة. %@",
+    "ja": "解決が必要です。%@",
+    "ko": "해결해야 할 문제입니다. %@",
+    "th": "ปัญหาที่ต้องแก้ก่อน %@",
 }, note={
     "content": "Wraps another translated sentence as \"Blocking issue. %@\". Two sentences glued "
                "together; the inner one was translated without knowing it would be prefixed.",
@@ -2397,6 +3240,9 @@ add("problem.note", {
     "zh-Hans": "提醒：%@",
     "de": "Hinweis. %@",
     "ar": "ملاحظة. %@",
+    "ja": "補足。%@",
+    "ko": "참고. %@",
+    "th": "หมายเหตุ %@",
 }, note={
     "content": "See problem.blocking — the same prefix-plus-sentence construction.",
     "level": WARNING,
@@ -2409,6 +3255,9 @@ add("settings.general", {
     "zh-Hans": "通用",
     "de": "Allgemein",
     "ar": "عام",
+    "ja": "一般",
+    "ko": "일반",
+    "th": "ทั่วไป",
 })
 add("settings.runtime", {
     "en": "Runtime",
@@ -2416,6 +3265,9 @@ add("settings.runtime", {
     "zh-Hans": "运行时",
     "de": "Laufzeitumgebung",
     "ar": "بيئة التشغيل",
+    "ja": "実行環境",
+    "ko": "런타임",
+    "th": "รันไทม์",
 }, note="The Python environment the app manages, not a term of art: TW says 執行環境, "
         "mainland 运行时.")
 add("settings.advanced", {
@@ -2424,6 +3276,9 @@ add("settings.advanced", {
     "zh-Hans": "高级",
     "de": "Erweitert",
     "ar": "متقدّم",
+    "ja": "詳細",
+    "ko": "고급",
+    "th": "ขั้นสูง",
 })
 add("settings.log.clear", {
     "en": "Clear",
@@ -2431,6 +3286,9 @@ add("settings.log.clear", {
     "zh-Hans": "清除",
     "de": "Leeren",
     "ar": "مسح",
+    "ja": "消去",
+    "ko": "지우기",
+    "th": "ล้าง",
 }, note="Imperative verb: empty the log. Not the adjective \"clear\" meaning legible or "
         "transparent.")
 add("settings.log.accessibility", {
@@ -2439,6 +3297,9 @@ add("settings.log.accessibility", {
     "zh-Hans": "安装日志",
     "de": "Installationsprotokoll",
     "ar": "سجل التثبيت",
+    "ja": "インストールログ",
+    "ko": "설치 로그",
+    "th": "บันทึกการติดตั้ง",
 })
 add("settings.runtime.rebuild.note", {
     "en": "Rebuilding deletes and recreates the Python environment. It does not touch "
@@ -2449,6 +3310,9 @@ add("settings.runtime.rebuild.note", {
           "Geladene Gewichte bleiben unberührt.",
     "ar": "تؤدي إعادة البناء إلى حذف بيئة Python وإنشائها من جديد. ولا تمسّ الأوزان التي "
           "جرى تنزيلها.",
+    "ja": "作り直すと Python 環境を削除して作成し直します。ダウンロード済みの重みには触れません。",
+    "ko": "다시 만들면 Python 환경을 지우고 새로 만듭니다. 내려받은 가중치는 건드리지 않습니다.",
+    "th": "การสร้างใหม่จะลบและสร้างสภาพแวดล้อม Python ขึ้นใหม่ โดยไม่แตะไฟล์น้ำหนักที่ดาวน์โหลดไว้",
 })
 add("settings.advanced.support.note", {
     "en": "Holds the Python environment, the render queue, and scratch files for in-flight "
@@ -2459,6 +3323,9 @@ add("settings.advanced.support.note", {
           "laufender Rendervorgänge.",
     "ar": "يحتوي على بيئة Python وقائمة انتظار التصيير والملفات المؤقتة لعمليات التصيير "
           "الجارية.",
+    "ja": "Python 環境、レンダリングのキュー、進行中レンダリングの作業ファイルが入っています。",
+    "ko": "Python 환경과 렌더링 대기열, 진행 중인 렌더링의 임시 파일이 들어 있습니다.",
+    "th": "เก็บสภาพแวดล้อม Python คิวการเรนเดอร์ และไฟล์ชั่วคราวของงานที่กำลังเรนเดอร์",
 })
 add("settings.folders", {
     "en": "Folders",
@@ -2466,6 +3333,9 @@ add("settings.folders", {
     "zh-Hans": "文件夹",
     "de": "Ordner",
     "ar": "المجلدات",
+    "ja": "フォルダ",
+    "ko": "폴더",
+    "th": "โฟลเดอร์",
 })
 add("settings.folder.models", {
     "en": "Models",
@@ -2473,6 +3343,9 @@ add("settings.folder.models", {
     "zh-Hans": "模型",
     "de": "Modelle",
     "ar": "النماذج",
+    "ja": "モデル",
+    "ko": "모델",
+    "th": "โมเดล",
 }, note="Labels the folder on disk where weights are stored, in Settings ▸ Folders. A "
         "location, not the tab — see section.models.")
 add("settings.folder.output", {
@@ -2481,6 +3354,9 @@ add("settings.folder.output", {
     "zh-Hans": "输出",
     "de": "Ausgabe",
     "ar": "الإخراج",
+    "ja": "出力",
+    "ko": "출력",
+    "th": "เอาต์พุต",
 }, note="Labels the folder finished videos are written to, in Settings ▸ Folders. A "
         "location — see compose.output.title.")
 add("settings.queue.note", {
@@ -2493,6 +3369,9 @@ add("settings.queue.note", {
           "zurückstellen oder anhalten.",
     "ar": "يحتفظ التصيير بعشرات الغيغابايتات من الأوزان في الذاكرة، لذا يعمل واحد فقط في كل "
           "مرة. يمكنك تعليق أو إيقاف أي تصيير من صفّه في قائمة الانتظار.",
+    "ja": "レンダリングは数十 GB の重みをメモリに保持するため、同時に走るのは 1 件だけです。個々のレンダリングの保留や停止は、キューの各行から行えます。",
+    "ko": "렌더링은 수십 GB의 가중치를 메모리에 올리므로 한 번에 하나만 돌아갑니다. 개별 렌더링의 보류나 정지는 대기열의 각 행에서 할 수 있습니다.",
+    "th": "การเรนเดอร์ต้องเก็บไฟล์น้ำหนักหลายสิบกิกะไบต์ไว้ในหน่วยความจำ จึงทำได้ครั้งละหนึ่งงาน สั่งพักหรือหยุดแต่ละงานได้จากแถวของงานนั้นในคิว",
 })
 add("settings.status", {
     "en": "Status",
@@ -2500,6 +3379,9 @@ add("settings.status", {
     "zh-Hans": "状态",
     "de": "Status",
     "ar": "الحالة",
+    "ja": "ステータス",
+    "ko": "상태",
+    "th": "สถานะ",
 }, note="Heads the runtime status section in Settings. A section heading, not the "
         "status-bar label — see status.label.")
 add("settings.python", {
@@ -2508,6 +3390,9 @@ add("settings.python", {
     "zh-Hans": "Python",
     "de": "Python",
     "ar": "Python",
+    "ja": "Python",
+    "ko": "Python",
+    "th": "Python",
 })
 add("settings.architecture", {
     "en": "Architecture",
@@ -2515,6 +3400,9 @@ add("settings.architecture", {
     "zh-Hans": "架构",
     "de": "Architektur",
     "ar": "البنية",
+    "ja": "アーキテクチャ",
+    "ko": "아키텍처",
+    "th": "สถาปัตยกรรม",
 })
 add("settings.mlxMetal", {
     "en": "MLX on Metal",
@@ -2522,6 +3410,9 @@ add("settings.mlxMetal", {
     "zh-Hans": "MLX on Metal",
     "de": "MLX auf Metal",
     "ar": "‏MLX على Metal",
+    "ja": "Metal 上の MLX",
+    "ko": "Metal 기반 MLX",
+    "th": "MLX บน Metal",
 })
 add("settings.working", {
     "en": "Working",
@@ -2529,6 +3420,9 @@ add("settings.working", {
     "zh-Hans": "正常",
     "de": "Funktioniert",
     "ar": "يعمل",
+    "ja": "正常",
+    "ko": "정상",
+    "th": "ทำงานปกติ",
 }, note="Means the runtime is functioning correctly — NOT \"in progress\". The value "
         "shown beside settings.state when nothing is wrong. Translate as \"OK\" or "
         "\"functioning\", never as \"busy\".")
@@ -2538,6 +3432,9 @@ add("settings.notWorking", {
     "zh-Hans": "异常",
     "de": "Funktioniert nicht",
     "ar": "لا يعمل",
+    "ja": "動作していません",
+    "ko": "작동하지 않음",
+    "th": "ใช้งานไม่ได้",
 })
 add("settings.notFound", {
     "en": "Not found",
@@ -2545,6 +3442,9 @@ add("settings.notFound", {
     "zh-Hans": "未找到",
     "de": "Nicht gefunden",
     "ar": "غير موجود",
+    "ja": "見つかりません",
+    "ko": "찾을 수 없음",
+    "th": "ไม่พบ",
 })
 add("settings.h3Pipeline", {
     "en": "H3 pipeline",
@@ -2552,6 +3452,9 @@ add("settings.h3Pipeline", {
     "zh-Hans": "H3 管线",
     "de": "H3-Pipeline",
     "ar": "خط معالجة H3",
+    "ja": "H3 パイプライン",
+    "ko": "H3 파이프라인",
+    "th": "ไปป์ไลน์ H3",
 })
 add("settings.detected", {
     "en": "Detected",
@@ -2559,6 +3462,9 @@ add("settings.detected", {
     "zh-Hans": "已检测",
     "de": "Erkannt",
     "ar": "تم الكشف",
+    "ja": "検出済み",
+    "ko": "감지됨",
+    "th": "ตรวจพบแล้ว",
 }, note="Adjective: the app found this component on the machine by itself. Reports a "
         "discovery, not an action available.")
 add("settings.notDetected", {
@@ -2567,6 +3473,9 @@ add("settings.notDetected", {
     "zh-Hans": "未检测到",
     "de": "Nicht erkannt",
     "ar": "لم يُكتشف",
+    "ja": "未検出",
+    "ko": "감지되지 않음",
+    "th": "ไม่พบ",
 })
 add("settings.recheck", {
     "en": "Re-check",
@@ -2574,6 +3483,9 @@ add("settings.recheck", {
     "zh-Hans": "重新检查",
     "de": "Erneut prüfen",
     "ar": "إعادة الفحص",
+    "ja": "再確認",
+    "ko": "다시 확인",
+    "th": "ตรวจสอบอีกครั้ง",
 })
 add("settings.repair", {
     "en": "Repair",
@@ -2581,6 +3493,9 @@ add("settings.repair", {
     "zh-Hans": "修复",
     "de": "Reparieren",
     "ar": "إصلاح",
+    "ja": "修復",
+    "ko": "복구",
+    "th": "ซ่อมแซม",
 }, note="Imperative verb on a button: reinstall the broken parts of the runtime. Not "
         "a noun.")
 add("settings.rebuild", {
@@ -2589,6 +3504,9 @@ add("settings.rebuild", {
     "zh-Hans": "完全重建",
     "de": "Komplett neu aufbauen",
     "ar": "إعادة البناء من الصفر",
+    "ja": "一から作り直す",
+    "ko": "처음부터 다시 만들기",
+    "th": "สร้างใหม่ทั้งหมด",
 })
 add("settings.log", {
     "en": "Log",
@@ -2596,6 +3514,9 @@ add("settings.log", {
     "zh-Hans": "日志",
     "de": "Protokoll",
     "ar": "السجل",
+    "ja": "ログ",
+    "ko": "로그",
+    "th": "บันทึก",
 }, note="Noun: the record of what the runtime printed. Not the verb \"to log\", and not "
         "a logarithm.")
 add("settings.notInstalled", {
@@ -2604,6 +3525,9 @@ add("settings.notInstalled", {
     "zh-Hans": "尚未安装。",
     "de": "Nicht installiert.",
     "ar": "غير مثبَّت.",
+    "ja": "未インストールです。",
+    "ko": "설치되지 않았습니다.",
+    "th": "ยังไม่ได้ติดตั้ง",
 })
 add("settings.state", {
     "en": "State",
@@ -2611,6 +3535,9 @@ add("settings.state", {
     "zh-Hans": "状态",
     "de": "Zustand",
     "ar": "الحالة",
+    "ja": "状態",
+    "ko": "상태",
+    "th": "สภาพ",
 }, note="Labels one row reporting the runtime's condition. German separates this "
         "(Zustand) from Status; English does not. If a language has only one word, "
         "using it for both is fine.")
@@ -2620,6 +3547,9 @@ add("settings.comfy.server", {
     "zh-Hans": "服务器",
     "de": "Server",
     "ar": "الخادم",
+    "ja": "サーバー",
+    "ko": "서버",
+    "th": "เซิร์ฟเวอร์",
 })
 add("settings.comfy.running", {
     "en": "running on port %@",
@@ -2627,6 +3557,9 @@ add("settings.comfy.running", {
     "zh-Hans": "运行中，端口 %@",
     "de": "läuft auf Port %@",
     "ar": "يعمل على المنفذ %@",
+    "ja": "ポート %@ で稼働中",
+    "ko": "포트 %@ 에서 실행 중",
+    "th": "ทำงานอยู่ที่พอร์ต %@",
 })
 add("settings.comfy.notRunning", {
     "en": "not running",
@@ -2634,6 +3567,9 @@ add("settings.comfy.notRunning", {
     "zh-Hans": "未运行",
     "de": "läuft nicht",
     "ar": "لا يعمل",
+    "ja": "停止中",
+    "ko": "실행 중 아님",
+    "th": "ไม่ได้ทำงาน",
 })
 add("settings.comfy.weights", {
     "en": "Weights",
@@ -2641,6 +3577,9 @@ add("settings.comfy.weights", {
     "zh-Hans": "权重",
     "de": "Gewichte",
     "ar": "الأوزان",
+    "ja": "重み",
+    "ko": "가중치",
+    "th": "ไฟล์น้ำหนัก",
 }, note="Model weights — the trained parameters of a neural network. Never the sense "
         "of heaviness or of weighting a value. Many languages keep the English term.")
 add("settings.comfy.install", {
@@ -2649,6 +3588,9 @@ add("settings.comfy.install", {
     "zh-Hans": "安装",
     "de": "Installieren",
     "ar": "تثبيت",
+    "ja": "インストール",
+    "ko": "설치",
+    "th": "ติดตั้ง",
 }, note="Imperative verb on a button. Not the noun \"installation\", which is a "
         "different word in most languages.")
 add("settings.comfy.stop", {
@@ -2657,6 +3599,9 @@ add("settings.comfy.stop", {
     "zh-Hans": "停止服务器",
     "de": "Server anhalten",
     "ar": "إيقاف الخادم",
+    "ja": "サーバーを停止",
+    "ko": "서버 정지",
+    "th": "หยุดเซิร์ฟเวอร์",
 })
 add("settings.comfy.why", {
     "en": "Reference mode runs here rather than on MLX, whose pipeline accepts keyframes "
@@ -2670,6 +3615,9 @@ add("settings.comfy.why", {
     "ar": "يعمل وضع المراجع هنا بدل MLX، إذ لا تقبل منظومته سوى الإطارات المفتاحية. كما "
           "يحمّل ComfyUI نماذج turbo LoRA ذات الأربع خطوات، وهو ما يجعل التصيير المرجعي "
           "عمليًا أصلًا.",
+    "ja": "参考素材モードは、キーフレームしか受け付けない MLX ではなくこちらで動きます。ComfyUI は 4 ステップの turbo LoRA も読み込め、それが参考素材のレンダリングを現実的にしています。",
+    "ko": "참조 모드는 키프레임만 받는 MLX가 아니라 여기서 돌아갑니다. ComfyUI는 4스텝 turbo LoRA도 불러올 수 있는데, 그것이 참조 렌더링을 현실적으로 만들어 줍니다.",
+    "th": "โหมดไฟล์อ้างอิงทำงานที่นี่แทน MLX ซึ่งไปป์ไลน์รับได้เฉพาะคีย์เฟรม ComfyUI ยังโหลด turbo LoRA แบบ 4 สเต็ปได้ ซึ่งเป็นสิ่งที่ทำให้การเรนเดอร์ด้วยไฟล์อ้างอิงเป็นไปได้จริง",
 })
 add("settings.comfy.note", {
     "en": "The app's own headless ComfyUI, kept apart from any you have installed yourself. "
@@ -2680,6 +3628,9 @@ add("settings.comfy.note", {
           "Der Server startet bei Bedarf und endet mit der App.",
     "ar": "نسخة ComfyUI الخاصة بالتطبيق بلا واجهة، منفصلة عن أي نسخة ثبّتها بنفسك. يبدأ "
           "الخادم عند الحاجة ويتوقف مع إغلاق التطبيق.",
+    "ja": "このアプリ専用のヘッドレス ComfyUI で、自分で入れたものとは分けて管理されます。サーバーは必要なときに起動し、アプリの終了と一緒に止まります。",
+    "ko": "이 앱 전용 헤드리스 ComfyUI로, 직접 설치한 것과는 따로 둡니다. 서버는 필요할 때 시작되고 앱과 함께 종료됩니다.",
+    "th": "ComfyUI แบบไม่มีหน้าจอของแอปนี้เอง แยกจากตัวที่คุณติดตั้งไว้เอง เซิร์ฟเวอร์จะเริ่มเมื่อต้องใช้ และหยุดพร้อมกับแอป",
 })
 add("settings.advanced.port", {
     "en": "MiniMax-H3 port",
@@ -2687,6 +3638,9 @@ add("settings.advanced.port", {
     "zh-Hans": "MiniMax-H3 移植版",
     "de": "MiniMax-H3-Portierung",
     "ar": "نقل MiniMax-H3",
+    "ja": "MiniMax-H3 移植版",
+    "ko": "MiniMax-H3 이식판",
+    "th": "พอร์ต MiniMax-H3",
 })
 add("settings.advanced.checkout", {
     "en": "Checkout path",
@@ -2694,6 +3648,9 @@ add("settings.advanced.checkout", {
     "zh-Hans": "检出路径",
     "de": "Checkout-Pfad",
     "ar": "مسار النسخة",
+    "ja": "チェックアウトのパス",
+    "ko": "체크아웃 경로",
+    "th": "พาธของเช็กเอาต์",
 })
 add("settings.advanced.checkout.hint", {
     "en": "Leave empty to use the installed package",
@@ -2701,6 +3658,9 @@ add("settings.advanced.checkout.hint", {
     "zh-Hans": "留空则使用已安装的包",
     "de": "Leer lassen, um das installierte Paket zu verwenden",
     "ar": "اتركه فارغًا لاستخدام الحزمة المثبتة",
+    "ja": "空欄のままならインストール済みパッケージを使います",
+    "ko": "비워 두면 설치된 패키지를 사용합니다",
+    "th": "เว้นว่างไว้เพื่อใช้แพ็กเกจที่ติดตั้งไว้",
 })
 add("settings.advanced.reveal", {
     "en": "Reveal Application Support Folder",
@@ -2708,6 +3668,9 @@ add("settings.advanced.reveal", {
     "zh-Hans": "显示 Application Support 文件夹",
     "de": "Ordner „Application Support“ zeigen",
     "ar": "إظهار مجلد Application Support",
+    "ja": "Application Support フォルダを表示",
+    "ko": "Application Support 폴더 보기",
+    "th": "แสดงโฟลเดอร์ Application Support",
 })
 
 # ── Remaining onboarding / runtime prose ─────────────────────────────────────
@@ -2717,6 +3680,9 @@ add("onboarding.licence.heading", {
     "zh-Hans": "MiniMax H3 社区许可协议",
     "de": "MiniMax H3 Community License",
     "ar": "ترخيص مجتمع MiniMax H3",
+    "ja": "MiniMax H3 コミュニティライセンス",
+    "ko": "MiniMax H3 커뮤니티 라이선스",
+    "th": "สัญญาอนุญาตชุมชน MiniMax H3",
 }, note="The licence's proper name stays in English; TW/CN gloss it.")
 add("runtime.ready", {
     "en": "Runtime ready — Python %1$@, MLX on Metal",
@@ -2724,6 +3690,9 @@ add("runtime.ready", {
     "zh-Hans": "运行环境就绪 — Python %1$@，MLX on Metal",
     "de": "Laufzeitumgebung bereit — Python %1$@, MLX auf Metal",
     "ar": "بيئة التشغيل جاهزة — Python %1$@، وMLX على Metal",
+    "ja": "実行環境の準備完了 — Python %1$@、Metal 上の MLX",
+    "ko": "런타임 준비 완료 — Python %1$@, Metal 기반 MLX",
+    "th": "รันไทม์พร้อมแล้ว — Python %1$@, MLX บน Metal",
 })
 add("runtime.installedNotUsable", {
     "en": "Installed, but not usable yet",
@@ -2731,6 +3700,9 @@ add("runtime.installedNotUsable", {
     "zh-Hans": "已安装，但尚无法使用",
     "de": "Installiert, aber noch nicht nutzbar",
     "ar": "مثبَّت، لكنه غير قابل للاستخدام بعد",
+    "ja": "インストール済みですが、まだ使えません",
+    "ko": "설치되었지만 아직 사용할 수 없음",
+    "th": "ติดตั้งแล้ว แต่ยังใช้งานไม่ได้",
 })
 add("runtime.notInstalledYet", {
     "en": "Not installed yet.",
@@ -2738,6 +3710,9 @@ add("runtime.notInstalledYet", {
     "zh-Hans": "尚未安装。",
     "de": "Noch nicht installiert.",
     "ar": "غير مثبَّت بعد.",
+    "ja": "まだインストールされていません。",
+    "ko": "아직 설치되지 않았습니다.",
+    "th": "ยังไม่ได้ติดตั้ง",
 })
 add("models.revealInFinder", {
     "en": "Reveal %@ in Finder",
@@ -2745,6 +3720,9 @@ add("models.revealInFinder", {
     "zh-Hans": "在 Finder 中显示 %@",
     "de": "%@ im Finder zeigen",
     "ar": "إظهار %@ في Finder",
+    "ja": "%@ を Finder に表示",
+    "ko": "Finder에서 %@ 보기",
+    "th": "แสดง %@ ใน Finder",
 }, note={
     "content": "Injects a name into a sentence. Languages that inflect a noun for case, choose "
                "an article by gender, or attach a vowel-harmonising suffix cannot do it without "
@@ -2760,6 +3738,9 @@ add("format.seconds", {
     "zh-Hans": "%@ 秒",
     "de": "%@ s",
     "ar": "%@ ث",
+    "ja": "%@ 秒",
+    "ko": "%@ 초",
+    "th": "%@ วินาที",
 })
 add("format.minutes", {
     "en": "%@ min",
@@ -2767,6 +3748,9 @@ add("format.minutes", {
     "zh-Hans": "%@ 分",
     "de": "%@ Min.",
     "ar": "%@ د",
+    "ja": "%@ 分",
+    "ko": "%@ 분",
+    "th": "%@ นาที",
 })
 add("format.hours", {
     "en": "%@ h",
@@ -2774,6 +3758,9 @@ add("format.hours", {
     "zh-Hans": "%@ 小时",
     "de": "%@ Std.",
     "ar": "%@ س",
+    "ja": "%@ 時間",
+    "ko": "%@ 시간",
+    "th": "%@ ชั่วโมง",
 })
 add("format.hoursMinutes", {
     "en": "%1$@ h %2$@ min",
@@ -2781,6 +3768,9 @@ add("format.hoursMinutes", {
     "zh-Hans": "%1$@ 小时 %2$@ 分",
     "de": "%1$@ Std. %2$@ Min.",
     "ar": "%1$@ س %2$@ د",
+    "ja": "%1$@ 時間 %2$@ 分",
+    "ko": "%1$@ 시간 %2$@ 분",
+    "th": "%1$@ ชั่วโมง %2$@ นาที",
 })
 
 # ── Models: roles and tasks ──────────────────────────────────────────────────
@@ -2793,6 +3783,9 @@ add("role.transformer.detail", {
           "Speicherplatz, Arbeitsspeicher und Zeit.",
     "ar": "النموذج نفسه. اختر تكميمًا واحدًا؛ فكلما ارتفعت الدقة زاد استهلاك القرص والذاكرة "
           "والوقت.",
+    "ja": "モデル本体です。量子化をひとつ選びます。精度を上げるほどディスク・メモリ・時間を使います。",
+    "ko": "모델 본체입니다. 양자화를 하나 고르세요. 정밀도가 높을수록 디스크와 메모리, 시간을 더 씁니다.",
+    "th": "ตัวโมเดลเอง เลือกการควอนไทซ์หนึ่งแบบ ยิ่งความแม่นยำสูง ยิ่งกินพื้นที่ หน่วยความจำ และเวลา",
 })
 add("role.textEncoder.detail", {
     "en": "H3 conditions on Qwen3-VL-32B. This is the largest single download and is shared "
@@ -2802,6 +3795,9 @@ add("role.textEncoder.detail", {
     "de": "H3 wird auf Qwen3-VL-32B konditioniert. Das ist der größte Einzeldownload und "
           "wird von beiden Aufgaben genutzt.",
     "ar": "يعتمد H3 على Qwen3-VL-32B. وهو أكبر تنزيل مفرد، وتشترك فيه المهمتان.",
+    "ja": "H3 は Qwen3-VL-32B を条件に使います。単体では最大のダウンロードで、両方のタスクで共有されます。",
+    "ko": "H3는 Qwen3-VL-32B를 조건으로 사용합니다. 단일 항목으로는 가장 큰 다운로드이며 두 작업이 공유합니다.",
+    "th": "H3 ใช้ Qwen3-VL-32B เป็นเงื่อนไข เป็นไฟล์ดาวน์โหลดเดี่ยวที่ใหญ่ที่สุด และใช้ร่วมกันทั้งสองงาน",
 })
 add("role.support.detail", {
     "en": "Small, mandatory, and shared by everything. Install once.",
@@ -2810,6 +3806,9 @@ add("role.support.detail", {
     "de": "Klein, zwingend erforderlich und von allem gemeinsam genutzt. Einmal "
           "installieren.",
     "ar": "صغيرة وإلزامية ومشتركة بين كل شيء. تُثبَّت مرة واحدة.",
+    "ja": "小さく、必須で、すべてで共有されます。一度入れれば十分です。",
+    "ko": "작고, 필수이며, 모든 곳에서 공유됩니다. 한 번만 설치하면 됩니다.",
+    "th": "ขนาดเล็ก จำเป็น และใช้ร่วมกันทั้งหมด ติดตั้งครั้งเดียวพอ",
 })
 add("role.accelerator.detail", {
     "en": "Optional LoRAs trained to produce usable video in around 4 steps instead of 50.",
@@ -2817,6 +3816,9 @@ add("role.accelerator.detail", {
     "zh-Hans": "可选的 LoRA，经训练后约 4 步即可产出可用视频，而非 50 步。",
     "de": "Optionale LoRAs, trainiert für brauchbares Video in etwa 4 statt 50 Schritten.",
     "ar": "نماذج LoRA اختيارية مدرَّبة لإنتاج فيديو صالح في نحو 4 خطوات بدل 50.",
+    "ja": "50 ステップではなく約 4 ステップで使える映像を出すために学習された、任意の LoRA です。",
+    "ko": "50스텝 대신 약 4스텝만으로 쓸 만한 영상을 내도록 학습된 선택적 LoRA입니다.",
+    "th": "LoRA เสริมที่ฝึกมาให้ได้วิดีโอที่ใช้งานได้ในราว 4 สเต็ป แทนที่จะเป็น 50",
 })
 add("task.fl2va.detail", {
     "en": "Text-to-video, plus optional first and/or last frame images. Use this for most "
@@ -2827,6 +3829,9 @@ add("task.fl2va.detail", {
           "meisten Arbeiten geeignet.",
     "ar": "من نص إلى فيديو، مع إمكانية تحديد صورة للإطار الأول و/أو الأخير. استخدم هذا في "
           "معظم الأعمال.",
+    "ja": "テキストからの生成に加えて、先頭・末尾の画像を任意で指定できます。通常はこちらを使います。",
+    "ko": "텍스트-비디오에 더해 첫 프레임과 마지막 프레임 이미지를 선택적으로 쓸 수 있습니다. 대부분의 작업에는 이것을 쓰세요.",
+    "th": "สร้างวิดีโอจากข้อความ พร้อมใส่ภาพเฟรมแรกและ/หรือเฟรมสุดท้ายได้ตามต้องการ ใช้ตัวนี้กับงานส่วนใหญ่",
 })
 add("task.ref2va.detail", {
     "en": "Conditions on up to 9 reference images, 3 reference videos and 3 reference audio "
@@ -2836,6 +3841,9 @@ add("task.ref2va.detail", {
     "de": "Konditioniert auf bis zu 9 Referenzbilder, 3 Referenzvideos und 3 "
           "Referenz-Audioclips.",
     "ar": "يعتمد على ما يصل إلى 9 صور و3 مقاطع فيديو و3 مقاطع صوتية مرجعية.",
+    "ja": "参考画像を最大 9 枚、参考動画を 3 本、参考音声を 3 本まで条件に使えます。",
+    "ko": "참조 이미지 최대 9개, 참조 비디오 3개, 참조 오디오 3개까지 조건으로 씁니다.",
+    "th": "กำหนดเงื่อนไขได้สูงสุด ภาพอ้างอิง 9 ภาพ วิดีโออ้างอิง 3 คลิป และเสียงอ้างอิง 3 คลิป",
 })
 
 # ── Models: per-entry summaries ──────────────────────────────────────────────
@@ -2853,6 +3861,9 @@ add("model.support.mlx", {
           "erforderlich.",
     "ar": "‏video VAE (10.4 GB) و‏audio VAE والمعالج و‏tokenizer، مأخوذة من مجلد مهمة FL2VA "
           "الذي تحمّله المنظومة ككتلة واحدة. مطلوبة في كل تشغيل.",
+    "ja": "動画 VAE（10.4 GB）、音声 VAE、プロセッサ、トークナイザで、パイプラインがひとまとまりで読み込む FL2VA のタスクディレクトリから取得します。すべての実行に必要です。",
+    "ko": "비디오 VAE(10.4 GB), 오디오 VAE, 프로세서, 토크나이저로, 파이프라인이 한 덩어리로 불러오는 FL2VA 작업 디렉터리에서 가져옵니다. 모든 실행에 필요합니다.",
+    "th": "VAE วิดีโอ (10.4 GB), VAE เสียง, ตัวประมวลผล และโทเคนไนเซอร์ นำมาจากไดเรกทอรีงาน FL2VA ที่ไปป์ไลน์โหลดเป็นชุดเดียว จำเป็นต่อการรันทุกครั้ง",
 })
 add("model.textEncoder.mlx", {
     "en": "Qwen3-VL-32B in bfloat16 — H3 reads its 50th-layer hidden states. The largest "
@@ -2878,6 +3889,9 @@ add("model.textEncoder.mlx", {
           "نحو 34 غيغابايت، فهو — لا المحوّل — ما يحدّد إمكانية تشغيل التطبيق على جهاز "
           "بعينه: مع أصغر محوّل يبلغ المجموع نحو 46 غيغابايت، أي أن الحدّ العملي هو ذاكرة "
           "موحّدة بنحو 64 غيغابايت. يُثبَّت بجانب الـ VAE داخل ‎FL2VA/‎.",
+    "ja": "bfloat16 の Qwen3-VL-32B。H3 はその第 50 層の隠れ状態を読みます。単体では最大のダウンロードで、現在 MLX パイプラインが読み込める唯一のテキストエンコーダです。常駐約 34 GB で、このアプリがその Mac で動くかどうかを決めるのはトランスフォーマーではなくこちらです。最小のトランスフォーマーと合わせて約 46 GB になるため、実質的な下限はユニファイドメモリ 64 GB ほどです。VAE と同じ FL2VA/ に入ります。",
+    "ko": "bfloat16 Qwen3-VL-32B — H3는 이 모델의 50번째 층 은닉 상태를 읽습니다. 단일 항목으로 가장 큰 다운로드이며, 현재 MLX 파이프라인이 불러올 수 있는 유일한 텍스트 인코더입니다. 상주 약 34 GB로, 이 앱이 특정 Mac에서 돌아가는지를 정하는 것은 트랜스포머가 아니라 이것입니다. 가장 작은 트랜스포머와 합치면 약 46 GB이므로 통합 메모리 64 GB 정도가 현실적인 하한입니다. VAE와 나란히 FL2VA/ 에 설치됩니다.",
+    "th": "Qwen3-VL-32B แบบ bfloat16 — H3 อ่านสถานะซ่อนของชั้นที่ 50 เป็นไฟล์ดาวน์โหลดเดี่ยวที่ใหญ่ที่สุด และตอนนี้เป็นตัวเข้ารหัสข้อความเพียงตัวเดียวที่ไปป์ไลน์ MLX โหลดได้ ด้วยหน่วยความจำราว 34 GB สิ่งที่ตัดสินว่าแอปนี้รันบน Mac เครื่องใดได้คือตัวนี้ ไม่ใช่ทรานส์ฟอร์เมอร์ เมื่อรวมกับทรานส์ฟอร์เมอร์ตัวเล็กที่สุดจะราว 46 GB ขีดล่างที่ใช้ได้จริงจึงอยู่ราวหน่วยความจำรวม 64 GB และติดตั้งไว้ข้าง VAE ใน FL2VA/",
 })
 add("model.fl2va.q4", {
     "en": "4-bit, group size 64. The fastest of these and about 12 GB resident. Loses some "
@@ -2891,6 +3905,9 @@ add("model.fl2va.q4", {
     "ar": "‏4-bit بحجم مجموعة 64. الأسرع بينها ويشغل نحو 12 غيغابايت. يفقد بعض التفاصيل "
           "الدقيقة. أفضل نقطة للبدء — غير أن الحدّ الأدنى للذاكرة يفرضه مشفّر النص لا هذا "
           "الملف.",
+    "ja": "4 ビット、グループサイズ 64。この中で最も速く、常駐は約 12 GB です。細かな質感は多少失われます。まずはこれから。ただしメモリの下限を決めるのはこれではなく、テキストエンコーダのほうです。",
+    "ko": "4비트, 그룹 크기 64. 이 중 가장 빠르고 상주 약 12 GB입니다. 미세한 질감은 다소 잃습니다. 여기서 시작하는 것이 좋지만, 메모리 하한을 정하는 것은 이것이 아니라 텍스트 인코더입니다.",
+    "th": "4 บิต กลุ่มขนาด 64 เร็วที่สุดในกลุ่มนี้ และกินหน่วยความจำราว 12 GB เสียรายละเอียดพื้นผิวไปบ้าง เป็นจุดเริ่มที่ดีที่สุด แต่สิ่งที่กำหนดขีดล่างของหน่วยความจำคือตัวเข้ารหัสข้อความ ไม่ใช่ตัวนี้",
 })
 add("model.fl2va.q6", {
     "en": "6-bit. A middle point if 4-bit looks soft and 8-bit is too slow.",
@@ -2898,6 +3915,9 @@ add("model.fl2va.q6", {
     "zh-Hans": "6-bit。若觉得 4-bit 太软、8-bit 又太慢，这是折中选择。",
     "de": "6 Bit. Ein Mittelweg, wenn 4 Bit zu weich wirkt und 8 Bit zu langsam ist.",
     "ar": "‏6-bit. حل وسط إذا بدا 4-bit ناعمًا أكثر من اللازم وكان 8-bit بطيئًا.",
+    "ja": "6 ビット。4 ビットが眠く見え、8 ビットが遅すぎるときの中間点です。",
+    "ko": "6비트. 4비트가 흐릿해 보이고 8비트는 너무 느릴 때의 중간 지점입니다.",
+    "th": "6 บิต เป็นทางสายกลางเมื่อ 4 บิตดูเบลอและ 8 บิตช้าเกินไป",
 })
 add("model.fl2va.q8", {
     "en": "The quality-per-gigabyte sweet spot — visually very close to bf16.",
@@ -2905,6 +3925,9 @@ add("model.fl2va.q8", {
     "zh-Hans": "每 GB 画质的最佳平衡点——视觉上非常接近 bf16。",
     "de": "Das beste Verhältnis von Qualität zu Gigabyte – optisch sehr nah an bf16.",
     "ar": "أفضل توازن بين الجودة وحجم التخزين — قريب بصريًا جدًا من bf16.",
+    "ja": "容量あたりの品質が最も良く、見た目は bf16 にきわめて近いです。",
+    "ko": "용량 대비 품질이 가장 좋고, 보기에는 bf16에 아주 가깝습니다.",
+    "th": "จุดคุ้มค่าที่สุดระหว่างคุณภาพกับขนาด ดูแล้วใกล้เคียง bf16 มาก",
 })
 add("model.fl2va.bf16", {
     "en": "Reference precision, validated against the diffusers implementation. The slowest "
@@ -2918,6 +3941,9 @@ add("model.fl2va.bf16", {
     "ar": "دقة مرجعية، جرى التحقق منها مقابل تنفيذ diffusers. الخيار الأبطأ، ويشغل وحده نحو "
           "41 غيغابايت — ومع تحميل مشفّر النص أيضًا، يُنصح بذاكرة موحّدة سعتها 128 "
           "غيغابايت.",
+    "ja": "基準となる精度で、diffusers の実装と突き合わせて検証されています。最も遅く、これだけで常駐 41 GB ほど。テキストエンコーダも載せるなら 128 GB のユニファイドメモリを見込んでください。",
+    "ko": "기준 정밀도이며 diffusers 구현과 대조해 검증했습니다. 가장 느리고 이것만으로 상주 41 GB 정도입니다. 텍스트 인코더까지 올린다면 통합 메모리 128 GB를 잡으세요.",
+    "th": "ความแม่นยำอ้างอิง ตรวจสอบเทียบกับการพัฒนาแบบ diffusers ช้าที่สุด และกินหน่วยความจำราว 41 GB เพียงตัวเดียว หากโหลดตัวเข้ารหัสข้อความด้วย ควรเผื่อหน่วยความจำรวม 128 GB",
 })
 add("model.ref2va.bf16", {
     "en": "Upstream bf16 Ref2VA checkpoint. Listed so the option is visible, but the MLX "
@@ -2934,6 +3960,9 @@ add("model.ref2va.bf16", {
     "ar": "نقطة تحقّق Ref2VA الأصلية بدقة bf16. مُدرجة ليظهر الخيار فحسب، لكن منظومة نسخة "
           "MLX لا تقبل سوى الإطارات المفتاحية ولا تملك مسارًا للاشتراط المرجعي، لذا لا يمكن "
           "تشغيلها من هذا التطبيق بعد.",
+    "ja": "上流の bf16 Ref2VA チェックポイントです。選択肢として見えるように載せていますが、MLX 移植版のパイプラインはキーフレームしか受け付けず参考素材の条件付け経路がないため、現時点ではこのアプリから動かせません。",
+    "ko": "업스트림 bf16 Ref2VA 체크포인트입니다. 선택지가 보이도록 실어 두었지만, MLX 이식판 파이프라인은 키프레임만 받고 참조 조건화 경로가 없어 아직 이 앱에서는 구동할 수 없습니다.",
+    "th": "เช็กพอยต์ Ref2VA แบบ bf16 จากต้นทาง แสดงไว้ให้เห็นเป็นตัวเลือก แต่ไปป์ไลน์ของพอร์ต MLX รับได้เฉพาะคีย์เฟรมและไม่มีเส้นทางกำหนดเงื่อนไขจากไฟล์อ้างอิง จึงยังสั่งงานจากแอปนี้ไม่ได้",
 })
 add("model.ref2va.bf16.blocked", {
     "en": "The MLX port does not implement reference conditioning. Ref2VA currently needs "
@@ -2944,6 +3973,9 @@ add("model.ref2va.bf16.blocked", {
           "derzeit den CUDA-Stack (SGLang, vLLM oder ComfyUI).",
     "ar": "لا تنفّذ نسخة MLX الاشتراط المرجعي. يحتاج Ref2VA حاليًا إلى منظومة CUDA ‏(SGLang "
           "أو vLLM أو ComfyUI).",
+    "ja": "MLX 移植版は参考素材の条件付けを実装していません。Ref2VA には現在 CUDA スタック（SGLang、vLLM、ComfyUI）が必要です。",
+    "ko": "MLX 이식판은 참조 조건화를 구현하지 않았습니다. Ref2VA는 현재 CUDA 스택(SGLang, vLLM 또는 ComfyUI)이 필요합니다.",
+    "th": "พอร์ต MLX ไม่ได้รองรับการกำหนดเงื่อนไขจากไฟล์อ้างอิง ขณะนี้ Ref2VA ต้องใช้ชุด CUDA (SGLang, vLLM หรือ ComfyUI)",
 })
 add("model.lora.fl2va.mlx", {
     "en": "A 4-step distillation LoRA for FL2VA at 768p — the single biggest speed win "
@@ -2957,6 +3989,9 @@ add("model.lora.fl2va.mlx", {
     "ar": "نموذج LoRA مُقطَّر بأربع خطوات لـ FL2VA بدقة 768p — أكبر مكسب في السرعة متاح "
           "لهذا النموذج. لا تملك نسخة MLX محمِّل LoRA بعد، لذا يُدرج هنا للمتابعة لا "
           "للتثبيت.",
+    "ja": "768p の FL2VA 向け 4 ステップ蒸留 LoRA で、このモデルで得られる最大の高速化です。MLX 移植版にはまだ LoRA ローダーがないため、導入用ではなく様子見として掲載しています。",
+    "ko": "768p FL2VA용 4스텝 증류 LoRA로, 이 모델에서 얻을 수 있는 가장 큰 속도 향상입니다. MLX 이식판에는 아직 LoRA 로더가 없어 설치용이 아니라 지켜보기 위해 실어 둡니다.",
+    "th": "LoRA กลั่นแบบ 4 สเต็ปสำหรับ FL2VA ที่ 768p เป็นการเร่งความเร็วที่ได้ผลที่สุดของโมเดลนี้ พอร์ต MLX ยังไม่มีตัวโหลด LoRA จึงแสดงไว้ให้ติดตาม ไม่ใช่ให้ติดตั้ง",
 })
 add("model.lora.fl2va.mlx.blocked", {
     "en": "The MLX port has no LoRA loader yet. Fusing this would need a merged checkpoint "
@@ -2967,6 +4002,9 @@ add("model.lora.fl2va.mlx.blocked", {
           "zusammengeführter Checkpoint nötig, nicht die LoRA allein.",
     "ar": "لا تملك نسخة MLX محمِّل LoRA بعد. ودمجه يتطلب نقطة تحقّق مدموجة بدل ملف LoRA "
           "وحده.",
+    "ja": "MLX 移植版にはまだ LoRA ローダーがありません。これを使うには LoRA 単体ではなく、統合済みのチェックポイントが必要です。",
+    "ko": "MLX 이식판에는 아직 LoRA 로더가 없습니다. 이것을 쓰려면 LoRA 단독이 아니라 병합된 체크포인트가 필요합니다.",
+    "th": "พอร์ต MLX ยังไม่มีตัวโหลด LoRA การหลอมรวมตัวนี้ต้องใช้เช็กพอยต์ที่ผสานไว้แล้ว ไม่ใช่ LoRA เดี่ยว ๆ",
 })
 add("model.comfy.ref2va", {
     "en": "Ref2VA transformer for ComfyUI. Required for reference mode, which the MLX port "
@@ -2977,6 +4015,9 @@ add("model.comfy.ref2va", {
           "MLX-Portierung überhaupt nicht beherrscht.",
     "ar": "محوّل Ref2VA الخاص بـ ComfyUI. لازم لوضع المراجع، وهو ما لا تستطيعه نسخة MLX "
           "إطلاقًا.",
+    "ja": "ComfyUI 用の Ref2VA トランスフォーマー。参考素材モードに必須で、MLX 移植版では一切できません。",
+    "ko": "ComfyUI용 Ref2VA 트랜스포머. 참조 모드에 필수이며, MLX 이식판으로는 아예 할 수 없습니다.",
+    "th": "ทรานส์ฟอร์เมอร์ Ref2VA สำหรับ ComfyUI จำเป็นต่อโหมดไฟล์อ้างอิง ซึ่งพอร์ต MLX ทำไม่ได้เลย",
 })
 add("model.comfy.fl2va", {
     "en": "FL2VA transformer for ComfyUI. Only needed if you want to run text-to-video or "
@@ -2987,6 +4028,9 @@ add("model.comfy.fl2va", {
           "über ComfyUI statt über MLX laufen lassen wollen.",
     "ar": "محوّل FL2VA الخاص بـ ComfyUI. لا يلزم إلا إذا أردت تشغيل التحويل من نص إلى فيديو "
           "أو الإطارات المفتاحية عبر ComfyUI بدل MLX.",
+    "ja": "ComfyUI 用の FL2VA トランスフォーマー。MLX ではなく ComfyUI でテキストからの生成やキーフレームを回す場合にだけ必要です。",
+    "ko": "ComfyUI용 FL2VA 트랜스포머. MLX 대신 ComfyUI로 텍스트-비디오나 키프레임을 돌릴 때만 필요합니다.",
+    "th": "ทรานส์ฟอร์เมอร์ FL2VA สำหรับ ComfyUI จำเป็นเฉพาะเมื่อต้องการรันข้อความเป็นวิดีโอหรือคีย์เฟรมผ่าน ComfyUI แทน MLX",
 })
 add("model.comfy.textEncoder", {
     "en": "Qwen3-VL-32B for ComfyUI. Shared by both tasks — download once.",
@@ -2994,6 +4038,9 @@ add("model.comfy.textEncoder", {
     "zh-Hans": "ComfyUI 用的 Qwen3-VL-32B。两种任务共用——下载一次即可。",
     "de": "Qwen3-VL-32B für ComfyUI. Von beiden Aufgaben genutzt – einmal laden.",
     "ar": "‏Qwen3-VL-32B الخاص بـ ComfyUI. تشترك فيه المهمتان — نزّله مرة واحدة.",
+    "ja": "ComfyUI 用の Qwen3-VL-32B。両方のタスクで共有するので、一度だけダウンロードすれば十分です。",
+    "ko": "ComfyUI용 Qwen3-VL-32B. 두 작업이 공유하므로 한 번만 내려받으면 됩니다.",
+    "th": "Qwen3-VL-32B สำหรับ ComfyUI ใช้ร่วมกันทั้งสองงาน ดาวน์โหลดครั้งเดียวพอ",
 })
 add("model.comfy.videoVAE", {
     "en": "Video VAE in fp16. Chosen over the INT8 build: it is small, and decode quality "
@@ -3003,6 +4050,9 @@ add("model.comfy.videoVAE", {
     "de": "Video-VAE in fp16. Dem INT8-Build vorgezogen: klein, und die Decodier-Qualität "
           "ist sichtbar.",
     "ar": "‏video VAE بدقة fp16. فُضّل على نسخة INT8: حجمه صغير وجودة فك الترميز ملحوظة.",
+    "ja": "fp16 の動画 VAE。INT8 版ではなくこちらを選んでいます。小さいうえに、デコード品質の差が見えるからです。",
+    "ko": "fp16 비디오 VAE. INT8 빌드 대신 이것을 택했습니다. 작기도 하고, 디코딩 품질 차이가 눈에 보이기 때문입니다.",
+    "th": "VAE วิดีโอแบบ fp16 เลือกตัวนี้แทนรุ่น INT8 เพราะขนาดเล็กและคุณภาพการถอดรหัสเห็นความต่างได้",
 })
 add("model.comfy.audioVAE", {
     "en": "Audio VAE in fp32, for the stereo track H3 generates alongside the picture.",
@@ -3010,6 +4060,9 @@ add("model.comfy.audioVAE", {
     "zh-Hans": "fp32 的 audio VAE，用于 H3 在画面之外同时生成的立体声轨。",
     "de": "Audio-VAE in fp32, für die Stereospur, die H3 zusätzlich zum Bild erzeugt.",
     "ar": "‏audio VAE بدقة fp32، للمسار الصوتي المجسَّم الذي يولّده H3 إلى جانب الصورة.",
+    "ja": "fp32 の音声 VAE。H3 が映像と一緒に生成するステレオトラック用です。",
+    "ko": "fp32 오디오 VAE. H3가 영상과 함께 만드는 스테레오 트랙에 씁니다.",
+    "th": "VAE เสียงแบบ fp32 สำหรับแทร็กสเตอริโอที่ H3 สร้างพร้อมกับภาพ",
 })
 add("model.comfy.lora.ref2va", {
     "en": "4-step Ref2VA turbo LoRA. This is what makes reference renders practical at all "
@@ -3021,6 +4074,9 @@ add("model.comfy.lora.ref2va", {
           "Stunden.",
     "ar": "نموذج LoRA السريع لـ Ref2VA بأربع خطوات. هو ما يجعل التصيير المرجعي عمليًا أصلًا "
           "— أربع خطوات بدل خمسين، أي عشرات الدقائق بدل ساعات طويلة.",
+    "ja": "4 ステップの Ref2VA turbo LoRA。参考素材を使うレンダリングを現実的にしているのはこれです。50 ステップが 4 ステップになるので、何時間もかかっていたものが数十分で済みます。",
+    "ko": "4스텝 Ref2VA turbo LoRA. 참조 렌더링을 현실적으로 만들어 주는 것이 바로 이것입니다. 50스텝이 4스텝이 되므로 몇 시간이 수십 분으로 줄어듭니다.",
+    "th": "turbo LoRA ของ Ref2VA แบบ 4 สเต็ป ตัวนี้คือสิ่งที่ทำให้การเรนเดอร์ด้วยไฟล์อ้างอิงเป็นไปได้จริง จากห้าสิบสเต็ปเหลือสี่ จากหลายชั่วโมงเหลือหลายสิบนาที",
 })
 add("model.comfy.lora.fl2va", {
     "en": "4-step FL2VA turbo LoRA. Distilled for four steps, where MLX's undistilled "
@@ -3031,6 +4087,9 @@ add("model.comfy.lora.fl2va", {
           "undestillierten MLX-Gewichte sechzehn brauchen.",
     "ar": "نموذج LoRA السريع لـ FL2VA بأربع خطوات. مُقطَّر لأربع خطوات، بينما تحتاج أوزان "
           "MLX غير المقطَّرة إلى ستّ عشرة.",
+    "ja": "4 ステップの FL2VA turbo LoRA。4 ステップ用に蒸留されており、MLX の未蒸留の重みは 16 ステップを要します。",
+    "ko": "4스텝 FL2VA turbo LoRA. 4스텝에 맞춰 증류되었으며, MLX의 비증류 가중치는 16스텝이 필요합니다.",
+    "th": "turbo LoRA ของ FL2VA แบบ 4 สเต็ป กลั่นมาเพื่อสี่สเต็ป ขณะที่น้ำหนักที่ยังไม่กลั่นของ MLX ต้องใช้สิบหกสเต็ป",
 })
 add("model.textEncoder.uncensored", {
     "en": "Qwen3-VL-32B with its refusal behaviour trained out. Drop-in replacement for the "
@@ -3048,6 +4107,9 @@ add("model.textEncoder.uncensored", {
     "ar": "‏Qwen3-VL-32B بعد تدريبه على التخلّي عن سلوك الرفض. بديل مباشر للمشفّر القياسي — "
           "ويبقى H3 نفسه دون تغيير، لأن الرفض يقيم في نموذج اللغة لا في محوّل الانتشار. "
           "يعمل مع ComfyUI فقط؛ ولا يملك MLX محمِّلًا لهذه الصيغة.",
+    "ja": "拒否の振る舞いを学習から取り除いた Qwen3-VL-32B です。標準のエンコーダとそのまま差し替えられます。拒否は言語モデル側にあり拡散トランスフォーマーにはないため、H3 自体は変わりません。ComfyUI 専用で、MLX にはこの形式のローダーがありません。",
+    "ko": "거부 동작을 학습에서 제거한 Qwen3-VL-32B입니다. 기본 인코더와 그대로 바꿔 쓸 수 있습니다. 거부는 언어 모델 쪽에 있고 디퓨전 트랜스포머에는 없으므로 H3 자체는 달라지지 않습니다. ComfyUI 전용이며 MLX에는 이 형식의 로더가 없습니다.",
+    "th": "Qwen3-VL-32B ที่ฝึกให้ไม่มีพฤติกรรมปฏิเสธ ใช้แทนตัวเข้ารหัสมาตรฐานได้ทันที ตัว H3 เองไม่เปลี่ยน เพราะการปฏิเสธอยู่ในโมเดลภาษา ไม่ใช่ในดิฟฟิวชันทรานส์ฟอร์เมอร์ ใช้ได้กับ ComfyUI เท่านั้น เพราะ MLX ไม่มีตัวโหลดสำหรับรูปแบบนี้",
 })
 add("model.fl2va.gguf", {
     "en": "GGUF quantizations, including very small ones. Loaded by ComfyUI, not by MLX — "
@@ -3058,6 +4120,9 @@ add("model.fl2va.gguf", {
           "– nützlich, falls Sie das Modell stattdessen über ComfyUI laufen lassen.",
     "ar": "تكميمات بصيغة GGUF، منها نسخ صغيرة جدًا. يحمّلها ComfyUI لا MLX — مفيدة إن شغّلت "
           "هذا النموذج عبر ComfyUI بدلًا من ذلك.",
+    "ja": "非常に小さいものを含む GGUF 量子化です。MLX ではなく ComfyUI が読み込みます。このモデルを ComfyUI 側で回す場合に役立ちます。",
+    "ko": "아주 작은 것까지 포함한 GGUF 양자화입니다. MLX가 아니라 ComfyUI가 불러옵니다. 이 모델을 ComfyUI로 돌릴 때 쓸모가 있습니다.",
+    "th": "การควอนไทซ์แบบ GGUF รวมถึงรุ่นที่เล็กมาก โหลดด้วย ComfyUI ไม่ใช่ MLX มีประโยชน์หากคุณรันโมเดลนี้ผ่าน ComfyUI แทน",
 })
 add("model.fl2va.nvfp4", {
     "en": "Community prune in NVIDIA's NVFP4 format. Listed for completeness.",
@@ -3066,6 +4131,9 @@ add("model.fl2va.nvfp4", {
     "de": "Community-Prune im NVFP4-Format von NVIDIA. Der Vollständigkeit halber "
           "aufgeführt.",
     "ar": "نسخة مُقلَّمة من المجتمع بصيغة NVFP4 من NVIDIA. مُدرجة لاكتمال القائمة.",
+    "ja": "NVIDIA の NVFP4 形式によるコミュニティ版の枝刈りです。網羅のために掲載しています。",
+    "ko": "NVIDIA의 NVFP4 형식으로 만든 커뮤니티 프루닝입니다. 빠짐없이 보여 주기 위해 실어 둡니다.",
+    "th": "เวอร์ชันตัดแต่งโดยชุมชนในรูปแบบ NVFP4 ของ NVIDIA แสดงไว้เพื่อความครบถ้วน",
 })
 
 # ── Formatting fragments ─────────────────────────────────────────────────────
@@ -3075,6 +4143,9 @@ add("format.clipLength", {
     "zh-Hans": "%@ 秒",
     "de": "%@ s",
     "ar": "%@ ث",
+    "ja": "%@ 秒",
+    "ko": "%@ 초",
+    "th": "%@ วินาที",
 })
 add("format.frames", {
     "en": "%@ frames",
@@ -3082,6 +4153,9 @@ add("format.frames", {
     "zh-Hans": "%@ 帧",
     "de": "%@ Bilder",
     "ar": "%@ إطارًا",
+    "ja": "%@ フレーム",
+    "ko": "%@ 프레임",
+    "th": "%@ เฟรม",
 }, note={
     "content": "Takes a count. English offers only two forms and this string supplies one, so \"1 "
                "frames\" is already wrong; Arabic needs six categories and settles for a single "
@@ -3096,6 +4170,9 @@ add("format.steps", {
     "zh-Hans": "%@ 步",
     "de": "%@ Schritte",
     "ar": "%@ خطوة",
+    "ja": "%@ ステップ",
+    "ko": "%@ 스텝",
+    "th": "%@ สเต็ป",
 }, note={
     "content": "Takes a count. English offers only two forms and this string supplies one, so \"1 "
                "steps\" is already wrong; Arabic needs six categories and settles for a single "
@@ -3111,6 +4188,9 @@ add("format.framesAndLength", {
     "zh-Hans": "%1$@ 帧 · %2$@ 秒",
     "de": "%1$@ Bilder · %2$@ s",
     "ar": "%1$@ إطارًا · %2$@ ث",
+    "ja": "%1$@ フレーム・%2$@ 秒",
+    "ko": "%1$@ 프레임 · %2$@ 초",
+    "th": "%1$@ เฟรม · %2$@ วินาที",
 })
 add("sampling.steps.note", {
     "en": "Steps are actual denoising passes, and dominate render time almost linearly. "
@@ -3124,6 +4204,9 @@ add("sampling.steps.note", {
     "ar": "الخطوات هي مرات إزالة التشويش الفعلية، وتحدّد زمن التصيير تحديدًا خطّيًا "
           "تقريبًا. %1$@ وتنحاز المدة إلى شبكة إطارات video VAE ‏(17n+5)، لذا فالقيمة "
           "المعروضة هي ما سيُصيَّر فعلًا.",
+    "ja": "ステップはノイズ除去の実回数で、レンダリング時間をほぼ線形に左右します。%1$@ 長さは動画 VAE の 17n+5 のフレーム格子に丸められるので、表示される値がそのままレンダリングされます。",
+    "ko": "스텝은 실제 디노이징 횟수이며 렌더링 시간을 거의 선형으로 좌우합니다. %1$@ 길이는 비디오 VAE의 17n+5 프레임 격자에 맞춰지므로, 표시된 값이 그대로 렌더링됩니다.",
+    "th": "สเต็ปคือรอบการลดนอยส์จริง และกำหนดเวลาเรนเดอร์เกือบเป็นเส้นตรง %1$@ ความยาวจะถูกปัดเข้าตาราง 17n+5 เฟรมของ VAE วิดีโอ ค่าที่เห็นจึงคือค่าที่เรนเดอร์จริง",
 })
 add("sampling.steps.note.turbo", {
     "en": "This engine loads a %1$@-step turbo LoRA, distilled for exactly that many — more "
@@ -3134,6 +4217,9 @@ add("sampling.steps.note.turbo", {
           "mehr Schritte kosten meist nur Zeit.",
     "ar": "يحمّل هذا المحرّك نموذج LoRA سريعًا بـ %1$@ خطوات، مُقطَّرًا لهذا العدد تحديدًا "
           "— والمزيد من الخطوات يكلّف وقتًا في الغالب.",
+    "ja": "このエンジンは %1$@ ステップ用の turbo LoRA を読み込みます。ちょうどその回数で蒸留されているため、増やしても主に時間が増えるだけです。",
+    "ko": "이 엔진은 %1$@ 스텝용 turbo LoRA를 불러옵니다. 딱 그 횟수에 맞춰 증류되었기 때문에 스텝을 늘려도 대체로 시간만 늘어납니다.",
+    "th": "เอนจินนี้โหลด turbo LoRA สำหรับ %1$@ สเต็ป ซึ่งกลั่นมาเพื่อจำนวนนั้นพอดี เพิ่มสเต็ปจึงเปลืองเวลาเป็นหลัก",
 })
 add("sampling.steps.note.undistilled", {
     "en": "These weights are undistilled, so around %1$@ steps is the working range; far "
@@ -3144,6 +4230,9 @@ add("sampling.steps.note.undistilled", {
           "Schritte; deutlich weniger liegt außerhalb der Verteilung und wirkt weich.",
     "ar": "هذه الأوزان غير مقطَّرة، لذا فالمجال العملي نحو %1$@ خطوة؛ وما دون ذلك بكثير "
           "يخرج عن التوزيع ويبدو ناعمًا.",
+    "ja": "この重みは未蒸留なので、実用域は %1$@ ステップ前後です。大幅に減らすと分布から外れ、眠い絵になります。",
+    "ko": "이 가중치는 비증류라 %1$@ 스텝 안팎이 실용 범위입니다. 그보다 훨씬 적으면 분포를 벗어나 흐릿해 보입니다.",
+    "th": "น้ำหนักชุดนี้ยังไม่ผ่านการกลั่น ช่วงที่ใช้ได้จริงจึงราว %1$@ สเต็ป ถ้าน้อยกว่านี้มากจะหลุดการกระจายและดูเบลอ",
 })
 
 # ── Models: why a format will not load ───────────────────────────────────────
@@ -3153,6 +4242,9 @@ add("quantization.unloadable.nvfp4", {
     "zh-Hans": "NVFP4 是 NVIDIA Blackwell 的格式，没有对应的 Metal 执行路径。",
     "de": "NVFP4 ist ein NVIDIA-Blackwell-Format. Einen Metal-Pfad dafür gibt es nicht.",
     "ar": "‏NVFP4 صيغة خاصة ببنية NVIDIA Blackwell. ولا يوجد مسار عبر Metal لتشغيلها.",
+    "ja": "NVFP4 は NVIDIA Blackwell 向けの形式です。Metal で動かす手段はありません。",
+    "ko": "NVFP4는 NVIDIA Blackwell 형식입니다. Metal 경로가 없습니다.",
+    "th": "NVFP4 เป็นรูปแบบของ NVIDIA Blackwell จึงไม่มีทางรันบน Metal",
 })
 add("quantization.unloadable.gguf", {
     "en": "GGUF needs a ComfyUI custom node this app does not install.",
@@ -3160,6 +4252,9 @@ add("quantization.unloadable.gguf", {
     "zh-Hans": "GGUF 需要一个本 App 不会安装的 ComfyUI 自定义节点。",
     "de": "GGUF benötigt eine ComfyUI-Erweiterung, die diese App nicht installiert.",
     "ar": "يحتاج GGUF إلى عقدة مخصّصة في ComfyUI لا يثبّتها هذا التطبيق.",
+    "ja": "GGUF にはこのアプリが導入しない ComfyUI のカスタムノードが必要です。",
+    "ko": "GGUF에는 이 앱이 설치하지 않는 ComfyUI 커스텀 노드가 필요합니다.",
+    "th": "GGUF ต้องใช้คัสตอมโหนดของ ComfyUI ที่แอปนี้ไม่ได้ติดตั้ง",
 })
 add("quantization.unloadable.other", {
     "en": "No engine here can load %@.",
@@ -3167,6 +4262,9 @@ add("quantization.unloadable.other", {
     "zh-Hans": "此处的任何引擎都无法加载 %@。",
     "de": "Keine Engine hier kann %@ laden.",
     "ar": "لا يستطيع أي محرّك هنا تحميل %@.",
+    "ja": "ここにあるどのエンジンも %@ を読み込めません。",
+    "ko": "여기 있는 어떤 엔진도 %@ 을(를) 불러올 수 없습니다.",
+    "th": "ไม่มีเอนจินใดที่นี่โหลด %@ ได้",
 }, note={
     "content": "Injects a name into a sentence. Languages that inflect a noun for case, choose "
                "an article by gender, or attach a vowel-harmonising suffix cannot do it without "
@@ -3182,6 +4280,9 @@ add("problem.tooManyOfKind", {
     "zh-Hans": "参考%2$@文件最多 %1$@ 个——目前有 %3$@ 个。",
     "de": "Höchstens %1$@ Referenzdateien vom Typ %2$@ – Sie haben %3$@.",
     "ar": "بحد أقصى %1$@ من ملفات %2$@ المرجعية — لديك %3$@.",
+    "ja": "参考 %2$@ ファイルは最大 %1$@ 件ですが、%3$@ 件あります。",
+    "ko": "참조 %2$@ 파일은 최대 %1$@ 개인데 %3$@ 개가 있습니다.",
+    "th": "ไฟล์ %2$@ อ้างอิงได้มากสุด %1$@ ไฟล์ แต่คุณมี %3$@",
 }, note={
     "content": "Injects a count, then a *noun* naming the file kind, then a second count. The "
                "noun has to agree with the numeral in most inflecting languages, and it arrives "
@@ -3196,6 +4297,9 @@ add("queue.untitled", {
     "zh-Hans": "未命名渲染",
     "de": "Unbenannter Render",
     "ar": "تصيير بلا عنوان",
+    "ja": "無題のレンダリング",
+    "ko": "제목 없는 렌더링",
+    "th": "การเรนเดอร์ไม่มีชื่อ",
 })
 add("models.chooseFolder.message", {
     "en": "Choose the folder where model weights are shared between projects",
@@ -3203,6 +4307,9 @@ add("models.chooseFolder.message", {
     "zh-Hans": "选择各项目共用模型权重的文件夹",
     "de": "Wählen Sie den Ordner, in dem Modellgewichte projektübergreifend geteilt werden",
     "ar": "اختر المجلد الذي تُشارَك فيه أوزان النماذج بين المشاريع",
+    "ja": "プロジェクト間でモデルの重みを共有するフォルダを選んでください",
+    "ko": "프로젝트 사이에서 모델 가중치를 공유할 폴더를 고르세요",
+    "th": "เลือกโฟลเดอร์ที่จะใช้เก็บไฟล์น้ำหนักโมเดลร่วมกันระหว่างโปรเจกต์",
 })
 
 # ── Fitting the estimate and the weights to this Mac ─────────────────────────
@@ -3215,6 +4322,9 @@ add("summary.eta.footnote.predicted", {
           "anderen Mac. Nach Ihrem ersten Render wird sie durch eine Messung ersetzt.",
     "ar": "تقدير لجهاز %@، محسوب من رقم منشور لجهاز Mac مختلف. وسيحلّ محلّه قياس فعلي بعد "
           "أول تصيير تجريه.",
+    "ja": "%@ 向けの推定値で、別の Mac の公表値から換算しています。最初のレンダリングが終わると実測値に置き換わります。",
+    "ko": "%@ 에 대한 추정값으로, 다른 Mac의 공개 수치를 환산한 것입니다. 첫 렌더링이 끝나면 실측값으로 바뀝니다.",
+    "th": "เป็นค่าประมาณสำหรับ %@ ที่ปรับมาจากตัวเลขที่เผยแพร่ของ Mac รุ่นอื่น จะถูกแทนด้วยค่าที่วัดได้จริงหลังการเรนเดอร์ครั้งแรก",
 })
 add("summary.eta.footnote.measured", {
     "en": "Measured from this Mac's own renders on this engine (%@ so far).",
@@ -3222,6 +4332,9 @@ add("summary.eta.footnote.measured", {
     "zh-Hans": "依本机此引擎的实际渲染测得（目前 %@ 次）。",
     "de": "Aus den Renderings dieses Macs mit dieser Engine gemessen (bisher %@).",
     "ar": "مقيس من عمليات التصيير على هذا الـ Mac بهذا المحرّك (%@ حتى الآن).",
+    "ja": "この Mac でこのエンジンを使った実測値です（これまで %@ 件）。",
+    "ko": "이 Mac에서 이 엔진으로 실제 측정한 값입니다(지금까지 %@ 회).",
+    "th": "วัดจากการเรนเดอร์จริงบน Mac เครื่องนี้ด้วยเอนจินนี้ (%@ ครั้งจนถึงตอนนี้)",
 })
 add("models.memory.tooLarge", {
     "en": "Needs about %1$@ in memory. This Mac can give about %2$@ to a model, so this "
@@ -3232,6 +4345,9 @@ add("models.memory.tooLarge", {
           "geben, es würde also auslagern statt zu laufen.",
     "ar": "يحتاج نحو %1$@ من الذاكرة. ولا يستطيع هذا الـ Mac منح النموذج سوى %2$@ تقريبًا، "
           "لذا سيلجأ إلى التبديل بدل التشغيل.",
+    "ja": "メモリが約 %1$@ 必要です。この Mac がモデルに割けるのは約 %2$@ なので、実行ではなくスワップになります。",
+    "ko": "메모리가 약 %1$@ 필요합니다. 이 Mac이 모델에 줄 수 있는 양은 약 %2$@ 이라 제대로 돌지 않고 스와핑합니다.",
+    "th": "ต้องใช้หน่วยความจำราว %1$@ แต่ Mac เครื่องนี้ให้โมเดลได้ราว %2$@ จึงจะสลับหน่วยความจำแทนที่จะรันได้จริง",
 })
 add("models.memory.tight", {
     "en": "Needs about %1$@ of the roughly %2$@ this Mac can give a model. It will fit, "
@@ -3242,6 +4358,9 @@ add("models.memory.tight", {
           "passt, aber knapp.",
     "ar": "يحتاج نحو %1$@ من أصل %2$@ تقريبًا يمكن لهذا الـ Mac منحها لنموذج. سيتّسع، لكن "
           "دون هامش يُذكر.",
+    "ja": "この Mac がモデルに割ける約 %2$@ のうち、約 %1$@ が必要です。収まりますが、余裕はほとんどありません。",
+    "ko": "이 Mac이 모델에 줄 수 있는 약 %2$@ 중 %1$@ 정도가 필요합니다. 들어가기는 하지만 여유가 거의 없습니다.",
+    "th": "ต้องใช้ราว %1$@ จากประมาณ %2$@ ที่ Mac เครื่องนี้ให้โมเดลได้ พอดีอยู่ แต่แทบไม่เหลือที่ว่าง",
 })
 add("problem.memory", {
     "en": "The selected weights need about %1$@ in memory together. This Mac can give a "
@@ -3253,6 +4372,9 @@ add("problem.memory", {
           "rechnen Sie mit Auslagerung.",
     "ar": "تحتاج الأوزان المختارة معًا نحو %1$@ من الذاكرة، ولا يستطيع هذا الـ Mac منح "
           "النموذج سوى %2$@ تقريبًا. اختر تكميمًا أصغر، أو توقّع اللجوء إلى التبديل.",
+    "ja": "選択した重みは合わせて約 %1$@ のメモリを必要とします。この Mac がモデルに割けるのは約 %2$@ です。より小さい量子化を選ぶか、スワップを覚悟してください。",
+    "ko": "선택한 가중치는 합쳐서 약 %1$@ 의 메모리가 필요합니다. 이 Mac이 모델에 줄 수 있는 양은 약 %2$@ 입니다. 더 작은 양자화를 고르거나 스와핑을 감수하세요.",
+    "th": "น้ำหนักที่เลือกต้องใช้หน่วยความจำรวมราว %1$@ แต่ Mac เครื่องนี้ให้โมเดลได้ราว %2$@ เลือกการควอนไทซ์ที่เล็กลง หรือยอมให้สลับหน่วยความจำ",
 })
 add("problem.noMetalKernel", {
     "en": "%@ has no Metal kernel and cannot run on Apple silicon.",
@@ -3260,6 +4382,9 @@ add("problem.noMetalKernel", {
     "zh-Hans": "%@ 没有对应的 Metal kernel，无法在 Apple 芯片上运行。",
     "de": "%@ hat keinen Metal-Kernel und läuft nicht auf Apple Silicon.",
     "ar": "لا يملك %@ نواة Metal، ولا يمكن تشغيله على شرائح Apple.",
+    "ja": "%@ には Metal カーネルがなく、Apple シリコンでは実行できません。",
+    "ko": "%@ 에는 Metal 커널이 없어 Apple 실리콘에서 실행할 수 없습니다.",
+    "th": "%@ ไม่มีเคอร์เนล Metal จึงรันบน Apple silicon ไม่ได้",
 }, note={
     "content": "Injects a name into a sentence. Languages that inflect a noun for case, choose "
                "an article by gender, or attach a vowel-harmonising suffix cannot do it without "
@@ -3278,6 +4403,9 @@ add("model.name.support.mlx", {
     "zh-Hans": "FL2VA VAE、处理器与 tokenizer",
     "de": "FL2VA-VAEs, Prozessor und Tokenizer",
     "ar": "‏VAE ومعالج و‏tokenizer لـ FL2VA",
+    "ja": "FL2VA の VAE・プロセッサ・トークナイザ",
+    "ko": "FL2VA VAE, 프로세서 및 토크나이저",
+    "th": "VAE ตัวประมวลผล และโทเคนไนเซอร์ของ FL2VA",
 })
 add("model.name.textEncoder.mlx", {
     "en": "Text encoder — bfloat16",
@@ -3285,6 +4413,9 @@ add("model.name.textEncoder.mlx", {
     "zh-Hans": "文本编码器 — bfloat16",
     "de": "Text-Encoder – bfloat16",
     "ar": "مشفّر النص — bfloat16",
+    "ja": "テキストエンコーダ — bfloat16",
+    "ko": "텍스트 인코더 — bfloat16",
+    "th": "ตัวเข้ารหัสข้อความ — bfloat16",
 })
 add("model.name.fl2va.q4", {
     "en": "FL2VA transformer — 4-bit (MLX)",
@@ -3292,6 +4423,9 @@ add("model.name.fl2va.q4", {
     "zh-Hans": "FL2VA transformer — 4-bit (MLX)",
     "de": "FL2VA-Transformer – 4-bit (MLX)",
     "ar": "محوّل FL2VA — ‏4-bit ‏(MLX)",
+    "ja": "FL2VA トランスフォーマー — 4 ビット（MLX）",
+    "ko": "FL2VA 트랜스포머 — 4비트(MLX)",
+    "th": "ทรานส์ฟอร์เมอร์ FL2VA — 4 บิต (MLX)",
 })
 add("model.name.fl2va.q6", {
     "en": "FL2VA transformer — 6-bit (MLX)",
@@ -3299,6 +4433,9 @@ add("model.name.fl2va.q6", {
     "zh-Hans": "FL2VA transformer — 6-bit (MLX)",
     "de": "FL2VA-Transformer – 6-bit (MLX)",
     "ar": "محوّل FL2VA — ‏6-bit ‏(MLX)",
+    "ja": "FL2VA トランスフォーマー — 6 ビット（MLX）",
+    "ko": "FL2VA 트랜스포머 — 6비트(MLX)",
+    "th": "ทรานส์ฟอร์เมอร์ FL2VA — 6 บิต (MLX)",
 })
 add("model.name.fl2va.q8", {
     "en": "FL2VA transformer — 8-bit (MLX)",
@@ -3306,6 +4443,9 @@ add("model.name.fl2va.q8", {
     "zh-Hans": "FL2VA transformer — 8-bit (MLX)",
     "de": "FL2VA-Transformer – 8-bit (MLX)",
     "ar": "محوّل FL2VA — ‏8-bit ‏(MLX)",
+    "ja": "FL2VA トランスフォーマー — 8 ビット（MLX）",
+    "ko": "FL2VA 트랜스포머 — 8비트(MLX)",
+    "th": "ทรานส์ฟอร์เมอร์ FL2VA — 8 บิต (MLX)",
 })
 add("model.name.fl2va.bf16", {
     "en": "FL2VA transformer — bfloat16",
@@ -3313,6 +4453,9 @@ add("model.name.fl2va.bf16", {
     "zh-Hans": "FL2VA transformer — bfloat16",
     "de": "FL2VA-Transformer – bfloat16",
     "ar": "محوّل FL2VA — ‏bfloat16",
+    "ja": "FL2VA トランスフォーマー — bfloat16",
+    "ko": "FL2VA 트랜스포머 — bfloat16",
+    "th": "ทรานส์ฟอร์เมอร์ FL2VA — bfloat16",
 })
 add("model.name.ref2va.bf16", {
     "en": "Ref2VA transformer — bfloat16",
@@ -3320,6 +4463,9 @@ add("model.name.ref2va.bf16", {
     "zh-Hans": "Ref2VA transformer — bfloat16",
     "de": "Ref2VA-Transformer – bfloat16",
     "ar": "محوّل Ref2VA — ‏bfloat16",
+    "ja": "Ref2VA トランスフォーマー — bfloat16",
+    "ko": "Ref2VA 트랜스포머 — bfloat16",
+    "th": "ทรานส์ฟอร์เมอร์ Ref2VA — bfloat16",
 })
 add("model.name.lora.fl2va.mlx", {
     "en": "FL2VA turbo LoRA — 4-step, MLX format",
@@ -3327,6 +4473,9 @@ add("model.name.lora.fl2va.mlx", {
     "zh-Hans": "FL2VA turbo LoRA — 4 步，MLX 格式",
     "de": "FL2VA-Turbo-LoRA – 4 Schritte, MLX-Format",
     "ar": "‏FL2VA turbo LoRA — أربع خطوات، بصيغة MLX",
+    "ja": "FL2VA turbo LoRA — 4 ステップ、MLX 形式",
+    "ko": "FL2VA turbo LoRA — 4스텝, MLX 형식",
+    "th": "turbo LoRA ของ FL2VA — 4 สเต็ป รูปแบบ MLX",
 })
 add("model.name.comfy.ref2va", {
     "en": "Ref2VA transformer — INT8 ConvRot",
@@ -3334,6 +4483,9 @@ add("model.name.comfy.ref2va", {
     "zh-Hans": "Ref2VA transformer — INT8 ConvRot",
     "de": "Ref2VA-Transformer – INT8 ConvRot",
     "ar": "محوّل Ref2VA — ‏INT8 ConvRot",
+    "ja": "Ref2VA トランスフォーマー — INT8 ConvRot",
+    "ko": "Ref2VA 트랜스포머 — INT8 ConvRot",
+    "th": "ทรานส์ฟอร์เมอร์ Ref2VA — INT8 ConvRot",
 })
 add("model.name.comfy.fl2va", {
     "en": "FL2VA transformer — INT8 ConvRot",
@@ -3341,6 +4493,9 @@ add("model.name.comfy.fl2va", {
     "zh-Hans": "FL2VA transformer — INT8 ConvRot",
     "de": "FL2VA-Transformer – INT8 ConvRot",
     "ar": "محوّل FL2VA — ‏INT8 ConvRot",
+    "ja": "FL2VA トランスフォーマー — INT8 ConvRot",
+    "ko": "FL2VA 트랜스포머 — INT8 ConvRot",
+    "th": "ทรานส์ฟอร์เมอร์ FL2VA — INT8 ConvRot",
 })
 add("model.name.comfy.textEncoder", {
     "en": "Text encoder — INT8 ConvRot",
@@ -3348,6 +4503,9 @@ add("model.name.comfy.textEncoder", {
     "zh-Hans": "文本编码器 — INT8 ConvRot",
     "de": "Text-Encoder – INT8 ConvRot",
     "ar": "مشفّر النص — ‏INT8 ConvRot",
+    "ja": "テキストエンコーダ — INT8 ConvRot",
+    "ko": "텍스트 인코더 — INT8 ConvRot",
+    "th": "ตัวเข้ารหัสข้อความ — INT8 ConvRot",
 })
 add("model.name.comfy.videoVAE", {
     "en": "Video VAE — fp16",
@@ -3355,6 +4513,9 @@ add("model.name.comfy.videoVAE", {
     "zh-Hans": "Video VAE — fp16",
     "de": "Video-VAE – fp16",
     "ar": "‏VAE الفيديو — ‏fp16",
+    "ja": "動画 VAE — fp16",
+    "ko": "비디오 VAE — fp16",
+    "th": "VAE วิดีโอ — fp16",
 })
 add("model.name.comfy.audioVAE", {
     "en": "Audio VAE — fp32",
@@ -3362,6 +4523,9 @@ add("model.name.comfy.audioVAE", {
     "zh-Hans": "Audio VAE — fp32",
     "de": "Audio-VAE – fp32",
     "ar": "‏VAE الصوت — ‏fp32",
+    "ja": "音声 VAE — fp32",
+    "ko": "오디오 VAE — fp32",
+    "th": "VAE เสียง — fp32",
 })
 add("model.name.comfy.lora.ref2va", {
     "en": "Ref2VA turbo LoRA — 4-step",
@@ -3369,6 +4533,9 @@ add("model.name.comfy.lora.ref2va", {
     "zh-Hans": "Ref2VA turbo LoRA — 4 步",
     "de": "Ref2VA-Turbo-LoRA – 4 Schritte",
     "ar": "‏Ref2VA turbo LoRA — أربع خطوات",
+    "ja": "Ref2VA turbo LoRA — 4 ステップ",
+    "ko": "Ref2VA turbo LoRA — 4스텝",
+    "th": "turbo LoRA ของ Ref2VA — 4 สเต็ป",
 })
 add("model.name.comfy.lora.fl2va", {
     "en": "FL2VA turbo LoRA — 4-step, ComfyUI format",
@@ -3376,6 +4543,9 @@ add("model.name.comfy.lora.fl2va", {
     "zh-Hans": "FL2VA turbo LoRA — 4 步，ComfyUI 格式",
     "de": "FL2VA-Turbo-LoRA – 4 Schritte, ComfyUI-Format",
     "ar": "‏FL2VA turbo LoRA — أربع خطوات، بصيغة ComfyUI",
+    "ja": "FL2VA turbo LoRA — 4 ステップ、ComfyUI 形式",
+    "ko": "FL2VA turbo LoRA — 4스텝, ComfyUI 형식",
+    "th": "turbo LoRA ของ FL2VA — 4 สเต็ป รูปแบบ ComfyUI",
 })
 add("model.name.textEncoder.uncensored", {
     "en": "Text encoder — INT8 ConvRot, uncensored",
@@ -3383,6 +4553,9 @@ add("model.name.textEncoder.uncensored", {
     "zh-Hans": "文本编码器 — INT8 ConvRot，无审查",
     "de": "Text-Encoder – INT8 ConvRot, ohne Filter",
     "ar": "مشفّر النص — ‏INT8 ConvRot، بلا رقابة",
+    "ja": "テキストエンコーダ — INT8 ConvRot、無検閲",
+    "ko": "텍스트 인코더 — INT8 ConvRot, 무검열",
+    "th": "ตัวเข้ารหัสข้อความ — INT8 ConvRot ไม่เซ็นเซอร์",
 })
 add("model.name.fl2va.gguf", {
     "en": "FL2VA transformer — GGUF",
@@ -3390,6 +4563,9 @@ add("model.name.fl2va.gguf", {
     "zh-Hans": "FL2VA transformer — GGUF",
     "de": "FL2VA-Transformer – GGUF",
     "ar": "محوّل FL2VA — ‏GGUF",
+    "ja": "FL2VA トランスフォーマー — GGUF",
+    "ko": "FL2VA 트랜스포머 — GGUF",
+    "th": "ทรานส์ฟอร์เมอร์ FL2VA — GGUF",
 })
 add("model.name.fl2va.nvfp4", {
     "en": "FL2VA transformer — NVFP4",
@@ -3397,6 +4573,9 @@ add("model.name.fl2va.nvfp4", {
     "zh-Hans": "FL2VA transformer — NVFP4",
     "de": "FL2VA-Transformer – NVFP4",
     "ar": "محوّل FL2VA — ‏NVFP4",
+    "ja": "FL2VA トランスフォーマー — NVFP4",
+    "ko": "FL2VA 트랜스포머 — NVFP4",
+    "th": "ทรานส์ฟอร์เมอร์ FL2VA — NVFP4",
 })
 
 # ── ComfyUI availability ─────────────────────────────────────────────────────
@@ -3409,6 +4588,9 @@ add("comfy.notInstalled", {
     "de": "ComfyUI ist nicht installiert. Installieren Sie es unter „Einstellungen › "
           "ComfyUI“.",
     "ar": "‏ComfyUI غير مثبَّت. ثبّته من «الإعدادات › ComfyUI».",
+    "ja": "ComfyUI がインストールされていません。「設定 › ComfyUI」からインストールしてください。",
+    "ko": "ComfyUI가 설치되어 있지 않습니다. 설정 › ComfyUI에서 설치하세요.",
+    "th": "ยังไม่ได้ติดตั้ง ComfyUI ติดตั้งได้ที่ การตั้งค่า › ComfyUI",
 })
 add("comfy.missingWeights", {
     "en": "Missing ComfyUI weights: %@",
@@ -3416,6 +4598,9 @@ add("comfy.missingWeights", {
     "zh-Hans": "缺少 ComfyUI 权重文件：%@",
     "de": "Fehlende ComfyUI-Gewichte: %@",
     "ar": "أوزان ComfyUI ناقصة: %@",
+    "ja": "ComfyUI の重みが不足しています：%@",
+    "ko": "ComfyUI 가중치가 없습니다: %@",
+    "th": "ไม่พบไฟล์น้ำหนักของ ComfyUI: %@",
 })
 add("comfy.executionError", {
     "en": "ComfyUI reported an execution error.",
@@ -3423,6 +4608,9 @@ add("comfy.executionError", {
     "zh-Hans": "ComfyUI 报告执行错误。",
     "de": "ComfyUI hat einen Ausführungsfehler gemeldet.",
     "ar": "أبلغ ComfyUI عن خطأ أثناء التنفيذ.",
+    "ja": "ComfyUI が実行エラーを報告しました。",
+    "ko": "ComfyUI가 실행 오류를 보고했습니다.",
+    "th": "ComfyUI รายงานข้อผิดพลาดขณะทำงาน",
 })
 
 # ── Models: row status and copying ───────────────────────────────────────────
@@ -3432,6 +4620,9 @@ add("models.status.inUse", {
     "zh-Hans": "已下载，且本次渲染会用到",
     "de": "Geladen und für dieses Rendering verwendet",
     "ar": "مُنزَّل، ويُستخدم في هذا التصيير",
+    "ja": "ダウンロード済みで、このレンダリングで使用します",
+    "ko": "다운로드되어 이번 렌더링에 사용됩니다",
+    "th": "ดาวน์โหลดแล้ว และใช้กับการเรนเดอร์นี้",
 })
 add("models.status.missing", {
     "en": "Needed by this render, but not downloaded",
@@ -3439,6 +4630,9 @@ add("models.status.missing", {
     "zh-Hans": "本次渲染需要，但尚未下载",
     "de": "Für dieses Rendering erforderlich, aber nicht geladen",
     "ar": "مطلوب لهذا التصيير، لكنه غير مُنزَّل",
+    "ja": "このレンダリングに必要ですが、未ダウンロードです",
+    "ko": "이번 렌더링에 필요하지만 아직 내려받지 않았습니다",
+    "th": "จำเป็นต่อการเรนเดอร์นี้ แต่ยังไม่ได้ดาวน์โหลด",
 })
 add("models.copyLink", {
     "en": "Copy link",
@@ -3446,6 +4640,9 @@ add("models.copyLink", {
     "zh-Hans": "复制链接",
     "de": "Link kopieren",
     "ar": "نسخ الرابط",
+    "ja": "リンクをコピー",
+    "ko": "링크 복사",
+    "th": "คัดลอกลิงก์",
 })
 add("models.copyFilename", {
     "en": "Copy file name",
@@ -3453,6 +4650,9 @@ add("models.copyFilename", {
     "zh-Hans": "复制文件名",
     "de": "Dateinamen kopieren",
     "ar": "نسخ اسم الملف",
+    "ja": "ファイル名をコピー",
+    "ko": "파일 이름 복사",
+    "th": "คัดลอกชื่อไฟล์",
 })
 add("models.copyRepoID", {
     "en": "Copy repository id",
@@ -3460,6 +4660,9 @@ add("models.copyRepoID", {
     "zh-Hans": "复制仓库 ID",
     "de": "Repository-ID kopieren",
     "ar": "نسخ معرّف المستودع",
+    "ja": "リポジトリ ID をコピー",
+    "ko": "저장소 ID 복사",
+    "th": "คัดลอกรหัสที่เก็บ",
 })
 
 # ── Queue: throughput and sequence length ────────────────────────────────────
@@ -3471,6 +4674,9 @@ add("queue.perStep.now", {
     "zh-Hans": "当前 %@/步",
     "de": "jetzt %@/Schritt",
     "ar": "%@/خطوة الآن",
+    "ja": "現在 %@/ステップ",
+    "ko": "현재 %@/스텝",
+    "th": "ตอนนี้ %@/สเต็ป",
 })
 add("queue.perStep.average", {
     "en": "%@/step average",
@@ -3478,6 +4684,9 @@ add("queue.perStep.average", {
     "zh-Hans": "平均 %@/步",
     "de": "im Mittel %@/Schritt",
     "ar": "%@/خطوة في المتوسط",
+    "ja": "平均 %@/ステップ",
+    "ko": "평균 %@/스텝",
+    "th": "เฉลี่ย %@/สเต็ป",
 })
 add("queue.tokens", {
     "en": "%@ tokens",
@@ -3485,6 +4694,9 @@ add("queue.tokens", {
     "zh-Hans": "%@ 个 token",
     "de": "%@ Tokens",
     "ar": "%@ توكن",
+    "ja": "%@ トークン",
+    "ko": "%@ 토큰",
+    "th": "%@ โทเคน",
 }, note={
     "content": "Takes a count. English offers only two forms and this string supplies one, so \"1 "
                "tokens\" is already wrong; Arabic needs six categories and settles for a single "
@@ -3506,6 +4718,9 @@ add("queue.tokens.help", {
     "ar": "طول المتسلسلة التي يقرأها مشفّر النص: %1$@ توكن إجمالًا، منها %2$@ من المطالبة، "
           "والباقي توكنات بصرية بمقدار كتلة لكل صورة مرجعية. تُقرأ مرة واحدة قبل بدء إزالة "
           "التشويش — ولا يُولَّد هنا شيء توكنًا بتوكن.",
+    "ja": "テキストエンコーダが読む系列の長さです。全体で %1$@ トークン、うち %2$@ がプロンプトです。残りは視覚トークンで、参考画像ごとに 1 ブロックです。ノイズ除去が始まる前に一度だけ読まれ、ここで 1 トークンずつ生成されるものはありません。",
+    "ko": "텍스트 인코더가 읽는 시퀀스 길이입니다. 전체 %1$@ 토큰 중 %2$@ 개가 프롬프트이고, 나머지는 참조 이미지마다 한 블록씩인 비전 토큰입니다. 디노이징이 시작되기 전에 한 번만 읽으며, 여기서 토큰을 하나씩 생성하지는 않습니다.",
+    "th": "ความยาวของลำดับที่ตัวเข้ารหัสข้อความอ่าน ทั้งหมด %1$@ โทเคน โดย %2$@ โทเคนเป็นพรอมต์ ที่เหลือเป็นโทเคนภาพ หนึ่งบล็อกต่อภาพอ้างอิงหนึ่งภาพ อ่านเพียงครั้งเดียวก่อนเริ่มลดนอยส์ ไม่มีอะไรตรงนี้ที่สร้างทีละโทเคน",
 })
 add("compose.preset.saved", {
     "en": "Saved “%@” to Presets",
@@ -3513,6 +4728,9 @@ add("compose.preset.saved", {
     "zh-Hans": "已将“%@”保存至预设组合",
     "de": "„%@“ unter Voreinstellungen gesichert",
     "ar": "حُفِظ «%@» ضمن الإعدادات المُسبَقة",
+    "ja": "「%@」をプリセットに保存しました",
+    "ko": "'%@' 을(를) 프리셋에 저장했습니다",
+    "th": "บันทึก “%@” ลงในพรีเซ็ตแล้ว",
 })
 add("compose.preset.duplicate", {
     "en": "A preset called “%@” already exists. Choose another name.",
@@ -3520,6 +4738,9 @@ add("compose.preset.duplicate", {
     "zh-Hans": "已有名为“%@”的预设组合，请换一个名称。",
     "de": "Eine Vorlage namens „%@“ gibt es bereits. Wählen Sie einen anderen Namen.",
     "ar": "يوجد إعداد باسم «%@» مسبقًا. اختر اسمًا آخر.",
+    "ja": "「%@」という名前のプリセットは既にあります。別の名前を選んでください。",
+    "ko": "'%@' 이름의 프리셋이 이미 있습니다. 다른 이름을 고르세요.",
+    "th": "มีพรีเซ็ตชื่อ “%@” อยู่แล้ว กรุณาตั้งชื่ออื่น",
 })
 add("models.download.starting", {
     "en": "Starting transfer…",
@@ -3527,6 +4748,9 @@ add("models.download.starting", {
     "zh-Hans": "正在开始传输…",
     "de": "Übertragung wird gestartet…",
     "ar": "جارٍ بدء النقل…",
+    "ja": "転送を開始しています…",
+    "ko": "전송을 시작하는 중…",
+    "th": "กำลังเริ่มถ่ายโอน…",
 })
 add("models.downloading", {
     "en": "Downloading…",
@@ -3534,6 +4758,9 @@ add("models.downloading", {
     "zh-Hans": "下载中…",
     "de": "Wird geladen…",
     "ar": "جارٍ التنزيل…",
+    "ja": "ダウンロード中…",
+    "ko": "다운로드 중…",
+    "th": "กำลังดาวน์โหลด…",
 })
 
 # ── Spoken and compact progress text ─────────────────────────────────────────
@@ -3545,6 +4772,9 @@ add("format.ofTotal", {
     "zh-Hans": "已下载 %1$@，共 %2$@",
     "de": "%1$@ von %2$@",
     "ar": "%1$@ من %2$@",
+    "ja": "%2$@ 中 %1$@",
+    "ko": "%2$@ 중 %1$@",
+    "th": "%1$@ จาก %2$@",
 })
 add("a11y.percent", {
     "en": "%@ percent",
@@ -3552,6 +4782,9 @@ add("a11y.percent", {
     "zh-Hans": "%@%%",
     "de": "%@ Prozent",
     "ar": "%@ بالمئة",
+    "ja": "%@ パーセント",
+    "ko": "%@ 퍼센트",
+    "th": "%@ เปอร์เซ็นต์",
 }, note={
     "content": "Spoken by VoiceOver. Percentages take plural agreement in several languages — "
                "Russian distinguishes 1, 2-4 and 5-20 — and this has one form.",
@@ -3563,6 +4796,9 @@ add("a11y.elapsed", {
     "zh-Hans": "已用 %@",
     "de": "%@ vergangen",
     "ar": "انقضى %@",
+    "ja": "経過 %@",
+    "ko": "경과 %@",
+    "th": "ผ่านไป %@",
 })
 add("a11y.remaining", {
     "en": "about %@ remaining",
@@ -3570,6 +4806,9 @@ add("a11y.remaining", {
     "zh-Hans": "约剩 %@",
     "de": "noch etwa %@",
     "ar": "يتبقى نحو %@",
+    "ja": "残り約 %@",
+    "ko": "약 %@ 남음",
+    "th": "เหลืออีกประมาณ %@",
 })
 add("a11y.usingMemory", {
     "en": "using %@",
@@ -3577,6 +4816,9 @@ add("a11y.usingMemory", {
     "zh-Hans": "占用 %@",
     "de": "belegt %@",
     "ar": "يستخدم %@",
+    "ja": "%@ 使用中",
+    "ko": "%@ 사용 중",
+    "th": "ใช้ %@",
 })
 add("queue.a11y.held", {
     "en": "held",
@@ -3584,6 +4826,9 @@ add("queue.a11y.held", {
     "zh-Hans": "已暂停",
     "de": "angehalten",
     "ar": "مُعلَّق",
+    "ja": "保留中",
+    "ko": "보류됨",
+    "th": "พักไว้",
 }, note={
     "content": "A lowercase fragment appended to a longer spoken string. Languages that inflect "
                "or that put the qualifier first cannot produce a correct sentence from a "
@@ -3599,6 +4844,9 @@ add("mlx.runtimeNotReady", {
     "de": "Die Python-Umgebung ist nicht bereit. Öffnen Sie „Einstellungen › "
           "Laufzeitumgebung“.",
     "ar": "‏بيئة Python غير جاهزة. افتح «الإعدادات › بيئة التشغيل».",
+    "ja": "Python 実行環境が準備できていません。「設定 › 実行環境」を開いてください。",
+    "ko": "Python 런타임이 준비되지 않았습니다. 설정 › 런타임을 여세요.",
+    "th": "รันไทม์ Python ยังไม่พร้อม เปิด การตั้งค่า › รันไทม์",
 })
 add("mlx.checkpointMissing", {
     "en": "The selected checkpoint is not installed.",
@@ -3606,6 +4854,9 @@ add("mlx.checkpointMissing", {
     "zh-Hans": "所选的检查点尚未安装。",
     "de": "Der gewählte Checkpoint ist nicht installiert.",
     "ar": "نقطة التحقّق المختارة غير مثبَّتة.",
+    "ja": "選択したチェックポイントがインストールされていません。",
+    "ko": "선택한 체크포인트가 설치되어 있지 않습니다.",
+    "th": "ยังไม่ได้ติดตั้งเช็กพอยต์ที่เลือก",
 })
 add("onboarding.spaceTight", {
     "en": "There may not be enough free space once scratch space for rendering is taken "
@@ -3615,6 +4866,9 @@ add("onboarding.spaceTight", {
     "de": "Zusammen mit dem temporären Speicher fürs Rendern könnte der freie Platz nicht "
           "reichen.",
     "ar": "قد لا تكفي المساحة الحرة بعد احتساب المساحة المؤقتة اللازمة للتصيير.",
+    "ja": "レンダリング中の作業用領域まで考えると、空き容量が足りない可能性があります。",
+    "ko": "렌더링 중 쓰는 임시 공간까지 고려하면 여유 공간이 모자랄 수 있습니다.",
+    "th": "เมื่อรวมพื้นที่ทำงานชั่วคราวขณะเรนเดอร์แล้ว พื้นที่ว่างอาจไม่พอ",
 })
 
 # ── Settings: what Compose carries over ──────────────────────────────────────
@@ -3624,6 +4878,9 @@ add("settings.remember.section", {
     "zh-Hans": "编写",
     "de": "Erstellen",
     "ar": "الإنشاء",
+    "ja": "作成",
+    "ko": "작성",
+    "th": "เรียบเรียง",
 }, note="Names the group of Compose-screen settings in Settings ▸ General. A heading "
         "over a set of options, not the tab itself — see section.compose.")
 add("settings.remember.mode", {
@@ -3632,6 +4889,9 @@ add("settings.remember.mode", {
     "zh-Hans": "记住上次使用的模式",
     "de": "Zuletzt verwendeten Modus merken",
     "ar": "تذكّر الوضع المستخدم آخر مرة",
+    "ja": "前回のモードを覚えておく",
+    "ko": "마지막 모드 기억하기",
+    "th": "จำโหมดล่าสุด",
 })
 add("settings.remember.engine", {
     "en": "Remember the last engine",
@@ -3639,6 +4899,9 @@ add("settings.remember.engine", {
     "zh-Hans": "记住上次使用的引擎",
     "de": "Zuletzt verwendete Engine merken",
     "ar": "تذكّر المحرّك المستخدم آخر مرة",
+    "ja": "前回のエンジンを覚えておく",
+    "ko": "마지막 엔진 기억하기",
+    "th": "จำเอนจินล่าสุด",
 })
 add("settings.remember.note", {
     "en": "The prompt, the seed and any attached files are never carried over: they belong "
@@ -3649,6 +4912,9 @@ add("settings.remember.note", {
           "einzelnen Rendering und beginnen immer leer.",
     "ar": "لا تُنقل أبدًا المطالبة ولا البذرة ولا الملفات المرفقة: فهي تخصّ تصييرًا واحدًا، "
           "وتبدأ فارغة في كل مرة.",
+    "ja": "プロンプト・シード・添付ファイルは決して引き継がれません。これらは 1 回のレンダリングに属するもので、常に空の状態から始まります。",
+    "ko": "프롬프트와 시드, 첨부 파일은 절대 이어지지 않습니다. 한 번의 렌더링에 속하는 것이라 언제나 비운 채로 시작합니다.",
+    "th": "พรอมต์ ซีด และไฟล์แนบจะไม่ถูกนำมาใช้ต่อ เพราะเป็นของการเรนเดอร์ครั้งเดียว และเริ่มใหม่เปล่า ๆ เสมอ",
 })
 add("settings.remember.sampling", {
     "en": "Remember sampling settings",
@@ -3656,6 +4922,9 @@ add("settings.remember.sampling", {
     "zh-Hans": "记住采样设置",
     "de": "Sampling-Einstellungen merken",
     "ar": "تذكّر إعدادات المعاينة",
+    "ja": "サンプリング設定を覚えておく",
+    "ko": "샘플링 설정 기억하기",
+    "th": "จำการตั้งค่าการสุ่มตัวอย่าง",
 })
 add("settings.remember.output", {
     "en": "Remember output settings",
@@ -3663,6 +4932,9 @@ add("settings.remember.output", {
     "zh-Hans": "记住输出设置",
     "de": "Ausgabeeinstellungen merken",
     "ar": "تذكّر إعدادات الإخراج",
+    "ja": "出力設定を覚えておく",
+    "ko": "출력 설정 기억하기",
+    "th": "จำการตั้งค่าเอาต์พุต",
 })
 
 # ── Touch Bar ────────────────────────────────────────────────────────────────
@@ -3676,6 +4948,9 @@ add("touchbar.progress", {
     "zh-Hans": "进度",
     "de": "Fortschritt",
     "ar": "التقدم",
+    "ja": "進捗",
+    "ko": "진행률",
+    "th": "ความคืบหน้า",
 }, note="Names the progress item in the Customize Touch Bar sheet, so it is "
         "read out of context, with no render beside it to explain it.")
 add("touchbar.idle", {
@@ -3684,6 +4959,9 @@ add("touchbar.idle", {
     "zh-Hans": "没有进行中的渲染",
     "de": "Es läuft kein Render",
     "ar": "لا يوجد تصيير قيد التشغيل",
+    "ja": "レンダリングなし",
+    "ko": "실행 중인 렌더링 없음",
+    "th": "ไม่มีการเรนเดอร์",
 }, note="Fills the Touch Bar's progress slot when the queue is idle. Keep it "
         "short — the strip is about 685 pt wide in total and this shares it.")
 add("touchbar.controls", {
@@ -3692,6 +4970,9 @@ add("touchbar.controls", {
     "zh-Hans": "控件",
     "de": "Steuerung",
     "ar": "عناصر التحكم",
+    "ja": "コントロール",
+    "ko": "컨트롤",
+    "th": "ส่วนควบคุม",
 }, note="Names the Touch Bar's left-hand item in the Customize Touch Bar sheet. "
         "What it holds depends on the screen — mode and seed while composing, "
         "stop and hold while rendering — so the label has to stay general.")

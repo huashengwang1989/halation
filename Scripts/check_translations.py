@@ -70,6 +70,33 @@ def swift_sources():
     return list(SOURCES.rglob("*.swift"))
 
 
+def check_swift_language_enum():
+    """AppLanguage must list exactly the languages in LANGS.
+
+    Adding a language to translations.py generates its .lproj and everything
+    looks done — but the picker in Settings is driven by the Swift enum, so a
+    language missing here is translated, shipped, and unreachable. The reverse
+    is worse: a case with no .lproj would offer a language that falls back to
+    English with no explanation.
+    """
+    path = SOURCES / "Localization.swift"
+    text = path.read_text(encoding="utf-8")
+    block = re.search(r"enum AppLanguage[^{]*\{(.*?)\n\}", text, re.S)
+    if not block:
+        errors.append("could not find the AppLanguage enum in Localization.swift")
+        return
+    declared = re.findall(r'case\s+\w+\s*=\s*"([^"]+)"', block.group(1))
+    for lang in gen.LANGS:
+        if lang not in declared:
+            errors.append(f"{lang} is in LANGS but not in AppLanguage — it will be "
+                          f"built and shipped, but the Settings picker cannot "
+                          f"offer it")
+    for lang in declared:
+        if lang not in gen.LANGS:
+            errors.append(f"AppLanguage offers {lang}, which translations.py does "
+                          f"not define — it would fall back to English silently")
+
+
 def check_keys_used_in_code():
     """loc("x") must resolve. Dynamic loc(variable) calls cannot be checked."""
     literal = re.compile(r'\bloc\(\s*"([^"]+)"')
@@ -128,6 +155,7 @@ def check_unused(referenced):
 
 def main():
     check_generated_files()
+    check_swift_language_enum()
     referenced, dynamic_count = check_keys_used_in_code()
     check_placeholders()
     check_positional()
