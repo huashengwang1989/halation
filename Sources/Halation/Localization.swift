@@ -16,8 +16,23 @@ enum AppLanguage: String, CaseIterable, Identifiable, Sendable {
     case japanese = "ja"
     case korean = "ko"
     case thai = "th"
+    case cantonese = "yue-Hant"
+    case singlish = "en-SG"
 
     var id: String { rawValue }
+
+    /// Whether "Follow system" may land on this language by itself.
+    ///
+    /// Singlish is false, and that is the whole reason this property exists.
+    /// Foundation matches the closest tag it can, so shipping `en-SG` would hand
+    /// Singlish to everyone in Singapore whose language list mentions it — and
+    /// someone who set English (Singapore) asked for English spelling, not for
+    /// a colloquial register. It stays reachable by picking it in Settings.
+    ///
+    /// Cantonese is true: a reader whose system asks for Cantonese means it.
+    var matchesSystemPreference: Bool {
+        self != .singlish
+    }
 
     /// Shown in its own language, which is what a language picker should do —
     /// someone who cannot read the current UI still needs to find their own.
@@ -31,6 +46,8 @@ enum AppLanguage: String, CaseIterable, Identifiable, Sendable {
         case .japanese: "日本語"
         case .korean: "한국어"
         case .thai: "ไทย"
+        case .cantonese: "廣東話"
+        case .singlish: "Singlish"
         }
     }
 
@@ -118,7 +135,8 @@ final class Localization {
         case .explicit(let language):
             return language
         case .system:
-            let supported = AppLanguage.allCases.map(\.rawValue)
+            let supported = AppLanguage.allCases
+                .filter(\.matchesSystemPreference).map(\.rawValue)
             let matched = Bundle.preferredLocalizations(
                 from: supported, forPreferences: systemPreferredLanguages).first
             return matched.flatMap(AppLanguage.init(rawValue:)) ?? .english

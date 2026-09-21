@@ -17,7 +17,8 @@ Run Scripts/build_strings.py to regenerate the .lproj files.
 #
 # Order matters only for presentation: it sets the column order in
 # Debug ▸ Localisations (i18n).
-LANGS = ["en", "zh-Hant", "zh-Hans", "de", "ar", "ja", "ko", "th"]
+LANGS = ["en", "zh-Hant", "zh-Hans", "de", "ar", "ja", "ko", "th",
+         "yue-Hant", "en-SG"]
 
 SOURCE_LANG = "en"
 
@@ -117,6 +118,8 @@ add("section.compose", {
     "ja": "作成",
     "ko": "작성",
     "th": "เรียบเรียง",
+    "yue-Hant": "編寫",
+    "en-SG": "New Video",
 }, note="The Compose tab: the screen where a render is set up. Not the verb. Distinct "
         "from settings.remember.section, which is the name of a group of settings "
         "*about* that screen.")
@@ -129,6 +132,8 @@ add("section.queue", {
     "ja": "キュー",
     "ko": "대기열",
     "th": "คิว",
+    "yue-Hant": "佇列",
+    "en-SG": "Queue",
 })
 add("section.library", {
     "en": "Library",
@@ -139,6 +144,8 @@ add("section.library", {
     "ja": "ライブラリ",
     "ko": "라이브러리",
     "th": "คลัง",
+    "yue-Hant": "媒體庫",
+    "en-SG": "My Videos",
 }, note="Collection of finished videos — not a code library.")
 add("section.models", {
     "en": "Models",
@@ -149,6 +156,8 @@ add("section.models", {
     "ja": "モデル",
     "ko": "모델",
     "th": "โมเดล",
+    "yue-Hant": "模型",
+    "en-SG": "Models",
 }, note="The Models tab in the sidebar. Distinct from settings.folder.models (a "
         "folder on disk) and summary.models (the weights a particular render will "
         "load).")
@@ -163,6 +172,8 @@ add("status.ready", {
     "ja": "準備完了",
     "ko": "준비됨",
     "th": "พร้อม",
+    "yue-Hant": "Ready",
+    "en-SG": "Can Already",
 })
 add("status.checking", {
     "en": "Checking…",
@@ -173,6 +184,8 @@ add("status.checking", {
     "ja": "確認中…",
     "ko": "확인 중…",
     "th": "กำลังตรวจสอบ…",
+    "yue-Hant": "查緊…",
+    "en-SG": "Checking…",
 })
 add("status.runtime.incomplete", {
     "en": "Runtime incomplete",
@@ -183,6 +196,8 @@ add("status.runtime.incomplete", {
     "ja": "実行環境が不完全",
     "ko": "런타임 불완전",
     "th": "Runtime ไม่สมบูรณ์",
+    "yue-Hant": "執行環境唔齊",
+    "en-SG": "Runtime not complete",
 })
 add("status.runtime.error", {
     "en": "Runtime error",
@@ -193,6 +208,8 @@ add("status.runtime.error", {
     "ja": "実行環境のエラー",
     "ko": "런타임 오류",
     "th": "Runtime ผิดพลาด",
+    "yue-Hant": "執行環境出錯",
+    "en-SG": "Runtime got error",
 })
 add("status.runtime.missing", {
     "en": "Runtime not installed",
@@ -203,6 +220,8 @@ add("status.runtime.missing", {
     "ja": "実行環境が未インストール",
     "ko": "런타임 미설치",
     "th": "ยังไม่ได้ติดตั้ง runtime",
+    "yue-Hant": "仲未裝執行環境",
+    "en-SG": "Runtime never install",
 })
 add("status.queued.count", {
     "en": "%@ queued",
@@ -213,6 +232,8 @@ add("status.queued.count", {
     "ja": "%@ 件待機中",
     "ko": "%@ 개 대기 중",
     "th": "%@ รายการในคิว",
+    "yue-Hant": "佇列中 %@",
+    "en-SG": "%@ in queue",
 }, note={
     "content": "Takes a count of queued jobs. Safer than the other counts because no noun "
                "follows the number in English, but languages that inflect the verb or add a "
@@ -228,6 +249,8 @@ add("status.label", {
     "ja": "状態",
     "ko": "상태",
     "th": "สถานะ",
+    "yue-Hant": "狀態",
+    "en-SG": "Status",
 }, note="Labels the health indicator in the status bar along the bottom of the "
         "window. Distinct from settings.status, which heads a whole section, and from "
         "settings.state.")
@@ -240,6 +263,8 @@ add("status.step", {
     "ja": "ステップ %1$@/%2$@",
     "ko": "스텝 %1$@/%2$@",
     "th": "step %1$@/%2$@",
+    "yue-Hant": "步 %1$@/%2$@",
+    "en-SG": "step %1$@/%2$@",
 }, note={
     "content": "Positional, so the two numbers can be reordered — Arabic in particular may want "
                "the total first. Still a warning because it is joined to status.remaining with \" "
@@ -256,6 +281,8 @@ add("status.remaining", {
     "ja": "残り %@",
     "ko": "%@ 남음",
     "th": "เหลือ %@",
+    "yue-Hant": "仲爭 %@",
+    "en-SG": "%@ more",
 }, note={
     "content": "Joined to status.step with \" · \" in StatusBar, so the two halves are translated "
                "apart and assembled in a fixed order. The duration inside is already localized.",
@@ -270,6 +297,8 @@ add("status.memory.help", {
     "ja": "レンダリングプロセスの常駐メモリと、この Mac の %@ に対する割合",
     "ko": "렌더링 프로세스의 상주 메모리와, 이 Mac의 %@ 중 차지하는 비율",
     "th": "หน่วยความจำที่กระบวนการเรนเดอร์ใช้อยู่ และสัดส่วนเทียบกับ %@ ของ Mac เครื่องนี้",
+    "yue-Hant": "算圖程序用緊嘅實體記憶體，以及佔本機 %@ 嘅比例",
+    "en-SG": "Memory the render process is using, and how much of this Mac's %@ that is",
 })
 
 # ── Built-in presets ─────────────────────────────────────────────────────────
@@ -284,6 +313,8 @@ add("preset.fastPreview", {
     "ja": "高速プレビュー",
     "ko": "빠른 미리보기",
     "th": "พรีวิวเร็ว",
+    "yue-Hant": "快手預覽",
+    "en-SG": "Fast Look-See",
 })
 add("preset.quality", {
     "en": "Quality — overnight",
@@ -294,6 +325,8 @@ add("preset.quality", {
     "ja": "高品質 — 一晩",
     "ko": "고품질 — 밤새",
     "th": "คุณภาพสูง — ข้ามคืน",
+    "yue-Hant": "靚仔——過夜算",
+    "en-SG": "Best quality — overnight one",
 })
 add("preset.vertical", {
     "en": "Vertical social",
@@ -304,6 +337,8 @@ add("preset.vertical", {
     "ja": "縦型 SNS",
     "ko": "세로형 소셜",
     "th": "แนวตั้งสำหรับโซเชียล",
+    "yue-Hant": "直度社交片",
+    "en-SG": "Tall One For Social",
 })
 
 # ── Settings: language ───────────────────────────────────────────────────────
@@ -319,6 +354,8 @@ add("settings.language.section", {
     "ja": "言語",
     "ko": "언어",
     "th": "ภาษา",
+    "yue-Hant": "語言 (Language)",
+    "en-SG": "Language",
 })
 add("settings.language.label", {
     "en": "Interface language",
@@ -329,6 +366,8 @@ add("settings.language.label", {
     "ja": "表示言語",
     "ko": "인터페이스 언어",
     "th": "ภาษาของส่วนติดต่อ",
+    "yue-Hant": "介面語言 (Interface Language)",
+    "en-SG": "Interface language",
 })
 add("settings.language.system", {
     "en": "Follow system (%@)",
@@ -339,6 +378,8 @@ add("settings.language.system", {
     "ja": "システムに合わせる（%@）",
     "ko": "시스템 설정에 따름(%@)",
     "th": "ตามระบบ (%@)",
+    "yue-Hant": "跟系統（%@）",
+    "en-SG": "Follow system (%@)",
 })
 
 # Two notes, chosen by whether the writing direction actually changes. Telling
@@ -356,6 +397,8 @@ add("settings.language.restart", {
     "ja": "文言はすぐ切り替わります。画面上部のメニューバーはアプリを再起動すると追随します。",
     "ko": "본문은 즉시 바뀝니다. 화면 위쪽 메뉴 막대는 앱을 다시 실행하면 따라갑니다.",
     "th": "ข้อความเปลี่ยนทันที ส่วนแถบเมนูด้านบนจอจะเปลี่ยนตามเมื่อเปิดแอปใหม่",
+    "yue-Hant": "啲字即刻轉。畫面頂嗰條選單列就要重開 App 先跟住轉。",
+    "en-SG": "Words change straight away. The menu bar at the top only follows after you restart the app.",
 })
 add("settings.language.restart.direction", {
     "en": "Text changes immediately. This language reads in the other direction, so the "
@@ -371,6 +414,8 @@ add("settings.language.restart.direction", {
     "ja": "文言はすぐ切り替わります。この言語は書字方向が逆なので、ウィンドウの左右も入れ替わります。それと画面上部のメニューバーは、アプリを再起動すると追随します。",
     "ko": "본문은 즉시 바뀝니다. 이 언어는 읽는 방향이 반대라 창의 좌우도 뒤바뀝니다. 그 점과 화면 위쪽 메뉴 막대는 앱을 다시 실행하면 따라갑니다.",
     "th": "ข้อความเปลี่ยนทันที ภาษานี้อ่านจากอีกทิศทางหนึ่ง หน้าต่างจึงสลับด้านให้เข้ากัน ทั้งสองอย่างนี้และแถบเมนูด้านบนจอจะเปลี่ยนตามเมื่อเปิดแอปใหม่",
+    "yue-Hant": "啲字即刻轉。呢隻語言由另一邊讀起，所以成個視窗會左右調轉——呢樣同畫面頂嗰條選單列，都要重開 App 先套用。",
+    "en-SG": "Words change straight away. This language reads from the other side, so the window swaps sides to match — that, and the menu bar at the top, only follow after you restart the app.",
 })
 add("settings.language.relaunch", {
     "en": "Relaunch now",
@@ -381,6 +426,8 @@ add("settings.language.relaunch", {
     "ja": "今すぐ再起動",
     "ko": "지금 다시 실행",
     "th": "เปิดใหม่ตอนนี้",
+    "yue-Hant": "即刻重開",
+    "en-SG": "Restart now",
 })
 
 # ── Generation modes ─────────────────────────────────────────────────────────
@@ -395,6 +442,8 @@ add("mode.t2v", {
     "ja": "テキストから動画",
     "ko": "텍스트로 비디오",
     "th": "ข้อความเป็นวิดีโอ",
+    "yue-Hant": "文字轉片",
+    "en-SG": "Text to video",
 })
 add("mode.first", {
     "en": "First frame",
@@ -405,6 +454,8 @@ add("mode.first", {
     "ja": "先頭フレーム",
     "ko": "첫 프레임",
     "th": "เฟรมแรก",
+    "yue-Hant": "首格",
+    "en-SG": "First frame",
 }, note="The name of the first-frame mode in the mode picker: the render continues "
         "from a supplied image. Distinct from refs.slot.first, which labels the slot "
         "that image goes in.")
@@ -417,6 +468,8 @@ add("mode.firstlast", {
     "ja": "先頭と末尾のフレーム",
     "ko": "첫 프레임과 마지막 프레임",
     "th": "เฟรมแรกและเฟรมสุดท้าย",
+    "yue-Hant": "首尾格",
+    "en-SG": "First & last frame",
 })
 add("mode.reference", {
     "en": "References",
@@ -427,6 +480,8 @@ add("mode.reference", {
     "ja": "参考素材",
     "ko": "참조 자료",
     "th": "ไฟล์อ้างอิง",
+    "yue-Hant": "參考素材",
+    "en-SG": "References",
 }, note="The name of the reference mode in the mode picker — the mode that conditions "
         "on supplied images or video. Distinct from refs.title.references, which "
         "heads the list of the files themselves.")
@@ -439,6 +494,8 @@ add("mode.t2v.detail", {
     "ja": "文章による説明だけから生成します。",
     "ko": "글로 쓴 설명만으로 생성합니다.",
     "th": "สร้างจากคำบรรยายที่เขียนเพียงอย่างเดียว",
+    "yue-Hant": "淨係靠文字描述生成。",
+    "en-SG": "Generate from your written description only.",
 })
 add("mode.first.detail", {
     "en": "Animate outward from a still image you supply.",
@@ -449,6 +506,8 @@ add("mode.first.detail", {
     "ja": "用意した静止画から動きを広げていきます。",
     "ko": "제공한 정지 이미지에서 바깥으로 움직임을 만듭니다.",
     "th": "สร้างการเคลื่อนไหวต่อจากภาพนิ่งที่คุณใส่",
+    "yue-Hant": "由你俾嘅一張靜態圖開始郁。",
+    "en-SG": "Start from one still image you give, then let it move.",
 })
 add("mode.firstlast.detail", {
     "en": "Supply both ends of the shot; the model fills in the motion between them.",
@@ -460,6 +519,8 @@ add("mode.firstlast.detail", {
     "ja": "ショットの両端を指定すると、モデルがその間の動きを補います。",
     "ko": "장면의 양 끝을 제공하면 모델이 그 사이의 움직임을 채웁니다.",
     "th": "ใส่ภาพทั้งต้นและท้ายช็อต แล้วโมเดลจะเติมการเคลื่อนไหวระหว่างกลางให้",
+    "yue-Hant": "俾鏡頭嘅頭同尾，中間嘅郁動由個模型補。",
+    "en-SG": "Give the start and the end, the model fill in the middle movement.",
 })
 add("mode.reference.detail", {
     "en": "Supply reference images, clips or audio to pin down a subject, style or voice.",
@@ -471,6 +532,8 @@ add("mode.reference.detail", {
     "ja": "参考画像・クリップ・音声を渡して、被写体やスタイル、声を固定します。",
     "ko": "참조 이미지, 클립, 오디오를 제공해 인물, 스타일, 목소리를 고정합니다.",
     "th": "ใส่ภาพ คลิป หรือเสียงอ้างอิง เพื่อกำหนดตัวแบบ สไตล์ หรือน้ำเสียง",
+    "yue-Hant": "俾參考圖片、片段或者聲，用嚟定住個主體、風格或者把聲。",
+    "en-SG": "Give reference images, clips or audio to lock down the subject, style or voice.",
 })
 
 # ── Job states ───────────────────────────────────────────────────────────────
@@ -483,6 +546,8 @@ add("state.queued", {
     "ja": "待機中",
     "ko": "대기 중",
     "th": "อยู่ในคิว",
+    "yue-Hant": "排緊隊",
+    "en-SG": "Waiting Turn",
 })
 add("state.preparing", {
     "en": "Loading model",
@@ -493,6 +558,8 @@ add("state.preparing", {
     "ja": "モデルを読み込み中",
     "ko": "모델 불러오는 중",
     "th": "กำลังโหลดโมเดล",
+    "yue-Hant": "載入緊模型",
+    "en-SG": "Loading model",
 })
 add("state.generating", {
     "en": "Generating",
@@ -503,6 +570,8 @@ add("state.generating", {
     "ja": "生成中",
     "ko": "생성 중",
     "th": "กำลังสร้าง",
+    "yue-Hant": "生成緊",
+    "en-SG": "Generating",
 })
 add("state.decoding", {
     "en": "Decoding",
@@ -513,6 +582,8 @@ add("state.decoding", {
     "ja": "デコード中",
     "ko": "디코딩 중",
     "th": "กำลังถอดรหัส",
+    "yue-Hant": "解碼緊",
+    "en-SG": "Decoding",
 })
 add("state.encoding", {
     "en": "Encoding",
@@ -523,6 +594,8 @@ add("state.encoding", {
     "ja": "エンコード中",
     "ko": "인코딩 중",
     "th": "กำลังเข้ารหัส",
+    "yue-Hant": "編碼緊",
+    "en-SG": "Encoding",
 })
 add("state.finished", {
     "en": "Finished",
@@ -533,6 +606,8 @@ add("state.finished", {
     "ja": "完了",
     "ko": "완료",
     "th": "เสร็จแล้ว",
+    "yue-Hant": "搞掂",
+    "en-SG": "Done liao",
 })
 add("state.failed", {
     "en": "Failed",
@@ -543,6 +618,8 @@ add("state.failed", {
     "ja": "失敗",
     "ko": "실패",
     "th": "ล้มเหลว",
+    "yue-Hant": "失敗咗",
+    "en-SG": "Fail liao",
 })
 add("state.cancelled", {
     "en": "Cancelled",
@@ -553,6 +630,8 @@ add("state.cancelled", {
     "ja": "キャンセル済み",
     "ko": "취소됨",
     "th": "ยกเลิกแล้ว",
+    "yue-Hant": "取消咗",
+    "en-SG": "Cancelled",
 })
 
 # ── Engines ──────────────────────────────────────────────────────────────────
@@ -569,6 +648,8 @@ add("backend.mlx.detail", {
     "ja": "Apple 自社のフレームワークで、モデルをネイティブに実行します。テキストからの生成とキーフレームのみ対応で、移植版に参考素材の条件付けはありません。",
     "ko": "Apple 자체 프레임워크로 모델을 네이티브로 실행합니다. 텍스트-비디오와 키프레임만 지원하며, 이식판에는 참조 조건화가 없습니다.",
     "th": "เฟรมเวิร์กของ Apple เองที่รันโมเดลแบบเนทีฟ รองรับเฉพาะข้อความเป็นวิดีโอและ keyframe เพราะพอร์ตนี้ไม่มีการกำหนดเงื่อนไขจากไฟล์อ้างอิง",
+    "yue-Hant": "Apple 自己嘅框架，原生咁跑個模型。淨係做到文字轉片同關鍵格——移植版冇參考素材條件化。",
+    "en-SG": "Apple own framework, run the model natively. Text-to-video and keyframes only — the port got no reference conditioning.",
 })
 add("backend.comfy.detail", {
     "en": "PyTorch on Metal. The only backend that supports references, and the only one "
@@ -582,6 +663,8 @@ add("backend.comfy.detail", {
     "ja": "Metal 上の PyTorch。参考素材に対応する唯一のバックエンドで、4 ステップの turbo LoRA を読み込めるのもこれだけです。",
     "ko": "Metal 기반 PyTorch. 참조 자료를 지원하는 유일한 백엔드이며, 4스텝 turbo LoRA를 불러올 수 있는 것도 이것뿐입니다.",
     "th": "PyTorch บน Metal เป็น backend เดียวที่รองรับไฟล์อ้างอิง และเป็นตัวเดียวที่โหลด turbo LoRA แบบ 4 step ได้",
+    "yue-Hant": "喺 Metal 上面跑 PyTorch。得佢一個支援參考素材，亦都得佢載入到 4 步嘅 turbo LoRA。",
+    "en-SG": "PyTorch on Metal. Only this one can do references, and only this one can load the 4-step turbo LoRA.",
 })
 
 # ── Compose: buttons and chrome ──────────────────────────────────────────────
@@ -594,6 +677,8 @@ add("compose.generate", {
     "ja": "生成",
     "ko": "생성",
     "th": "สร้าง",
+    "yue-Hant": "生成",
+    "en-SG": "Generate Lah",
 }, note="Imperative verb on the main action button: start the render. Not the noun, "
         "and not \"generation\" in the sense of a cohort.")
 add("compose.generate.help.ready", {
@@ -605,6 +690,8 @@ add("compose.generate.help.ready", {
     "ja": "このレンダリングをキューに追加します",
     "ko": "이 렌더링을 대기열에 추가합니다",
     "th": "เพิ่มการเรนเดอร์นี้เข้าคิว",
+    "yue-Hant": "將呢次算圖加入佇列",
+    "en-SG": "Put this render inside the queue",
 })
 add("compose.generate.why", {
     "en": "Why is this disabled?",
@@ -615,6 +702,8 @@ add("compose.generate.why", {
     "ja": "なぜ使えないのか",
     "ko": "왜 사용할 수 없나요?",
     "th": "ทำไมจึงใช้ไม่ได้",
+    "yue-Hant": "點解㩒唔到？",
+    "en-SG": "Why cannot press?",
 })
 add("compose.generate.blocked.runtime", {
     "en": "The Python runtime is not ready. Open Settings › Runtime.",
@@ -625,6 +714,8 @@ add("compose.generate.blocked.runtime", {
     "ja": "Python 実行環境が準備できていません。「設定 › 実行環境」を開いてください。",
     "ko": "Python 런타임이 준비되지 않았습니다. 설정 › 런타임을 여세요.",
     "th": "Runtime Python ยังไม่พร้อม เปิด การตั้งค่า › runtime",
+    "yue-Hant": "Python 執行環境未 ready。開「設定 › 執行環境」。",
+    "en-SG": "Python runtime not ready. Go Settings › Runtime.",
 })
 add("compose.generate.blocked.generic", {
     "en": "Resolve the issues listed under “Before you generate”.",
@@ -635,6 +726,8 @@ add("compose.generate.blocked.generic", {
     "ja": "「生成する前に」に挙がっている問題を解決してください。",
     "ko": "'생성하기 전에'에 나열된 문제를 해결하세요.",
     "th": "แก้ปัญหาที่แสดงไว้ใต้ “ก่อนเริ่มสร้าง” ให้เรียบร้อยก่อน",
+    "yue-Hant": "先搞掂「生成前睇下」入面列嘅嘢。",
+    "en-SG": "Settle the things under “Check First Leh” first.",
 })
 add("compose.presets", {
     "en": "Presets",
@@ -645,6 +738,8 @@ add("compose.presets", {
     "ja": "プリセット",
     "ko": "프리셋",
     "th": "Preset",
+    "yue-Hant": "預設組合",
+    "en-SG": "Saved Recipes",
 }, note="Saved combinations of settings — not 'default' in the factory sense.")
 add("compose.presets.help", {
     "en": "Apply a saved combination of settings",
@@ -655,6 +750,8 @@ add("compose.presets.help", {
     "ja": "保存した設定の組み合わせを適用します",
     "ko": "저장해 둔 설정 조합을 적용합니다",
     "th": "ใช้ชุดการตั้งค่าที่บันทึกไว้",
+    "yue-Hant": "套用已儲存嘅設定組合",
+    "en-SG": "Use a set of settings you kept before",
 })
 add("compose.preset.delete", {
     "en": "Delete Custom Preset",
@@ -665,6 +762,8 @@ add("compose.preset.delete", {
     "ja": "カスタムプリセットを削除",
     "ko": "사용자 프리셋 삭제",
     "th": "ลบ preset ที่สร้างเอง",
+    "yue-Hant": "刪除自訂預設組合",
+    "en-SG": "Throw Away My Recipe",
 })
 add("compose.preset.save", {
     "en": "Save as Preset…",
@@ -675,6 +774,8 @@ add("compose.preset.save", {
     "ja": "プリセットとして保存…",
     "ko": "프리셋으로 저장…",
     "th": "บันทึกเป็น preset …",
+    "yue-Hant": "另存為預設組合…",
+    "en-SG": "Keep as Recipe…",
 })
 add("compose.preset.save.title", {
     "en": "Save preset",
@@ -685,6 +786,8 @@ add("compose.preset.save.title", {
     "ja": "プリセットを保存",
     "ko": "프리셋 저장",
     "th": "บันทึก preset",
+    "yue-Hant": "儲存預設組合",
+    "en-SG": "Keep recipe",
 })
 add("compose.preset.save.message", {
     "en": "Saves the current settings as a reusable recipe. The prompt, seed and attached "
@@ -698,6 +801,8 @@ add("compose.preset.save.message", {
     "ja": "現在の設定を再利用できるレシピとして保存します。プロンプト・シード・添付ファイルは含まれません。",
     "ko": "현재 설정을 다시 쓸 수 있는 조합으로 저장합니다. 프롬프트와 시드, 첨부 파일은 포함되지 않습니다.",
     "th": "บันทึกการตั้งค่าปัจจุบันเป็นสูตรที่นำกลับมาใช้ได้ โดยไม่รวม prompt seed และไฟล์แนบ",
+    "yue-Hant": "將而家嘅設定存做可以重用嘅配方。唔包提示詞、種子同附加檔案。",
+    "en-SG": "Keeps your current settings as a recipe you can use again. Prompt, seed and attached files not included.",
 })
 add("common.name", {
     "en": "Name",
@@ -708,6 +813,8 @@ add("common.name", {
     "ja": "名前",
     "ko": "이름",
     "th": "ชื่อ",
+    "yue-Hant": "名",
+    "en-SG": "Name",
 }, note="Noun: the name of a preset or a file. A field label, not the verb \"to name\".")
 add("common.cancel", {
     "en": "Cancel",
@@ -718,6 +825,8 @@ add("common.cancel", {
     "ja": "キャンセル",
     "ko": "취소",
     "th": "ยกเลิก",
+    "yue-Hant": "取消",
+    "en-SG": "Never Mind",
 })
 add("common.save", {
     "en": "Save",
@@ -728,6 +837,8 @@ add("common.save", {
     "ja": "保存",
     "ko": "저장",
     "th": "บันทึก",
+    "yue-Hant": "儲存",
+    "en-SG": "Keep",
 }, note="Imperative verb on a button: write to disk. Not the sense of rescuing or of "
         "saving money.")
 add("common.done", {
@@ -739,6 +850,8 @@ add("common.done", {
     "ja": "完了",
     "ko": "완료",
     "th": "เสร็จสิ้น",
+    "yue-Hant": "搞掂",
+    "en-SG": "Okay Liao",
 })
 add("common.delete", {
     "en": "Delete",
@@ -749,6 +862,8 @@ add("common.delete", {
     "ja": "削除",
     "ko": "삭제",
     "th": "ลบ",
+    "yue-Hant": "刪除",
+    "en-SG": "Throw Away",
 })
 add("common.download", {
     "en": "Download",
@@ -759,6 +874,8 @@ add("common.download", {
     "ja": "ダウンロード",
     "ko": "다운로드",
     "th": "ดาวน์โหลด",
+    "yue-Hant": "下載",
+    "en-SG": "Download",
 })
 add("common.reveal", {
     "en": "Reveal",
@@ -769,6 +886,8 @@ add("common.reveal", {
     "ja": "表示",
     "ko": "표시",
     "th": "แสดง",
+    "yue-Hant": "顯示",
+    "en-SG": "Show Me",
 }, note="Imperative verb: show this file in the Finder, selected in its folder. "
         "Follow whatever the platform calls it — it is a Finder idiom, not a general "
         "\"show\".")
@@ -781,6 +900,8 @@ add("common.refresh", {
     "ja": "更新",
     "ko": "새로 고침",
     "th": "รีเฟรช",
+    "yue-Hant": "重新整理",
+    "en-SG": "Refresh",
 })
 add("common.copy", {
     "en": "Copy",
@@ -791,6 +912,8 @@ add("common.copy", {
     "ja": "コピー",
     "ko": "복사",
     "th": "คัดลอก",
+    "yue-Hant": "拷貝",
+    "en-SG": "Copy",
 }, note="Imperative verb on a button — copy this to the clipboard. Never the noun \"a "
         "copy\". macOS uses 拷貝 in Traditional Chinese, 复制 in Simplified.")
 
@@ -804,6 +927,8 @@ add("compose.prompt.title", {
     "ja": "プロンプト",
     "ko": "프롬프트",
     "th": "พรอมต์ (Prompt)",
+    "yue-Hant": "提示詞",
+    "en-SG": "Prompt",
 })
 add("compose.prompt.hint", {
     "en": "Describe the shot. Press Tab to move on, Option-Tab to insert a tab.",
@@ -815,6 +940,8 @@ add("compose.prompt.hint", {
     "ja": "ショットを説明してください。Tab で次へ、Option-Tab でタブを入力します。",
     "ko": "장면을 설명하세요. Tab으로 다음으로 이동하고, Option-Tab으로 탭 문자를 넣습니다.",
     "th": "บรรยายช็อตที่ต้องการ กด Tab เพื่อไปต่อ กด Option-Tab เพื่อแทรกแท็บ",
+    "yue-Hant": "描述下呢個鏡頭。㩒 Tab 去下一項，Option-Tab 入定位字元。",
+    "en-SG": "Describe the shot. Press Tab to move on, Option-Tab to put in a tab.",
 })
 add("compose.prompt.footnote", {
     "en": "H3 responds well to camera language — shot size, lens, movement, lighting — and "
@@ -835,6 +962,8 @@ add("compose.prompt.footnote", {
     "ja": "H3 はカメラ用語（画角・レンズ・カメラワーク・照明）によく反応し、音を同じパスで生成するため、音の情景描写にも反応します。ネガティブプロンプトはありません。公開された重みは CFG 蒸留済みで、ガイダンス系の操作は何も起こさないからです。",
     "ko": "H3는 카메라 언어(샷 크기, 렌즈, 움직임, 조명)에 잘 반응하고, 소리를 같은 패스에서 만들기 때문에 묘사된 소리 풍경에도 반응합니다. 네거티브 프롬프트는 없습니다. 공개된 가중치가 CFG 증류를 거쳐 가이던스 조절이 아무 일도 하지 않기 때문입니다.",
     "th": "H3 ตอบสนองดีกับภาษาของกล้อง — ขนาดภาพ เลนส์ การเคลื่อนกล้อง แสง — และกับการบรรยายบรรยากาศเสียง เพราะสร้างเสียงในรอบเดียวกัน ไม่มี prompt เชิงลบ เพราะน้ำหนักที่เผยแพร่ผ่านการกลั่นแบบ CFG แล้ว การปรับ guidance จึงไม่มีผลใด ๆ",
+    "yue-Hant": "H3 對鏡頭語言好受落——景別、鏡頭、運動、打光——亦聽得明你對聲音場景嘅描述，因為佢喺同一次運算入面出埋聲。冇負面提示詞：釋出嘅權重經過 CFG 蒸餾，所以調引導強度係唔會有作用嘅。",
+    "en-SG": "H3 responds well to camera language — shot size, lens, movement, lighting — and to a described soundscape, since it makes the audio in the same pass. No negative prompt: the released weights are CFG-distilled, so guidance controls do nothing one.",
 })
 
 # ── Compose: mode card ───────────────────────────────────────────────────────
@@ -847,6 +976,8 @@ add("compose.mode.title", {
     "ja": "モード",
     "ko": "모드",
     "th": "โหมด",
+    "yue-Hant": "模式",
+    "en-SG": "Mode",
 }, note="Labels the picker choosing between text-to-video and reference modes. A "
         "choice the user makes. Distinct from library.mode, which reports what a "
         "finished render used.")
@@ -859,6 +990,8 @@ add("compose.mode.task.fl2va", {
     "ja": "　FL2VA のチェックポイントを使います。",
     "ko": "　FL2VA 체크포인트를 사용합니다.",
     "th": " ใช้ checkpoint FL2VA",
+    "yue-Hant": "　用 FL2VA 檢查點。",
+    "en-SG": " Uses the FL2VA checkpoint.",
 }, note={
     "content": "Begins with a space because it is appended to the sentence before it — U+3000 "
                "for Chinese. Runtime concatenation: the two halves cannot be reordered, and a "
@@ -874,6 +1007,8 @@ add("compose.mode.task.ref2va", {
     "ja": "　Ref2VA のチェックポイントを使います。",
     "ko": "　Ref2VA 체크포인트를 사용합니다.",
     "th": " ใช้ checkpoint Ref2VA",
+    "yue-Hant": "　用 Ref2VA 檢查點。",
+    "en-SG": " Uses the Ref2VA checkpoint.",
 }, note={
     "content": "See compose.mode.task.fl2va — same leading space, same concatenation.",
     "level": WARNING,
@@ -887,6 +1022,8 @@ add("compose.engine.label", {
     "ja": "エンジン",
     "ko": "엔진",
     "th": "เอนจิน (Engine)",
+    "yue-Hant": "引擎",
+    "en-SG": "Engine",
 }, note="Which backend runs the model — MLX or ComfyUI. Not a motor, and not a game "
         "engine. Usually kept in English.")
 add("compose.engine.mlx.note", {
@@ -903,6 +1040,8 @@ add("compose.engine.mlx.note", {
     "ja": "MLX 上でネイティブに動作します。サーバー不要で、こちらが既定です。重みは未蒸留のため、ステップ数が少ないと分布から外れます。品質を求めるなら移植版の 16 ステップ以上を使ってください。",
     "ko": "MLX에서 네이티브로 실행됩니다. 서버가 필요 없으며 기본값입니다. 가중치가 비증류라 스텝 수가 적으면 분포를 벗어나므로, 품질을 원하면 이식판의 16스텝 이상을 쓰세요.",
     "th": "ทำงานแบบเนทีฟบน MLX ไม่ต้องใช้เซิร์ฟเวอร์ และเป็นค่าเริ่มต้น น้ำหนักยังไม่ผ่านการกลั่น step น้อยจึงหลุดจากการกระจายที่ฝึกมา ถ้าต้องการคุณภาพให้ใช้ 16 step ขึ้นไปตามพอร์ตนี้",
+    "yue-Hant": "喺 MLX 上面原生跑，唔使伺服器，亦係預設。佢啲權重未蒸餾，步數太少就會偏離訓練分佈——想靚啲就用移植版嘅 16 步或以上。",
+    "en-SG": "Runs natively on MLX. No server needed, and this is the default. Its weights are undistilled, so too few steps go off-distribution — use the port's 16 steps or more if you want quality.",
 })
 add("compose.engine.comfy.note", {
     "en": "Runs through ComfyUI on PyTorch/Metal, which can load the 4-step turbo LoRA. "
@@ -921,6 +1060,8 @@ add("compose.engine.comfy.note", {
     "ja": "PyTorch/Metal 上の ComfyUI で動作し、4 ステップの turbo LoRA を読み込めます。蒸留された 4 ステップは MLX の未蒸留 5 ステップとほぼ同じ時間で、LoRA はそのために学習されています。",
     "ko": "PyTorch/Metal 기반 ComfyUI로 실행되며 4스텝 turbo LoRA를 불러올 수 있습니다. 증류된 4스텝은 MLX의 비증류 5스텝과 비슷한 시간이 걸리며, LoRA는 바로 그 스텝 수에 맞춰 학습되었습니다.",
     "th": "ทำงานผ่าน ComfyUI บน PyTorch/Metal ซึ่งโหลด turbo LoRA แบบ 4 step ได้ สี่ step ที่กลั่นแล้วใช้เวลาพอ ๆ กับห้า step ที่ยังไม่กลั่นบน MLX และเป็นจำนวนที่ LoRA ถูกฝึกมา",
+    "yue-Hant": "透過 ComfyUI 喺 PyTorch/Metal 上面跑，載入到 4 步嘅 turbo LoRA。四個蒸餾步用嘅時間，同 MLX 上面五個未蒸餾嘅步差唔多，而呢個 LoRA 就係為咗呢個步數而訓練。",
+    "en-SG": "Runs through ComfyUI on PyTorch/Metal, so it can load the 4-step turbo LoRA. Four distilled steps take about the same time as five undistilled ones on MLX — and that is exactly what the LoRA was trained for.",
 })
 
 # ── Output format vocabulary ─────────────────────────────────────────────────
@@ -933,6 +1074,8 @@ add("format.res.native", {
     "ja": "768p — ネイティブ",
     "ko": "768p — 네이티브",
     "th": "768p — ดั้งเดิม",
+    "yue-Hant": "768p — 原生",
+    "en-SG": "768p — original",
 })
 add("format.res.1080", {
     "en": "1080p — upscaled",
@@ -943,6 +1086,8 @@ add("format.res.1080", {
     "ja": "1080p — アップスケール",
     "ko": "1080p — 업스케일",
     "th": "1080p — ขยายขนาด",
+    "yue-Hant": "1080p — 放大",
+    "en-SG": "1080p — blow up",
 })
 add("format.res.1440", {
     "en": "1440p — upscaled",
@@ -953,6 +1098,8 @@ add("format.res.1440", {
     "ja": "1440p — アップスケール",
     "ko": "1440p — 업스케일",
     "th": "1440p — ขยายขนาด",
+    "yue-Hant": "1440p — 放大",
+    "en-SG": "1440p — blow up",
 })
 add("format.res.native.detail", {
     "en": "Exactly what the model produces, with no resampling. Recommended.",
@@ -963,6 +1110,8 @@ add("format.res.native.detail", {
     "ja": "モデルの出力そのままで、リサンプルしません。おすすめです。",
     "ko": "모델이 만든 그대로이며 리샘플링하지 않습니다. 권장합니다.",
     "th": "ตรงตามที่โมเดลสร้างโดยไม่ปรับขนาด แนะนำให้ใช้ค่านี้",
+    "yue-Hant": "完全係模型出嘅嘢,唔再取樣。建議用呢個。",
+    "en-SG": "Exactly what the model gives, no resampling. Use this one.",
 })
 add("format.res.1080.detail", {
     "en": "Resampled after generation to fit a 1080p delivery pipeline. No detail is added.",
@@ -974,6 +1123,8 @@ add("format.res.1080.detail", {
     "ja": "生成後に 1080p の納品フローに合わせてリサンプルします。ディテールが増えるわけではありません。",
     "ko": "생성 후 1080p 납품 파이프라인에 맞춰 리샘플링합니다. 디테일이 늘어나지는 않습니다.",
     "th": "ปรับขนาดหลังสร้างเสร็จให้เข้ากับงานส่งมอบแบบ 1080p โดยไม่ได้เพิ่มรายละเอียด",
+    "yue-Hant": "生成之後再取樣,啱 1080p 嘅交付流程。唔會多咗細節。",
+    "en-SG": "Resampled after generating, to fit a 1080p pipeline. No extra detail one.",
 })
 add("format.res.1440.detail", {
     "en": "Resampled to 1440p. Larger files for the same real detail; useful only if a "
@@ -987,6 +1138,8 @@ add("format.res.1440.detail", {
     "ja": "1440p にリサンプルします。実際のディテールは同じままファイルだけ大きくなるので、後工程がこのサイズを要求する場合にだけ使ってください。",
     "ko": "1440p로 리샘플링합니다. 실제 디테일은 그대로인데 파일만 커지므로, 후속 도구가 이 크기를 요구할 때만 쓰세요.",
     "th": "ปรับขนาดเป็น 1440p ไฟล์ใหญ่ขึ้นโดยรายละเอียดจริงเท่าเดิม ใช้เมื่อเครื่องมือปลายทางต้องการขนาดนี้เท่านั้น",
+    "yue-Hant": "取樣成 1440p。檔案大咗但實際細節一樣;淨係有下游工具指定要呢個尺寸先有用。",
+    "en-SG": "Resampled to 1440p. Bigger file, same real detail. Only useful if some downstream tool must have this size.",
 })
 add("format.fps.native", {
     "en": "24 fps — native",
@@ -997,6 +1150,8 @@ add("format.fps.native", {
     "ja": "24 fps — ネイティブ",
     "ko": "24 fps — 네이티브",
     "th": "24 fps — ดั้งเดิม",
+    "yue-Hant": "24 fps — 原生",
+    "en-SG": "24 fps — original",
 })
 add("format.fps.conformed", {
     "en": "%@ fps — conformed",
@@ -1007,6 +1162,8 @@ add("format.fps.conformed", {
     "ja": "%@ fps — 変換",
     "ko": "%@ fps — 변환됨",
     "th": "%@ fps — ปรับแล้ว",
+    "yue-Hant": "%@ fps — 轉換",
+    "en-SG": "%@ fps — converted",
 })
 add("format.fps.native.detail", {
     "en": "The model's own cadence. No frames are invented or dropped.",
@@ -1017,6 +1174,8 @@ add("format.fps.native.detail", {
     "ja": "モデル本来のテンポです。フレームの生成も間引きもありません。",
     "ko": "모델 본래의 박자입니다. 프레임을 만들지도 버리지도 않습니다.",
     "th": "จังหวะดั้งเดิมของโมเดล ไม่มีการสร้างหรือตัดเฟรมทิ้ง",
+    "yue-Hant": "模型本身嘅節奏,唔會生多啲又唔會掉走影格。",
+    "en-SG": "The model's own pace. No frames invented, none thrown away.",
 })
 add("format.fps.30.detail", {
     "en": "Frames are duplicated to a 30 fps timeline. Motion may judder slightly.",
@@ -1028,6 +1187,8 @@ add("format.fps.30.detail", {
     "ja": "フレームを複製して 30 fps のタイムラインに合わせます。動きがわずかにぎこちなくなることがあります。",
     "ko": "프레임을 복제해 30 fps 타임라인에 맞춥니다. 움직임이 약간 끊겨 보일 수 있습니다.",
     "th": "ทำซ้ำเฟรมให้เข้ากับ timeline 30 fps การเคลื่อนไหวอาจสะดุดเล็กน้อย",
+    "yue-Hant": "影格會複製到 30 fps 嘅時間軸,郁起上嚟可能有少少窒。",
+    "en-SG": "Frames get copied onto a 30 fps timeline. Movement may jerk a bit.",
 })
 add("format.fps.60.detail", {
     "en": "Frames are duplicated to a 60 fps timeline. No new motion is synthesised.",
@@ -1039,6 +1200,8 @@ add("format.fps.60.detail", {
     "ja": "フレームを複製して 60 fps のタイムラインに合わせます。新しい動きは作られません。",
     "ko": "프레임을 복제해 60 fps 타임라인에 맞춥니다. 새로운 움직임을 만들어 내지는 않습니다.",
     "th": "ทำซ้ำเฟรมให้เข้ากับ timeline 60 fps โดยไม่สร้างการเคลื่อนไหวใหม่",
+    "yue-Hant": "影格會複製到 60 fps 嘅時間軸,唔會生出新嘅郁動。",
+    "en-SG": "Frames get copied onto a 60 fps timeline. No new movement is made up.",
 })
 add("format.codec.h264.detail", {
     "en": "What the model produces. Delivered as rendered, with no second encode, and plays "
@@ -1051,6 +1214,8 @@ add("format.codec.h264.detail", {
     "ja": "モデルが出力するそのままの形式です。再エンコードせずに書き出され、どこでも再生できます。",
     "ko": "모델이 만들어 내는 그대로입니다. 다시 인코딩하지 않고 내보내며 어디서나 재생됩니다.",
     "th": "เป็นสิ่งที่โมเดลสร้างออกมาโดยตรง ส่งออกตามที่เรนเดอร์โดยไม่เข้ารหัสซ้ำ และเล่นได้ทุกที่",
+    "yue-Hant": "模型原本出嘅嘢。點算就點交,唔再編多次,邊度都播到。",
+    "en-SG": "What the model gives you. Delivered as rendered, no second encode, and can play anywhere.",
 })
 add("format.codec.av1.detail", {
     "en": "About half the size for the same quality. Encoded in software, since Apple "
@@ -1067,6 +1232,8 @@ add("format.codec.av1.detail", {
     "ja": "同じ画質でおよそ半分のサイズです。Apple シリコンに AV1 エンコーダがないためソフトウェアで符号化しますが、SVT-AV1 なら 5 秒のクリップを 1〜2 秒で処理するので、生成時間に比べれば無視できます。",
     "ko": "같은 품질에 크기는 약 절반입니다. Apple 실리콘에 AV1 인코더가 없어 소프트웨어로 인코딩하지만, SVT-AV1은 5초 클립을 1~2초에 처리하므로 생성 시간에 비하면 무시할 만합니다.",
     "th": "ขนาดราวครึ่งเดียวที่คุณภาพเท่ากัน เข้ารหัสด้วยซอฟต์แวร์เพราะ Apple silicon ไม่มีตัวเข้ารหัส AV1 แต่ SVT-AV1 จัดการคลิปห้าวินาทีได้ในหนึ่งถึงสองวินาที จึงน้อยมากเมื่อเทียบกับเวลาสร้าง",
+    "yue-Hant": "同等質素之下,檔案細一半左右。因為 Apple 晶片冇 AV1 編碼器,所以用軟件編;不過 SVT-AV1 處理五秒片得一兩秒,同生成時間比根本唔算數。",
+    "en-SG": "About half the size for the same quality. Encoded by software because Apple silicon got no AV1 encoder — but SVT-AV1 clears a five-second clip in one, two seconds, so compared to generating, never mind lah.",
 })
 add("format.audio.muxed", {
     "en": "Muxed into the video",
@@ -1077,6 +1244,8 @@ add("format.audio.muxed", {
     "ja": "動画に多重化",
     "ko": "비디오에 다중화",
     "th": "รวมไว้ในวิดีโอ",
+    "yue-Hant": "混流入條片度",
+    "en-SG": "Inside the video",
 })
 add("format.audio.wav", {
     "en": "Muxed, plus a separate WAV",
@@ -1087,6 +1256,8 @@ add("format.audio.wav", {
     "ja": "多重化に加えて WAV を別途出力",
     "ko": "다중화에 더해 별도 WAV 파일",
     "th": "รวมในวิดีโอ พร้อมไฟล์ WAV แยก",
+    "yue-Hant": "混流，再另外存個 WAV",
+    "en-SG": "Inside the video, plus one separate WAV",
 })
 
 # ── Compose: output card ─────────────────────────────────────────────────────
@@ -1099,6 +1270,8 @@ add("compose.output.title", {
     "ja": "出力",
     "ko": "출력",
     "th": "เอาต์พุต (Output)",
+    "yue-Hant": "輸出",
+    "en-SG": "Output",
 }, note="Heads the card for how the video is encoded — codec, resolution, frame rate. "
         "Output as in the result of a render. Distinct from settings.folder.output, a "
         "folder.")
@@ -1114,6 +1287,8 @@ add("compose.output.footnote", {
     "ja": "モデルは常に短辺 768 px・24 fps でレンダリングします。このカードのそれ以外の設定は、あとからエンコード時に適用されます。",
     "ko": "모델은 항상 짧은 변 768 px, 24 fps로 렌더링합니다. 이 카드의 나머지 설정은 그 뒤 인코딩 단계에서 적용됩니다.",
     "th": "โมเดลเรนเดอร์ที่ 24 fps และด้านสั้น 768 px เสมอ ค่าอื่นในการ์ดนี้จะถูกนำไปใช้ภายหลังตอนเข้ารหัส",
+    "yue-Hant": "個模型固定用 24 fps、短邊 768 px 嚟算。呢張卡上面其他設定，都係之後編碼嗰陣先套用。",
+    "en-SG": "The model always renders 24 fps at 768 px short edge. Everything else on this card is applied after, during encoding.",
 })
 add("compose.aspect", {
     "en": "Aspect ratio",
@@ -1124,6 +1299,8 @@ add("compose.aspect", {
     "ja": "アスペクト比",
     "ko": "화면 비율",
     "th": "อัตราส่วนภาพ",
+    "yue-Hant": "長寬比",
+    "en-SG": "Shape",
 })
 add("compose.aspect.help", {
     "en": "%1$@ — renders at %2$@",
@@ -1134,6 +1311,8 @@ add("compose.aspect.help", {
     "ja": "%1$@ — %2$@ でレンダリング",
     "ko": "%1$@ — %2$@ 로 렌더링",
     "th": "%1$@ — เรนเดอร์ที่ %2$@",
+    "yue-Hant": "%1$@ — 用 %2$@ 算",
+    "en-SG": "%1$@ — render at %2$@",
 })
 add("compose.aspect.accessibility", {
     "en": "%@ aspect ratio",
@@ -1144,6 +1323,8 @@ add("compose.aspect.accessibility", {
     "ja": "アスペクト比 %@",
     "ko": "%@ 화면 비율",
     "th": "อัตราส่วนภาพ %@",
+    "yue-Hant": "%@ 長寬比",
+    "en-SG": "%@ shape",
 })
 add("compose.aspect.pixels", {
     "en": "%1$@ by %2$@ pixels",
@@ -1154,6 +1335,8 @@ add("compose.aspect.pixels", {
     "ja": "%1$@ × %2$@ ピクセル",
     "ko": "%1$@ × %2$@ 픽셀",
     "th": "%1$@ × %2$@ พิกเซล",
+    "yue-Hant": "%1$@ 乘 %2$@ 像素",
+    "en-SG": "%1$@ by %2$@ pixels",
 })
 add("compose.resolution", {
     "en": "Resolution",
@@ -1164,6 +1347,8 @@ add("compose.resolution", {
     "ja": "解像度",
     "ko": "해상도",
     "th": "ความละเอียด",
+    "yue-Hant": "解析度",
+    "en-SG": "Resolution",
 }, note="Pixel dimensions of the output. Not resolution in the sense of resolving a "
         "dispute or a decision.")
 add("compose.framerate", {
@@ -1175,6 +1360,8 @@ add("compose.framerate", {
     "ja": "フレームレート",
     "ko": "프레임 레이트",
     "th": "อัตราเฟรม",
+    "yue-Hant": "影格率",
+    "en-SG": "Frame rate",
 })
 add("compose.codec", {
     "en": "Codec",
@@ -1185,6 +1372,8 @@ add("compose.codec", {
     "ja": "コーデック",
     "ko": "코덱",
     "th": "ตัวแปลงสัญญาณ",
+    "yue-Hant": "編碼格式",
+    "en-SG": "Codec",
 })
 add("compose.audio", {
     "en": "Audio",
@@ -1195,6 +1384,8 @@ add("compose.audio", {
     "ja": "オーディオ",
     "ko": "오디오",
     "th": "เสียง",
+    "yue-Hant": "音訊",
+    "en-SG": "Audio",
 }, note="Labels the switch for whether the render produces sound. A property of the "
         "output. Distinct from refs.kind.audio, which names a kind of file the user "
         "attaches.")
@@ -1210,6 +1401,8 @@ add("compose.audio.footnote", {
     "ja": "H3 は映像と同じパスで 32 kHz ステレオ音声を生成します。音声を切って速くするモードはありません。",
     "ko": "H3는 영상과 같은 패스에서 32 kHz 스테레오 오디오를 생성합니다. 소리를 끄고 더 빨리 렌더링하는 모드는 없습니다.",
     "th": "H3 สร้างเสียง stereo 32 kHz ไปพร้อมกับภาพในรอบเดียวกัน จึงไม่มีโหมดเงียบที่เรนเดอร์เร็วกว่า",
+    "yue-Hant": "H3 喺算畫面嘅同一次運算入面一齊出 32 kHz 立體聲；冇話靜音就算快啲嘅模式。",
+    "en-SG": "H3 makes 32 kHz stereo audio in the same pass as the picture. No silent mode that render faster one.",
 })
 
 # ── Sampling card ────────────────────────────────────────────────────────────
@@ -1222,6 +1415,8 @@ add("sampling.title", {
     "ja": "サンプリング",
     "ko": "샘플링",
     "th": "การสุ่มตัวอย่าง",
+    "yue-Hant": "取樣",
+    "en-SG": "Sampling",
 })
 add("sampling.duration", {
     "en": "Duration",
@@ -1232,6 +1427,8 @@ add("sampling.duration", {
     "ja": "長さ",
     "ko": "길이",
     "th": "ความยาว",
+    "yue-Hant": "長度",
+    "en-SG": "How Long",
 }, note="How long the finished clip will be, in the Sampling card. A length the user "
         "is choosing. Distinct from library.duration, which reports the length of a "
         "video already made.")
@@ -1244,6 +1441,8 @@ add("sampling.steps", {
     "ja": "ステップ数",
     "ko": "스텝 수",
     "th": "จำนวน step",
+    "yue-Hant": "步數",
+    "en-SG": "How Many Steps",
 }, note="Denoising steps — iterations of the sampler. Not stairs, and not steps in a "
         "set of instructions.")
 add("sampling.seed.fixed", {
@@ -1255,6 +1454,8 @@ add("sampling.seed.fixed", {
     "ja": "シード固定",
     "ko": "시드 고정",
     "th": "ล็อก seed",
+    "yue-Hant": "固定種子",
+    "en-SG": "Lock Seed",
 }, note="'Seed' is kept in English; the qualifier is translated.")
 add("sampling.seed.randomise", {
     "en": "Randomise",
@@ -1265,6 +1466,8 @@ add("sampling.seed.randomise", {
     "ja": "ランダム",
     "ko": "무작위",
     "th": "สุ่ม",
+    "yue-Hant": "隨機",
+    "en-SG": "Anyhow",
 })
 add("sampling.seed.note", {
     "en": "A fixed seed makes a render repeatable. Change any other setting and the result "
@@ -1278,6 +1481,8 @@ add("sampling.seed.note", {
     "ja": "シードを固定すると同じ結果を再現できます。ほかの設定を変えれば、いずれにせよ結果は変わります。",
     "ko": "시드를 고정하면 같은 결과를 다시 낼 수 있습니다. 다른 설정을 바꾸면 결과는 어차피 달라집니다.",
     "th": "การล็อก seed ทำให้เรนเดอร์ซ้ำได้ผลเดิม แต่ถ้าเปลี่ยนค่าอื่นผลลัพธ์ก็เปลี่ยนอยู่ดี",
+    "yue-Hant": "固定種子可以令同一次算圖重現。不過你改咗其他設定，個結果一樣會變。",
+    "en-SG": "Fixed seed lets you get the same render again. But change any other setting and the result still changes anyway.",
 })
 add("sampling.snapped.exact", {
     "en": "Renders %1$@ frames — exactly %2$@ s at 24 fps.",
@@ -1288,6 +1493,8 @@ add("sampling.snapped.exact", {
     "ja": "%1$@ フレームをレンダリング — 24 fps でちょうど %2$@ 秒です。",
     "ko": "%1$@ 프레임 렌더링 — 24 fps에서 정확히 %2$@ 초입니다.",
     "th": "เรนเดอร์ %1$@ เฟรม — เท่ากับ %2$@ วินาทีพอดีที่ 24 fps",
+    "yue-Hant": "算 %1$@ 格 — 24 fps 下啱啱好 %2$@ 秒。",
+    "en-SG": "Renders %1$@ frames — exactly %2$@ s at 24 fps.",
 })
 add("sampling.snapped.inexact", {
     "en": "Renders %1$@ frames — %2$@ s at 24 fps, the nearest length the video VAE can "
@@ -1301,6 +1508,8 @@ add("sampling.snapped.inexact", {
     "ja": "%1$@ フレームをレンダリング — 24 fps で %2$@ 秒。動画 VAE がエンコードできる最も近い長さです。",
     "ko": "%1$@ 프레임 렌더링 — 24 fps에서 %2$@ 초로, 비디오 VAE가 인코딩할 수 있는 가장 가까운 길이입니다.",
     "th": "เรนเดอร์ %1$@ เฟรม — %2$@ วินาทีที่ 24 fps ซึ่งเป็นความยาวใกล้ที่สุดที่ VAE ของวิดีโอเข้ารหัสได้",
+    "yue-Hant": "算 %1$@ 格 — 24 fps 下係 %2$@ 秒，係 video VAE 編碼得到最接近嘅長度。",
+    "en-SG": "Renders %1$@ frames — %2$@ s at 24 fps, the closest length the video VAE can encode.",
 })
 
 # ── Compose summary ──────────────────────────────────────────────────────────
@@ -1313,6 +1522,8 @@ add("summary.render", {
     "ja": "このレンダリング",
     "ko": "이번 렌더링",
     "th": "การเรนเดอร์นี้",
+    "yue-Hant": "今次算圖",
+    "en-SG": "This One",
 })
 add("summary.task", {
     "en": "Task",
@@ -1323,6 +1534,8 @@ add("summary.task", {
     "ja": "タスク",
     "ko": "작업",
     "th": "งาน",
+    "yue-Hant": "任務",
+    "en-SG": "Task",
 }, note="The particular job a checkpoint was trained for — first-frame continuation "
         "or reference conditioning. A machine-learning sense, not a to-do item or a "
         "queued job.")
@@ -1335,6 +1548,8 @@ add("summary.generates", {
     "ja": "生成",
     "ko": "생성",
     "th": "สร้างที่",
+    "yue-Hant": "生成解析度",
+    "en-SG": "Generates at",
 })
 add("summary.delivers", {
     "en": "Delivered at",
@@ -1345,6 +1560,8 @@ add("summary.delivers", {
     "ja": "書き出し",
     "ko": "출력",
     "th": "ส่งออกที่",
+    "yue-Hant": "輸出解析度",
+    "en-SG": "Delivered at",
 })
 add("summary.length", {
     "en": "Length",
@@ -1355,6 +1572,8 @@ add("summary.length", {
     "ja": "長さ",
     "ko": "길이",
     "th": "ความยาว",
+    "yue-Hant": "長度",
+    "en-SG": "Length",
 }, note="The duration of the clip in time. Not physical length, and not the length of "
         "a list. Compare sampling.duration.")
 add("summary.bitrate", {
@@ -1366,6 +1585,8 @@ add("summary.bitrate", {
     "ja": "目標ビットレート",
     "ko": "목표 비트레이트",
     "th": "Bitrate เป้าหมาย",
+    "yue-Hant": "目標位元率",
+    "en-SG": "Target bitrate",
 })
 add("summary.eta", {
     "en": "Estimated time",
@@ -1376,6 +1597,8 @@ add("summary.eta", {
     "ja": "予想時間",
     "ko": "예상 시간",
     "th": "เวลาโดยประมาณ",
+    "yue-Hant": "預估時間",
+    "en-SG": "Estimated time",
 })
 add("summary.eta.noModel", {
     "en": "Select a model",
@@ -1386,6 +1609,8 @@ add("summary.eta.noModel", {
     "ja": "モデルを選択してください",
     "ko": "모델을 선택하세요",
     "th": "เลือกโมเดล",
+    "yue-Hant": "揀個模型先",
+    "en-SG": "Choose model first lah",
 })
 add("summary.problems", {
     "en": "Before you generate",
@@ -1396,6 +1621,8 @@ add("summary.problems", {
     "ja": "生成する前に",
     "ko": "생성하기 전에",
     "th": "ก่อนเริ่มสร้าง",
+    "yue-Hant": "生成前睇下",
+    "en-SG": "Check First Leh",
 })
 add("summary.models", {
     "en": "Models",
@@ -1406,6 +1633,8 @@ add("summary.models", {
     "ja": "モデル",
     "ko": "모델",
     "th": "โมเดล",
+    "yue-Hant": "模型",
+    "en-SG": "Models",
 }, note="Heads the list of weights a render will load, in the Compose summary. Means "
         "these specific files, not the tab and not the folder.")
 add("summary.transformer", {
@@ -1417,6 +1646,8 @@ add("summary.transformer", {
     "ja": "トランスフォーマー",
     "ko": "트랜스포머",
     "th": "Transformer",
+    "yue-Hant": "Transformer",
+    "en-SG": "Transformer",
 }, note="Architecture name; left in English.")
 add("summary.textEncoder", {
     "en": "Text encoder",
@@ -1427,6 +1658,8 @@ add("summary.textEncoder", {
     "ja": "テキストエンコーダ",
     "ko": "텍스트 인코더",
     "th": "ตัวเข้ารหัสข้อความ",
+    "yue-Hant": "文字編碼器",
+    "en-SG": "Text encoder",
 }, note="Names the encoder chosen for this render, in the Compose summary. A "
         "particular file; role.textEncoder is the category.")
 add("summary.notSelected", {
@@ -1438,6 +1671,8 @@ add("summary.notSelected", {
     "ja": "未選択",
     "ko": "선택 안 됨",
     "th": "ยังไม่ได้เลือก",
+    "yue-Hant": "未揀",
+    "en-SG": "Never Choose",
 })
 add("summary.chooseInModels", {
     "en": "Choose in Models…",
@@ -1448,6 +1683,8 @@ add("summary.chooseInModels", {
     "ja": "「モデル」で選択…",
     "ko": "모델에서 선택…",
     "th": "เลือกในโมเดล…",
+    "yue-Hant": "喺「模型」度揀…",
+    "en-SG": "Go Models and choose…",
 })
 add("summary.engineNotReady", {
     "en": "Engine not ready",
@@ -1458,6 +1695,8 @@ add("summary.engineNotReady", {
     "ja": "エンジンが未準備",
     "ko": "엔진 준비 안 됨",
     "th": "Engine ยังไม่พร้อม",
+    "yue-Hant": "引擎未 ready",
+    "en-SG": "Engine not ready yet",
 })
 
 # ── Queue ────────────────────────────────────────────────────────────────────
@@ -1470,6 +1709,8 @@ add("queue.empty.title", {
     "ja": "キューは空です",
     "ko": "대기열이 비어 있음",
     "th": "ไม่มีรายการในคิว",
+    "yue-Hant": "佇列空空如也",
+    "en-SG": "Queue empty leh",
 })
 add("queue.empty.detail", {
     "en": "Renders you start from Compose appear here. They keep running while you work, "
@@ -1483,6 +1724,8 @@ add("queue.empty.detail", {
     "ja": "「作成」から始めたレンダリングがここに並びます。作業中も動き続け、アプリを終了しても残ります。",
     "ko": "작성 화면에서 시작한 렌더링이 여기 나타납니다. 다른 작업을 하는 동안에도 계속 돌아가며, 앱을 종료해도 남습니다.",
     "th": "การเรนเดอร์ที่เริ่มจากหน้าเรียบเรียงจะมาอยู่ที่นี่ ทำงานต่อไปขณะคุณใช้งานอย่างอื่น และยังอยู่แม้ปิดแอป",
+    "yue-Hant": "你喺「編寫」度開始嘅算圖會喺呢度出現。你做緊嘢佢照跑,收咗 App 都仲喺度。",
+    "en-SG": "Renders you start from New Video show up here. They keep running while you do other things, and they still there even after you quit the app.",
 })
 add("queue.goCompose", {
     "en": "Go to Compose",
@@ -1493,6 +1736,8 @@ add("queue.goCompose", {
     "ja": "「作成」へ",
     "ko": "작성으로 이동",
     "th": "ไปที่หน้าเรียบเรียง",
+    "yue-Hant": "去「編寫」",
+    "en-SG": "Go New Video",
 })
 add("queue.clearFinished", {
     "en": "Clear Finished",
@@ -1503,6 +1748,8 @@ add("queue.clearFinished", {
     "ja": "完了分を消去",
     "ko": "완료 항목 지우기",
     "th": "ล้างรายการที่เสร็จแล้ว",
+    "yue-Hant": "清走完成嘅",
+    "en-SG": "Clear Finish One",
 }, note="Removes finished jobs from the render queue. The English matches "
         "models.clearFinished exactly but the object differs — jobs, not downloads — "
         "and languages that inflect the verb for its object will need different "
@@ -1516,6 +1763,8 @@ add("queue.clearFinished.help", {
     "ja": "完了・失敗・キャンセルされたレンダリングをこの一覧から取り除きます",
     "ko": "완료, 실패, 취소된 렌더링을 이 목록에서 제거합니다",
     "th": "เอาการเรนเดอร์ที่เสร็จ ล้มเหลว และถูกยกเลิกออกจากรายการนี้",
+    "yue-Hant": "將完成、失敗同取消咗嘅算圖喺呢個清單度移走",
+    "en-SG": "Take the finished, failed and cancelled renders off this list",
 })
 add("queue.runtimeWarning", {
     "en": "The Python runtime is not ready, so queued renders cannot start.",
@@ -1527,6 +1776,8 @@ add("queue.runtimeWarning", {
     "ja": "Python 実行環境が準備できていないため、待機中のレンダリングを開始できません。",
     "ko": "Python 런타임이 준비되지 않아 대기 중인 렌더링을 시작할 수 없습니다.",
     "th": "Runtime Python ยังไม่พร้อม การเรนเดอร์ในคิวจึงเริ่มไม่ได้",
+    "yue-Hant": "Python 執行環境未 ready,所以排緊隊嘅算圖開唔到。",
+    "en-SG": "Python runtime not ready, so the renders waiting in queue cannot start.",
 })
 add("queue.openSettings", {
     "en": "Open Settings",
@@ -1537,6 +1788,8 @@ add("queue.openSettings", {
     "ja": "設定を開く",
     "ko": "설정 열기",
     "th": "เปิดการตั้งค่า",
+    "yue-Hant": "開設定",
+    "en-SG": "Open Settings",
 })
 add("queue.hold", {
     "en": "Hold",
@@ -1547,6 +1800,8 @@ add("queue.hold", {
     "ja": "保留",
     "ko": "보류",
     "th": "พักไว้",
+    "yue-Hant": "暫緩",
+    "en-SG": "Hold First",
 }, note="Imperative verb on a button: keep this job in the queue but do not start it. "
         "The opposite of queue.release. Not the noun \"a hold\", and not \"hold\" as in "
         "grip.")
@@ -1559,6 +1814,8 @@ add("queue.release", {
     "ja": "再開",
     "ko": "해제",
     "th": "ปล่อย",
+    "yue-Hant": "恢復",
+    "en-SG": "Let It Go",
 }, note="Imperative verb: let a held job run again. The opposite of queue.hold. NOT a "
         "software release or version — a common and damaging mistranslation.")
 add("queue.hold.help", {
@@ -1570,6 +1827,8 @@ add("queue.hold.help", {
     "ja": "このレンダリングの開始を止めておきます",
     "ko": "이 렌더링을 시작하지 않도록 붙잡아 둡니다",
     "th": "หน่วงการเรนเดอร์นี้ไว้ก่อน",
+    "yue-Hant": "暫緩呢次算圖",
+    "en-SG": "Hold this render back first",
 })
 add("queue.release.help", {
     "en": "Allow this render to start",
@@ -1580,6 +1839,8 @@ add("queue.release.help", {
     "ja": "このレンダリングの開始を許可します",
     "ko": "이 렌더링이 시작되도록 허용합니다",
     "th": "อนุญาตให้การเรนเดอร์นี้เริ่มได้",
+    "yue-Hant": "俾呢次算圖開始",
+    "en-SG": "Let this render start",
 })
 add("queue.moveToFront", {
     "en": "Move to Front",
@@ -1590,6 +1851,8 @@ add("queue.moveToFront", {
     "ja": "先頭へ移動",
     "ko": "맨 앞으로 이동",
     "th": "ย้ายไปต้นคิว",
+    "yue-Hant": "插隊到最前",
+    "en-SG": "Cut Queue to Front",
 })
 add("queue.stop", {
     "en": "Stop",
@@ -1600,6 +1863,8 @@ add("queue.stop", {
     "ja": "停止",
     "ko": "정지",
     "th": "หยุด",
+    "yue-Hant": "停止",
+    "en-SG": "Stop",
 }, note="Imperative verb: cancel the render that is running. Not \"pause\"; the work is "
         "discarded.")
 add("queue.stop.help", {
@@ -1612,6 +1877,8 @@ add("queue.stop.help", {
     "ja": "このレンダリングを停止します。途中経過は失われ、再開はできません。",
     "ko": "이 렌더링을 정지합니다. 진행분은 사라지며 이어서 할 수 없습니다.",
     "th": "หยุดการเรนเดอร์นี้ ความคืบหน้าจะหายไปและเริ่มต่อไม่ได้",
+    "yue-Hant": "停止呢次算圖。進度會冇咗,算圖係續唔到嘅。",
+    "en-SG": "Stop this render. Progress gone one — cannot continue after that.",
 })
 add("queue.renderAgain", {
     "en": "Render Again",
@@ -1622,6 +1889,8 @@ add("queue.renderAgain", {
     "ja": "もう一度レンダリング",
     "ko": "다시 렌더링",
     "th": "เรนเดอร์อีกครั้ง",
+    "yue-Hant": "再算一次",
+    "en-SG": "Render Again",
 })
 add("queue.renderAgain.help", {
     "en": "Queue this again with a new seed",
@@ -1632,6 +1901,8 @@ add("queue.renderAgain.help", {
     "ja": "新しいシードでもう一度キューに入れます",
     "ko": "새 시드로 다시 대기열에 넣습니다",
     "th": "เข้าคิวอีกครั้งด้วย seed ใหม่",
+    "yue-Hant": "換個新種子再排入佇列",
+    "en-SG": "Queue this again with a new seed",
 })
 add("queue.reproduce", {
     "en": "Reproduce Exactly",
@@ -1642,6 +1913,8 @@ add("queue.reproduce", {
     "ja": "まったく同じに再現",
     "ko": "똑같이 재현",
     "th": "ทำซ้ำให้เหมือนเดิม",
+    "yue-Hant": "一模一樣咁再算",
+    "en-SG": "Same Same Exactly",
 })
 add("queue.editCopy", {
     "en": "Edit a Copy",
@@ -1652,6 +1925,8 @@ add("queue.editCopy", {
     "ja": "複製して編集",
     "ko": "복사본 편집",
     "th": "แก้ไขสำเนา",
+    "yue-Hant": "改個副本",
+    "en-SG": "Edit a Copy",
 })
 add("queue.showLog", {
     "en": "Show Log",
@@ -1662,6 +1937,8 @@ add("queue.showLog", {
     "ja": "ログを表示",
     "ko": "로그 보기",
     "th": "ดูบันทึก",
+    "yue-Hant": "睇記錄",
+    "en-SG": "See Log",
 })
 add("queue.log.help", {
     "en": "Show this render's log",
@@ -1672,6 +1949,8 @@ add("queue.log.help", {
     "ja": "このレンダリングのログを表示します",
     "ko": "이 렌더링의 로그를 봅니다",
     "th": "ดูบันทึกของการเรนเดอร์นี้",
+    "yue-Hant": "睇呢次算圖嘅記錄",
+    "en-SG": "See this render's log",
 })
 add("queue.revealInFinder", {
     "en": "Reveal in Finder",
@@ -1682,6 +1961,8 @@ add("queue.revealInFinder", {
     "ja": "Finder に表示",
     "ko": "Finder에서 보기",
     "th": "แสดงใน Finder",
+    "yue-Hant": "喺 Finder 度顯示",
+    "en-SG": "Show in Finder",
 })
 add("queue.remove", {
     "en": "Remove from Queue",
@@ -1692,6 +1973,8 @@ add("queue.remove", {
     "ja": "キューから削除",
     "ko": "대기열에서 제거",
     "th": "เอาออกจากคิว",
+    "yue-Hant": "喺佇列度移走",
+    "en-SG": "Take Out From Queue",
 })
 add("queue.held", {
     "en": "Held — will not start until released",
@@ -1702,6 +1985,8 @@ add("queue.held", {
     "ja": "保留中 — 解除するまで開始しません",
     "ko": "보류됨 — 해제할 때까지 시작하지 않습니다",
     "th": "พักไว้ — จะยังไม่เริ่มจนกว่าจะปล่อย",
+    "yue-Hant": "暫緩咗 — 恢復先會開始",
+    "en-SG": "On hold — won't start until you release",
 })
 add("queue.nextUp", {
     "en": "Next up",
@@ -1712,6 +1997,8 @@ add("queue.nextUp", {
     "ja": "次はこれ",
     "ko": "다음 차례",
     "th": "ลำดับถัดไป",
+    "yue-Hant": "下一個",
+    "en-SG": "Next one",
 })
 add("queue.ahead", {
     "en": "Queued — %@ ahead",
@@ -1722,6 +2009,8 @@ add("queue.ahead", {
     "ja": "待機中 — 前に %@ 件",
     "ko": "대기 중 — 앞에 %@ 개",
     "th": "อยู่ในคิว — มีอีก %@ รายการก่อนหน้า",
+    "yue-Hant": "排緊隊 — 前面仲有 %@",
+    "en-SG": "Waiting — %@ in front",
 }, note={
     "content": "Takes a count of jobs waiting in front of this one. The count is 1 whenever a "
                "single job is ahead, which is the common case, so plural-sensitive languages "
@@ -1737,6 +2026,8 @@ add("queue.took", {
     "ja": "所要 %@",
     "ko": "%@ 걸림",
     "th": "ใช้เวลา %@",
+    "yue-Hant": "用咗 %@",
+    "en-SG": "Took %@",
 })
 add("queue.step", {
     "en": "step %1$@ of %2$@",
@@ -1747,6 +2038,8 @@ add("queue.step", {
     "ja": "ステップ %2$@ 中 %1$@",
     "ko": "%2$@ 스텝 중 %1$@",
     "th": "step ที่ %1$@ จาก %2$@",
+    "yue-Hant": "第 %1$@ 步，共 %2$@ 步",
+    "en-SG": "step %1$@ of %2$@",
 })
 add("queue.perStep", {
     "en": "%@/step",
@@ -1757,6 +2050,8 @@ add("queue.perStep", {
     "ja": "%@/ステップ",
     "ko": "%@/스텝",
     "th": "%@/ step",
+    "yue-Hant": "%@/步",
+    "en-SG": "%@/step",
 })
 add("queue.peak", {
     "en": "%@ peak",
@@ -1767,6 +2062,8 @@ add("queue.peak", {
     "ja": "ピーク %@",
     "ko": "최대 %@",
     "th": "สูงสุด %@",
+    "yue-Hant": "最高 %@",
+    "en-SG": "%@ highest",
 })
 add("queue.remaining", {
     "en": "%@ remaining",
@@ -1777,6 +2074,8 @@ add("queue.remaining", {
     "ja": "残り %@",
     "ko": "%@ 남음",
     "th": "เหลือ %@",
+    "yue-Hant": "仲爭 %@",
+    "en-SG": "%@ more",
 })
 add("queue.remainingUnknown", {
     "en": "remaining unknown until generation starts",
@@ -1787,6 +2086,8 @@ add("queue.remainingUnknown", {
     "ja": "生成が始まるまで残り時間は不明です",
     "ko": "생성이 시작되기 전까지는 남은 시간을 알 수 없습니다",
     "th": "ยังไม่ทราบเวลาที่เหลือจนกว่าการสร้างจะเริ่ม",
+    "yue-Hant": "未開始生成之前估唔到仲要幾耐",
+    "en-SG": "Cannot say how long more until it starts generating",
 })
 add("queue.log.title", {
     "en": "Render log",
@@ -1797,6 +2098,8 @@ add("queue.log.title", {
     "ja": "レンダリングログ",
     "ko": "렌더링 로그",
     "th": "บันทึกการเรนเดอร์",
+    "yue-Hant": "算圖記錄",
+    "en-SG": "Render log",
 })
 add("queue.log.copyAll", {
     "en": "Copy All",
@@ -1807,6 +2110,8 @@ add("queue.log.copyAll", {
     "ja": "すべてコピー",
     "ko": "전체 복사",
     "th": "คัดลอกทั้งหมด",
+    "yue-Hant": "全部拷貝",
+    "en-SG": "Copy All",
 })
 add("queue.log.empty.title", {
     "en": "No log yet",
@@ -1817,6 +2122,8 @@ add("queue.log.empty.title", {
     "ja": "ログはまだありません",
     "ko": "아직 로그가 없음",
     "th": "ยังไม่มีบันทึก",
+    "yue-Hant": "暫時未有記錄",
+    "en-SG": "No log yet",
 })
 add("queue.log.empty.detail", {
     "en": "Output appears here once this render starts. Logs are kept for the current "
@@ -1829,6 +2136,8 @@ add("queue.log.empty.detail", {
     "ja": "このレンダリングが始まると、ここに出力が表示されます。ログは今回のセッション中だけ保持されます。",
     "ko": "이 렌더링이 시작되면 출력이 여기에 표시됩니다. 로그는 현재 세션 동안만 보관됩니다.",
     "th": "ผลลัพธ์จะปรากฏที่นี่เมื่อการเรนเดอร์เริ่มขึ้น บันทึกจะเก็บไว้เฉพาะเซสชันนี้",
+    "yue-Hant": "呢次算圖開始咗就會喺呢度出輸出。記錄淨係留到今次開住嘅時間。",
+    "en-SG": "Output shows here once this render starts. Logs only kept for this session.",
 })
 
 # ── Library ──────────────────────────────────────────────────────────────────
@@ -1841,6 +2150,8 @@ add("library.empty.title", {
     "ja": "動画はまだありません",
     "ko": "아직 비디오가 없음",
     "th": "ยังไม่มีวิดีโอ",
+    "yue-Hant": "仲未有片",
+    "en-SG": "No video yet",
 })
 add("library.empty.detail", {
     "en": "Finished renders are saved to %@, each with a JSON file recording the exact "
@@ -1854,6 +2165,8 @@ add("library.empty.detail", {
     "ja": "完了したレンダリングは %@ に保存され、生成時の設定を記録した JSON ファイルが一緒に付きます。",
     "ko": "완료된 렌더링은 %@ 에 저장되며, 생성 당시 설정을 기록한 JSON 파일이 함께 붙습니다.",
     "th": "งานที่เรนเดอร์เสร็จจะถูกบันทึกไว้ที่ %@ พร้อมไฟล์ JSON ที่บันทึกการตั้งค่าที่ใช้สร้างไว้ด้วย",
+    "yue-Hant": "算好嘅片會存去 %@,每條都附個 JSON 檔,記低整佢出嚟嗰陣嘅完整設定。",
+    "en-SG": "Finished renders get saved into %@, each one with a JSON file recording the exact settings that made it.",
 })
 add("library.search", {
     "en": "Search prompts",
@@ -1864,6 +2177,8 @@ add("library.search", {
     "ja": "プロンプトを検索",
     "ko": "프롬프트 검색",
     "th": "ค้นหา prompt",
+    "yue-Hant": "搵提示詞",
+    "en-SG": "Search prompts",
 })
 add("library.revealFolder", {
     "en": "Reveal Folder",
@@ -1874,6 +2189,8 @@ add("library.revealFolder", {
     "ja": "フォルダを表示",
     "ko": "폴더 보기",
     "th": "แสดงโฟลเดอร์",
+    "yue-Hant": "顯示資料夾",
+    "en-SG": "Show Folder",
 })
 add("library.open", {
     "en": "Open",
@@ -1884,6 +2201,8 @@ add("library.open", {
     "ja": "開く",
     "ko": "열기",
     "th": "เปิด",
+    "yue-Hant": "打開",
+    "en-SG": "Open",
 }, note="Imperative verb: open the finished video in another app. Not the adjective.")
 add("library.useSettings", {
     "en": "Use These Settings",
@@ -1894,6 +2213,8 @@ add("library.useSettings", {
     "ja": "この設定を使う",
     "ko": "이 설정 사용",
     "th": "ใช้การตั้งค่านี้",
+    "yue-Hant": "沿用呢啲設定",
+    "en-SG": "Use These Settings",
 })
 add("library.moveToTrash", {
     "en": "Move to Trash",
@@ -1904,6 +2225,8 @@ add("library.moveToTrash", {
     "ja": "ゴミ箱に入れる",
     "ko": "휴지통으로 옮기기",
     "th": "ย้ายไปถังขยะ",
+    "yue-Hant": "掉入垃圾桶",
+    "en-SG": "Throw Into Trash",
 }, note="macOS calls it 垃圾桶 in TW, 废纸篓 in CN.")
 add("library.revealWav", {
     "en": "Reveal WAV",
@@ -1914,6 +2237,8 @@ add("library.revealWav", {
     "ja": "WAV を表示",
     "ko": "WAV 보기",
     "th": "แสดงไฟล์ WAV",
+    "yue-Hant": "顯示 WAV",
+    "en-SG": "Show WAV",
 })
 add("library.settings", {
     "en": "Settings",
@@ -1924,6 +2249,8 @@ add("library.settings", {
     "ja": "設定",
     "ko": "설정",
     "th": "การตั้งค่า",
+    "yue-Hant": "設定",
+    "en-SG": "Settings",
 })
 add("library.duration", {
     "en": "Duration",
@@ -1934,6 +2261,8 @@ add("library.duration", {
     "ja": "再生時間",
     "ko": "재생 시간",
     "th": "ความยาว",
+    "yue-Hant": "長度",
+    "en-SG": "How Long",
 }, note="A Library column giving the length of a finished video. Reports a fact; "
         "sampling.duration sets a target.")
 add("library.seed", {
@@ -1945,6 +2274,8 @@ add("library.seed", {
     "ja": "シード",
     "ko": "시드",
     "th": "Seed",
+    "yue-Hant": "種子",
+    "en-SG": "Seed",
 }, note="The random seed that determines a render's noise. A number, not a plant "
         "seed. Most languages keep the English term or transliterate it.")
 add("library.filesize", {
@@ -1956,6 +2287,8 @@ add("library.filesize", {
     "ja": "ファイルサイズ",
     "ko": "파일 크기",
     "th": "ขนาดไฟล์",
+    "yue-Hant": "檔案大細",
+    "en-SG": "File size",
 })
 add("library.renderTime", {
     "en": "Render time",
@@ -1966,6 +2299,8 @@ add("library.renderTime", {
     "ja": "レンダリング時間",
     "ko": "렌더링 시간",
     "th": "เวลาที่ใช้เรนเดอร์",
+    "yue-Hant": "算圖時間",
+    "en-SG": "Render time",
 })
 add("library.mode", {
     "en": "Mode",
@@ -1976,6 +2311,8 @@ add("library.mode", {
     "ja": "モード",
     "ko": "모드",
     "th": "โหมด",
+    "yue-Hant": "模式",
+    "en-SG": "Mode",
 }, note="A column in the Library listing which mode produced a finished video. "
         "Reporting a past fact, where compose.mode.title is a control. Some languages "
         "prefer different words for the two.")
@@ -1988,6 +2325,8 @@ add("library.missing", {
     "ja": "このファイルはディスク上にもうありません",
     "ko": "이 파일은 디스크에 더 이상 없습니다",
     "th": "ไม่มีไฟล์นี้อยู่บนดิสก์แล้ว",
+    "yue-Hant": "呢個檔案已經唔喺碟度",
+    "en-SG": "This file not on the disk anymore",
 })
 add("library.copySeed", {
     "en": "Copy %@",
@@ -1998,6 +2337,8 @@ add("library.copySeed", {
     "ja": "%@ をコピー",
     "ko": "%@ 복사",
     "th": "คัดลอก %@",
+    "yue-Hant": "拷貝%@",
+    "en-SG": "Copy %@",
 }, note={
     "content": "Injects a name into a sentence. Languages that inflect a noun for case, choose "
                "an article by gender, or attach a vowel-harmonising suffix cannot do it without "
@@ -2014,6 +2355,8 @@ add("library.copied", {
     "ja": "コピーしました",
     "ko": "복사됨",
     "th": "คัดลอกแล้ว",
+    "yue-Hant": "拷貝咗",
+    "en-SG": "Copied already",
 })
 add("library.seconds", {
     "en": "%@ seconds",
@@ -2024,6 +2367,8 @@ add("library.seconds", {
     "ja": "%@ 秒",
     "ko": "%@ 초",
     "th": "%@ วินาที",
+    "yue-Hant": "%@ 秒",
+    "en-SG": "%@ seconds",
 }, note={
     "content": "Takes a count. English offers only two forms and this string supplies one, so \"1 "
                "seconds\" is already wrong; Arabic needs six categories and settles for a single "
@@ -2042,6 +2387,8 @@ add("models.folder.title", {
     "ja": "共有モデルフォルダ",
     "ko": "공유 모델 폴더",
     "th": "โฟลเดอร์โมเดลที่ใช้ร่วมกัน",
+    "yue-Hant": "共用模型資料夾",
+    "en-SG": "Shared models folder",
 })
 add("models.folder.footnote", {
     "en": "Downloads go into the Hugging Face cache inside this folder. Any other project "
@@ -2056,6 +2403,8 @@ add("models.folder.footnote", {
     "ja": "ダウンロードはこのフォルダ内の Hugging Face キャッシュに入ります。同じフォルダを指す他のプロジェクトは、二重にダウンロードせずそれを再利用します。",
     "ko": "다운로드는 이 폴더 안의 Hugging Face 캐시에 들어갑니다. 같은 폴더를 가리키는 다른 프로젝트는 다시 내려받지 않고 그대로 씁니다.",
     "th": "ไฟล์ที่ดาวน์โหลดจะไปอยู่ใน cache Hugging Face ภายในโฟลเดอร์นี้ โปรเจกต์อื่นที่ชี้มาที่โฟลเดอร์เดียวกันจะใช้ซ้ำแทนการดาวน์โหลดอีกชุด",
+    "yue-Hant": "下載嘅嘢會入呢個資料夾裡面嘅 Hugging Face 快取。任何指住同一個資料夾嘅專案都會直接用返,唔使再下載多份。",
+    "en-SG": "Downloads go into the Hugging Face cache inside this folder. Any other project pointing at the same folder just uses them, no need to download a second copy.",
 })
 add("models.change", {
     "en": "Change…",
@@ -2066,6 +2415,8 @@ add("models.change", {
     "ja": "変更…",
     "ko": "변경…",
     "th": "เปลี่ยน…",
+    "yue-Hant": "改…",
+    "en-SG": "Change…",
 })
 add("models.installed", {
     "en": "Installed",
@@ -2076,6 +2427,8 @@ add("models.installed", {
     "ja": "インストール済み",
     "ko": "설치됨",
     "th": "ติดตั้งแล้ว",
+    "yue-Hant": "裝咗",
+    "en-SG": "Install already",
 })
 add("models.freeSpace", {
     "en": "Free space",
@@ -2086,6 +2439,8 @@ add("models.freeSpace", {
     "ja": "空き容量",
     "ko": "남은 공간",
     "th": "พื้นที่ว่าง",
+    "yue-Hant": "可用空間",
+    "en-SG": "Space left",
 })
 add("models.found", {
     "en": "Models found",
@@ -2096,6 +2451,8 @@ add("models.found", {
     "ja": "見つかったモデル",
     "ko": "찾은 모델",
     "th": "โมเดลที่พบ",
+    "yue-Hant": "搵到嘅模型",
+    "en-SG": "Models found",
 })
 add("models.spaceWarning", {
     "en": "The recommended set needs about %@, plus scratch space while rendering.",
@@ -2107,6 +2464,8 @@ add("models.spaceWarning", {
     "ja": "推奨セットには約 %@ に加えて、レンダリング中の作業用領域が必要です。",
     "ko": "권장 세트에는 약 %@ 에 더해 렌더링 중 임시 공간이 필요합니다.",
     "th": "ชุดที่แนะนำต้องใช้ราว %@ บวกกับพื้นที่ทำงานชั่วคราวขณะเรนเดอร์",
+    "yue-Hant": "建議嗰 set 大概要 %@，算圖嗰陣仲要額外暫存空間。",
+    "en-SG": "The recommended set needs about %@, plus working space while rendering.",
 })
 add("models.downloads", {
     "en": "Downloads",
@@ -2117,6 +2476,8 @@ add("models.downloads", {
     "ja": "ダウンロード",
     "ko": "다운로드",
     "th": "การดาวน์โหลด",
+    "yue-Hant": "下載",
+    "en-SG": "Downloads",
 })
 add("models.downloads.footnote", {
     "en": "This list covers the current session. A finished download stays here until "
@@ -2130,6 +2491,8 @@ add("models.downloads.footnote", {
     "ja": "この一覧は今回のセッション分です。完了したダウンロードは消去するまで残ります。実際に入っているものは下の各モデルの欄に表示されます。",
     "ko": "이 목록은 현재 세션의 것입니다. 완료된 다운로드는 지울 때까지 남아 있으며, 실제 설치 여부는 아래 각 모델 옆에 표시됩니다.",
     "th": "รายการนี้ครอบคลุมเฉพาะเซสชันปัจจุบัน รายการที่ดาวน์โหลดเสร็จจะอยู่จนกว่าจะล้าง ส่วนสิ่งที่ติดตั้งแล้วจะแสดงไว้ข้างโมเดลแต่ละตัวด้านล่าง",
+    "yue-Hant": "呢個清單淨係包今次開住嘅時間。下載完嘅會留喺度直到你清走;實際裝咗啲乜,喺下面每個模型旁邊睇。",
+    "en-SG": "This list only covers this session. A finished download stays here until you clear it. What is actually installed shows beside each model below.",
 })
 add("models.cancelAll", {
     "en": "Cancel All",
@@ -2140,6 +2503,8 @@ add("models.cancelAll", {
     "ja": "すべてキャンセル",
     "ko": "모두 취소",
     "th": "ยกเลิกทั้งหมด",
+    "yue-Hant": "全部取消",
+    "en-SG": "Cancel All",
 })
 add("models.clearFinished", {
     "en": "Clear Finished",
@@ -2150,6 +2515,8 @@ add("models.clearFinished", {
     "ja": "完了分を消去",
     "ko": "완료 항목 지우기",
     "th": "ล้างรายการที่เสร็จแล้ว",
+    "yue-Hant": "清走完成嘅",
+    "en-SG": "Clear Finish One",
 }, note="Removes completed downloads from the transfer list in Models. Same English "
         "as queue.clearFinished, different object — see it.")
 add("models.rescan", {
@@ -2161,6 +2528,8 @@ add("models.rescan", {
     "ja": "再スキャン",
     "ko": "다시 검사",
     "th": "สแกนใหม่",
+    "yue-Hant": "重新掃描",
+    "en-SG": "Scan Again",
 })
 add("models.rescan.help", {
     "en": "Re-read the shared models folder",
@@ -2171,6 +2540,8 @@ add("models.rescan.help", {
     "ja": "共有モデルフォルダを読み直します",
     "ko": "공유 모델 폴더를 다시 읽습니다",
     "th": "อ่านโฟลเดอร์โมเดลที่ใช้ร่วมกันอีกครั้ง",
+    "yue-Hant": "重新讀共用模型資料夾",
+    "en-SG": "Read the shared models folder again",
 })
 add("models.showIncompatible", {
     "en": "Show Incompatible",
@@ -2181,6 +2552,8 @@ add("models.showIncompatible", {
     "ja": "非対応も表示",
     "ko": "호환되지 않는 항목도 표시",
     "th": "แสดงตัวที่ใช้ไม่ได้",
+    "yue-Hant": "顯示唔啱嘅",
+    "en-SG": "Show Cannot Use One",
 })
 add("models.showIncompatible.help", {
     "en": "Include checkpoints in formats this Mac cannot run",
@@ -2191,6 +2564,8 @@ add("models.showIncompatible.help", {
     "ja": "この Mac で実行できない形式のチェックポイントも含めます",
     "ko": "이 Mac에서 실행할 수 없는 형식의 체크포인트도 포함합니다",
     "th": "รวม checkpoint ในรูปแบบที่ Mac เครื่องนี้รันไม่ได้ด้วย",
+    "yue-Hant": "連本機跑唔到嘅格式一齊顯示",
+    "en-SG": "Also show checkpoints in formats this Mac cannot run",
 })
 add("models.installRecommended", {
     "en": "Install Recommended",
@@ -2201,6 +2576,8 @@ add("models.installRecommended", {
     "ja": "推奨セットを導入",
     "ko": "권장 모델 설치",
     "th": "ติดตั้งชุดที่แนะนำ",
+    "yue-Hant": "裝建議嗰set",
+    "en-SG": "Install Recommended",
 })
 add("models.installRecommended.title", {
     "en": "Install the recommended models?",
@@ -2211,6 +2588,8 @@ add("models.installRecommended.title", {
     "ja": "推奨モデルをインストールしますか？",
     "ko": "권장 모델을 설치할까요?",
     "th": "ติดตั้งโมเดลที่แนะนำหรือไม่",
+    "yue-Hant": "要裝建議嘅模型？",
+    "en-SG": "Install the recommended models?",
 })
 add("models.willDownload", {
     "en": "Will download:",
@@ -2221,6 +2600,8 @@ add("models.willDownload", {
     "ja": "ダウンロードするもの：",
     "ko": "다운로드할 항목:",
     "th": "จะดาวน์โหลด:",
+    "yue-Hant": "將會下載：",
+    "en-SG": "Will download:",
 })
 add("models.alreadyInstalled", {
     "en": "Already installed, and skipped:",
@@ -2231,6 +2612,8 @@ add("models.alreadyInstalled", {
     "ja": "インストール済みのためスキップ：",
     "ko": "이미 설치되어 있어 건너뜀:",
     "th": "ติดตั้งอยู่แล้ว จึงข้ามไป:",
+    "yue-Hant": "已經裝咗，會略過：",
+    "en-SG": "Install already, so skip:",
 })
 add("models.savingTo", {
     "en": "Saving to %1$@, with %2$@ free.",
@@ -2241,6 +2624,8 @@ add("models.savingTo", {
     "ja": "%1$@ に保存します。空き %2$@。",
     "ko": "%1$@ 에 저장합니다. 남은 공간 %2$@.",
     "th": "บันทึกไปที่ %1$@ เหลือพื้นที่ว่าง %2$@",
+    "yue-Hant": "存去 %1$@，可用空間 %2$@。",
+    "en-SG": "Saving into %1$@, %2$@ space left.",
 })
 add("models.downloadAmount", {
     "en": "Download %@",
@@ -2251,6 +2636,8 @@ add("models.downloadAmount", {
     "ja": "%@ をダウンロード",
     "ko": "%@ 다운로드",
     "th": "ดาวน์โหลด %@",
+    "yue-Hant": "下載 %@",
+    "en-SG": "Download %@",
 })
 add("models.other.title", {
     "en": "Other models in this folder",
@@ -2261,6 +2648,8 @@ add("models.other.title", {
     "ja": "このフォルダ内の他のモデル",
     "ko": "이 폴더의 다른 모델",
     "th": "โมเดลอื่นในโฟลเดอร์นี้",
+    "yue-Hant": "呢個資料夾入面其他模型",
+    "en-SG": "Other models inside this folder",
 })
 add("models.other.footnote", {
     "en": "These belong to other projects. This app leaves them alone.",
@@ -2271,6 +2660,8 @@ add("models.other.footnote", {
     "ja": "これらは他のプロジェクトのものです。このアプリは手を触れません。",
     "ko": "이것들은 다른 프로젝트의 파일입니다. 이 앱은 건드리지 않습니다.",
     "th": "ไฟล์เหล่านี้เป็นของโปรเจกต์อื่น แอปนี้จะไม่ไปยุ่งด้วย",
+    "yue-Hant": "呢啲係其他專案嘅,呢個 App 唔會郁佢哋。",
+    "en-SG": "These belong to other projects. This app never touch them.",
 })
 add("models.inUse", {
     "en": "In use",
@@ -2281,6 +2672,8 @@ add("models.inUse", {
     "ja": "使用中",
     "ko": "사용 중",
     "th": "กำลังใช้",
+    "yue-Hant": "用緊",
+    "en-SG": "Using now",
 })
 add("models.notRunnable", {
     "en": "Not runnable here",
@@ -2291,6 +2684,8 @@ add("models.notRunnable", {
     "ja": "ここでは実行できません",
     "ko": "여기서는 실행할 수 없음",
     "th": "รันที่นี่ไม่ได้",
+    "yue-Hant": "呢部機跑唔到",
+    "en-SG": "This Mac cannot run",
 })
 add("models.use", {
     "en": "Use",
@@ -2301,6 +2696,8 @@ add("models.use", {
     "ja": "使用",
     "ko": "사용",
     "th": "ใช้",
+    "yue-Hant": "用呢個",
+    "en-SG": "Use This",
 }, note="Imperative verb on a button — select these weights for the next render. Not "
         "the noun \"usage\".")
 add("models.selected", {
@@ -2312,6 +2709,8 @@ add("models.selected", {
     "ja": "選択済み",
     "ko": "선택됨",
     "th": "เลือกแล้ว",
+    "yue-Hant": "揀咗",
+    "en-SG": "Chosen",
 }, note="Adjective describing a model the user has picked for a render. Not a verb, "
         "and not a count.")
 add("models.use.help.download", {
@@ -2323,6 +2722,8 @@ add("models.use.help.download", {
     "ja": "先にダウンロードしてください",
     "ko": "먼저 다운로드하세요",
     "th": "ดาวน์โหลดก่อน",
+    "yue-Hant": "下載咗先",
+    "en-SG": "Download first lah",
 })
 add("models.use.help.inUse", {
     "en": "Already in use for the current render",
@@ -2333,6 +2734,8 @@ add("models.use.help.inUse", {
     "ja": "現在のレンダリングで既に使用中です",
     "ko": "현재 렌더링에서 이미 쓰고 있습니다",
     "th": "ใช้กับการเรนเดอร์ปัจจุบันอยู่แล้ว",
+    "yue-Hant": "今次算圖已經用緊",
+    "en-SG": "Already using for this render",
 })
 add("models.use.help.select", {
     "en": "Use this for the current render",
@@ -2343,6 +2746,8 @@ add("models.use.help.select", {
     "ja": "これを現在のレンダリングに使います",
     "ko": "이것을 현재 렌더링에 사용합니다",
     "th": "ใช้ตัวนี้กับการเรนเดอร์ปัจจุบัน",
+    "yue-Hant": "用嚟做今次算圖",
+    "en-SG": "Use this one for this render",
 })
 add("models.delete.title", {
     "en": "Delete %@?",
@@ -2353,6 +2758,8 @@ add("models.delete.title", {
     "ja": "%@ を削除しますか？",
     "ko": "%@ 을(를) 삭제할까요?",
     "th": "ลบ %@ หรือไม่",
+    "yue-Hant": "刪除%@？",
+    "en-SG": "Throw away %@?",
 }, note={
     "content": "Injects a name into a sentence. Languages that inflect a noun for case, choose "
                "an article by gender, or attach a vowel-harmonising suffix cannot do it without "
@@ -2376,6 +2783,8 @@ add("models.delete.message", {
     "ja": "共有モデルフォルダから約 %1$@ を解放します。このフォルダはこの Mac の他のプロジェクトも使っている可能性があり、%2$@ に依存しているものは再ダウンロードが必要になります。ファイルはゴミ箱に入るので、空にするまでは取り消せます。",
     "ko": "공유 모델 폴더에서 약 %1$@ 을(를) 확보합니다. 이 Mac의 다른 프로젝트도 이 폴더를 쓸 수 있으며, %2$@ 에 의존하는 것은 다시 내려받아야 합니다. 파일은 휴지통으로 가므로 비우기 전까지는 되돌릴 수 있습니다.",
     "th": "คืนพื้นที่ราว %1$@ จากโฟลเดอร์โมเดลที่ใช้ร่วมกัน ซึ่งโปรเจกต์อื่นบน Mac เครื่องนี้อาจใช้อยู่ด้วย สิ่งที่พึ่งพา %2$@ จะต้องดาวน์โหลดใหม่ ไฟล์จะไปอยู่ในถังขยะ จึงกู้คืนได้จนกว่าจะล้างถังขยะ",
+    "yue-Hant": "可以喺共用模型資料夾度騰返大概 %1$@ 空間;本機其他專案可能都用緊,任何靠 %2$@ 嘅嘢都要再下載過。啲檔案會入垃圾桶,未清空之前都仲可以還原。",
+    "en-SG": "Frees about %1$@ from the shared models folder, which other projects on this Mac may also be using — anything that depends on %2$@ must download again. The files go into the Trash, so can still undo until you empty it.",
 })
 add("models.delete.help.running", {
     "en": "Not while a render is running",
@@ -2386,6 +2795,8 @@ add("models.delete.help.running", {
     "ja": "レンダリング中はできません",
     "ko": "렌더링이 실행 중일 때는 할 수 없습니다",
     "th": "ทำไม่ได้ขณะกำลังเรนเดอร์",
+    "yue-Hant": "算緊圖唔得",
+    "en-SG": "Cannot, render is running",
 })
 add("models.delete.help.inUse", {
     "en": "In use for the current render — choose another first",
@@ -2396,6 +2807,8 @@ add("models.delete.help.inUse", {
     "ja": "現在のレンダリングで使用中です。先に別のものを選んでください",
     "ko": "현재 렌더링에서 쓰는 중입니다. 먼저 다른 것을 고르세요",
     "th": "กำลังใช้กับการเรนเดอร์ปัจจุบัน เลือกตัวอื่นก่อน",
+    "yue-Hant": "今次算圖用緊 — 揀過第二個先",
+    "en-SG": "This render is using it — choose another one first",
 })
 add("models.delete.help.ok", {
     "en": "Move this model to the Trash",
@@ -2406,6 +2819,8 @@ add("models.delete.help.ok", {
     "ja": "このモデルをゴミ箱に移動します",
     "ko": "이 모델을 휴지통으로 옮깁니다",
     "th": "ย้ายโมเดลนี้ไปถังขยะ",
+    "yue-Hant": "將呢個模型掉入垃圾桶",
+    "en-SG": "Throw this model into the Trash",
 })
 add("models.delete.freed", {
     "en": "Moved %@ to the Trash.",
@@ -2416,6 +2831,8 @@ add("models.delete.freed", {
     "ja": "%@ をゴミ箱に移動しました。",
     "ko": "%@ 을(를) 휴지통으로 옮겼습니다.",
     "th": "ย้าย %@ ไปที่ถังขยะแล้ว",
+    "yue-Hant": "已經將 %@ 掉咗入垃圾桶。",
+    "en-SG": "Threw %@ into the Trash already.",
 })
 add("models.inMemory", {
     "en": "%@ in memory",
@@ -2426,6 +2843,8 @@ add("models.inMemory", {
     "ja": "メモリ上 %@",
     "ko": "메모리 %@",
     "th": "ในหน่วยความจำ %@",
+    "yue-Hant": "記憶體 %@",
+    "en-SG": "%@ in memory",
 })
 add("models.downloaded", {
     "en": "Downloaded",
@@ -2436,6 +2855,8 @@ add("models.downloaded", {
     "ja": "ダウンロード済み",
     "ko": "다운로드됨",
     "th": "ดาวน์โหลดแล้ว",
+    "yue-Hant": "下載咗",
+    "en-SG": "Download already",
 })
 add("models.downloadFailed", {
     "en": "Download failed",
@@ -2446,6 +2867,8 @@ add("models.downloadFailed", {
     "ja": "ダウンロードに失敗",
     "ko": "다운로드 실패",
     "th": "ดาวน์โหลดล้มเหลว",
+    "yue-Hant": "下載失敗",
+    "en-SG": "Download fail",
 })
 add("models.cancelDownload", {
     "en": "Cancel download of %@",
@@ -2456,6 +2879,8 @@ add("models.cancelDownload", {
     "ja": "%@ のダウンロードをキャンセル",
     "ko": "%@ 다운로드 취소",
     "th": "ยกเลิกการดาวน์โหลด %@",
+    "yue-Hant": "取消下載 %@",
+    "en-SG": "Cancel download of %@",
 }, note={
     "content": "Injects a name into a sentence. Languages that inflect a noun for case, choose "
                "an article by gender, or attach a vowel-harmonising suffix cannot do it without "
@@ -2472,6 +2897,8 @@ add("models.progress", {
     "ja": "ダウンロードの進捗",
     "ko": "다운로드 진행률",
     "th": "ความคืบหน้าการดาวน์โหลด",
+    "yue-Hant": "下載進度",
+    "en-SG": "Download progress",
 })
 add("models.notInstalled", {
     "en": "Not installed",
@@ -2482,6 +2909,8 @@ add("models.notInstalled", {
     "ja": "未インストール",
     "ko": "설치되지 않음",
     "th": "ยังไม่ได้ติดตั้ง",
+    "yue-Hant": "未裝",
+    "en-SG": "Never install",
 })
 
 # ── Model roles and provenance ───────────────────────────────────────────────
@@ -2494,6 +2923,8 @@ add("role.transformer", {
     "ja": "拡散トランスフォーマー",
     "ko": "디퓨전 트랜스포머",
     "th": "Diffusion transformer",
+    "yue-Hant": "擴散 Transformer",
+    "en-SG": "Diffusion transformer",
 })
 add("role.textEncoder", {
     "en": "Text encoder",
@@ -2504,6 +2935,8 @@ add("role.textEncoder", {
     "ja": "テキストエンコーダ",
     "ko": "텍스트 인코더",
     "th": "ตัวเข้ารหัสข้อความ",
+    "yue-Hant": "文字編碼器",
+    "en-SG": "Text encoder",
 }, note="Names the text-encoder role in the model catalogue — a kind of model file. "
         "Distinct from summary.textEncoder, which names the specific encoder a render "
         "will use.")
@@ -2516,6 +2949,8 @@ add("role.support", {
     "ja": "VAE とプロセッサ",
     "ko": "VAE 및 프로세서",
     "th": "VAE และตัวประมวลผล",
+    "yue-Hant": "VAE 同前處理器",
+    "en-SG": "VAEs & processors",
 })
 add("role.accelerator", {
     "en": "Acceleration LoRAs",
@@ -2526,6 +2961,8 @@ add("role.accelerator", {
     "ja": "高速化 LoRA",
     "ko": "가속 LoRA",
     "th": "LoRA เร่งความเร็ว",
+    "yue-Hant": "加速 LoRA",
+    "en-SG": "Acceleration LoRAs",
 })
 add("provenance.official", {
     "en": "Official",
@@ -2536,6 +2973,8 @@ add("provenance.official", {
     "ja": "公式",
     "ko": "공식",
     "th": "ทางการ",
+    "yue-Hant": "官方",
+    "en-SG": "Official",
 }, note="Marks a model published by the original authors, as opposed to "
         "provenance.community. About who released the weights, not about approval or "
         "certification.")
@@ -2548,6 +2987,8 @@ add("provenance.port", {
     "ja": "MLX 移植版",
     "ko": "MLX 이식판",
     "th": "พอร์ต MLX",
+    "yue-Hant": "MLX 移植",
+    "en-SG": "MLX port",
 })
 add("provenance.community", {
     "en": "Community",
@@ -2558,6 +2999,8 @@ add("provenance.community", {
     "ja": "コミュニティ",
     "ko": "커뮤니티",
     "th": "ชุมชน",
+    "yue-Hant": "社群",
+    "en-SG": "Community",
 }, note="Marks a model published by someone other than the original authors — a "
         "conversion or a fine-tune. Neutral: it describes origin, not quality. See "
         "provenance.official.")
@@ -2570,6 +3013,8 @@ add("task.fl2va", {
     "ja": "FL2VA — テキストとキーフレーム",
     "ko": "FL2VA — 텍스트와 키프레임",
     "th": "FL2VA — ข้อความและ keyframe",
+    "yue-Hant": "FL2VA — 文字同關鍵格",
+    "en-SG": "FL2VA — text & keyframes",
 })
 add("task.ref2va", {
     "en": "Ref2VA — references",
@@ -2580,6 +3025,8 @@ add("task.ref2va", {
     "ja": "Ref2VA — 参考素材",
     "ko": "Ref2VA — 참조 자료",
     "th": "Ref2VA — ไฟล์อ้างอิง",
+    "yue-Hant": "Ref2VA — 參考素材",
+    "en-SG": "Ref2VA — references",
 })
 
 # ── Onboarding ───────────────────────────────────────────────────────────────
@@ -2592,6 +3039,8 @@ add("onboarding.skip", {
     "ja": "セットアップをスキップ",
     "ko": "설치 건너뛰기",
     "th": "ข้ามการตั้งค่า",
+    "yue-Hant": "略過設定",
+    "en-SG": "Skip setup",
 })
 add("onboarding.back", {
     "en": "Back",
@@ -2602,6 +3051,8 @@ add("onboarding.back", {
     "ja": "戻る",
     "ko": "뒤로",
     "th": "ย้อนกลับ",
+    "yue-Hant": "上一步",
+    "en-SG": "Go Back",
 }, note="Navigates to the previous onboarding step. The direction, not the body part "
         "— and specifically \"previous\", which some languages word differently from "
         "\"backwards\".")
@@ -2614,6 +3065,8 @@ add("onboarding.continue", {
     "ja": "続ける",
     "ko": "계속",
     "th": "ดำเนินการต่อ",
+    "yue-Hant": "繼續",
+    "en-SG": "Continue",
 })
 add("onboarding.welcome.title", {
     "en": "Generate video on this Mac",
@@ -2624,6 +3077,8 @@ add("onboarding.welcome.title", {
     "ja": "この Mac で動画を生成",
     "ko": "이 Mac에서 비디오 생성",
     "th": "สร้างวิดีโอบน Mac เครื่องนี้",
+    "yue-Hant": "喺呢部 Mac 度生成影片",
+    "en-SG": "Make video on this Mac",
 })
 add("onboarding.licence.title", {
     "en": "Model licence",
@@ -2634,6 +3089,8 @@ add("onboarding.licence.title", {
     "ja": "モデルのライセンス",
     "ko": "모델 라이선스",
     "th": "สัญญาอนุญาตของโมเดล",
+    "yue-Hant": "模型授權",
+    "en-SG": "Model licence",
 })
 add("onboarding.runtime.title", {
     "en": "Python runtime",
@@ -2644,6 +3101,8 @@ add("onboarding.runtime.title", {
     "ja": "Python 実行環境",
     "ko": "Python 런타임",
     "th": "Runtime Python",
+    "yue-Hant": "Python 執行環境",
+    "en-SG": "Python runtime",
 })
 add("onboarding.models.title", {
     "en": "Model weights",
@@ -2654,6 +3113,8 @@ add("onboarding.models.title", {
     "ja": "モデルの重み",
     "ko": "모델 가중치",
     "th": "ไฟล์น้ำหนักโมเดล",
+    "yue-Hant": "模型權重",
+    "en-SG": "Model weights",
 })
 add("onboarding.installRuntime", {
     "en": "Install Runtime",
@@ -2664,6 +3125,8 @@ add("onboarding.installRuntime", {
     "ja": "実行環境をインストール",
     "ko": "런타임 설치",
     "th": "ติดตั้ง runtime",
+    "yue-Hant": "裝執行環境",
+    "en-SG": "Install Runtime",
 })
 add("onboarding.installing", {
     "en": "Installing…",
@@ -2674,6 +3137,8 @@ add("onboarding.installing", {
     "ja": "インストール中…",
     "ko": "설치 중…",
     "th": "กำลังติดตั้ง…",
+    "yue-Hant": "裝緊…",
+    "en-SG": "Installing…",
 })
 add("onboarding.startDownload", {
     "en": "Start Download",
@@ -2684,6 +3149,8 @@ add("onboarding.startDownload", {
     "ja": "ダウンロードを開始",
     "ko": "다운로드 시작",
     "th": "เริ่มดาวน์โหลด",
+    "yue-Hant": "開始下載",
+    "en-SG": "Start Download",
 })
 add("onboarding.slowTitle", {
     "en": "Renders take hours, not seconds",
@@ -2694,6 +3161,8 @@ add("onboarding.slowTitle", {
     "ja": "レンダリングは秒ではなく時間の単位です",
     "ko": "렌더링은 초가 아니라 시간 단위입니다",
     "th": "การเรนเดอร์ใช้เวลาเป็นชั่วโมง ไม่ใช่วินาที",
+    "yue-Hant": "算一條片要幾個鐘，唔係幾秒",
+    "en-SG": "Render takes hours, not seconds one",
 })
 add("onboarding.diskTitle", {
     "en": "Setup is a large download",
@@ -2704,6 +3173,8 @@ add("onboarding.diskTitle", {
     "ja": "セットアップは大きなダウンロードです",
     "ko": "설치에는 큰 다운로드가 필요합니다",
     "th": "การตั้งค่าต้องดาวน์โหลดขนาดใหญ่",
+    "yue-Hant": "初次設定要下載好多嘢",
+    "en-SG": "Setup got a lot to download",
 })
 add("onboarding.licence.acknowledge", {
     "en": "I have read the licence and I am entitled to use these weights where I am",
@@ -2714,6 +3185,8 @@ add("onboarding.licence.acknowledge", {
     "ja": "ライセンスを読み、自分のいる地域でこの重みを使う資格があることを確認しました",
     "ko": "라이선스를 읽었으며, 내가 있는 지역에서 이 가중치를 쓸 자격이 있음을 확인합니다",
     "th": "ข้าพเจ้าได้อ่านสัญญาอนุญาตแล้ว และมีสิทธิ์ใช้ไฟล์น้ำหนักเหล่านี้ในพื้นที่ที่ข้าพเจ้าอยู่",
+    "yue-Hant": "我睇咗授權條款，亦確認喺我所在地有權用呢啲權重",
+    "en-SG": "I read the licence already, and I am allowed to use these weights where I am",
 })
 add("onboarding.licence.readFull", {
     "en": "Read the full licence on Hugging Face",
@@ -2724,6 +3197,8 @@ add("onboarding.licence.readFull", {
     "ja": "Hugging Face で全文を読む",
     "ko": "Hugging Face에서 전문 읽기",
     "th": "อ่านสัญญาอนุญาตฉบับเต็มบน Hugging Face",
+    "yue-Hant": "喺 Hugging Face 睇完整授權",
+    "en-SG": "Read the full licence on Hugging Face",
 })
 add("onboarding.total", {
     "en": "Total",
@@ -2734,6 +3209,8 @@ add("onboarding.total", {
     "ja": "合計",
     "ko": "합계",
     "th": "รวม",
+    "yue-Hant": "總共",
+    "en-SG": "Total",
 }, note="The combined download size of the recommended model set. A sum of bytes, not "
         "a count of files.")
 add("onboarding.freeOnDisk", {
@@ -2745,6 +3222,8 @@ add("onboarding.freeOnDisk", {
     "ja": "ディスクの空き",
     "ko": "디스크 여유 공간",
     "th": "พื้นที่ว่างบนดิสก์",
+    "yue-Hant": "磁碟可用空間",
+    "en-SG": "Space left on disk",
 })
 add("onboarding.savingTo", {
     "en": "Saving to %@",
@@ -2755,6 +3234,8 @@ add("onboarding.savingTo", {
     "ja": "%@ に保存",
     "ko": "%@ 에 저장",
     "th": "บันทึกไปที่ %@",
+    "yue-Hant": "存去 %@",
+    "en-SG": "Saving into %@",
 })
 
 # ── Sidebar / window chrome ──────────────────────────────────────────────────
@@ -2767,6 +3248,8 @@ add("sidebar.show", {
     "ja": "サイドバーを表示",
     "ko": "사이드바 보기",
     "th": "แสดงแถบด้านข้าง",
+    "yue-Hant": "顯示側邊欄",
+    "en-SG": "Show Sidebar",
 })
 add("sidebar.hide", {
     "en": "Hide Sidebar",
@@ -2777,6 +3260,8 @@ add("sidebar.hide", {
     "ja": "サイドバーを隠す",
     "ko": "사이드바 가리기",
     "th": "ซ่อนแถบด้านข้าง",
+    "yue-Hant": "收埋側邊欄",
+    "en-SG": "Hide Sidebar",
 })
 add("menu.newRender", {
     "en": "New Render",
@@ -2787,6 +3272,8 @@ add("menu.newRender", {
     "ja": "新規レンダリング",
     "ko": "새 렌더링",
     "th": "เรนเดอร์ใหม่",
+    "yue-Hant": "新算一條",
+    "en-SG": "New Video",
 })
 add("menu.rescanModels", {
     "en": "Rescan Models Folder",
@@ -2797,6 +3284,8 @@ add("menu.rescanModels", {
     "ja": "モデルフォルダを再スキャン",
     "ko": "모델 폴더 다시 검사",
     "th": "สแกนโฟลเดอร์โมเดลอีกครั้ง",
+    "yue-Hant": "重新掃描模型資料夾",
+    "en-SG": "Scan Models Folder Again",
 })
 add("menu.revealModels", {
     "en": "Reveal Models Folder in Finder",
@@ -2807,6 +3296,8 @@ add("menu.revealModels", {
     "ja": "モデルフォルダを Finder に表示",
     "ko": "Finder에서 모델 폴더 보기",
     "th": "แสดงโฟลเดอร์โมเดลใน Finder",
+    "yue-Hant": "喺 Finder 度顯示模型資料夾",
+    "en-SG": "Show Models Folder in Finder",
 })
 add("menu.licenses", {
     "en": "Licenses",
@@ -2817,6 +3308,8 @@ add("menu.licenses", {
     "ja": "ライセンス",
     "ko": "라이선스",
     "th": "สัญญาอนุญาต",
+    "yue-Hant": "授權",
+    "en-SG": "Licences",
 }, note="Help menu item opening the licence window. The window's own text is English "
         "only — see LicensesView.")
 
@@ -2830,6 +3323,8 @@ add("refs.title.keyframes", {
     "ja": "キーフレーム",
     "ko": "키프레임",
     "th": "Keyframe",
+    "yue-Hant": "關鍵格",
+    "en-SG": "Keyframes",
 })
 add("refs.title.references", {
     "en": "References",
@@ -2840,6 +3335,8 @@ add("refs.title.references", {
     "ja": "参考素材",
     "ko": "참조 자료",
     "th": "ไฟล์อ้างอิง",
+    "yue-Hant": "參考素材",
+    "en-SG": "References",
 }, note="Heads the card listing the reference files the user has attached. The files, "
         "not the mode — see mode.reference.")
 add("refs.addFiles", {
@@ -2851,6 +3348,8 @@ add("refs.addFiles", {
     "ja": "ファイルを追加…",
     "ko": "파일 추가…",
     "th": "เพิ่มไฟล์…",
+    "yue-Hant": "加檔案…",
+    "en-SG": "Add Files…",
 })
 add("refs.removeAll", {
     "en": "Remove All",
@@ -2861,6 +3360,8 @@ add("refs.removeAll", {
     "ja": "すべて削除",
     "ko": "모두 제거",
     "th": "เอาออกทั้งหมด",
+    "yue-Hant": "全部移除",
+    "en-SG": "Take Out All",
 })
 add("refs.drop", {
     "en": "Drop files here",
@@ -2871,6 +3372,8 @@ add("refs.drop", {
     "ja": "ここにファイルをドロップ",
     "ko": "여기에 파일을 놓으세요",
     "th": "วางไฟล์ที่นี่",
+    "yue-Hant": "將檔案拖到呢度",
+    "en-SG": "Drop files here",
 })
 add("refs.insertTag", {
     "en": "Insert Tag",
@@ -2881,6 +3384,8 @@ add("refs.insertTag", {
     "ja": "タグを挿入",
     "ko": "태그 삽입",
     "th": "แทรกแท็ก",
+    "yue-Hant": "插入標記",
+    "en-SG": "Put In Tag",
 })
 add("refs.insertTags", {
     "en": "Insert Tags",
@@ -2891,6 +3396,8 @@ add("refs.insertTags", {
     "ja": "タグを挿入",
     "ko": "태그 삽입",
     "th": "แทรกแท็ก",
+    "yue-Hant": "插入標記",
+    "en-SG": "Put In Tags",
 })
 add("refs.insertTags.help", {
     "en": "Append %@ to the prompt",
@@ -2901,6 +3408,8 @@ add("refs.insertTags.help", {
     "ja": "プロンプトに %@ を追記します",
     "ko": "프롬프트에 %@ 을(를) 덧붙입니다",
     "th": "เพิ่ม %@ ต่อท้าย prompt",
+    "yue-Hant": "將 %@ 加落提示詞後面",
+    "en-SG": "Add %@ behind the prompt",
 })
 add("refs.remove", {
     "en": "Remove %@",
@@ -2911,6 +3420,8 @@ add("refs.remove", {
     "ja": "%@ を削除",
     "ko": "%@ 제거",
     "th": "เอา %@ ออก",
+    "yue-Hant": "移除 %@",
+    "en-SG": "Take out %@",
 }, note={
     "content": "Injects a name into a sentence. Languages that inflect a noun for case, choose "
                "an article by gender, or attach a vowel-harmonising suffix cannot do it without "
@@ -2927,6 +3438,8 @@ add("refs.choose.image", {
     "ja": "キーフレーム画像を選択",
     "ko": "키프레임 이미지 선택",
     "th": "เลือกภาพ keyframe",
+    "yue-Hant": "揀張關鍵格圖",
+    "en-SG": "Choose a keyframe image",
 })
 add("refs.choose.any", {
     "en": "Choose reference images, videos or audio",
@@ -2937,6 +3450,8 @@ add("refs.choose.any", {
     "ja": "参考用の画像・動画・音声を選択",
     "ko": "참조용 이미지, 비디오 또는 오디오 선택",
     "th": "เลือกภาพ วิดีโอ หรือเสียงสำหรับอ้างอิง",
+    "yue-Hant": "揀參考圖片、影片或者音訊",
+    "en-SG": "Choose reference images, videos or audio",
 })
 add("refs.slot.first", {
     "en": "First frame",
@@ -2947,6 +3462,8 @@ add("refs.slot.first", {
     "ja": "先頭フレーム",
     "ko": "첫 프레임",
     "th": "เฟรมแรก",
+    "yue-Hant": "首格",
+    "en-SG": "First frame",
 }, note="Labels the drop target for the first-frame image. A place to put a file, "
         "where mode.first is a mode — see it.")
 add("refs.slot.last", {
@@ -2958,6 +3475,8 @@ add("refs.slot.last", {
     "ja": "末尾フレーム",
     "ko": "마지막 프레임",
     "th": "เฟรมสุดท้าย",
+    "yue-Hant": "末格",
+    "en-SG": "Last frame",
 })
 add("refs.slot.reference", {
     "en": "Reference",
@@ -2968,6 +3487,8 @@ add("refs.slot.reference", {
     "ja": "参考素材",
     "ko": "참조 자료",
     "th": "ไฟล์อ้างอิง",
+    "yue-Hant": "參考",
+    "en-SG": "Reference",
 })
 add("refs.kind.image", {
     "en": "Image",
@@ -2978,6 +3499,8 @@ add("refs.kind.image", {
     "ja": "画像",
     "ko": "이미지",
     "th": "ภาพ",
+    "yue-Hant": "圖片",
+    "en-SG": "Image",
 }, note="Names the still-image kind in the reference list, beside Video and Audio. A "
         "file category.")
 add("refs.kind.video", {
@@ -2989,6 +3512,8 @@ add("refs.kind.video", {
     "ja": "動画",
     "ko": "비디오",
     "th": "วิดีโอ",
+    "yue-Hant": "影片",
+    "en-SG": "Video",
 }, note="Names the video kind in the reference list, beside Image and Audio. A file "
         "category.")
 add("refs.kind.audio", {
@@ -3000,6 +3525,8 @@ add("refs.kind.audio", {
     "ja": "オーディオ",
     "ko": "오디오",
     "th": "เสียง",
+    "yue-Hant": "音訊",
+    "en-SG": "Audio",
 }, note="Names the audio *file* kind in the reference list, beside Image and Video. A "
         "category of attachment — see compose.audio.")
 add("refs.footnote.first", {
@@ -3011,6 +3538,8 @@ add("refs.footnote.first", {
     "ja": "最初のフレームとして使う画像を 1 枚。クリップはそこから動き出します。",
     "ko": "첫 프레임으로 쓸 이미지 한 장. 클립은 거기서부터 움직이기 시작합니다.",
     "th": "ภาพหนึ่งภาพใช้เป็นเฟรมเปิด คลิปจะเคลื่อนไหวต่อออกไปจากภาพนั้น",
+    "yue-Hant": "一張圖,做開場嗰格,條片由佢開始郁出去。",
+    "en-SG": "One image, used as the opening frame. The clip moves outward from it.",
 })
 add("refs.footnote.firstlast", {
     "en": "Two images. The first becomes frame one, the second the final frame, and H3 "
@@ -3024,6 +3553,8 @@ add("refs.footnote.firstlast", {
     "ja": "画像を 2 枚。1 枚目が最初のフレーム、2 枚目が最後のフレームになり、H3 がその間の動きを生成します。",
     "ko": "이미지 두 장. 첫 장이 첫 프레임, 둘째 장이 마지막 프레임이 되고 H3가 그 사이의 움직임을 만듭니다.",
     "th": "ภาพสองภาพ ภาพแรกเป็นเฟรมที่หนึ่ง ภาพที่สองเป็นเฟรมสุดท้าย แล้ว H3 จะสร้างการเคลื่อนไหวระหว่างกลาง",
+    "yue-Hant": "兩張圖:第一張做第一格,第二張做最後一格,中間嘅郁動由 H3 生成。",
+    "en-SG": "Two images. First one becomes frame one, second one the last frame, and H3 makes the movement in between.",
 })
 add("refs.footnote.reference", {
     "en": "Up to 9 images, 3 videos and 3 audio clips, 12 files in total. Refer to them "
@@ -3042,6 +3573,8 @@ add("refs.footnote.reference", {
     "ja": "画像は最大 9 枚、動画 3 本、音声 3 本、合わせて 12 ファイルまで。プロンプトからは <Picture 1>、<Video 1>、<Audio 1> のように参照します。H3 はこのタグを通して条件付けするので、言及されていない参考素材はほとんど効きません。",
     "ko": "이미지 최대 9개, 비디오 3개, 오디오 3개로 모두 12개까지. 프롬프트에서는 <Picture 1>, <Video 1>, <Audio 1> 처럼 가리킵니다. H3가 그 태그를 통해 조건화하므로, 언급하지 않은 참조는 거의 영향이 없습니다.",
     "th": "ภาพได้สูงสุด 9 ภาพ วิดีโอ 3 คลิป และเสียง 3 คลิป รวม 12 ไฟล์ อ้างถึงใน prompt ว่า <Picture 1>, <Video 1>, <Audio 1> เพราะ H3 กำหนดเงื่อนไขผ่านแท็กเหล่านี้ ไฟล์อ้างอิงที่ไม่ได้เอ่ยถึงจึงแทบไม่มีผล",
+    "yue-Hant": "最多 9 張圖、3 段片同 3 段聲,合共 12 個檔。喺提示詞度用 <Picture 1>、<Video 1>、<Audio 1> 嚟叫佢哋;H3 就係靠呢啲標記做條件,冇提過嘅參考素材幾乎唔起作用。",
+    "en-SG": "Up to 9 images, 3 videos and 3 audio clips, 12 files all together. Call them from the prompt as <Picture 1>, <Video 1>, <Audio 1> — H3 conditions on them through those tags, so a reference you never mention got almost no effect.",
 })
 
 # ── Validation messages ──────────────────────────────────────────────────────
@@ -3054,6 +3587,8 @@ add("problem.prompt.empty", {
     "ja": "ショットを説明するプロンプトを書いてください。",
     "ko": "장면을 설명하는 프롬프트를 쓰세요.",
     "th": "เขียน prompt บรรยายช็อตที่ต้องการ",
+    "yue-Hant": "寫段提示詞描述下個鏡頭。",
+    "en-SG": "Write a prompt describing the shot lah.",
 })
 add("problem.duration", {
     "en": "H3 only generates 4–15 second clips.",
@@ -3064,6 +3599,8 @@ add("problem.duration", {
     "ja": "H3 が生成できるのは 4〜15 秒のクリップだけです。",
     "ko": "H3는 4~15초 길이의 클립만 생성합니다.",
     "th": "H3 สร้างได้เฉพาะคลิปยาว 4–15 วินาทีเท่านั้น",
+    "yue-Hant": "H3 淨係生成到 4–15 秒嘅片。",
+    "en-SG": "H3 only can make 4–15 second clips.",
 })
 add("problem.t2v.extraFiles", {
     "en": "Text-to-video ignores attached files. Switch modes to use them.",
@@ -3074,6 +3611,8 @@ add("problem.t2v.extraFiles", {
     "ja": "テキストから動画では添付ファイルは無視されます。使うにはモードを切り替えてください。",
     "ko": "텍스트-비디오는 첨부 파일을 무시합니다. 쓰려면 모드를 바꾸세요.",
     "th": "โหมดข้อความเป็นวิดีโอจะไม่สนใจไฟล์แนบ ให้สลับโหมดหากต้องการใช้",
+    "yue-Hant": "文字轉片會唔理附加檔案。想用就轉個模式。",
+    "en-SG": "Text-to-video ignores attached files. Switch mode if you want to use them.",
 })
 add("problem.needFirst", {
     "en": "Add a first-frame image.",
@@ -3084,6 +3623,8 @@ add("problem.needFirst", {
     "ja": "最初のフレームになる画像を追加してください。",
     "ko": "첫 프레임이 될 이미지를 추가하세요.",
     "th": "เพิ่มภาพสำหรับเฟรมแรก",
+    "yue-Hant": "加張首格圖。",
+    "en-SG": "Add a first-frame image.",
 })
 add("problem.needLast", {
     "en": "Add a last-frame image.",
@@ -3094,6 +3635,8 @@ add("problem.needLast", {
     "ja": "最後のフレームになる画像を追加してください。",
     "ko": "마지막 프레임이 될 이미지를 추가하세요.",
     "th": "เพิ่มภาพสำหรับเฟรมสุดท้าย",
+    "yue-Hant": "加張末格圖。",
+    "en-SG": "Add a last-frame image.",
 })
 add("problem.needReference", {
     "en": "Ref2VA needs at least one reference file.",
@@ -3104,6 +3647,8 @@ add("problem.needReference", {
     "ja": "Ref2VA には参考ファイルが少なくとも 1 つ必要です。",
     "ko": "Ref2VA에는 참조 파일이 최소 하나 필요합니다.",
     "th": "Ref2VA ต้องมีไฟล์อ้างอิงอย่างน้อยหนึ่งไฟล์",
+    "yue-Hant": "Ref2VA 至少要一個參考檔案。",
+    "en-SG": "Ref2VA needs at least one reference file.",
 })
 add("problem.tooManyTotal", {
     "en": "Ref2VA accepts %@ reference files in total.",
@@ -3114,6 +3659,8 @@ add("problem.tooManyTotal", {
     "ja": "Ref2VA が受け付ける参考ファイルは合計 %@ 件までです。",
     "ko": "Ref2VA는 참조 파일을 모두 합쳐 %@ 개까지 받습니다.",
     "th": "Ref2VA รับไฟล์อ้างอิงได้รวมทั้งหมด %@ ไฟล์",
+    "yue-Hant": "Ref2VA 總共最多收 %@ 個參考檔案。",
+    "en-SG": "Ref2VA takes %@ reference files in total only.",
 }, note={
     "content": "Takes a count of reference files, though the value is always "
                "ReferenceAsset.totalFileLimit, which is 12. A placeholder that only ever holds "
@@ -3130,6 +3677,8 @@ add("problem.notInstalled", {
     "ja": "選択したチェックポイントはまだインストールされていません。",
     "ko": "선택한 체크포인트가 아직 설치되지 않았습니다.",
     "th": "ยังไม่ได้ติดตั้ง checkpoint ที่เลือก",
+    "yue-Hant": "揀咗嘅檢查點仲未裝。",
+    "en-SG": "The checkpoint you chose never install yet.",
 })
 add("problem.chooseCheckpoint", {
     "en": "Choose a %@ checkpoint in Models.",
@@ -3140,6 +3689,8 @@ add("problem.chooseCheckpoint", {
     "ja": "「モデル」で %@ のチェックポイントを選んでください。",
     "ko": "모델에서 %@ 체크포인트를 고르세요.",
     "th": "เลือก checkpoint %@ ในหน้าโมเดล",
+    "yue-Hant": "去「模型」度揀個 %@ 檢查點。",
+    "en-SG": "Go Models and choose a %@ checkpoint.",
 }, note={
     "content": "Injects a task name into the noun phrase \"a %@ checkpoint\". The English article "
                "is fixed as \"a\", so a name beginning with a vowel sound already reads \"a FL2VA\" "
@@ -3155,6 +3706,8 @@ add("problem.lowSteps", {
     "ja": "8 ステップを下回ると、動きが眠く不安定になりがちです。",
     "ko": "8스텝 아래에서는 움직임이 흐릿하고 불안정해지는 경향이 있습니다.",
     "th": "ต่ำกว่า 8 step โมเดลมักให้การเคลื่อนไหวที่เบลอและไม่นิ่ง",
+    "yue-Hant": "低過 8 步，個模型好容易出鬆散又唔穩嘅動態。",
+    "en-SG": "Below 8 steps, the model tends to give soft, unstable movement.",
 })
 add("problem.longOvernight", {
     "en": "Long clips at high step counts can run overnight. Consider a short test first.",
@@ -3167,6 +3720,8 @@ add("problem.longOvernight", {
     "ja": "ステップ数の多い長いクリップは一晩かかることがあります。まず短いテストを試すことをおすすめします。",
     "ko": "스텝 수가 많은 긴 클립은 밤새 걸릴 수 있습니다. 먼저 짧게 시험해 보세요.",
     "th": "คลิปยาวที่ใช้ step มากอาจกินเวลาข้ามคืน ลองทดสอบสั้น ๆ ก่อนดีกว่า",
+    "yue-Hant": "長片再加高步數，可能要成晚。不如先試條短嘅。",
+    "en-SG": "Long clip with high step count can run whole night. Try a short one first lah.",
 })
 add("problem.upscale", {
     "en": "%@ is a resample of the model's 768p output. H3's true 2K mode is not "
@@ -3180,6 +3735,8 @@ add("problem.upscale", {
     "ja": "%@ はモデルの 768p 出力をリサンプルしたものです。H3 本来の 2K モードは公開されておらず、ローカルでは動きません。",
     "ko": "%@ 은(는) 모델의 768p 출력을 리샘플링한 것입니다. H3의 진짜 2K 모드는 공개되지 않았고 로컬에서는 돌릴 수 없습니다.",
     "th": "%@ เป็นการปรับขนาดจาก output 768p ของโมเดล โหมด 2K จริงของ H3 ไม่ได้เปิดซอร์สและรันในเครื่องไม่ได้",
+    "yue-Hant": "%@ 只係將個模型 768p 嘅輸出重新取樣。H3 真正嘅 2K 模式冇開源，本機跑唔到。",
+    "en-SG": "%@ is just a resample of the model's 768p output. H3's real 2K mode never open-source, so cannot run locally.",
 }, note={
     "content": "Injects a name into a sentence. Languages that inflect a noun for case, choose "
                "an article by gender, or attach a vowel-harmonising suffix cannot do it without "
@@ -3200,6 +3757,8 @@ add("problem.refUntagged", {
     "ja": "プロンプトが %@ に触れていません。H3 はこのタグを通して参考素材を条件付けするため、言及のないものは影響がずっと小さくなります。",
     "ko": "프롬프트가 %@ 을(를) 전혀 언급하지 않습니다. H3는 그 태그를 통해 참조를 조건화하므로, 언급되지 않은 참조는 영향이 훨씬 작습니다.",
     "th": "Prompt ไม่ได้เอ่ยถึง %@ เลย H3 กำหนดเงื่อนไขจากไฟล์อ้างอิงผ่านแท็กเหล่านั้น ไฟล์ที่ไม่ถูกเอ่ยถึงจึงมีผลน้อยกว่ามาก",
+    "yue-Hant": "提示詞入面完全冇提過 %@。H3 就係靠呢啲標記對參考素材做條件，冇提到嘅影響細好多。",
+    "en-SG": "Your prompt never mention %@ at all. H3 conditions on references through those tags, so the ones you never mention got much less influence.",
 }, note={
     "content": "Injects a name into a sentence. Languages that inflect a noun for case, choose "
                "an article by gender, or attach a vowel-harmonising suffix cannot do it without "
@@ -3219,6 +3778,8 @@ add("problem.refSlow", {
     "ja": "参考素材モードは MLX ではなく ComfyUI を通るため、1 ステップあたりは遅くなります。4 ステップの turbo LoRA があるおかげで、何時間もではなく数十分で済んでいます。",
     "ko": "참조 모드는 MLX가 아니라 ComfyUI를 거치므로 스텝당 속도가 느립니다. 4스텝 turbo LoRA 덕분에 몇 시간이 아니라 수십 분으로 끝납니다.",
     "th": "โหมดไฟล์อ้างอิงทำงานผ่าน ComfyUI แทน MLX จึงช้ากว่าต่อ step turbo LoRA แบบ 4 step คือสิ่งที่ทำให้ใช้เวลาเป็นนาทีแทนที่จะเป็นชั่วโมง",
+    "yue-Hant": "參考模式係透過 ComfyUI 而唔係 MLX 跑，每步慢啲。4 步 turbo LoRA 就係令佢維持喺幾分鐘而唔係幾個鐘嘅關鍵。",
+    "en-SG": "Reference mode runs through ComfyUI, not MLX, so each step slower. The 4-step turbo LoRA is what keeps it to minutes instead of hours.",
 })
 add("problem.blocking", {
     "en": "Blocking issue. %@",
@@ -3229,6 +3790,8 @@ add("problem.blocking", {
     "ja": "解決が必要です。%@",
     "ko": "해결해야 할 문제입니다. %@",
     "th": "ปัญหาที่ต้องแก้ก่อน %@",
+    "yue-Hant": "阻住嘅問題：%@",
+    "en-SG": "Cannot proceed. %@",
 }, note={
     "content": "Wraps another translated sentence as \"Blocking issue. %@\". Two sentences glued "
                "together; the inner one was translated without knowing it would be prefixed.",
@@ -3243,6 +3806,8 @@ add("problem.note", {
     "ja": "補足。%@",
     "ko": "참고. %@",
     "th": "หมายเหตุ %@",
+    "yue-Hant": "提提你：%@",
+    "en-SG": "Just so you know. %@",
 }, note={
     "content": "See problem.blocking — the same prefix-plus-sentence construction.",
     "level": WARNING,
@@ -3258,6 +3823,8 @@ add("settings.general", {
     "ja": "一般",
     "ko": "일반",
     "th": "ทั่วไป",
+    "yue-Hant": "一般",
+    "en-SG": "General",
 })
 add("settings.runtime", {
     "en": "Runtime",
@@ -3268,6 +3835,8 @@ add("settings.runtime", {
     "ja": "実行環境",
     "ko": "런타임",
     "th": "Runtime",
+    "yue-Hant": "執行環境",
+    "en-SG": "Runtime",
 }, note="The Python environment the app manages, not a term of art: TW says 執行環境, "
         "mainland 运行时.")
 add("settings.advanced", {
@@ -3279,6 +3848,8 @@ add("settings.advanced", {
     "ja": "詳細",
     "ko": "고급",
     "th": "ขั้นสูง",
+    "yue-Hant": "進階",
+    "en-SG": "Advanced",
 })
 add("settings.log.clear", {
     "en": "Clear",
@@ -3289,6 +3860,8 @@ add("settings.log.clear", {
     "ja": "消去",
     "ko": "지우기",
     "th": "ล้าง",
+    "yue-Hant": "清走",
+    "en-SG": "Clear",
 }, note="Imperative verb: empty the log. Not the adjective \"clear\" meaning legible or "
         "transparent.")
 add("settings.log.accessibility", {
@@ -3300,6 +3873,8 @@ add("settings.log.accessibility", {
     "ja": "インストールログ",
     "ko": "설치 로그",
     "th": "บันทึกการติดตั้ง",
+    "yue-Hant": "安裝記錄",
+    "en-SG": "Installation log",
 })
 add("settings.runtime.rebuild.note", {
     "en": "Rebuilding deletes and recreates the Python environment. It does not touch "
@@ -3313,6 +3888,8 @@ add("settings.runtime.rebuild.note", {
     "ja": "作り直すと Python 環境を削除して作成し直します。ダウンロード済みの重みには触れません。",
     "ko": "다시 만들면 Python 환경을 지우고 새로 만듭니다. 내려받은 가중치는 건드리지 않습니다.",
     "th": "การสร้างใหม่จะลบและสร้างสภาพแวดล้อม Python ขึ้นใหม่ โดยไม่แตะไฟล์น้ำหนักที่ดาวน์โหลดไว้",
+    "yue-Hant": "完全重建會刪咗再重新整個 Python 執行環境，唔會郁已經下載咗嘅權重。",
+    "en-SG": "Rebuilding deletes and makes the Python environment again. It never touch the weights you downloaded.",
 })
 add("settings.advanced.support.note", {
     "en": "Holds the Python environment, the render queue, and scratch files for in-flight "
@@ -3326,6 +3903,8 @@ add("settings.advanced.support.note", {
     "ja": "Python 環境、レンダリングのキュー、進行中レンダリングの作業ファイルが入っています。",
     "ko": "Python 환경과 렌더링 대기열, 진행 중인 렌더링의 임시 파일이 들어 있습니다.",
     "th": "เก็บสภาพแวดล้อม Python คิวการเรนเดอร์ และไฟล์ชั่วคราวของงานที่กำลังเรนเดอร์",
+    "yue-Hant": "放住 Python 執行環境、算圖佇列，同埋算緊嗰陣嘅暫存檔。",
+    "en-SG": "Holds the Python environment, the render queue, and working files for renders still going.",
 })
 add("settings.folders", {
     "en": "Folders",
@@ -3336,6 +3915,8 @@ add("settings.folders", {
     "ja": "フォルダ",
     "ko": "폴더",
     "th": "โฟลเดอร์",
+    "yue-Hant": "資料夾",
+    "en-SG": "Folders",
 })
 add("settings.folder.models", {
     "en": "Models",
@@ -3346,6 +3927,8 @@ add("settings.folder.models", {
     "ja": "モデル",
     "ko": "모델",
     "th": "โมเดล",
+    "yue-Hant": "模型",
+    "en-SG": "Models",
 }, note="Labels the folder on disk where weights are stored, in Settings ▸ Folders. A "
         "location, not the tab — see section.models.")
 add("settings.folder.output", {
@@ -3357,6 +3940,8 @@ add("settings.folder.output", {
     "ja": "出力",
     "ko": "출력",
     "th": "Output",
+    "yue-Hant": "輸出",
+    "en-SG": "Output",
 }, note="Labels the folder finished videos are written to, in Settings ▸ Folders. A "
         "location — see compose.output.title.")
 add("settings.queue.note", {
@@ -3372,6 +3957,8 @@ add("settings.queue.note", {
     "ja": "レンダリングは数十 GB の重みをメモリに保持するため、同時に走るのは 1 件だけです。個々のレンダリングの保留や停止は、キューの各行から行えます。",
     "ko": "렌더링은 수십 GB의 가중치를 메모리에 올리므로 한 번에 하나만 돌아갑니다. 개별 렌더링의 보류나 정지는 대기열의 각 행에서 할 수 있습니다.",
     "th": "การเรนเดอร์ต้องเก็บไฟล์น้ำหนักหลายสิบกิกะไบต์ไว้ในหน่วยความจำ จึงทำได้ครั้งละหนึ่งงาน สั่งพักหรือหยุดแต่ละงานได้จากแถวของงานนั้นในคิว",
+    "yue-Hant": "算圖會喺記憶體度攞住幾十 GB 權重，所以一次得一個跑。想暫緩或者停某一個，喺「佇列」入面嗰行做。",
+    "en-SG": "Renders hold tens of gigabytes of weights in memory, so only one can run at a time. To hold or stop one particular render, use its own row inside the Queue.",
 })
 add("settings.status", {
     "en": "Status",
@@ -3382,6 +3969,8 @@ add("settings.status", {
     "ja": "ステータス",
     "ko": "상태",
     "th": "สถานะ",
+    "yue-Hant": "狀態",
+    "en-SG": "Status",
 }, note="Heads the runtime status section in Settings. A section heading, not the "
         "status-bar label — see status.label.")
 add("settings.python", {
@@ -3393,6 +3982,8 @@ add("settings.python", {
     "ja": "Python",
     "ko": "Python",
     "th": "Python",
+    "yue-Hant": "Python",
+    "en-SG": "Python",
 })
 add("settings.architecture", {
     "en": "Architecture",
@@ -3403,6 +3994,8 @@ add("settings.architecture", {
     "ja": "アーキテクチャ",
     "ko": "아키텍처",
     "th": "สถาปัตยกรรม",
+    "yue-Hant": "架構",
+    "en-SG": "Architecture",
 })
 add("settings.mlxMetal", {
     "en": "MLX on Metal",
@@ -3413,6 +4006,8 @@ add("settings.mlxMetal", {
     "ja": "Metal 上の MLX",
     "ko": "Metal 기반 MLX",
     "th": "MLX บน Metal",
+    "yue-Hant": "MLX on Metal",
+    "en-SG": "MLX on Metal",
 })
 add("settings.working", {
     "en": "Working",
@@ -3423,6 +4018,8 @@ add("settings.working", {
     "ja": "正常",
     "ko": "정상",
     "th": "ทำงานปกติ",
+    "yue-Hant": "正常",
+    "en-SG": "Okay",
 }, note="Means the runtime is functioning correctly — NOT \"in progress\". The value "
         "shown beside settings.state when nothing is wrong. Translate as \"OK\" or "
         "\"functioning\", never as \"busy\".")
@@ -3435,6 +4032,8 @@ add("settings.notWorking", {
     "ja": "動作していません",
     "ko": "작동하지 않음",
     "th": "ใช้งานไม่ได้",
+    "yue-Hant": "唔正常",
+    "en-SG": "Not working",
 })
 add("settings.notFound", {
     "en": "Not found",
@@ -3445,6 +4044,8 @@ add("settings.notFound", {
     "ja": "見つかりません",
     "ko": "찾을 수 없음",
     "th": "ไม่พบ",
+    "yue-Hant": "搵唔到",
+    "en-SG": "Cannot find",
 })
 add("settings.h3Pipeline", {
     "en": "H3 pipeline",
@@ -3455,6 +4056,8 @@ add("settings.h3Pipeline", {
     "ja": "H3 パイプライン",
     "ko": "H3 파이프라인",
     "th": "ไปป์ไลน์ H3",
+    "yue-Hant": "H3 管線",
+    "en-SG": "H3 pipeline",
 })
 add("settings.detected", {
     "en": "Detected",
@@ -3465,6 +4068,8 @@ add("settings.detected", {
     "ja": "検出済み",
     "ko": "감지됨",
     "th": "ตรวจพบแล้ว",
+    "yue-Hant": "偵測到",
+    "en-SG": "Detected",
 }, note="Adjective: the app found this component on the machine by itself. Reports a "
         "discovery, not an action available.")
 add("settings.notDetected", {
@@ -3476,6 +4081,8 @@ add("settings.notDetected", {
     "ja": "未検出",
     "ko": "감지되지 않음",
     "th": "ไม่พบ",
+    "yue-Hant": "偵測唔到",
+    "en-SG": "Cannot detect",
 })
 add("settings.recheck", {
     "en": "Re-check",
@@ -3486,6 +4093,8 @@ add("settings.recheck", {
     "ja": "再確認",
     "ko": "다시 확인",
     "th": "ตรวจสอบอีกครั้ง",
+    "yue-Hant": "再查一次",
+    "en-SG": "Check Again",
 })
 add("settings.repair", {
     "en": "Repair",
@@ -3496,6 +4105,8 @@ add("settings.repair", {
     "ja": "修復",
     "ko": "복구",
     "th": "ซ่อมแซม",
+    "yue-Hant": "修復",
+    "en-SG": "Repair",
 }, note="Imperative verb on a button: reinstall the broken parts of the runtime. Not "
         "a noun.")
 add("settings.rebuild", {
@@ -3507,6 +4118,8 @@ add("settings.rebuild", {
     "ja": "一から作り直す",
     "ko": "처음부터 다시 만들기",
     "th": "สร้างใหม่ทั้งหมด",
+    "yue-Hant": "完全重建",
+    "en-SG": "Rebuild Everything",
 })
 add("settings.log", {
     "en": "Log",
@@ -3517,6 +4130,8 @@ add("settings.log", {
     "ja": "ログ",
     "ko": "로그",
     "th": "บันทึก",
+    "yue-Hant": "記錄",
+    "en-SG": "Log",
 }, note="Noun: the record of what the runtime printed. Not the verb \"to log\", and not "
         "a logarithm.")
 add("settings.notInstalled", {
@@ -3528,6 +4143,8 @@ add("settings.notInstalled", {
     "ja": "未インストールです。",
     "ko": "설치되지 않았습니다.",
     "th": "ยังไม่ได้ติดตั้ง",
+    "yue-Hant": "仲未裝。",
+    "en-SG": "Never install.",
 })
 add("settings.state", {
     "en": "State",
@@ -3538,6 +4155,8 @@ add("settings.state", {
     "ja": "状態",
     "ko": "상태",
     "th": "สภาพ",
+    "yue-Hant": "狀態",
+    "en-SG": "State",
 }, note="Labels one row reporting the runtime's condition. German separates this "
         "(Zustand) from Status; English does not. If a language has only one word, "
         "using it for both is fine.")
@@ -3550,6 +4169,8 @@ add("settings.comfy.server", {
     "ja": "サーバー",
     "ko": "서버",
     "th": "เซิร์ฟเวอร์",
+    "yue-Hant": "伺服器",
+    "en-SG": "Server",
 })
 add("settings.comfy.running", {
     "en": "running on port %@",
@@ -3560,6 +4181,8 @@ add("settings.comfy.running", {
     "ja": "ポート %@ で稼働中",
     "ko": "포트 %@ 에서 실행 중",
     "th": "ทำงานอยู่ที่พอร์ต %@",
+    "yue-Hant": "跑緊，連接埠 %@",
+    "en-SG": "running on port %@",
 })
 add("settings.comfy.notRunning", {
     "en": "not running",
@@ -3570,6 +4193,8 @@ add("settings.comfy.notRunning", {
     "ja": "停止中",
     "ko": "실행 중 아님",
     "th": "ไม่ได้ทำงาน",
+    "yue-Hant": "冇跑緊",
+    "en-SG": "not running",
 })
 add("settings.comfy.weights", {
     "en": "Weights",
@@ -3580,6 +4205,8 @@ add("settings.comfy.weights", {
     "ja": "重み",
     "ko": "가중치",
     "th": "ไฟล์น้ำหนัก",
+    "yue-Hant": "權重",
+    "en-SG": "Weights",
 }, note="Model weights — the trained parameters of a neural network. Never the sense "
         "of heaviness or of weighting a value. Many languages keep the English term.")
 add("settings.comfy.install", {
@@ -3591,6 +4218,8 @@ add("settings.comfy.install", {
     "ja": "インストール",
     "ko": "설치",
     "th": "ติดตั้ง",
+    "yue-Hant": "安裝",
+    "en-SG": "Install",
 }, note="Imperative verb on a button. Not the noun \"installation\", which is a "
         "different word in most languages.")
 add("settings.comfy.stop", {
@@ -3602,6 +4231,8 @@ add("settings.comfy.stop", {
     "ja": "サーバーを停止",
     "ko": "서버 정지",
     "th": "หยุดเซิร์ฟเวอร์",
+    "yue-Hant": "停伺服器",
+    "en-SG": "Stop Server",
 })
 add("settings.comfy.why", {
     "en": "Reference mode runs here rather than on MLX, whose pipeline accepts keyframes "
@@ -3618,6 +4249,8 @@ add("settings.comfy.why", {
     "ja": "参考素材モードは、キーフレームしか受け付けない MLX ではなくこちらで動きます。ComfyUI は 4 ステップの turbo LoRA も読み込め、それが参考素材のレンダリングを現実的にしています。",
     "ko": "참조 모드는 키프레임만 받는 MLX가 아니라 여기서 돌아갑니다. ComfyUI는 4스텝 turbo LoRA도 불러올 수 있는데, 그것이 참조 렌더링을 현실적으로 만들어 줍니다.",
     "th": "โหมดไฟล์อ้างอิงทำงานที่นี่แทน MLX ซึ่งไปป์ไลน์รับได้เฉพาะ keyframe ComfyUI ยังโหลด turbo LoRA แบบ 4 step ได้ ซึ่งเป็นสิ่งที่ทำให้การเรนเดอร์ด้วยไฟล์อ้างอิงเป็นไปได้จริง",
+    "yue-Hant": "參考模式喺呢度跑，唔喺 MLX，因為 MLX 個管線淨係收關鍵格。ComfyUI 仲載入到 4 步 turbo LoRA，呢樣嘢先令到參考素材算圖做得過。",
+    "en-SG": "Reference mode runs here instead of on MLX, whose pipeline only takes keyframes. ComfyUI also loads the 4-step turbo LoRAs, which is what makes reference renders practical at all.",
 })
 add("settings.comfy.note", {
     "en": "The app's own headless ComfyUI, kept apart from any you have installed yourself. "
@@ -3631,6 +4264,8 @@ add("settings.comfy.note", {
     "ja": "このアプリ専用のヘッドレス ComfyUI で、自分で入れたものとは分けて管理されます。サーバーは必要なときに起動し、アプリの終了と一緒に止まります。",
     "ko": "이 앱 전용 헤드리스 ComfyUI로, 직접 설치한 것과는 따로 둡니다. 서버는 필요할 때 시작되고 앱과 함께 종료됩니다.",
     "th": "ComfyUI แบบไม่มีหน้าจอของแอปนี้เอง แยกจากตัวที่คุณติดตั้งไว้เอง เซิร์ฟเวอร์จะเริ่มเมื่อต้องใช้ และหยุดพร้อมกับแอป",
+    "yue-Hant": "呢個係 App 自己嗰個無介面 ComfyUI，同你自己裝嗰個分開。個伺服器要用嗰陣先開，收 App 就一齊收。",
+    "en-SG": "This is the app's own headless ComfyUI, kept separate from whichever one you installed yourself. The server starts when needed and stops together with the app.",
 })
 add("settings.advanced.port", {
     "en": "MiniMax-H3 port",
@@ -3641,6 +4276,8 @@ add("settings.advanced.port", {
     "ja": "MiniMax-H3 移植版",
     "ko": "MiniMax-H3 이식판",
     "th": "พอร์ต MiniMax-H3",
+    "yue-Hant": "MiniMax-H3 移植版",
+    "en-SG": "MiniMax-H3 port",
 })
 add("settings.advanced.checkout", {
     "en": "Checkout path",
@@ -3651,6 +4288,8 @@ add("settings.advanced.checkout", {
     "ja": "チェックアウトのパス",
     "ko": "체크아웃 경로",
     "th": "Path ของ checkout",
+    "yue-Hant": "簽出路徑",
+    "en-SG": "Checkout path",
 })
 add("settings.advanced.checkout.hint", {
     "en": "Leave empty to use the installed package",
@@ -3661,6 +4300,8 @@ add("settings.advanced.checkout.hint", {
     "ja": "空欄のままならインストール済みパッケージを使います",
     "ko": "비워 두면 설치된 패키지를 사용합니다",
     "th": "เว้นว่างไว้เพื่อใช้แพ็กเกจที่ติดตั้งไว้",
+    "yue-Hant": "留空就用已經裝咗嘅套件",
+    "en-SG": "Leave empty to use the installed package",
 })
 add("settings.advanced.reveal", {
     "en": "Reveal Application Support Folder",
@@ -3671,6 +4312,8 @@ add("settings.advanced.reveal", {
     "ja": "Application Support フォルダを表示",
     "ko": "Application Support 폴더 보기",
     "th": "แสดงโฟลเดอร์ Application Support",
+    "yue-Hant": "顯示 Application Support 資料夾",
+    "en-SG": "Show Application Support Folder",
 })
 
 # ── Remaining onboarding / runtime prose ─────────────────────────────────────
@@ -3683,6 +4326,8 @@ add("onboarding.licence.heading", {
     "ja": "MiniMax H3 コミュニティライセンス",
     "ko": "MiniMax H3 커뮤니티 라이선스",
     "th": "สัญญาอนุญาตชุมชน MiniMax H3",
+    "yue-Hant": "MiniMax H3 社群授權條款",
+    "en-SG": "MiniMax H3 Community Licence",
 }, note="The licence's proper name stays in English; TW/CN gloss it.")
 add("runtime.ready", {
     "en": "Runtime ready — Python %1$@, MLX on Metal",
@@ -3693,6 +4338,8 @@ add("runtime.ready", {
     "ja": "実行環境の準備完了 — Python %1$@、Metal 上の MLX",
     "ko": "런타임 준비 완료 — Python %1$@, Metal 기반 MLX",
     "th": "Runtime พร้อมแล้ว — Python %1$@, MLX บน Metal",
+    "yue-Hant": "執行環境 ready 喇 — Python %1$@，MLX on Metal",
+    "en-SG": "Runtime ready — Python %1$@, MLX on Metal",
 })
 add("runtime.installedNotUsable", {
     "en": "Installed, but not usable yet",
@@ -3703,6 +4350,8 @@ add("runtime.installedNotUsable", {
     "ja": "インストール済みですが、まだ使えません",
     "ko": "설치되었지만 아직 사용할 수 없음",
     "th": "ติดตั้งแล้ว แต่ยังใช้งานไม่ได้",
+    "yue-Hant": "裝咗，但係仲未用得",
+    "en-SG": "Install already, but still cannot use",
 })
 add("runtime.notInstalledYet", {
     "en": "Not installed yet.",
@@ -3713,6 +4362,8 @@ add("runtime.notInstalledYet", {
     "ja": "まだインストールされていません。",
     "ko": "아직 설치되지 않았습니다.",
     "th": "ยังไม่ได้ติดตั้ง",
+    "yue-Hant": "仲未裝。",
+    "en-SG": "Never install yet.",
 })
 add("models.revealInFinder", {
     "en": "Reveal %@ in Finder",
@@ -3723,6 +4374,8 @@ add("models.revealInFinder", {
     "ja": "%@ を Finder に表示",
     "ko": "Finder에서 %@ 보기",
     "th": "แสดง %@ ใน Finder",
+    "yue-Hant": "喺 Finder 度顯示 %@",
+    "en-SG": "Show %@ in Finder",
 }, note={
     "content": "Injects a name into a sentence. Languages that inflect a noun for case, choose "
                "an article by gender, or attach a vowel-harmonising suffix cannot do it without "
@@ -3741,6 +4394,8 @@ add("format.seconds", {
     "ja": "%@ 秒",
     "ko": "%@ 초",
     "th": "%@ วินาที",
+    "yue-Hant": "%@ 秒",
+    "en-SG": "%@ s",
 })
 add("format.minutes", {
     "en": "%@ min",
@@ -3751,6 +4406,8 @@ add("format.minutes", {
     "ja": "%@ 分",
     "ko": "%@ 분",
     "th": "%@ นาที",
+    "yue-Hant": "%@ 分",
+    "en-SG": "%@ min",
 })
 add("format.hours", {
     "en": "%@ h",
@@ -3761,6 +4418,8 @@ add("format.hours", {
     "ja": "%@ 時間",
     "ko": "%@ 시간",
     "th": "%@ ชั่วโมง",
+    "yue-Hant": "%@ 個鐘",
+    "en-SG": "%@ h",
 })
 add("format.hoursMinutes", {
     "en": "%1$@ h %2$@ min",
@@ -3771,6 +4430,8 @@ add("format.hoursMinutes", {
     "ja": "%1$@ 時間 %2$@ 分",
     "ko": "%1$@ 시간 %2$@ 분",
     "th": "%1$@ ชั่วโมง %2$@ นาที",
+    "yue-Hant": "%1$@ 個鐘 %2$@ 分",
+    "en-SG": "%1$@ h %2$@ min",
 })
 
 # ── Models: roles and tasks ──────────────────────────────────────────────────
@@ -3786,6 +4447,8 @@ add("role.transformer.detail", {
     "ja": "モデル本体です。量子化をひとつ選びます。精度を上げるほどディスク・メモリ・時間を使います。",
     "ko": "모델 본체입니다. 양자화를 하나 고르세요. 정밀도가 높을수록 디스크와 메모리, 시간을 더 씁니다.",
     "th": "ตัวโมเดลเอง เลือก quantization หนึ่งแบบ ยิ่งความแม่นยำสูง ยิ่งกินพื้นที่ หน่วยความจำ และเวลา",
+    "yue-Hant": "模型本體。揀一個量化版本；精度越高，佔嘅碟、記憶體同時間就越多。",
+    "en-SG": "The model itself. Choose one quantization — higher precision, more disk, more memory, more time.",
 })
 add("role.textEncoder.detail", {
     "en": "H3 conditions on Qwen3-VL-32B. This is the largest single download and is shared "
@@ -3798,6 +4461,8 @@ add("role.textEncoder.detail", {
     "ja": "H3 は Qwen3-VL-32B を条件に使います。単体では最大のダウンロードで、両方のタスクで共有されます。",
     "ko": "H3는 Qwen3-VL-32B를 조건으로 사용합니다. 단일 항목으로는 가장 큰 다운로드이며 두 작업이 공유합니다.",
     "th": "H3 ใช้ Qwen3-VL-32B เป็นเงื่อนไข เป็นไฟล์ดาวน์โหลดเดี่ยวที่ใหญ่ที่สุด และใช้ร่วมกันทั้งสองงาน",
+    "yue-Hant": "H3 攞 Qwen3-VL-32B 做條件。單一檔案入面佢最大,兩個任務共用。",
+    "en-SG": "H3 conditions on Qwen3-VL-32B. Biggest single download, and both tasks share it.",
 })
 add("role.support.detail", {
     "en": "Small, mandatory, and shared by everything. Install once.",
@@ -3809,6 +4474,8 @@ add("role.support.detail", {
     "ja": "小さく、必須で、すべてで共有されます。一度入れれば十分です。",
     "ko": "작고, 필수이며, 모든 곳에서 공유됩니다. 한 번만 설치하면 됩니다.",
     "th": "ขนาดเล็ก จำเป็น และใช้ร่วมกันทั้งหมด ติดตั้งครั้งเดียวพอ",
+    "yue-Hant": "細、一定要有，而且大家共用。裝一次就夠。",
+    "en-SG": "Small, must have, and everything share the same one. Install once can already.",
 })
 add("role.accelerator.detail", {
     "en": "Optional LoRAs trained to produce usable video in around 4 steps instead of 50.",
@@ -3819,6 +4486,8 @@ add("role.accelerator.detail", {
     "ja": "50 ステップではなく約 4 ステップで使える映像を出すために学習された、任意の LoRA です。",
     "ko": "50스텝 대신 약 4스텝만으로 쓸 만한 영상을 내도록 학습된 선택적 LoRA입니다.",
     "th": "LoRA เสริมที่ฝึกมาให้ได้วิดีโอที่ใช้งานได้ในราว 4 step แทนที่จะเป็น 50",
+    "yue-Hant": "可揀可唔揀嘅 LoRA，訓練成大概 4 步就出到可以用嘅片，唔使 50 步。",
+    "en-SG": "Optional LoRAs, trained to give usable video in about 4 steps instead of 50.",
 })
 add("task.fl2va.detail", {
     "en": "Text-to-video, plus optional first and/or last frame images. Use this for most "
@@ -3832,6 +4501,8 @@ add("task.fl2va.detail", {
     "ja": "テキストからの生成に加えて、先頭・末尾の画像を任意で指定できます。通常はこちらを使います。",
     "ko": "텍스트-비디오에 더해 첫 프레임과 마지막 프레임 이미지를 선택적으로 쓸 수 있습니다. 대부분의 작업에는 이것을 쓰세요.",
     "th": "สร้างวิดีโอจากข้อความ พร้อมใส่ภาพเฟรมแรกและ/หรือเฟรมสุดท้ายได้ตามต้องการ ใช้ตัวนี้กับงานส่วนใหญ่",
+    "yue-Hant": "文字轉片，仲可以隨意加首格同／或者尾格嘅圖。大部分情況用呢個。",
+    "en-SG": "Text-to-video, and you can add first and/or last frame images if you want. Use this one for most things.",
 })
 add("task.ref2va.detail", {
     "en": "Conditions on up to 9 reference images, 3 reference videos and 3 reference audio "
@@ -3844,6 +4515,8 @@ add("task.ref2va.detail", {
     "ja": "参考画像を最大 9 枚、参考動画を 3 本、参考音声を 3 本まで条件に使えます。",
     "ko": "참조 이미지 최대 9개, 참조 비디오 3개, 참조 오디오 3개까지 조건으로 씁니다.",
     "th": "กำหนดเงื่อนไขได้สูงสุด ภาพอ้างอิง 9 ภาพ วิดีโออ้างอิง 3 คลิป และเสียงอ้างอิง 3 คลิป",
+    "yue-Hant": "最多可以跟 9 張參考圖、3 段參考片同 3 段參考聲嚟生成。",
+    "en-SG": "Can condition on up to 9 reference images, 3 reference videos and 3 reference audio clips.",
 })
 
 # ── Models: per-entry summaries ──────────────────────────────────────────────
@@ -3864,6 +4537,8 @@ add("model.support.mlx", {
     "ja": "動画 VAE（10.4 GB）、音声 VAE、プロセッサ、トークナイザで、パイプラインがひとまとまりで読み込む FL2VA のタスクディレクトリから取得します。すべての実行に必要です。",
     "ko": "비디오 VAE(10.4 GB), 오디오 VAE, 프로세서, 토크나이저로, 파이프라인이 한 덩어리로 불러오는 FL2VA 작업 디렉터리에서 가져옵니다. 모든 실행에 필요합니다.",
     "th": "VAE วิดีโอ (10.4 GB), VAE เสียง, ตัวประมวลผล และ tokenizer นำมาจากไดเรกทอรีงาน FL2VA ที่ไปป์ไลน์โหลดเป็นชุดเดียว จำเป็นต่อการรันทุกครั้ง",
+    "yue-Hant": "video VAE(10.4 GB)、audio VAE、處理器同 tokenizer,由 pipeline 整包載入嘅 FL2VA 任務目錄度攞。每次算都要。",
+    "en-SG": "Video VAE (10.4 GB), audio VAE, processor and tokenizer, taken from the FL2VA task directory the pipeline loads as one unit. Every run needs it.",
 })
 add("model.textEncoder.mlx", {
     "en": "Qwen3-VL-32B in bfloat16 — H3 reads its 50th-layer hidden states. The largest "
@@ -3892,6 +4567,8 @@ add("model.textEncoder.mlx", {
     "ja": "bfloat16 の Qwen3-VL-32B。H3 はその第 50 層の隠れ状態を読みます。単体では最大のダウンロードで、現在 MLX パイプラインが読み込める唯一のテキストエンコーダです。常駐約 34 GB で、このアプリがその Mac で動くかどうかを決めるのはトランスフォーマーではなくこちらです。最小のトランスフォーマーと合わせて約 46 GB になるため、実質的な下限はユニファイドメモリ 64 GB ほどです。VAE と同じ FL2VA/ に入ります。",
     "ko": "bfloat16 Qwen3-VL-32B — H3는 이 모델의 50번째 층 은닉 상태를 읽습니다. 단일 항목으로 가장 큰 다운로드이며, 현재 MLX 파이프라인이 불러올 수 있는 유일한 텍스트 인코더입니다. 상주 약 34 GB로, 이 앱이 특정 Mac에서 돌아가는지를 정하는 것은 트랜스포머가 아니라 이것입니다. 가장 작은 트랜스포머와 합치면 약 46 GB이므로 통합 메모리 64 GB 정도가 현실적인 하한입니다. VAE와 나란히 FL2VA/ 에 설치됩니다.",
     "th": "Qwen3-VL-32B แบบ bfloat16 — H3 อ่านสถานะซ่อนของชั้นที่ 50 เป็นไฟล์ดาวน์โหลดเดี่ยวที่ใหญ่ที่สุด และตอนนี้เป็นตัวเข้ารหัสข้อความเพียงตัวเดียวที่ไปป์ไลน์ MLX โหลดได้ ด้วยหน่วยความจำราว 34 GB สิ่งที่ตัดสินว่าแอปนี้รันบน Mac เครื่องใดได้คือตัวนี้ ไม่ใช่ transformer เมื่อรวมกับ transformer ตัวเล็กที่สุดจะราว 46 GB ขีดล่างที่ใช้ได้จริงจึงอยู่ราวหน่วยความจำรวม 64 GB และติดตั้งไว้ข้าง VAE ใน FL2VA/",
+    "yue-Hant": "bfloat16 版嘅 Qwen3-VL-32B——H3 讀佢第 50 層嘅隱藏狀態。單一檔案入面最大嘅下載,亦係而家 MLX pipeline 唯一載入到嘅文字編碼器。常駐大概 34 GB,所以決定呢個 App 喺部 Mac 跑唔跑到嘅係佢,唔係 transformer:配最細嗰個 transformer 大概 46 GB,所以實際門檻大概係 64 GB 統一記憶體。佢會同 VAE 一齊裝喺 FL2VA/ 入面。",
+    "en-SG": "Qwen3-VL-32B in bfloat16 — H3 reads its 50th-layer hidden states. Biggest single download, and currently the only text encoder the MLX pipeline can load. At about 34 GB resident, this one — not the transformer — decides whether this app runs on your Mac: with the smallest transformer that is roughly 46 GB, so about 64 GB unified memory is the real floor. It installs beside the VAEs inside FL2VA/.",
 })
 add("model.fl2va.q4", {
     "en": "4-bit, group size 64. The fastest of these and about 12 GB resident. Loses some "
@@ -3908,6 +4585,8 @@ add("model.fl2va.q4", {
     "ja": "4 ビット、グループサイズ 64。この中で最も速く、常駐は約 12 GB です。細かな質感は多少失われます。まずはこれから。ただしメモリの下限を決めるのはこれではなく、テキストエンコーダのほうです。",
     "ko": "4비트, 그룹 크기 64. 이 중 가장 빠르고 상주 약 12 GB입니다. 미세한 질감은 다소 잃습니다. 여기서 시작하는 것이 좋지만, 메모리 하한을 정하는 것은 이것이 아니라 텍스트 인코더입니다.",
     "th": "4 บิต กลุ่มขนาด 64 เร็วที่สุดในกลุ่มนี้ และกินหน่วยความจำราว 12 GB เสียรายละเอียดพื้นผิวไปบ้าง เป็นจุดเริ่มที่ดีที่สุด แต่สิ่งที่กำหนดขีดล่างของหน่วยความจำคือตัวเข้ารหัสข้อความ ไม่ใช่ตัวนี้",
+    "yue-Hant": "4-bit，group size 64。呢幾個入面最快,常駐大概 12 GB。細緻質感會蝕啲。由呢個開始最好——不過定記憶體門檻嘅係文字編碼器,唔係佢。",
+    "en-SG": "4-bit, group size 64. Fastest of these and about 12 GB resident. Loses some fine texture. Best one to start with — but the text encoder, not this one, is what sets the memory floor.",
 })
 add("model.fl2va.q6", {
     "en": "6-bit. A middle point if 4-bit looks soft and 8-bit is too slow.",
@@ -3918,6 +4597,8 @@ add("model.fl2va.q6", {
     "ja": "6 ビット。4 ビットが眠く見え、8 ビットが遅すぎるときの中間点です。",
     "ko": "6비트. 4비트가 흐릿해 보이고 8비트는 너무 느릴 때의 중간 지점입니다.",
     "th": "6 บิต เป็นทางสายกลางเมื่อ 4 บิตดูเบลอและ 8 บิตช้าเกินไป",
+    "yue-Hant": "6-bit。如果 4-bit 太鬆、8-bit 又太慢,呢個係中間落墨。",
+    "en-SG": "6-bit. The middle ground if 4-bit looks soft and 8-bit too slow.",
 })
 add("model.fl2va.q8", {
     "en": "The quality-per-gigabyte sweet spot — visually very close to bf16.",
@@ -3928,6 +4609,8 @@ add("model.fl2va.q8", {
     "ja": "容量あたりの品質が最も良く、見た目は bf16 にきわめて近いです。",
     "ko": "용량 대비 품질이 가장 좋고, 보기에는 bf16에 아주 가깝습니다.",
     "th": "จุดคุ้มค่าที่สุดระหว่างคุณภาพกับขนาด ดูแล้วใกล้เคียง bf16 มาก",
+    "yue-Hant": "每 GB 質素最抵嗰點——睇落好接近 bf16。",
+    "en-SG": "Best quality per gigabyte — looks very close to bf16.",
 })
 add("model.fl2va.bf16", {
     "en": "Reference precision, validated against the diffusers implementation. The slowest "
@@ -3944,6 +4627,8 @@ add("model.fl2va.bf16", {
     "ja": "基準となる精度で、diffusers の実装と突き合わせて検証されています。最も遅く、これだけで常駐 41 GB ほど。テキストエンコーダも載せるなら 128 GB のユニファイドメモリを見込んでください。",
     "ko": "기준 정밀도이며 diffusers 구현과 대조해 검증했습니다. 가장 느리고 이것만으로 상주 41 GB 정도입니다. 텍스트 인코더까지 올린다면 통합 메모리 128 GB를 잡으세요.",
     "th": "ความแม่นยำอ้างอิง ตรวจสอบเทียบกับการพัฒนาแบบ diffusers ช้าที่สุด และกินหน่วยความจำราว 41 GB เพียงตัวเดียว หากโหลดตัวเข้ารหัสข้อความด้วย ควรเผื่อหน่วยความจำรวม 128 GB",
+    "yue-Hant": "參考精度,已經同 diffusers 實作對過。最慢,單係佢常駐就大概 41 GB——再加文字編碼器,就要諗住 128 GB 統一記憶體。",
+    "en-SG": "Reference precision, checked against the diffusers implementation. Slowest one, and about 41 GB resident on its own — with the text encoder loaded also, plan for 128 GB unified memory.",
 })
 add("model.ref2va.bf16", {
     "en": "Upstream bf16 Ref2VA checkpoint. Listed so the option is visible, but the MLX "
@@ -3963,6 +4648,8 @@ add("model.ref2va.bf16", {
     "ja": "上流の bf16 Ref2VA チェックポイントです。選択肢として見えるように載せていますが、MLX 移植版のパイプラインはキーフレームしか受け付けず参考素材の条件付け経路がないため、現時点ではこのアプリから動かせません。",
     "ko": "업스트림 bf16 Ref2VA 체크포인트입니다. 선택지가 보이도록 실어 두었지만, MLX 이식판 파이프라인은 키프레임만 받고 참조 조건화 경로가 없어 아직 이 앱에서는 구동할 수 없습니다.",
     "th": "Checkpoint Ref2VA แบบ bf16 จากต้นทาง แสดงไว้ให้เห็นเป็นตัวเลือก แต่ไปป์ไลน์ของพอร์ต MLX รับได้เฉพาะ keyframe และไม่มีเส้นทางกำหนดเงื่อนไขจากไฟล์อ้างอิง จึงยังสั่งงานจากแอปนี้ไม่ได้",
+    "yue-Hant": "上游嘅 bf16 Ref2VA 檢查點。列出嚟係想個選項見得到,但 MLX 移植版個 pipeline 淨係收關鍵格——冇參考條件嘅路——所以暫時喺呢個 App 度驅動唔到。",
+    "en-SG": "Upstream bf16 Ref2VA checkpoint. Listed so you can see the option, but the MLX port's pipeline only takes keyframes — got no reference conditioning path — so cannot drive it from this app yet.",
 })
 add("model.ref2va.bf16.blocked", {
     "en": "The MLX port does not implement reference conditioning. Ref2VA currently needs "
@@ -3976,6 +4663,8 @@ add("model.ref2va.bf16.blocked", {
     "ja": "MLX 移植版は参考素材の条件付けを実装していません。Ref2VA には現在 CUDA スタック（SGLang、vLLM、ComfyUI）が必要です。",
     "ko": "MLX 이식판은 참조 조건화를 구현하지 않았습니다. Ref2VA는 현재 CUDA 스택(SGLang, vLLM 또는 ComfyUI)이 필요합니다.",
     "th": "พอร์ต MLX ไม่ได้รองรับการกำหนดเงื่อนไขจากไฟล์อ้างอิง ขณะนี้ Ref2VA ต้องใช้ชุด CUDA (SGLang, vLLM หรือ ComfyUI)",
+    "yue-Hant": "MLX 移植版未實作參考條件。Ref2VA 而家要 CUDA 嗰套(SGLang、vLLM 或者 ComfyUI)。",
+    "en-SG": "The MLX port never implement reference conditioning. Ref2VA currently needs the CUDA stack (SGLang, vLLM or ComfyUI).",
 })
 add("model.lora.fl2va.mlx", {
     "en": "A 4-step distillation LoRA for FL2VA at 768p — the single biggest speed win "
@@ -3992,6 +4681,8 @@ add("model.lora.fl2va.mlx", {
     "ja": "768p の FL2VA 向け 4 ステップ蒸留 LoRA で、このモデルで得られる最大の高速化です。MLX 移植版にはまだ LoRA ローダーがないため、導入用ではなく様子見として掲載しています。",
     "ko": "768p FL2VA용 4스텝 증류 LoRA로, 이 모델에서 얻을 수 있는 가장 큰 속도 향상입니다. MLX 이식판에는 아직 LoRA 로더가 없어 설치용이 아니라 지켜보기 위해 실어 둡니다.",
     "th": "LoRA กลั่นแบบ 4 step สำหรับ FL2VA ที่ 768p เป็นการเร่งความเร็วที่ได้ผลที่สุดของโมเดลนี้ พอร์ต MLX ยังไม่มีตัวโหลด LoRA จึงแสดงไว้ให้ติดตาม ไม่ใช่ให้ติดตั้ง",
+    "yue-Hant": "768p FL2VA 嘅 4 步蒸餾 LoRA——呢個模型可以有嘅最大加速。MLX 移植版仲未有 LoRA 載入器,所以列喺度係俾你留意,唔係俾你裝。",
+    "en-SG": "A 4-step distillation LoRA for FL2VA at 768p — the single biggest speed-up this model can get. The MLX port got no LoRA loader yet, so it is listed here to watch, not to install.",
 })
 add("model.lora.fl2va.mlx.blocked", {
     "en": "The MLX port has no LoRA loader yet. Fusing this would need a merged checkpoint "
@@ -4005,6 +4696,8 @@ add("model.lora.fl2va.mlx.blocked", {
     "ja": "MLX 移植版にはまだ LoRA ローダーがありません。これを使うには LoRA 単体ではなく、統合済みのチェックポイントが必要です。",
     "ko": "MLX 이식판에는 아직 LoRA 로더가 없습니다. 이것을 쓰려면 LoRA 단독이 아니라 병합된 체크포인트가 필요합니다.",
     "th": "พอร์ต MLX ยังไม่มีตัวโหลด LoRA การหลอมรวมตัวนี้ต้องใช้ checkpoint ที่ผสานไว้แล้ว ไม่ใช่ LoRA เดี่ยว ๆ",
+    "yue-Hant": "MLX 移植版仲未有 LoRA 載入器。要用就要一個已經合併嘅檢查點,唔可以淨係個 LoRA。",
+    "en-SG": "The MLX port got no LoRA loader yet. To fuse this you need a merged checkpoint, not the LoRA by itself.",
 })
 add("model.comfy.ref2va", {
     "en": "Ref2VA transformer for ComfyUI. Required for reference mode, which the MLX port "
@@ -4018,6 +4711,8 @@ add("model.comfy.ref2va", {
     "ja": "ComfyUI 用の Ref2VA トランスフォーマー。参考素材モードに必須で、MLX 移植版では一切できません。",
     "ko": "ComfyUI용 Ref2VA 트랜스포머. 참조 모드에 필수이며, MLX 이식판으로는 아예 할 수 없습니다.",
     "th": "Transformer Ref2VA สำหรับ ComfyUI จำเป็นต่อโหมดไฟล์อ้างอิง ซึ่งพอร์ต MLX ทำไม่ได้เลย",
+    "yue-Hant": "ComfyUI 用嘅 Ref2VA transformer。參考素材模式一定要,而 MLX 移植版根本做唔到。",
+    "en-SG": "Ref2VA transformer for ComfyUI. Must have for reference mode, which the MLX port cannot do at all.",
 })
 add("model.comfy.fl2va", {
     "en": "FL2VA transformer for ComfyUI. Only needed if you want to run text-to-video or "
@@ -4031,6 +4726,8 @@ add("model.comfy.fl2va", {
     "ja": "ComfyUI 用の FL2VA トランスフォーマー。MLX ではなく ComfyUI でテキストからの生成やキーフレームを回す場合にだけ必要です。",
     "ko": "ComfyUI용 FL2VA 트랜스포머. MLX 대신 ComfyUI로 텍스트-비디오나 키프레임을 돌릴 때만 필요합니다.",
     "th": "Transformer FL2VA สำหรับ ComfyUI จำเป็นเฉพาะเมื่อต้องการรันข้อความเป็นวิดีโอหรือ keyframe ผ่าน ComfyUI แทน MLX",
+    "yue-Hant": "ComfyUI 用嘅 FL2VA transformer。淨係當你想用 ComfyUI(而唔係 MLX)跑文字轉片或者關鍵格先要。",
+    "en-SG": "FL2VA transformer for ComfyUI. Only need it if you want to run text-to-video or keyframes through ComfyUI instead of MLX.",
 })
 add("model.comfy.textEncoder", {
     "en": "Qwen3-VL-32B for ComfyUI. Shared by both tasks — download once.",
@@ -4041,6 +4738,8 @@ add("model.comfy.textEncoder", {
     "ja": "ComfyUI 用の Qwen3-VL-32B。両方のタスクで共有するので、一度だけダウンロードすれば十分です。",
     "ko": "ComfyUI용 Qwen3-VL-32B. 두 작업이 공유하므로 한 번만 내려받으면 됩니다.",
     "th": "Qwen3-VL-32B สำหรับ ComfyUI ใช้ร่วมกันทั้งสองงาน ดาวน์โหลดครั้งเดียวพอ",
+    "yue-Hant": "ComfyUI 用嘅 Qwen3-VL-32B。兩種任務共用——下載一次就得。",
+    "en-SG": "Qwen3-VL-32B for ComfyUI. Both tasks share it — download once can already.",
 })
 add("model.comfy.videoVAE", {
     "en": "Video VAE in fp16. Chosen over the INT8 build: it is small, and decode quality "
@@ -4053,6 +4752,8 @@ add("model.comfy.videoVAE", {
     "ja": "fp16 の動画 VAE。INT8 版ではなくこちらを選んでいます。小さいうえに、デコード品質の差が見えるからです。",
     "ko": "fp16 비디오 VAE. INT8 빌드 대신 이것을 택했습니다. 작기도 하고, 디코딩 품질 차이가 눈에 보이기 때문입니다.",
     "th": "VAE วิดีโอแบบ fp16 เลือกตัวนี้แทนรุ่น INT8 เพราะขนาดเล็กและคุณภาพการถอดรหัสเห็นความต่างได้",
+    "yue-Hant": "fp16 嘅 video VAE。揀佢唔揀 INT8 版:細,而且解碼質素分得出。",
+    "en-SG": "Video VAE in fp16. Chosen over the INT8 build: small, and you can see the decode quality.",
 })
 add("model.comfy.audioVAE", {
     "en": "Audio VAE in fp32, for the stereo track H3 generates alongside the picture.",
@@ -4063,6 +4764,8 @@ add("model.comfy.audioVAE", {
     "ja": "fp32 の音声 VAE。H3 が映像と一緒に生成するステレオトラック用です。",
     "ko": "fp32 오디오 VAE. H3가 영상과 함께 만드는 스테레오 트랙에 씁니다.",
     "th": "VAE เสียงแบบ fp32 สำหรับแทร็ก stereo ที่ H3 สร้างพร้อมกับภาพ",
+    "yue-Hant": "fp32 嘅 audio VAE,用喺 H3 同畫面一齊生成嘅立體聲軌。",
+    "en-SG": "Audio VAE in fp32, for the stereo track H3 makes together with the picture.",
 })
 add("model.comfy.lora.ref2va", {
     "en": "4-step Ref2VA turbo LoRA. This is what makes reference renders practical at all "
@@ -4077,6 +4780,8 @@ add("model.comfy.lora.ref2va", {
     "ja": "4 ステップの Ref2VA turbo LoRA。参考素材を使うレンダリングを現実的にしているのはこれです。50 ステップが 4 ステップになるので、何時間もかかっていたものが数十分で済みます。",
     "ko": "4스텝 Ref2VA turbo LoRA. 참조 렌더링을 현실적으로 만들어 주는 것이 바로 이것입니다. 50스텝이 4스텝이 되므로 몇 시간이 수십 분으로 줄어듭니다.",
     "th": "Turbo LoRA ของ Ref2VA แบบ 4 step ตัวนี้คือสิ่งที่ทำให้การเรนเดอร์ด้วยไฟล์อ้างอิงเป็นไปได้จริง จากห้าสิบ step เหลือสี่ จากหลายชั่วโมงเหลือหลายสิบนาที",
+    "yue-Hant": "4 步嘅 Ref2VA turbo LoRA。正正係佢令到參考素材算圖變得做得過——四步而唔係五十步,由幾個鐘變幾十分鐘。",
+    "en-SG": "4-step Ref2VA turbo LoRA. This one is what makes reference renders practical at all — four steps instead of fifty, so tens of minutes instead of many hours.",
 })
 add("model.comfy.lora.fl2va", {
     "en": "4-step FL2VA turbo LoRA. Distilled for four steps, where MLX's undistilled "
@@ -4090,6 +4795,8 @@ add("model.comfy.lora.fl2va", {
     "ja": "4 ステップの FL2VA turbo LoRA。4 ステップ用に蒸留されており、MLX の未蒸留の重みは 16 ステップを要します。",
     "ko": "4스텝 FL2VA turbo LoRA. 4스텝에 맞춰 증류되었으며, MLX의 비증류 가중치는 16스텝이 필요합니다.",
     "th": "Turbo LoRA ของ FL2VA แบบ 4 step กลั่นมาเพื่อสี่ step ขณะที่น้ำหนักที่ยังไม่กลั่นของ MLX ต้องใช้สิบหก step",
+    "yue-Hant": "4 步嘅 FL2VA turbo LoRA。專登為四步蒸餾,而 MLX 未蒸餾嘅權重要十六步。",
+    "en-SG": "4-step FL2VA turbo LoRA. Distilled for four steps, while MLX's undistilled weights want sixteen.",
 })
 add("model.textEncoder.uncensored", {
     "en": "Qwen3-VL-32B with its refusal behaviour trained out. Drop-in replacement for the "
@@ -4110,6 +4817,8 @@ add("model.textEncoder.uncensored", {
     "ja": "拒否の振る舞いを学習から取り除いた Qwen3-VL-32B です。標準のエンコーダとそのまま差し替えられます。拒否は言語モデル側にあり拡散トランスフォーマーにはないため、H3 自体は変わりません。ComfyUI 専用で、MLX にはこの形式のローダーがありません。",
     "ko": "거부 동작을 학습에서 제거한 Qwen3-VL-32B입니다. 기본 인코더와 그대로 바꿔 쓸 수 있습니다. 거부는 언어 모델 쪽에 있고 디퓨전 트랜스포머에는 없으므로 H3 자체는 달라지지 않습니다. ComfyUI 전용이며 MLX에는 이 형식의 로더가 없습니다.",
     "th": "Qwen3-VL-32B ที่ฝึกให้ไม่มีพฤติกรรมปฏิเสธ ใช้แทนตัวเข้ารหัสมาตรฐานได้ทันที ตัว H3 เองไม่เปลี่ยน เพราะการปฏิเสธอยู่ในโมเดลภาษา ไม่ใช่ใน diffusion transformer ใช้ได้กับ ComfyUI เท่านั้น เพราะ MLX ไม่มีตัวโหลดสำหรับรูปแบบนี้",
+    "yue-Hant": "拒絕行為訓練走咗嘅 Qwen3-VL-32B。可以直接換走原本嗰個——H3 本身冇變,因為拒絕行為喺語言模型度,唔喺 diffusion transformer。淨係 ComfyUI 用得;MLX 冇呢個格式嘅載入器。",
+    "en-SG": "Qwen3-VL-32B with the refusal behaviour trained out. Drop-in replacement for the stock encoder — H3 itself never change, because refusals live in the language model, not the diffusion transformer. ComfyUI only; MLX got no loader for this format.",
 })
 add("model.fl2va.gguf", {
     "en": "GGUF quantizations, including very small ones. Loaded by ComfyUI, not by MLX — "
@@ -4123,6 +4832,8 @@ add("model.fl2va.gguf", {
     "ja": "非常に小さいものを含む GGUF 量子化です。MLX ではなく ComfyUI が読み込みます。このモデルを ComfyUI 側で回す場合に役立ちます。",
     "ko": "아주 작은 것까지 포함한 GGUF 양자화입니다. MLX가 아니라 ComfyUI가 불러옵니다. 이 모델을 ComfyUI로 돌릴 때 쓸모가 있습니다.",
     "th": "Quantization แบบ GGUF รวมถึงรุ่นที่เล็กมาก โหลดด้วย ComfyUI ไม่ใช่ MLX มีประโยชน์หากคุณรันโมเดลนี้ผ่าน ComfyUI แทน",
+    "yue-Hant": "GGUF 量化版,包括好細嘅。由 ComfyUI 載入,MLX 唔支援——你改用 ComfyUI 跑呢個模型嗰陣先用得著。",
+    "en-SG": "GGUF quantizations, including very small ones. Loaded by ComfyUI, not MLX — only useful if you run this model through ComfyUI instead.",
 })
 add("model.fl2va.nvfp4", {
     "en": "Community prune in NVIDIA's NVFP4 format. Listed for completeness.",
@@ -4134,6 +4845,8 @@ add("model.fl2va.nvfp4", {
     "ja": "NVIDIA の NVFP4 形式によるコミュニティ版の枝刈りです。網羅のために掲載しています。",
     "ko": "NVIDIA의 NVFP4 형식으로 만든 커뮤니티 프루닝입니다. 빠짐없이 보여 주기 위해 실어 둡니다.",
     "th": "เวอร์ชันตัดแต่งโดยชุมชนในรูปแบบ NVFP4 ของ NVIDIA แสดงไว้เพื่อความครบถ้วน",
+    "yue-Hant": "社群用 NVIDIA NVFP4 格式做嘅修剪版。列出嚟求個齊。",
+    "en-SG": "Community prune in NVIDIA's NVFP4 format. Listed here just for completeness.",
 })
 
 # ── Formatting fragments ─────────────────────────────────────────────────────
@@ -4146,6 +4859,8 @@ add("format.clipLength", {
     "ja": "%@ 秒",
     "ko": "%@ 초",
     "th": "%@ วินาที",
+    "yue-Hant": "%@ 秒",
+    "en-SG": "%@ s",
 })
 add("format.frames", {
     "en": "%@ frames",
@@ -4156,6 +4871,8 @@ add("format.frames", {
     "ja": "%@ フレーム",
     "ko": "%@ 프레임",
     "th": "%@ เฟรม",
+    "yue-Hant": "%@ 格",
+    "en-SG": "%@ frames",
 }, note={
     "content": "Takes a count. English offers only two forms and this string supplies one, so \"1 "
                "frames\" is already wrong; Arabic needs six categories and settles for a single "
@@ -4173,6 +4890,8 @@ add("format.steps", {
     "ja": "%@ ステップ",
     "ko": "%@ 스텝",
     "th": "%@ step",
+    "yue-Hant": "%@ 步",
+    "en-SG": "%@ steps",
 }, note={
     "content": "Takes a count. English offers only two forms and this string supplies one, so \"1 "
                "steps\" is already wrong; Arabic needs six categories and settles for a single "
@@ -4191,6 +4910,8 @@ add("format.framesAndLength", {
     "ja": "%1$@ フレーム・%2$@ 秒",
     "ko": "%1$@ 프레임 · %2$@ 초",
     "th": "%1$@ เฟรม · %2$@ วินาที",
+    "yue-Hant": "%1$@ 格 · %2$@ 秒",
+    "en-SG": "%1$@ frames · %2$@ s",
 })
 add("sampling.steps.note", {
     "en": "Steps are actual denoising passes, and dominate render time almost linearly. "
@@ -4207,6 +4928,8 @@ add("sampling.steps.note", {
     "ja": "ステップはノイズ除去の実回数で、レンダリング時間をほぼ線形に左右します。%1$@ 長さは動画 VAE の 17n+5 のフレーム格子に丸められるので、表示される値がそのままレンダリングされます。",
     "ko": "스텝은 실제 디노이징 횟수이며 렌더링 시간을 거의 선형으로 좌우합니다. %1$@ 길이는 비디오 VAE의 17n+5 프레임 격자에 맞춰지므로, 표시된 값이 그대로 렌더링됩니다.",
     "th": "Step คือรอบการลด noise จริง และกำหนดเวลาเรนเดอร์เกือบเป็นเส้นตรง %1$@ ความยาวจะถูกปัดเข้าตาราง 17n+5 เฟรมของ VAE วิดีโอ ค่าที่เห็นจึงคือค่าที่เรนเดอร์จริง",
+    "yue-Hant": "步數就係實際去噪嘅次數，幾乎線性咁決定算幾耐。%1$@時長會對齊 video VAE 嘅 17n+5 格線，所以顯示嘅數值就係真係會算出嚟嗰個。",
+    "en-SG": "Steps are the actual denoising passes, and they decide render time almost linearly. %1$@ Duration snaps to the video VAE's 17n+5 frame grid, so the number shown is what you get.",
 })
 add("sampling.steps.note.turbo", {
     "en": "This engine loads a %1$@-step turbo LoRA, distilled for exactly that many — more "
@@ -4220,6 +4943,8 @@ add("sampling.steps.note.turbo", {
     "ja": "このエンジンは %1$@ ステップ用の turbo LoRA を読み込みます。ちょうどその回数で蒸留されているため、増やしても主に時間が増えるだけです。",
     "ko": "이 엔진은 %1$@ 스텝용 turbo LoRA를 불러옵니다. 딱 그 횟수에 맞춰 증류되었기 때문에 스텝을 늘려도 대체로 시간만 늘어납니다.",
     "th": "Engine นี้โหลด turbo LoRA สำหรับ %1$@ step ซึ่งกลั่นมาเพื่อจำนวนนั้นพอดี เพิ่ม step จึงเปลืองเวลาเป็นหลัก",
+    "yue-Hant": "呢個引擎會載入 %1$@ 步嘅 turbo LoRA，正正係為咗咁多步而蒸餾——加多啲步大多數只係多花時間。",
+    "en-SG": "This engine loads a %1$@-step turbo LoRA, distilled for exactly that many — more steps mostly just waste time.",
 })
 add("sampling.steps.note.undistilled", {
     "en": "These weights are undistilled, so around %1$@ steps is the working range; far "
@@ -4233,6 +4958,8 @@ add("sampling.steps.note.undistilled", {
     "ja": "この重みは未蒸留なので、実用域は %1$@ ステップ前後です。大幅に減らすと分布から外れ、眠い絵になります。",
     "ko": "이 가중치는 비증류라 %1$@ 스텝 안팎이 실용 범위입니다. 그보다 훨씬 적으면 분포를 벗어나 흐릿해 보입니다.",
     "th": "น้ำหนักชุดนี้ยังไม่ผ่านการกลั่น ช่วงที่ใช้ได้จริงจึงราว %1$@ step ถ้าน้อยกว่านี้มากจะหลุดการกระจายและดูเบลอ",
+    "yue-Hant": "呢啲權重未蒸餾，所以大概 %1$@ 步先係合用嘅範圍；少好多就會偏離分佈，畫面會鬆。",
+    "en-SG": "These weights are undistilled, so around %1$@ steps is the working range. Much fewer goes off-distribution and looks soft.",
 })
 
 # ── Models: why a format will not load ───────────────────────────────────────
@@ -4245,6 +4972,8 @@ add("quantization.unloadable.nvfp4", {
     "ja": "NVFP4 は NVIDIA Blackwell 向けの形式です。Metal で動かす手段はありません。",
     "ko": "NVFP4는 NVIDIA Blackwell 형식입니다. Metal 경로가 없습니다.",
     "th": "NVFP4 เป็นรูปแบบของ NVIDIA Blackwell จึงไม่มีทางรันบน Metal",
+    "yue-Hant": "NVFP4 係 NVIDIA Blackwell 嘅格式，冇 Metal 行得通嘅路。",
+    "en-SG": "NVFP4 is NVIDIA Blackwell format. No Metal path one.",
 })
 add("quantization.unloadable.gguf", {
     "en": "GGUF needs a ComfyUI custom node this app does not install.",
@@ -4255,6 +4984,8 @@ add("quantization.unloadable.gguf", {
     "ja": "GGUF にはこのアプリが導入しない ComfyUI のカスタムノードが必要です。",
     "ko": "GGUF에는 이 앱이 설치하지 않는 ComfyUI 커스텀 노드가 필요합니다.",
     "th": "GGUF ต้องใช้คัสตอมโหนดของ ComfyUI ที่แอปนี้ไม่ได้ติดตั้ง",
+    "yue-Hant": "GGUF 要一個呢個 App 唔會裝嘅 ComfyUI 自訂節點。",
+    "en-SG": "GGUF need one ComfyUI custom node, but this app don't install it.",
 })
 add("quantization.unloadable.other", {
     "en": "No engine here can load %@.",
@@ -4265,6 +4996,8 @@ add("quantization.unloadable.other", {
     "ja": "ここにあるどのエンジンも %@ を読み込めません。",
     "ko": "여기 있는 어떤 엔진도 %@ 을(를) 불러올 수 없습니다.",
     "th": "ไม่มี engine ใดที่นี่โหลด %@ ได้",
+    "yue-Hant": "呢度冇一個引擎載入到 %@。",
+    "en-SG": "No engine here can load %@.",
 }, note={
     "content": "Injects a name into a sentence. Languages that inflect a noun for case, choose "
                "an article by gender, or attach a vowel-harmonising suffix cannot do it without "
@@ -4283,6 +5016,8 @@ add("problem.tooManyOfKind", {
     "ja": "参考 %2$@ ファイルは最大 %1$@ 件ですが、%3$@ 件あります。",
     "ko": "참조 %2$@ 파일은 최대 %1$@ 개인데 %3$@ 개가 있습니다.",
     "th": "ไฟล์ %2$@ อ้างอิงได้มากสุด %1$@ ไฟล์ แต่คุณมี %3$@",
+    "yue-Hant": "參考%2$@檔案最多 %1$@ 個——你而家有 %3$@ 個。",
+    "en-SG": "Most %1$@ reference %2$@ files only — you got %3$@.",
 }, note={
     "content": "Injects a count, then a *noun* naming the file kind, then a second count. The "
                "noun has to agree with the numeral in most inflecting languages, and it arrives "
@@ -4300,6 +5035,8 @@ add("queue.untitled", {
     "ja": "無題のレンダリング",
     "ko": "제목 없는 렌더링",
     "th": "การเรนเดอร์ไม่มีชื่อ",
+    "yue-Hant": "未改名嘅算圖",
+    "en-SG": "No name render",
 })
 add("models.chooseFolder.message", {
     "en": "Choose the folder where model weights are shared between projects",
@@ -4310,6 +5047,8 @@ add("models.chooseFolder.message", {
     "ja": "プロジェクト間でモデルの重みを共有するフォルダを選んでください",
     "ko": "프로젝트 사이에서 모델 가중치를 공유할 폴더를 고르세요",
     "th": "เลือกโฟลเดอร์ที่จะใช้เก็บไฟล์น้ำหนักโมเดลร่วมกันระหว่างโปรเจกต์",
+    "yue-Hant": "揀個各專案共用模型權重嘅資料夾",
+    "en-SG": "Choose the folder where projects share model weights",
 })
 
 # ── Fitting the estimate and the weights to this Mac ─────────────────────────
@@ -4325,6 +5064,8 @@ add("summary.eta.footnote.predicted", {
     "ja": "%@ 向けの推定値で、別の Mac の公表値から換算しています。最初のレンダリングが終わると実測値に置き換わります。",
     "ko": "%@ 에 대한 추정값으로, 다른 Mac의 공개 수치를 환산한 것입니다. 첫 렌더링이 끝나면 실측값으로 바뀝니다.",
     "th": "เป็นค่าประมาณสำหรับ %@ ที่ปรับมาจากตัวเลขที่เผยแพร่ของ Mac รุ่นอื่น จะถูกแทนด้วยค่าที่วัดได้จริงหลังการเรนเดอร์ครั้งแรก",
+    "yue-Hant": "針對 %@ 嘅推算，由另一部 Mac 嘅公開數字換算。算完第一次之後，會改用實測值。",
+    "en-SG": "An estimate for %@, scaled from a published figure for another Mac. After your first render it will be replaced by a real measurement.",
 })
 add("summary.eta.footnote.measured", {
     "en": "Measured from this Mac's own renders on this engine (%@ so far).",
@@ -4335,6 +5076,8 @@ add("summary.eta.footnote.measured", {
     "ja": "この Mac でこのエンジンを使った実測値です（これまで %@ 件）。",
     "ko": "이 Mac에서 이 엔진으로 실제 측정한 값입니다(지금까지 %@ 회).",
     "th": "วัดจากการเรนเดอร์จริงบน Mac เครื่องนี้ด้วย engine นี้ (%@ ครั้งจนถึงตอนนี้)",
+    "yue-Hant": "按本機呢個引擎實際算圖度出嚟（暫時 %@ 次）。",
+    "en-SG": "Measured from this Mac's own renders on this engine (%@ so far).",
 })
 add("models.memory.tooLarge", {
     "en": "Needs about %1$@ in memory. This Mac can give about %2$@ to a model, so this "
@@ -4348,6 +5091,8 @@ add("models.memory.tooLarge", {
     "ja": "メモリが約 %1$@ 必要です。この Mac がモデルに割けるのは約 %2$@ なので、実行ではなくスワップになります。",
     "ko": "메모리가 약 %1$@ 필요합니다. 이 Mac이 모델에 줄 수 있는 양은 약 %2$@ 이라 제대로 돌지 않고 스와핑합니다.",
     "th": "ต้องใช้หน่วยความจำราว %1$@ แต่ Mac เครื่องนี้ให้โมเดลได้ราว %2$@ จึงจะสลับหน่วยความจำแทนที่จะรันได้จริง",
+    "yue-Hant": "記憶體要大概 %1$@。本機可以俾模型用嘅得大概 %2$@,所以會用到置換空間,跑唔順。",
+    "en-SG": "Needs about %1$@ in memory. This Mac can only give a model about %2$@, so it will swap instead of run properly.",
 })
 add("models.memory.tight", {
     "en": "Needs about %1$@ of the roughly %2$@ this Mac can give a model. It will fit, "
@@ -4361,6 +5106,8 @@ add("models.memory.tight", {
     "ja": "この Mac がモデルに割ける約 %2$@ のうち、約 %1$@ が必要です。収まりますが、余裕はほとんどありません。",
     "ko": "이 Mac이 모델에 줄 수 있는 약 %2$@ 중 %1$@ 정도가 필요합니다. 들어가기는 하지만 여유가 거의 없습니다.",
     "th": "ต้องใช้ราว %1$@ จากประมาณ %2$@ ที่ Mac เครื่องนี้ให้โมเดลได้ พอดีอยู่ แต่แทบไม่เหลือที่ว่าง",
+    "yue-Hant": "要大概 %1$@,而本機可以俾模型用嘅大概 %2$@。夠,但係冇乜餘。",
+    "en-SG": "Needs about %1$@, and this Mac can give a model about %2$@. Enough, but not much to spare.",
 })
 add("problem.memory", {
     "en": "The selected weights need about %1$@ in memory together. This Mac can give a "
@@ -4375,6 +5122,8 @@ add("problem.memory", {
     "ja": "選択した重みは合わせて約 %1$@ のメモリを必要とします。この Mac がモデルに割けるのは約 %2$@ です。より小さい量子化を選ぶか、スワップを覚悟してください。",
     "ko": "선택한 가중치는 합쳐서 약 %1$@ 의 메모리가 필요합니다. 이 Mac이 모델에 줄 수 있는 양은 약 %2$@ 입니다. 더 작은 양자화를 고르거나 스와핑을 감수하세요.",
     "th": "น้ำหนักที่เลือกต้องใช้หน่วยความจำรวมราว %1$@ แต่ Mac เครื่องนี้ให้โมเดลได้ราว %2$@ เลือก quantization ที่เล็กลง หรือยอมให้สลับหน่วยความจำ",
+    "yue-Hant": "揀咗嘅權重加埋大概要 %1$@ 記憶體，而本機可以俾模型用嘅大概係 %2$@。揀細啲嘅量化版本，唔係就要預咗佢用置換空間。",
+    "en-SG": "The weights you chose need about %1$@ in memory all together. This Mac can give a model about %2$@. Choose a smaller quantization, or else confirm plus chop it will swap.",
 })
 add("problem.noMetalKernel", {
     "en": "%@ has no Metal kernel and cannot run on Apple silicon.",
@@ -4385,6 +5134,8 @@ add("problem.noMetalKernel", {
     "ja": "%@ には Metal カーネルがなく、Apple シリコンでは実行できません。",
     "ko": "%@ 에는 Metal 커널이 없어 Apple 실리콘에서 실행할 수 없습니다.",
     "th": "%@ ไม่มีเคอร์เนล Metal จึงรันบน Apple silicon ไม่ได้",
+    "yue-Hant": "%@ 冇對應嘅 Metal kernel，喺 Apple 晶片上面跑唔到。",
+    "en-SG": "%@ got no Metal kernel, so cannot run on Apple silicon.",
 }, note={
     "content": "Injects a name into a sentence. Languages that inflect a noun for case, choose "
                "an article by gender, or attach a vowel-harmonising suffix cannot do it without "
@@ -4406,6 +5157,8 @@ add("model.name.support.mlx", {
     "ja": "FL2VA の VAE・プロセッサ・トークナイザ",
     "ko": "FL2VA VAE, 프로세서 및 토크나이저",
     "th": "VAE ตัวประมวลผล และ tokenizer ของ FL2VA",
+    "yue-Hant": "FL2VA VAE、處理器同 tokenizer",
+    "en-SG": "FL2VA VAEs, processor & tokenizer",
 })
 add("model.name.textEncoder.mlx", {
     "en": "Text encoder — bfloat16",
@@ -4416,6 +5169,8 @@ add("model.name.textEncoder.mlx", {
     "ja": "テキストエンコーダ — bfloat16",
     "ko": "텍스트 인코더 — bfloat16",
     "th": "ตัวเข้ารหัสข้อความ — bfloat16",
+    "yue-Hant": "文字編碼器 — bfloat16",
+    "en-SG": "Text encoder — bfloat16",
 })
 add("model.name.fl2va.q4", {
     "en": "FL2VA transformer — 4-bit (MLX)",
@@ -4426,6 +5181,8 @@ add("model.name.fl2va.q4", {
     "ja": "FL2VA トランスフォーマー — 4 ビット（MLX）",
     "ko": "FL2VA 트랜스포머 — 4비트(MLX)",
     "th": "Transformer FL2VA — 4 บิต (MLX)",
+    "yue-Hant": "FL2VA transformer — 4-bit (MLX)",
+    "en-SG": "FL2VA transformer — 4-bit (MLX)",
 })
 add("model.name.fl2va.q6", {
     "en": "FL2VA transformer — 6-bit (MLX)",
@@ -4436,6 +5193,8 @@ add("model.name.fl2va.q6", {
     "ja": "FL2VA トランスフォーマー — 6 ビット（MLX）",
     "ko": "FL2VA 트랜스포머 — 6비트(MLX)",
     "th": "Transformer FL2VA — 6 บิต (MLX)",
+    "yue-Hant": "FL2VA transformer — 6-bit (MLX)",
+    "en-SG": "FL2VA transformer — 6-bit (MLX)",
 })
 add("model.name.fl2va.q8", {
     "en": "FL2VA transformer — 8-bit (MLX)",
@@ -4446,6 +5205,8 @@ add("model.name.fl2va.q8", {
     "ja": "FL2VA トランスフォーマー — 8 ビット（MLX）",
     "ko": "FL2VA 트랜스포머 — 8비트(MLX)",
     "th": "Transformer FL2VA — 8 บิต (MLX)",
+    "yue-Hant": "FL2VA transformer — 8-bit (MLX)",
+    "en-SG": "FL2VA transformer — 8-bit (MLX)",
 })
 add("model.name.fl2va.bf16", {
     "en": "FL2VA transformer — bfloat16",
@@ -4456,6 +5217,8 @@ add("model.name.fl2va.bf16", {
     "ja": "FL2VA トランスフォーマー — bfloat16",
     "ko": "FL2VA 트랜스포머 — bfloat16",
     "th": "Transformer FL2VA — bfloat16",
+    "yue-Hant": "FL2VA transformer — bfloat16",
+    "en-SG": "FL2VA transformer — bfloat16",
 })
 add("model.name.ref2va.bf16", {
     "en": "Ref2VA transformer — bfloat16",
@@ -4466,6 +5229,8 @@ add("model.name.ref2va.bf16", {
     "ja": "Ref2VA トランスフォーマー — bfloat16",
     "ko": "Ref2VA 트랜스포머 — bfloat16",
     "th": "Transformer Ref2VA — bfloat16",
+    "yue-Hant": "Ref2VA transformer — bfloat16",
+    "en-SG": "Ref2VA transformer — bfloat16",
 })
 add("model.name.lora.fl2va.mlx", {
     "en": "FL2VA turbo LoRA — 4-step, MLX format",
@@ -4476,6 +5241,8 @@ add("model.name.lora.fl2va.mlx", {
     "ja": "FL2VA turbo LoRA — 4 ステップ、MLX 形式",
     "ko": "FL2VA turbo LoRA — 4스텝, MLX 형식",
     "th": "Turbo LoRA ของ FL2VA — 4 step รูปแบบ MLX",
+    "yue-Hant": "FL2VA turbo LoRA — 4 步，MLX 格式",
+    "en-SG": "FL2VA turbo LoRA — 4-step, MLX format",
 })
 add("model.name.comfy.ref2va", {
     "en": "Ref2VA transformer — INT8 ConvRot",
@@ -4486,6 +5253,8 @@ add("model.name.comfy.ref2va", {
     "ja": "Ref2VA トランスフォーマー — INT8 ConvRot",
     "ko": "Ref2VA 트랜스포머 — INT8 ConvRot",
     "th": "Transformer Ref2VA — INT8 ConvRot",
+    "yue-Hant": "Ref2VA transformer — INT8 ConvRot",
+    "en-SG": "Ref2VA transformer — INT8 ConvRot",
 })
 add("model.name.comfy.fl2va", {
     "en": "FL2VA transformer — INT8 ConvRot",
@@ -4496,6 +5265,8 @@ add("model.name.comfy.fl2va", {
     "ja": "FL2VA トランスフォーマー — INT8 ConvRot",
     "ko": "FL2VA 트랜스포머 — INT8 ConvRot",
     "th": "Transformer FL2VA — INT8 ConvRot",
+    "yue-Hant": "FL2VA transformer — INT8 ConvRot",
+    "en-SG": "FL2VA transformer — INT8 ConvRot",
 })
 add("model.name.comfy.textEncoder", {
     "en": "Text encoder — INT8 ConvRot",
@@ -4506,6 +5277,8 @@ add("model.name.comfy.textEncoder", {
     "ja": "テキストエンコーダ — INT8 ConvRot",
     "ko": "텍스트 인코더 — INT8 ConvRot",
     "th": "ตัวเข้ารหัสข้อความ — INT8 ConvRot",
+    "yue-Hant": "文字編碼器 — INT8 ConvRot",
+    "en-SG": "Text encoder — INT8 ConvRot",
 })
 add("model.name.comfy.videoVAE", {
     "en": "Video VAE — fp16",
@@ -4516,6 +5289,8 @@ add("model.name.comfy.videoVAE", {
     "ja": "動画 VAE — fp16",
     "ko": "비디오 VAE — fp16",
     "th": "VAE วิดีโอ — fp16",
+    "yue-Hant": "Video VAE — fp16",
+    "en-SG": "Video VAE — fp16",
 })
 add("model.name.comfy.audioVAE", {
     "en": "Audio VAE — fp32",
@@ -4526,6 +5301,8 @@ add("model.name.comfy.audioVAE", {
     "ja": "音声 VAE — fp32",
     "ko": "오디오 VAE — fp32",
     "th": "VAE เสียง — fp32",
+    "yue-Hant": "Audio VAE — fp32",
+    "en-SG": "Audio VAE — fp32",
 })
 add("model.name.comfy.lora.ref2va", {
     "en": "Ref2VA turbo LoRA — 4-step",
@@ -4536,6 +5313,8 @@ add("model.name.comfy.lora.ref2va", {
     "ja": "Ref2VA turbo LoRA — 4 ステップ",
     "ko": "Ref2VA turbo LoRA — 4스텝",
     "th": "Turbo LoRA ของ Ref2VA — 4 step",
+    "yue-Hant": "Ref2VA turbo LoRA — 4 步",
+    "en-SG": "Ref2VA turbo LoRA — 4-step",
 })
 add("model.name.comfy.lora.fl2va", {
     "en": "FL2VA turbo LoRA — 4-step, ComfyUI format",
@@ -4546,6 +5325,8 @@ add("model.name.comfy.lora.fl2va", {
     "ja": "FL2VA turbo LoRA — 4 ステップ、ComfyUI 形式",
     "ko": "FL2VA turbo LoRA — 4스텝, ComfyUI 형식",
     "th": "Turbo LoRA ของ FL2VA — 4 step รูปแบบ ComfyUI",
+    "yue-Hant": "FL2VA turbo LoRA — 4 步，ComfyUI 格式",
+    "en-SG": "FL2VA turbo LoRA — 4-step, ComfyUI format",
 })
 add("model.name.textEncoder.uncensored", {
     "en": "Text encoder — INT8 ConvRot, uncensored",
@@ -4556,6 +5337,8 @@ add("model.name.textEncoder.uncensored", {
     "ja": "テキストエンコーダ — INT8 ConvRot、無検閲",
     "ko": "텍스트 인코더 — INT8 ConvRot, 무검열",
     "th": "ตัวเข้ารหัสข้อความ — INT8 ConvRot ไม่เซ็นเซอร์",
+    "yue-Hant": "文字編碼器 — INT8 ConvRot，無審查",
+    "en-SG": "Text encoder — INT8 ConvRot, uncensored",
 })
 add("model.name.fl2va.gguf", {
     "en": "FL2VA transformer — GGUF",
@@ -4566,6 +5349,8 @@ add("model.name.fl2va.gguf", {
     "ja": "FL2VA トランスフォーマー — GGUF",
     "ko": "FL2VA 트랜스포머 — GGUF",
     "th": "Transformer FL2VA — GGUF",
+    "yue-Hant": "FL2VA transformer — GGUF",
+    "en-SG": "FL2VA transformer — GGUF",
 })
 add("model.name.fl2va.nvfp4", {
     "en": "FL2VA transformer — NVFP4",
@@ -4576,6 +5361,8 @@ add("model.name.fl2va.nvfp4", {
     "ja": "FL2VA トランスフォーマー — NVFP4",
     "ko": "FL2VA 트랜스포머 — NVFP4",
     "th": "Transformer FL2VA — NVFP4",
+    "yue-Hant": "FL2VA transformer — NVFP4",
+    "en-SG": "FL2VA transformer — NVFP4",
 })
 
 # ── ComfyUI availability ─────────────────────────────────────────────────────
@@ -4591,6 +5378,8 @@ add("comfy.notInstalled", {
     "ja": "ComfyUI がインストールされていません。「設定 › ComfyUI」からインストールしてください。",
     "ko": "ComfyUI가 설치되어 있지 않습니다. 설정 › ComfyUI에서 설치하세요.",
     "th": "ยังไม่ได้ติดตั้ง ComfyUI ติดตั้งได้ที่ การตั้งค่า › ComfyUI",
+    "yue-Hant": "仲未裝 ComfyUI。去「設定 › ComfyUI」裝佢。",
+    "en-SG": "ComfyUI not installed yet. Go Settings › ComfyUI and install lah.",
 })
 add("comfy.missingWeights", {
     "en": "Missing ComfyUI weights: %@",
@@ -4601,6 +5390,8 @@ add("comfy.missingWeights", {
     "ja": "ComfyUI の重みが不足しています：%@",
     "ko": "ComfyUI 가중치가 없습니다: %@",
     "th": "ไม่พบไฟล์น้ำหนักของ ComfyUI: %@",
+    "yue-Hant": "唔見咗 ComfyUI 權重檔：%@",
+    "en-SG": "Missing ComfyUI weights: %@",
 })
 add("comfy.executionError", {
     "en": "ComfyUI reported an execution error.",
@@ -4611,6 +5402,8 @@ add("comfy.executionError", {
     "ja": "ComfyUI が実行エラーを報告しました。",
     "ko": "ComfyUI가 실행 오류를 보고했습니다.",
     "th": "ComfyUI รายงานข้อผิดพลาดขณะทำงาน",
+    "yue-Hant": "ComfyUI 話執行出錯。",
+    "en-SG": "ComfyUI say got execution error.",
 })
 
 # ── Models: row status and copying ───────────────────────────────────────────
@@ -4623,6 +5416,8 @@ add("models.status.inUse", {
     "ja": "ダウンロード済みで、このレンダリングで使用します",
     "ko": "다운로드되어 이번 렌더링에 사용됩니다",
     "th": "ดาวน์โหลดแล้ว และใช้กับการเรนเดอร์นี้",
+    "yue-Hant": "下載咗，今次算圖會用到",
+    "en-SG": "Downloaded, and this render is using it",
 })
 add("models.status.missing", {
     "en": "Needed by this render, but not downloaded",
@@ -4633,6 +5428,8 @@ add("models.status.missing", {
     "ja": "このレンダリングに必要ですが、未ダウンロードです",
     "ko": "이번 렌더링에 필요하지만 아직 내려받지 않았습니다",
     "th": "จำเป็นต่อการเรนเดอร์นี้ แต่ยังไม่ได้ดาวน์โหลด",
+    "yue-Hant": "今次算圖要用，但係仲未下載",
+    "en-SG": "This render needs it, but never download yet",
 })
 add("models.copyLink", {
     "en": "Copy link",
@@ -4643,6 +5440,8 @@ add("models.copyLink", {
     "ja": "リンクをコピー",
     "ko": "링크 복사",
     "th": "คัดลอกลิงก์",
+    "yue-Hant": "拷貝連結",
+    "en-SG": "Copy link",
 })
 add("models.copyFilename", {
     "en": "Copy file name",
@@ -4653,6 +5452,8 @@ add("models.copyFilename", {
     "ja": "ファイル名をコピー",
     "ko": "파일 이름 복사",
     "th": "คัดลอกชื่อไฟล์",
+    "yue-Hant": "拷貝檔案名",
+    "en-SG": "Copy file name",
 })
 add("models.copyRepoID", {
     "en": "Copy repository id",
@@ -4663,6 +5464,8 @@ add("models.copyRepoID", {
     "ja": "リポジトリ ID をコピー",
     "ko": "저장소 ID 복사",
     "th": "คัดลอกรหัสที่เก็บ",
+    "yue-Hant": "拷貝儲存庫 ID",
+    "en-SG": "Copy repository id",
 })
 
 # ── Queue: throughput and sequence length ────────────────────────────────────
@@ -4677,6 +5480,8 @@ add("queue.perStep.now", {
     "ja": "現在 %@/ステップ",
     "ko": "현재 %@/스텝",
     "th": "ตอนนี้ %@/ step",
+    "yue-Hant": "而家 %@/步",
+    "en-SG": "%@/step now",
 })
 add("queue.perStep.average", {
     "en": "%@/step average",
@@ -4687,6 +5492,8 @@ add("queue.perStep.average", {
     "ja": "平均 %@/ステップ",
     "ko": "평균 %@/스텝",
     "th": "เฉลี่ย %@/ step",
+    "yue-Hant": "平均 %@/步",
+    "en-SG": "%@/step average",
 })
 add("queue.tokens", {
     "en": "%@ tokens",
@@ -4697,6 +5504,8 @@ add("queue.tokens", {
     "ja": "%@ トークン",
     "ko": "%@ 토큰",
     "th": "%@ token",
+    "yue-Hant": "%@ 個 token",
+    "en-SG": "%@ tokens",
 }, note={
     "content": "Takes a count. English offers only two forms and this string supplies one, so \"1 "
                "tokens\" is already wrong; Arabic needs six categories and settles for a single "
@@ -4721,6 +5530,8 @@ add("queue.tokens.help", {
     "ja": "テキストエンコーダが読む系列の長さです。全体で %1$@ トークン、うち %2$@ がプロンプトです。残りは視覚トークンで、参考画像ごとに 1 ブロックです。ノイズ除去が始まる前に一度だけ読まれ、ここで 1 トークンずつ生成されるものはありません。",
     "ko": "텍스트 인코더가 읽는 시퀀스 길이입니다. 전체 %1$@ 토큰 중 %2$@ 개가 프롬프트이고, 나머지는 참조 이미지마다 한 블록씩인 비전 토큰입니다. 디노이징이 시작되기 전에 한 번만 읽으며, 여기서 토큰을 하나씩 생성하지는 않습니다.",
     "th": "ความยาวของลำดับที่ตัวเข้ารหัสข้อความอ่าน ทั้งหมด %1$@ token โดย %2$@ token เป็น prompt ที่เหลือเป็น token ภาพ หนึ่งบล็อกต่อภาพอ้างอิงหนึ่งภาพ อ่านเพียงครั้งเดียวก่อนเริ่มลด noise ไม่มีอะไรตรงนี้ที่สร้างทีละ token",
+    "yue-Hant": "文字編碼器讀嘅序列有幾長:總共 %1$@ 個 token,其中 %2$@ 個係提示詞。其餘係視覺 token,每張參考圖一段。呢段嘢喺去噪開始之前淨係讀一次——呢度唔係逐個 token 生成嘅。",
+    "en-SG": "How long the sequence the text encoder reads: %1$@ tokens all together, of which %2$@ come from your prompt. The rest are vision tokens, one block per reference image. It is read once only, before denoising starts — nothing here is generated token by token.",
 })
 add("compose.preset.saved", {
     "en": "Saved “%@” to Presets",
@@ -4731,6 +5542,8 @@ add("compose.preset.saved", {
     "ja": "「%@」をプリセットに保存しました",
     "ko": "'%@' 을(를) 프리셋에 저장했습니다",
     "th": "บันทึก “%@” ลงใน preset แล้ว",
+    "yue-Hant": "已經將「%@」存咗入預設組合",
+    "en-SG": "Keep “%@” inside Saved Recipes already",
 })
 add("compose.preset.duplicate", {
     "en": "A preset called “%@” already exists. Choose another name.",
@@ -4741,6 +5554,8 @@ add("compose.preset.duplicate", {
     "ja": "「%@」という名前のプリセットは既にあります。別の名前を選んでください。",
     "ko": "'%@' 이름의 프리셋이 이미 있습니다. 다른 이름을 고르세요.",
     "th": "มี preset ชื่อ “%@” อยู่แล้ว กรุณาตั้งชื่ออื่น",
+    "yue-Hant": "已經有個叫「%@」嘅預設組合喇，改過個名啦。",
+    "en-SG": "Got a recipe called “%@” already. Use another name lah.",
 })
 add("models.download.starting", {
     "en": "Starting transfer…",
@@ -4751,6 +5566,8 @@ add("models.download.starting", {
     "ja": "転送を開始しています…",
     "ko": "전송을 시작하는 중…",
     "th": "กำลังเริ่มถ่ายโอน…",
+    "yue-Hant": "開始傳緊…",
+    "en-SG": "Starting to transfer…",
 })
 add("models.downloading", {
     "en": "Downloading…",
@@ -4761,6 +5578,8 @@ add("models.downloading", {
     "ja": "ダウンロード中…",
     "ko": "다운로드 중…",
     "th": "กำลังดาวน์โหลด…",
+    "yue-Hant": "下載緊…",
+    "en-SG": "Downloading…",
 })
 
 # ── Spoken and compact progress text ─────────────────────────────────────────
@@ -4775,6 +5594,8 @@ add("format.ofTotal", {
     "ja": "%2$@ 中 %1$@",
     "ko": "%2$@ 중 %1$@",
     "th": "%1$@ จาก %2$@",
+    "yue-Hant": "下載咗 %1$@，總共 %2$@",
+    "en-SG": "%1$@ out of %2$@",
 })
 add("a11y.percent", {
     "en": "%@ percent",
@@ -4785,6 +5606,8 @@ add("a11y.percent", {
     "ja": "%@ パーセント",
     "ko": "%@ 퍼센트",
     "th": "%@ เปอร์เซ็นต์",
+    "yue-Hant": "%@%%",
+    "en-SG": "%@ percent",
 }, note={
     "content": "Spoken by VoiceOver. Percentages take plural agreement in several languages — "
                "Russian distinguishes 1, 2-4 and 5-20 — and this has one form.",
@@ -4799,6 +5622,8 @@ add("a11y.elapsed", {
     "ja": "経過 %@",
     "ko": "경과 %@",
     "th": "ผ่านไป %@",
+    "yue-Hant": "用咗 %@",
+    "en-SG": "ran %@ already",
 })
 add("a11y.remaining", {
     "en": "about %@ remaining",
@@ -4809,6 +5634,8 @@ add("a11y.remaining", {
     "ja": "残り約 %@",
     "ko": "약 %@ 남음",
     "th": "เหลืออีกประมาณ %@",
+    "yue-Hant": "仲爭大概 %@",
+    "en-SG": "about %@ more",
 })
 add("a11y.usingMemory", {
     "en": "using %@",
@@ -4819,6 +5646,8 @@ add("a11y.usingMemory", {
     "ja": "%@ 使用中",
     "ko": "%@ 사용 중",
     "th": "ใช้ %@",
+    "yue-Hant": "用緊 %@",
+    "en-SG": "using %@",
 })
 add("queue.a11y.held", {
     "en": "held",
@@ -4829,6 +5658,8 @@ add("queue.a11y.held", {
     "ja": "保留中",
     "ko": "보류됨",
     "th": "พักไว้",
+    "yue-Hant": "暫停咗",
+    "en-SG": "on hold",
 }, note={
     "content": "A lowercase fragment appended to a longer spoken string. Languages that inflect "
                "or that put the qualifier first cannot produce a correct sentence from a "
@@ -4847,6 +5678,8 @@ add("mlx.runtimeNotReady", {
     "ja": "Python 実行環境が準備できていません。「設定 › 実行環境」を開いてください。",
     "ko": "Python 런타임이 준비되지 않았습니다. 설정 › 런타임을 여세요.",
     "th": "Runtime Python ยังไม่พร้อม เปิด การตั้งค่า › runtime",
+    "yue-Hant": "Python 執行環境未 ready。開「設定 › 執行環境」。",
+    "en-SG": "Python runtime not ready yet. Open Settings › Runtime.",
 })
 add("mlx.checkpointMissing", {
     "en": "The selected checkpoint is not installed.",
@@ -4857,6 +5690,8 @@ add("mlx.checkpointMissing", {
     "ja": "選択したチェックポイントがインストールされていません。",
     "ko": "선택한 체크포인트가 설치되어 있지 않습니다.",
     "th": "ยังไม่ได้ติดตั้ง checkpoint ที่เลือก",
+    "yue-Hant": "揀咗嘅 checkpoint 仲未裝。",
+    "en-SG": "The checkpoint you choose not installed yet.",
 })
 add("onboarding.spaceTight", {
     "en": "There may not be enough free space once scratch space for rendering is taken "
@@ -4869,6 +5704,8 @@ add("onboarding.spaceTight", {
     "ja": "レンダリング中の作業用領域まで考えると、空き容量が足りない可能性があります。",
     "ko": "렌더링 중 쓰는 임시 공간까지 고려하면 여유 공간이 모자랄 수 있습니다.",
     "th": "เมื่อรวมพื้นที่ทำงานชั่วคราวขณะเรนเดอร์แล้ว พื้นที่ว่างอาจไม่พอ",
+    "yue-Hant": "計埋算圖要用嘅暫存空間，可能唔夠位。",
+    "en-SG": "Once you count the working space for rendering, may not have enough space.",
 })
 
 # ── Settings: what Compose carries over ──────────────────────────────────────
@@ -4881,6 +5718,8 @@ add("settings.remember.section", {
     "ja": "作成",
     "ko": "작성",
     "th": "เรียบเรียง",
+    "yue-Hant": "編寫",
+    "en-SG": "New Video",
 }, note="Names the group of Compose-screen settings in Settings ▸ General. A heading "
         "over a set of options, not the tab itself — see section.compose.")
 add("settings.remember.mode", {
@@ -4892,6 +5731,8 @@ add("settings.remember.mode", {
     "ja": "前回のモードを覚えておく",
     "ko": "마지막 모드 기억하기",
     "th": "จำโหมดล่าสุด",
+    "yue-Hant": "記住上次用嘅模式",
+    "en-SG": "Remember the last mode",
 })
 add("settings.remember.engine", {
     "en": "Remember the last engine",
@@ -4902,6 +5743,8 @@ add("settings.remember.engine", {
     "ja": "前回のエンジンを覚えておく",
     "ko": "마지막 엔진 기억하기",
     "th": "จำ engine ล่าสุด",
+    "yue-Hant": "記住上次用嘅引擎",
+    "en-SG": "Remember the last engine",
 })
 add("settings.remember.note", {
     "en": "The prompt, the seed and any attached files are never carried over: they belong "
@@ -4915,6 +5758,8 @@ add("settings.remember.note", {
     "ja": "プロンプト・シード・添付ファイルは決して引き継がれません。これらは 1 回のレンダリングに属するもので、常に空の状態から始まります。",
     "ko": "프롬프트와 시드, 첨부 파일은 절대 이어지지 않습니다. 한 번의 렌더링에 속하는 것이라 언제나 비운 채로 시작합니다.",
     "th": "Prompt, seed และไฟล์แนบจะไม่ถูกนำมาใช้ต่อ เพราะเป็นของการเรนเดอร์ครั้งเดียว และเริ่มใหม่เปล่า ๆ เสมอ",
+    "yue-Hant": "提示詞、種子同附加檔案永遠唔會沿用：佢哋屬於一次算圖，每次都重新開始。",
+    "en-SG": "Prompt, seed and attached files never carry over one: they belong to one render, and always start empty.",
 })
 add("settings.remember.sampling", {
     "en": "Remember sampling settings",
@@ -4925,6 +5770,8 @@ add("settings.remember.sampling", {
     "ja": "サンプリング設定を覚えておく",
     "ko": "샘플링 설정 기억하기",
     "th": "จำการตั้งค่าการสุ่มตัวอย่าง",
+    "yue-Hant": "記住取樣設定",
+    "en-SG": "Remember sampling settings",
 })
 add("settings.remember.output", {
     "en": "Remember output settings",
@@ -4935,6 +5782,8 @@ add("settings.remember.output", {
     "ja": "出力設定を覚えておく",
     "ko": "출력 설정 기억하기",
     "th": "จำการตั้งค่า output",
+    "yue-Hant": "記住輸出設定",
+    "en-SG": "Remember output settings",
 })
 
 # ── Touch Bar ────────────────────────────────────────────────────────────────
@@ -4951,6 +5800,8 @@ add("touchbar.progress", {
     "ja": "進捗",
     "ko": "진행률",
     "th": "ความคืบหน้า",
+    "yue-Hant": "進度",
+    "en-SG": "Progress",
 }, note="Names the progress item in the Customize Touch Bar sheet, so it is "
         "read out of context, with no render beside it to explain it.")
 add("touchbar.idle", {
@@ -4962,6 +5813,8 @@ add("touchbar.idle", {
     "ja": "レンダリングなし",
     "ko": "실행 중인 렌더링 없음",
     "th": "ไม่มีการเรนเดอร์",
+    "yue-Hant": "冇嘢算緊",
+    "en-SG": "Nothing running now",
 }, note="Fills the Touch Bar's progress slot when the queue is idle. Keep it "
         "short — the strip is about 685 pt wide in total and this shares it.")
 add("touchbar.controls", {
@@ -4973,6 +5826,8 @@ add("touchbar.controls", {
     "ja": "コントロール",
     "ko": "컨트롤",
     "th": "ส่วนควบคุม",
+    "yue-Hant": "控制項",
+    "en-SG": "Controls",
 }, note="Names the Touch Bar's left-hand item in the Customize Touch Bar sheet. "
         "What it holds depends on the screen — mode and seed while composing, "
         "stop and hold while rendering — so the label has to stay general.")
