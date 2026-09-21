@@ -3664,3 +3664,34 @@ add("settings.remember.output", {
     "de": "Ausgabeeinstellungen merken",
     "ar": "تذكّر إعدادات الإخراج",
 })
+
+# ── Touch Bar ────────────────────────────────────────────────────────────────
+#
+# The rest of the strip reuses keys from the screens it mirrors — compose.generate,
+# queue.stop, queue.hold and so on — because a control that says one thing in the
+# window and another on the Touch Bar is worse than no Touch Bar.
+add("touchbar.progress", {
+    "en": "Progress",
+    "zh-Hant": "進度",
+    "zh-Hans": "进度",
+    "de": "Fortschritt",
+    "ar": "التقدم",
+}, note="Names the progress item in the Customize Touch Bar sheet, so it is "
+        "read out of context, with no render beside it to explain it.")
+add("touchbar.idle", {
+    "en": "No render running",
+    "zh-Hant": "沒有進行中的算圖",
+    "zh-Hans": "没有进行中的渲染",
+    "de": "Es läuft kein Render",
+    "ar": "لا يوجد تصيير قيد التشغيل",
+}, note="Fills the Touch Bar's progress slot when the queue is idle. Keep it "
+        "short — the strip is about 685 pt wide in total and this shares it.")
+add("touchbar.controls", {
+    "en": "Controls",
+    "zh-Hant": "控制項",
+    "zh-Hans": "控件",
+    "de": "Steuerung",
+    "ar": "عناصر التحكم",
+}, note="Names the Touch Bar's left-hand item in the Customize Touch Bar sheet. "
+        "What it holds depends on the screen — mode and seed while composing, "
+        "stop and hold while rendering — so the label has to stay general.")

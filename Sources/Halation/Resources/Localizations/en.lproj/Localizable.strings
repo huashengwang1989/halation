@@ -935,3 +935,12 @@
 "task.ref2va" = "Ref2VA — references";
 
 "task.ref2va.detail" = "Conditions on up to 9 reference images, 3 reference videos and 3 reference audio clips.";
+
+/* Names the Touch Bar's left-hand item in the Customize Touch Bar sheet. What it holds depends on the screen — mode and seed while composing, stop and hold while rendering — so the label has to stay general. */
+"touchbar.controls" = "Controls";
+
+/* Fills the Touch Bar's progress slot when the queue is idle. Keep it short — the strip is about 685 pt wide in total and this shares it. */
+"touchbar.idle" = "No render running";
+
+/* Names the progress item in the Customize Touch Bar sheet, so it is read out of context, with no render beside it to explain it. */
+"touchbar.progress" = "Progress";

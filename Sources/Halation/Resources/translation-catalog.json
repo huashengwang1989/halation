@@ -5094,6 +5094,42 @@
       },
       "note": "",
       "level": "info"
+    },
+    {
+      "key": "touchbar.controls",
+      "values": {
+        "en": "Controls",
+        "zh-Hant": "控制項",
+        "zh-Hans": "控件",
+        "de": "Steuerung",
+        "ar": "عناصر التحكم"
+      },
+      "note": "Names the Touch Bar's left-hand item in the Customize Touch Bar sheet. What it holds depends on the screen — mode and seed while composing, stop and hold while rendering — so the label has to stay general.",
+      "level": "info"
+    },
+    {
+      "key": "touchbar.idle",
+      "values": {
+        "en": "No render running",
+        "zh-Hant": "沒有進行中的算圖",
+        "zh-Hans": "没有进行中的渲染",
+        "de": "Es läuft kein Render",
+        "ar": "لا يوجد تصيير قيد التشغيل"
+      },
+      "note": "Fills the Touch Bar's progress slot when the queue is idle. Keep it short — the strip is about 685 pt wide in total and this shares it.",
+      "level": "info"
+    },
+    {
+      "key": "touchbar.progress",
+      "values": {
+        "en": "Progress",
+        "zh-Hant": "進度",
+        "zh-Hans": "进度",
+        "de": "Fortschritt",
+        "ar": "التقدم"
+      },
+      "note": "Names the progress item in the Customize Touch Bar sheet, so it is read out of context, with no render beside it to explain it.",
+      "level": "info"
     }
   ]
 }

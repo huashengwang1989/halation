@@ -935,3 +935,12 @@
 "task.ref2va" = "Ref2VA — 參考素材";
 
 "task.ref2va.detail" = "最多可依據 9 張參考圖片、3 段參考影片與 3 段參考音訊生成。";
+
+/* Names the Touch Bar's left-hand item in the Customize Touch Bar sheet. What it holds depends on the screen — mode and seed while composing, stop and hold while rendering — so the label has to stay general. */
+"touchbar.controls" = "控制項";
+
+/* Fills the Touch Bar's progress slot when the queue is idle. Keep it short — the strip is about 685 pt wide in total and this shares it. */
+"touchbar.idle" = "沒有進行中的算圖";
+
+/* Names the progress item in the Customize Touch Bar sheet, so it is read out of context, with no render beside it to explain it. */
+"touchbar.progress" = "進度";

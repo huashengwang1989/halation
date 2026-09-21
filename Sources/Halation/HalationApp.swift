@@ -7,6 +7,13 @@ struct HalationApp: App {
     @Environment(\.openWindow) private var openWindow
 
     static let licensesWindowID = "licenses"
+
+    init() {
+        // Adds View ▸ Customize Touch Bar…, which is the only way to reach the
+        // .optional items — declaring a customisation identity without this
+        // leaves it unreachable.
+        NSApplication.shared.isAutomaticCustomizeTouchBarMenuItemEnabled = true
+    }
     static let localizationWindowID = "debug-localizations"
 
     var body: some Scene {
@@ -22,7 +29,11 @@ struct HalationApp: App {
                 // Rebuild on a language change so every string is re-read; without
                 // this only views that happened to redraw would switch.
                 .id(localization.generation)
-                .task { await app.bootstrap() }
+                .task {
+                    // On NSApplication rather than on a view — see AppTouchBar.
+                    AppTouchBar.install(app)
+                    await app.bootstrap()
+                }
                 // 200pt sidebar + 560pt detail minimum. Sized so that even with the
                 // sidebar manually shown at the smallest window, both the form and
                 // the summary still fit at their floors.
