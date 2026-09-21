@@ -9,9 +9,9 @@
 
 "a11y.usingMemory" = "using %@";
 
-"backend.comfy.detail" = "PyTorch on Metal. Only this one can do references, and only this one can load the 4-step turbo LoRA.";
+"backend.comfy.detail" = "PyTorch on Metal. Only this one can do references, and only this one can load the 4-step turbo LoRA. The other one cannot.";
 
-"backend.mlx.detail" = "Apple own framework, run the model natively. Text-to-video and keyframes only — the port got no reference conditioning.";
+"backend.mlx.detail" = "Apple ownself make one, run the model natively. Text-to-video and keyframes only — this port bo reference conditioning, so don't expect.";
 
 "comfy.executionError" = "ComfyUI say got execution error.";
 
@@ -52,16 +52,16 @@
 /* Labels the switch for whether the render produces sound. A property of the output. Distinct from refs.kind.audio, which names a kind of file the user attaches. */
 "compose.audio" = "Audio";
 
-"compose.audio.footnote" = "H3 makes 32 kHz stereo audio in the same pass as the picture. No silent mode that render faster one.";
+"compose.audio.footnote" = "H3 bao ka liao — it makes 32 kHz stereo audio in the same pass as the picture. Got no silent mode that render faster one, don't go and find.";
 
 "compose.codec" = "Codec";
 
-"compose.engine.comfy.note" = "Runs through ComfyUI on PyTorch/Metal, so it can load the 4-step turbo LoRA. Four distilled steps take about the same time as five undistilled ones on MLX — and that is exactly what the LoRA was trained for.";
+"compose.engine.comfy.note" = "Goes through ComfyUI on PyTorch/Metal, so it can load the 4-step turbo LoRA. Four distilled steps take about the same time as five undistilled ones on MLX — and that is exactly what the LoRA trained for. Quite steady.";
 
 /* Which backend runs the model — MLX or ComfyUI. Not a motor, and not a game engine. Usually kept in English. */
 "compose.engine.label" = "Engine";
 
-"compose.engine.mlx.note" = "Runs natively on MLX. No server needed, and this is the default. Its weights are undistilled, so too few steps go off-distribution — use the port's 16 steps or more if you want quality.";
+"compose.engine.mlx.note" = "Runs natively on MLX. No server needed, and this is the default one. Its weights never distil, so too few steps will go off-distribution — use the port's 16 steps or more if you want it to come out nice.";
 
 "compose.framerate" = "Frame rate";
 
@@ -85,7 +85,7 @@
 /* Labels the picker choosing between text-to-video and reference modes. A choice the user makes. Distinct from library.mode, which reports what a finished render used. */
 "compose.mode.title" = "Mode";
 
-"compose.output.footnote" = "The model always renders 24 fps at 768 px short edge. Everything else on this card is applied after, during encoding.";
+"compose.output.footnote" = "The model always render 24 fps at 768 px short edge, fixed one. Everything else on this card only apply after, during encoding.";
 
 /* Heads the card for how the video is encoded — codec, resolution, frame rate. Output as in the result of a render. Distinct from settings.folder.output, a folder. */
 "compose.output.title" = "Output";
@@ -96,7 +96,7 @@
 
 "compose.preset.save" = "Keep as Recipe…";
 
-"compose.preset.save.message" = "Keeps your current settings as a recipe you can use again. Prompt, seed and attached files not included.";
+"compose.preset.save.message" = "Keeps your settings now as a recipe, next time can use again. Prompt, seed and attached files all not included one.";
 
 "compose.preset.save.title" = "Keep recipe";
 
@@ -107,7 +107,7 @@
 
 "compose.presets.help" = "Use a set of settings you kept before";
 
-"compose.prompt.footnote" = "H3 responds well to camera language — shot size, lens, movement, lighting — and to a described soundscape, since it makes the audio in the same pass. No negative prompt: the released weights are CFG-distilled, so guidance controls do nothing one.";
+"compose.prompt.footnote" = "H3 damn good with camera language — shot size, lens, movement, lighting — and with sound you describe also, because it makes the audio in the same pass. No negative prompt: the released weights are CFG-distilled, so guidance controls do nothing one. Don't waste time.";
 
 "compose.prompt.hint" = "Describe the shot. Press Tab to move on, Option-Tab to put in a tab.";
 
@@ -122,9 +122,9 @@
 
 "format.clipLength" = "%@ s";
 
-"format.codec.av1.detail" = "About half the size for the same quality. Encoded by software because Apple silicon got no AV1 encoder — but SVT-AV1 clears a five-second clip in one, two seconds, so compared to generating, never mind lah.";
+"format.codec.av1.detail" = "About half the size, same quality. Software encode because Apple silicon bo AV1 encoder — but SVT-AV1 clears a five-second clip in one, two seconds only, so compared to generating, never mind lah.";
 
-"format.codec.h264.detail" = "What the model gives you. Delivered as rendered, no second encode, and can play anywhere.";
+"format.codec.h264.detail" = "Whatever the model gives you, straight away. No second encode, and can play anywhere one.";
 
 "format.fps.30.detail" = "Frames get copied onto a 30 fps timeline. Movement may jerk a bit.";
 
@@ -151,11 +151,11 @@
 
 "format.res.1080" = "1080p — blow up";
 
-"format.res.1080.detail" = "Resampled after generating, to fit a 1080p pipeline. No extra detail one.";
+"format.res.1080.detail" = "Resample after generate, just to fit a 1080p pipeline. No extra detail one, don't expect miracle.";
 
 "format.res.1440" = "1440p — blow up";
 
-"format.res.1440.detail" = "Resampled to 1440p. Bigger file, same real detail. Only useful if some downstream tool must have this size.";
+"format.res.1440.detail" = "Resample to 1440p. File bigger, detail same same. Only useful if some downstream tool must have this size.";
 
 "format.res.native" = "768p — original";
 
@@ -174,7 +174,7 @@
 /* A Library column giving the length of a finished video. Reports a fact; sampling.duration sets a target. */
 "library.duration" = "How Long";
 
-"library.empty.detail" = "Finished renders get saved into %@, each one with a JSON file recording the exact settings that made it.";
+"library.empty.detail" = "Finish already, then the render go inside %@, each one with a JSON file recording the exact settings that made it.";
 
 "library.empty.title" = "No video yet";
 
@@ -234,41 +234,41 @@
 /* The name of the reference mode in the mode picker — the mode that conditions on supplied images or video. Distinct from refs.title.references, which heads the list of the files themselves. */
 "mode.reference" = "References";
 
-"mode.reference.detail" = "Give reference images, clips or audio to lock down the subject, style or voice.";
+"mode.reference.detail" = "Give reference images, clips or audio, then it will lock down the subject, style or voice for you.";
 
 "mode.t2v" = "Text to video";
 
 "mode.t2v.detail" = "Generate from your written description only.";
 
-"model.comfy.audioVAE" = "Audio VAE in fp32, for the stereo track H3 makes together with the picture.";
+"model.comfy.audioVAE" = "Audio VAE in fp32, for the stereo track H3 makes together with the picture. Small one, no need worry.";
 
-"model.comfy.fl2va" = "FL2VA transformer for ComfyUI. Only need it if you want to run text-to-video or keyframes through ComfyUI instead of MLX.";
+"model.comfy.fl2va" = "FL2VA transformer for ComfyUI. Only need it if you want to run text-to-video or keyframes through ComfyUI instead of MLX. If not, skip lah.";
 
-"model.comfy.lora.fl2va" = "4-step FL2VA turbo LoRA. Distilled for four steps, while MLX's undistilled weights want sixteen.";
+"model.comfy.lora.fl2va" = "4-step FL2VA turbo LoRA. Distilled for four steps, while MLX's undistilled weights want sixteen. Big difference.";
 
-"model.comfy.lora.ref2va" = "4-step Ref2VA turbo LoRA. This one is what makes reference renders practical at all — four steps instead of fifty, so tens of minutes instead of many hours.";
+"model.comfy.lora.ref2va" = "4-step Ref2VA turbo LoRA. This one is the real lobang — four steps instead of fifty, so tens of minutes instead of many hours. Without it, reference renders sibeh jialat.";
 
-"model.comfy.ref2va" = "Ref2VA transformer for ComfyUI. Must have for reference mode, which the MLX port cannot do at all.";
+"model.comfy.ref2va" = "Ref2VA transformer for ComfyUI. Must have for reference mode, which the MLX port cannot do at all one.";
 
-"model.comfy.textEncoder" = "Qwen3-VL-32B for ComfyUI. Both tasks share it — download once can already.";
+"model.comfy.textEncoder" = "Qwen3-VL-32B for ComfyUI. Both tasks share it — download once can already, no need twice.";
 
-"model.comfy.videoVAE" = "Video VAE in fp16. Chosen over the INT8 build: small, and you can see the decode quality.";
+"model.comfy.videoVAE" = "Video VAE in fp16. Choose this over the INT8 one: small, and the decode quality you can really see.";
 
-"model.fl2va.bf16" = "Reference precision, checked against the diffusers implementation. Slowest one, and about 41 GB resident on its own — with the text encoder loaded also, plan for 128 GB unified memory.";
+"model.fl2va.bf16" = "Reference precision, checked against the diffusers implementation. Slowest one, and about 41 GB resident by itself — load the text encoder also, then you better got 128 GB unified memory, if not confirm jialat.";
 
-"model.fl2va.gguf" = "GGUF quantizations, including very small ones. Loaded by ComfyUI, not MLX — only useful if you run this model through ComfyUI instead.";
+"model.fl2va.gguf" = "GGUF quantizations, some of them sibeh small. ComfyUI load one, not MLX — only useful if you run this model through ComfyUI instead.";
 
-"model.fl2va.nvfp4" = "Community prune in NVIDIA's NVFP4 format. Listed here just for completeness.";
+"model.fl2va.nvfp4" = "Community prune in NVIDIA's NVFP4 format. Put here for completeness only, here cannot use one.";
 
-"model.fl2va.q4" = "4-bit, group size 64. Fastest of these and about 12 GB resident. Loses some fine texture. Best one to start with — but the text encoder, not this one, is what sets the memory floor.";
+"model.fl2va.q4" = "4-bit, group size 64. Fastest of the lot and about 12 GB resident. Fine texture sure lose some. Best one to start — but the text encoder, not this one, is what decides your memory floor.";
 
 "model.fl2va.q6" = "6-bit. The middle ground if 4-bit looks soft and 8-bit too slow.";
 
 "model.fl2va.q8" = "Best quality per gigabyte — looks very close to bf16.";
 
-"model.lora.fl2va.mlx" = "A 4-step distillation LoRA for FL2VA at 768p — the single biggest speed-up this model can get. The MLX port got no LoRA loader yet, so it is listed here to watch, not to install.";
+"model.lora.fl2va.mlx" = "A 4-step distillation LoRA for FL2VA at 768p — biggest speed-up this model can get. But the MLX port still bo LoRA loader, so listed here for you to watch only, cannot install.";
 
-"model.lora.fl2va.mlx.blocked" = "The MLX port got no LoRA loader yet. To fuse this you need a merged checkpoint, not the LoRA by itself.";
+"model.lora.fl2va.mlx.blocked" = "The MLX port still bo LoRA loader. To fuse this you need a merged checkpoint, cannot use the LoRA by itself.";
 
 "model.name.comfy.audioVAE" = "Audio VAE — fp32";
 
@@ -306,15 +306,15 @@
 
 "model.name.textEncoder.uncensored" = "Text encoder — INT8 ConvRot, uncensored";
 
-"model.ref2va.bf16" = "Upstream bf16 Ref2VA checkpoint. Listed so you can see the option, but the MLX port's pipeline only takes keyframes — got no reference conditioning path — so cannot drive it from this app yet.";
+"model.ref2va.bf16" = "Upstream bf16 Ref2VA checkpoint. Put here so you can see got this option, but the MLX port's pipeline only takes keyframes — bo reference conditioning path — so cannot drive it from this app yet.";
 
-"model.ref2va.bf16.blocked" = "The MLX port never implement reference conditioning. Ref2VA currently needs the CUDA stack (SGLang, vLLM or ComfyUI).";
+"model.ref2va.bf16.blocked" = "The MLX port never implement reference conditioning. Ref2VA now still need the CUDA stack (SGLang, vLLM or ComfyUI).";
 
-"model.support.mlx" = "Video VAE (10.4 GB), audio VAE, processor and tokenizer, taken from the FL2VA task directory the pipeline loads as one unit. Every run needs it.";
+"model.support.mlx" = "Video VAE (10.4 GB), audio VAE, processor and tokenizer — bao ka liao, taken from the FL2VA task directory that the pipeline loads as one unit. Every run also need.";
 
-"model.textEncoder.mlx" = "Qwen3-VL-32B in bfloat16 — H3 reads its 50th-layer hidden states. Biggest single download, and currently the only text encoder the MLX pipeline can load. At about 34 GB resident, this one — not the transformer — decides whether this app runs on your Mac: with the smallest transformer that is roughly 46 GB, so about 64 GB unified memory is the real floor. It installs beside the VAEs inside FL2VA/.";
+"model.textEncoder.mlx" = "Qwen3-VL-32B in bfloat16 — H3 reads its 50th-layer hidden states. Biggest single download, and right now the only text encoder the MLX pipeline can load. About 34 GB resident, so this one — not the transformer — decides whether this app can run on your Mac: with the smallest transformer already about 46 GB, so 64 GB unified memory is the real floor. Anything less, buay tahan. It installs beside the VAEs inside FL2VA/.";
 
-"model.textEncoder.uncensored" = "Qwen3-VL-32B with the refusal behaviour trained out. Drop-in replacement for the stock encoder — H3 itself never change, because refusals live in the language model, not the diffusion transformer. ComfyUI only; MLX got no loader for this format.";
+"model.textEncoder.uncensored" = "Qwen3-VL-32B with the refusal behaviour trained away. Can swap in directly for the stock encoder — H3 itself never change, because the refusals sit inside the language model, not the diffusion transformer. ComfyUI only; MLX bo loader for this format.";
 
 "models.alreadyInstalled" = "Install already, so skip:";
 
@@ -344,7 +344,7 @@
 
 "models.delete.help.running" = "Cannot, render is running";
 
-"models.delete.message" = "Frees about %1$@ from the shared models folder, which other projects on this Mac may also be using — anything that depends on %2$@ must download again. The files go into the Trash, so can still undo until you empty it.";
+"models.delete.message" = "Frees about %1$@ from the shared models folder, which other projects on this Mac maybe also using — anything that depends on %2$@ must download all over again, sibeh mafan. The files go into the Trash, so still can undo until you empty it.";
 
 /* WARNING: Injects a name into a sentence. Languages that inflect a noun for case, choose an article by gender, or attach a vowel-harmonising suffix cannot do it without knowing the word, and it is only known at runtime. Prefer wording that sets the name apart — quoted, or on its own line. */
 "models.delete.title" = "Throw away %@?";
@@ -361,9 +361,9 @@
 
 "models.downloads" = "Downloads";
 
-"models.downloads.footnote" = "This list only covers this session. A finished download stays here until you clear it. What is actually installed shows beside each model below.";
+"models.downloads.footnote" = "This list only covers this session. Finish already still stay here until you clear it. What actually installed, see beside each model below.";
 
-"models.folder.footnote" = "Downloads go into the Hugging Face cache inside this folder. Any other project pointing at the same folder just uses them, no need to download a second copy.";
+"models.folder.footnote" = "Downloads go inside the Hugging Face cache in this folder. Any other project pointing at the same folder just tompang the same files, no need download a second copy.";
 
 "models.folder.title" = "Shared models folder";
 
@@ -381,13 +381,13 @@
 
 "models.installed" = "Install already";
 
-"models.memory.tight" = "Needs about %1$@, and this Mac can give a model about %2$@. Enough, but not much to spare.";
+"models.memory.tight" = "Needs about %1$@, and this Mac can give a model about %2$@. Enough lah, but no room to play.";
 
-"models.memory.tooLarge" = "Needs about %1$@ in memory. This Mac can only give a model about %2$@, so it will swap instead of run properly.";
+"models.memory.tooLarge" = "Needs about %1$@ in memory. This Mac only can give a model about %2$@, so it will kena swap, cannot run properly one.";
 
 "models.notInstalled" = "Never install";
 
-"models.notRunnable" = "This Mac cannot run";
+"models.notRunnable" = "This Mac cannot run one";
 
 "models.other.footnote" = "These belong to other projects. This app never touch them.";
 
@@ -411,11 +411,11 @@
 
 "models.showIncompatible.help" = "Also show checkpoints in formats this Mac cannot run";
 
-"models.spaceWarning" = "The recommended set needs about %@, plus working space while rendering.";
+"models.spaceWarning" = "The recommended set needs about %@, then still got working space while rendering. Better check your disk first.";
 
 "models.status.inUse" = "Downloaded, and this render is using it";
 
-"models.status.missing" = "This render needs it, but never download yet";
+"models.status.missing" = "This render need it, but never download yet leh";
 
 /* Imperative verb on a button — select these weights for the next render. Not the noun "usage". */
 "models.use" = "Use This";
@@ -441,7 +441,7 @@
 
 "onboarding.installing" = "Installing…";
 
-"onboarding.licence.acknowledge" = "I read the licence already, and I am allowed to use these weights where I am";
+"onboarding.licence.acknowledge" = "I read the licence already, and where I stay I am allowed to use these weights";
 
 /* The licence's proper name stays in English; TW/CN gloss it. */
 "onboarding.licence.heading" = "MiniMax H3 Community Licence";
@@ -460,7 +460,7 @@
 
 "onboarding.slowTitle" = "Render takes hours, not seconds one";
 
-"onboarding.spaceTight" = "Once you count the working space for rendering, may not have enough space.";
+"onboarding.spaceTight" = "After you count the working space for rendering, maybe not enough space liao.";
 
 "onboarding.startDownload" = "Start Download";
 
@@ -483,11 +483,11 @@
 
 "problem.duration" = "H3 only can make 4–15 second clips.";
 
-"problem.longOvernight" = "Long clip with high step count can run whole night. Try a short one first lah.";
+"problem.longOvernight" = "Long clip plus high step count, can chiong whole night one. Test a short one first lah, don't anyhow whack.";
 
 "problem.lowSteps" = "Below 8 steps, the model tends to give soft, unstable movement.";
 
-"problem.memory" = "The weights you chose need about %1$@ in memory all together. This Mac can give a model about %2$@. Choose a smaller quantization, or else confirm plus chop it will swap.";
+"problem.memory" = "The weights you choose need about %1$@ memory all together. This Mac can give a model about %2$@ only. Choose a smaller quantization, if not confirm plus chop it will kena swap.";
 
 "problem.needFirst" = "Add a first-frame image.";
 
@@ -505,12 +505,12 @@
 
 "problem.prompt.empty" = "Write a prompt describing the shot lah.";
 
-"problem.refSlow" = "Reference mode runs through ComfyUI, not MLX, so each step slower. The 4-step turbo LoRA is what keeps it to minutes instead of hours.";
+"problem.refSlow" = "Reference mode goes through ComfyUI, not MLX, so each step slower. The 4-step turbo LoRA is what keeps it to minutes instead of hours — if not, sian half.";
 
 /* WARNING: Injects a name into a sentence. Languages that inflect a noun for case, choose an article by gender, or attach a vowel-harmonising suffix cannot do it without knowing the word, and it is only known at runtime. Prefer wording that sets the name apart — quoted, or on its own line. */
-"problem.refUntagged" = "Your prompt never mention %@ at all. H3 conditions on references through those tags, so the ones you never mention got much less influence.";
+"problem.refUntagged" = "Your prompt never mention %@ at all leh. H3 conditions on references through those tags, so the ones you never mention got very little influence.";
 
-"problem.t2v.extraFiles" = "Text-to-video ignores attached files. Switch mode if you want to use them.";
+"problem.t2v.extraFiles" = "Text-to-video bo chup about attached files. Want to use them, switch mode first.";
 
 /* WARNING: Injects a count, then a *noun* naming the file kind, then a second count. The noun has to agree with the numeral in most inflecting languages, and it arrives lowercased by the call site, which is an assumption German does not share. The counts themselves never reach 1 — the per-kind limits are 9, 3 and 3 — so only the noun is a live problem. */
 "problem.tooManyOfKind" = "Most %1$@ reference %2$@ files only — you got %3$@.";
@@ -519,7 +519,7 @@
 "problem.tooManyTotal" = "Ref2VA takes %@ reference files in total only.";
 
 /* WARNING: Injects a name into a sentence. Languages that inflect a noun for case, choose an article by gender, or attach a vowel-harmonising suffix cannot do it without knowing the word, and it is only known at runtime. Prefer wording that sets the name apart — quoted, or on its own line. Sentence-initial, as in problem.noMetalKernel. */
-"problem.upscale" = "%@ is just a resample of the model's 768p output. H3's real 2K mode never open-source, so cannot run locally.";
+"problem.upscale" = "%@ is just a resample of the model's 768p output. H3's real 2K mode never open-source, so locally cannot run one.";
 
 /* Marks a model published by someone other than the original authors — a conversion or a fine-tune. Neutral: it describes origin, not quality. See provenance.official. */
 "provenance.community" = "Community";
@@ -549,7 +549,7 @@
 
 "queue.editCopy" = "Edit a Copy";
 
-"queue.empty.detail" = "Renders you start from New Video show up here. They keep running while you do other things, and they still there even after you quit the app.";
+"queue.empty.detail" = "Renders you start from New Video will appear here. They keep running while you go and do other things, and even after you quit the app they still there.";
 
 "queue.empty.title" = "Queue empty leh";
 
@@ -564,7 +564,7 @@
 
 "queue.log.copyAll" = "Copy All";
 
-"queue.log.empty.detail" = "Output shows here once this render starts. Logs only kept for this session.";
+"queue.log.empty.detail" = "Output only show here after this render starts. Logs keep for this session only.";
 
 "queue.log.empty.title" = "No log yet";
 
@@ -593,7 +593,7 @@
 
 "queue.remaining" = "%@ more";
 
-"queue.remainingUnknown" = "Cannot say how long more until it starts generating";
+"queue.remainingUnknown" = "Cannot say how long more until it starts generating — see how lah";
 
 "queue.remove" = "Take Out From Queue";
 
@@ -605,7 +605,7 @@
 
 "queue.revealInFinder" = "Show in Finder";
 
-"queue.runtimeWarning" = "Python runtime not ready, so the renders waiting in queue cannot start.";
+"queue.runtimeWarning" = "Python runtime not ready, so the renders waiting inside the queue all cannot start.";
 
 "queue.showLog" = "See Log";
 
@@ -614,12 +614,12 @@
 /* Imperative verb: cancel the render that is running. Not "pause"; the work is discarded. */
 "queue.stop" = "Stop";
 
-"queue.stop.help" = "Stop this render. Progress gone one — cannot continue after that.";
+"queue.stop.help" = "Stop this render. Progress all gone one — cannot sambung after that. Think first ah.";
 
 /* WARNING: Takes a count. English offers only two forms and this string supplies one, so "1 tokens" is already wrong; Arabic needs six categories and settles for a single compromise form. Any language with Slavic-style plurals will need a .stringsdict before this can be translated correctly. */
 "queue.tokens" = "%@ tokens";
 
-"queue.tokens.help" = "How long the sequence the text encoder reads: %1$@ tokens all together, of which %2$@ come from your prompt. The rest are vision tokens, one block per reference image. It is read once only, before denoising starts — nothing here is generated token by token.";
+"queue.tokens.help" = "How long the sequence the text encoder reads: %1$@ tokens all together, of which %2$@ come from your prompt. The rest are vision tokens, one block for each reference image. Read once only, before denoising start — nothing here generate token by token one.";
 
 "queue.took" = "Took %@";
 
@@ -635,9 +635,9 @@
 
 "refs.footnote.first" = "One image, used as the opening frame. The clip moves outward from it.";
 
-"refs.footnote.firstlast" = "Two images. First one becomes frame one, second one the last frame, and H3 makes the movement in between.";
+"refs.footnote.firstlast" = "Two images. First one become frame one, second one become the last frame, then H3 makes the movement in between.";
 
-"refs.footnote.reference" = "Up to 9 images, 3 videos and 3 audio clips, 12 files all together. Call them from the prompt as <Picture 1>, <Video 1>, <Audio 1> — H3 conditions on them through those tags, so a reference you never mention got almost no effect.";
+"refs.footnote.reference" = "Up to 9 images, 3 videos and 3 audio clips, 12 files all together. Call them inside the prompt as <Picture 1>, <Video 1>, <Audio 1> — H3 conditions on them through those tags, so any reference you never mention almost bo effect one.";
 
 "refs.insertTag" = "Put In Tag";
 
@@ -673,20 +673,20 @@
 
 "role.accelerator" = "Acceleration LoRAs";
 
-"role.accelerator.detail" = "Optional LoRAs, trained to give usable video in about 4 steps instead of 50.";
+"role.accelerator.detail" = "Optional LoRAs, trained to give usable video in about 4 steps instead of 50. Damn big time saver.";
 
 "role.support" = "VAEs & processors";
 
-"role.support.detail" = "Small, must have, and everything share the same one. Install once can already.";
+"role.support.detail" = "Small, must have, and everything share the same one. Install once can already, no need repeat.";
 
 /* Names the text-encoder role in the model catalogue — a kind of model file. Distinct from summary.textEncoder, which names the specific encoder a render will use. */
 "role.textEncoder" = "Text encoder";
 
-"role.textEncoder.detail" = "H3 conditions on Qwen3-VL-32B. Biggest single download, and both tasks share it.";
+"role.textEncoder.detail" = "H3 conditions on Qwen3-VL-32B. Biggest single download, and both tasks tompang the same one.";
 
 "role.transformer" = "Diffusion transformer";
 
-"role.transformer.detail" = "The model itself. Choose one quantization — higher precision, more disk, more memory, more time.";
+"role.transformer.detail" = "The model itself. Choose one quantization — higher precision means more disk, more memory, more time. Cannot have everything one.";
 
 "runtime.installedNotUsable" = "Install already, but still cannot use";
 
@@ -700,22 +700,22 @@
 /* 'Seed' is kept in English; the qualifier is translated. */
 "sampling.seed.fixed" = "Lock Seed";
 
-"sampling.seed.note" = "Fixed seed lets you get the same render again. But change any other setting and the result still changes anyway.";
+"sampling.seed.note" = "Lock the seed, then the same render can come out again. But you change any other setting, the result still will change anyway.";
 
 "sampling.seed.randomise" = "Anyhow";
 
 "sampling.snapped.exact" = "Renders %1$@ frames — exactly %2$@ s at 24 fps.";
 
-"sampling.snapped.inexact" = "Renders %1$@ frames — %2$@ s at 24 fps, the closest length the video VAE can encode.";
+"sampling.snapped.inexact" = "Renders %1$@ frames — %2$@ s at 24 fps, the closest length the video VAE can encode. Cannot be exact one.";
 
 /* Denoising steps — iterations of the sampler. Not stairs, and not steps in a set of instructions. */
 "sampling.steps" = "How Many Steps";
 
-"sampling.steps.note" = "Steps are the actual denoising passes, and they decide render time almost linearly. %1$@ Duration snaps to the video VAE's 17n+5 frame grid, so the number shown is what you get.";
+"sampling.steps.note" = "Steps are the actual denoising passes, and they decide render time almost linearly. %1$@ Duration will snap to the video VAE's 17n+5 frame grid, so the number you see is what you get.";
 
-"sampling.steps.note.turbo" = "This engine loads a %1$@-step turbo LoRA, distilled for exactly that many — more steps mostly just waste time.";
+"sampling.steps.note.turbo" = "This engine loads a %1$@-step turbo LoRA, distilled for exactly that many — add more steps also mostly waste time only.";
 
-"sampling.steps.note.undistilled" = "These weights are undistilled, so around %1$@ steps is the working range. Much fewer goes off-distribution and looks soft.";
+"sampling.steps.note.undistilled" = "These weights never distil, so around %1$@ steps is the working range. Much fewer, it goes off-distribution and comes out blur.";
 
 "sampling.title" = "Sampling";
 
@@ -740,7 +740,7 @@
 
 "settings.advanced.reveal" = "Show Application Support Folder";
 
-"settings.advanced.support.note" = "Holds the Python environment, the render queue, and working files for renders still going.";
+"settings.advanced.support.note" = "Holds the Python environment, the render queue, and working files for renders still running.";
 
 "settings.architecture" = "Architecture";
 
@@ -749,7 +749,7 @@
 
 "settings.comfy.notRunning" = "not running";
 
-"settings.comfy.note" = "This is the app's own headless ComfyUI, kept separate from whichever one you installed yourself. The server starts when needed and stops together with the app.";
+"settings.comfy.note" = "This is the app's own headless ComfyUI, keep separate from whichever one you install yourself. The server only start when need, and stop together with the app.";
 
 "settings.comfy.running" = "running on port %@";
 
@@ -760,7 +760,7 @@
 /* Model weights — the trained parameters of a neural network. Never the sense of heaviness or of weighting a value. Many languages keep the English term. */
 "settings.comfy.weights" = "Weights";
 
-"settings.comfy.why" = "Reference mode runs here instead of on MLX, whose pipeline only takes keyframes. ComfyUI also loads the 4-step turbo LoRAs, which is what makes reference renders practical at all.";
+"settings.comfy.why" = "Reference mode runs here, not on MLX, because the MLX pipeline only takes keyframes. ComfyUI also loads the 4-step turbo LoRAs — that one is what makes reference renders practical at all.";
 
 /* Adjective: the app found this component on the machine by itself. Reports a discovery, not an action available. */
 "settings.detected" = "Detected";
@@ -781,9 +781,9 @@
 
 "settings.language.relaunch" = "Restart now";
 
-"settings.language.restart" = "Words change straight away. The menu bar at the top only follows after you restart the app.";
+"settings.language.restart" = "The words change straight away. The menu bar on top only follow after you restart the app.";
 
-"settings.language.restart.direction" = "Words change straight away. This language reads from the other side, so the window swaps sides to match — that, and the menu bar at the top, only follow after you restart the app.";
+"settings.language.restart.direction" = "The words change straight away. This language reads from the other side, so the whole window swap sides to match — that one, and the menu bar on top, only follow after you restart the app.";
 
 "settings.language.section" = "Language";
 
@@ -809,7 +809,7 @@
 
 "settings.python" = "Python";
 
-"settings.queue.note" = "Renders hold tens of gigabytes of weights in memory, so only one can run at a time. To hold or stop one particular render, use its own row inside the Queue.";
+"settings.queue.note" = "Renders hold tens of gigabytes of weights inside memory, so only one can run at a time. Want to hold or stop one particular render, use its own row inside the Queue.";
 
 "settings.rebuild" = "Rebuild Everything";
 
@@ -819,7 +819,7 @@
 
 "settings.remember.mode" = "Remember the last mode";
 
-"settings.remember.note" = "Prompt, seed and attached files never carry over one: they belong to one render, and always start empty.";
+"settings.remember.note" = "Prompt, seed and attached files never carry over one: they belong to one render only, and always start empty.";
 
 "settings.remember.output" = "Remember output settings";
 
@@ -834,7 +834,7 @@
 /* The Python environment the app manages, not a term of art: TW says 執行環境, mainland 运行时. */
 "settings.runtime" = "Runtime";
 
-"settings.runtime.rebuild.note" = "Rebuilding deletes and makes the Python environment again. It never touch the weights you downloaded.";
+"settings.runtime.rebuild.note" = "Rebuild means delete then make the Python environment again. It never touch the weights you download already.";
 
 /* Labels one row reporting the runtime's condition. German separates this (Zustand) from Status; English does not. If a language has only one word, using it for both is fine. */
 "settings.state" = "State";
@@ -843,7 +843,7 @@
 "settings.status" = "Status";
 
 /* Means the runtime is functioning correctly — NOT "in progress". The value shown beside settings.state when nothing is wrong. Translate as "OK" or "functioning", never as "busy". */
-"settings.working" = "Okay";
+"settings.working" = "Steady";
 
 "sidebar.hide" = "Hide Sidebar";
 
@@ -870,7 +870,7 @@
 /* Labels the health indicator in the status bar along the bottom of the window. Distinct from settings.status, which heads a whole section, and from settings.state. */
 "status.label" = "Status";
 
-"status.memory.help" = "Memory the render process is using, and how much of this Mac's %@ that is";
+"status.memory.help" = "How much memory the render process makan, and how much of this Mac's %@ that is";
 
 /* WARNING: Takes a count of queued jobs. Safer than the other counts because no noun follows the number in English, but languages that inflect the verb or add a classifier still need the count itself. */
 "status.queued.count" = "%@ in queue";
@@ -899,9 +899,9 @@
 
 "summary.eta" = "Estimated time";
 
-"summary.eta.footnote.measured" = "Measured from this Mac's own renders on this engine (%@ so far).";
+"summary.eta.footnote.measured" = "Measured from this Mac's own renders on this engine (%@ so far), so quite zhun.";
 
-"summary.eta.footnote.predicted" = "An estimate for %@, scaled from a published figure for another Mac. After your first render it will be replaced by a real measurement.";
+"summary.eta.footnote.predicted" = "Agak agak only, for %@, scaled from a published figure for another Mac. After your first render it will change to a real measurement.";
 
 "summary.eta.noModel" = "Choose model first lah";
 
@@ -930,11 +930,11 @@
 
 "task.fl2va" = "FL2VA — text & keyframes";
 
-"task.fl2va.detail" = "Text-to-video, and you can add first and/or last frame images if you want. Use this one for most things.";
+"task.fl2va.detail" = "Text-to-video, and if you want can add first and/or last frame images. Use this one for most things lah.";
 
 "task.ref2va" = "Ref2VA — references";
 
-"task.ref2va.detail" = "Can condition on up to 9 reference images, 3 reference videos and 3 reference audio clips.";
+"task.ref2va.detail" = "Can condition on up to 9 reference images, 3 reference videos and 3 reference audio clips. Quite a lot already.";
 
 /* Names the Touch Bar's left-hand item in the Customize Touch Bar sheet. What it holds depends on the screen — mode and seed while composing, stop and hold while rendering — so the label has to stay general. */
 "touchbar.controls" = "Controls";
