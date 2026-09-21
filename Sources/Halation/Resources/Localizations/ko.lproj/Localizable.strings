@@ -951,7 +951,11 @@
 /* Labels the health indicator in the status bar along the bottom of the window. Distinct from settings.status, which heads a whole section, and from settings.state. */
 "status.label" = "상태";
 
-"status.memory.help" = "렌더링 프로세스의 상주 메모리와, 이 Mac의 %@ 중 차지하는 비율";
+/* Tooltip on the status bar's memory figure. The engine is the Python process and its children, which hold almost all of it; the app's own share is a few hundred megabytes. */
+"status.memory.breakdown" = "엔진 %1$@, 앱 %2$@. 최대 %3$@ — 이 Mac의 %4$@ 중.";
+
+/* Highest combined memory reached during this render, shown beside the current figure in the status bar. */
+"status.memory.peak" = "최대 %@";
 
 /* WARNING: Takes a count of queued jobs. Safer than the other counts because no noun follows the number in English, but languages that inflect the verb or add a classifier still need the count itself. */
 "status.queued.count" = "%@ 개 대기 중";

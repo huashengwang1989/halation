@@ -134,7 +134,7 @@ actor MLXBackend: RenderBackend {
 
     func currentMemoryBytes() async -> Int64? {
         guard let pid = await runner?.processIdentifier else { return nil }
-        return ProcessMemory.residentBytes(of: pid)
+        return ProcessMemory.treeFootprintBytes(of: pid)
     }
 }
 

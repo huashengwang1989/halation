@@ -95,7 +95,7 @@ actor ComfyUIBackend: RenderBackend {
     func currentMemoryBytes() async -> Int64? {
         // The work happens in the ComfyUI server, not in this process.
         guard let pid = await runtime.serverProcessIdentifier else { return nil }
-        return ProcessMemory.residentBytes(of: pid)
+        return ProcessMemory.treeFootprintBytes(of: pid)
     }
 
     // MARK: - References

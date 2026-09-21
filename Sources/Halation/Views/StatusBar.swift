@@ -34,8 +34,8 @@ struct StatusBar: View {
 
             Spacer(minLength: 8)
 
-            if let bytes = app.engine.activeMemoryBytes {
-                memory(bytes)
+            if let usage = app.engine.memoryUsage {
+                memory(usage)
             }
 
             if app.engine.queuedCount > 0 {
@@ -111,20 +111,32 @@ struct StatusBar: View {
 
     /// Megabytes below a gigabyte, gigabytes above — and the share of installed
     /// memory, which is the number that tells you whether you are about to swap.
-    private func memory(_ bytes: Int64) -> some View {
-        let share = Double(bytes) / Double(ProcessMemory.physicalBytes)
+    ///
+    /// The total of the app and the engine, with the peak beside it. The peak is
+    /// the one worth keeping: a render that touched ninety per cent for a few
+    /// seconds and settled back leaves no other trace that it nearly swapped.
+    private func memory(_ usage: RenderEngine.MemoryUsage) -> some View {
+        let share = Double(usage.totalBytes) / Double(ProcessMemory.physicalBytes)
         return HStack(spacing: 4) {
             Image(systemName: "memorychip")
                 .imageScale(.small)
                 .accessibilityHidden(true)
-            Text(Self.memoryText(bytes))
+            Text(Self.memoryText(usage.totalBytes))
             Text("(\(Int(share * 100))%)")
                 .foregroundStyle(share > 0.85 ? .orange : .secondary)
+            if usage.peakTotalBytes > usage.totalBytes {
+                Text("· " + loc("status.memory.peak",
+                                Self.memoryText(usage.peakTotalBytes)))
+            }
         }
         .font(.caption)
         .foregroundStyle(.secondary)
         .monospacedDigit()
-        .help(loc("status.memory.help", Format.bytes(ProcessMemory.physicalBytes)))
+        .help(loc("status.memory.breakdown",
+                  Self.memoryText(usage.engineBytes),
+                  Self.memoryText(usage.appBytes),
+                  Self.memoryText(usage.peakTotalBytes),
+                  Format.bytes(ProcessMemory.physicalBytes)))
     }
 
     static func memoryText(_ bytes: Int64) -> String {
@@ -170,8 +182,8 @@ struct StatusBar: View {
                 parts.append(loc("a11y.remaining", Format.duration(remaining)))
             }
         }
-        if let bytes = app.engine.activeMemoryBytes {
-            parts.append(loc("a11y.usingMemory", Self.memoryText(bytes)))
+        if let usage = app.engine.memoryUsage {
+            parts.append(loc("a11y.usingMemory", Self.memoryText(usage.totalBytes)))
         }
         return parts.joined(separator: ", ")
     }

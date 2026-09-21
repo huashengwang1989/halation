@@ -288,18 +288,6 @@ add("status.remaining", {
                "apart and assembled in a fixed order. The duration inside is already localized.",
     "level": WARNING,
 })
-add("status.memory.help", {
-    "en": "Resident memory of the render process, and its share of this Mac's %@",
-    "zh-Hant": "算圖程序佔用的實體記憶體，以及在本機 %@ 中的佔比",
-    "zh-Hans": "渲染进程占用的物理内存，以及在本机 %@ 中的占比",
-    "de": "Vom Renderprozess belegter Arbeitsspeicher und sein Anteil an den %@ dieses Mac",
-    "ar": "الذاكرة المقيمة لعملية التصيير ونسبتها من ذاكرة هذا الـ Mac البالغة %@",
-    "ja": "レンダリングプロセスの常駐メモリと、この Mac の %@ に対する割合",
-    "ko": "렌더링 프로세스의 상주 메모리와, 이 Mac의 %@ 중 차지하는 비율",
-    "th": "หน่วยความจำที่กระบวนการเรนเดอร์ใช้อยู่ และสัดส่วนเทียบกับ %@ ของ Mac เครื่องนี้",
-    "yue-Hant": "算圖程序用緊嘅實體記憶體，以及佔本機 %@ 嘅比例",
-    "en-SG": "How much memory the render process makan, and how much of this Mac's %@ that is",
-})
 
 # ── Built-in presets ─────────────────────────────────────────────────────────
 # Named for what they are for, not for a setting: "Fast preview" is a draft you
@@ -6354,3 +6342,32 @@ add("onboarding.models.aboutToDownload", {
     "yue-Hant": "就快下載",
     "en-SG": "About to download",
 })
+
+# ── Memory reporting ─────────────────────────────────────────────────────────
+add("status.memory.peak", {
+    "en": "peak %@",
+    "zh-Hant": "尖峰 %@",
+    "zh-Hans": "峰值 %@",
+    "de": "Spitze %@",
+    "ar": "الذروة %@",
+    "ja": "ピーク %@",
+    "ko": "최대 %@",
+    "th": "สูงสุด %@",
+    "yue-Hant": "最高 %@",
+    "en-SG": "peak %@",
+}, note="Highest combined memory reached during this render, shown beside the "
+        "current figure in the status bar.")
+add("status.memory.breakdown", {
+    "en": "%1$@ in the engine, %2$@ in the app. Peak %3$@ of this Mac's %4$@.",
+    "zh-Hant": "引擎佔 %1$@，App 佔 %2$@。尖峰 %3$@，本機共 %4$@。",
+    "zh-Hans": "引擎占 %1$@，App 占 %2$@。峰值 %3$@，本机共 %4$@。",
+    "de": "%1$@ im Engine-Prozess, %2$@ in der App. Spitze %3$@ von %4$@ dieses Macs.",
+    "ar": "%1$@ في المحرّك و%2$@ في التطبيق. الذروة %3$@ من %4$@ في هذا الـ Mac.",
+    "ja": "エンジンが %1$@、アプリが %2$@。ピークは %3$@（この Mac の %4$@ 中）。",
+    "ko": "엔진 %1$@, 앱 %2$@. 최대 %3$@ — 이 Mac의 %4$@ 중.",
+    "th": "เอนจิน %1$@ แอป %2$@ สูงสุด %3$@ จาก %4$@ ของ Mac เครื่องนี้",
+    "yue-Hant": "引擎佔 %1$@，App 佔 %2$@。最高 %3$@，本機總共 %4$@。",
+    "en-SG": "%1$@ in the engine, %2$@ in the app. Peak %3$@ out of this Mac's %4$@.",
+}, note="Tooltip on the status bar's memory figure. The engine is the Python "
+        "process and its children, which hold almost all of it; the app's own "
+        "share is a few hundred megabytes.")

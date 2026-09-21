@@ -16,8 +16,25 @@ final class RenderEngine {
     private(set) var logs: [UUID: [String]] = [:]
     /// Failure messages a backend reported before throwing.
     private var reportedFailures: [UUID: String] = [:]
-    /// Resident memory of the process currently rendering, sampled while it runs.
-    private(set) var activeMemoryBytes: Int64?
+    /// Memory in use while a render runs, split between the app and the engine.
+    ///
+    /// Both halves, because they are wildly different sizes and only one of them
+    /// is interesting: the app holds a few hundred megabytes while the engine
+    /// holds tens of gigabytes. Showing only the app's — which is what this did
+    /// until the two were separated — reported 712 MB during a render that was
+    /// using ninety-four gigabytes.
+    struct MemoryUsage: Sendable, Equatable {
+        var appBytes: Int64
+        var engineBytes: Int64
+        /// Highest total seen during this render, not the highest of either part
+        /// alone: the question it answers is whether the machine came close to
+        /// running out, and that depends on the sum at one moment.
+        var peakTotalBytes: Int64
+
+        var totalBytes: Int64 { appBytes + engineBytes }
+    }
+
+    private(set) var memoryUsage: MemoryUsage?
     private var memoryTask: Task<Void, Never>?
 
     private let runtime: RuntimeManager
@@ -291,17 +308,29 @@ final class RenderEngine {
         }
     }
 
-    /// Polls the backend's memory while it works.
+    /// Polls memory while the engine works.
     ///
     /// Sampled rather than reported by the backends because only MLX emits a
     /// figure of its own, and that one is a peak; the status bar wants what is
-    /// resident now, on whichever engine is running.
+    /// held now, on whichever engine is running.
     private func startSamplingMemory(from backend: any RenderBackend) {
         memoryTask?.cancel()
         memoryTask = Task { [weak self] in
             while !Task.isCancelled {
-                let bytes = await backend.currentMemoryBytes()
-                await MainActor.run { self?.activeMemoryBytes = bytes }
+                let engine = await backend.currentMemoryBytes() ?? 0
+                let app = ProcessMemory.ownFootprintBytes
+                await MainActor.run {
+                    guard let self else { return }
+                    let peak = max(self.memoryUsage?.peakTotalBytes ?? 0, app + engine)
+                    self.memoryUsage = .init(appBytes: app, engineBytes: engine,
+                                             peakTotalBytes: peak)
+                    // Carried onto the job too, so the Queue row still shows a
+                    // peak after the render ends and this value is cleared.
+                    if let index = self.jobs.firstIndex(where: { $0.state.isActive }) {
+                        self.jobs[index].peakMemoryBytes =
+                            max(self.jobs[index].peakMemoryBytes ?? 0, peak)
+                    }
+                }
                 try? await Task.sleep(for: .seconds(2))
             }
         }
@@ -310,7 +339,7 @@ final class RenderEngine {
     private func stopSamplingMemory() {
         memoryTask?.cancel()
         memoryTask = nil
-        activeMemoryBytes = nil
+        memoryUsage = nil
     }
 
     private func mark(_ jobID: UUID, state: RenderJob.State, message: String?) {
