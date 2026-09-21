@@ -428,6 +428,21 @@
 
 "models.willDownload" = "다운로드할 항목:";
 
+/* Notification title when a model download fails. Not used when the user cancels one. */
+"notify.download.failed.title" = "다운로드 실패";
+
+/* Notification title when a model finishes downloading. Weights run to tens of gigabytes, so this often arrives long after the user walked away — the same reason the render notifications exist. */
+"notify.download.finished.title" = "다운로드 완료";
+
+/* Fallback body for a failure notification, used only when the backend reported no message of its own. */
+"notify.failed.body" = "끝나기 전에 멈췄습니다. 자세한 내용은 로그에 있습니다.";
+
+/* Notification title when a render fails. Not used when the user cancels one themselves — that needs no announcement. */
+"notify.failed.title" = "렌더링 실패";
+
+/* Notification title when a render succeeds. Kept short — macOS truncates a notification title to roughly one line. */
+"notify.finished.title" = "렌더링 완료";
+
 /* Navigates to the previous onboarding step. The direction, not the body part — and specifically "previous", which some languages word differently from "backwards". */
 "onboarding.back" = "뒤로";
 

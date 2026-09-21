@@ -428,6 +428,21 @@
 
 "models.willDownload" = "จะดาวน์โหลด:";
 
+/* Notification title when a model download fails. Not used when the user cancels one. */
+"notify.download.failed.title" = "ดาวน์โหลดล้มเหลว";
+
+/* Notification title when a model finishes downloading. Weights run to tens of gigabytes, so this often arrives long after the user walked away — the same reason the render notifications exist. */
+"notify.download.finished.title" = "ดาวน์โหลดเสร็จแล้ว";
+
+/* Fallback body for a failure notification, used only when the backend reported no message of its own. */
+"notify.failed.body" = "หยุดก่อนจะเสร็จ รายละเอียดอยู่ในบันทึก";
+
+/* Notification title when a render fails. Not used when the user cancels one themselves — that needs no announcement. */
+"notify.failed.title" = "เรนเดอร์ล้มเหลว";
+
+/* Notification title when a render succeeds. Kept short — macOS truncates a notification title to roughly one line. */
+"notify.finished.title" = "เรนเดอร์เสร็จแล้ว";
+
 /* Navigates to the previous onboarding step. The direction, not the body part — and specifically "previous", which some languages word differently from "backwards". */
 "onboarding.back" = "ย้อนกลับ";
 

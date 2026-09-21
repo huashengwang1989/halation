@@ -13,6 +13,9 @@ struct HalationApp: App {
         // .optional items — declaring a customisation identity without this
         // leaves it unreachable.
         NSApplication.shared.isAutomaticCustomizeTouchBarMenuItemEnabled = true
+        // Registered here, not later: a click on a notification that *launched*
+        // the app is only delivered if the delegate is already in place.
+        Notifier.shared.prepare()
     }
     static let localizationWindowID = "debug-localizations"
 
@@ -32,6 +35,13 @@ struct HalationApp: App {
                 .task {
                     // On NSApplication rather than on a view — see AppTouchBar.
                     AppTouchBar.install(app)
+                    // Clicking a notification should land on the screen that
+                    // answers the question it just raised: the finished video,
+                    // or the queue row whose log says what went wrong.
+                    Notifier.shared.onOpen = { state in
+                        app.section = state == .finished ? .library : .queue
+                    }
+                    Notifier.shared.onOpenDownloads = { app.section = .models }
                     await app.bootstrap()
                 }
                 // 200pt sidebar + 560pt detail minimum. Sized so that even with the
@@ -85,6 +95,10 @@ struct HalationApp: App {
                 CommandMenu("Debug") {
                     Button("Localisations (i18n)") {
                         openWindow(id: Self.localizationWindowID)
+                    }
+                    Button("Test Notifications (in 5s)") {
+                        Notifier.shared.requestPermissionIfNeeded()
+                        Notifier.shared.postTestNotifications()
                     }
                 }
             }

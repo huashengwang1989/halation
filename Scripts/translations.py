@@ -5831,3 +5831,75 @@ add("touchbar.controls", {
 }, note="Names the Touch Bar's left-hand item in the Customize Touch Bar sheet. "
         "What it holds depends on the screen — mode and seed while composing, "
         "stop and hold while rendering — so the label has to stay general.")
+
+# ── Notifications ────────────────────────────────────────────────────────────
+#
+# Delivered when a render ends while the app is in the background. The body
+# reuses queue.took and the failure message the backend reported, so only the
+# titles are new.
+add("notify.finished.title", {
+    "en": "Render finished",
+    "zh-Hant": "算圖完成",
+    "zh-Hans": "渲染完成",
+    "de": "Render fertig",
+    "ar": "اكتمل التصيير",
+    "ja": "レンダリング完了",
+    "ko": "렌더링 완료",
+    "th": "เรนเดอร์เสร็จแล้ว",
+    "yue-Hant": "算好喇",
+    "en-SG": "Render done liao",
+}, note="Notification title when a render succeeds. Kept short — macOS truncates "
+        "a notification title to roughly one line.")
+add("notify.failed.title", {
+    "en": "Render failed",
+    "zh-Hant": "算圖失敗",
+    "zh-Hans": "渲染失败",
+    "de": "Render fehlgeschlagen",
+    "ar": "فشل التصيير",
+    "ja": "レンダリング失敗",
+    "ko": "렌더링 실패",
+    "th": "เรนเดอร์ล้มเหลว",
+    "yue-Hant": "算唔到",
+    "en-SG": "Render fail liao",
+}, note="Notification title when a render fails. Not used when the user cancels "
+        "one themselves — that needs no announcement.")
+add("notify.failed.body", {
+    "en": "It stopped before finishing, and the log has the details.",
+    "zh-Hant": "在完成前中止，詳情請看記錄。",
+    "zh-Hans": "在完成前中止，详情请看日志。",
+    "de": "Er wurde vor dem Ende abgebrochen; Einzelheiten stehen im Protokoll.",
+    "ar": "توقّف قبل أن يكتمل، والتفاصيل في السجل.",
+    "ja": "完了する前に停止しました。詳細はログを見てください。",
+    "ko": "끝나기 전에 멈췄습니다. 자세한 내용은 로그에 있습니다.",
+    "th": "หยุดก่อนจะเสร็จ รายละเอียดอยู่ในบันทึก",
+    "yue-Hant": "未算完就停咗，詳情睇記錄。",
+    "en-SG": "It stop before finish. Go see the log for details.",
+}, note="Fallback body for a failure notification, used only when the backend "
+        "reported no message of its own.")
+add("notify.download.finished.title", {
+    "en": "Download finished",
+    "zh-Hant": "下載完成",
+    "zh-Hans": "下载完成",
+    "de": "Download abgeschlossen",
+    "ar": "اكتمل التنزيل",
+    "ja": "ダウンロード完了",
+    "ko": "다운로드 완료",
+    "th": "ดาวน์โหลดเสร็จแล้ว",
+    "yue-Hant": "下載好喇",
+    "en-SG": "Download done liao",
+}, note="Notification title when a model finishes downloading. Weights run to "
+        "tens of gigabytes, so this often arrives long after the user walked "
+        "away — the same reason the render notifications exist.")
+add("notify.download.failed.title", {
+    "en": "Download failed",
+    "zh-Hant": "下載失敗",
+    "zh-Hans": "下载失败",
+    "de": "Download fehlgeschlagen",
+    "ar": "فشل التنزيل",
+    "ja": "ダウンロード失敗",
+    "ko": "다운로드 실패",
+    "th": "ดาวน์โหลดล้มเหลว",
+    "yue-Hant": "下載失敗",
+    "en-SG": "Download fail liao",
+}, note="Notification title when a model download fails. Not used when the user "
+        "cancels one.")

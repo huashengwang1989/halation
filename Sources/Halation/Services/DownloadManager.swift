@@ -68,6 +68,7 @@ final class DownloadManager {
     /// second copy of every completed item, which then raced the first for the
     /// same cache directory and reported nonsense.
     func enqueue(_ entries: [CatalogEntry]) {
+        Notifier.shared.requestPermissionIfNeeded()
         for entry in entries {
             guard entry.isUsableHere, !modelStore.isInstalled(entry) else { continue }
 
@@ -180,6 +181,9 @@ final class DownloadManager {
                 transfers[live].completedBytes = transfers[live].totalBytes
                 transfers[live].currentFile = nil
                 transfers[live].isFinalising = false
+                Notifier.shared.downloadFinished(
+                    name: transfers[live].entry.displayName,
+                    bytes: transfers[live].totalBytes)
             }
         } catch {
             guard let live = transfers.firstIndex(where: { $0.id == id }) else { return }
@@ -189,6 +193,11 @@ final class DownloadManager {
             } else {
                 transfers[live].state = .failed
                 transfers[live].message = error.localizedDescription
+                // Cancellations are handled in the branch above, so only a real
+                // failure reaches here — nobody needs telling they pressed Cancel.
+                Notifier.shared.downloadFailed(
+                    name: transfers[live].entry.displayName,
+                    message: transfers[live].message)
             }
         }
     }

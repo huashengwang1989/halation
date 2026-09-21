@@ -54,6 +54,7 @@ final class RenderEngine {
     // MARK: - Queue management
 
     func enqueue(_ spec: GenerationSpec) -> RenderJob {
+        Notifier.shared.requestPermissionIfNeeded()
         let job = RenderJob(spec: spec)
         jobs.append(job)
         persist()
@@ -219,6 +220,7 @@ final class RenderEngine {
             jobs[finalIndex].progress = 1
 
             library.record(job: jobs[finalIndex])
+            Notifier.shared.renderFinished(jobs[finalIndex])
             try? FileManager.default.removeItem(at: scratch)
 
         } catch is CancellationError {
@@ -316,6 +318,9 @@ final class RenderEngine {
         jobs[index].state = state
         jobs[index].finishedAt = .now
         jobs[index].failureMessage = message
+        // Failures only. A cancellation was the user's own doing a moment ago,
+        // so announcing it tells them something they already know.
+        if state == .failed { Notifier.shared.renderFailed(jobs[index]) }
     }
 
     private func appendLog(_ message: String, to jobID: UUID) {

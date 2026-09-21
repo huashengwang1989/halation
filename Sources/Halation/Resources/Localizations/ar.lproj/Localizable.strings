@@ -428,6 +428,21 @@
 
 "models.willDownload" = "سيتم تنزيل:";
 
+/* Notification title when a model download fails. Not used when the user cancels one. */
+"notify.download.failed.title" = "فشل التنزيل";
+
+/* Notification title when a model finishes downloading. Weights run to tens of gigabytes, so this often arrives long after the user walked away — the same reason the render notifications exist. */
+"notify.download.finished.title" = "اكتمل التنزيل";
+
+/* Fallback body for a failure notification, used only when the backend reported no message of its own. */
+"notify.failed.body" = "توقّف قبل أن يكتمل، والتفاصيل في السجل.";
+
+/* Notification title when a render fails. Not used when the user cancels one themselves — that needs no announcement. */
+"notify.failed.title" = "فشل التصيير";
+
+/* Notification title when a render succeeds. Kept short — macOS truncates a notification title to roughly one line. */
+"notify.finished.title" = "اكتمل التصيير";
+
 /* Navigates to the previous onboarding step. The direction, not the body part — and specifically "previous", which some languages word differently from "backwards". */
 "onboarding.back" = "رجوع";
 
