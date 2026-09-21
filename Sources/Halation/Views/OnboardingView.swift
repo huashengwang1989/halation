@@ -109,6 +109,17 @@ struct OnboardingView: View {
                 .fixedSize(horizontal: false, vertical: true)
             }
 
+            GlassCard(title: loc("onboarding.diskTitle"), systemImage: "internaldrive") {
+                Text(loc("onboarding.disk.body"))
+                .font(.callout)
+                .foregroundStyle(.secondary)
+                .fixedSize(horizontal: false, vertical: true)
+            }
+
+            // Last, and set apart. The paragraph above promises two things
+            // worth knowing; this is a third card but not a third thing — it is
+            // a setting offered while the user happens to be here, and sitting
+            // between the other two made that copy read as a miscount.
             GlassCard(title: loc("settings.notifications"), systemImage: "bell.badge") {
                 VStack(alignment: .leading, spacing: 8) {
                     Text(loc("settings.notifications.note"))
@@ -122,13 +133,7 @@ struct OnboardingView: View {
                     NotificationPermissionRow()
                 }
             }
-
-            GlassCard(title: loc("onboarding.diskTitle"), systemImage: "internaldrive") {
-                Text(loc("onboarding.disk.body"))
-                .font(.callout)
-                .foregroundStyle(.secondary)
-                .fixedSize(horizontal: false, vertical: true)
-            }
+            .padding(.top, 8)
         }
     }
 
