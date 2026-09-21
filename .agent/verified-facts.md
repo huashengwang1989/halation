@@ -758,30 +758,31 @@ together. UserDefaults searches the global domain, so nothing per-app is needed,
 and the argument domain still wins for a single run:
 `open -a Halation --args -_NS_4445425547 NO`.
 
-## Notifications are accepted and then silently dropped, unsigned
+## Notifications work unsigned — and Notification Center collapses them
 
-Halation posts notifications that never arrive, and every layer says it is fine.
-Measured rather than assumed, in this order:
+Worth recording because the investigation went wrong, not because the answer is
+interesting. Notifications deliver correctly from an ad-hoc signed build: all
+four kinds arrive, with the right icon, titles and localized bodies.
 
-- `UNUserNotificationCenter.requestAuthorization` returns `granted: true`.
-- `notificationSettings()` reports `.authorized`, with `alertStyle` and
-  `alertSetting` both enabled — so the in-app permission row shows green.
-- `add(_:)` calls back with a nil error.
-- Nothing appears as a banner, and nothing is listed in Notification Center.
+They appeared to be failing for two reasons at once.
 
-Things ruled out along the way, each by test: the foreground-suppression default
-(the delegate now returns `.banner` from `willPresent`); a second copy of the app
-stealing the menu click (two instances were running at one point, one from
-`make run`); launching the executable directly versus through LaunchServices
-(both behave the same); and the app not being registered at all — System
-Settings ▸ Notifications lists Halation, and the first permission prompt
-appeared with the right icon.
+The first was real and is fixed: macOS suppresses a notification while its app
+is frontmost unless the delegate returns presentation options from
+`willPresent`. `Notifier` now returns `.banner` there, because someone waiting
+on a two-hour render is not watching the queue — the window is behind a browser,
+or on another Space, and macOS still counts the app as front.
 
-What remains is the ad-hoc signature. `usernoted` validates the posting app
-against the record it holds, an ad-hoc signature carries no stable identity, and
-the cdhash changes on every rebuild. The API surface has no way to report that:
-`add` takes the request, and the drop happens elsewhere. It is the same root
-cause as the Documents permission prompt returning after every build.
+The second was a misreading. Notification Center groups by app and collapses the
+group, showing a few and hiding the rest behind "N more notifications". A
+screenshot of Notification Center is not evidence that nothing was delivered
+unless the group has been expanded first — ours had fourteen hidden, including
+every test notification, and they were taken as proof of non-delivery.
 
-This is unproven, because proving it needs a Developer ID. Anyone who signs the
-app should check whether notifications start arriving, and correct this note.
+The signature had nothing to do with it. `requestAuthorization` returning
+`granted: true`, `notificationSettings()` reporting `.authorized`, and `add()`
+returning no error were all telling the truth.
+
+The diagnostics added while chasing this are still worth having: every failure
+mode in this API is silent, since `add` reports refusal through a callback
+rather than by throwing, so `Notifier.log` writes authorization, add errors and
+bundle state to stderr whenever the debug menu is enabled.
