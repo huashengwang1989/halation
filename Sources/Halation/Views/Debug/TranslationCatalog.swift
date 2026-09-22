@@ -42,10 +42,63 @@ struct TranslationCatalog: Decodable {
         }
     }
 
+    /// A term with more than one defensible translation, pinned to one.
+    ///
+    /// Mirrors `GLOSSARY` in Scripts/translations.py, which is where it is
+    /// edited. Carried in this same file rather than its own so the app cannot
+    /// show a glossary that has drifted from the one `make check` enforces.
+    struct Term: Decodable, Identifiable {
+        let term: String
+        let canonical: [String: String]
+        let avoid: [String: [String]]
+
+        var id: String { term }
+
+        /// "swap — memory paged out to disk…" splits into a heading and the
+        /// sense it is pinned to, which is the part that stops an argument.
+        var name: String {
+            String(term.split(separator: " — ", maxSplits: 1).first ?? "")
+        }
+
+        var sense: String {
+            let parts = term.components(separatedBy: " — ")
+            return parts.count > 1 ? parts.dropFirst().joined(separator: " — ") : ""
+        }
+
+        /// Every language that has an opinion about this term, in catalogue
+        /// order so the glossary reads in the same order as the table.
+        func languages(in order: [String]) -> [String] {
+            order.filter { canonical[$0] != nil || avoid[$0] != nil }
+        }
+
+        var searchHaystack: String {
+            ([term] + canonical.values + avoid.values.flatMap { $0 })
+                .joined(separator: "\u{1}")
+        }
+    }
+
     let languages: [String]
     let entries: [Entry]
+    /// Absent from older catalogues, so it decodes to empty rather than failing
+    /// and taking the whole inspector with it.
+    let glossary: [Term]
 
-    static let empty = TranslationCatalog(languages: [], entries: [])
+    enum CodingKeys: String, CodingKey { case languages, entries, glossary }
+
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        languages = try container.decode([String].self, forKey: .languages)
+        entries = try container.decode([Entry].self, forKey: .entries)
+        glossary = (try? container.decode([Term].self, forKey: .glossary)) ?? []
+    }
+
+    private init(languages: [String], entries: [Entry], glossary: [Term]) {
+        self.languages = languages
+        self.entries = entries
+        self.glossary = glossary
+    }
+
+    static let empty = TranslationCatalog(languages: [], entries: [], glossary: [])
 
     /// Decoded once. The file is a few hundred KB and never changes at runtime,
     /// so re-reading it per keystroke in the search field would be waste.

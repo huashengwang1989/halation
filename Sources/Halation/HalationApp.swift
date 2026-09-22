@@ -131,7 +131,10 @@ struct HalationApp: App {
         Window("Localisations (i18n)", id: Self.localizationWindowID) {
             LocalizationInspector()
         }
-        .defaultSize(width: 1100, height: 720)
+        // Tall enough for a full page of rows plus both bars. At 720 the table
+        // came up a few points short and the squeeze landed on the search and
+        // pagination rows, clipping both — see barHeight in the inspector.
+        .defaultSize(width: 1100, height: 800)
 
         Settings {
             SettingsView()

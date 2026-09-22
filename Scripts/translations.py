@@ -75,8 +75,11 @@ GLOSSARY = [
             # Both are correct German; using both is what made the app
             # inconsistent with itself.
             "de": ["Auslagerung", "auslagern"],
-            # Latin "swap" left in a Thai sentence, which is what happened.
-            "th": [" swap ", " swap"],
+            # Latin "swap" left in a Thai sentence, which is what happened. The
+            # leading space is what makes it safe: it matches the loose word and
+            # not the many Thai strings that legitimately contain "swap" inside
+            # a longer Latin token.
+            "th": [" swap"],
         },
     },
 ]

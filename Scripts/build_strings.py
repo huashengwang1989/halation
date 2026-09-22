@@ -13,7 +13,7 @@ exactly when it mattered.
 """
 import json, pathlib, sys
 sys.path.insert(0, str(pathlib.Path(__file__).parent))
-from translations import LANGS, SOURCE_LANG, T, note_of, value
+from translations import GLOSSARY, LANGS, SOURCE_LANG, T, note_of, value
 
 ROOT = pathlib.Path(__file__).parent.parent / "Sources/Halation/Resources/Localizations"
 CATALOG = ROOT.parent / "translation-catalog.json"
@@ -50,6 +50,10 @@ def render_catalog(table=T):
     """The exact contents of translation-catalog.json."""
     catalog = {
         "languages": LANGS,
+        # Carried in the same file the inspector already reads, so the app can
+        # show the glossary beside the strings it governs without a second
+        # resource to keep in step.
+        "glossary": GLOSSARY,
         "entries": [
             {
                 "key": key,

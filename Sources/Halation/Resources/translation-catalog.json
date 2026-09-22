@@ -11,6 +11,39 @@
     "yue-Hant",
     "en-SG"
   ],
+  "glossary": [
+    {
+      "term": "swap — memory paged out to disk, not the verb 'to exchange'",
+      "canonical": {
+        "zh-Hant": "置換",
+        "zh-Hans": "交换",
+        "yue-Hant": "置換",
+        "de": "Swap",
+        "ar": "التبديل",
+        "ja": "スワップ",
+        "ko": "스왑",
+        "th": "สลับ"
+      },
+      "avoid": {
+        "zh-Hans": [
+          "置换"
+        ],
+        "zh-Hant": [
+          "交換"
+        ],
+        "yue-Hant": [
+          "交換"
+        ],
+        "de": [
+          "Auslagerung",
+          "auslagern"
+        ],
+        "th": [
+          " swap"
+        ]
+      }
+    }
+  ],
   "entries": [
     {
       "key": "a11y.elapsed",

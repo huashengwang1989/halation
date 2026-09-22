@@ -15,15 +15,35 @@ struct LocalizationInspector: View {
         case language(String)
     }
 
+    private enum Pane: String, CaseIterable, Identifiable {
+        case translations = "Translations"
+        case glossary = "Glossary"
+        var id: String { rawValue }
+    }
+
     private static let rowsPerPage = 20
     private static let rowHeight: CGFloat = 30
     private static let keyWidth: CGFloat = 260
     private static let valueWidth: CGFloat = 240
     private static let noteWidth: CGFloat = 70
     private static let frozenWidth: CGFloat = keyWidth + valueWidth
+    /// The search and pagination rows are pinned to this rather than left to
+    /// size themselves. They were the two flexible bands in a stack whose
+    /// middle cannot compress — twenty rows of a fixed height — so when the
+    /// window came up a few points short of what the table needs, the squeeze
+    /// landed entirely on them and clipped both. `minimumHeight` below then
+    /// makes sure the window is never that short in the first place.
+    private static let barHeight: CGFloat = 38
+
+    /// Exactly what the table needs: both bars, the header, a full page of
+    /// rows, and the two dividers between them.
+    private static var minimumHeight: CGFloat {
+        barHeight * 2 + rowHeight * CGFloat(rowsPerPage + 1) + 2
+    }
 
     private let catalog = TranslationCatalog.shared
 
+    @State private var pane = Pane.translations
     @State private var search = ""
     @State private var sortColumn: SortColumn = .key
     @State private var ascending = true
@@ -52,17 +72,37 @@ struct LocalizationInspector: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
+            panePicker
+            Divider()
             searchBar
             Divider()
-            if visibleEntries.isEmpty {
-                emptyState
-            } else {
-                grid
+            switch pane {
+            case .translations:
+                if visibleEntries.isEmpty {
+                    emptyState
+                } else {
+                    grid
+                }
+                Divider()
+                paginationBar
+            case .glossary:
+                GlossaryView(catalog: catalog, search: $search)
             }
-            Divider()
-            paginationBar
         }
-        .frame(minWidth: 880, minHeight: 640)
+        .frame(minWidth: 880, minHeight: Self.minimumHeight + Self.barHeight)
+    }
+
+    /// One search field serves both panes, so switching does not lose a query
+    /// typed to answer a question that spans the two.
+    private var panePicker: some View {
+        Picker("", selection: $pane) {
+            ForEach(Pane.allCases) { Text($0.rawValue).tag($0) }
+        }
+        .pickerStyle(.segmented)
+        .labelsHidden()
+        .fixedSize()
+        .padding(.horizontal, 12)
+        .padding(.vertical, 7)
     }
 
     // MARK: - Filtering, sorting, paging
@@ -113,7 +153,9 @@ struct LocalizationInspector: View {
         HStack(spacing: 8) {
             Image(systemName: "magnifyingglass")
                 .foregroundStyle(.secondary)
-            TextField("Search keys, translations and notes", text: $search)
+            TextField(pane == .translations
+                      ? "Search keys, translations and notes"
+                      : "Search terms and their translations", text: $search)
                 .textFieldStyle(.plain)
                 .onChange(of: search) { page = 0 }
             if !search.isEmpty {
@@ -125,13 +167,15 @@ struct LocalizationInspector: View {
                 .buttonStyle(.plain)
             }
             Spacer()
-            Text("\(sortedEntries.count) of \(catalog.entries.count) keys")
+            Text(pane == .translations
+                 ? "\(sortedEntries.count) of \(catalog.entries.count) keys"
+                 : "\(catalog.glossary.count) term(s)")
                 .font(.caption)
                 .foregroundStyle(.secondary)
                 .monospacedDigit()
         }
         .padding(.horizontal, 12)
-        .padding(.vertical, 8)
+        .frame(height: Self.barHeight)
     }
 
     private var emptyState: some View {
@@ -171,7 +215,7 @@ struct LocalizationInspector: View {
                 .foregroundStyle(.secondary)
         }
         .padding(.horizontal, 12)
-        .padding(.vertical, 8)
+        .frame(height: Self.barHeight)
     }
 
     // MARK: - The grid
