@@ -70,7 +70,7 @@ struct MemoryRequirementsTable: View {
     ///
     /// One measurement, on one engine. The per-job peak the queue now records
     /// will accumulate more, and this should follow them.
-    private static let peakMultiplier = 2.4
+    static let peakMultiplier = 2.4
 
     private let gigabyte: Int64 = 1_073_741_824
 
@@ -146,7 +146,7 @@ struct MemoryRequirementsTable: View {
                     Text(loc("memory.table.budget"))
                         .gridCellColumns(2)
                     ForEach(machines) { machine in
-                        Text("\(Format.bytes(machine.lowBudget))–\(Format.bytes(machine.highBudget))")
+                        Text("\(Format.memory(machine.lowBudget))–\(Format.memory(machine.highBudget))")
                             .gridColumnAlignment(.center)
                     }
                 }
@@ -163,7 +163,7 @@ struct MemoryRequirementsTable: View {
                     GridRow {
                         Text(row.label)
                             .font(.caption)
-                        Text(Format.bytes(row.weightBytes))
+                        Text(Format.memory(row.weightBytes))
                             .font(.caption)
                             .monospacedDigit()
                             .foregroundStyle(.secondary)
@@ -186,8 +186,8 @@ struct MemoryRequirementsTable: View {
 
             if let metal = MachineProfile.metalUsableBytes {
                 Text(loc("memory.table.thisMac",
-                         Format.bytes(MachineProfile.physicalBytes),
-                         Format.bytes(metal)))
+                         Format.memory(MachineProfile.physicalBytes),
+                         Format.memory(metal)))
                     .font(.caption)
                     .foregroundStyle(.secondary)
             }

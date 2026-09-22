@@ -858,7 +858,7 @@
 
 "settings.cache.empty" = "Nichts im Cache";
 
-"settings.cache.note" = "Alles hier lässt sich löschen, ohne Arbeit zu verlieren — es wird bei Bedarf neu erzeugt oder geladen. Modellgewichte und fertige Videos stehen nicht hier: die liegen im Tab „Ordner“ und werden von hier aus nie angerührt.";
+"settings.cache.note" = "Alles hier lässt sich löschen, ohne Arbeit zu verlieren — es wird bei Bedarf neu erzeugt oder geladen. Modellgewichte und fertige Videos stehen nicht hier: die stehen im Tab „Allgemein“ unter „Ordner“ und werden von hier aus nie angerührt.";
 
 "settings.cache.scratch" = "Render-Zwischendateien";
 

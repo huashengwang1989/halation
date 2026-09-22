@@ -239,11 +239,11 @@ struct EntryRow: View {
     /// no remark; the size is already on the row for anyone who wants it.
     private var memoryNote: String? {
         guard let resident = entry.approximateResidentBytes, let fit = memoryFit else { return nil }
-        let budget = Format.bytes(MachineProfile.usableWeightBytes)
+        let budget = Format.memory(MachineProfile.usableWeightBytes)
         switch fit {
         case .comfortable: return nil
-        case .tight:       return loc("models.memory.tight", Format.bytes(resident), budget)
-        case .tooLarge:    return loc("models.memory.tooLarge", Format.bytes(resident), budget)
+        case .tight:       return loc("models.memory.tight", Format.memory(resident), budget)
+        case .tooLarge:    return loc("models.memory.tooLarge", Format.memory(resident), budget)
         }
     }
 

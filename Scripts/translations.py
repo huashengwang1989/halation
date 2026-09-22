@@ -6382,24 +6382,26 @@ add("settings.cache", {
 add("settings.cache.note", {
     "en": "Everything here can be deleted without losing work — it is rebuilt or "
           "re-downloaded when needed. Model weights and finished videos are not "
-          "listed: those are in the Folders tab and are never touched from here.",
-    "zh-Hant": "這裡的東西都可以刪除，不會弄丟任何成果——需要時會重建或重新下載。模型權重與完成的影片不在此列：它們在「資料夾」分頁，這裡永遠不會動到。",
-    "zh-Hans": "这里的东西都可以删除，不会丢失任何成果——需要时会重建或重新下载。模型权重与完成的视频不在此列：它们在“文件夹”分页，这里永远不会动到。",
+          "listed: those live under Folders in the General tab, and are never "
+          "touched from here.",
+    "zh-Hant": "這裡的東西都可以刪除，不會弄丟任何成果——需要時會重建或重新下載。模型權重與完成的影片不在此列：它們在「一般」分頁的「資料夾」一節，這裡永遠不會動到。",
+    "zh-Hans": "这里的东西都可以删除，不会丢失任何成果——需要时会重建或重新下载。模型权重与完成的视频不在此列：它们在“通用”分页的“文件夹”一节，这里永远不会动到。",
     "de": "Alles hier lässt sich löschen, ohne Arbeit zu verlieren — es wird bei "
           "Bedarf neu erzeugt oder geladen. Modellgewichte und fertige Videos "
-          "stehen nicht hier: die liegen im Tab „Ordner“ und werden von hier aus "
+          "stehen nicht hier: die stehen im Tab „Allgemein“ unter „Ordner“ und werden von hier aus "
           "nie angerührt.",
     "ar": "كل ما هنا يمكن حذفه دون فقدان أي عمل — يُعاد بناؤه أو تنزيله عند الحاجة. "
-          "أوزان النماذج ومقاطع الفيديو المنجزة ليست هنا: مكانها تبويب المجلدات، ولا "
+          "أوزان النماذج ومقاطع الفيديو المنجزة ليست هنا: مكانها قسم المجلدات في تبويب عام، ولا "
           "تُمَس من هذه الصفحة أبدًا.",
-    "ja": "ここにあるものはすべて削除しても作業は失われません——必要になれば作り直すか再ダウンロードします。モデルの重みと完成した動画はここには出ません。それらは「フォルダ」タブにあり、ここから触ることはありません。",
-    "ko": "여기 있는 것은 모두 지워도 작업이 사라지지 않습니다 — 필요하면 다시 만들거나 내려받습니다. 모델 가중치와 완성된 영상은 여기 없습니다. 그것들은 폴더 탭에 있고, 이 화면에서는 절대 건드리지 않습니다.",
+    "ja": "ここにあるものはすべて削除しても作業は失われません——必要になれば作り直すか再ダウンロードします。モデルの重みと完成した動画はここには出ません。それらは「一般」タブの「フォルダ」にあり、ここから触ることはありません。",
+    "ko": "여기 있는 것은 모두 지워도 작업이 사라지지 않습니다 — 필요하면 다시 만들거나 내려받습니다. 모델 가중치와 완성된 영상은 여기 없습니다. 그것들은 일반 탭의 폴더 항목에 있고, 이 화면에서는 절대 건드리지 않습니다.",
     "th": "ทุกอย่างที่นี่ลบได้โดยไม่เสียงาน เพราะจะถูกสร้างใหม่หรือดาวน์โหลดใหม่เมื่อจำเป็น "
-          "ไฟล์น้ำหนักโมเดลและวิดีโอที่เสร็จแล้วไม่อยู่ในรายการนี้ — อยู่ในแท็บโฟลเดอร์ และจะไม่ถูกแตะจากที่นี่",
-    "yue-Hant": "呢度啲嘢全部刪得，唔會蝕咗任何成果——要用嗰陣會重建或者再下載。模型權重同算好嘅片唔喺呢度：佢哋喺「資料夾」嗰版，呢度永遠唔會郁佢哋。",
+          "ไฟล์น้ำหนักโมเดลและวิดีโอที่เสร็จแล้วไม่อยู่ในรายการนี้ — อยู่ในหัวข้อโฟลเดอร์ของแท็บทั่วไป และจะไม่ถูกแตะจากที่นี่",
+    "yue-Hant": "呢度啲嘢全部刪得，唔會蝕咗任何成果——要用嗰陣會重建或者再下載。模型權重同算好嘅片唔喺呢度：佢哋喺「一般」嗰版嘅「資料夾」嗰度，呢度永遠唔會郁佢哋。",
     "en-SG": "Everything here can delete without losing any work — it gets rebuilt or "
              "downloaded again when needed. Model weights and finished videos not "
-             "listed here: those sit in the Folders tab and never get touched from here.",
+             "listed here: those sit under Folders in the General tab, and never get "
+             "touched from here.",
 })
 add("settings.cache.clearAll", {
     "en": "Clear All", "zh-Hant": "全部清除", "zh-Hans": "全部清除",

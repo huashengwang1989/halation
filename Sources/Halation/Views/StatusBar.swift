@@ -136,16 +136,10 @@ struct StatusBar: View {
                   Self.memoryText(usage.engineBytes),
                   Self.memoryText(usage.appBytes),
                   Self.memoryText(usage.peakTotalBytes),
-                  Format.bytes(ProcessMemory.physicalBytes)))
+                  Format.memory(ProcessMemory.physicalBytes)))
     }
 
-    static func memoryText(_ bytes: Int64) -> String {
-        let megabytes = Double(bytes) / 1_048_576
-        if megabytes < 1024 {
-            return "\(Int(megabytes.rounded())) MB"
-        }
-        return String(format: "%.1f GB", megabytes / 1024)
-    }
+    static func memoryText(_ bytes: Int64) -> String { Format.memory(bytes) }
 
     // MARK: - State
 

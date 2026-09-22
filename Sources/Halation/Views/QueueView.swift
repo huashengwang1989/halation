@@ -230,7 +230,7 @@ private struct JobRow: View {
                                   "\(job.promptTextTokenCount ?? tokens)"))
                 }
                 if let memory = job.peakMemoryBytes {
-                    Text("· " + loc("queue.peak", Format.bytes(memory)))
+                    Text("· " + loc("queue.peak", Format.memory(memory)))
                 }
             }
             .font(.caption2)

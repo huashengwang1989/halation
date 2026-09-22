@@ -2,9 +2,21 @@ import Foundation
 import SwiftUI
 
 enum Format {
+    /// Disk and downloads, in the decimal units Apple labels storage with:
+    /// 137_438_953_472 bytes reads "137.44 GB", the same as in Finder.
     static func bytes(_ value: Int64?) -> String {
         guard let value, value > 0 else { return "—" }
         return value.formatted(.byteCount(style: .file).locale(Localization.currentLocale))
+    }
+
+    /// Memory, in the binary units Apple labels *RAM* with. The distinction is
+    /// not pedantry: a 128 GB Mac holds 137_438_953_472 bytes, so formatting it
+    /// as storage prints "137.44 GB installed" under a column headed "128 GB",
+    /// and the table contradicts itself. `.memory` divides by 1024 and prints
+    /// "128 GB", which is what About This Mac says.
+    static func memory(_ value: Int64?) -> String {
+        guard let value, value > 0 else { return "—" }
+        return value.formatted(.byteCount(style: .memory).locale(Localization.currentLocale))
     }
 
     /// The duration badge on a clip: "5 s", "5 秒".

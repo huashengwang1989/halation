@@ -26,13 +26,14 @@ struct DiskRequirementsTable: View {
     }
 
     /// Python runtime, uv and the app itself — measured, and small enough that
-    /// the exact figure hardly matters beside 105 GB of weights.
+    /// the exact figure hardly matters beside 113 GB of weights.
     private var runtimeBytes: Int64 { 650 * 1_048_576 }
 
     private var baseBytes: Int64 { weightsBytes + runtimeBytes }
 
     /// What a render is expected to hold at peak, on the same basis as the
-    /// memory table: twice the resident weights of the smallest set.
+    /// memory table — the multiplier is borrowed from it rather than repeated,
+    /// so the two tables cannot drift apart when the measurement is revised.
     private var peakBytes: Int64 {
         let resident = ["model.name.support.mlx", "model.name.textEncoder.mlx",
                         "model.name.fl2va.q4"]
@@ -40,7 +41,7 @@ struct DiskRequirementsTable: View {
                 ModelCatalog.all.first { $0.nameKey == key }?.approximateResidentBytes
             }
             .reduce(0, +)
-        return resident * 2
+        return Int64(Double(resident) * MemoryRequirementsTable.peakMultiplier)
     }
 
     private var machines: [Machine] {

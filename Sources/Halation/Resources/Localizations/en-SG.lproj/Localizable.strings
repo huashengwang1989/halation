@@ -858,7 +858,7 @@
 
 "settings.cache.empty" = "Nothing cached";
 
-"settings.cache.note" = "Everything here can delete without losing any work — it gets rebuilt or downloaded again when needed. Model weights and finished videos not listed here: those sit in the Folders tab and never get touched from here.";
+"settings.cache.note" = "Everything here can delete without losing any work — it gets rebuilt or downloaded again when needed. Model weights and finished videos not listed here: those sit under Folders in the General tab, and never get touched from here.";
 
 "settings.cache.scratch" = "Render scratch";
 

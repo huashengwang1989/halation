@@ -305,8 +305,8 @@ struct GenerationSpec: Codable, Sendable, Hashable {
         guard resident > MachineProfile.usableWeightBytes else { return [] }
         return [.init(severity: .advisory,
                       message: loc("problem.memory",
-                                   Format.bytes(resident),
-                                   Format.bytes(MachineProfile.usableWeightBytes)))]
+                                   Format.memory(resident),
+                                   Format.memory(MachineProfile.usableWeightBytes)))]
     }
 
     var isRenderable: Bool { true }
