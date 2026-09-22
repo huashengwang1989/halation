@@ -19,6 +19,7 @@ struct SummarySidebar: View {
                     .padding(20)
             }
             .softScrollEdge(for: .top)
+            .statusBarInset()
             .onChange(of: problemFocusCount) { _, _ in
                 withAnimation(.snappy) {
                     proxy.scrollTo(ComposeAnchor.problems, anchor: .center)

@@ -52,6 +52,15 @@ struct StatusBar: View {
         .frame(maxWidth: .infinity)
         .background(.bar)
         .overlay(alignment: .top) { Divider() }
+        // The bar covers this much of the window. Published rather than assumed:
+        // it grows by a line while a render runs, and by more in languages with
+        // taller metrics. See `statusBarInset()`.
+        .background {
+            GeometryReader { proxy in
+                Color.clear.preference(key: StatusBarHeightKey.self,
+                                       value: proxy.size.height)
+            }
+        }
         .accessibilityElement(children: .ignore)
         .accessibilityLabel(loc("status.label"))
         .accessibilityValue(spokenStatus)

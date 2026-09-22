@@ -59,6 +59,7 @@ struct ModelsView: View {
             .padding(20)
         }
         .softScrollEdge(for: .top)
+        .statusBarInset()
         .confirmationDialog(loc("models.installRecommended.title"),
                             isPresented: $confirmingInstall, titleVisibility: .visible) {
             Button(loc("models.downloadAmount", Format.bytes(pendingRecommendedBytes))) {

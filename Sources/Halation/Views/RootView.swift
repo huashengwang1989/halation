@@ -10,6 +10,8 @@ struct RootView: View {
     /// a threshold, never on every layout pass — that is what lets a manual toggle
     /// survive, since nothing re-evaluates it until the window genuinely changes size.
     @State private var regime: WidthRegime?
+    /// How tall the status bar currently is, so scrollables can stay clear of it.
+    @State private var statusBarHeight: CGFloat = 0
 
     private enum WidthRegime { case narrow, wide }
 
@@ -64,6 +66,8 @@ struct RootView: View {
             }
         }
         .safeAreaInset(edge: .bottom, spacing: 0) { StatusBar() }
+        .onPreferenceChange(StatusBarHeightKey.self) { statusBarHeight = $0 }
+        .environment(\.statusBarHeight, statusBarHeight)
         .onGeometryChange(for: CGFloat.self) { $0.size.width } action: { width in
             adapt(toWidth: width)
         }

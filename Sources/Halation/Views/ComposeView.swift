@@ -116,6 +116,7 @@ struct ComposeView: View {
                     .frame(width: max(available, formContentMinWidth), alignment: .leading)
             }
             .softScrollEdge(for: .top)
+            .statusBarInset()
         }
     }
 

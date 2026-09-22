@@ -26,6 +26,7 @@ struct QueueView: View {
                 }
                 .listStyle(.inset)
                 .alternatingRowBackgrounds()
+                .statusBarInset()
             }
         }
         .toolbar {

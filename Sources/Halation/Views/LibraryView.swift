@@ -55,6 +55,7 @@ struct LibraryView: View {
                         .padding(18)
                     }
                     .softScrollEdge(for: .top)
+                    .statusBarInset()
                     .frame(maxWidth: .infinity)
 
                     // The inspector appears when something is selected and stays
@@ -256,6 +257,7 @@ private struct LibraryDetail: View {
             }
             .padding(18)
         }
+        .statusBarInset()
         .background(.background.secondary)
         .onChange(of: item.id) { _, newID in
             guard newID != shownItemID else { return }
