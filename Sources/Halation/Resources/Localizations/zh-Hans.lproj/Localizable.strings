@@ -116,11 +116,38 @@
 /* Pixel dimensions of the output. Not resolution in the sense of resolving a dispute or a decision. */
 "compose.resolution" = "分辨率";
 
+/* The largest line by far, and the reason the floor is where it is. Keep the format in the label: it is the only build MLX can load. */
+"disk.item.encoder" = "文本编码器（bfloat16）";
+
+/* Subtotal: the lines above it, which stay for as long as the app is installed. Contrast with the transient lines below. */
+"disk.item.persistent" = "长期占用";
+
+/* Everything that is not a model weight. Measured, and small enough beside the weights that the exact figure hardly matters. */
+"disk.item.runtime" = "Python 运行环境、uv 与 App";
+
+/* Surprisingly tiny, and worth showing for exactly that reason: frames are piped straight to the encoder, so they are never written out. */
+"disk.item.scratch" = "渲染暂存";
+
+/* The largest the app ever needs at once, which is during installation rather than during a render. This is the number to have free. */
+"disk.item.setupPeak" = "峰值（安装过程中）";
+
+/* The smallest transformer, because this table is a floor. A larger quantization adds to this line and nothing else. */
+"disk.item.transformer" = "FL2VA transformer，4-bit";
+
+/* Transient: needed while the runtime is built, and the Cache tab can empty it afterwards. Say 'setup only' so nobody budgets for it twice. */
+"disk.item.uvCache" = "uv 下载缓存（仅安装时）";
+
+/* The video and audio VAEs, plus the tokenizer and processor. Shared because every task needs them whichever transformer is chosen. */
+"disk.item.vae" = "共用 VAE 套件";
+
 "disk.table.base" = "权重与运行环境";
+
+/* Heads the itemised list above the per-machine disk table. 'Usable' means it can render at all, not that it renders well. */
+"disk.table.breakdown" = "最小可用组合的构成";
 
 "disk.table.installedMemory" = "已安装内存";
 
-"disk.table.note" = "空间几乎全用在权重上：最小可用组合约 %@——共用 VAE、文本编码器与 4-bit transformer——再加上约 600 MB 的 Python 运行环境。渲染本身的暂存文件只有几 MB，因为帧是直接喂给编码器，不会写到磁盘。初次设置期间还会多用 3.4 GB 作为 uv 的下载缓存，之后可在“缓存”分页清除。参考素材模式需要另一整套权重，约 60 GB，未计入此表。";
+"disk.table.note" = "空间几乎全用在权重上：最小可用组合约 %@——共用 VAE、文本编码器与 4-bit transformer——再加上约 680 MB 的 Python 运行环境。渲染本身的暂存文件只有几 MB，因为帧是直接喂给编码器，不会写到磁盘。初次设置期间还会多用 3.56 GB 作为 uv 的下载缓存，之后可在“缓存”分页清除。参考素材模式需要另一整套权重，约 60 GB，未计入此表。";
 
 /* Estimated, not fixed: macOS grows swap on demand, and how much it needs depends on how far a render overruns the memory the GPU may hold. */
 "disk.table.swap" = "所需置换空间";
@@ -890,7 +917,8 @@
 /* Adjective: the app found this component on the machine by itself. Reports a discovery, not an action available. */
 "settings.detected" = "已检测";
 
-"settings.disk" = "磁盘空间";
+/* Heads the disk table, beside the memory one, in Settings and in the welcome dialog. It is a floor, not an estimate: the smallest set of weights that can render anything, plus the swap that machine will need. */
+"settings.disk" = "所需最小磁盘空间";
 
 /* Labels the folder on disk where weights are stored, in Settings ▸ Folders. A location, not the tab — see section.models. */
 "settings.folder.models" = "模型";

@@ -3,6 +3,31 @@ import SwiftUI
 struct SettingsView: View {
     /// Held so the ring suppressor below re-runs whenever the tab bar rebuilds.
     @State private var tab = SettingsTab.general
+    /// The height the visible tab asked for, before clamping.
+    @State private var pageHeights: [SettingsTab: CGFloat] = [:]
+
+    /// Title bar plus tab bar, which sit *outside* the frame set below:
+    /// measured, a 460 pt frame produces a 548 pt window.
+    private static let chrome: CGFloat = 88
+    /// Never shorter than this, or a two-line panel rattles around in a window
+    /// far bigger than it needs.
+    private static let minWindowHeight: CGFloat = 320
+    /// Never taller than this. Sized for the smallest screen anyone is likely to
+    /// drive this from — an iPad mini over Sidecar is about 744 pt tall — with
+    /// enough left over that the window sits visibly inside the screen with
+    /// space above and below rather than filling it.
+    private static let maxWindowHeight: CGFloat = 660
+
+    /// Used only before a panel has reported its height, which is one layout
+    /// pass at most.
+    private static let formHeight: CGFloat = 460
+
+    /// The frame the content gets, which the window then grows by `chrome`.
+    private var height: CGFloat {
+        guard let measured = pageHeights[tab] else { return Self.formHeight }
+        return min(max(measured, Self.minWindowHeight - Self.chrome),
+                   Self.maxWindowHeight - Self.chrome)
+    }
 
     var body: some View {
         TabView(selection: $tab) {
@@ -26,12 +51,58 @@ struct SettingsView: View {
                 AdvancedSettings()
             }
         }
-        .frame(width: 620, height: 460)
+        .frame(width: 620, height: height)
+        .animation(.easeInOut(duration: 0.18), value: height)
+        .onPreferenceChange(SettingsPageHeightKey.self) { measured in
+            for (tab, value) in measured where pageHeights[tab] != value {
+                pageHeights[tab] = value
+            }
+        }
         .background(TabBarFocusRingSuppressor(trigger: tab))
     }
 }
 
 enum SettingsTab: Hashable { case general, runtime, comfyUI, requirements, cache, advanced }
+
+/// Each tab reports the height it would like, keyed by tab.
+///
+/// Keyed rather than reduced to one number because a `TabView` may keep tabs
+/// that are not showing alive: taking the maximum would size every panel to the
+/// tallest one, which is the behaviour this replaces.
+private struct SettingsPageHeightKey: PreferenceKey {
+    static let defaultValue: [SettingsTab: CGFloat] = [:]
+    static func reduce(value: inout [SettingsTab: CGFloat],
+                       nextValue: () -> [SettingsTab: CGFloat]) {
+        value.merge(nextValue()) { max($0, $1) }
+    }
+}
+
+/// One settings panel: scrolls when it has to, and tells the window how tall it
+/// wants to be so the window follows the tab rather than fitting the largest.
+///
+/// A `Form` fills whatever height it is offered rather than reporting one, so
+/// the panels that use one pass `form.fixedSize(horizontal: false, vertical:)`
+/// as the content. That asks the Form for its intrinsic height instead, which
+/// is the height this then measures. Verified on screen: the Advanced panel,
+/// the shortest, settles at a 364 pt window rather than the old 548.
+struct SettingsPage<Content: View>: View {
+    let tab: SettingsTab
+    var padding: CGFloat = 20
+    @ViewBuilder var content: Content
+
+    var body: some View {
+        ScrollView {
+            content
+                .padding(padding)
+                .background(
+                    GeometryReader { proxy in
+                        Color.clear.preference(key: SettingsPageHeightKey.self,
+                                               value: [tab: proxy.size.height])
+                    }
+                )
+        }
+    }
+}
 
 /// Stops AppKit drawing a focus ring on the Settings tab bar.
 ///
@@ -73,6 +144,12 @@ private struct GeneralSettings: View {
     @Environment(AppState.self) private var app
 
     var body: some View {
+        SettingsPage(tab: .general, padding: 0) {
+            form.fixedSize(horizontal: false, vertical: true)
+        }
+    }
+
+    private var form: some View {
         Form {
             Section(loc("settings.language.section")) {
                 LanguagePicker()
@@ -150,6 +227,12 @@ private struct RuntimeSettings: View {
     @Environment(AppState.self) private var app
 
     var body: some View {
+        SettingsPage(tab: .runtime, padding: 0) {
+            form.fixedSize(horizontal: false, vertical: true)
+        }
+    }
+
+    private var form: some View {
         Form {
             Section(loc("settings.status")) {
                 switch app.runtime.phase {
@@ -206,6 +289,12 @@ private struct AdvancedSettings: View {
     @AppStorage("h3RepoOverride") private var repoOverride = ""
 
     var body: some View {
+        SettingsPage(tab: .advanced, padding: 0) {
+            form.fixedSize(horizontal: false, vertical: true)
+        }
+    }
+
+    private var form: some View {
         Form {
             Section(loc("settings.advanced.port")) {
                 // No prompt: the hint below already says what an empty field
@@ -236,6 +325,12 @@ private struct ComfyUISettings: View {
     @Environment(AppState.self) private var app
 
     var body: some View {
+        SettingsPage(tab: .comfyUI, padding: 0) {
+            form.fixedSize(horizontal: false, vertical: true)
+        }
+    }
+
+    private var form: some View {
         Form {
             Section(loc("settings.status")) {
                 switch app.comfyRuntime.phase {
@@ -383,6 +478,12 @@ private struct CacheSettings: View {
     }
 
     var body: some View {
+        SettingsPage(tab: .cache, padding: 0) {
+            form.fixedSize(horizontal: false, vertical: true)
+        }
+    }
+
+    private var form: some View {
         Form {
             Section {
                 ForEach(inventory.categories) { category in
@@ -450,7 +551,7 @@ private struct CacheSettings: View {
 /// so a reader who sees only one of them draws the wrong conclusion from it.
 private struct RequirementsSettings: View {
     var body: some View {
-        ScrollView {
+        SettingsPage(tab: .requirements) {
             VStack(alignment: .leading, spacing: 24) {
                 VStack(alignment: .leading, spacing: 10) {
                     Text(loc("settings.memory")).font(.headline)
@@ -462,7 +563,6 @@ private struct RequirementsSettings: View {
                     DiskRequirementsTable()
                 }
             }
-            .padding(20)
         }
     }
 }

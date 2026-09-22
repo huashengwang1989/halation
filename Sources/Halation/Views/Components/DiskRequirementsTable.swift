@@ -29,7 +29,47 @@ struct DiskRequirementsTable: View {
     /// the exact figure hardly matters beside 113 GB of weights.
     private var runtimeBytes: Int64 { 650 * 1_048_576 }
 
+    /// Wheels uv keeps while it builds the runtime. Transient: the Cache tab
+    /// empties it, and this Mac's own was 3.56 GB when it was last read.
+    private var uvCacheBytes: Int64 { 3_400 * 1_048_576 }
+
+    /// A render writes almost nothing: frames go straight down a pipe to the
+    /// encoder. Listed anyway, because the surprise is the point.
+    private var scratchBytes: Int64 { 10 * 1_048_576 }
+
     private var baseBytes: Int64 { weightsBytes + runtimeBytes }
+
+    /// The most disk the app ever needs at once — which is during installation,
+    /// not during a render, because the uv cache has not been cleared yet.
+    private var setupPeakBytes: Int64 { baseBytes + uvCacheBytes + scratchBytes }
+
+    private func catalogBytes(_ nameKey: String) -> Int64 {
+        ModelCatalog.all.first { $0.nameKey == nameKey }?.approximateBytes ?? 0
+    }
+
+    /// One line of the breakdown. `isTotal` marks the two subtotals, which are
+    /// ruled off and weighted rather than indented, so the eye can find them.
+    private struct Item: Identifiable {
+        let id = UUID()
+        let label: String
+        let bytes: Int64
+        var isTotal = false
+        var isTransient = false
+    }
+
+    private var items: [Item] {
+        [.init(label: loc("disk.item.vae"),
+               bytes: catalogBytes("model.name.support.mlx")),
+         .init(label: loc("disk.item.encoder"),
+               bytes: catalogBytes("model.name.textEncoder.mlx")),
+         .init(label: loc("disk.item.transformer"),
+               bytes: catalogBytes("model.name.fl2va.q4")),
+         .init(label: loc("disk.item.runtime"), bytes: runtimeBytes),
+         .init(label: loc("disk.item.persistent"), bytes: baseBytes, isTotal: true),
+         .init(label: loc("disk.item.uvCache"), bytes: uvCacheBytes, isTransient: true),
+         .init(label: loc("disk.item.scratch"), bytes: scratchBytes, isTransient: true),
+         .init(label: loc("disk.item.setupPeak"), bytes: setupPeakBytes, isTotal: true)]
+    }
 
     /// What a render is expected to hold at peak, on the same basis as the
     /// memory table — the multiplier is borrowed from it rather than repeated,
@@ -58,6 +98,44 @@ struct DiskRequirementsTable: View {
     }
 
     var body: some View {
+        VStack(alignment: .leading, spacing: 16) {
+            breakdown
+            perMachine
+        }
+    }
+
+    /// What the floor is made of. Worth itemising because one line — the bf16
+    /// text encoder — is most of it, and nothing about the total says so.
+    private var breakdown: some View {
+        VStack(alignment: .leading, spacing: 7) {
+            Text(loc("disk.table.breakdown"))
+                .font(.caption.weight(.semibold))
+
+            Grid(alignment: .leading, horizontalSpacing: 18, verticalSpacing: 6) {
+                ForEach(items) { item in
+                    if item.isTotal {
+                        Divider()
+                            .gridCellUnsizedAxes(.horizontal)
+                            .gridCellColumns(2)
+                    }
+                    GridRow {
+                        Text(item.label)
+                            .foregroundStyle(item.isTransient ? .secondary : .primary)
+                        Text(item.isTransient
+                             ? "+" + Format.bytes(item.bytes)
+                             : Format.bytes(item.bytes))
+                            .fontWeight(item.isTotal ? .medium : .regular)
+                            .foregroundStyle(item.isTotal ? .primary : .secondary)
+                            .gridColumnAlignment(.trailing)
+                    }
+                    .font(.caption)
+                    .monospacedDigit()
+                }
+            }
+        }
+    }
+
+    private var perMachine: some View {
         VStack(alignment: .leading, spacing: 10) {
             Grid(alignment: .leading, horizontalSpacing: 18, verticalSpacing: 7) {
                 GridRow {

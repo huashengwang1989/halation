@@ -116,11 +116,38 @@
 /* Pixel dimensions of the output. Not resolution in the sense of resolving a dispute or a decision. */
 "compose.resolution" = "Auflösung";
 
+/* The largest line by far, and the reason the floor is where it is. Keep the format in the label: it is the only build MLX can load. */
+"disk.item.encoder" = "Text-Encoder (bfloat16)";
+
+/* Subtotal: the lines above it, which stay for as long as the app is installed. Contrast with the transient lines below. */
+"disk.item.persistent" = "Dauerhaft belegt";
+
+/* Everything that is not a model weight. Measured, and small enough beside the weights that the exact figure hardly matters. */
+"disk.item.runtime" = "Python-Laufzeit, uv und die App";
+
+/* Surprisingly tiny, and worth showing for exactly that reason: frames are piped straight to the encoder, so they are never written out. */
+"disk.item.scratch" = "Arbeitsdateien beim Rendern";
+
+/* The largest the app ever needs at once, which is during installation rather than during a render. This is the number to have free. */
+"disk.item.setupPeak" = "Spitze während der Einrichtung";
+
+/* The smallest transformer, because this table is a floor. A larger quantization adds to this line and nothing else. */
+"disk.item.transformer" = "FL2VA-Transformer, 4 Bit";
+
+/* Transient: needed while the runtime is built, and the Cache tab can empty it afterwards. Say 'setup only' so nobody budgets for it twice. */
+"disk.item.uvCache" = "uv-Download-Cache (nur bei der Einrichtung)";
+
+/* The video and audio VAEs, plus the tokenizer and processor. Shared because every task needs them whichever transformer is chosen. */
+"disk.item.vae" = "Gemeinsames VAE-Paket";
+
 "disk.table.base" = "Gewichte und Laufzeit";
+
+/* Heads the itemised list above the per-machine disk table. 'Usable' means it can render at all, not that it renders well. */
+"disk.table.breakdown" = "Woraus der kleinste brauchbare Satz besteht";
 
 "disk.table.installedMemory" = "Verbauter Speicher";
 
-"disk.table.note" = "Die Gewichte sind fast alles: %@ für den kleinsten brauchbaren Satz — die gemeinsamen VAEs, der Textencoder und der 4-Bit-Transformer — plus etwa 600 MB Python-Laufzeit. Die Zwischendateien eines Renders sind wenige Megabyte, denn die Bilder gehen direkt in den Encoder und werden nie geschrieben. Die Einrichtung braucht vorübergehend 3,4 GB mehr für uvs Download-Cache, den der Tab „Cache“ später leeren kann. Der Referenzmodus braucht einen zweiten Satz Gewichte, etwa 60 GB, hier nicht mitgezählt.";
+"disk.table.note" = "Die Gewichte sind fast alles: %@ für den kleinsten brauchbaren Satz — die gemeinsamen VAEs, der Textencoder und der 4-Bit-Transformer — plus etwa 680 MB Python-Laufzeit. Die Zwischendateien eines Renders sind wenige Megabyte, denn die Bilder gehen direkt in den Encoder und werden nie geschrieben. Die Einrichtung braucht vorübergehend 3,4 GB mehr für uvs Download-Cache, den der Tab „Cache“ später leeren kann. Der Referenzmodus braucht einen zweiten Satz Gewichte, etwa 60 GB, hier nicht mitgezählt.";
 
 /* Estimated, not fixed: macOS grows swap on demand, and how much it needs depends on how far a render overruns the memory the GPU may hold. */
 "disk.table.swap" = "Benötigter Swap";
@@ -890,7 +917,8 @@
 /* Adjective: the app found this component on the machine by itself. Reports a discovery, not an action available. */
 "settings.detected" = "Erkannt";
 
-"settings.disk" = "Speicherplatz";
+/* Heads the disk table, beside the memory one, in Settings and in the welcome dialog. It is a floor, not an estimate: the smallest set of weights that can render anything, plus the swap that machine will need. */
+"settings.disk" = "Mindestens nötiger Speicherplatz";
 
 /* Labels the folder on disk where weights are stored, in Settings ▸ Folders. A location, not the tab — see section.models. */
 "settings.folder.models" = "Modelle";

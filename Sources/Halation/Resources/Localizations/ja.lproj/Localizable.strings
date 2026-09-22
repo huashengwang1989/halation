@@ -116,11 +116,38 @@
 /* Pixel dimensions of the output. Not resolution in the sense of resolving a dispute or a decision. */
 "compose.resolution" = "解像度";
 
+/* The largest line by far, and the reason the floor is where it is. Keep the format in the label: it is the only build MLX can load. */
+"disk.item.encoder" = "テキストエンコーダ（bfloat16）";
+
+/* Subtotal: the lines above it, which stay for as long as the app is installed. Contrast with the transient lines below. */
+"disk.item.persistent" = "ディスクに残る分";
+
+/* Everything that is not a model weight. Measured, and small enough beside the weights that the exact figure hardly matters. */
+"disk.item.runtime" = "Python ランタイム、uv、アプリ本体";
+
+/* Surprisingly tiny, and worth showing for exactly that reason: frames are piped straight to the encoder, so they are never written out. */
+"disk.item.scratch" = "レンダリングの作業ファイル";
+
+/* The largest the app ever needs at once, which is during installation rather than during a render. This is the number to have free. */
+"disk.item.setupPeak" = "ピーク（セットアップ中）";
+
+/* The smallest transformer, because this table is a floor. A larger quantization adds to this line and nothing else. */
+"disk.item.transformer" = "FL2VA トランスフォーマー（4 ビット）";
+
+/* Transient: needed while the runtime is built, and the Cache tab can empty it afterwards. Say 'setup only' so nobody budgets for it twice. */
+"disk.item.uvCache" = "uv のダウンロードキャッシュ（セットアップ時のみ）";
+
+/* The video and audio VAEs, plus the tokenizer and processor. Shared because every task needs them whichever transformer is chosen. */
+"disk.item.vae" = "共有 VAE 一式";
+
 "disk.table.base" = "重みと実行環境";
+
+/* Heads the itemised list above the per-machine disk table. 'Usable' means it can render at all, not that it renders well. */
+"disk.table.breakdown" = "使える最小構成の内訳";
 
 "disk.table.installedMemory" = "搭載メモリ";
 
-"disk.table.note" = "容量のほとんどは重みです。最小構成で約 %@——共有 VAE、テキストエンコーダ、4-bit transformer——に Python 実行環境の約 600 MB を加えた程度です。レンダリング自体の一時ファイルは数 MB しかありません。フレームはそのままエンコーダへ渡され、ディスクには書かれないからです。初回セットアップ中は uv のダウンロードキャッシュに一時的にさらに 3.4 GB を使い、あとから「キャッシュ」タブで空にできます。参考素材モードには別の重み一式、約 60 GB が必要で、この表には含めていません。";
+"disk.table.note" = "容量のほとんどは重みです。最小構成で約 %@——共有 VAE、テキストエンコーダ、4-bit transformer——に Python 実行環境の約 680 MB を加えた程度です。レンダリング自体の一時ファイルは数 MB しかありません。フレームはそのままエンコーダへ渡され、ディスクには書かれないからです。初回セットアップ中は uv のダウンロードキャッシュに一時的にさらに 3.56 GB を使い、あとから「キャッシュ」タブで空にできます。参考素材モードには別の重み一式、約 60 GB が必要で、この表には含めていません。";
 
 /* Estimated, not fixed: macOS grows swap on demand, and how much it needs depends on how far a render overruns the memory the GPU may hold. */
 "disk.table.swap" = "必要なスワップ";
@@ -890,7 +917,8 @@
 /* Adjective: the app found this component on the machine by itself. Reports a discovery, not an action available. */
 "settings.detected" = "検出済み";
 
-"settings.disk" = "ディスク容量";
+/* Heads the disk table, beside the memory one, in Settings and in the welcome dialog. It is a floor, not an estimate: the smallest set of weights that can render anything, plus the swap that machine will need. */
+"settings.disk" = "必要な最小ディスク容量";
 
 /* Labels the folder on disk where weights are stored, in Settings ▸ Folders. A location, not the tab — see section.models. */
 "settings.folder.models" = "モデル";

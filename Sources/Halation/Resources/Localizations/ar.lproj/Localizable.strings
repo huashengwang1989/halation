@@ -116,11 +116,38 @@
 /* Pixel dimensions of the output. Not resolution in the sense of resolving a dispute or a decision. */
 "compose.resolution" = "الدقة";
 
+/* The largest line by far, and the reason the floor is where it is. Keep the format in the label: it is the only build MLX can load. */
+"disk.item.encoder" = "مشفّر النص (bfloat16)";
+
+/* Subtotal: the lines above it, which stay for as long as the app is installed. Contrast with the transient lines below. */
+"disk.item.persistent" = "يبقى على القرص";
+
+/* Everything that is not a model weight. Measured, and small enough beside the weights that the exact figure hardly matters. */
+"disk.item.runtime" = "بيئة تشغيل Python وuv والتطبيق";
+
+/* Surprisingly tiny, and worth showing for exactly that reason: frames are piped straight to the encoder, so they are never written out. */
+"disk.item.scratch" = "ملفات التصيير المؤقتة";
+
+/* The largest the app ever needs at once, which is during installation rather than during a render. This is the number to have free. */
+"disk.item.setupPeak" = "الذروة أثناء الإعداد";
+
+/* The smallest transformer, because this table is a floor. A larger quantization adds to this line and nothing else. */
+"disk.item.transformer" = "محوّل FL2VA بدقة 4-bit";
+
+/* Transient: needed while the runtime is built, and the Cache tab can empty it afterwards. Say 'setup only' so nobody budgets for it twice. */
+"disk.item.uvCache" = "ذاكرة تنزيل uv المؤقتة (أثناء الإعداد فقط)";
+
+/* The video and audio VAEs, plus the tokenizer and processor. Shared because every task needs them whichever transformer is chosen. */
+"disk.item.vae" = "حزمة VAE المشتركة";
+
 "disk.table.base" = "الأوزان وبيئة التشغيل";
+
+/* Heads the itemised list above the per-machine disk table. 'Usable' means it can render at all, not that it renders well. */
+"disk.table.breakdown" = "مِمَّ تتكوّن أصغر مجموعة صالحة للاستخدام";
 
 "disk.table.installedMemory" = "الذاكرة المثبَّتة";
 
-"disk.table.note" = "الأوزان هي كل شيء تقريبًا: %@ لأصغر مجموعة صالحة — وحدات VAE المشتركة ومرمِّز النص والمحوّل بأربع بتات — إضافة إلى نحو 600 ميغابايت لبيئة Python. أما ملفات التصيير المؤقتة فبضعة ميغابايتات فقط، لأن الإطارات تُمرَّر إلى المرمِّز مباشرة ولا تُكتب أبدًا. ويحتاج الإعداد مؤقتًا إلى 3.4 غيغابايت إضافية لذاكرة تنزيلات uv، ويمكن لتبويب الذاكرة المؤقتة إفراغها بعدها. ويحتاج وضع المراجع مجموعة أوزان ثانية، نحو 60 غيغابايت، غير محسوبة هنا.";
+"disk.table.note" = "الأوزان هي كل شيء تقريبًا: %@ لأصغر مجموعة صالحة — وحدات VAE المشتركة ومرمِّز النص والمحوّل بأربع بتات — إضافة إلى نحو 680 ميغابايت لبيئة Python. أما ملفات التصيير المؤقتة فبضعة ميغابايتات فقط، لأن الإطارات تُمرَّر إلى المرمِّز مباشرة ولا تُكتب أبدًا. ويحتاج الإعداد مؤقتًا إلى 3.56 غيغابايت إضافية لذاكرة تنزيلات uv، ويمكن لتبويب الذاكرة المؤقتة إفراغها بعدها. ويحتاج وضع المراجع مجموعة أوزان ثانية، نحو 60 غيغابايت، غير محسوبة هنا.";
 
 /* Estimated, not fixed: macOS grows swap on demand, and how much it needs depends on how far a render overruns the memory the GPU may hold. */
 "disk.table.swap" = "مساحة التبديل اللازمة";
@@ -890,7 +917,8 @@
 /* Adjective: the app found this component on the machine by itself. Reports a discovery, not an action available. */
 "settings.detected" = "تم الكشف";
 
-"settings.disk" = "مساحة القرص";
+/* Heads the disk table, beside the memory one, in Settings and in the welcome dialog. It is a floor, not an estimate: the smallest set of weights that can render anything, plus the swap that machine will need. */
+"settings.disk" = "أدنى مساحة قرص مطلوبة";
 
 /* Labels the folder on disk where weights are stored, in Settings ▸ Folders. A location, not the tab — see section.models. */
 "settings.folder.models" = "النماذج";

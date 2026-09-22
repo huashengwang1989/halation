@@ -116,11 +116,38 @@
 /* Pixel dimensions of the output. Not resolution in the sense of resolving a dispute or a decision. */
 "compose.resolution" = "해상도";
 
+/* The largest line by far, and the reason the floor is where it is. Keep the format in the label: it is the only build MLX can load. */
+"disk.item.encoder" = "텍스트 인코더(bfloat16)";
+
+/* Subtotal: the lines above it, which stay for as long as the app is installed. Contrast with the transient lines below. */
+"disk.item.persistent" = "디스크에 남는 양";
+
+/* Everything that is not a model weight. Measured, and small enough beside the weights that the exact figure hardly matters. */
+"disk.item.runtime" = "Python 런타임, uv, 앱 자체";
+
+/* Surprisingly tiny, and worth showing for exactly that reason: frames are piped straight to the encoder, so they are never written out. */
+"disk.item.scratch" = "렌더링 작업 파일";
+
+/* The largest the app ever needs at once, which is during installation rather than during a render. This is the number to have free. */
+"disk.item.setupPeak" = "최대치(설치 중)";
+
+/* The smallest transformer, because this table is a floor. A larger quantization adds to this line and nothing else. */
+"disk.item.transformer" = "FL2VA 트랜스포머, 4비트";
+
+/* Transient: needed while the runtime is built, and the Cache tab can empty it afterwards. Say 'setup only' so nobody budgets for it twice. */
+"disk.item.uvCache" = "uv 다운로드 캐시(설치할 때만)";
+
+/* The video and audio VAEs, plus the tokenizer and processor. Shared because every task needs them whichever transformer is chosen. */
+"disk.item.vae" = "공용 VAE 묶음";
+
 "disk.table.base" = "가중치와 런타임";
+
+/* Heads the itemised list above the per-machine disk table. 'Usable' means it can render at all, not that it renders well. */
+"disk.table.breakdown" = "쓸 수 있는 최소 구성의 내역";
 
 "disk.table.installedMemory" = "설치된 메모리";
 
-"disk.table.note" = "용량은 거의 전부 가중치입니다. 가장 작은 실용 구성이 약 %@ — 공용 VAE, 텍스트 인코더, 4비트 트랜스포머 — 에 Python 런타임 약 600 MB를 더한 정도입니다. 렌더링 자체의 임시 파일은 수 MB뿐인데, 프레임이 인코더로 바로 전달되고 디스크에 쓰이지 않기 때문입니다. 설치 중에는 uv 다운로드 캐시로 3.4 GB를 일시적으로 더 쓰며, 나중에 캐시 탭에서 비울 수 있습니다. 참조 모드에는 약 60 GB의 두 번째 가중치 모음이 필요하고, 이 표에는 넣지 않았습니다.";
+"disk.table.note" = "용량은 거의 전부 가중치입니다. 가장 작은 실용 구성이 약 %@ — 공용 VAE, 텍스트 인코더, 4비트 트랜스포머 — 에 Python 런타임 약 680 MB를 더한 정도입니다. 렌더링 자체의 임시 파일은 수 MB뿐인데, 프레임이 인코더로 바로 전달되고 디스크에 쓰이지 않기 때문입니다. 설치 중에는 uv 다운로드 캐시로 3.56 GB를 일시적으로 더 쓰며, 나중에 캐시 탭에서 비울 수 있습니다. 참조 모드에는 약 60 GB의 두 번째 가중치 모음이 필요하고, 이 표에는 넣지 않았습니다.";
 
 /* Estimated, not fixed: macOS grows swap on demand, and how much it needs depends on how far a render overruns the memory the GPU may hold. */
 "disk.table.swap" = "필요한 스왑";
@@ -890,7 +917,8 @@
 /* Adjective: the app found this component on the machine by itself. Reports a discovery, not an action available. */
 "settings.detected" = "감지됨";
 
-"settings.disk" = "디스크 공간";
+/* Heads the disk table, beside the memory one, in Settings and in the welcome dialog. It is a floor, not an estimate: the smallest set of weights that can render anything, plus the swap that machine will need. */
+"settings.disk" = "필요한 최소 디스크 공간";
 
 /* Labels the folder on disk where weights are stored, in Settings ▸ Folders. A location, not the tab — see section.models. */
 "settings.folder.models" = "모델";
