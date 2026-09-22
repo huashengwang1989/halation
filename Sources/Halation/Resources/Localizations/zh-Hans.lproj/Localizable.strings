@@ -150,7 +150,7 @@
 "disk.table.note" = "空间几乎全用在权重上：最小可用组合约 %@——共用 VAE、文本编码器与 4-bit transformer——再加上约 680 MB 的 Python 运行环境。渲染本身的暂存文件只有几 MB，因为帧是直接喂给编码器，不会写到磁盘。初次设置期间还会多用 3.56 GB 作为 uv 的下载缓存，之后可在“缓存”分页清除。参考素材模式需要另一整套权重，约 60 GB，未计入此表。";
 
 /* Estimated, not fixed: macOS grows swap on demand, and how much it needs depends on how far a render overruns the memory the GPU may hold. */
-"disk.table.swap" = "所需置换空间";
+"disk.table.swap" = "所需交换空间";
 
 "disk.table.total" = "建议预留";
 
@@ -284,7 +284,7 @@
 "memory.verdict.fits" = "可运行";
 
 /* Verdict: it does not fit, so macOS pages to disk and a render that would take an hour takes far longer. Not a refusal — the app still lets the user try. */
-"memory.verdict.swaps" = "会置换";
+"memory.verdict.swaps" = "会交换";
 
 /* Verdict: it will run, but with almost nothing to spare, so anything else on the machine may push it into swap. */
 "memory.verdict.tight" = "勉强";
@@ -891,6 +891,9 @@
 "settings.cache.bytecode" = "Python 字节码";
 
 "settings.cache.bytecode.detail" = "ComfyUI 运行时写入的 __pycache__ 文件夹。下次启动会重新生成，只是稍微慢一点。";
+
+/* Stands in for a size on the Cache tab until the first walk finishes. Only ever shown once: later measurements leave the previous figures up rather than blanking them. */
+"settings.cache.checking" = "检查中…";
 
 "settings.cache.clearAll" = "全部清除";
 

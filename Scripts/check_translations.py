@@ -34,7 +34,7 @@ import pathlib, re, sys
 
 sys.path.insert(0, str(pathlib.Path(__file__).parent))
 import build_strings as gen
-from translations import SOURCE_LANG, T, value
+from translations import GLOSSARY, SOURCE_LANG, T, value
 
 SOURCES = pathlib.Path(__file__).parent.parent / "Sources/Halation"
 
@@ -143,6 +143,30 @@ def check_positional():
                             f"specifiers (%1$@); a translator cannot reorder them")
 
 
+def check_glossary():
+    """One translation per term, per language.
+
+    Both spellings of a term are usually correct; having both is what is wrong.
+    It went unnoticed until the Requirements table and the queue chart were read
+    side by side and called the same thing two different things.
+
+    Searching for the avoided spelling rather than checking every key against a
+    required one is deliberate: it needs no list of which keys mention the term,
+    so it cannot go stale as strings are added.
+    """
+    for entry in GLOSSARY:
+        for lang, avoided in entry.get("avoid", {}).items():
+            preferred = entry["canonical"].get(lang, "?")
+            for spelling in avoided:
+                for key in sorted(T):
+                    translated = T[key]["values"].get(lang)
+                    if translated and spelling in translated:
+                        errors.append(
+                            f"{key} [{lang}] uses {spelling.strip()!r} for "
+                            f"{entry['term'].split(' — ')[0]!r}; this project uses "
+                            f"{preferred!r} — see GLOSSARY in translations.py")
+
+
 def check_unused(referenced):
     """A key may be referenced outside loc(), e.g. stored as a nameKey, so the
     whole source is searched for the quoted key before calling it unused."""
@@ -159,6 +183,7 @@ def main():
     referenced, dynamic_count = check_keys_used_in_code()
     check_placeholders()
     check_positional()
+    check_glossary()
     check_unused(referenced)
 
     print(f"  {len(T)} keys, {len(gen.LANGS)} languages, {len(referenced)} referenced "

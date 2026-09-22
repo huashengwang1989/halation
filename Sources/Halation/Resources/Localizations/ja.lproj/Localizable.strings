@@ -892,6 +892,9 @@
 
 "settings.cache.bytecode.detail" = "ComfyUI が動作中に書き出す __pycache__ フォルダです。次回起動時に作り直されますが、その分だけ少し遅くなります。";
 
+/* Stands in for a size on the Cache tab until the first walk finishes. Only ever shown once: later measurements leave the previous figures up rather than blanking them. */
+"settings.cache.checking" = "確認中…";
+
 "settings.cache.clearAll" = "すべて消去";
 
 "settings.cache.comfyOutput" = "ComfyUI の残りファイル";

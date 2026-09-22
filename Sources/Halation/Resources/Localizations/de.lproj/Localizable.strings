@@ -463,7 +463,7 @@
 
 "models.memory.tight" = "Benötigt etwa %1$@ von den rund %2$@, die dieser Mac einem Modell geben kann. Es passt, aber knapp.";
 
-"models.memory.tooLarge" = "Benötigt etwa %1$@ Arbeitsspeicher. Dieser Mac kann einem Modell etwa %2$@ geben, es würde also auslagern statt zu laufen.";
+"models.memory.tooLarge" = "Benötigt etwa %1$@ Arbeitsspeicher. Dieser Mac kann einem Modell etwa %2$@ geben, es würde also in den Swap gehen statt zu laufen.";
 
 "models.notInstalled" = "Nicht installiert";
 
@@ -625,7 +625,7 @@
 
 "problem.lowSteps" = "Unter 8 Schritten erzeugt das Modell eher weiche, instabile Bewegung.";
 
-"problem.memory" = "Die gewählten Gewichte brauchen zusammen etwa %1$@ Arbeitsspeicher. Dieser Mac kann einem Modell etwa %2$@ geben. Wählen Sie eine kleinere Quantisierung, oder rechnen Sie mit Auslagerung.";
+"problem.memory" = "Die gewählten Gewichte brauchen zusammen etwa %1$@ Arbeitsspeicher. Dieser Mac kann einem Modell etwa %2$@ geben. Wählen Sie eine kleinere Quantisierung, oder rechnen Sie mit Swap.";
 
 "problem.needFirst" = "Füge ein Bild für das erste Bild hinzu.";
 
@@ -891,6 +891,9 @@
 "settings.cache.bytecode" = "Python-Bytecode";
 
 "settings.cache.bytecode.detail" = "__pycache__-Ordner, die ComfyUI im Betrieb schreibt. Werden beim nächsten Start neu erzeugt, nur etwas langsamer.";
+
+/* Stands in for a size on the Cache tab until the first walk finishes. Only ever shown once: later measurements leave the previous figures up rather than blanking them. */
+"settings.cache.checking" = "Wird geprüft …";
 
 "settings.cache.clearAll" = "Alle leeren";
 

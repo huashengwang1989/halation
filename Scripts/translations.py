@@ -42,6 +42,46 @@ SOURCE_LANG = "en"
 INFO = "info"
 WARNING = "warning"
 
+# ── Glossary ─────────────────────────────────────────────────────────────────
+#
+# Terms with more than one defensible translation, pinned to one of them.
+#
+# The problem this solves is real and was found in shipped strings: "swap" was
+# 交换 in four zh-Hans strings and 置换 in two, so the Requirements table and the
+# queue chart disagreed about what the same thing was called. Nothing was wrong
+# with either word; what was wrong was having both.
+#
+# `avoid` is what the checker enforces. It looks for those spellings anywhere in
+# that language and fails, which needs no per-key bookkeeping and cannot fall out
+# of date. Pick spellings for `avoid` that have no innocent second meaning: Thai
+# สลับ is the canonical term here *and* the ordinary word for "toggle", so Thai
+# avoids the stray Latin "swap" instead, which cannot collide with anything.
+#
+# Adding a term: put the canonical form in `canonical` for every language that
+# has a preference, and only genuinely wrong alternatives in `avoid`.
+GLOSSARY = [
+    {
+        "term": "swap — memory paged out to disk, not the verb 'to exchange'",
+        "canonical": {
+            "zh-Hant": "置換", "zh-Hans": "交换", "yue-Hant": "置換",
+            "de": "Swap", "ar": "التبديل", "ja": "スワップ",
+            "ko": "스왑", "th": "สลับ",
+        },
+        "avoid": {
+            "zh-Hans": ["置换"],
+            "zh-Hant": ["交換"],
+            "yue-Hant": ["交換"],
+            # German has an idiomatic verb, "auslagern", and a noun, "Swap".
+            # Both are correct German; using both is what made the app
+            # inconsistent with itself.
+            "de": ["Auslagerung", "auslagern"],
+            # Latin "swap" left in a Thai sentence, which is what happened.
+            "th": [" swap ", " swap"],
+        },
+    },
+]
+
+
 T = {}
 
 
@@ -5055,7 +5095,7 @@ add("models.memory.tooLarge", {
     "zh-Hant": "需要約 %1$@ 記憶體。本機可分配給模型的約為 %2$@，因此會落到置換空間而非正常執行。",
     "zh-Hans": "需要约 %1$@ 内存。本机可分配给模型的约为 %2$@，因此会落到交换空间而非正常运行。",
     "de": "Benötigt etwa %1$@ Arbeitsspeicher. Dieser Mac kann einem Modell etwa %2$@ "
-          "geben, es würde also auslagern statt zu laufen.",
+          "geben, es würde also in den Swap gehen statt zu laufen.",
     "ar": "يحتاج نحو %1$@ من الذاكرة. ولا يستطيع هذا الـ Mac منح النموذج سوى %2$@ تقريبًا، "
           "لذا سيلجأ إلى التبديل بدل التشغيل.",
     "ja": "メモリが約 %1$@ 必要です。この Mac がモデルに割けるのは約 %2$@ なので、実行ではなくスワップになります。",
@@ -5086,7 +5126,7 @@ add("problem.memory", {
     "zh-Hans": "所选的权重合计需要约 %1$@ 内存，而本机可分配给模型的约为 %2$@。请改选更小的量化版本，否则会落到交换空间。",
     "de": "Die gewählten Gewichte brauchen zusammen etwa %1$@ Arbeitsspeicher. Dieser Mac "
           "kann einem Modell etwa %2$@ geben. Wählen Sie eine kleinere Quantisierung, oder "
-          "rechnen Sie mit Auslagerung.",
+          "rechnen Sie mit Swap.",
     "ar": "تحتاج الأوزان المختارة معًا نحو %1$@ من الذاكرة، ولا يستطيع هذا الـ Mac منح "
           "النموذج سوى %2$@ تقريبًا. اختر تكميمًا أصغر، أو توقّع اللجوء إلى التبديل.",
     "ja": "選択した重みは合わせて約 %1$@ のメモリを必要とします。この Mac がモデルに割けるのは約 %2$@ です。より小さい量子化を選ぶか、スワップを覚悟してください。",
@@ -6555,7 +6595,7 @@ add("memory.verdict.tight", {
 }, note="Verdict: it will run, but with almost nothing to spare, so anything "
         "else on the machine may push it into swap.")
 add("memory.verdict.swaps", {
-    "en": "Swaps", "zh-Hant": "會置換", "zh-Hans": "会置换", "de": "Swappt",
+    "en": "Swaps", "zh-Hant": "會置換", "zh-Hans": "会交换", "de": "Swappt",
     "ar": "يستخدم التبديل", "ja": "スワップします", "ko": "스와핑함",
     "th": "จะสลับหน่วยความจำ", "yue-Hant": "會置換", "en-SG": "Will swap",
 }, note="Verdict: it does not fit, so macOS pages to disk and a render that "
@@ -6569,7 +6609,7 @@ add("memory.table.note", {
     'ar': 'الأوزان ليست كل الحكاية: التوليد يحتاج ذاكرة عمل إضافية، والمقدار يتوقف على المحرّك — بلغ تصيير MLX مقيس نحو 2.4 مرة رقم أوزانه في الذروة، وتصيير ComfyUI نحو 1.41 مرة فقط، لأن ComfyUI يحمّل نماذجه على مراحل ولا يبقيها كلها في الذاكرة معًا. والأحكام تأخذ ذلك في الحساب. “محدود” يعني أن الذروة تتجاوز الحصة المتاحة لكنها تبقى داخل الذاكرة المثبَّتة، فيُرحِّل macOS جزءًا منها ويكتمل التصيير رغم ذلك — بالقياس، ذروة 120 غيغابايت على جهاز بـ 128 غيغابايت استهلكت 16 غيغابايت من التبديل وأُنجزت. و“تبديل” يعني أنها تتجاوز الذاكرة المثبَّتة، فيستغرق تصيير مدته ساعة وقتًا أطول بكثير. أما الحصة المتاحة فهي ما يبلّغ عنه Metal لهذا الجهاز — نحو ثلاثة أرباع إلى خمسة أسداس المثبَّت، وترتفع في التكوينات الأكبر.',
     'ja': '重みは一部にすぎません。生成にはさらに作業用メモリが必要で、どれだけ必要かはエンジンによります——実測では MLX のピークが重みの 2.4 倍、ComfyUI は 1.41 倍でした。ComfyUI はモデルを段階的に読み込み、すべてを同時に保持しないからです。上の判定はそれを見込んでいます。「ぎりぎり」はピークが使える割当てを超えるものの搭載メモリには収まる状態で、macOS が一部を退避させながらもレンダリングは完走します——実測では 128 GB の Mac でピーク 120 GB、スワップ 16 GB を使って完了しました。「スワップ」は搭載メモリを超える状態で、一時間で済むレンダリングがはるかに長くかかります。使える割合は Metal がその機械について報告する値で、搭載量のおよそ四分の三から六分の五、容量が大きいほど高くなります。',
     'ko': '가중치는 일부일 뿐입니다. 생성에는 별도의 작업 메모리가 필요하고, 얼마나 필요한지는 엔진에 따라 다릅니다 — 실측에서 MLX의 최대치는 가중치의 2.4배, ComfyUI는 1.41배였습니다. ComfyUI는 모델을 단계적으로 불러와 전부를 동시에 들고 있지 않기 때문입니다. 위 판정은 그것을 감안한 것입니다. ‘빡빡함’은 최대치가 사용 가능한 몫을 넘지만 설치된 메모리에는 들어가는 경우로, macOS가 일부를 내보내면서도 렌더링은 끝까지 진행됩니다 — 실측으로 128 GB Mac에서 최대 120 GB, 스왑 16 GB를 쓰고 완료했습니다. ‘스왑’은 설치된 메모리를 넘는 경우이며, 한 시간이면 될 렌더링이 훨씬 오래 걸립니다. 사용 가능한 비율은 Metal이 해당 기기에 대해 보고하는 값으로, 설치된 용량의 약 4분의 3에서 6분의 5이며 용량이 클수록 높아집니다.',
-    'th': 'ไฟล์น้ำหนักเป็นเพียงส่วนหนึ่ง การสร้างต้องใช้หน่วยความจำทำงานเพิ่มอีก และมากแค่ไหนขึ้นกับเอนจิน — การเรนเดอร์ MLX ที่วัดได้ขึ้นสูงสุดราว 2.4 เท่าของตัวเลขน้ำหนัก ส่วน ComfyUI อยู่ที่ 1.41 เท่า เพราะ ComfyUI โหลดโมเดลเป็นขั้น ๆ และไม่เคยถือไว้พร้อมกันทั้งหมด ผลสรุปคิดเผื่อไว้แล้ว “คับ” หมายถึงจุดสูงสุดเกินสัดส่วนที่ใช้ได้ แต่ยังพอดีกับหน่วยความจำที่ติดตั้ง macOS จะย้ายบางส่วนออกไปและการเรนเดอร์ก็ยังเสร็จ — วัดได้ว่าจุดสูงสุด 120 GB บนเครื่อง 128 GB ใช้ swap ไป 16 GB และทำงานจบ ส่วน “สลับ” หมายถึงเกินหน่วยความจำที่ติดตั้ง งานที่ควรใช้หนึ่งชั่วโมงจะนานขึ้นอีกมาก สัดส่วนที่ใช้ได้คือค่าที่ Metal รายงานสำหรับเครื่องนั้น — ราวสามในสี่ถึงห้าในหกของที่ติดตั้ง และสูงขึ้นในรุ่นที่หน่วยความจำมากกว่า',
+    'th': 'ไฟล์น้ำหนักเป็นเพียงส่วนหนึ่ง การสร้างต้องใช้หน่วยความจำทำงานเพิ่มอีก และมากแค่ไหนขึ้นกับเอนจิน — การเรนเดอร์ MLX ที่วัดได้ขึ้นสูงสุดราว 2.4 เท่าของตัวเลขน้ำหนัก ส่วน ComfyUI อยู่ที่ 1.41 เท่า เพราะ ComfyUI โหลดโมเดลเป็นขั้น ๆ และไม่เคยถือไว้พร้อมกันทั้งหมด ผลสรุปคิดเผื่อไว้แล้ว “คับ” หมายถึงจุดสูงสุดเกินสัดส่วนที่ใช้ได้ แต่ยังพอดีกับหน่วยความจำที่ติดตั้ง macOS จะย้ายบางส่วนออกไปและการเรนเดอร์ก็ยังเสร็จ — วัดได้ว่าจุดสูงสุด 120 GB บนเครื่อง 128 GB ใช้พื้นที่สลับไป 16 GB และทำงานจบ ส่วน “สลับ” หมายถึงเกินหน่วยความจำที่ติดตั้ง งานที่ควรใช้หนึ่งชั่วโมงจะนานขึ้นอีกมาก สัดส่วนที่ใช้ได้คือค่าที่ Metal รายงานสำหรับเครื่องนั้น — ราวสามในสี่ถึงห้าในหกของที่ติดตั้ง และสูงขึ้นในรุ่นที่หน่วยความจำมากกว่า',
     'yue-Hant': '權重只係其中一part：生成嗰陣仲要額外嘅工作記憶體，要幾多就睇引擎——實測 MLX 算圖尖峰大概係權重數字嘅 2.4 倍，ComfyUI 得 1.41 倍，因為 ComfyUI 係分階段載入模型，唔會同一時間全部擺晒喺度。上面嘅判斷已經計咗呢樣。「緊」係話尖峰超出可用嘅份額，但仲裝得落已裝嘅記憶體，macOS 會換走一部分，算圖照樣做得完——實測喺 128 GB 機上面尖峰 120 GB，用咗 16 GB 置換空間，順利跑完。「置換」係話超出已裝嘅記憶體，本來一個鐘嘅算圖會拖好多。可用比例係 Metal 對部機嘅回報——大概係安裝容量嘅四分三到六分五，容量越大比例越高。',
     'en-SG': 'Weights are only part of the story: generating needs working memory on top, and how much depends on the engine — one measured MLX render peaked at 2.4 times its weight figure, a ComfyUI one at 1.41, because ComfyUI loads its models in stages and never holds everything at once. The verdicts already count that in. “Tight” means the peak goes past the usable share but still fits inside installed memory, so macOS pages some of it out and the render still finishes — measured, a 120 GB peak on a 128 GB Mac used 16 GB of swap and completed. “Swaps” means it goes past installed memory altogether, and a render that would take an hour takes very much longer. The usable share is whatever Metal reports for the machine — roughly three quarters to five sixths of what is installed, higher on the bigger configurations.',
 }, note="Footnote under the table, and the only place the verdict words are "
@@ -6616,7 +6656,7 @@ add("disk.table.base", {
     "yue-Hant": "權重同執行環境", "en-SG": "Weights and runtime",
 })
 add("disk.table.swap", {
-    "en": "Swap it will need", "zh-Hant": "所需置換空間", "zh-Hans": "所需置换空间",
+    "en": "Swap it will need", "zh-Hant": "所需置換空間", "zh-Hans": "所需交换空间",
     "de": "Benötigter Swap", "ar": "مساحة التبديل اللازمة",
     "ja": "必要なスワップ", "ko": "필요한 스왑", "th": "พื้นที่สลับที่ต้องใช้",
     "yue-Hant": "要用嘅置換空間", "en-SG": "Swap it will need",
@@ -6808,3 +6848,11 @@ add("memory.chart.halation", {
                     "band beside it is part of the same total, carved out of it "
                     "rather than added to it.",
          "level": WARNING})
+add("settings.cache.checking", {
+    "en": "Checking…", "zh-Hant": "檢查中…", "zh-Hans": "检查中…",
+    "de": "Wird geprüft …", "ar": "جارٍ الفحص…", "ja": "確認中…",
+    "ko": "확인 중…", "th": "กำลังตรวจสอบ…", "yue-Hant": "檢查緊…",
+    "en-SG": "Checking…",
+}, note="Stands in for a size on the Cache tab until the first walk finishes. "
+        "Only ever shown once: later measurements leave the previous figures up "
+        "rather than blanking them.")

@@ -483,15 +483,20 @@ private struct CacheSettings: View {
         }
     }
 
+    /// What a size reads as before, during and after the first walk.
+    private func sizeText(_ bytes: Int64) -> String {
+        if bytes > 0 { return Format.bytes(bytes) }
+        return inventory.hasMeasured ? loc("settings.cache.empty")
+                                     : loc("settings.cache.checking")
+    }
+
     private var form: some View {
         Form {
             Section {
                 ForEach(inventory.categories) { category in
                     LabeledContent {
                         HStack(spacing: 8) {
-                            Text(category.bytes > 0
-                                 ? Format.bytes(category.bytes)
-                                 : loc("settings.cache.empty"))
+                            Text(sizeText(category.bytes))
                                 .monospacedDigit()
                                 .foregroundStyle(.secondary)
                             Button(loc("settings.log.clear")) {
@@ -518,7 +523,7 @@ private struct CacheSettings: View {
                     HStack {
                         if inventory.isMeasuring || working { ProgressView().controlSize(.small) }
                         Spacer()
-                        Text(Format.bytes(inventory.totalBytes)).monospacedDigit()
+                        Text(sizeText(inventory.totalBytes)).monospacedDigit()
                         Button(loc("settings.cache.clearAll")) {
                             Task { await run { await inventory.clearAll() } }
                         }

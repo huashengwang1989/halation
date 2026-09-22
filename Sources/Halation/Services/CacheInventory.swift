@@ -28,6 +28,14 @@ final class CacheInventory {
 
     private(set) var categories: [Category] = []
     private(set) var isMeasuring = false
+    /// False until the first walk finishes.
+    ///
+    /// Needed because "no bytes yet" and "no bytes at all" look identical from
+    /// the outside, and the tab was reporting the first as the second: it said
+    /// "Nothing cached" for a second on arrival, then filled in gigabytes.
+    /// Only the first measurement is hidden behind this — later ones keep the
+    /// previous figures on screen rather than blanking them.
+    private(set) var hasMeasured = false
 
     private let support: URL
     private let comfyUI: URL
@@ -60,7 +68,10 @@ final class CacheInventory {
 
     func refresh() async {
         isMeasuring = true
-        defer { isMeasuring = false }
+        defer {
+            isMeasuring = false
+            hasMeasured = true
+        }
 
         let support = self.support
         let resolved = categories.map { category -> (String, [URL]) in

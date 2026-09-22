@@ -892,6 +892,9 @@
 
 "settings.cache.bytecode.detail" = "ComfyUI 行嗰陣寫低嘅 __pycache__ 資料夾。下次開會再整返，不過會慢少少。";
 
+/* Stands in for a size on the Cache tab until the first walk finishes. Only ever shown once: later measurements leave the previous figures up rather than blanking them. */
+"settings.cache.checking" = "檢查緊…";
+
 "settings.cache.clearAll" = "全部清走";
 
 "settings.cache.comfyOutput" = "ComfyUI 剩低嘅檔";

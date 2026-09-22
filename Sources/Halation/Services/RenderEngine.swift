@@ -413,9 +413,18 @@ final class RenderEngine {
         appendLog(message, to: jobID)
     }
 
+    /// RFC 3339, with a space instead of the `T` — which that standard permits —
+    /// and the offset kept.
+    ///
+    /// The date matters because a render runs for hours and a queue survives
+    /// restarts, so "21:47" alone cannot say which day. The offset matters
+    /// because these logs get pasted into reports read by someone in another
+    /// zone. Fixed to `en_US_POSIX` so the shape never changes with the
+    /// interface language: a machine-readable stamp is the one part of a log
+    /// that should not be localised.
     nonisolated static let logTime: DateFormatter = {
         let formatter = DateFormatter()
-        formatter.dateFormat = "HH:mm:ss"
+        formatter.dateFormat = "yyyy-MM-dd HH:mm:ssXXXXX"
         formatter.locale = Locale(identifier: "en_US_POSIX")
         return formatter
     }()

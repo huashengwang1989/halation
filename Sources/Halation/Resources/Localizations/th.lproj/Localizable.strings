@@ -268,7 +268,7 @@
 "memory.table.combination" = "โมเดลและเอนจิน";
 
 /* Footnote under the table, and the only place the verdict words are explained. Each multiplier comes from one measured render of that engine (MLX: 50 GB of weights peaking at 120 GB on a 128 GB Mac; ComfyUI: 55 GB peaking at 77.6 GB), so they are rules of thumb, not specifications. Keep the quoted words identical to memory.verdict.tight and memory.verdict.swaps. */
-"memory.table.note" = "ไฟล์น้ำหนักเป็นเพียงส่วนหนึ่ง การสร้างต้องใช้หน่วยความจำทำงานเพิ่มอีก และมากแค่ไหนขึ้นกับเอนจิน — การเรนเดอร์ MLX ที่วัดได้ขึ้นสูงสุดราว 2.4 เท่าของตัวเลขน้ำหนัก ส่วน ComfyUI อยู่ที่ 1.41 เท่า เพราะ ComfyUI โหลดโมเดลเป็นขั้น ๆ และไม่เคยถือไว้พร้อมกันทั้งหมด ผลสรุปคิดเผื่อไว้แล้ว “คับ” หมายถึงจุดสูงสุดเกินสัดส่วนที่ใช้ได้ แต่ยังพอดีกับหน่วยความจำที่ติดตั้ง macOS จะย้ายบางส่วนออกไปและการเรนเดอร์ก็ยังเสร็จ — วัดได้ว่าจุดสูงสุด 120 GB บนเครื่อง 128 GB ใช้ swap ไป 16 GB และทำงานจบ ส่วน “สลับ” หมายถึงเกินหน่วยความจำที่ติดตั้ง งานที่ควรใช้หนึ่งชั่วโมงจะนานขึ้นอีกมาก สัดส่วนที่ใช้ได้คือค่าที่ Metal รายงานสำหรับเครื่องนั้น — ราวสามในสี่ถึงห้าในหกของที่ติดตั้ง และสูงขึ้นในรุ่นที่หน่วยความจำมากกว่า";
+"memory.table.note" = "ไฟล์น้ำหนักเป็นเพียงส่วนหนึ่ง การสร้างต้องใช้หน่วยความจำทำงานเพิ่มอีก และมากแค่ไหนขึ้นกับเอนจิน — การเรนเดอร์ MLX ที่วัดได้ขึ้นสูงสุดราว 2.4 เท่าของตัวเลขน้ำหนัก ส่วน ComfyUI อยู่ที่ 1.41 เท่า เพราะ ComfyUI โหลดโมเดลเป็นขั้น ๆ และไม่เคยถือไว้พร้อมกันทั้งหมด ผลสรุปคิดเผื่อไว้แล้ว “คับ” หมายถึงจุดสูงสุดเกินสัดส่วนที่ใช้ได้ แต่ยังพอดีกับหน่วยความจำที่ติดตั้ง macOS จะย้ายบางส่วนออกไปและการเรนเดอร์ก็ยังเสร็จ — วัดได้ว่าจุดสูงสุด 120 GB บนเครื่อง 128 GB ใช้พื้นที่สลับไป 16 GB และทำงานจบ ส่วน “สลับ” หมายถึงเกินหน่วยความจำที่ติดตั้ง งานที่ควรใช้หนึ่งชั่วโมงจะนานขึ้นอีกมาก สัดส่วนที่ใช้ได้คือค่าที่ Metal รายงานสำหรับเครื่องนั้น — ราวสามในสี่ถึงห้าในหกของที่ติดตั้ง และสูงขึ้นในรุ่นที่หน่วยความจำมากกว่า";
 
 "memory.table.orLess" = "%@ หรือน้อยกว่า";
 
@@ -891,6 +891,9 @@
 "settings.cache.bytecode" = "ไบต์โค้ดของ Python";
 
 "settings.cache.bytecode.detail" = "โฟลเดอร์ __pycache__ ที่ ComfyUI เขียนไว้ขณะทำงาน จะถูกสร้างใหม่เมื่อเริ่มครั้งหน้า เพียงแต่ช้าลงเล็กน้อย";
+
+/* Stands in for a size on the Cache tab until the first walk finishes. Only ever shown once: later measurements leave the previous figures up rather than blanking them. */
+"settings.cache.checking" = "กำลังตรวจสอบ…";
 
 "settings.cache.clearAll" = "ล้างทั้งหมด";
 

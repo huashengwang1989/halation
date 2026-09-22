@@ -123,6 +123,27 @@ keys rather than one that covers both: `settings.language.restart` and
 `settings.language.restart.direction`. Explaining mirroring to someone moving
 between two left-to-right languages invents a worry instead of answering one.
 
+### One word per term: the glossary
+
+A technical term with more than one defensible translation goes in `GLOSSARY`
+in `translations.py`, and `make check` enforces it.
+
+The problem is not that a translation is wrong; it is that two correct ones
+were used for the same thing. "Swap" shipped as 交换 in four zh-Hans strings and
+置换 in two, so the Requirements table and the queue chart called the same thing
+two different names, and nothing caught it because every string was individually
+fine. German had it too, alternating between the noun *Swap* and the verb
+*auslagern*, both good German.
+
+The check searches for the spellings under `avoid` rather than requiring the
+canonical one, so no list of "keys that mention swap" has to be maintained and
+it cannot go stale as strings are added. Choose `avoid` spellings with no
+innocent second meaning: Thai สลับ is the canonical term *and* the ordinary word
+for "toggle", so Thai avoids a stray Latin "swap" instead.
+
+Add a term the first time a second translation of it appears, not the first time
+someone notices.
+
 ## Segmented controls
 
 Use `SegmentedPicker`, not `.pickerStyle(.segmented)`. The system style draws

@@ -892,6 +892,9 @@
 
 "settings.cache.bytecode.detail" = "ComfyUI가 실행되면서 만드는 __pycache__ 폴더입니다. 다음 시작 때 다시 만들어지며, 그만큼 조금 느려집니다.";
 
+/* Stands in for a size on the Cache tab until the first walk finishes. Only ever shown once: later measurements leave the previous figures up rather than blanking them. */
+"settings.cache.checking" = "확인 중…";
+
 "settings.cache.clearAll" = "모두 지우기";
 
 "settings.cache.comfyOutput" = "ComfyUI 잔여 파일";

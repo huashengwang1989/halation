@@ -892,6 +892,9 @@
 
 "settings.cache.bytecode.detail" = "__pycache__ folders ComfyUI writes while it runs. Made again next time it starts, just a bit slower.";
 
+/* Stands in for a size on the Cache tab until the first walk finishes. Only ever shown once: later measurements leave the previous figures up rather than blanking them. */
+"settings.cache.checking" = "Checking…";
+
 "settings.cache.clearAll" = "Clear All";
 
 "settings.cache.comfyOutput" = "ComfyUI leftovers";
