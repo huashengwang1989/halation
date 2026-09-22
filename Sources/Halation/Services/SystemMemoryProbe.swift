@@ -30,6 +30,15 @@ struct MemorySample: Equatable, Sendable {
     var systemAndOthers: Int64 = 0
     /// Swap in use, machine-wide.
     var swap: Int64 = 0
+    /// Machine-wide compressed memory: the stage *before* swapping, and the
+    /// earlier warning of the two.
+    ///
+    /// Not a band, because it is not a separate consumer — it is a state the
+    /// pages in the bands above are already in. Each process's footprint
+    /// already counts its own compressed pages, so this would double-count
+    /// anything it was stacked beside. Drawn as a line across the stack
+    /// instead.
+    var compressed: Int64 = 0
 
     var used: Int64 { app + engine + systemAndOthers }
 }
@@ -53,16 +62,23 @@ enum SystemMemoryProbe {
         s.engineMetal = min(max(0, engineMetal), s.engine)
         s.engine -= s.engineMetal
         s.swap = swapUsedBytes()
-        s.systemAndOthers = max(0, usedBytes() - s.app - s.engine - s.engineMetal)
+        let vm = virtualMemory()
+        s.compressed = vm.compressed
+        s.systemAndOthers = max(0, vm.used - s.app - s.engine - s.engineMetal)
         return s
     }
 
-    /// What Activity Monitor calls "Memory Used": app memory, wired, compressed.
+    /// `used` is what Activity Monitor calls "Memory Used": app memory, wired
+    /// and compressed. Purgeable pages are subtracted because the system gives
+    /// those up under pressure rather than swapping, which is exactly the
+    /// distinction this chart draws.
     ///
-    /// Purgeable pages are subtracted because the system gives them up under
-    /// pressure rather than swapping, which is exactly the distinction this
-    /// chart is drawing.
-    static func usedBytes() -> Int64 {
+    /// `used` can never exceed installed memory, which is why the stack cannot
+    /// overflow the rule: the page classes sum to the installed total, and when
+    /// demand grows beyond it macOS compresses and then evicts rather than
+    /// letting the total climb. Measured on this machine: the classes summed to
+    /// 127.52 GB against 128 GB installed.
+    static func virtualMemory() -> (used: Int64, compressed: Int64) {
         var stats = vm_statistics64()
         var count = mach_msg_type_number_t(MemoryLayout<vm_statistics64_data_t>.size
                                            / MemoryLayout<integer_t>.size)
@@ -71,16 +87,16 @@ enum SystemMemoryProbe {
                 host_statistics64(mach_host_self(), HOST_VM_INFO64, $0, &count)
             }
         }
-        guard result == KERN_SUCCESS else { return 0 }
+        guard result == KERN_SUCCESS else { return (0, 0) }
         // `vm_kernel_page_size` is a mutable global, which Swift 6 will not let
         // a concurrent context touch. `host_page_size` asks the kernel instead.
         var pageSize: vm_size_t = 0
-        guard host_page_size(mach_host_self(), &pageSize) == KERN_SUCCESS else { return 0 }
+        guard host_page_size(mach_host_self(), &pageSize) == KERN_SUCCESS else { return (0, 0) }
         let page = Int64(pageSize)
         let appMemory = Int64(stats.internal_page_count) - Int64(stats.purgeable_count)
         let wired = Int64(stats.wire_count)
         let compressed = Int64(stats.compressor_page_count)
-        return max(0, (appMemory + wired + compressed) * page)
+        return (max(0, (appMemory + wired + compressed) * page), compressed * page)
     }
 
     static func swapUsedBytes() -> Int64 {

@@ -250,6 +250,9 @@
 /* Legend on the memory chart: Halation's own process, which is small — under a gigabyte even mid-render. */
 "memory.chart.app" = "App";
 
+/* A line across the memory chart, not a band: compressed pages are still inside the bands, squeezed rather than moved. The line rises before any swap appears, which is why it is worth showing. */
+"memory.chart.compressed" = "Komprimiert";
+
 /* Legend on the memory chart: everything this app spawned — the MLX sidecar, the ComfyUI server. Usually the largest band by far. */
 "memory.chart.engine" = "Engine";
 

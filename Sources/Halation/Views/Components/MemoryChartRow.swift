@@ -85,9 +85,9 @@ struct MemoryChartRow: View {
             Spacer(minLength: 0)
             ForEach(Band.legendOrder, id: \.self) { band in
                 HStack(spacing: 5) {
-                    RoundedRectangle(cornerRadius: 2)
+                    RoundedRectangle(cornerRadius: band.isLine ? 1 : 2)
                         .fill(band.color)
-                        .frame(width: 8, height: 8)
+                        .frame(width: band.isLine ? 12 : 8, height: band.isLine ? 2 : 8)
                     Text(band.label)
                 }
             }
@@ -113,6 +113,7 @@ struct MemoryChartRow: View {
 
         let visible = sampler.history.suffix(columns)
         let leading = columns - visible.count
+        var compressedTrace = Path()
 
         for (offset, sample) in visible.enumerated() {
             let column = leading + offset
@@ -130,12 +131,33 @@ struct MemoryChartRow: View {
                 filled += count
             }
 
+            // Where compression has got to, on the same scale, measured from the
+            // floor. Collected now and stroked once at the end so the line sits
+            // over every square rather than being interrupted by later columns.
+            let compressedY = max(ruleY,
+                                  size.height - CGFloat(Double(sample.compressed) / bytesPerRow) * pitch)
+            let point = CGPoint(x: x + square / 2, y: compressedY)
+            if compressedTrace.isEmpty {
+                compressedTrace.move(to: point)
+            } else {
+                compressedTrace.addLine(to: point)
+            }
+
             // Swap continues the same scale in the band above the rule.
             let swapRows2 = rowsFor(bytes: sample.swap, bytesPerRow: bytesPerRow, cap: swapRows)
             guard swapRows2 > 0 else { continue }
             for row in memoryRows..<(memoryRows + swapRows2) {
                 paint(&context, x: x, row: row, height: size.height, color: Band.swap.color)
             }
+        }
+
+        // A line, not a band: compression is a state the memory in the bands is
+        // already in, so stacking it beside them would count the same pages
+        // twice. It also rises before any swap appears, which is the point of
+        // showing it — it is the earlier of the two warnings.
+        if !compressedTrace.isEmpty {
+            context.stroke(compressedTrace, with: .color(Band.compressed.color),
+                           style: StrokeStyle(lineWidth: 1.5, lineCap: .round, lineJoin: .round))
         }
     }
 
@@ -189,13 +211,18 @@ struct MemoryChartRow: View {
 
 /// The stacked categories, and the one colour table they all read from.
 private enum Band: Hashable {
-    case engine, app, systemAndOthers, engineMetal, swap
+    case engine, app, systemAndOthers, engineMetal, swap, compressed
 
     /// Floor upwards, and the two engine bands sit together at the bottom: the
     /// Metal pool is part of the engine, carved out of it rather than added, so
     /// putting them apart would misread as two separate consumers.
     static let stackOrder: [Band] = [.engineMetal, .engine, .app, .systemAndOthers]
-    static let legendOrder: [Band] = [.systemAndOthers, .engineMetal, .engine, .app, .swap]
+    static let legendOrder: [Band] = [.systemAndOthers, .engineMetal, .engine, .app,
+                                      .swap, .compressed]
+
+    /// Drawn as a line rather than a filled band, and shown that way in the
+    /// legend so the two kinds of thing do not look alike.
+    var isLine: Bool { self == .compressed }
 
     var color: Color {
         switch self {
@@ -204,6 +231,7 @@ private enum Band: Hashable {
         case .systemAndOthers: Color(red: 0.49, green: 0.49, blue: 0.51)
         case .engineMetal:     Color(red: 0.91, green: 0.35, blue: 0.62)
         case .swap:            Color(red: 0.48, green: 0.38, blue: 0.78)
+        case .compressed:      Color(red: 0.42, green: 0.86, blue: 0.94)
         }
     }
 
@@ -214,6 +242,7 @@ private enum Band: Hashable {
         case .systemAndOthers: loc("memory.chart.system")
         case .engineMetal:     loc("memory.chart.metal")
         case .swap:            loc("memory.chart.swap")
+        case .compressed:      loc("memory.chart.compressed")
         }
     }
 }
@@ -226,6 +255,7 @@ private extension MemorySample {
         case .systemAndOthers: systemAndOthers
         case .engineMetal:     engineMetal
         case .swap:            swap
+        case .compressed:      compressed
         }
     }
 }

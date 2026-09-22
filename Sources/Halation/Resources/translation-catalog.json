@@ -1849,6 +1849,23 @@
       "level": "info"
     },
     {
+      "key": "memory.chart.compressed",
+      "values": {
+        "en": "Compressed",
+        "zh-Hant": "已壓縮",
+        "zh-Hans": "已压缩",
+        "de": "Komprimiert",
+        "ar": "مضغوطة",
+        "ja": "圧縮済み",
+        "ko": "압축됨",
+        "th": "ถูกบีบอัด",
+        "yue-Hant": "壓縮咗",
+        "en-SG": "Compressed"
+      },
+      "note": "A line across the memory chart, not a band: compressed pages are still inside the bands, squeezed rather than moved. The line rises before any swap appears, which is why it is worth showing.",
+      "level": "info"
+    },
+    {
       "key": "memory.chart.engine",
       "values": {
         "en": "Engine",

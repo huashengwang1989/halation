@@ -6803,3 +6803,11 @@ add("memory.chart.metal", {
 }, note="Legend on the memory chart: the part of the engine's memory that is "
         "held on the GPU, reported by the engine itself. Carved out of Engine, "
         "not added to it — there is no separate graphics pool on Apple silicon.")
+add("memory.chart.compressed", {
+    "en": "Compressed", "zh-Hant": "已壓縮", "zh-Hans": "已压缩",
+    "de": "Komprimiert", "ar": "مضغوطة", "ja": "圧縮済み",
+    "ko": "압축됨", "th": "ถูกบีบอัด", "yue-Hant": "壓縮咗",
+    "en-SG": "Compressed",
+}, note="A line across the memory chart, not a band: compressed pages are "
+        "still inside the bands, squeezed rather than moved. The line rises "
+        "before any swap appears, which is why it is worth showing.")
