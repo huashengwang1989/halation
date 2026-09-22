@@ -16,6 +16,8 @@ final class RenderEngine {
     private(set) var logs: [UUID: [String]] = [:]
     /// Failure messages a backend reported before throwing.
     private var reportedFailures: [UUID: String] = [:]
+    /// When each job's log was last written out, for the flush interval.
+    private var lastLogFlush: [UUID: Date] = [:]
     /// Memory in use while a render runs, split between the app and the engine.
     ///
     /// Both halves, because they are wildly different sizes and only one of them
@@ -62,6 +64,7 @@ final class RenderEngine {
         self.mlx = MLXBackend(runtime: runtime, modelStore: modelStore)
         self.comfy = ComfyUIBackend(runtime: comfyRuntime, modelStore: modelStore)
         jobs = Self.loadQueue()
+        logs = Self.loadLogs(for: jobs.map(\.id))
         // A job that was mid-flight when the app quit cannot be resumed inside the
         // sidecar, so it returns to the queue rather than lying about its state.
         for index in jobs.indices where jobs[index].state.isActive {
@@ -100,12 +103,17 @@ final class RenderEngine {
         guard let index = jobs.firstIndex(where: { $0.id == id }) else { return }
         if jobs[index].state.isActive { cancel(id); return }
         jobs.remove(at: index)
+        logs[id] = nil
         persist()
+        pruneLogs()
     }
 
     func clearFinished() {
+        let removed = jobs.filter { $0.state.isTerminal }.map(\.id)
         jobs.removeAll { $0.state.isTerminal }
+        for id in removed { logs[id] = nil }
         persist()
+        pruneLogs()
     }
 
     /// Re-queues a failed or finished job with the same spec and a fresh seed.
@@ -178,6 +186,9 @@ final class RenderEngine {
         guard let index = jobs.firstIndex(where: { $0.id == jobID }) else { return }
         isRunning = true
         logs[jobID] = []
+        // Cleared too, so the first line of a retry is written straight away
+        // rather than leaving the previous attempt's file on disk for a while.
+        lastLogFlush[jobID] = nil
         reportedFailures[jobID] = nil
         defer {
             isRunning = false
@@ -356,6 +367,9 @@ final class RenderEngine {
         // Failures only. A cancellation was the user's own doing a moment ago,
         // so announcing it tells them something they already know.
         if state == .failed { Notifier.shared.renderFailed(jobs[index]) }
+        // The log stops changing here and starts mattering, so do not wait out
+        // the flush interval.
+        flushLog(for: jobID)
     }
 
     private func appendLog(_ message: String, to jobID: UUID) {
@@ -366,6 +380,23 @@ final class RenderEngine {
         // A failing render can emit thousands of lines; keep a useful tail.
         if lines.count > 600 { lines.removeFirst(lines.count - 600) }
         logs[jobID] = lines
+
+        // Written through, but not on every line: a render emits them in
+        // bursts, and the whole tail is rewritten each time so the file never
+        // grows past what the sheet shows. A crash costs at most this interval.
+        let now = Date()
+        if now.timeIntervalSince(lastLogFlush[jobID] ?? .distantPast) > 2 {
+            lastLogFlush[jobID] = now
+            writeLog(lines, for: jobID)
+        }
+    }
+
+    /// Flushes without waiting for the interval. Called when a job reaches a
+    /// terminal state, which is exactly when its log stops changing and starts
+    /// mattering.
+    private func flushLog(for jobID: UUID) {
+        lastLogFlush[jobID] = Date()
+        writeLog(logs[jobID] ?? [], for: jobID)
     }
 
     // MARK: - Persistence
@@ -376,6 +407,55 @@ final class RenderEngine {
 
     nonisolated private static var queueURL: URL {
         RuntimeManager.supportDirectory.appending(path: "queue.json")
+    }
+
+    /// Job logs, one plain-text file each, beside the queue they belong to.
+    ///
+    /// Here rather than next to the finished video, where the metadata sidecar
+    /// lives, because the log matters most for the jobs that never produce a
+    /// video. A failed render has nothing in the library to sit beside, and
+    /// that is the one whose log a person actually wants tomorrow.
+    nonisolated static var logsDirectory: URL {
+        RuntimeManager.supportDirectory.appending(path: "logs", directoryHint: .isDirectory)
+    }
+
+    nonisolated private static func logURL(for id: UUID) -> URL {
+        logsDirectory.appending(path: "\(id.uuidString).log")
+    }
+
+    private func writeLog(_ lines: [String], for id: UUID) {
+        let text = lines.joined(separator: "\n")
+        let url = Self.logURL(for: id)
+        Task.detached(priority: .background) {
+            try? FileManager.default.createDirectory(
+                at: RenderEngine.logsDirectory, withIntermediateDirectories: true)
+            try? Data(text.utf8).write(to: url, options: .atomic)
+        }
+    }
+
+    nonisolated private static func loadLogs(for ids: [UUID]) -> [UUID: [String]] {
+        var result: [UUID: [String]] = [:]
+        for id in ids {
+            guard let text = try? String(contentsOf: logURL(for: id), encoding: .utf8),
+                  !text.isEmpty else { continue }
+            result[id] = text.components(separatedBy: "\n")
+        }
+        return result
+    }
+
+    /// Deletes the log files of jobs that are no longer in the queue, so the
+    /// directory cannot outlive what it documents.
+    private func pruneLogs() {
+        let keep = Set(jobs.map(\.id))
+        Task.detached(priority: .background) {
+            let fm = FileManager.default
+            guard let files = try? fm.contentsOfDirectory(
+                at: RenderEngine.logsDirectory, includingPropertiesForKeys: nil) else { return }
+            for file in files where file.pathExtension == "log" {
+                let id = UUID(uuidString: file.deletingPathExtension().lastPathComponent)
+                if id == nil || !keep.contains(id!) { try? fm.removeItem(at: file) }
+            }
+        }
     }
 
     private func persist() {
