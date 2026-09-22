@@ -35,6 +35,22 @@ extension View {
     ///
     /// Supplying the margin here puts the number under our control, and the same
     /// reduction confirms it lands exactly: overlap +0.0 at both heights.
+    ///
+    /// `safeAreaPadding` rather than `contentMargins`, because `contentMargins`
+    /// silently does nothing to a `List`. Measured in the same reduction, with
+    /// the last row scrolled into view:
+    ///
+    /// ```
+    /// ScrollView + contentMargins   overlap  +0.0  ok
+    /// ScrollView + safeAreaPadding  overlap  +0.0  ok
+    /// List       + contentMargins   overlap +51.0  CLIPPED
+    /// List       + safeAreaPadding  overlap  -4.0  ok
+    /// ```
+    ///
+    /// One modifier for every scrollable is worth more here than the slightly
+    /// better fit `contentMargins` gives a `ScrollView`: the queue is a `List`,
+    /// and this going quietly missing on one container is how the clipping got
+    /// shipped in the first place.
     func statusBarInset() -> some View {
         modifier(StatusBarInset())
     }
@@ -44,6 +60,6 @@ private struct StatusBarInset: ViewModifier {
     @Environment(\.statusBarHeight) private var height
 
     func body(content: Content) -> some View {
-        content.contentMargins(.bottom, height, for: .scrollContent)
+        content.safeAreaPadding(.bottom, height)
     }
 }
