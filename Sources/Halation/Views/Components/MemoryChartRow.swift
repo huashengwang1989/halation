@@ -120,7 +120,7 @@ struct MemoryChartRow: View {
             let x = xPosition(forColumn: column, columns: columns, width: size.width)
 
             // Bottom upwards: the engine's Metal pool on the floor, then the
-            // rest of the engine, then this app, then everything else.
+            // rest of this app, then everything else.
             var filled = 0
             for (band, count) in rowCounts(for: sample,
                                            rows: memoryRows, bytesPerRow: bytesPerRow) {
@@ -211,13 +211,19 @@ struct MemoryChartRow: View {
 
 /// The stacked categories, and the one colour table they all read from.
 private enum Band: Hashable {
-    case engine, app, systemAndOthers, engineMetal, swap, compressed
+    case halation, systemAndOthers, engineMetal, swap, compressed
 
-    /// Floor upwards, and the two engine bands sit together at the bottom: the
-    /// Metal pool is part of the engine, carved out of it rather than added, so
-    /// putting them apart would misread as two separate consumers.
-    static let stackOrder: [Band] = [.engineMetal, .engine, .app, .systemAndOthers]
-    static let legendOrder: [Band] = [.systemAndOthers, .engineMetal, .engine, .app,
+    /// Floor upwards. This app's two bands sit together at the bottom: the
+    /// Metal pool is carved out of the same footprint rather than added to it,
+    /// so separating them would misread as two unrelated consumers.
+    ///
+    /// The app's own process is folded in with its engine rather than given a
+    /// band of its own. It is well under a gigabyte against roughly five to a
+    /// row, so its band could never once have been drawn — and after the
+    /// rounding was made honest, a legend entry that never appears is worse
+    /// than no entry at all.
+    static let stackOrder: [Band] = [.engineMetal, .halation, .systemAndOthers]
+    static let legendOrder: [Band] = [.halation, .engineMetal, .systemAndOthers,
                                       .swap, .compressed]
 
     /// Drawn as a line rather than a filled band, and shown that way in the
@@ -226,8 +232,7 @@ private enum Band: Hashable {
 
     var color: Color {
         switch self {
-        case .engine:          Color(red: 0.37, green: 0.82, blue: 0.23)
-        case .app:             Color(red: 0.94, green: 0.64, blue: 0.16)
+        case .halation:        Color(red: 0.37, green: 0.82, blue: 0.23)
         case .systemAndOthers: Color(red: 0.49, green: 0.49, blue: 0.51)
         case .engineMetal:     Color(red: 0.91, green: 0.35, blue: 0.62)
         case .swap:            Color(red: 0.48, green: 0.38, blue: 0.78)
@@ -237,8 +242,7 @@ private enum Band: Hashable {
 
     var label: String {
         switch self {
-        case .engine:          loc("memory.chart.engine")
-        case .app:             loc("memory.chart.app")
+        case .halation:        loc("memory.chart.halation")
         case .systemAndOthers: loc("memory.chart.system")
         case .engineMetal:     loc("memory.chart.metal")
         case .swap:            loc("memory.chart.swap")
@@ -250,8 +254,9 @@ private enum Band: Hashable {
 private extension MemorySample {
     subscript(band: Band) -> Int64 {
         switch band {
-        case .engine:          engine
-        case .app:             app
+        // Both of this app's processes, less whatever the engine is holding on
+        // the GPU, which the band below it already draws.
+        case .halation:        app + engine
         case .systemAndOthers: systemAndOthers
         case .engineMetal:     engineMetal
         case .swap:            swap

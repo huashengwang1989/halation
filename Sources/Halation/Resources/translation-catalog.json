@@ -1832,23 +1832,6 @@
       "level": "info"
     },
     {
-      "key": "memory.chart.app",
-      "values": {
-        "en": "App",
-        "zh-Hant": "App",
-        "zh-Hans": "App",
-        "de": "App",
-        "ar": "التطبيق",
-        "ja": "App",
-        "ko": "App",
-        "th": "แอป",
-        "yue-Hant": "App",
-        "en-SG": "App"
-      },
-      "note": "Legend on the memory chart: Halation's own process, which is small — under a gigabyte even mid-render.",
-      "level": "info"
-    },
-    {
       "key": "memory.chart.compressed",
       "values": {
         "en": "Compressed",
@@ -1866,21 +1849,21 @@
       "level": "info"
     },
     {
-      "key": "memory.chart.engine",
+      "key": "memory.chart.halation",
       "values": {
-        "en": "Engine",
-        "zh-Hant": "引擎",
-        "zh-Hans": "引擎",
-        "de": "Engine",
-        "ar": "المحرّك",
-        "ja": "エンジン",
-        "ko": "엔진",
-        "th": "เอนจิน",
-        "yue-Hant": "引擎",
-        "en-SG": "Engine"
+        "en": "Halation",
+        "zh-Hant": "Halation",
+        "zh-Hans": "Halation",
+        "de": "Halation",
+        "ar": "Halation",
+        "ja": "Halation",
+        "ko": "Halation",
+        "th": "Halation",
+        "yue-Hant": "Halation",
+        "en-SG": "Halation"
       },
-      "note": "Legend on the memory chart: everything this app spawned — the MLX sidecar, the ComfyUI server. Usually the largest band by far.",
-      "level": "info"
+      "note": "The app's own name, so it stays Latin in every language — do not transliterate it. It labels this app *and* its engine together on the memory chart; the Metal buffers band beside it is part of the same total, carved out of it rather than added to it.",
+      "level": "warning"
     },
     {
       "key": "memory.chart.metal",

@@ -6773,20 +6773,6 @@ add("memory.chart.system", {
     "en-SG": "System and other apps",
 }, note="Legend on the memory chart: memory used, less this app, its engine "
         "and the graphics driver. The longest label, so it sets the row's width.")
-add("memory.chart.engine", {
-    "en": "Engine", "zh-Hant": "引擎", "zh-Hans": "引擎",
-    "de": "Engine", "ar": "المحرّك", "ja": "エンジン",
-    "ko": "엔진", "th": "เอนจิน", "yue-Hant": "引擎",
-    "en-SG": "Engine",
-}, note="Legend on the memory chart: everything this app spawned — the MLX "
-        "sidecar, the ComfyUI server. Usually the largest band by far.")
-add("memory.chart.app", {
-    "en": "App", "zh-Hant": "App", "zh-Hans": "App",
-    "de": "App", "ar": "التطبيق", "ja": "App",
-    "ko": "App", "th": "แอป", "yue-Hant": "App",
-    "en-SG": "App",
-}, note="Legend on the memory chart: Halation's own process, which is small — "
-        "under a gigabyte even mid-render.")
 add("memory.chart.swap", {
     "en": "Swap", "zh-Hant": "置換空間", "zh-Hans": "交换空间",
     "de": "Swap", "ar": "التبديل", "ja": "スワップ",
@@ -6811,3 +6797,14 @@ add("memory.chart.compressed", {
 }, note="A line across the memory chart, not a band: compressed pages are "
         "still inside the bands, squeezed rather than moved. The line rises "
         "before any swap appears, which is why it is worth showing.")
+add("memory.chart.halation", {
+    "en": "Halation", "zh-Hant": "Halation", "zh-Hans": "Halation",
+    "de": "Halation", "ar": "Halation", "ja": "Halation",
+    "ko": "Halation", "th": "Halation", "yue-Hant": "Halation",
+    "en-SG": "Halation",
+}, note={"content": "The app's own name, so it stays Latin in every language "
+                    "\u2014 do not transliterate it. It labels this app *and* "
+                    "its engine together on the memory chart; the Metal buffers "
+                    "band beside it is part of the same total, carved out of it "
+                    "rather than added to it.",
+         "level": WARNING})

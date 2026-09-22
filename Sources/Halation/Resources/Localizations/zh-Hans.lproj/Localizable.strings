@@ -247,14 +247,11 @@
 
 "library.useSettings" = "沿用这些设置";
 
-/* Legend on the memory chart: Halation's own process, which is small — under a gigabyte even mid-render. */
-"memory.chart.app" = "App";
-
 /* A line across the memory chart, not a band: compressed pages are still inside the bands, squeezed rather than moved. The line rises before any swap appears, which is why it is worth showing. */
 "memory.chart.compressed" = "已压缩";
 
-/* Legend on the memory chart: everything this app spawned — the MLX sidecar, the ComfyUI server. Usually the largest band by far. */
-"memory.chart.engine" = "引擎";
+/* WARNING: The app's own name, so it stays Latin in every language — do not transliterate it. It labels this app *and* its engine together on the memory chart; the Metal buffers band beside it is part of the same total, carved out of it rather than added to it. */
+"memory.chart.halation" = "Halation";
 
 /* Legend on the memory chart: the part of the engine's memory that is held on the GPU, reported by the engine itself. Carved out of Engine, not added to it — there is no separate graphics pool on Apple silicon. */
 "memory.chart.metal" = "Metal 缓冲区";
