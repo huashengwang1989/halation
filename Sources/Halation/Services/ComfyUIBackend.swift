@@ -331,12 +331,46 @@ actor ComfyUIBackend: RenderBackend {
                     let (data, _) = try await URLSession.shared.data(from: url)
                     let destination = scratch.appending(path: filename)
                     try data.write(to: destination, options: .atomic)
+                    // ComfyUI keeps its own copy for ever — nothing in it ever
+                    // deletes an output — so renders quietly accumulated there
+                    // while the app had already taken what it needed. Removed
+                    // now that the fetch has succeeded, and only then: losing
+                    // the source before the copy is safely written would lose
+                    // the render.
+                    await Self.discardComfyCopy(filename: filename,
+                                                subfolder: subfolder, type: type,
+                                                events: events)
                     events(.artifact(video: destination, audio: nil))
                     return destination
                 }
             }
         }
         throw BackendError.noOutput
+    }
+
+    /// Deletes ComfyUI's own copy of a fetched artifact.
+    ///
+    /// Straight off the filesystem rather than through the server: ComfyUI has
+    /// no delete route, and this is the app's own managed checkout under
+    /// Application Support — not a ComfyUI the person installed themselves,
+    /// which is left alone on principle.
+    ///
+    /// Failure is logged and ignored. A copy that will not delete is a few
+    /// megabytes the Cache tab can sweep later; a render that fails because a
+    /// tidy-up threw would be a real loss.
+    private static func discardComfyCopy(filename: String, subfolder: String,
+                                         type: String,
+                                         events: @escaping (SidecarEvent) -> Void) async {
+        var directory = ComfyUIRuntime.rootURL.appending(path: type == "temp" ? "temp" : "output")
+        if !subfolder.isEmpty { directory = directory.appending(path: subfolder) }
+        let file = directory.appending(path: filename)
+        guard FileManager.default.fileExists(atPath: file.path) else { return }
+        do {
+            try FileManager.default.removeItem(at: file)
+        } catch {
+            events(.log("Left ComfyUI's copy of \(filename) in place: "
+                        + error.localizedDescription))
+        }
     }
 }
 

@@ -13,7 +13,7 @@ final class ScratchDiskGauge {
     static let shared = ScratchDiskGauge()
 
     struct Reading: Equatable, Sendable {
-        /// What the scratch directory holds.
+        /// What the render working files hold, across every place they land.
         var scratch: Int64 = 0
         /// What is left on the volume. Already excludes the scratch, because
         /// the scratch is occupying it.
@@ -106,7 +106,15 @@ final class ScratchDiskGauge {
         await Task.detached(priority: .utility) {
             var reading = Reading()
             let scratch = RenderEngine.scratchDirectory
+            // Both engines' working files, not just the app's own directory.
+            // A ComfyUI render writes its video into ComfyUI's output folder
+            // first and is fetched from there, so measuring only `scratch`
+            // reported a ComfyUI render as using less disk than it does — and
+            // the bar is labelled for the work, not for one directory.
+            let comfy = ComfyUIRuntime.rootURL
             reading.scratch = directorySize(scratch)
+                + directorySize(comfy.appending(path: "output"))
+                + directorySize(comfy.appending(path: "temp"))
 
             // Asked of the scratch directory's own volume rather than assumed
             // to be the boot disk: the models folder can be moved, and one day
