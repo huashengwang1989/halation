@@ -95,12 +95,15 @@ struct LocalizationInspector: View {
     /// One search field serves both panes, so switching does not lose a query
     /// typed to answer a question that spans the two.
     private var panePicker: some View {
-        Picker("", selection: $pane) {
-            ForEach(Pane.allCases) { Text($0.rawValue).tag($0) }
+        // `SegmentedPicker`, not `.pickerStyle(.segmented)` — see conventions.
+        // The system style draws its selection as a rounded pill inset in the
+        // track, which reads as an object resting on the control rather than
+        // one of its positions. This is the same control Compose uses for Mode
+        // and Engine, so the app has one segmented control, not two.
+        SegmentedPicker(selection: $pane, options: Pane.allCases) { pane in
+            Text(pane.rawValue)
         }
-        .pickerStyle(.segmented)
-        .labelsHidden()
-        .fixedSize()
+        .accessibilityLabel("Pane")
         .padding(.horizontal, 12)
         .padding(.vertical, 7)
     }
