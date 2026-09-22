@@ -143,6 +143,22 @@ def check_positional():
                             f"specifiers (%1$@); a translator cannot reorder them")
 
 
+def glossary_hit(spelling, text):
+    """Whether an avoided spelling really appears, not merely as a substring.
+
+    A Latin spelling matches on letter boundaries, because "token" is inside
+    "tokenizer" and the tokenizer is a different thing — a component, not the
+    unit the glossary is about. Scripts without letter boundaries, which is most
+    of what this project translates into, match plainly.
+    """
+    pattern = re.escape(spelling)
+    if spelling[:1].isascii() and spelling[:1].isalpha():
+        pattern = r"(?<![A-Za-z])" + pattern
+    if spelling[-1:].isascii() and spelling[-1:].isalpha():
+        pattern = pattern + r"(?![A-Za-z])"
+    return re.search(pattern, text) is not None
+
+
 def check_glossary():
     """One translation per term, per language.
 
@@ -160,7 +176,7 @@ def check_glossary():
             for spelling in avoided:
                 for key in sorted(T):
                     translated = T[key]["values"].get(lang)
-                    if translated and spelling in translated:
+                    if translated and glossary_hit(spelling, translated):
                         errors.append(
                             f"{key} [{lang}] uses {spelling.strip()!r} for "
                             f"{entry['term'].split(' — ')[0]!r}; this project uses "

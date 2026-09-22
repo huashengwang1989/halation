@@ -755,9 +755,9 @@
 "queue.stop.help" = "停止这次渲染。进度会丢失，渲染无法续算。";
 
 /* WARNING: Takes a count. English offers only two forms and this string supplies one, so "1 tokens" is already wrong; Arabic needs six categories and settles for a single compromise form. Any language with Slavic-style plurals will need a .stringsdict before this can be translated correctly. */
-"queue.tokens" = "%@ 个 token";
+"queue.tokens" = "%@ 个词元";
 
-"queue.tokens.help" = "文本编码器读取的序列长度：共 %1$@ 个 token，其中 %2$@ 个来自提示词，其余是视觉 token，每张参考图片一段。这段序列在去噪开始前只读取一次——此处并非逐 token 生成。";
+"queue.tokens.help" = "文本编码器读取的序列长度：共 %1$@ 个词元，其中 %2$@ 个来自提示词，其余是视觉 词元，每张参考图片一段。这段序列在去噪开始前只读取一次——此处并非逐词元生成。";
 
 "queue.took" = "耗时 %@";
 
@@ -856,6 +856,12 @@
 "sampling.steps.note.undistilled" = "这些权重未经蒸馏，因此约 %1$@ 步是合用的范围；步数远低于此会偏离训练分布，画面会显得发软。";
 
 "sampling.title" = "采样";
+
+/* WARNING: Three figures on the disk bar: what the scratch holds, that as a percentage, and what is left on the volume. The percentage is scratch over scratch-plus-free, so it reads 100% only when the disk is full — it is not a share of the whole volume. */
+"scratch.bar.summary" = "%1$@ · 占磁盘 %2$@ · 剩余 %3$@";
+
+/* Labels the disk bar under the memory chart on the Queue page. Same thing as the disk table's 'Render scratch' row — keep the two identical, they are read minutes apart. */
+"scratch.bar.title" = "渲染暂存";
 
 /* The Compose tab: the screen where a render is set up. Not the verb. Distinct from settings.remember.section, which is the name of a group of settings *about* that screen. */
 "section.compose" = "编写";

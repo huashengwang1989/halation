@@ -857,6 +857,12 @@
 
 "sampling.title" = "取樣";
 
+/* WARNING: Three figures on the disk bar: what the scratch holds, that as a percentage, and what is left on the volume. The percentage is scratch over scratch-plus-free, so it reads 100% only when the disk is full — it is not a share of the whole volume. */
+"scratch.bar.summary" = "%1$@ · 佔磁碟 %2$@ · 剩餘 %3$@";
+
+/* Labels the disk bar under the memory chart on the Queue page. Same thing as the disk table's 'Render scratch' row — keep the two identical, they are read minutes apart. */
+"scratch.bar.title" = "算圖暫存";
+
 /* The Compose tab: the screen where a render is set up. Not the verb. Distinct from settings.remember.section, which is the name of a group of settings *about* that screen. */
 "section.compose" = "編寫";
 

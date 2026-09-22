@@ -9,6 +9,16 @@ enum Format {
         return value.formatted(.byteCount(style: .file).locale(Localization.currentLocale))
     }
 
+    /// Disk, where zero is a measurement rather than a missing value.
+    ///
+    /// `bytes` renders 0 as an em dash, which is right for a size that is not
+    /// known yet and wrong for one that is genuinely nothing — an empty scratch
+    /// directory is a fact, not a gap. Foundation localizes the zero itself
+    /// ("Zero kB", "صفر كيلوبايت"), so this does not hand-build a string.
+    static func bytesIncludingZero(_ value: Int64) -> String {
+        max(0, value).formatted(.byteCount(style: .file).locale(Localization.currentLocale))
+    }
+
     /// Memory, in the binary units Apple labels *RAM* with. The distinction is
     /// not pedantry: a 128 GB Mac holds 137_438_953_472 bytes, so formatting it
     /// as storage prints "137.44 GB installed" under a column headed "128 GB",

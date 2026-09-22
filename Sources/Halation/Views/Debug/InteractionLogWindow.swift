@@ -10,6 +10,7 @@ struct InteractionLogWindow: View {
     @State private var lines: [String] = []
     @State private var search = ""
     @State private var confirmingClear = false
+    @State private var fileBytes: Int64 = 0
 
     private var log: InteractionLog { .shared }
 
@@ -59,6 +60,15 @@ struct InteractionLogWindow: View {
                 confirmingClear = true
             }
             .disabled(lines.isEmpty)
+
+            // Beside the button that deletes it, because the size is the reason
+            // anyone reaches for that button. Measured when the window opens
+            // and after each reload rather than watched: it grows by a line at
+            // a time and nothing here needs to see that happen.
+            Text(fileBytes > 0 ? Format.bytes(fileBytes) : "0 MB")
+                .font(.caption)
+                .foregroundStyle(.secondary)
+                .monospacedDigit()
         }
         .padding(.horizontal, 12)
         .frame(height: 38)
@@ -87,6 +97,12 @@ struct InteractionLogWindow: View {
                         .fixedSize(horizontal: true, vertical: false)
                 }
             }
+            // An explicit width, because a LazyVStack reports the width of the
+            // rows it has built rather than of the whole list — so the scroll
+            // view had nothing to scroll to and every long line was simply cut
+            // at the window edge. The font is monospaced, so the widest line is
+            // its character count times one advance: exact, not estimated.
+            .frame(width: contentWidth, alignment: .leading)
             .padding(12)
         }
         // A ScrollView centres content shorter than its viewport, which left a
@@ -123,6 +139,21 @@ struct InteractionLogWindow: View {
         .frame(height: 30)
     }
 
+    /// The widest line, in points.
+    private var contentWidth: CGFloat {
+        let characters = filtered.reduce(0) { max($0, $1.count) }
+        return max(400, CGFloat(characters) * Self.advance)
+    }
+
+    /// One character of the monospaced caption font. Asked of the font rather
+    /// than guessed, so a change of text size cannot silently clip the lines
+    /// again.
+    private static let advance: CGFloat = {
+        let font = NSFont.monospacedSystemFont(ofSize: NSFont.smallSystemFontSize,
+                                               weight: .regular)
+        return ("0" as NSString).size(withAttributes: [.font: font]).width
+    }()
+
     // MARK: - Data
 
     /// Reads the file rather than the in-memory tail, so the window shows
@@ -132,5 +163,8 @@ struct InteractionLogWindow: View {
     private func reload() {
         log.flush()
         lines = InteractionLog.persistedLines().reversed()
+        let attributes = try? FileManager.default
+            .attributesOfItem(atPath: InteractionLog.fileURL.path)
+        fileBytes = (attributes?[.size] as? NSNumber)?.int64Value ?? 0
     }
 }

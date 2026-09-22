@@ -82,6 +82,23 @@ GLOSSARY = [
             "th": [" swap"],
         },
     },
+    {
+        "term": "token — the unit a text encoder reads, not a credential",
+        "canonical": {
+            # Latin where the language has taken the word, translated where it
+            # has one of its own. Only zh-Hans is pinned away from the Latin
+            # form; the rest are recorded so the next person does not have to
+            # guess whether their language had already decided.
+            "zh-Hant": "token", "zh-Hans": "词元", "yue-Hant": "token",
+            "de": "Token", "ar": "توكن", "ja": "トークン",
+            "ko": "토큰", "th": "token",
+        },
+        "avoid": {
+            # Matched on letter boundaries, so this does not fire on
+            # "tokenizer" — a component, not the unit, and Latin everywhere.
+            "zh-Hans": ["token"],
+        },
+    },
 ]
 
 
@@ -5511,7 +5528,7 @@ add("queue.perStep.average", {
 add("queue.tokens", {
     "en": "%@ tokens",
     "zh-Hant": "%@ 個 token",
-    "zh-Hans": "%@ 个 token",
+    "zh-Hans": "%@ 个词元",
     "de": "%@ Tokens",
     "ar": "%@ توكن",
     "ja": "%@ トークン",
@@ -5532,8 +5549,8 @@ add("queue.tokens.help", {
           "read once, before denoising starts — nothing here is generated token by token.",
     "zh-Hant": "文字編碼器讀取的序列長度：共 %1$@ 個 token，其中 %2$@ 個來自提示詞，其餘是視覺 "
                "token，每張參考圖片一段。這段序列在去噪開始前只讀取一次——此處並非逐 token 生成。",
-    "zh-Hans": "文本编码器读取的序列长度：共 %1$@ 个 token，其中 %2$@ 个来自提示词，其余是视觉 "
-               "token，每张参考图片一段。这段序列在去噪开始前只读取一次——此处并非逐 token 生成。",
+    "zh-Hans": "文本编码器读取的序列长度：共 %1$@ 个词元，其中 %2$@ 个来自提示词，其余是视觉 "
+               "词元，每张参考图片一段。这段序列在去噪开始前只读取一次——此处并非逐词元生成。",
     "de": "Länge der Sequenz, die der Text-Encoder liest: insgesamt %1$@ Tokens, davon %2$@ "
           "aus dem Prompt. Der Rest sind Vision-Tokens, ein Block je Referenzbild. Sie wird "
           "einmal vor dem Entrauschen gelesen — hier wird nichts Token für Token erzeugt.",
@@ -6888,3 +6905,29 @@ add("settings.cache.interactions.detail", {
              "— a prompt is recorded as its length, never its text.",
 }, note="Says plainly that the log holds no typed content, because a category "
         "named 'interaction log' invites exactly that worry.")
+add("scratch.bar.title", {
+    "en": "Render scratch", "zh-Hant": "算圖暫存", "zh-Hans": "渲染暂存",
+    "de": "Arbeitsdateien beim Rendern", "ar": "ملفات التصيير المؤقتة",
+    "ja": "レンダリングの作業ファイル", "ko": "렌더링 작업 파일",
+    "th": "ไฟล์ชั่วคราวของการเรนเดอร์", "yue-Hant": "算圖暫存檔",
+    "en-SG": "Render scratch",
+}, note="Labels the disk bar under the memory chart on the Queue page. Same "
+        "thing as the disk table's 'Render scratch' row — keep the two "
+        "identical, they are read minutes apart.")
+add("scratch.bar.summary", {
+    "en": "%1$@ · %2$@ of the disk · %3$@ free",
+    "zh-Hant": "%1$@ · 佔磁碟 %2$@ · 剩餘 %3$@",
+    "zh-Hans": "%1$@ · 占磁盘 %2$@ · 剩余 %3$@",
+    "de": "%1$@ · %2$@ der Festplatte · %3$@ frei",
+    "ar": "%1$@ · %2$@ من القرص · %3$@ متاحة",
+    "ja": "%1$@ · ディスクの %2$@ · 空き %3$@",
+    "ko": "%1$@ · 디스크의 %2$@ · %3$@ 남음",
+    "th": "%1$@ · %2$@ ของดิสก์ · เหลือ %3$@",
+    "yue-Hant": "%1$@ · 佔磁碟 %2$@ · 仲有 %3$@",
+    "en-SG": "%1$@ · %2$@ of the disk · %3$@ free",
+}, note={"content": "Three figures on the disk bar: what the scratch holds, "
+                    "that as a percentage, and what is left on the volume. The "
+                    "percentage is scratch over scratch-plus-free, so it reads "
+                    "100% only when the disk is full — it is not a share of the "
+                    "whole volume.",
+         "level": WARNING})

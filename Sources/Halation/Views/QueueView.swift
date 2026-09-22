@@ -12,6 +12,10 @@ struct QueueView: View {
             // state too — what the machine is doing is worth seeing before
             // there is anything queued.
             MemoryChartRow()
+            // Under the memory chart, because the two answer the same question
+            // about different resources — and this one fails harder: memory
+            // that runs out swaps, disk that runs out stops the render.
+            ScratchDiskBar()
             Divider()
             queue
         }
