@@ -19,12 +19,22 @@ struct MemoryChartRow: View {
 
     /// How much of the height is installed memory. The rest is swap, drawn at
     /// the *same* bytes per row, so the two bands share one linear scale and the
-    /// rule between them falls exactly at the installed figure. On a 128 GB Mac
-    /// that gives the swap band about 43 GB, which is more than macOS has ever
-    /// been observed to allocate here.
-    private let memoryShare: CGFloat = 0.75
+    /// rule between them falls exactly at the installed figure.
+    ///
+    /// That shared scale is why the share, not the height, sets how much swap
+    /// the chart can show: swap capacity is `installed × (1 - share) / share`,
+    /// and a taller chart at the same share just draws the same gigabytes with
+    /// more rows. At 0.75 the band held about 43 GB, and macOS was measured
+    /// here with **68.2 GB** of swap in use during an MLX render — pegged, with
+    /// no way to see how far past the top it had gone.
+    ///
+    /// At 0.55 it holds about 100 GB, which is half again the worst reading
+    /// taken on this machine.
+    private let memoryShare: CGFloat = 0.55
 
-    private let chartHeight: CGFloat = 140
+    /// Taller as well, which does not add capacity but does add rows: 4.6 GB a
+    /// row rather than 4.9, so the bands move in smaller steps.
+    private let chartHeight: CGFloat = 200
 
     private var installed: Int64 { MachineProfile.physicalBytes }
 
