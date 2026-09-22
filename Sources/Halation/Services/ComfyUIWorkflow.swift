@@ -182,19 +182,38 @@ struct ComfyUIWorkflow {
         }
     }
 
+    /// What to write in the log when the graph reaches a node.
+    ///
+    /// Only the nodes `stage(forNode:)` does *not* recognise ever get here —
+    /// the others become a stage change instead and never reach this function.
+    /// In practice that means the four setup nodes and the reference images,
+    /// and until they were given names the log simply printed their ids: bare
+    /// lines reading "41", "42", "40", "43" with nothing to say what they were.
+    ///
+    /// The rest are still named, because a label function that is total cannot
+    /// surprise anyone later if the stage map changes.
     static func nodeLabel(_ id: String) -> String {
         switch id {
-        case Node.unet: "transformer"
-        case Node.lora: "turbo LoRA"
-        case Node.clip: "text encoder"
-        case Node.videoVAE: "video VAE"
-        case Node.audioVAE: "audio VAE"
-        case Node.conditioning: "encoding prompt and references"
-        case Node.sampler: "sampling"
-        case Node.decodeVideo: "decoding video"
-        case Node.decodeAudio: "decoding audio"
-        case Node.createVideo, Node.save: "writing file"
-        default: id
+        case Node.unet: return "Loading the transformer"
+        case Node.lora: return "Loading the turbo LoRA"
+        case Node.clip: return "Loading the text encoder"
+        case Node.videoVAE: return "Loading the video VAE"
+        case Node.audioVAE: return "Loading the audio VAE"
+        case Node.conditioning: return "Encoding the prompt and references"
+        // The four that actually show up, in the order ComfyUI runs them.
+        case Node.guider: return "Setting up guidance"
+        case Node.samplerSelect: return "Choosing the sampler"
+        case Node.scheduler: return "Building the noise schedule"
+        case Node.noise: return "Seeding the noise"
+        case Node.sampler: return "Sampling"
+        case Node.decodeVideo: return "Decoding the video"
+        case Node.decodeAudio: return "Decoding the audio"
+        case Node.createVideo, Node.save: return "Writing the file"
+        default:
+            if (0...9).map(Node.image).contains(id) { return "Loading a reference image" }
+            // Self-describing rather than a bare number, so a node this does
+            // not know about still reads as something rather than as noise.
+            return "Running graph node \(id)"
         }
     }
 }
