@@ -80,6 +80,9 @@ final class RenderEngine {
             lines.append("[\(stamp)] Interrupted: the app stopped while this was running.")
             lines.append("[\(stamp)] Back in the queue after restart.")
             logs[jobs[index].id] = lines
+            // Written straight away: this is the only record that the previous
+            // run ended the way it did, and the app may not get another chance.
+            writeLog(lines, for: jobs[index].id)
         }
     }
 
@@ -403,12 +406,11 @@ final class RenderEngine {
     /// Records something that happened *to* a job rather than something its
     /// engine said: a click, a scheduling decision, the app coming and going.
     ///
-    /// Bracketed and stamped so it stands out from raw engine output, which is
-    /// unmarked and untimed. English, like the rest of the log: these lines get
-    /// pasted into bug reports, and a diagnostic that changes language with the
-    /// interface is harder to help with, not easier.
+    /// English, like the rest of the log: these lines get pasted into bug
+    /// reports, and a diagnostic that changes language with the interface is
+    /// harder to help with, not easier.
     private func note(_ message: String, to jobID: UUID) {
-        appendLog("[\(Self.logTime.string(from: .now))] \(message)", to: jobID)
+        appendLog(message, to: jobID)
     }
 
     nonisolated static let logTime: DateFormatter = {
@@ -418,11 +420,14 @@ final class RenderEngine {
         return formatter
     }()
 
+    /// Every line is stamped, engine output included. A log whose entries
+    /// cannot be placed in time is much less use for the thing it is for:
+    /// working out where a long render actually went.
     private func appendLog(_ message: String, to jobID: UUID) {
         let trimmed = message.trimmingCharacters(in: .whitespacesAndNewlines)
         guard !trimmed.isEmpty else { return }
         var lines = logs[jobID] ?? []
-        lines.append(trimmed)
+        lines.append("[\(Self.logTime.string(from: .now))] \(trimmed)")
         // A failing render can emit thousands of lines; keep a useful tail.
         if lines.count > 600 { lines.removeFirst(lines.count - 600) }
         logs[jobID] = lines

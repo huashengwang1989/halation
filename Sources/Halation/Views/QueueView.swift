@@ -40,7 +40,10 @@ struct QueueView: View {
                     }
                 }
                 .listStyle(.inset)
-                .alternatingRowBackgrounds()
+                // No `alternatingRowBackgrounds()`. AppKit paints those stripes
+                // across the whole table rather than only where there are rows,
+                // so below the last job they read as a run of empty entries
+                // waiting to be filled — which is exactly what they are not.
                 .statusBarInset()
             }
         }
