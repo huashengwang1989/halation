@@ -141,18 +141,14 @@ struct MemoryChartRow: View {
 
     /// How many rows each band gets, floor upwards.
     ///
-    /// Cumulative rounding keeps the stack's total height honest — the bands
-    /// cannot drift apart from the sum they represent. On top of that, **any
-    /// band with bytes in it gets at least one row**, borrowed from the tallest
-    /// band.
+    /// Plain cumulative rounding, and nothing else: a row is about 5 GB, so a
+    /// band under half a row does not light one, and a band over half a row
+    /// does. Small categories are therefore simply absent rather than
+    /// exaggerated — every square on the chart is worth what it says.
     ///
-    /// That last rule is a deliberate distortion, and worth stating: at 128 GB
-    /// over 26 rows a row is about 5 GB, while this app's own footprint is well
-    /// under 1 GB and the graphics driver holds around 2 GB. Rounded honestly
-    /// both vanish, and two entries in the legend would then never once appear
-    /// on the chart. A single row therefore means "some, but less than a row's
-    /// worth", not a measurement — the exact figures belong in the status bar,
-    /// which has the space to print them.
+    /// Rounding cumulatively rather than per band keeps the stack's total
+    /// height equal to the sum it represents, so the bands cannot drift away
+    /// from the total as the rounding errors accumulate.
     private func rowCounts(for sample: MemorySample,
                            rows: Int, bytesPerRow: Double) -> [(Band, Int)] {
         var counts: [(Band, Int)] = []
@@ -165,20 +161,13 @@ struct MemoryChartRow: View {
             filled = max(filled, target)
         }
 
-        // Lift every non-empty band to one row, paying for it out of the tallest.
-        for index in counts.indices where counts[index].1 == 0 && sample[counts[index].0] > 0 {
-            guard let donor = counts.indices.max(by: { counts[$0].1 < counts[$1].1 }),
-                  counts[donor].1 > 1 else { continue }
-            counts[donor].1 -= 1
-            counts[index].1 = 1
-        }
         return counts
     }
 
-    /// One band on its own, with the same "non-zero shows something" floor.
+    /// One band on its own, rounded the same way.
     private func rowsFor(bytes: Int64, bytesPerRow: Double, cap: Int) -> Int {
         guard bytes > 0 else { return 0 }
-        return min(cap, max(1, Int((Double(bytes) / bytesPerRow).rounded())))
+        return min(cap, Int((Double(bytes) / bytesPerRow).rounded()))
     }
 
     /// Newest column at the trailing edge — the right in English, the left in
