@@ -98,6 +98,11 @@ actor ComfyUIBackend: RenderBackend {
         return ProcessMemory.treeFootprintBytes(of: pid)
     }
 
+    func peakMemoryBytes() async -> Int64? {
+        guard let pid = await runtime.serverProcessIdentifier else { return nil }
+        return ProcessMemory.treePeakFootprintBytes(of: pid)
+    }
+
     // MARK: - References
 
     /// Copies attached images into ComfyUI's input folder under unique names.

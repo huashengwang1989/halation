@@ -786,3 +786,40 @@ The diagnostics added while chasing this are still worth having: every failure
 mode in this API is silent, since `add` reports refusal through a callback
 rather than by throwing, so `Notifier.log` writes authorization, add errors and
 bundle state to stderr whenever the debug menu is enabled.
+
+## Resident size is useless for MLX; the footprint is the truth
+
+The status bar reported 712 MB while the user's own tooling showed Python
+holding about 94 GB. The reason was the metric, not the pid.
+
+Measured against a live MLX render (pid 70662, one process, no children):
+
+```
+ri_resident_size               : 0.25 GB
+ri_phys_footprint              : 106.45 GB
+ri_lifetime_max_phys_footprint : 120.14 GB
+ps rss                         : 0.25 GB
+```
+
+`ps` agrees with `ri_resident_size`, and both are off by a factor of 400. MLX
+holds its weights in Metal buffers, which are charged to the process's phys
+footprint but never appear as resident pages. So:
+
+- **Use `ri_phys_footprint`** (`proc_pid_rusage`) for anything user-facing.
+- **`ri_lifetime_max_phys_footprint`** is the kernel's own high-water mark for
+  the process. It is free, it survives sampling gaps, and it cannot miss a
+  spike between two polls the way a timer-driven sampler can.
+- Still sum descendants: ComfyUI does fork children even though the MLX
+  sidecar does not.
+
+A synthetic test misled me here and the wrong conclusion reached a commit
+(`29682ce` claimed the choice of metric "turned out not to matter"). The test
+allocated a 2 GB `storageModeShared` Metal buffer, which moved *both* numbers,
+so the metrics looked interchangeable. They are not interchangeable for the
+allocation pattern MLX actually uses. **Measure the real workload, not a model
+of it** — the lesson generalises past this file.
+
+Consequence for the requirements table: 50 GB of catalogue weights peaked at
+120 GB, so `MemoryRequirementsTable.peakMultiplier` is 2.4, from that single
+MLX data point. There is no ComfyUI measurement yet. The per-job peaks the
+queue now records will accumulate more.

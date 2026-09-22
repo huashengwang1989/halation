@@ -225,8 +225,8 @@
 
 "memory.table.combination" = "Modell und Engine";
 
-/* Footnote under the table. The doubling comes from one measured render (55 GB of weights peaking at 106 GB), so it is a rule of thumb rather than a specification. */
-"memory.table.note" = "Die Gewichte sind nur ein Teil: Das Erzeugen braucht zusätzlich Arbeitsspeicher, und ein gemessener Render hielt in der Spitze etwa das Doppelte seines Gewichtswerts. Die Urteile oben berücksichtigen das. Der nutzbare Anteil ist der, den Metal für die Maschine meldet — etwa drei Viertel bis fünf Sechstel des Verbauten, bei größeren Konfigurationen mehr.";
+/* Footnote under the table, and the only place the verdict words are explained. The 2.4x multiplier and the swap figure both come from one measured MLX render (50 GB of weights peaking at 120 GB on a 128 GB Mac), so it is a rule of thumb rather than a specification. Keep the quoted words identical to memory.verdict.tight and .swaps. */
+"memory.table.note" = "Die Gewichte sind nur ein Teil: Das Erzeugen braucht zusätzlich Arbeitsspeicher, und ein gemessener Render erreichte in der Spitze etwa das 2,4-Fache seines Gewichtswerts. Die Urteile berücksichtigen das. „Knapp“ heißt, die Spitze übersteigt den nutzbaren Anteil, passt aber noch in den verbauten Speicher: macOS lagert einen Teil aus und der Render läuft dennoch durch — gemessen brauchte eine Spitze von 120 GB auf einem Mac mit 128 GB 16 GB Swap und wurde fertig. „Swap“ heißt, es übersteigt den verbauten Speicher, und ein Render von einer Stunde dauert dann weit länger. Der nutzbare Anteil ist der, den Metal für die Maschine meldet — etwa drei Viertel bis fünf Sechstel des Verbauten, bei größeren Konfigurationen mehr.";
 
 "memory.table.orLess" = "%@ oder weniger";
 
@@ -983,6 +983,9 @@
 
 /* Imperative verb on a button: reinstall the broken parts of the runtime. Not a noun. */
 "settings.repair" = "Reparieren";
+
+/* Heads the memory and disk tables together, in Settings and as the welcome dialog's second page. Both tables answer one question — will this machine run it — so they share a heading. */
+"settings.requirements" = "Anforderungen";
 
 /* The Python environment the app manages, not a term of art: TW says 執行環境, mainland 运行时. */
 "settings.runtime" = "Laufzeitumgebung";

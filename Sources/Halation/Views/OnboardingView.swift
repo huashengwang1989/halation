@@ -10,12 +10,12 @@ struct OnboardingView: View {
     @FocusState private var primaryFocused: Bool
 
     enum Step: Int, CaseIterable {
-        case welcome, memory, licence, runtime, models
+        case welcome, requirements, licence, runtime, models
 
         var title: String {
             switch self {
             case .welcome: loc("onboarding.welcome.title")
-            case .memory: loc("settings.memory")
+            case .requirements: loc("settings.requirements")
             case .licence: loc("onboarding.licence.title")
             case .runtime: loc("onboarding.runtime.title")
             case .models: loc("onboarding.models.title")
@@ -77,7 +77,7 @@ struct OnboardingView: View {
     private var content: some View {
         switch step {
         case .welcome: welcome
-        case .memory: memory
+        case .requirements: requirements
         case .licence: licence
         case .runtime: runtime
         case .models: models
@@ -141,10 +141,18 @@ struct OnboardingView: View {
 
     /// Second, immediately after the two things worth knowing, because whether
     /// the machine can run this at all decides whether the rest matters.
-    private var memory: some View {
-        VStack(alignment: .leading, spacing: 16) {
-            Text(loc("settings.memory")).font(.title.weight(.semibold))
-            MemoryRequirementsTable()
+    private var requirements: some View {
+        VStack(alignment: .leading, spacing: 20) {
+            Text(loc("settings.requirements")).font(.title.weight(.semibold))
+            VStack(alignment: .leading, spacing: 10) {
+                Text(loc("settings.memory")).font(.headline)
+                MemoryRequirementsTable()
+            }
+            Divider()
+            VStack(alignment: .leading, spacing: 10) {
+                Text(loc("settings.disk")).font(.headline)
+                DiskRequirementsTable()
+            }
         }
     }
 
@@ -288,7 +296,7 @@ struct OnboardingView: View {
     private var primaryLabel: String {
         switch step {
         case .welcome: loc("onboarding.continue")
-        case .memory: loc("onboarding.continue")
+        case .requirements: loc("onboarding.continue")
         case .licence: loc("onboarding.continue")
         case .runtime:
             app.runtime.phase.isReady ? loc("onboarding.continue")
@@ -300,7 +308,7 @@ struct OnboardingView: View {
     private var canAdvance: Bool {
         switch step {
         case .welcome: true
-        case .memory: true
+        case .requirements: true
         case .licence: app.licenseAcknowledged
         case .runtime: !app.runtime.phase.isBusy
         case .models: true
@@ -310,8 +318,8 @@ struct OnboardingView: View {
     private func advance() {
         switch step {
         case .welcome:
-            step = .memory
-        case .memory:
+            step = .requirements
+        case .requirements:
             step = .licence
         case .licence:
             step = .runtime

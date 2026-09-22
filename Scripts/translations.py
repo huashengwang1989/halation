@@ -6579,37 +6579,63 @@ add("memory.verdict.swaps", {
         "lets the user try.")
 add("memory.table.note", {
     "en": "Weights are only part of it: generating needs working memory on top, "
-          "and a measured render held about twice its weight figure at peak. The "
-          "verdicts above allow for that. The usable share is what Metal reports "
-          "for the machine — roughly three quarters to five sixths of what is "
-          "installed, higher on the larger configurations.",
-    "zh-Hant": "權重只是其中一部分：生成時還需要額外的工作記憶體，實測一次算圖的尖峰約為權重數字的兩倍。上表的判定已計入這點。可用比例取自 Metal 對該機器的回報——大約是安裝容量的四分之三到六分之五，容量越大比例越高。",
-    "zh-Hans": "权重只是其中一部分：生成时还需要额外的工作内存，实测一次渲染的峰值约为权重数字的两倍。上表的判定已计入这点。可用比例取自 Metal 对该机器的报告——大约是安装容量的四分之三到六分之五，容量越大比例越高。",
+          "and a measured render peaked at about 2.4 times its weight "
+          "figure. The verdicts allow for that. \u201cTight\u201d means the peak "
+          "clears the usable share but still fits in installed memory, so macOS "
+          "pages some of it out and the render finishes anyway \u2014 measured, a "
+          "120 GB peak on a 128 GB Mac used 16 GB of swap and completed. "
+          "\u201cSwaps\u201d means it exceeds installed memory, and a render that "
+          "would take an hour takes far longer. The usable share is what Metal "
+          "reports for the machine \u2014 roughly three quarters to five sixths of "
+          "what is installed, higher on the larger configurations.",
+    "zh-Hant": "權重只是其中一部分：生成時還需要額外的工作記憶體，實測一次算圖的尖峰約為權重數字的 2.4 倍，上表的判定已計入這點。「吃緊」是指尖峰超出可用額度、但仍裝得進已安裝的記憶體，macOS 會把一部分換出，算圖照樣完成——實測在 128 GB 機器上尖峰 120 GB，用掉 16 GB 置換空間並順利跑完。「置換」是指超出已安裝的記憶體，本來一小時的算圖會拖得久很多。可用比例取自 Metal 對該機器的回報——大約是安裝容量的四分之三到六分之五，容量越大比例越高。",
+    "zh-Hans": "权重只是其中一部分：生成时还需要额外的工作内存，实测一次渲染的峰值约为权重数字的 2.4 倍，上表的判定已计入这点。“吃紧”是指峰值超出可用额度、但仍装得进已安装的内存，macOS 会把一部分换出，渲染照样完成——实测在 128 GB 机器上峰值 120 GB，用掉 16 GB 交换空间并顺利跑完。“交换”是指超出已安装的内存，本来一小时的渲染会拖得久很多。可用比例取自 Metal 对该机器的报告——大约是安装容量的四分之三到六分之五，容量越大比例越高。",
     "de": "Die Gewichte sind nur ein Teil: Das Erzeugen braucht zusätzlich "
-          "Arbeitsspeicher, und ein gemessener Render hielt in der Spitze etwa "
-          "das Doppelte seines Gewichtswerts. Die Urteile oben berücksichtigen "
-          "das. Der nutzbare Anteil ist der, den Metal für die Maschine meldet — "
-          "etwa drei Viertel bis fünf Sechstel des Verbauten, bei größeren "
+          "Arbeitsspeicher, und ein gemessener Render erreichte in der Spitze etwa "
+          "das 2,4-Fache seines Gewichtswerts. Die Urteile berücksichtigen "
+          "das. „Knapp“ heißt, die Spitze übersteigt den nutzbaren Anteil, passt "
+          "aber noch in den verbauten Speicher: macOS lagert einen Teil aus und der "
+          "Render läuft dennoch durch — gemessen brauchte eine Spitze von 120 GB auf "
+          "einem Mac mit 128 GB 16 GB Swap und wurde fertig. „Swap“ heißt, es "
+          "übersteigt den verbauten Speicher, und ein Render von einer Stunde dauert "
+          "dann weit länger. Der nutzbare Anteil ist der, den Metal für die Maschine "
+          "meldet — etwa drei Viertel bis fünf Sechstel des Verbauten, bei größeren "
           "Konfigurationen mehr.",
     "ar": "الأوزان ليست كل الحكاية: التوليد يحتاج ذاكرة عمل إضافية، وقد بلغ أحد "
-          "عمليات التصيير المقيسة نحو ضعف رقم أوزانه في الذروة. والأحكام أعلاه "
-          "تأخذ ذلك في الحساب. أما الحصة المتاحة فهي ما يبلّغ عنه Metal لهذا "
-          "الجهاز — نحو ثلاثة أرباع إلى خمسة أسداس المثبَّت، وترتفع في التكوينات الأكبر.",
-    "ja": "重みは一部にすぎません。生成にはさらに作業用メモリが必要で、実測したレンダリングのピークは重みの約二倍でした。上の判定はそれを見込んでいます。使える割合は Metal がその機械について報告する値で、搭載量のおよそ四分の三から六分の五、容量が大きいほど高くなります。",
-    "ko": "가중치는 일부일 뿐입니다. 생성에는 별도의 작업 메모리가 필요하고, 실측한 렌더링은 최대치에서 가중치의 약 두 배를 차지했습니다. 위 판정은 그것을 감안한 것입니다. 사용 가능한 비율은 Metal이 해당 기기에 대해 보고하는 값으로, 설치된 용량의 약 4분의 3에서 6분의 5이며 용량이 클수록 높아집니다.",
+          "عمليات التصيير المقيسة نحو 2.4 مرة رقم أوزانه في الذروة، والأحكام "
+          "تأخذ ذلك في الحساب. \u201cمحدود\u201d يعني أن الذروة تتجاوز الحصة "
+          "المتاحة لكنها تبقى داخل الذاكرة المثبَّتة، فيُرحِّل macOS جزءًا منها "
+          "ويكتمل التصيير رغم ذلك — بالقياس، ذروة 120 غيغابايت على جهاز بـ 128 "
+          "غيغابايت استهلكت 16 غيغابايت من التبديل وأُنجزت. و\u201cتبديل\u201d "
+          "يعني أنها تتجاوز الذاكرة المثبَّتة، فيستغرق تصيير مدته ساعة وقتًا أطول "
+          "بكثير. أما الحصة المتاحة فهي ما يبلّغ عنه Metal لهذا الجهاز — نحو ثلاثة "
+          "أرباع إلى خمسة أسداس المثبَّت، وترتفع في التكوينات الأكبر.",
+    "ja": "重みは一部にすぎません。生成にはさらに作業用メモリが必要で、実測したレンダリングのピークは重みの約 2.4 倍でした。判定はそれを見込んでいます。「ぎりぎり」はピークが使える割当てを超えるものの搭載メモリには収まる状態で、macOS が一部を退避させながらもレンダリングは完走します——実測では 128 GB の Mac でピーク 120 GB、スワップ 16 GB を使って完了しました。「スワップ」は搭載メモリを超える状態で、一時間で済むレンダリングがはるかに長くかかります。使える割合は Metal がその機械について報告する値で、搭載量のおよそ四分の三から六分の五、容量が大きいほど高くなります。",
+    "ko": "가중치는 일부일 뿐입니다. 생성에는 별도의 작업 메모리가 필요하고, 실측한 렌더링의 최대치는 가중치의 약 2.4배였습니다. 위 판정은 그것을 감안한 것입니다. ‘빡빡함’은 최대치가 사용 가능한 몫을 넘지만 설치된 메모리에는 들어가는 경우로, macOS가 일부를 내보내면서도 렌더링은 끝까지 진행됩니다 — 실측으로 128 GB Mac에서 최대 120 GB, 스왑 16 GB를 쓰고 완료했습니다. ‘스왑’은 설치된 메모리를 넘는 경우이며, 한 시간이면 될 렌더링이 훨씬 오래 걸립니다. 사용 가능한 비율은 Metal이 해당 기기에 대해 보고하는 값으로, 설치된 용량의 약 4분의 3에서 6분의 5이며 용량이 클수록 높아집니다.",
     "th": "ไฟล์น้ำหนักเป็นเพียงส่วนหนึ่ง การสร้างต้องใช้หน่วยความจำทำงานเพิ่มอีก "
-          "และการเรนเดอร์ที่วัดได้ใช้สูงสุดราวสองเท่าของตัวเลขน้ำหนัก ผลสรุปด้านบนคิดเผื่อไว้แล้ว "
-          "สัดส่วนที่ใช้ได้คือค่าที่ Metal รายงานสำหรับเครื่องนั้น — ราวสามในสี่ถึงห้าในหกของที่ติดตั้ง "
-          "และสูงขึ้นในรุ่นที่หน่วยความจำมากกว่า",
-    "yue-Hant": "權重只係其中一part：生成嗰陣仲要額外嘅工作記憶體，實測一次算圖尖峰大概係權重數字嘅兩倍。上面嘅判斷已經計咗呢樣。可用比例係 Metal 對部機嘅回報——大概係安裝容量嘅四分三到六分五，容量越大比例越高。",
+          "และการเรนเดอร์ที่วัดได้ขึ้นสูงสุดราว 2.4 เท่าของตัวเลขน้ำหนัก ผลสรุปคิดเผื่อไว้แล้ว "
+          "“คับ” หมายถึงจุดสูงสุดเกินสัดส่วนที่ใช้ได้ แต่ยังพอดีกับหน่วยความจำที่ติดตั้ง "
+          "macOS จะย้ายบางส่วนออกไปและการเรนเดอร์ก็ยังเสร็จ — วัดได้ว่าจุดสูงสุด 120 GB "
+          "บนเครื่อง 128 GB ใช้ swap ไป 16 GB และทำงานจบ ส่วน “สลับ” หมายถึงเกินหน่วยความจำที่ติดตั้ง "
+          "งานที่ควรใช้หนึ่งชั่วโมงจะนานขึ้นอีกมาก สัดส่วนที่ใช้ได้คือค่าที่ Metal รายงานสำหรับเครื่องนั้น — "
+          "ราวสามในสี่ถึงห้าในหกของที่ติดตั้ง และสูงขึ้นในรุ่นที่หน่วยความจำมากกว่า",
+    "yue-Hant": "權重只係其中一part：生成嗰陣仲要額外嘅工作記憶體，實測一次算圖尖峰大概係權重數字嘅 2.4 倍，上面嘅判斷已經計咗呢樣。「緊」係話尖峰超出可用嘅份額，但仲裝得落已裝嘅記憶體，macOS 會換走一部分，算圖照樣做得完——實測喺 128 GB 機上面尖峰 120 GB，用咗 16 GB 置換空間，順利跑完。「置換」係話超出已裝嘅記憶體，本來一個鐘嘅算圖會拖好多。可用比例係 Metal 對部機嘅回報——大概係安裝容量嘅四分三到六分五，容量越大比例越高。",
     "en-SG": "Weights are only part of the story: generating needs working memory on "
-             "top, and one measured render held about twice its weight figure at "
-             "peak. The verdicts above already count that in. The usable share is "
-             "whatever Metal reports for the machine — roughly three quarters to "
-             "five sixths of what is installed, higher on the bigger configurations.",
-}, note="Footnote under the table. The doubling comes from one measured render "
-        "(55 GB of weights peaking at 106 GB), so it is a rule of thumb rather "
-        "than a specification.")
+             "top, and one measured render peaked at about 2.4 times its "
+             "weight figure. The verdicts already count that in. \u201cTight\u201d "
+             "means the peak goes past the usable share but still fits inside "
+             "installed memory, so macOS pages some of it out and the render still "
+             "finishes \u2014 measured, a 120 GB peak on a 128 GB Mac used 16 GB of "
+             "swap and completed. \u201cSwaps\u201d means it goes past installed "
+             "memory altogether, and a render that would take an hour takes very much "
+             "longer. The usable share is whatever Metal reports for the machine "
+             "\u2014 roughly three quarters to five sixths of what is installed, "
+             "higher on the bigger configurations.",
+}, note="Footnote under the table, and the only place the verdict words are "
+        "explained. The 2.4x multiplier and the swap figure both come from one "
+        "measured MLX render (50 GB of weights peaking at 120 GB on a 128 GB "
+        "Mac), so it is a rule of thumb rather than a specification. Keep the "
+        "quoted words identical to memory.verdict.tight and .swaps.")
 add("memory.table.thisMac", {
     "en": "This Mac: %1$@ installed, %2$@ usable for a model.",
     "zh-Hant": "本機：已安裝 %1$@，可給模型使用 %2$@。",
@@ -6696,3 +6722,12 @@ add("disk.table.note", {
              "cache, which the Cache tab can clear after. Reference mode needs a "
              "second set of weights, about 60 GB, not counted here.",
 })
+add("settings.requirements", {
+    "en": "Requirements",
+    "zh-Hant": "系統需求", "zh-Hans": "系统需求",
+    "de": "Anforderungen", "ar": "المتطلبات", "ja": "動作要件",
+    "ko": "요구 사항", "th": "ความต้องการของระบบ", "yue-Hant": "系統需求",
+    "en-SG": "Requirements",
+}, note="Heads the memory and disk tables together, in Settings and as the "
+        "welcome dialog's second page. Both tables answer one question — will "
+        "this machine run it — so they share a heading.")

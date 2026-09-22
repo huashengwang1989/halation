@@ -11,11 +11,18 @@ enum ProcessMemory {
 
     /// What Activity Monitor calls Memory.
     ///
-    /// `ri_phys_footprint` rather than `ri_resident_size`, so the figure matches
-    /// the one a user would check it against. Both count Metal allocations the
-    /// same way — measured, by allocating a 2 GB shared-storage buffer and
-    /// watching each move by 2.01 GB — so for MLX either would do; the footprint
-    /// is chosen because it is the number on screen elsewhere.
+    /// `ri_phys_footprint`, and the choice is not cosmetic — it is the whole
+    /// difference between a useful figure and a useless one. Measured on a live
+    /// MLX render holding the 4-bit set:
+    ///
+    ///     ri_resident_size    0.25 GB
+    ///     ri_phys_footprint   106.45 GB
+    ///
+    /// `ps` agrees with the first. MLX's unified-memory allocations do not
+    /// appear in the resident size at all, so RSS reports the interpreter and
+    /// nothing else. A plain `storageModeShared` Metal buffer *does* move both,
+    /// which is what made the earlier diagnosis wrong: the test allocated memory
+    /// a different way from the thing being diagnosed.
     static func footprintBytes(of pid: pid_t) -> Int64? {
         guard pid > 0 else { return nil }
         var info = rusage_info_v4()
@@ -73,6 +80,42 @@ enum ProcessMemory {
             if pid > 0 { map[pid] = entry.kp_eproc.e_ppid }
         }
         return map
+    }
+
+    /// The highest footprint a process has reached in its lifetime.
+    ///
+    /// The kernel keeps this, which is better than sampling for it: a poll every
+    /// two seconds misses a spike between samples, and this one cannot. On the
+    /// render above it reported 120.14 GB against 106.45 GB current — so nearly
+    /// 14 GB of the peak had already been released by the time anything looked.
+    static func peakFootprintBytes(of pid: pid_t) -> Int64? {
+        guard pid > 0 else { return nil }
+        var info = rusage_info_v4()
+        let result = withUnsafeMutablePointer(to: &info) { pointer -> Int32 in
+            pointer.withMemoryRebound(to: rusage_info_t?.self, capacity: 1) {
+                proc_pid_rusage(pid, RUSAGE_INFO_V4, $0)
+            }
+        }
+        guard result == 0 else { return nil }
+        return Int64(info.ri_lifetime_max_phys_footprint)
+    }
+
+    /// A process tree's lifetime peak, summed the same way as the current total.
+    static func treePeakFootprintBytes(of root: pid_t) -> Int64? {
+        guard root > 0 else { return nil }
+        let parents = parentsByPID()
+        var total = peakFootprintBytes(of: root) ?? 0
+        var counted: Set<pid_t> = [root]
+        var grew = true
+        while grew {
+            grew = false
+            for (pid, parent) in parents where !counted.contains(pid) && counted.contains(parent) {
+                counted.insert(pid)
+                total += peakFootprintBytes(of: pid) ?? 0
+                grew = true
+            }
+        }
+        return total
     }
 
     /// This app's own footprint, which is the smaller half of the story.

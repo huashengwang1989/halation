@@ -26,9 +26,12 @@ final class RenderEngine {
     struct MemoryUsage: Sendable, Equatable {
         var appBytes: Int64
         var engineBytes: Int64
-        /// Highest total seen during this render, not the highest of either part
-        /// alone: the question it answers is whether the machine came close to
-        /// running out, and that depends on the sum at one moment.
+        /// Highest total reached during this render.
+        ///
+        /// From the kernel's own lifetime maximum rather than the highest value
+        /// this sampler happened to see. On a measured render the two differed
+        /// by 14 GB — 120 GB peak against 106 GB when next polled — because a
+        /// two-second poll cannot catch a spike between samples.
         var peakTotalBytes: Int64
 
         var totalBytes: Int64 { appBytes + engineBytes }
@@ -318,10 +321,12 @@ final class RenderEngine {
         memoryTask = Task { [weak self] in
             while !Task.isCancelled {
                 let engine = await backend.currentMemoryBytes() ?? 0
+                let enginePeak = await backend.peakMemoryBytes() ?? engine
                 let app = ProcessMemory.ownFootprintBytes
+                let appPeak = ProcessMemory.peakFootprintBytes(of: getpid()) ?? app
                 await MainActor.run {
                     guard let self else { return }
-                    let peak = max(self.memoryUsage?.peakTotalBytes ?? 0, app + engine)
+                    let peak = max(self.memoryUsage?.peakTotalBytes ?? 0, appPeak + enginePeak)
                     self.memoryUsage = .init(appBytes: app, engineBytes: engine,
                                              peakTotalBytes: peak)
                     // Carried onto the job too, so the Queue row still shows a

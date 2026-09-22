@@ -225,8 +225,8 @@
 
 "memory.table.combination" = "Model and engine";
 
-/* Footnote under the table. The doubling comes from one measured render (55 GB of weights peaking at 106 GB), so it is a rule of thumb rather than a specification. */
-"memory.table.note" = "Weights are only part of it: generating needs working memory on top, and a measured render held about twice its weight figure at peak. The verdicts above allow for that. The usable share is what Metal reports for the machine — roughly three quarters to five sixths of what is installed, higher on the larger configurations.";
+/* Footnote under the table, and the only place the verdict words are explained. The 2.4x multiplier and the swap figure both come from one measured MLX render (50 GB of weights peaking at 120 GB on a 128 GB Mac), so it is a rule of thumb rather than a specification. Keep the quoted words identical to memory.verdict.tight and .swaps. */
+"memory.table.note" = "Weights are only part of it: generating needs working memory on top, and a measured render peaked at about 2.4 times its weight figure. The verdicts allow for that. “Tight” means the peak clears the usable share but still fits in installed memory, so macOS pages some of it out and the render finishes anyway — measured, a 120 GB peak on a 128 GB Mac used 16 GB of swap and completed. “Swaps” means it exceeds installed memory, and a render that would take an hour takes far longer. The usable share is what Metal reports for the machine — roughly three quarters to five sixths of what is installed, higher on the larger configurations.";
 
 "memory.table.orLess" = "%@ or less";
 
@@ -983,6 +983,9 @@
 
 /* Imperative verb on a button: reinstall the broken parts of the runtime. Not a noun. */
 "settings.repair" = "Repair";
+
+/* Heads the memory and disk tables together, in Settings and as the welcome dialog's second page. Both tables answer one question — will this machine run it — so they share a heading. */
+"settings.requirements" = "Requirements";
 
 /* The Python environment the app manages, not a term of art: TW says 執行環境, mainland 运行时. */
 "settings.runtime" = "Runtime";

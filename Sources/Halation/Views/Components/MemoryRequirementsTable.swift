@@ -60,10 +60,17 @@ struct MemoryRequirementsTable: View {
         }
     }
 
-    /// Generation holds roughly twice the weights at peak — 55 GB of weights
-    /// measured at 106 GB — so a table that compared weights against the budget
-    /// would call a combination comfortable that in fact swaps.
-    private static let peakMultiplier = 2.0
+    /// Generation holds well over twice the weights at peak.
+    ///
+    /// Measured on a live MLX render of the 4-bit set: 50 GB of catalogue
+    /// weights against a kernel-reported lifetime peak of 120 GB, so 2.4. A
+    /// table comparing weights alone against the budget would call that
+    /// combination comfortable on a 128 GB Mac, which it is not — that render
+    /// drove swap to 16 GB.
+    ///
+    /// One measurement, on one engine. The per-job peak the queue now records
+    /// will accumulate more, and this should follow them.
+    private static let peakMultiplier = 2.4
 
     private let gigabyte: Int64 = 1_073_741_824
 
@@ -106,11 +113,19 @@ struct MemoryRequirementsTable: View {
         ]
     }
 
+    /// Three outcomes, drawn at the two boundaries that change what happens
+    /// rather than at two points on one scale.
+    ///
+    /// Under the GPU's budget, nothing pages and the render runs at full speed.
+    /// Over that budget but under installed memory, macOS pages some of it and
+    /// the render still finishes — measured: a 120 GB peak on a 128 GB Mac drove
+    /// swap to 16 GB and completed. Over installed memory it is paging in
+    /// earnest, and a render that would take an hour takes far longer.
     private func verdict(_ row: Row, on machine: Machine) -> Verdict {
         let peak = Double(row.weightBytes) * Self.peakMultiplier
-        if peak > Double(machine.highBudget) { return .swaps }
-        if peak > Double(machine.lowBudget) { return .tight }
-        return .fits
+        if peak <= Double(machine.highBudget) { return .fits }
+        if peak <= Double(machine.installedBytes) { return .tight }
+        return .swaps
     }
 
     var body: some View {

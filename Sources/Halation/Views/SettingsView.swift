@@ -15,8 +15,9 @@ struct SettingsView: View {
             Tab("ComfyUI", systemImage: "square.stack.3d.up", value: SettingsTab.comfyUI) {
                 ComfyUISettings()
             }
-            Tab(loc("settings.memory"), systemImage: "memorychip", value: SettingsTab.memory) {
-                MemorySettings()
+            Tab(loc("settings.requirements"), systemImage: "memorychip",
+                value: SettingsTab.requirements) {
+                RequirementsSettings()
             }
             Tab(loc("settings.cache"), systemImage: "trash", value: SettingsTab.cache) {
                 CacheSettings()
@@ -30,7 +31,7 @@ struct SettingsView: View {
     }
 }
 
-enum SettingsTab: Hashable { case general, runtime, comfyUI, memory, cache, advanced }
+enum SettingsTab: Hashable { case general, runtime, comfyUI, requirements, cache, advanced }
 
 /// Stops AppKit drawing a focus ring on the Settings tab bar.
 ///
@@ -441,13 +442,27 @@ private struct CacheSettings: View {
     }
 }
 
-/// Settings ▸ Memory: the same table the welcome dialog shows, so the answer is
-/// still reachable after onboarding has been dismissed and forgotten.
-private struct MemorySettings: View {
+/// Settings ▸ Requirements: the same two tables the welcome dialog shows, so the
+/// answer stays reachable after onboarding has been dismissed and forgotten.
+///
+/// Both together because they are one question asked twice. The disk figure
+/// depends on the memory figure — whatever a render cannot hold gets paged out —
+/// so a reader who sees only one of them draws the wrong conclusion from it.
+private struct RequirementsSettings: View {
     var body: some View {
         ScrollView {
-            MemoryRequirementsTable()
-                .padding(20)
+            VStack(alignment: .leading, spacing: 24) {
+                VStack(alignment: .leading, spacing: 10) {
+                    Text(loc("settings.memory")).font(.headline)
+                    MemoryRequirementsTable()
+                }
+                Divider()
+                VStack(alignment: .leading, spacing: 10) {
+                    Text(loc("settings.disk")).font(.headline)
+                    DiskRequirementsTable()
+                }
+            }
+            .padding(20)
         }
     }
 }

@@ -225,8 +225,8 @@
 
 "memory.table.combination" = "モデルとエンジン";
 
-/* Footnote under the table. The doubling comes from one measured render (55 GB of weights peaking at 106 GB), so it is a rule of thumb rather than a specification. */
-"memory.table.note" = "重みは一部にすぎません。生成にはさらに作業用メモリが必要で、実測したレンダリングのピークは重みの約二倍でした。上の判定はそれを見込んでいます。使える割合は Metal がその機械について報告する値で、搭載量のおよそ四分の三から六分の五、容量が大きいほど高くなります。";
+/* Footnote under the table, and the only place the verdict words are explained. The 2.4x multiplier and the swap figure both come from one measured MLX render (50 GB of weights peaking at 120 GB on a 128 GB Mac), so it is a rule of thumb rather than a specification. Keep the quoted words identical to memory.verdict.tight and .swaps. */
+"memory.table.note" = "重みは一部にすぎません。生成にはさらに作業用メモリが必要で、実測したレンダリングのピークは重みの約 2.4 倍でした。判定はそれを見込んでいます。「ぎりぎり」はピークが使える割当てを超えるものの搭載メモリには収まる状態で、macOS が一部を退避させながらもレンダリングは完走します——実測では 128 GB の Mac でピーク 120 GB、スワップ 16 GB を使って完了しました。「スワップ」は搭載メモリを超える状態で、一時間で済むレンダリングがはるかに長くかかります。使える割合は Metal がその機械について報告する値で、搭載量のおよそ四分の三から六分の五、容量が大きいほど高くなります。";
 
 "memory.table.orLess" = "%@ 以下";
 
@@ -983,6 +983,9 @@
 
 /* Imperative verb on a button: reinstall the broken parts of the runtime. Not a noun. */
 "settings.repair" = "修復";
+
+/* Heads the memory and disk tables together, in Settings and as the welcome dialog's second page. Both tables answer one question — will this machine run it — so they share a heading. */
+"settings.requirements" = "動作要件";
 
 /* The Python environment the app manages, not a term of art: TW says 執行環境, mainland 运行时. */
 "settings.runtime" = "実行環境";

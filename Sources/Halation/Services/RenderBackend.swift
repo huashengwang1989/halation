@@ -52,6 +52,8 @@ protocol RenderBackend: Sendable {
 
     /// Resident memory of the process doing the work, if it is running.
     func currentMemoryBytes() async -> Int64?
+    /// Highest the engine has reached, from the kernel rather than sampled.
+    func peakMemoryBytes() async -> Int64?
 }
 
 // MARK: - MLX
@@ -135,6 +137,11 @@ actor MLXBackend: RenderBackend {
     func currentMemoryBytes() async -> Int64? {
         guard let pid = await runner?.processIdentifier else { return nil }
         return ProcessMemory.treeFootprintBytes(of: pid)
+    }
+
+    func peakMemoryBytes() async -> Int64? {
+        guard let pid = await runner?.processIdentifier else { return nil }
+        return ProcessMemory.treePeakFootprintBytes(of: pid)
     }
 }
 
