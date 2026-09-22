@@ -247,6 +247,21 @@
 
 "library.useSettings" = "ใช้การตั้งค่านี้";
 
+/* Legend on the memory chart: Halation's own process, which is small — under a gigabyte even mid-render. */
+"memory.chart.app" = "แอป";
+
+/* Legend on the memory chart: everything this app spawned — the MLX sidecar, the ComfyUI server. Usually the largest band by far. */
+"memory.chart.engine" = "เอนจิน";
+
+/* Legend on the memory chart: the GPU driver's own wired memory, not the engine's Metal buffers — those are counted under Engine. */
+"memory.chart.graphics" = "กราฟิก";
+
+/* Labels the band above the rule on the memory chart, and its legend swatch. Keep it identical to memory.verdict.swaps in spirit: this is the same thing that verdict warns about, happening. */
+"memory.chart.swap" = "สลับ";
+
+/* Legend on the memory chart: memory used, less this app, its engine and the graphics driver. The longest label, so it sets the row's width. */
+"memory.chart.system" = "ระบบและแอปอื่น";
+
 /* Sub-heading row under each machine size, giving the share of unified memory the GPU may actually hold. */
 "memory.table.budget" = "ใช้ได้สำหรับโมเดล";
 

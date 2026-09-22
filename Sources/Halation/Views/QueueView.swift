@@ -6,6 +6,21 @@ struct QueueView: View {
     @State private var logJobID: UUID?
 
     var body: some View {
+        VStack(spacing: 0) {
+            // Pinned rather than a list header: this is watched while a render
+            // scrolls past, so it must not move with the rows. Above the empty
+            // state too — what the machine is doing is worth seeing before
+            // there is anything queued.
+            MemoryChartRow()
+            Divider()
+            queue
+        }
+    }
+
+    /// Everything that was the body before the chart was pinned above it. The
+    /// toolbar and sheets stay attached here; SwiftUI carries them up.
+    @ViewBuilder
+    private var queue: some View {
         Group {
             if app.engine.jobs.isEmpty {
                 ContentUnavailableView {

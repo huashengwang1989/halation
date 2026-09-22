@@ -6762,3 +6762,43 @@ add("table.thisMac", {
 }, note="Tooltip on the marker beside the column matching the running Mac's "
         "memory, in both requirements tables. The marker rounds down, so a "
         "machine between two configurations is marked on the smaller one.")
+
+# ── Memory chart (Queue header) ──────────────────────────────────────────────
+add("memory.chart.graphics", {
+    "en": "Graphics", "zh-Hant": "繪圖", "zh-Hans": "绘图",
+    "de": "Grafik", "ar": "الرسوميات", "ja": "グラフィック",
+    "ko": "그래픽", "th": "กราฟิก", "yue-Hant": "繪圖",
+    "en-SG": "Graphics",
+}, note="Legend on the memory chart: the GPU driver's own wired memory, not "
+        "the engine's Metal buffers — those are counted under Engine.")
+add("memory.chart.system", {
+    "en": "System and other apps",
+    "zh-Hant": "系統與其他 App", "zh-Hans": "系统与其他 App",
+    "de": "System und andere Apps", "ar": "النظام والتطبيقات الأخرى",
+    "ja": "システムとほかの App", "ko": "시스템 및 다른 App",
+    "th": "ระบบและแอปอื่น", "yue-Hant": "系統同其他 App",
+    "en-SG": "System and other apps",
+}, note="Legend on the memory chart: memory used, less this app, its engine "
+        "and the graphics driver. The longest label, so it sets the row's width.")
+add("memory.chart.engine", {
+    "en": "Engine", "zh-Hant": "引擎", "zh-Hans": "引擎",
+    "de": "Engine", "ar": "المحرّك", "ja": "エンジン",
+    "ko": "엔진", "th": "เอนจิน", "yue-Hant": "引擎",
+    "en-SG": "Engine",
+}, note="Legend on the memory chart: everything this app spawned — the MLX "
+        "sidecar, the ComfyUI server. Usually the largest band by far.")
+add("memory.chart.app", {
+    "en": "App", "zh-Hant": "App", "zh-Hans": "App",
+    "de": "App", "ar": "التطبيق", "ja": "App",
+    "ko": "App", "th": "แอป", "yue-Hant": "App",
+    "en-SG": "App",
+}, note="Legend on the memory chart: Halation's own process, which is small — "
+        "under a gigabyte even mid-render.")
+add("memory.chart.swap", {
+    "en": "Swap", "zh-Hant": "置換空間", "zh-Hans": "交换空间",
+    "de": "Swap", "ar": "التبديل", "ja": "スワップ",
+    "ko": "스왑", "th": "สลับ", "yue-Hant": "置換空間",
+    "en-SG": "Swap",
+}, note="Labels the band above the rule on the memory chart, and its legend "
+        "swatch. Keep it identical to memory.verdict.swaps in spirit: this is "
+        "the same thing that verdict warns about, happening.")
