@@ -209,6 +209,33 @@
 
 "library.useSettings" = "沿用这些设置";
 
+/* Sub-heading row under each machine size, giving the share of unified memory the GPU may actually hold. */
+"memory.table.budget" = "可给模型使用";
+
+"memory.table.combination" = "模型与引擎";
+
+/* Footnote under the table. The doubling comes from one measured render (55 GB of weights peaking at 106 GB), so it is a rule of thumb rather than a specification. */
+"memory.table.note" = "权重只是其中一部分：生成时还需要额外的工作内存，实测一次渲染的峰值约为权重数字的两倍。上表的判定已计入这点。可用比例取自 Metal 对该机器的报告——大约是安装容量的四分之三到六分之五，容量越大比例越高。";
+
+"memory.table.orLess" = "%@ 或更少";
+
+"memory.table.orMore" = "超过 %@";
+
+/* Read from the machine rather than assumed: the second figure is what Metal reports as the recommended maximum working set. */
+"memory.table.thisMac" = "本机：已安装 %1$@，可给模型使用 %2$@。";
+
+/* Column heading: how much the weights alone occupy, before the working memory generation needs on top. */
+"memory.table.weights" = "权重";
+
+/* Verdict in a table cell: this combination runs without swapping. */
+"memory.verdict.fits" = "可运行";
+
+/* Verdict: it does not fit, so macOS pages to disk and a render that would take an hour takes far longer. Not a refusal — the app still lets the user try. */
+"memory.verdict.swaps" = "会置换";
+
+/* Verdict: it will run, but with almost nothing to spare, so anything else on the machine may push it into swap. */
+"memory.verdict.tight" = "勉强";
+
 /* Help menu item opening the licence window. The window's own text is English only — see LicensesView. */
 "menu.licenses" = "许可";
 
@@ -883,6 +910,9 @@
 
 /* Imperative verb: empty the log. Not the adjective "clear" meaning legible or transparent. */
 "settings.log.clear" = "清除";
+
+/* Settings tab, and the welcome dialog's second page: which model and engine combinations fit in how much unified memory. */
+"settings.memory" = "内存";
 
 "settings.mlxMetal" = "MLX on Metal";
 

@@ -15,6 +15,9 @@ struct SettingsView: View {
             Tab("ComfyUI", systemImage: "square.stack.3d.up", value: SettingsTab.comfyUI) {
                 ComfyUISettings()
             }
+            Tab(loc("settings.memory"), systemImage: "memorychip", value: SettingsTab.memory) {
+                MemorySettings()
+            }
             Tab(loc("settings.cache"), systemImage: "trash", value: SettingsTab.cache) {
                 CacheSettings()
             }
@@ -27,7 +30,7 @@ struct SettingsView: View {
     }
 }
 
-enum SettingsTab: Hashable { case general, runtime, comfyUI, cache, advanced }
+enum SettingsTab: Hashable { case general, runtime, comfyUI, memory, cache, advanced }
 
 /// Stops AppKit drawing a focus ring on the Settings tab bar.
 ///
@@ -435,5 +438,16 @@ private struct CacheSettings: View {
         working = true
         await work()
         working = false
+    }
+}
+
+/// Settings ▸ Memory: the same table the welcome dialog shows, so the answer is
+/// still reachable after onboarding has been dismissed and forgotten.
+private struct MemorySettings: View {
+    var body: some View {
+        ScrollView {
+            MemoryRequirementsTable()
+                .padding(20)
+        }
     }
 }

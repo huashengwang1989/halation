@@ -209,6 +209,33 @@
 
 "library.useSettings" = "이 설정 사용";
 
+/* Sub-heading row under each machine size, giving the share of unified memory the GPU may actually hold. */
+"memory.table.budget" = "모델이 쓸 수 있는 양";
+
+"memory.table.combination" = "모델과 엔진";
+
+/* Footnote under the table. The doubling comes from one measured render (55 GB of weights peaking at 106 GB), so it is a rule of thumb rather than a specification. */
+"memory.table.note" = "가중치는 일부일 뿐입니다. 생성에는 별도의 작업 메모리가 필요하고, 실측한 렌더링은 최대치에서 가중치의 약 두 배를 차지했습니다. 위 판정은 그것을 감안한 것입니다. 사용 가능한 비율은 Metal이 해당 기기에 대해 보고하는 값으로, 설치된 용량의 약 4분의 3에서 6분의 5이며 용량이 클수록 높아집니다.";
+
+"memory.table.orLess" = "%@ 이하";
+
+"memory.table.orMore" = "%@ 초과";
+
+/* Read from the machine rather than assumed: the second figure is what Metal reports as the recommended maximum working set. */
+"memory.table.thisMac" = "이 Mac: %1$@ 설치, 모델이 쓸 수 있는 양 %2$@.";
+
+/* Column heading: how much the weights alone occupy, before the working memory generation needs on top. */
+"memory.table.weights" = "가중치";
+
+/* Verdict in a table cell: this combination runs without swapping. */
+"memory.verdict.fits" = "실행 가능";
+
+/* Verdict: it does not fit, so macOS pages to disk and a render that would take an hour takes far longer. Not a refusal — the app still lets the user try. */
+"memory.verdict.swaps" = "스와핑함";
+
+/* Verdict: it will run, but with almost nothing to spare, so anything else on the machine may push it into swap. */
+"memory.verdict.tight" = "빡빡함";
+
 /* Help menu item opening the licence window. The window's own text is English only — see LicensesView. */
 "menu.licenses" = "라이선스";
 
@@ -883,6 +910,9 @@
 
 /* Imperative verb: empty the log. Not the adjective "clear" meaning legible or transparent. */
 "settings.log.clear" = "지우기";
+
+/* Settings tab, and the welcome dialog's second page: which model and engine combinations fit in how much unified memory. */
+"settings.memory" = "메모리";
 
 "settings.mlxMetal" = "Metal 기반 MLX";
 

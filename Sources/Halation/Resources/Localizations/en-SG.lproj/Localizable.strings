@@ -209,6 +209,33 @@
 
 "library.useSettings" = "Use These Settings";
 
+/* Sub-heading row under each machine size, giving the share of unified memory the GPU may actually hold. */
+"memory.table.budget" = "Usable for a model";
+
+"memory.table.combination" = "Model and engine";
+
+/* Footnote under the table. The doubling comes from one measured render (55 GB of weights peaking at 106 GB), so it is a rule of thumb rather than a specification. */
+"memory.table.note" = "Weights are only part of the story: generating needs working memory on top, and one measured render held about twice its weight figure at peak. The verdicts above already count that in. The usable share is whatever Metal reports for the machine — roughly three quarters to five sixths of what is installed, higher on the bigger configurations.";
+
+"memory.table.orLess" = "%@ or less";
+
+"memory.table.orMore" = "More than %@";
+
+/* Read from the machine rather than assumed: the second figure is what Metal reports as the recommended maximum working set. */
+"memory.table.thisMac" = "This Mac: %1$@ installed, %2$@ usable for a model.";
+
+/* Column heading: how much the weights alone occupy, before the working memory generation needs on top. */
+"memory.table.weights" = "Weights";
+
+/* Verdict in a table cell: this combination runs without swapping. */
+"memory.verdict.fits" = "Can";
+
+/* Verdict: it does not fit, so macOS pages to disk and a render that would take an hour takes far longer. Not a refusal — the app still lets the user try. */
+"memory.verdict.swaps" = "Will swap";
+
+/* Verdict: it will run, but with almost nothing to spare, so anything else on the machine may push it into swap. */
+"memory.verdict.tight" = "Very tight";
+
 /* Help menu item opening the licence window. The window's own text is English only — see LicensesView. */
 "menu.licenses" = "Licences";
 
@@ -883,6 +910,9 @@
 
 /* Imperative verb: empty the log. Not the adjective "clear" meaning legible or transparent. */
 "settings.log.clear" = "Clear";
+
+/* Settings tab, and the welcome dialog's second page: which model and engine combinations fit in how much unified memory. */
+"settings.memory" = "Memory";
 
 "settings.mlxMetal" = "MLX on Metal";
 

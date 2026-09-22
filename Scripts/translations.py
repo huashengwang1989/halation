@@ -6522,3 +6522,104 @@ add("settings.cache.scratch.detail", {
     "en-SG": "Working files from renders that got interrupted. A render that finishes "
              "clears its own.",
 })
+
+# ── Memory requirements table ────────────────────────────────────────────────
+add("settings.memory", {
+    "en": "Memory", "zh-Hant": "記憶體", "zh-Hans": "内存", "de": "Speicher",
+    "ar": "الذاكرة", "ja": "メモリ", "ko": "메모리", "th": "หน่วยความจำ",
+    "yue-Hant": "記憶體", "en-SG": "Memory",
+}, note="Settings tab, and the welcome dialog's second page: which model and "
+        "engine combinations fit in how much unified memory.")
+add("memory.table.combination", {
+    "en": "Model and engine", "zh-Hant": "模型與引擎", "zh-Hans": "模型与引擎",
+    "de": "Modell und Engine", "ar": "النموذج والمحرّك", "ja": "モデルとエンジン",
+    "ko": "모델과 엔진", "th": "โมเดลและเอนจิน", "yue-Hant": "模型同引擎",
+    "en-SG": "Model and engine",
+})
+add("memory.table.weights", {
+    "en": "Weights", "zh-Hant": "權重", "zh-Hans": "权重", "de": "Gewichte",
+    "ar": "الأوزان", "ja": "重み", "ko": "가중치", "th": "ไฟล์น้ำหนัก",
+    "yue-Hant": "權重", "en-SG": "Weights",
+}, note="Column heading: how much the weights alone occupy, before the working "
+        "memory generation needs on top.")
+add("memory.table.budget", {
+    "en": "Usable for a model", "zh-Hant": "可給模型使用", "zh-Hans": "可给模型使用",
+    "de": "Für ein Modell nutzbar", "ar": "المتاح للنموذج",
+    "ja": "モデルに使える量", "ko": "모델이 쓸 수 있는 양",
+    "th": "ใช้ได้สำหรับโมเดล", "yue-Hant": "可以俾模型用", "en-SG": "Usable for a model",
+}, note="Sub-heading row under each machine size, giving the share of unified "
+        "memory the GPU may actually hold.")
+add("memory.table.orLess", {
+    "en": "%@ or less", "zh-Hant": "%@ 或更少", "zh-Hans": "%@ 或更少",
+    "de": "%@ oder weniger", "ar": "%@ أو أقل", "ja": "%@ 以下", "ko": "%@ 이하",
+    "th": "%@ หรือน้อยกว่า", "yue-Hant": "%@ 或者更少", "en-SG": "%@ or less",
+})
+add("memory.table.orMore", {
+    "en": "More than %@", "zh-Hant": "超過 %@", "zh-Hans": "超过 %@",
+    "de": "Mehr als %@", "ar": "أكثر من %@", "ja": "%@ 超", "ko": "%@ 초과",
+    "th": "มากกว่า %@", "yue-Hant": "多過 %@", "en-SG": "More than %@",
+})
+add("memory.verdict.fits", {
+    "en": "Fits", "zh-Hant": "可執行", "zh-Hans": "可运行", "de": "Passt",
+    "ar": "يكفي", "ja": "動きます", "ko": "실행 가능", "th": "รันได้",
+    "yue-Hant": "行得", "en-SG": "Can",
+}, note="Verdict in a table cell: this combination runs without swapping.")
+add("memory.verdict.tight", {
+    "en": "Tight", "zh-Hant": "勉強", "zh-Hans": "勉强", "de": "Knapp",
+    "ar": "على الحد", "ja": "ぎりぎり", "ko": "빡빡함", "th": "เฉียดฉิว",
+    "yue-Hant": "好緊", "en-SG": "Very tight",
+}, note="Verdict: it will run, but with almost nothing to spare, so anything "
+        "else on the machine may push it into swap.")
+add("memory.verdict.swaps", {
+    "en": "Swaps", "zh-Hant": "會置換", "zh-Hans": "会置换", "de": "Swappt",
+    "ar": "يستخدم التبديل", "ja": "スワップします", "ko": "스와핑함",
+    "th": "จะสลับหน่วยความจำ", "yue-Hant": "會置換", "en-SG": "Will swap",
+}, note="Verdict: it does not fit, so macOS pages to disk and a render that "
+        "would take an hour takes far longer. Not a refusal — the app still "
+        "lets the user try.")
+add("memory.table.note", {
+    "en": "Weights are only part of it: generating needs working memory on top, "
+          "and a measured render held about twice its weight figure at peak. The "
+          "verdicts above allow for that. The usable share is what Metal reports "
+          "for the machine — roughly three quarters to five sixths of what is "
+          "installed, higher on the larger configurations.",
+    "zh-Hant": "權重只是其中一部分：生成時還需要額外的工作記憶體，實測一次算圖的尖峰約為權重數字的兩倍。上表的判定已計入這點。可用比例取自 Metal 對該機器的回報——大約是安裝容量的四分之三到六分之五，容量越大比例越高。",
+    "zh-Hans": "权重只是其中一部分：生成时还需要额外的工作内存，实测一次渲染的峰值约为权重数字的两倍。上表的判定已计入这点。可用比例取自 Metal 对该机器的报告——大约是安装容量的四分之三到六分之五，容量越大比例越高。",
+    "de": "Die Gewichte sind nur ein Teil: Das Erzeugen braucht zusätzlich "
+          "Arbeitsspeicher, und ein gemessener Render hielt in der Spitze etwa "
+          "das Doppelte seines Gewichtswerts. Die Urteile oben berücksichtigen "
+          "das. Der nutzbare Anteil ist der, den Metal für die Maschine meldet — "
+          "etwa drei Viertel bis fünf Sechstel des Verbauten, bei größeren "
+          "Konfigurationen mehr.",
+    "ar": "الأوزان ليست كل الحكاية: التوليد يحتاج ذاكرة عمل إضافية، وقد بلغ أحد "
+          "عمليات التصيير المقيسة نحو ضعف رقم أوزانه في الذروة. والأحكام أعلاه "
+          "تأخذ ذلك في الحساب. أما الحصة المتاحة فهي ما يبلّغ عنه Metal لهذا "
+          "الجهاز — نحو ثلاثة أرباع إلى خمسة أسداس المثبَّت، وترتفع في التكوينات الأكبر.",
+    "ja": "重みは一部にすぎません。生成にはさらに作業用メモリが必要で、実測したレンダリングのピークは重みの約二倍でした。上の判定はそれを見込んでいます。使える割合は Metal がその機械について報告する値で、搭載量のおよそ四分の三から六分の五、容量が大きいほど高くなります。",
+    "ko": "가중치는 일부일 뿐입니다. 생성에는 별도의 작업 메모리가 필요하고, 실측한 렌더링은 최대치에서 가중치의 약 두 배를 차지했습니다. 위 판정은 그것을 감안한 것입니다. 사용 가능한 비율은 Metal이 해당 기기에 대해 보고하는 값으로, 설치된 용량의 약 4분의 3에서 6분의 5이며 용량이 클수록 높아집니다.",
+    "th": "ไฟล์น้ำหนักเป็นเพียงส่วนหนึ่ง การสร้างต้องใช้หน่วยความจำทำงานเพิ่มอีก "
+          "และการเรนเดอร์ที่วัดได้ใช้สูงสุดราวสองเท่าของตัวเลขน้ำหนัก ผลสรุปด้านบนคิดเผื่อไว้แล้ว "
+          "สัดส่วนที่ใช้ได้คือค่าที่ Metal รายงานสำหรับเครื่องนั้น — ราวสามในสี่ถึงห้าในหกของที่ติดตั้ง "
+          "และสูงขึ้นในรุ่นที่หน่วยความจำมากกว่า",
+    "yue-Hant": "權重只係其中一part：生成嗰陣仲要額外嘅工作記憶體，實測一次算圖尖峰大概係權重數字嘅兩倍。上面嘅判斷已經計咗呢樣。可用比例係 Metal 對部機嘅回報——大概係安裝容量嘅四分三到六分五，容量越大比例越高。",
+    "en-SG": "Weights are only part of the story: generating needs working memory on "
+             "top, and one measured render held about twice its weight figure at "
+             "peak. The verdicts above already count that in. The usable share is "
+             "whatever Metal reports for the machine — roughly three quarters to "
+             "five sixths of what is installed, higher on the bigger configurations.",
+}, note="Footnote under the table. The doubling comes from one measured render "
+        "(55 GB of weights peaking at 106 GB), so it is a rule of thumb rather "
+        "than a specification.")
+add("memory.table.thisMac", {
+    "en": "This Mac: %1$@ installed, %2$@ usable for a model.",
+    "zh-Hant": "本機：已安裝 %1$@，可給模型使用 %2$@。",
+    "zh-Hans": "本机：已安装 %1$@，可给模型使用 %2$@。",
+    "de": "Dieser Mac: %1$@ verbaut, %2$@ für ein Modell nutzbar.",
+    "ar": "هذا الـ Mac: %1$@ مثبَّتة، و%2$@ متاحة للنموذج.",
+    "ja": "この Mac：搭載 %1$@、モデルに使えるのは %2$@。",
+    "ko": "이 Mac: %1$@ 설치, 모델이 쓸 수 있는 양 %2$@.",
+    "th": "Mac เครื่องนี้: ติดตั้ง %1$@ ใช้ได้สำหรับโมเดล %2$@",
+    "yue-Hant": "本機：裝咗 %1$@，可以俾模型用 %2$@。",
+    "en-SG": "This Mac: %1$@ installed, %2$@ usable for a model.",
+}, note="Read from the machine rather than assumed: the second figure is what "
+        "Metal reports as the recommended maximum working set.")

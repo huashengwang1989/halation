@@ -1,5 +1,6 @@
 import Darwin
 import Foundation
+import Metal
 
 /// What this particular Mac is, for the two things the app has to size to it:
 /// how long a render will take, and whether a checkpoint fits in memory at all.
@@ -26,6 +27,23 @@ enum MachineProfile {
     /// the system. Exceeding it does not fail cleanly: it swaps, and a render that
     /// would have taken an hour takes a day.
     static var usableWeightBytes: Int64 { physicalBytes * 3 / 4 }
+
+    /// What Metal actually reports this machine will let a model hold.
+    ///
+    /// Read rather than assumed, because the three-quarters rule above is only
+    /// an approximation and errs in the permissive direction on large machines:
+    /// on an M4 Max with 128 GB, `recommendedMaxWorkingSetSize` is 107.5 GB —
+    /// 84%, not 75%. The share rises with installed memory, so a single fraction
+    /// cannot be right for both an 8 GB Mac and a 512 GB one.
+    ///
+    /// Used for display. `usableWeightBytes` still drives the fit warnings,
+    /// deliberately: it is the more conservative of the two, and the figure that
+    /// matters is peak-during-generation rather than weights, which is roughly
+    /// twice the weights and so overruns either budget sooner than this suggests.
+    static var metalUsableBytes: Int64? {
+        guard let device = MTLCreateSystemDefaultDevice() else { return nil }
+        return Int64(device.recommendedMaxWorkingSetSize)
+    }
 
     /// Whether a given resident footprint fits, and how comfortably.
     enum Fit {

@@ -209,6 +209,33 @@
 
 "library.useSettings" = "استخدام هذه الإعدادات";
 
+/* Sub-heading row under each machine size, giving the share of unified memory the GPU may actually hold. */
+"memory.table.budget" = "المتاح للنموذج";
+
+"memory.table.combination" = "النموذج والمحرّك";
+
+/* Footnote under the table. The doubling comes from one measured render (55 GB of weights peaking at 106 GB), so it is a rule of thumb rather than a specification. */
+"memory.table.note" = "الأوزان ليست كل الحكاية: التوليد يحتاج ذاكرة عمل إضافية، وقد بلغ أحد عمليات التصيير المقيسة نحو ضعف رقم أوزانه في الذروة. والأحكام أعلاه تأخذ ذلك في الحساب. أما الحصة المتاحة فهي ما يبلّغ عنه Metal لهذا الجهاز — نحو ثلاثة أرباع إلى خمسة أسداس المثبَّت، وترتفع في التكوينات الأكبر.";
+
+"memory.table.orLess" = "%@ أو أقل";
+
+"memory.table.orMore" = "أكثر من %@";
+
+/* Read from the machine rather than assumed: the second figure is what Metal reports as the recommended maximum working set. */
+"memory.table.thisMac" = "هذا الـ Mac: %1$@ مثبَّتة، و%2$@ متاحة للنموذج.";
+
+/* Column heading: how much the weights alone occupy, before the working memory generation needs on top. */
+"memory.table.weights" = "الأوزان";
+
+/* Verdict in a table cell: this combination runs without swapping. */
+"memory.verdict.fits" = "يكفي";
+
+/* Verdict: it does not fit, so macOS pages to disk and a render that would take an hour takes far longer. Not a refusal — the app still lets the user try. */
+"memory.verdict.swaps" = "يستخدم التبديل";
+
+/* Verdict: it will run, but with almost nothing to spare, so anything else on the machine may push it into swap. */
+"memory.verdict.tight" = "على الحد";
+
 /* Help menu item opening the licence window. The window's own text is English only — see LicensesView. */
 "menu.licenses" = "التراخيص";
 
@@ -883,6 +910,9 @@
 
 /* Imperative verb: empty the log. Not the adjective "clear" meaning legible or transparent. */
 "settings.log.clear" = "مسح";
+
+/* Settings tab, and the welcome dialog's second page: which model and engine combinations fit in how much unified memory. */
+"settings.memory" = "الذاكرة";
 
 "settings.mlxMetal" = "‏MLX على Metal";
 
