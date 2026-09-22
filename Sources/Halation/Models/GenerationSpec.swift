@@ -277,7 +277,10 @@ struct GenerationSpec: Codable, Sendable, Hashable {
                 message: loc("problem.refSlow")))
         }
 
-        if sampling.steps < 8 {
+        // MLX only. ComfyUI loads the 4-step turbo LoRA, which is distilled for
+        // exactly this range, so warning about it there contradicts the engine's
+        // own description a few lines up the same screen.
+        if sampling.steps < 8, resolvedBackend == .mlx {
             problems.append(.init(severity: .advisory,
                 message: loc("problem.lowSteps")))
         }
