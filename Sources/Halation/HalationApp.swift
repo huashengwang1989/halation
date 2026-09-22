@@ -18,6 +18,7 @@ struct HalationApp: App {
         Notifier.shared.prepare()
     }
     static let localizationWindowID = "debug-localizations"
+    static let interactionLogWindowID = "debug-interaction-log"
 
     var body: some Scene {
         WindowGroup {
@@ -96,6 +97,9 @@ struct HalationApp: App {
                     Button("Localisations (i18n)") {
                         openWindow(id: Self.localizationWindowID)
                     }
+                    Button("Logs") {
+                        openWindow(id: Self.interactionLogWindowID)
+                    }
                     Button("Show Welcome Dialog") {
                         app.showingOnboarding = true
                     }
@@ -127,6 +131,11 @@ struct HalationApp: App {
         }
         .windowResizability(.contentSize)
 
+
+        Window("Logs", id: Self.interactionLogWindowID) {
+            InteractionLogWindow()
+        }
+        .defaultSize(width: 1000, height: 640)
 
         Window("Localisations (i18n)", id: Self.localizationWindowID) {
             LocalizationInspector()

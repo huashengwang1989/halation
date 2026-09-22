@@ -903,6 +903,12 @@
 
 "settings.cache.empty" = "沒有快取";
 
+/* A Cache tab category: the record of what was clicked, kept for debugging. Deleting it loses history and nothing else. */
+"settings.cache.interactions" = "操作記錄";
+
+/* Says plainly that the log holds no typed content, because a category named 'interaction log' invites exactly that worry. */
+"settings.cache.interactions.detail" = "本 App 記下的每次按鈕、選單與滑桿操作，用來事後釐清什麼在何時改變。裡面沒有你輸入的內容——提示詞只記長度，不記文字。";
+
 "settings.cache.note" = "這裡的東西都可以刪除，不會弄丟任何成果——需要時會重建或重新下載。模型權重與完成的影片不在此列：它們在「一般」分頁的「資料夾」一節，這裡永遠不會動到。";
 
 "settings.cache.scratch" = "算圖暫存";

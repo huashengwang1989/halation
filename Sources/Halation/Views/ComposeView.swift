@@ -173,6 +173,14 @@ private struct PromptCard: View {
                     .tabMovesFocus()
                     .accessibilityLabel(loc("compose.prompt.title"))
                     .accessibilityHint(loc("compose.prompt.hint"))
+                    // On losing focus, and the length rather than the text. Per
+                    // keystroke would drown the file; the text itself is the
+                    // person's own work and has no business in a debug log.
+                    .onChange(of: isFocused) { wasFocused, focused in
+                        guard wasFocused, !focused else { return }
+                        InteractionLog.shared.record(.edit, "compose.prompt",
+                                                     value: "\(spec.prompt.count)chars")
+                    }
                     .scrollContentBackground(.hidden)
                     .frame(minHeight: 108)
                     .padding(8)
@@ -198,6 +206,8 @@ private struct ModeCard: View {
             }
             .accessibilityLabel(loc("compose.mode.title"))
             .onChange(of: spec.mode) { previous, mode in
+                InteractionLog.shared.recordChange(.select, "compose.mode",
+                                                   from: previous.rawValue, to: mode.rawValue)
                 pruneReferences()
                 app.selectBestAvailableModels()
                 adjustSteps(from: previous, to: mode)
@@ -235,7 +245,14 @@ private struct ModeCard: View {
             // The two engines read different formats, so the checkpoint has to be
             // re-picked here as well as on a mode change — otherwise switching
             // engine leaves weights selected that the new one cannot load.
-            .onChange(of: spec.backend) { _, _ in app.selectBestAvailableModels() }
+            .onChange(of: spec.backend) { previous, backend in
+                // Both sides defaulted, because nil means "whatever suits the
+                // mode" and logging a nil would say less than the answer.
+                InteractionLog.shared.recordChange(
+                    .select, "compose.engine",
+                    from: (previous ?? .mlx).rawValue, to: (backend ?? .mlx).rawValue)
+                app.selectBestAvailableModels()
+            }
 
             Text(engineNote)
                 .font(.caption)

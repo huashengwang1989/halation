@@ -903,6 +903,12 @@
 
 "settings.cache.empty" = "Nichts im Cache";
 
+/* A Cache tab category: the record of what was clicked, kept for debugging. Deleting it loses history and nothing else. */
+"settings.cache.interactions" = "Interaktionsprotokoll";
+
+/* Says plainly that the log holds no typed content, because a category named 'interaction log' invites exactly that worry. */
+"settings.cache.interactions.detail" = "Jeder Knopf, jedes Menü und jeder Regler, den diese App aufgezeichnet hat, um hinterher nachvollziehen zu können, was sich wann geändert hat. Nichts Getipptes steht darin — ein Prompt wird als Länge festgehalten, nie als Text.";
+
 "settings.cache.note" = "Alles hier lässt sich löschen, ohne Arbeit zu verlieren — es wird bei Bedarf neu erzeugt oder geladen. Modellgewichte und fertige Videos stehen nicht hier: die stehen im Tab „Allgemein“ unter „Ordner“ und werden von hier aus nie angerührt.";
 
 "settings.cache.scratch" = "Render-Zwischendateien";

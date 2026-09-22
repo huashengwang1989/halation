@@ -6880,6 +6880,40 @@
       "level": "info"
     },
     {
+      "key": "settings.cache.interactions",
+      "values": {
+        "en": "Interaction log",
+        "zh-Hant": "操作記錄",
+        "zh-Hans": "操作记录",
+        "de": "Interaktionsprotokoll",
+        "ar": "سجل التفاعل",
+        "ja": "操作ログ",
+        "ko": "조작 기록",
+        "th": "บันทึกการใช้งาน",
+        "yue-Hant": "操作記錄",
+        "en-SG": "Interaction log"
+      },
+      "note": "A Cache tab category: the record of what was clicked, kept for debugging. Deleting it loses history and nothing else.",
+      "level": "info"
+    },
+    {
+      "key": "settings.cache.interactions.detail",
+      "values": {
+        "en": "Every button, menu and slider this app has recorded, for working out afterwards what changed and when. Nothing you typed is in it — a prompt is recorded as its length, never its text.",
+        "zh-Hant": "本 App 記下的每次按鈕、選單與滑桿操作，用來事後釐清什麼在何時改變。裡面沒有你輸入的內容——提示詞只記長度，不記文字。",
+        "zh-Hans": "本 App 记下的每次按钮、菜单与滑块操作，用来事后理清什么在何时改变。里面没有你输入的内容——提示词只记长度，不记文字。",
+        "de": "Jeder Knopf, jedes Menü und jeder Regler, den diese App aufgezeichnet hat, um hinterher nachvollziehen zu können, was sich wann geändert hat. Nichts Getipptes steht darin — ein Prompt wird als Länge festgehalten, nie als Text.",
+        "ar": "كل زر وقائمة وشريط تمرير سجّله هذا التطبيق، لمعرفة ما تغيّر ومتى. لا شيء مما كتبته موجود فيه — يُسجَّل الموجّه بطوله لا بنصّه.",
+        "ja": "この App が記録したボタン・メニュー・スライダーの操作すべて。あとから何がいつ変わったのかを追うためのものです。入力した内容は入っていません。プロンプトは文字数だけを記録し、本文は残しません。",
+        "ko": "이 App이 기록한 버튼·메뉴·슬라이더 조작 전부. 무엇이 언제 바뀌었는지 나중에 확인하기 위한 것입니다. 입력한 내용은 들어 있지 않습니다. 프롬프트는 글자 수만 기록하고 본문은 남기지 않습니다.",
+        "th": "ทุกปุ่ม เมนู และแถบเลื่อนที่แอปนี้บันทึกไว้ เพื่อให้ย้อนดูได้ว่าอะไรเปลี่ยนเมื่อไร สิ่งที่คุณพิมพ์ไม่ได้อยู่ในนั้น — พรอมต์ถูกบันทึกเป็นความยาว ไม่ใช่ข้อความ",
+        "yue-Hant": "呢個 App 記低嘅每次撳掣、揀餐單同拉滑桿，用嚟事後查返係咩喺幾時改咗。你打過嘅嘢唔喺入面——提示詞淨係記長度，唔記內容。",
+        "en-SG": "Every button, menu and slider this app has recorded, for working out afterwards what changed and when. Nothing you typed is in it — a prompt is recorded as its length, never its text."
+      },
+      "note": "Says plainly that the log holds no typed content, because a category named 'interaction log' invites exactly that worry.",
+      "level": "info"
+    },
+    {
       "key": "settings.cache.note",
       "values": {
         "en": "Everything here can be deleted without losing work — it is rebuilt or re-downloaded when needed. Model weights and finished videos are not listed: those live under Folders in the General tab, and are never touched from here.",

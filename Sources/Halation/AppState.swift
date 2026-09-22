@@ -38,7 +38,19 @@ final class AppState {
         }
     }
 
-    var section: Section = .compose
+    /// Navigation is logged here rather than at the sidebar, because the app
+    /// moves itself too — a finished render sends you to the Library, a
+    /// notification to the Queue — and a trail that only recorded clicks would
+    /// show the person somewhere they never chose to go.
+    var section: Section = .compose {
+        didSet {
+            guard section != oldValue else { return }
+            InteractionLog.shared.currentScreen = section.rawValue
+            InteractionLog.shared.record(.nav, "section",
+                                         from: oldValue.rawValue, to: section.rawValue,
+                                         screen: section.rawValue)
+        }
+    }
     /// The spec currently being edited in Compose.
     ///
     /// The observer keeps the mode and engine across launches. Only those two:
@@ -216,6 +228,13 @@ final class AppState {
     /// would leave a first-time user looking at an empty window, so anything we can
     /// answer from disk is answered up front and the sheet is raised immediately.
     func bootstrap() async {
+        // A launch marker gives every session a first line, which is what makes
+        // "when did this run start" answerable without guessing from the first
+        // click someone happened to make.
+        InteractionLog.shared.record(
+            .life, "app.launch",
+            value: "\(Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "?")")
+
         if !licenseAcknowledged || !runtime.isInstalled {
             showingOnboarding = true
         }
@@ -289,11 +308,22 @@ final class AppState {
 
     func generate() {
         guard canGenerate else { return }
+        // The shape of the request, not its content: enough to reproduce what
+        // was asked for without keeping the prompt itself.
+        InteractionLog.shared.record(
+            .click, "compose.generate",
+            value: "\(draft.mode.rawValue)/\(draft.resolvedBackend.rawValue)"
+                 + "/\(draft.sampling.steps)steps/\(draft.sampling.durationSeconds)s")
         _ = engine.enqueue(draft)
         section = .queue
     }
 
     func apply(preset: GenerationPreset) {
+        InteractionLog.shared.record(.select, "compose.preset", value: preset.displayName)
+        applyPreset(preset)
+    }
+
+    private func applyPreset(_ preset: GenerationPreset) {
         var spec = preset.spec
         // Keep whatever the user has already typed and attached.
         spec.prompt = draft.prompt

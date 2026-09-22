@@ -903,6 +903,12 @@
 
 "settings.cache.empty" = "Nothing cached";
 
+/* A Cache tab category: the record of what was clicked, kept for debugging. Deleting it loses history and nothing else. */
+"settings.cache.interactions" = "Interaction log";
+
+/* Says plainly that the log holds no typed content, because a category named 'interaction log' invites exactly that worry. */
+"settings.cache.interactions.detail" = "Every button, menu and slider this app has recorded, for working out afterwards what changed and when. Nothing you typed is in it — a prompt is recorded as its length, never its text.";
+
 "settings.cache.note" = "Everything here can be deleted without losing work — it is rebuilt or re-downloaded when needed. Model weights and finished videos are not listed: those live under Folders in the General tab, and are never touched from here.";
 
 "settings.cache.scratch" = "Render scratch";

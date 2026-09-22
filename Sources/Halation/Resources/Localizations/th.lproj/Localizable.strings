@@ -903,6 +903,12 @@
 
 "settings.cache.empty" = "ไม่มีแคช";
 
+/* A Cache tab category: the record of what was clicked, kept for debugging. Deleting it loses history and nothing else. */
+"settings.cache.interactions" = "บันทึกการใช้งาน";
+
+/* Says plainly that the log holds no typed content, because a category named 'interaction log' invites exactly that worry. */
+"settings.cache.interactions.detail" = "ทุกปุ่ม เมนู และแถบเลื่อนที่แอปนี้บันทึกไว้ เพื่อให้ย้อนดูได้ว่าอะไรเปลี่ยนเมื่อไร สิ่งที่คุณพิมพ์ไม่ได้อยู่ในนั้น — พรอมต์ถูกบันทึกเป็นความยาว ไม่ใช่ข้อความ";
+
 "settings.cache.note" = "ทุกอย่างที่นี่ลบได้โดยไม่เสียงาน เพราะจะถูกสร้างใหม่หรือดาวน์โหลดใหม่เมื่อจำเป็น ไฟล์น้ำหนักโมเดลและวิดีโอที่เสร็จแล้วไม่อยู่ในรายการนี้ — อยู่ในหัวข้อโฟลเดอร์ของแท็บทั่วไป และจะไม่ถูกแตะจากที่นี่";
 
 "settings.cache.scratch" = "ไฟล์ชั่วคราวของการเรนเดอร์";

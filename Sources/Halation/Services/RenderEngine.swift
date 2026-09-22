@@ -100,6 +100,10 @@ final class RenderEngine {
 
     func cancel(_ id: UUID) {
         guard let index = jobs.firstIndex(where: { $0.id == id }) else { return }
+        // Logged here rather than at the button, so the context menu, the
+        // toolbar and any future shortcut all record the same event once.
+        InteractionLog.shared.record(.click, "queue.cancel",
+                                     value: jobs[index].state.rawValue)
         if jobs[index].state.isActive {
             note("Cancelled while running.", to: id)
             cancelledJobIDs.insert(id)
@@ -126,6 +130,8 @@ final class RenderEngine {
 
     func clearFinished() {
         let removed = jobs.filter { $0.state.isTerminal }.map(\.id)
+        InteractionLog.shared.record(.click, "queue.clearFinished",
+                                     value: "\(removed.count)")
         jobs.removeAll { $0.state.isTerminal }
         for id in removed { logs[id] = nil }
         persist()
@@ -135,6 +141,7 @@ final class RenderEngine {
     /// Re-queues a failed or finished job with the same spec and a fresh seed.
     func retry(_ id: UUID) {
         guard let job = jobs.first(where: { $0.id == id }) else { return }
+        InteractionLog.shared.record(.click, "queue.retry")
         var spec = job.spec
         spec.sampling.seed = nil
         _ = enqueue(spec)
@@ -175,6 +182,7 @@ final class RenderEngine {
     /// is what the user is actually deciding about.
     func setHeld(_ held: Bool, for id: UUID) {
         guard let index = jobs.firstIndex(where: { $0.id == id }) else { return }
+        InteractionLog.shared.record(.toggle, "queue.hold", value: held ? "held" : "released")
         jobs[index].isHeld = held
         note(held ? "Held." : "Released.", to: id)
         flushLog(for: id)

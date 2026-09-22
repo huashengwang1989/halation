@@ -45,6 +45,15 @@ struct SamplingCard: View {
                                 get: { Double(spec.sampling.durationSeconds) },
                                 set: { spec.sampling.durationSeconds = Int($0.rounded()) }),
                                    in: 5...15, step: 1,
+                                   onEditingChanged: { editing in
+                                       // On release only. A slider logged while
+                                       // it moves writes a line per pixel and
+                                       // buries everything else in the file.
+                                       guard !editing else { return }
+                                       InteractionLog.shared.record(
+                                           .slide, "sampling.duration",
+                                           value: "\(spec.sampling.durationSeconds)")
+                                   },
                                    minimumValueLabel: Text(Format.clipLength(5)),
                                    maximumValueLabel: Text(Format.clipLength(15))) {
                                 // For VoiceOver only: LabeledContent already
@@ -78,6 +87,12 @@ struct SamplingCard: View {
                             get: { Double(spec.sampling.steps) },
                             set: { spec.sampling.steps = Int($0.rounded()) }),
                                in: 4...60, step: 1,
+                               onEditingChanged: { editing in
+                                   guard !editing else { return }
+                                   InteractionLog.shared.record(
+                                       .slide, "sampling.steps",
+                                       value: "\(spec.sampling.steps)")
+                               },
                                minimumValueLabel: Text("4"),
                                maximumValueLabel: Text("60")) {
                             Text(loc("sampling.steps"))

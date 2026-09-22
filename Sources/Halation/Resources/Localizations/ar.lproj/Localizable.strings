@@ -903,6 +903,12 @@
 
 "settings.cache.empty" = "لا شيء مخزَّن";
 
+/* A Cache tab category: the record of what was clicked, kept for debugging. Deleting it loses history and nothing else. */
+"settings.cache.interactions" = "سجل التفاعل";
+
+/* Says plainly that the log holds no typed content, because a category named 'interaction log' invites exactly that worry. */
+"settings.cache.interactions.detail" = "كل زر وقائمة وشريط تمرير سجّله هذا التطبيق، لمعرفة ما تغيّر ومتى. لا شيء مما كتبته موجود فيه — يُسجَّل الموجّه بطوله لا بنصّه.";
+
 "settings.cache.note" = "كل ما هنا يمكن حذفه دون فقدان أي عمل — يُعاد بناؤه أو تنزيله عند الحاجة. أوزان النماذج ومقاطع الفيديو المنجزة ليست هنا: مكانها قسم المجلدات في تبويب عام، ولا تُمَس من هذه الصفحة أبدًا.";
 
 "settings.cache.scratch" = "ملفات التصيير المؤقتة";

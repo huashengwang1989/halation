@@ -52,6 +52,11 @@ struct SettingsView: View {
             }
         }
         .frame(width: 620, height: height)
+        .onChange(of: tab) { previous, tab in
+            InteractionLog.shared.record(.nav, "settings.tab",
+                                         from: "\(previous)", to: "\(tab)",
+                                         screen: "settings")
+        }
         .animation(.easeInOut(duration: 0.18), value: height)
         .onPreferenceChange(SettingsPageHeightKey.self) { measured in
             for (tab, value) in measured where pageHeights[tab] != value {

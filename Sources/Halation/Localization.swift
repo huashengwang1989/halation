@@ -174,6 +174,12 @@ final class Localization {
 
     func set(_ preference: LanguagePreference) {
         guard preference != self.preference else { return }
+        // Logged first, and deliberately: this is the change that is hardest to
+        // account for afterwards, because it rewrites every string on screen
+        // and leaves no other trace but a defaults key.
+        InteractionLog.shared.recordChange(.select, "settings.language",
+                                           from: self.preference.storedValue,
+                                           to: preference.storedValue)
         self.preference = preference
         UserDefaults.standard.set(preference.storedValue, forKey: Self.defaultsKey)
         // AppKit reads these once, at launch. `AppleLanguages` picks the language

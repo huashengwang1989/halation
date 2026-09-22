@@ -61,6 +61,11 @@ final class CacheInventory {
             .init(id: "scratch", titleKey: "settings.cache.scratch",
                   detailKey: "settings.cache.scratch.detail",
                   locations: [support.appending(path: "scratch")]),
+            // A single file rather than a directory, which is why `size(of:)`
+            // and `clear(_:)` below both handle either.
+            .init(id: "interactions", titleKey: "settings.cache.interactions",
+                  detailKey: "settings.cache.interactions.detail",
+                  locations: [InteractionLog.fileURL]),
         ]
     }
 
@@ -106,12 +111,21 @@ final class CacheInventory {
     /// ComfyUI expects its own output folder to exist — and recreating a
     /// directory is cheaper than discovering which component assumed it.
     func clear(_ category: Category) async {
+        InteractionLog.shared.record(.click, "cache.clear", value: category.id,
+                                     screen: "settings")
         let locations = category.id == "bytecode"
             ? Self.bytecodeDirectories(under: support)
             : category.locations
         await Task.detached(priority: .utility) {
             let fm = FileManager.default
             for url in locations {
+                // A directory is emptied and kept, because something is
+                // expecting it to exist. A single file is removed outright.
+                let values = try? url.resourceValues(forKeys: [.isRegularFileKey])
+                if values?.isRegularFile == true {
+                    try? fm.removeItem(at: url)
+                    continue
+                }
                 guard let contents = try? fm.contentsOfDirectory(
                     at: url, includingPropertiesForKeys: nil) else { continue }
                 for item in contents { try? fm.removeItem(at: item) }
@@ -129,6 +143,13 @@ final class CacheInventory {
     /// Allocated size rather than logical, so the figure matches the Finder's.
     private nonisolated static func size(of url: URL) -> Int64 {
         let fm = FileManager.default
+        // A location may be one file. The enumerator below returns nothing for
+        // those, so they would have measured zero for ever.
+        if let values = try? url.resourceValues(forKeys: [.isRegularFileKey,
+                                                          .totalFileAllocatedSizeKey]),
+           values.isRegularFile == true {
+            return Int64(values.totalFileAllocatedSize ?? 0)
+        }
         guard let enumerator = fm.enumerator(
             at: url, includingPropertiesForKeys: [.totalFileAllocatedSizeKey, .isRegularFileKey],
             options: [], errorHandler: { _, _ in true })
