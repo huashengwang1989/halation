@@ -13,20 +13,25 @@ struct MemorySample: Equatable, Sendable {
     /// children of theirs. Taken as the process tree minus ourselves, so it needs
     /// no cooperation from the backends and works while nothing is rendering.
     var engine: Int64 = 0
-    /// Wired driver-side memory the GPU holds, from `IOAccelerator`.
+    /// The part of `engine` that is held on the GPU, reported by the engine
+    /// itself — `mx.get_active_memory` plus its cache, or Torch's
+    /// `driver_allocated_memory`.
     ///
-    /// **Not** "all GPU memory". On unified memory the engine's own Metal
-    /// buffers are already counted in its footprint, so adding the accelerator's
-    /// total allocation here would count them twice — and that total tracks the
-    /// engine almost exactly during a render. This is the driver's own mapping,
-    /// which no process footprint contains.
-    var graphics: Int64 = 0
-    /// Memory used, less the three bands above it. Everything else running.
+    /// Carved *out* of `engine` rather than added to it. There is no graphics
+    /// carve-out on Apple silicon to add: measured here, holding 4 GiB on the
+    /// GPU raised ordinary memory used from 69.8 to 73.6 GB while the driver's
+    /// own wired figure did not move. Every GPU byte is already in the owning
+    /// process's footprint, so showing it as a separate band on top would count
+    /// the same memory twice.
+    var engineMetal: Int64 = 0
+    /// Memory used, less this app and its engine. Includes the GPU driver's own
+    /// wired mapping, which was its own band until it turned out to be about
+    /// 2.4 GB — under half a row, so it could never light one.
     var systemAndOthers: Int64 = 0
     /// Swap in use, machine-wide.
     var swap: Int64 = 0
 
-    var used: Int64 { app + engine + graphics + systemAndOthers }
+    var used: Int64 { app + engine + systemAndOthers }
 }
 
 enum SystemMemoryProbe {
@@ -34,14 +39,21 @@ enum SystemMemoryProbe {
     /// Reads one sample. Cheap enough for 1 Hz: three syscalls and one registry
     /// walk, all unprivileged — none of this needs `powermetrics` or an
     /// entitlement.
-    static func sample() -> MemorySample {
+    /// - Parameter engineMetal: what the engine says it holds on the GPU. The
+    ///   caller supplies it because only the engines can know, and they report
+    ///   on their own schedules.
+    static func sample(engineMetal: Int64) -> MemorySample {
         var s = MemorySample()
         s.app = ProcessMemory.ownFootprintBytes
         let tree = ProcessMemory.treeFootprintBytes(of: getpid()) ?? s.app
         s.engine = max(0, tree - s.app)
-        s.graphics = gpuWiredBytes()
+        // Clamped: the two figures come from different clocks, and a Metal
+        // reading that arrives a moment after the footprint shrank must not
+        // push the band past the process it belongs to.
+        s.engineMetal = min(max(0, engineMetal), s.engine)
+        s.engine -= s.engineMetal
         s.swap = swapUsedBytes()
-        s.systemAndOthers = max(0, usedBytes() - s.app - s.engine - s.graphics)
+        s.systemAndOthers = max(0, usedBytes() - s.app - s.engine - s.engineMetal)
         return s
     }
 

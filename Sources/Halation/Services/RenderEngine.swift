@@ -295,8 +295,9 @@ final class RenderEngine {
         case .promptTokens(let total, let text):
             jobs[index].promptTokenCount = total
             jobs[index].promptTextTokenCount = text
-        case .memory(let bytes):
+        case .memory(let bytes, let active):
             jobs[index].peakMemoryBytes = max(jobs[index].peakMemoryBytes ?? 0, bytes)
+            if let active { EngineMetalMemory.record(active) }
         case .seed(let seed):
             jobs[index].resolvedSeed = seed
         case .artifact(let url, _):

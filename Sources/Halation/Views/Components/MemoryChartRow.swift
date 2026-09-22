@@ -118,8 +118,8 @@ struct MemoryChartRow: View {
             let column = leading + offset
             let x = xPosition(forColumn: column, columns: columns, width: size.width)
 
-            // Bottom upwards, so the engine sits on the floor and the thin
-            // graphics band rides on top where it stays readable.
+            // Bottom upwards: the engine's Metal pool on the floor, then the
+            // rest of the engine, then this app, then everything else.
             var filled = 0
             for (band, count) in rowCounts(for: sample,
                                            rows: memoryRows, bytesPerRow: bytesPerRow) {
@@ -189,19 +189,20 @@ struct MemoryChartRow: View {
 
 /// The stacked categories, and the one colour table they all read from.
 private enum Band: Hashable {
-    case engine, app, systemAndOthers, graphics, swap
+    case engine, app, systemAndOthers, engineMetal, swap
 
-    /// Floor upwards. Reversed, this is the order the legend and the eye read
-    /// the column from the top: graphics, system, app, engine.
-    static let stackOrder: [Band] = [.engine, .app, .systemAndOthers, .graphics]
-    static let legendOrder: [Band] = [.systemAndOthers, .graphics, .engine, .app, .swap]
+    /// Floor upwards, and the two engine bands sit together at the bottom: the
+    /// Metal pool is part of the engine, carved out of it rather than added, so
+    /// putting them apart would misread as two separate consumers.
+    static let stackOrder: [Band] = [.engineMetal, .engine, .app, .systemAndOthers]
+    static let legendOrder: [Band] = [.systemAndOthers, .engineMetal, .engine, .app, .swap]
 
     var color: Color {
         switch self {
         case .engine:          Color(red: 0.37, green: 0.82, blue: 0.23)
         case .app:             Color(red: 0.94, green: 0.64, blue: 0.16)
         case .systemAndOthers: Color(red: 0.49, green: 0.49, blue: 0.51)
-        case .graphics:        Color(red: 0.64, green: 0.09, blue: 0.37)
+        case .engineMetal:     Color(red: 0.91, green: 0.35, blue: 0.62)
         case .swap:            Color(red: 0.48, green: 0.38, blue: 0.78)
         }
     }
@@ -211,7 +212,7 @@ private enum Band: Hashable {
         case .engine:          loc("memory.chart.engine")
         case .app:             loc("memory.chart.app")
         case .systemAndOthers: loc("memory.chart.system")
-        case .graphics:        loc("memory.chart.graphics")
+        case .engineMetal:     loc("memory.chart.metal")
         case .swap:            loc("memory.chart.swap")
         }
     }
@@ -223,7 +224,7 @@ private extension MemorySample {
         case .engine:          engine
         case .app:             app
         case .systemAndOthers: systemAndOthers
-        case .graphics:        graphics
+        case .engineMetal:     engineMetal
         case .swap:            swap
         }
     }

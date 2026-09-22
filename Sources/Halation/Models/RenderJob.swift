@@ -153,7 +153,7 @@ enum SidecarEvent: Sendable {
     case stage(RenderJob.State)
     case substage(label: String, completed: Int, total: Int, detail: String?)
     case step(completed: Int, total: Int, secondsPerStep: Double?, recentSeconds: Double?)
-    case memory(bytes: Int64)
+    case memory(bytes: Int64, active: Int64?)
     case promptTokens(total: Int, text: Int)
     case seed(Int64)
     case artifact(video: URL?, audio: URL?)
@@ -201,7 +201,7 @@ enum SidecarEvent: Sendable {
                                  text: object["text"] as? Int ?? 0)
         case "memory":
             guard let bytes = int64("bytes") else { return nil }
-            return .memory(bytes: bytes)
+            return .memory(bytes: bytes, active: int64("active"))
         case "seed":
             guard let seed = int64("seed") else { return nil }
             return .seed(seed)

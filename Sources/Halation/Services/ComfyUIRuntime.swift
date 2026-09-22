@@ -115,6 +115,7 @@ final class ComfyUIRuntime {
 
             phase = .installing(step: "Wiring up the shared models folder")
             try writeModelPaths()
+            try writeMemoryProbe()
 
             await refresh()
         } catch {
@@ -158,6 +159,68 @@ final class ComfyUIRuntime {
                        atomically: true, encoding: .utf8)
     }
 
+    /// Installs a one-file custom node that reports what Torch is holding on the
+    /// GPU, because nothing ComfyUI ships does.
+    ///
+    /// `/system_stats` looks like the right endpoint and is not: on MPS,
+    /// `get_free_memory` returns *system* memory available for both `vram_free`
+    /// and `torch_vram_free` (model_management.py, the `dev.type == 'mps'`
+    /// branch), so the figures have nothing to do with Metal. `torch.mps` knows
+    /// exactly, but only from inside the server's own process — hence a route.
+    ///
+    /// Written on every launch rather than only at install, so an existing
+    /// checkout picks it up without being reinstalled. It adds a route and
+    /// nothing else: no nodes, no imports at graph-evaluation time.
+    func writeMemoryProbe() throws {
+        let directory = Self.rootURL.appending(path: "custom_nodes/halation_memory")
+        try FileManager.default.createDirectory(at: directory, withIntermediateDirectories: true)
+        let source = """
+            # Written by Halation. Reports Torch's own Metal allocation, which
+            # ComfyUI's /system_stats does not expose on MPS.
+            from server import PromptServer
+            from aiohttp import web
+
+            NODE_CLASS_MAPPINGS = {}
+            NODE_DISPLAY_NAME_MAPPINGS = {}
+
+
+            @PromptServer.instance.routes.get("/halation/memory")
+            async def halation_memory(request):
+                allocated = driver = 0
+                try:
+                    import torch
+
+                    if torch.backends.mps.is_available():
+                        allocated = int(torch.mps.current_allocated_memory())
+                        driver = int(torch.mps.driver_allocated_memory())
+                except Exception:
+                    pass
+                # `driver` is the pool Torch has taken from Metal; `allocated` is
+                # the part of it currently holding tensors. The pool is what the
+                # machine has actually given up, so it is the honest figure.
+                return web.json_response({"allocated": allocated, "driver": driver})
+            """
+        try source.write(to: directory.appending(path: "__init__.py"),
+                         atomically: true, encoding: .utf8)
+    }
+
+    /// What Torch holds on the GPU right now, or `nil` if the server is not up.
+    ///
+    /// Polled rather than pushed: ComfyUI is an HTTP server and answers this
+    /// while a render runs, which is the whole point — a figure that only
+    /// arrived between jobs would be useless on a chart.
+    func metalBytes() async -> Int64? {
+        guard isServerRunning else { return nil }
+        var request = URLRequest(url: baseURL.appending(path: "halation/memory"))
+        request.timeoutInterval = 0.8
+        guard let (data, response) = try? await URLSession.shared.data(for: request),
+              (response as? HTTPURLResponse)?.statusCode == 200,
+              let json = try? JSONSerialization.jsonObject(with: data) as? [String: Any],
+              let driver = json["driver"] as? Int
+        else { return nil }
+        return Int64(driver)
+    }
+
     private func locateUV() async throws -> URL {
         let fm = FileManager.default
         let managed = RuntimeManager.supportDirectory.appending(path: "bin/uv")
@@ -175,6 +238,10 @@ final class ComfyUIRuntime {
     func ensureServerRunning() async throws {
         if await ping() { isServerRunning = true; return }
         guard isInstalled else { throw ComfyError.notInstalled }
+
+        // Before launch, so a checkout installed by an earlier build gains the
+        // route without the user reinstalling anything.
+        try? writeMemoryProbe()
 
         port = Self.freePort() ?? 8188
         append("Starting ComfyUI on port \(port)…")

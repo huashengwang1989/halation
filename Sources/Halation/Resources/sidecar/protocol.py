@@ -52,8 +52,17 @@ def artifact(video: Optional[str] = None, audio: Optional[str] = None) -> None:
     emit(type="artifact", video=video, audio=audio)
 
 
-def memory(num_bytes: int) -> None:
-    emit(type="memory", bytes=int(num_bytes))
+def memory(num_bytes: int, active: Optional[int] = None) -> None:
+    """`bytes` is the peak; `active` is what MLX is holding on the GPU now.
+
+    The app charts `active`. It arrives only when this is called — once per
+    step — because the sidecar is a pipe, not a server, and spends the time
+    between steps inside a compute loop.
+    """
+    payload = {"type": "memory", "bytes": int(num_bytes)}
+    if active is not None:
+        payload["active"] = int(active)
+    emit(**payload)
 
 
 def substage(label: str, completed: int, total: int, detail: Optional[str] = None) -> None:
@@ -122,12 +131,27 @@ class StepReporter:
              seconds_per_step=per_step, seconds_recent=self._recent)
 
     def report_memory(self) -> None:
-        """Best-effort peak-memory reading from MLX, if it is loaded."""
+        """Best-effort memory reading from MLX, if it is loaded.
+
+        Reports the peak and, separately, what is held on the GPU right now:
+        `get_active_memory` is the live allocation, `get_cache_memory` the pool
+        MLX keeps hold of after freeing. The machine has given up both, so the
+        chart wants their sum.
+        """
         try:
             import mlx.core as mx
-            getter = getattr(mx, "get_peak_memory", None) or getattr(
-                getattr(mx, "metal", None), "get_peak_memory", None)
-            if getter is not None:
-                memory(getter())
+            legacy = getattr(mx, "metal", None)
+
+            def pick(name):
+                return getattr(mx, name, None) or getattr(legacy, name, None)
+
+            peak = pick("get_peak_memory")
+            if peak is None:
+                return
+            active = None
+            live, cached = pick("get_active_memory"), pick("get_cache_memory")
+            if live is not None:
+                active = int(live()) + (int(cached()) if cached is not None else 0)
+            memory(peak(), active)
         except Exception:
             pass

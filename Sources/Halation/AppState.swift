@@ -172,6 +172,9 @@ final class AppState {
         self.downloads = DownloadManager(runtime: runtime, modelStore: modelStore)
         self.engine = RenderEngine(runtime: runtime, comfyRuntime: comfyRuntime,
                                    modelStore: modelStore, library: library)
+        // So the memory chart can ask ComfyUI what Torch is holding. MLX pushes
+        // its own figure instead; it cannot answer a poll mid-render.
+        MemoryChartSampler.shared.comfyRuntime = comfyRuntime
         let defaults = UserDefaults.standard
         self.licenseAcknowledged = defaults.bool(forKey: "licenseAcknowledged")
         // Absent means on: remembering is the default, so a fresh install does it.

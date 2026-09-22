@@ -6764,13 +6764,6 @@ add("table.thisMac", {
         "machine between two configurations is marked on the smaller one.")
 
 # ── Memory chart (Queue header) ──────────────────────────────────────────────
-add("memory.chart.graphics", {
-    "en": "Graphics", "zh-Hant": "繪圖", "zh-Hans": "绘图",
-    "de": "Grafik", "ar": "الرسوميات", "ja": "グラフィック",
-    "ko": "그래픽", "th": "กราฟิก", "yue-Hant": "繪圖",
-    "en-SG": "Graphics",
-}, note="Legend on the memory chart: the GPU driver's own wired memory, not "
-        "the engine's Metal buffers — those are counted under Engine.")
 add("memory.chart.system", {
     "en": "System and other apps",
     "zh-Hant": "系統與其他 App", "zh-Hans": "系统与其他 App",
@@ -6802,3 +6795,11 @@ add("memory.chart.swap", {
 }, note="Labels the band above the rule on the memory chart, and its legend "
         "swatch. Keep it identical to memory.verdict.swaps in spirit: this is "
         "the same thing that verdict warns about, happening.")
+add("memory.chart.metal", {
+    "en": "Metal buffers", "zh-Hant": "Metal 緩衝區", "zh-Hans": "Metal 缓冲区",
+    "de": "Metal-Puffer", "ar": "مخازن Metal", "ja": "Metal バッファ",
+    "ko": "Metal 버퍼", "th": "บัฟเฟอร์ Metal", "yue-Hant": "Metal 緩衝區",
+    "en-SG": "Metal buffers",
+}, note="Legend on the memory chart: the part of the engine's memory that is "
+        "held on the GPU, reported by the engine itself. Carved out of Engine, "
+        "not added to it — there is no separate graphics pool on Apple silicon.")

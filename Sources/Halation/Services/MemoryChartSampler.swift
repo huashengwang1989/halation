@@ -22,6 +22,11 @@ final class MemoryChartSampler {
 
     private var isRunning = false
 
+    /// Set once by the app so the sampler can ask ComfyUI what Torch is holding.
+    /// Weak, and optional: with no runtime attached the Metal band simply falls
+    /// back to whatever MLX last reported.
+    weak var comfyRuntime: ComfyUIRuntime?
+
     private init() {}
 
     /// Idempotent: the chart calls this from `.task` every time it appears, and
@@ -32,7 +37,12 @@ final class MemoryChartSampler {
         Task { [weak self] in
             while true {
                 guard let self else { return }
-                self.append(SystemMemoryProbe.sample())
+                // ComfyUI answers while it renders, so this is a live figure.
+                // MLX cannot, and has pushed its own into the store instead.
+                if let polled = await self.comfyRuntime?.metalBytes() {
+                    EngineMetalMemory.record(polled)
+                }
+                self.append(SystemMemoryProbe.sample(engineMetal: EngineMetalMemory.current))
                 try? await Task.sleep(for: .seconds(1))
             }
         }
