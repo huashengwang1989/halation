@@ -1116,6 +1116,9 @@
 /* Architecture name; left in English. */
 "summary.transformer" = "트랜스포머";
 
+/* Tooltip on the marker beside the column matching the running Mac's memory, in both requirements tables. The marker rounds down, so a machine between two configurations is marked on the smaller one. */
+"table.thisMac" = "이 Mac";
+
 "task.fl2va" = "FL2VA — 텍스트와 키프레임";
 
 "task.fl2va.detail" = "텍스트-비디오에 더해 첫 프레임과 마지막 프레임 이미지를 선택적으로 쓸 수 있습니다. 대부분의 작업에는 이것을 쓰세요.";

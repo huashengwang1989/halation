@@ -1116,6 +1116,9 @@
 /* Architecture name; left in English. */
 "summary.transformer" = "Transformer";
 
+/* Tooltip on the marker beside the column matching the running Mac's memory, in both requirements tables. The marker rounds down, so a machine between two configurations is marked on the smaller one. */
+"table.thisMac" = "This Mac";
+
 "task.fl2va" = "FL2VA — text & keyframes";
 
 "task.fl2va.detail" = "Text-to-video, and if you want can add first and/or last frame images. Use this one for most things lah.";

@@ -6754,3 +6754,11 @@ add("disk.item.setupPeak", {
     "en-SG": "Peak, during setup",
 }, note="The largest the app ever needs at once, which is during installation "
         "rather than during a render. This is the number to have free.")
+add("table.thisMac", {
+    "en": "This Mac", "zh-Hant": "本機", "zh-Hans": "本机",
+    "de": "Dieser Mac", "ar": "هذا الـ Mac", "ja": "この Mac",
+    "ko": "이 Mac", "th": "Mac เครื่องนี้", "yue-Hant": "本機",
+    "en-SG": "This Mac",
+}, note="Tooltip on the marker beside the column matching the running Mac's "
+        "memory, in both requirements tables. The marker rounds down, so a "
+        "machine between two configurations is marked on the smaller one.")

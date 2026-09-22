@@ -144,15 +144,7 @@ struct OnboardingView: View {
     private var requirements: some View {
         VStack(alignment: .leading, spacing: 20) {
             Text(loc("settings.requirements")).font(.title.weight(.semibold))
-            VStack(alignment: .leading, spacing: 10) {
-                Text(loc("settings.memory")).font(.headline)
-                MemoryRequirementsTable()
-            }
-            Divider()
-            VStack(alignment: .leading, spacing: 10) {
-                Text(loc("settings.disk")).font(.headline)
-                DiskRequirementsTable()
-            }
+            RequirementsTables()
         }
     }
 

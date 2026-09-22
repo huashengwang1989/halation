@@ -8411,6 +8411,23 @@
       "level": "info"
     },
     {
+      "key": "table.thisMac",
+      "values": {
+        "en": "This Mac",
+        "zh-Hant": "本機",
+        "zh-Hans": "本机",
+        "de": "Dieser Mac",
+        "ar": "هذا الـ Mac",
+        "ja": "この Mac",
+        "ko": "이 Mac",
+        "th": "Mac เครื่องนี้",
+        "yue-Hant": "本機",
+        "en-SG": "This Mac"
+      },
+      "note": "Tooltip on the marker beside the column matching the running Mac's memory, in both requirements tables. The marker rounds down, so a machine between two configurations is marked on the smaller one.",
+      "level": "info"
+    },
+    {
       "key": "task.fl2va",
       "values": {
         "en": "FL2VA — text & keyframes",

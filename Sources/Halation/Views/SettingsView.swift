@@ -552,17 +552,7 @@ private struct CacheSettings: View {
 private struct RequirementsSettings: View {
     var body: some View {
         SettingsPage(tab: .requirements) {
-            VStack(alignment: .leading, spacing: 24) {
-                VStack(alignment: .leading, spacing: 10) {
-                    Text(loc("settings.memory")).font(.headline)
-                    MemoryRequirementsTable()
-                }
-                Divider()
-                VStack(alignment: .leading, spacing: 10) {
-                    Text(loc("settings.disk")).font(.headline)
-                    DiskRequirementsTable()
-                }
-            }
+            RequirementsTables()
         }
     }
 }

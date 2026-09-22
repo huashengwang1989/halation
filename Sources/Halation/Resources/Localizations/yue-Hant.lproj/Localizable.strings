@@ -1116,6 +1116,9 @@
 /* Architecture name; left in English. */
 "summary.transformer" = "Transformer";
 
+/* Tooltip on the marker beside the column matching the running Mac's memory, in both requirements tables. The marker rounds down, so a machine between two configurations is marked on the smaller one. */
+"table.thisMac" = "本機";
+
 "task.fl2va" = "FL2VA — 文字同關鍵格";
 
 "task.fl2va.detail" = "文字轉片，仲可以隨意加首格同／或者尾格嘅圖。大部分情況用呢個。";

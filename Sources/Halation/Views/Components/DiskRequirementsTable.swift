@@ -8,14 +8,6 @@ import SwiftUI
 /// what anyone expects, and the reason this is a table rather than one number.
 struct DiskRequirementsTable: View {
 
-    private struct Machine: Identifiable {
-        let id = UUID()
-        let installedBytes: Int64
-        let label: String
-    }
-
-    private let gigabyte: Int64 = 1_073_741_824
-
     /// The smallest set that can render anything: shared VAEs, the bf16 text
     /// encoder and the 4-bit transformer. Summed from the catalogue's download
     /// figures rather than written down, so it tracks the models.
@@ -84,16 +76,12 @@ struct DiskRequirementsTable: View {
         return Int64(Double(resident) * MemoryRequirementsTable.mlxPeakMultiplier)
     }
 
-    private var machines: [Machine] {
-        [.init(installedBytes: 64 * gigabyte, label: loc("memory.table.orLess", "64 GB")),
-         .init(installedBytes: 96 * gigabyte, label: "96 GB"),
-         .init(installedBytes: 128 * gigabyte, label: "128 GB"),
-         .init(installedBytes: 192 * gigabyte, label: loc("memory.table.orMore", "128 GB"))]
-    }
+    private var machines: [MachineSize] { MachineSize.all }
+    private var thisMac: MachineSize? { MachineSize.thisMac }
 
     /// Whatever the render cannot hold in memory. Measured against the generous
     /// end of the budget, so the figure is a floor rather than a worst case.
-    private func swapBytes(for machine: Machine) -> Int64 {
+    private func swapBytes(for machine: MachineSize) -> Int64 {
         max(0, peakBytes - machine.installedBytes * 84 / 100)
     }
 
@@ -153,7 +141,10 @@ struct DiskRequirementsTable: View {
                 ForEach(machines) { machine in
                     let swap = swapBytes(for: machine)
                     GridRow {
-                        Text(machine.label)
+                        HStack(alignment: .firstTextBaseline, spacing: 4) {
+                            Text(machine.label)
+                            if machine.id == thisMac?.id { ThisMacMarker() }
+                        }
                         Text(Format.bytes(baseBytes))
                             .foregroundStyle(.secondary)
                             .gridColumnAlignment(.trailing)

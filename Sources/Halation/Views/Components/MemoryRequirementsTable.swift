@@ -21,20 +21,6 @@ struct MemoryRequirementsTable: View {
         var peakBytes: Double { Double(weightBytes) * peakMultiplier }
     }
 
-    /// Installed memory, and the share of it a model may hold.
-    ///
-    /// The low end of the share is the three-quarters rule; the high end is what
-    /// Metal reported on a 128 GB M4 Max. Quoting the range rather than a single
-    /// figure is the honest form: the fraction rises with installed memory, and
-    /// only the running machine knows its own.
-    private struct Machine: Identifiable {
-        let id = UUID()
-        let installedBytes: Int64
-        let label: String
-        var lowBudget: Int64 { installedBytes * 3 / 4 }
-        var highBudget: Int64 { installedBytes * 84 / 100 }
-    }
-
     private enum Verdict {
         case fits, tight, swaps
 
@@ -85,16 +71,8 @@ struct MemoryRequirementsTable: View {
     static let mlxPeakMultiplier = 2.4
     static let comfyPeakMultiplier = 1.41
 
-    private let gigabyte: Int64 = 1_073_741_824
-
-    private var machines: [Machine] {
-        [.init(installedBytes: 64 * gigabyte,
-               label: loc("memory.table.orLess", "64 GB")),
-         .init(installedBytes: 96 * gigabyte, label: "96 GB"),
-         .init(installedBytes: 128 * gigabyte, label: "128 GB"),
-         .init(installedBytes: 192 * gigabyte,
-               label: loc("memory.table.orMore", "128 GB"))]
-    }
+    private var machines: [MachineSize] { MachineSize.all }
+    private var thisMac: MachineSize? { MachineSize.thisMac }
 
     private var rows: [Row] {
         func bytes(_ nameKey: String) -> Int64 {
@@ -140,7 +118,7 @@ struct MemoryRequirementsTable: View {
     /// the render still finishes — measured: a 120 GB peak on a 128 GB Mac drove
     /// swap to 16 GB and completed. Over installed memory it is paging in
     /// earnest, and a render that would take an hour takes far longer.
-    private func verdict(_ row: Row, on machine: Machine) -> Verdict {
+    private func verdict(_ row: Row, on machine: MachineSize) -> Verdict {
         let peak = row.peakBytes
         if peak <= Double(machine.highBudget) { return .fits }
         if peak <= Double(machine.installedBytes) { return .tight }
@@ -154,7 +132,10 @@ struct MemoryRequirementsTable: View {
                     Text(loc("memory.table.combination"))
                     Text(loc("memory.table.weights"))
                     ForEach(machines) { machine in
-                        Text(machine.label).gridColumnAlignment(.center)
+                        HStack(alignment: .firstTextBaseline, spacing: 4) {
+                            Text(machine.label)
+                            if machine.id == thisMac?.id { ThisMacMarker() }
+                        }.gridColumnAlignment(.center)
                     }
                 }
                 .font(.caption.weight(.semibold))
