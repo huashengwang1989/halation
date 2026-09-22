@@ -67,10 +67,19 @@ final class RenderEngine {
         logs = Self.loadLogs(for: jobs.map(\.id))
         // A job that was mid-flight when the app quit cannot be resumed inside the
         // sidecar, so it returns to the queue rather than lying about its state.
+        //
+        // An abrupt quit cannot write its own epitaph, so this is where it gets
+        // written: a job still marked active in the file is one the app did not
+        // finish with, however it went away.
         for index in jobs.indices where jobs[index].state.isActive {
             jobs[index].state = .queued
             jobs[index].progress = 0
             jobs[index].completedSteps = 0
+            let stamp = Self.logTime.string(from: .now)
+            var lines = logs[jobs[index].id] ?? []
+            lines.append("[\(stamp)] Interrupted: the app stopped while this was running.")
+            lines.append("[\(stamp)] Back in the queue after restart.")
+            logs[jobs[index].id] = lines
         }
     }
 
@@ -80,6 +89,7 @@ final class RenderEngine {
         Notifier.shared.requestPermissionIfNeeded()
         let job = RenderJob(spec: spec)
         jobs.append(job)
+        note("Queued.", to: job.id)
         persist()
         startNextIfIdle()
         return job
@@ -88,13 +98,16 @@ final class RenderEngine {
     func cancel(_ id: UUID) {
         guard let index = jobs.firstIndex(where: { $0.id == id }) else { return }
         if jobs[index].state.isActive {
+            note("Cancelled while running.", to: id)
             cancelledJobIDs.insert(id)
             activeTask?.cancel()
             let backend = activeBackend
             Task { await backend?.cancel() }
         } else {
+            note("Cancelled before it started.", to: id)
             jobs[index].state = .cancelled
             jobs[index].finishedAt = .now
+            flushLog(for: id)
             persist()
         }
     }
@@ -160,6 +173,8 @@ final class RenderEngine {
     func setHeld(_ held: Bool, for id: UUID) {
         guard let index = jobs.firstIndex(where: { $0.id == id }) else { return }
         jobs[index].isHeld = held
+        note(held ? "Held." : "Released.", to: id)
+        flushLog(for: id)
         persist()
         if !held { startNextIfIdle() }
     }
@@ -185,9 +200,10 @@ final class RenderEngine {
     private func run(jobID: UUID) async {
         guard let index = jobs.firstIndex(where: { $0.id == jobID }) else { return }
         isRunning = true
-        logs[jobID] = []
-        // Cleared too, so the first line of a retry is written straight away
-        // rather than leaving the previous attempt's file on disk for a while.
+        // The log is deliberately *not* cleared here. It already holds when the
+        // job was queued, and whether a previous attempt was interrupted by the
+        // app going away — which is the history a second attempt most needs.
+        // A retry proper gets a new job and so a new log anyway.
         lastLogFlush[jobID] = nil
         reportedFailures[jobID] = nil
         defer {
@@ -199,6 +215,11 @@ final class RenderEngine {
         jobs[index].state = .preparing
         jobs[index].startedAt = .now
         jobs[index].progress = 0
+        // Written out now, not only in the `defer` at the end. Without this the
+        // file still says "queued" for the whole render, so a crash or a force
+        // quit leaves nothing to distinguish "never started" from "was killed
+        // half way" — and the restart note below depends on telling them apart.
+        persist()
 
         let spec = jobs[index].spec
         let scratch = Self.scratchDirectory.appending(path: jobID.uuidString, directoryHint: .isDirectory)
@@ -209,7 +230,7 @@ final class RenderEngine {
             let chosen = backend(for: spec)
             activeBackend = chosen
             jobs[index].backend = chosen.id
-            appendLog("Rendering with \(chosen.id.label).", to: jobID)
+            note("Started on \(chosen.id.label).", to: jobID)
 
             // Events arrive off the main actor; hop back before touching state.
             let sink: @Sendable (SidecarEvent) -> Void = { [weak self] event in
@@ -367,10 +388,35 @@ final class RenderEngine {
         // Failures only. A cancellation was the user's own doing a moment ago,
         // so announcing it tells them something they already know.
         if state == .failed { Notifier.shared.renderFailed(jobs[index]) }
+
+        switch state {
+        case .finished: note("Finished.", to: jobID)
+        case .cancelled: note("Stopped.", to: jobID)
+        case .failed: note("Failed\(message.map { ": \($0)" } ?? ".")", to: jobID)
+        default: break
+        }
         // The log stops changing here and starts mattering, so do not wait out
         // the flush interval.
         flushLog(for: jobID)
     }
+
+    /// Records something that happened *to* a job rather than something its
+    /// engine said: a click, a scheduling decision, the app coming and going.
+    ///
+    /// Bracketed and stamped so it stands out from raw engine output, which is
+    /// unmarked and untimed. English, like the rest of the log: these lines get
+    /// pasted into bug reports, and a diagnostic that changes language with the
+    /// interface is harder to help with, not easier.
+    private func note(_ message: String, to jobID: UUID) {
+        appendLog("[\(Self.logTime.string(from: .now))] \(message)", to: jobID)
+    }
+
+    nonisolated static let logTime: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "HH:mm:ss"
+        formatter.locale = Locale(identifier: "en_US_POSIX")
+        return formatter
+    }()
 
     private func appendLog(_ message: String, to jobID: UUID) {
         let trimmed = message.trimmingCharacters(in: .whitespacesAndNewlines)
