@@ -6,11 +6,78 @@ struct LibraryView: View {
     @State private var selection: LibraryItem.ID?
     @State private var search = ""
     @State private var width: CGFloat = 0
+    /// The grid's own width, not the view's: the inspector takes a share of the
+    /// latter, and the column count has to follow what the grid actually gets.
+    @State private var gridWidth: CGFloat = 0
+    @FocusState private var gridFocused: Bool
 
     private var filtered: [LibraryItem] {
         let query = search.trimmingCharacters(in: .whitespacesAndNewlines).lowercased()
         guard !query.isEmpty else { return app.library.items }
         return app.library.items.filter { $0.title.lowercased().contains(query) }
+    }
+
+    private static let tileMinimum: CGFloat = 200
+    private static let tileSpacing: CGFloat = 16
+
+    /// How many tiles `LazyVGrid`'s adaptive layout will fit, worked out the
+    /// same way it does: n tiles and n-1 gaps have to fit the width, so
+    /// n ≤ (width + spacing) / (minimum + spacing).
+    ///
+    /// Mirrored rather than measured because the grid does not report it, and
+    /// an arrow key that moved by the wrong number of columns would be worse
+    /// than one that did nothing.
+    private var columnCount: Int {
+        guard gridWidth > 0 else { return 1 }
+        let usable = gridWidth - 36  // the grid's own padding, both sides
+        return max(1, Int((usable + Self.tileSpacing) / (Self.tileMinimum + Self.tileSpacing)))
+    }
+
+    /// Arrow keys and WASD move the selection through the grid.
+    ///
+    /// Both sets, because this is a picture grid: a hand on the arrows and a
+    /// hand on WASD are both natural here, and neither collides with anything —
+    /// the search field takes its own keys only while it has focus.
+    private func move(_ press: KeyPress, scroller: ScrollViewProxy) -> KeyPress.Result {
+        let step: Int
+        switch press.key {
+        case .leftArrow: step = -1
+        case .rightArrow: step = 1
+        case .upArrow: step = -columnCount
+        case .downArrow: step = columnCount
+        default:
+            switch press.characters.lowercased() {
+            case "a": step = -1
+            case "d": step = 1
+            case "w": step = -columnCount
+            case "s": step = columnCount
+            default: return .ignored
+            }
+        }
+
+        let items = filtered
+        guard !items.isEmpty else { return .ignored }
+        // With nothing selected, any key selects the first tile rather than
+        // doing nothing: the grid has focus, so a key press should visibly land.
+        guard let current = selection.flatMap({ id in items.firstIndex { $0.id == id } }) else {
+            selection = items.first?.id
+            scroll(to: selection, with: scroller)
+            return .handled
+        }
+        // Clamped, not wrapped. Wrapping from the last tile to the first is a
+        // surprise in a grid you are reading left to right.
+        let next = min(max(0, current + step), items.count - 1)
+        guard next != current else { return .handled }
+        selection = items[next].id
+        scroll(to: selection, with: scroller)
+        return .handled
+    }
+
+    private func scroll(to id: LibraryItem.ID?, with scroller: ScrollViewProxy) {
+        guard let id else { return }
+        withAnimation(.easeInOut(duration: 0.15)) {
+            scroller.scrollTo(id, anchor: .center)
+        }
     }
 
     /// The inspector gives up width before the grid does, down to a readable floor.
@@ -33,9 +100,11 @@ struct LibraryView: View {
                 }
             } else {
                 HStack(spacing: 0) {
+                    ScrollViewReader { scroller in
                     ScrollView {
-                        LazyVGrid(columns: [GridItem(.adaptive(minimum: 200), spacing: 16)],
-                                  spacing: 16) {
+                        LazyVGrid(columns: [GridItem(.adaptive(minimum: Self.tileMinimum),
+                                                     spacing: Self.tileSpacing)],
+                                  spacing: Self.tileSpacing) {
                             ForEach(filtered) { item in
                                 // A Button rather than a tap gesture: a gesture is
                                 // invisible to the keyboard and to VoiceOver, which
@@ -50,6 +119,7 @@ struct LibraryView: View {
                                 .accessibilityValue(accessibilityDescription(of: item))
                                 .accessibilityAddTraits(selection == item.id ? [.isButton, .isSelected] : .isButton)
                                 .contextMenu { menu(for: item) }
+                                .id(item.id)
                             }
                         }
                         .padding(18)
@@ -57,6 +127,17 @@ struct LibraryView: View {
                     .softScrollEdge(for: .top)
                     .statusBarInset()
                     .frame(maxWidth: .infinity)
+                    .onGeometryChange(for: CGFloat.self) { $0.size.width } action: { gridWidth = $0 }
+                    // Focusable so the grid can take key presses at all, and
+                    // focused on arrival so the arrows work without a click
+                    // first — the selection is already visible, so a keyboard
+                    // that did nothing until you clicked would be a puzzle.
+                    .focusable()
+                    .focusEffectDisabled()
+                    .focused($gridFocused)
+                    .onAppear { gridFocused = true }
+                    .onKeyPress { press in move(press, scroller: scroller) }
+                    }
 
                     // The inspector appears when something is selected and stays
                     // put; it narrows with the window rather than disappearing.
@@ -182,23 +263,19 @@ private struct LibraryDetail: View {
     @Environment(AppState.self) private var app
     var item: LibraryItem
 
-    /// Held in state rather than built inline: `VideoPlayer(player: AVPlayer(url:))`
-    /// constructs a fresh player on every body evaluation, which restarts playback
-    /// and leaks players as the view updates.
-    @State private var player: AVPlayer
-    @State private var shownItemID: LibraryItem.ID
-
-    init(item: LibraryItem) {
-        self.item = item
-        _player = State(initialValue: AVPlayer(url: item.videoURL))
-        _shownItemID = State(initialValue: item.id)
-    }
+    /// Held in state rather than built inline: a player constructed in `body`
+    /// is rebuilt on every evaluation, which restarts playback and leaks
+    /// players as the view updates.
+    /// Empty, and filled by `LibraryPlayer`. Built here only so it survives the
+    /// view updates that come with each selection; what it holds is the
+    /// player's own business.
+    @State private var player = AVPlayer()
 
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 18) {
                 if item.exists {
-                    VideoPlayer(player: player)
+                    LibraryPlayer(player: player, url: item.videoURL, itemID: item.id)
                         .aspectRatio(aspect, contentMode: .fit)
                         .clipShape(.rect(cornerRadius: 12))
                         .onDisappear { player.pause() }
@@ -259,12 +336,6 @@ private struct LibraryDetail: View {
         }
         .statusBarInset()
         .background(.background.secondary)
-        .onChange(of: item.id) { _, newID in
-            guard newID != shownItemID else { return }
-            shownItemID = newID
-            player.pause()
-            player.replaceCurrentItem(with: AVPlayerItem(url: item.videoURL))
-        }
     }
 
     private var aspect: CGFloat {
