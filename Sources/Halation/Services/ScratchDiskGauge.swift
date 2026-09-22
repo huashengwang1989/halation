@@ -1,10 +1,15 @@
 import Foundation
 import Observation
 
-/// How much of the disk the render scratch has taken, and how close that is to
-/// being a problem.
+/// How much of the disk a render is holding, and how close that is to trouble.
 ///
-/// Its own gauge rather than a line in the memory chart because the two fail
+/// Two consumers, because they are the two that a render grows and that nothing
+/// else on the machine accounts for: the swap file, which is where the real
+/// gigabytes go — 66 GB measured on a 128 GB Mac mid-render — and the scratch
+/// directories, which stay in megabytes. Showing only the second would have
+/// been a gauge that never moved while the disk filled.
+///
+/// Its own bar rather than a band on the memory chart because the two fail
 /// differently. Memory that runs out swaps and the render gets slow; disk that
 /// runs out stops the render and can take the machine's own headroom with it.
 @MainActor
@@ -15,6 +20,9 @@ final class ScratchDiskGauge {
     struct Reading: Equatable, Sendable {
         /// What the render working files hold, across every place they land.
         var scratch: Int64 = 0
+        /// Swap in use. On disk, and the larger of the two by orders of
+        /// magnitude during a render.
+        var swap: Int64 = 0
         /// What is left on the volume. Already excludes the scratch, because
         /// the scratch is occupying it.
         var free: Int64 = 0
@@ -22,37 +30,56 @@ final class ScratchDiskGauge {
         /// comfortable on a 4 TB disk and nearly fatal on a 500 GB one.
         var capacity: Int64 = 0
 
-        /// Scratch as a share of what the scratch could ever have — itself plus
-        /// everything still free. Reaches 100% only when the disk is full.
-        var fraction: Double {
-            let total = scratch + free
+        /// Everything the two consumers could ever occupy: what they hold now
+        /// plus what is still free for them to take.
+        var total: Int64 { swap + scratch + free }
+
+        var swapFraction: Double { share(of: swap) }
+        var scratchFraction: Double { share(of: scratch) }
+
+        /// Both together, which is what the colour is decided on: the disk does
+        /// not care which of them filled it.
+        var fraction: Double { swapFraction + scratchFraction }
+
+        private func share(of value: Int64) -> Double {
             guard total > 0 else { return 0 }
-            return Double(scratch) / Double(total)
+            return Double(value) / Double(total)
         }
     }
 
     enum Level {
         case fine, warning, critical
 
-        var tint: Color3 {
+        /// Two tints, one per segment, so the pair reads as one state rather
+        /// than as two independent readings. At ease the swap segment borrows
+        /// the memory chart's own violet, because it is the same swap.
+        var swapTint: Tint {
             switch self {
-            case .fine: .green
+            case .fine: .violet
             case .warning: .orange
             case .critical: .red
+            }
+        }
+
+        var scratchTint: Tint {
+            switch self {
+            case .fine: .green
+            case .warning: .yellow
+            case .critical: .pink
             }
         }
     }
 
     /// Named rather than using SwiftUI's `Color` so this file stays free of
     /// the view layer; the bar maps it.
-    enum Color3 { case green, orange, red }
+    enum Tint { case violet, green, orange, yellow, red, pink }
 
     private(set) var reading = Reading()
 
     private var isRunning = false
     /// Slower than the memory chart on purpose: this needs a directory walk,
-    /// and scratch changes over minutes, not frames.
-    private let interval: Duration = .seconds(5)
+    /// and neither swap nor scratch changes in the space of a frame.
+    private static let interval: Duration = .seconds(5)
 
     private init() {}
 
@@ -64,7 +91,7 @@ final class ScratchDiskGauge {
                 guard self != nil else { return }
                 let reading = await Self.measure()
                 self?.reading = reading
-                try? await Task.sleep(for: .seconds(5))
+                try? await Task.sleep(for: Self.interval)
             }
         }
     }
@@ -119,6 +146,8 @@ final class ScratchDiskGauge {
             // Asked of the scratch directory's own volume rather than assumed
             // to be the boot disk: the models folder can be moved, and one day
             // this might be too.
+            reading.swap = SystemMemoryProbe.swapUsedBytes()
+
             let probe = FileManager.default.fileExists(atPath: scratch.path)
                 ? scratch : RuntimeManager.supportDirectory
             if let values = try? probe.resourceValues(forKeys: [

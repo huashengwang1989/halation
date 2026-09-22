@@ -857,11 +857,11 @@
 
 "sampling.title" = "采样";
 
-/* WARNING: Three figures on the disk bar: what the scratch holds, that as a percentage, and what is left on the volume. The percentage is scratch over scratch-plus-free, so it reads 100% only when the disk is full — it is not a share of the whole volume. */
-"scratch.bar.summary" = "%1$@ · 占磁盘 %2$@ · 剩余 %3$@";
+/* WARNING: Four figures on the disk bar: swap in use, what the render scratch holds, how far the two together have gone toward filling the disk, and what is left. The percentage is (swap + scratch) over (swap + scratch + free), so it reads 100% only when the disk is full — it is not a share of the whole volume. Saying 'of the disk' was misread as exactly that, which is why it no longer does. */
+"scratch.bar.summary" = "交换空间 %1$@ · 暂存 %2$@ · 距离写满 %3$@ · 剩余 %4$@";
 
-/* Labels the disk bar under the memory chart on the Queue page. Same thing as the disk table's 'Render scratch' row — keep the two identical, they are read minutes apart. */
-"scratch.bar.title" = "渲染暂存";
+/* Labels the disk bar under the memory chart on the Queue page. Both halves, because both grow during a render and only one of them is ever large: swap reached 66 GB here while the scratch stayed in megabytes. */
+"scratch.bar.title" = "交换空间 + 渲染暂存";
 
 /* The Compose tab: the screen where a render is set up. Not the verb. Distinct from settings.remember.section, which is the name of a group of settings *about* that screen. */
 "section.compose" = "编写";

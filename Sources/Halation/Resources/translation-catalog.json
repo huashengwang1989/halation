@@ -6560,35 +6560,35 @@
     {
       "key": "scratch.bar.summary",
       "values": {
-        "en": "%1$@ · %2$@ of the disk · %3$@ free",
-        "zh-Hant": "%1$@ · 佔磁碟 %2$@ · 剩餘 %3$@",
-        "zh-Hans": "%1$@ · 占磁盘 %2$@ · 剩余 %3$@",
-        "de": "%1$@ · %2$@ der Festplatte · %3$@ frei",
-        "ar": "%1$@ · %2$@ من القرص · %3$@ متاحة",
-        "ja": "%1$@ · ディスクの %2$@ · 空き %3$@",
-        "ko": "%1$@ · 디스크의 %2$@ · %3$@ 남음",
-        "th": "%1$@ · %2$@ ของดิสก์ · เหลือ %3$@",
-        "yue-Hant": "%1$@ · 佔磁碟 %2$@ · 仲有 %3$@",
-        "en-SG": "%1$@ · %2$@ of the disk · %3$@ free"
+        "en": "Swap %1$@ · scratch %2$@ · %3$@ toward full · %4$@ free",
+        "zh-Hant": "置換空間 %1$@ · 暫存 %2$@ · 距離寫滿 %3$@ · 剩餘 %4$@",
+        "zh-Hans": "交换空间 %1$@ · 暂存 %2$@ · 距离写满 %3$@ · 剩余 %4$@",
+        "de": "Swap %1$@ · Arbeitsdateien %2$@ · %3$@ bis voll · %4$@ frei",
+        "ar": "التبديل %1$@ · الملفات المؤقتة %2$@ · %3$@ حتى الامتلاء · %4$@ متاحة",
+        "ja": "スワップ %1$@ · 作業ファイル %2$@ · 満杯まで %3$@ · 空き %4$@",
+        "ko": "스왑 %1$@ · 작업 파일 %2$@ · 가득 찰 때까지 %3$@ · %4$@ 남음",
+        "th": "พื้นที่สลับ %1$@ · ไฟล์ชั่วคราว %2$@ · ถึงเต็ม %3$@ · เหลือ %4$@",
+        "yue-Hant": "置換空間 %1$@ · 暫存 %2$@ · 距離寫滿 %3$@ · 仲有 %4$@",
+        "en-SG": "Swap %1$@ · scratch %2$@ · %3$@ toward full · %4$@ free"
       },
-      "note": "Three figures on the disk bar: what the scratch holds, that as a percentage, and what is left on the volume. The percentage is scratch over scratch-plus-free, so it reads 100% only when the disk is full — it is not a share of the whole volume.",
+      "note": "Four figures on the disk bar: swap in use, what the render scratch holds, how far the two together have gone toward filling the disk, and what is left. The percentage is (swap + scratch) over (swap + scratch + free), so it reads 100% only when the disk is full — it is not a share of the whole volume. Saying 'of the disk' was misread as exactly that, which is why it no longer does.",
       "level": "warning"
     },
     {
       "key": "scratch.bar.title",
       "values": {
-        "en": "Render scratch",
-        "zh-Hant": "算圖暫存",
-        "zh-Hans": "渲染暂存",
-        "de": "Arbeitsdateien beim Rendern",
-        "ar": "ملفات التصيير المؤقتة",
-        "ja": "レンダリングの作業ファイル",
-        "ko": "렌더링 작업 파일",
-        "th": "ไฟล์ชั่วคราวของการเรนเดอร์",
-        "yue-Hant": "算圖暫存檔",
-        "en-SG": "Render scratch"
+        "en": "Swap + render scratch",
+        "zh-Hant": "置換空間 + 算圖暫存",
+        "zh-Hans": "交换空间 + 渲染暂存",
+        "de": "Swap + Arbeitsdateien",
+        "ar": "التبديل + ملفات التصيير المؤقتة",
+        "ja": "スワップ + レンダリングの作業ファイル",
+        "ko": "스왑 + 렌더링 작업 파일",
+        "th": "พื้นที่สลับ + ไฟล์ชั่วคราวของการเรนเดอร์",
+        "yue-Hant": "置換空間 + 算圖暫存檔",
+        "en-SG": "Swap + render scratch"
       },
-      "note": "Labels the disk bar under the memory chart on the Queue page. Same thing as the disk table's 'Render scratch' row — keep the two identical, they are read minutes apart.",
+      "note": "Labels the disk bar under the memory chart on the Queue page. Both halves, because both grow during a render and only one of them is ever large: swap reached 66 GB here while the scratch stayed in megabytes.",
       "level": "info"
     },
     {
