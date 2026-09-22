@@ -116,6 +116,17 @@
 /* Pixel dimensions of the output. Not resolution in the sense of resolving a dispute or a decision. */
 "compose.resolution" = "Auflösung";
 
+"disk.table.base" = "Gewichte und Laufzeit";
+
+"disk.table.installedMemory" = "Verbauter Speicher";
+
+"disk.table.note" = "Die Gewichte sind fast alles: %@ für den kleinsten brauchbaren Satz — die gemeinsamen VAEs, der Textencoder und der 4-Bit-Transformer — plus etwa 600 MB Python-Laufzeit. Die Zwischendateien eines Renders sind wenige Megabyte, denn die Bilder gehen direkt in den Encoder und werden nie geschrieben. Die Einrichtung braucht vorübergehend 3,4 GB mehr für uvs Download-Cache, den der Tab „Cache“ später leeren kann. Der Referenzmodus braucht einen zweiten Satz Gewichte, etwa 60 GB, hier nicht mitgezählt.";
+
+/* Estimated, not fixed: macOS grows swap on demand, and how much it needs depends on how far a render overruns the memory the GPU may hold. */
+"disk.table.swap" = "Benötigter Swap";
+
+"disk.table.total" = "Freihalten";
+
 "format.audio.muxed" = "In das Video gemuxt";
 
 "format.audio.wav" = "Gemuxt, plus separate WAV-Datei";
@@ -878,6 +889,8 @@
 
 /* Adjective: the app found this component on the machine by itself. Reports a discovery, not an action available. */
 "settings.detected" = "Erkannt";
+
+"settings.disk" = "Speicherplatz";
 
 /* Labels the folder on disk where weights are stored, in Settings ▸ Folders. A location, not the tab — see section.models. */
 "settings.folder.models" = "Modelle";

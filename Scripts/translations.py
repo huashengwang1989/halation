@@ -6623,3 +6623,76 @@ add("memory.table.thisMac", {
     "en-SG": "This Mac: %1$@ installed, %2$@ usable for a model.",
 }, note="Read from the machine rather than assumed: the second figure is what "
         "Metal reports as the recommended maximum working set.")
+
+# ── Disk requirements table ──────────────────────────────────────────────────
+add("settings.disk", {
+    "en": "Disk space", "zh-Hant": "磁碟空間", "zh-Hans": "磁盘空间",
+    "de": "Speicherplatz", "ar": "مساحة القرص", "ja": "ディスク容量",
+    "ko": "디스크 공간", "th": "พื้นที่ดิสก์", "yue-Hant": "磁碟空間",
+    "en-SG": "Disk space",
+})
+add("disk.table.installedMemory", {
+    "en": "Installed memory", "zh-Hant": "已安裝記憶體", "zh-Hans": "已安装内存",
+    "de": "Verbauter Speicher", "ar": "الذاكرة المثبَّتة", "ja": "搭載メモリ",
+    "ko": "설치된 메모리", "th": "หน่วยความจำที่ติดตั้ง", "yue-Hant": "裝咗嘅記憶體",
+    "en-SG": "Installed memory",
+})
+add("disk.table.base", {
+    "en": "Weights and runtime", "zh-Hant": "權重與執行環境", "zh-Hans": "权重与运行环境",
+    "de": "Gewichte und Laufzeit", "ar": "الأوزان وبيئة التشغيل",
+    "ja": "重みと実行環境", "ko": "가중치와 런타임", "th": "ไฟล์น้ำหนักและรันไทม์",
+    "yue-Hant": "權重同執行環境", "en-SG": "Weights and runtime",
+})
+add("disk.table.swap", {
+    "en": "Swap it will need", "zh-Hant": "所需置換空間", "zh-Hans": "所需置换空间",
+    "de": "Benötigter Swap", "ar": "مساحة التبديل اللازمة",
+    "ja": "必要なスワップ", "ko": "필요한 스왑", "th": "พื้นที่สลับที่ต้องใช้",
+    "yue-Hant": "要用嘅置換空間", "en-SG": "Swap it will need",
+}, note="Estimated, not fixed: macOS grows swap on demand, and how much it "
+        "needs depends on how far a render overruns the memory the GPU may hold.")
+add("disk.table.total", {
+    "en": "Keep free", "zh-Hant": "建議預留", "zh-Hans": "建议预留",
+    "de": "Freihalten", "ar": "احتفظ بمساحة فارغة", "ja": "空けておく容量",
+    "ko": "비워 둘 용량", "th": "ควรเหลือว่างไว้", "yue-Hant": "建議留返",
+    "en-SG": "Keep free",
+})
+add("disk.table.note", {
+    "en": "The weights are the whole of it: %@ for the smallest usable set — the "
+          "shared VAEs, the text encoder and the 4-bit transformer — plus about "
+          "600 MB of Python runtime. A render's own temporary files are a few "
+          "megabytes, because frames are piped straight to the encoder and never "
+          "written out. Setup transiently needs 3.4 GB more for uv's download "
+          "cache, which the Cache tab can empty afterwards. Reference mode needs "
+          "a second set of weights, about 60 GB, and is not counted here.",
+    "zh-Hant": "空間幾乎全用在權重上：最小可用組合約 %@——共用 VAE、文字編碼器與 4-bit transformer——再加上約 600 MB 的 Python 執行環境。算圖本身的暫存檔只有幾 MB，因為影格是直接餵給編碼器，不會寫到磁碟。初次設定期間還會多用 3.4 GB 作為 uv 的下載快取，之後可在「快取」分頁清除。參考素材模式需要另一整套權重，約 60 GB，未計入此表。",
+    "zh-Hans": "空间几乎全用在权重上：最小可用组合约 %@——共用 VAE、文本编码器与 4-bit transformer——再加上约 600 MB 的 Python 运行环境。渲染本身的暂存文件只有几 MB，因为帧是直接喂给编码器，不会写到磁盘。初次设置期间还会多用 3.4 GB 作为 uv 的下载缓存，之后可在“缓存”分页清除。参考素材模式需要另一整套权重，约 60 GB，未计入此表。",
+    "de": "Die Gewichte sind fast alles: %@ für den kleinsten brauchbaren Satz — die "
+          "gemeinsamen VAEs, der Textencoder und der 4-Bit-Transformer — plus etwa "
+          "600 MB Python-Laufzeit. Die Zwischendateien eines Renders sind wenige "
+          "Megabyte, denn die Bilder gehen direkt in den Encoder und werden nie "
+          "geschrieben. Die Einrichtung braucht vorübergehend 3,4 GB mehr für uvs "
+          "Download-Cache, den der Tab „Cache“ später leeren kann. Der "
+          "Referenzmodus braucht einen zweiten Satz Gewichte, etwa 60 GB, hier "
+          "nicht mitgezählt.",
+    "ar": "الأوزان هي كل شيء تقريبًا: %@ لأصغر مجموعة صالحة — وحدات VAE المشتركة "
+          "ومرمِّز النص والمحوّل بأربع بتات — إضافة إلى نحو 600 ميغابايت لبيئة Python. "
+          "أما ملفات التصيير المؤقتة فبضعة ميغابايتات فقط، لأن الإطارات تُمرَّر إلى "
+          "المرمِّز مباشرة ولا تُكتب أبدًا. ويحتاج الإعداد مؤقتًا إلى 3.4 غيغابايت "
+          "إضافية لذاكرة تنزيلات uv، ويمكن لتبويب الذاكرة المؤقتة إفراغها بعدها. "
+          "ويحتاج وضع المراجع مجموعة أوزان ثانية، نحو 60 غيغابايت، غير محسوبة هنا.",
+    "ja": "容量のほとんどは重みです。最小構成で約 %@——共有 VAE、テキストエンコーダ、4-bit transformer——に Python 実行環境の約 600 MB を加えた程度です。レンダリング自体の一時ファイルは数 MB しかありません。フレームはそのままエンコーダへ渡され、ディスクには書かれないからです。初回セットアップ中は uv のダウンロードキャッシュに一時的にさらに 3.4 GB を使い、あとから「キャッシュ」タブで空にできます。参考素材モードには別の重み一式、約 60 GB が必要で、この表には含めていません。",
+    "ko": "용량은 거의 전부 가중치입니다. 가장 작은 실용 구성이 약 %@ — 공용 VAE, 텍스트 인코더, 4비트 트랜스포머 — 에 Python 런타임 약 600 MB를 더한 정도입니다. 렌더링 자체의 임시 파일은 수 MB뿐인데, 프레임이 인코더로 바로 전달되고 디스크에 쓰이지 않기 때문입니다. 설치 중에는 uv 다운로드 캐시로 3.4 GB를 일시적으로 더 쓰며, 나중에 캐시 탭에서 비울 수 있습니다. 참조 모드에는 약 60 GB의 두 번째 가중치 모음이 필요하고, 이 표에는 넣지 않았습니다.",
+    "th": "พื้นที่แทบทั้งหมดคือไฟล์น้ำหนัก: ราว %@ สำหรับชุดที่เล็กที่สุดที่ใช้งานได้ — VAE ที่ใช้ร่วมกัน "
+          "ตัวเข้ารหัสข้อความ และ transformer แบบ 4 บิต — บวกรันไทม์ Python ราว 600 MB "
+          "ไฟล์ชั่วคราวของการเรนเดอร์มีเพียงไม่กี่เมกะไบต์ เพราะเฟรมถูกส่งตรงไปยังตัวเข้ารหัสและไม่เคยเขียนลงดิสก์ "
+          "ระหว่างการตั้งค่าจะใช้เพิ่มชั่วคราวอีก 3.4 GB สำหรับแคชดาวน์โหลดของ uv ซึ่งล้างได้ภายหลังจากแท็บแคช "
+          "โหมดไฟล์อ้างอิงต้องใช้ไฟล์น้ำหนักอีกชุดราว 60 GB ซึ่งไม่ได้รวมไว้ที่นี่",
+    "yue-Hant": "空間差不多全部用喺權重：最細嘅可用組合大概 %@——共用 VAE、文字編碼器同 4-bit transformer——再加大概 600 MB 嘅 Python 執行環境。算圖本身嘅暫存檔得幾 MB，因為影格係直接餵去編碼器，唔會寫落碟。初次設定期間仲會多用 3.4 GB 做 uv 嘅下載快取，之後喺「快取」嗰版清得。參考素材模式要另一整套權重，大概 60 GB，呢個表冇計。",
+    "en-SG": "The weights are almost all of it: about %@ for the smallest usable set — "
+             "the shared VAEs, the text encoder and the 4-bit transformer — plus about "
+             "600 MB of Python runtime. A render's own temp files are only a few "
+             "megabytes, because frames go straight into the encoder and never get "
+             "written out. Setup needs 3.4 GB more for a while for uv's download "
+             "cache, which the Cache tab can clear after. Reference mode needs a "
+             "second set of weights, about 60 GB, not counted here.",
+})

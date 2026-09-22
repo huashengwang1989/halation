@@ -18,6 +18,7 @@ struct HalationApp: App {
         Notifier.shared.prepare()
     }
     static let localizationWindowID = "debug-localizations"
+    static let requirementsWindowID = "debug-requirements"
 
     var body: some Scene {
         WindowGroup {
@@ -96,6 +97,9 @@ struct HalationApp: App {
                     Button("Localisations (i18n)") {
                         openWindow(id: Self.localizationWindowID)
                     }
+                    Button("Requirements Tables") {
+                        openWindow(id: Self.requirementsWindowID)
+                    }
                     Button("Show Welcome Dialog") {
                         app.showingOnboarding = true
                     }
@@ -126,6 +130,14 @@ struct HalationApp: App {
                 .id(localization.generation)
         }
         .windowResizability(.contentSize)
+
+        Window("Requirements", id: Self.requirementsWindowID) {
+            RequirementsWindow()
+                .environment(localization)
+                .environment(\.locale, Locale(identifier: localization.resolved.rawValue))
+                .id(localization.generation)
+        }
+        .defaultSize(width: 880, height: 680)
 
         Window("Localisations (i18n)", id: Self.localizationWindowID) {
             LocalizationInspector()

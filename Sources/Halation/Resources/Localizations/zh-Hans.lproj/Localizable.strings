@@ -116,6 +116,17 @@
 /* Pixel dimensions of the output. Not resolution in the sense of resolving a dispute or a decision. */
 "compose.resolution" = "分辨率";
 
+"disk.table.base" = "权重与运行环境";
+
+"disk.table.installedMemory" = "已安装内存";
+
+"disk.table.note" = "空间几乎全用在权重上：最小可用组合约 %@——共用 VAE、文本编码器与 4-bit transformer——再加上约 600 MB 的 Python 运行环境。渲染本身的暂存文件只有几 MB，因为帧是直接喂给编码器，不会写到磁盘。初次设置期间还会多用 3.4 GB 作为 uv 的下载缓存，之后可在“缓存”分页清除。参考素材模式需要另一整套权重，约 60 GB，未计入此表。";
+
+/* Estimated, not fixed: macOS grows swap on demand, and how much it needs depends on how far a render overruns the memory the GPU may hold. */
+"disk.table.swap" = "所需置换空间";
+
+"disk.table.total" = "建议预留";
+
 "format.audio.muxed" = "混流至视频中";
 
 "format.audio.wav" = "混流，并另存 WAV";
@@ -878,6 +889,8 @@
 
 /* Adjective: the app found this component on the machine by itself. Reports a discovery, not an action available. */
 "settings.detected" = "已检测";
+
+"settings.disk" = "磁盘空间";
 
 /* Labels the folder on disk where weights are stored, in Settings ▸ Folders. A location, not the tab — see section.models. */
 "settings.folder.models" = "模型";

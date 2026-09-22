@@ -116,6 +116,17 @@
 /* Pixel dimensions of the output. Not resolution in the sense of resolving a dispute or a decision. */
 "compose.resolution" = "解像度";
 
+"disk.table.base" = "重みと実行環境";
+
+"disk.table.installedMemory" = "搭載メモリ";
+
+"disk.table.note" = "容量のほとんどは重みです。最小構成で約 %@——共有 VAE、テキストエンコーダ、4-bit transformer——に Python 実行環境の約 600 MB を加えた程度です。レンダリング自体の一時ファイルは数 MB しかありません。フレームはそのままエンコーダへ渡され、ディスクには書かれないからです。初回セットアップ中は uv のダウンロードキャッシュに一時的にさらに 3.4 GB を使い、あとから「キャッシュ」タブで空にできます。参考素材モードには別の重み一式、約 60 GB が必要で、この表には含めていません。";
+
+/* Estimated, not fixed: macOS grows swap on demand, and how much it needs depends on how far a render overruns the memory the GPU may hold. */
+"disk.table.swap" = "必要なスワップ";
+
+"disk.table.total" = "空けておく容量";
+
 "format.audio.muxed" = "動画に多重化";
 
 "format.audio.wav" = "多重化に加えて WAV を別途出力";
@@ -878,6 +889,8 @@
 
 /* Adjective: the app found this component on the machine by itself. Reports a discovery, not an action available. */
 "settings.detected" = "検出済み";
+
+"settings.disk" = "ディスク容量";
 
 /* Labels the folder on disk where weights are stored, in Settings ▸ Folders. A location, not the tab — see section.models. */
 "settings.folder.models" = "モデル";

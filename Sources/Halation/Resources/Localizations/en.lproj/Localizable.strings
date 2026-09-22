@@ -116,6 +116,17 @@
 /* Pixel dimensions of the output. Not resolution in the sense of resolving a dispute or a decision. */
 "compose.resolution" = "Resolution";
 
+"disk.table.base" = "Weights and runtime";
+
+"disk.table.installedMemory" = "Installed memory";
+
+"disk.table.note" = "The weights are the whole of it: %@ for the smallest usable set — the shared VAEs, the text encoder and the 4-bit transformer — plus about 600 MB of Python runtime. A render's own temporary files are a few megabytes, because frames are piped straight to the encoder and never written out. Setup transiently needs 3.4 GB more for uv's download cache, which the Cache tab can empty afterwards. Reference mode needs a second set of weights, about 60 GB, and is not counted here.";
+
+/* Estimated, not fixed: macOS grows swap on demand, and how much it needs depends on how far a render overruns the memory the GPU may hold. */
+"disk.table.swap" = "Swap it will need";
+
+"disk.table.total" = "Keep free";
+
 "format.audio.muxed" = "Muxed into the video";
 
 "format.audio.wav" = "Muxed, plus a separate WAV";
@@ -878,6 +889,8 @@
 
 /* Adjective: the app found this component on the machine by itself. Reports a discovery, not an action available. */
 "settings.detected" = "Detected";
+
+"settings.disk" = "Disk space";
 
 /* Labels the folder on disk where weights are stored, in Settings ▸ Folders. A location, not the tab — see section.models. */
 "settings.folder.models" = "Models";

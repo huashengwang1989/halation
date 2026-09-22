@@ -116,6 +116,17 @@
 /* Pixel dimensions of the output. Not resolution in the sense of resolving a dispute or a decision. */
 "compose.resolution" = "ความละเอียด";
 
+"disk.table.base" = "ไฟล์น้ำหนักและรันไทม์";
+
+"disk.table.installedMemory" = "หน่วยความจำที่ติดตั้ง";
+
+"disk.table.note" = "พื้นที่แทบทั้งหมดคือไฟล์น้ำหนัก: ราว %@ สำหรับชุดที่เล็กที่สุดที่ใช้งานได้ — VAE ที่ใช้ร่วมกัน ตัวเข้ารหัสข้อความ และ transformer แบบ 4 บิต — บวกรันไทม์ Python ราว 600 MB ไฟล์ชั่วคราวของการเรนเดอร์มีเพียงไม่กี่เมกะไบต์ เพราะเฟรมถูกส่งตรงไปยังตัวเข้ารหัสและไม่เคยเขียนลงดิสก์ ระหว่างการตั้งค่าจะใช้เพิ่มชั่วคราวอีก 3.4 GB สำหรับแคชดาวน์โหลดของ uv ซึ่งล้างได้ภายหลังจากแท็บแคช โหมดไฟล์อ้างอิงต้องใช้ไฟล์น้ำหนักอีกชุดราว 60 GB ซึ่งไม่ได้รวมไว้ที่นี่";
+
+/* Estimated, not fixed: macOS grows swap on demand, and how much it needs depends on how far a render overruns the memory the GPU may hold. */
+"disk.table.swap" = "พื้นที่สลับที่ต้องใช้";
+
+"disk.table.total" = "ควรเหลือว่างไว้";
+
 "format.audio.muxed" = "รวมไว้ในวิดีโอ";
 
 "format.audio.wav" = "รวมในวิดีโอ พร้อมไฟล์ WAV แยก";
@@ -878,6 +889,8 @@
 
 /* Adjective: the app found this component on the machine by itself. Reports a discovery, not an action available. */
 "settings.detected" = "ตรวจพบแล้ว";
+
+"settings.disk" = "พื้นที่ดิสก์";
 
 /* Labels the folder on disk where weights are stored, in Settings ▸ Folders. A location, not the tab — see section.models. */
 "settings.folder.models" = "โมเดล";

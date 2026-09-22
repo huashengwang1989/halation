@@ -116,6 +116,17 @@
 /* Pixel dimensions of the output. Not resolution in the sense of resolving a dispute or a decision. */
 "compose.resolution" = "الدقة";
 
+"disk.table.base" = "الأوزان وبيئة التشغيل";
+
+"disk.table.installedMemory" = "الذاكرة المثبَّتة";
+
+"disk.table.note" = "الأوزان هي كل شيء تقريبًا: %@ لأصغر مجموعة صالحة — وحدات VAE المشتركة ومرمِّز النص والمحوّل بأربع بتات — إضافة إلى نحو 600 ميغابايت لبيئة Python. أما ملفات التصيير المؤقتة فبضعة ميغابايتات فقط، لأن الإطارات تُمرَّر إلى المرمِّز مباشرة ولا تُكتب أبدًا. ويحتاج الإعداد مؤقتًا إلى 3.4 غيغابايت إضافية لذاكرة تنزيلات uv، ويمكن لتبويب الذاكرة المؤقتة إفراغها بعدها. ويحتاج وضع المراجع مجموعة أوزان ثانية، نحو 60 غيغابايت، غير محسوبة هنا.";
+
+/* Estimated, not fixed: macOS grows swap on demand, and how much it needs depends on how far a render overruns the memory the GPU may hold. */
+"disk.table.swap" = "مساحة التبديل اللازمة";
+
+"disk.table.total" = "احتفظ بمساحة فارغة";
+
 "format.audio.muxed" = "مدمج داخل الفيديو";
 
 "format.audio.wav" = "مدمج، مع ملف WAV منفصل";
@@ -878,6 +889,8 @@
 
 /* Adjective: the app found this component on the machine by itself. Reports a discovery, not an action available. */
 "settings.detected" = "تم الكشف";
+
+"settings.disk" = "مساحة القرص";
 
 /* Labels the folder on disk where weights are stored, in Settings ▸ Folders. A location, not the tab — see section.models. */
 "settings.folder.models" = "النماذج";
