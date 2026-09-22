@@ -41,7 +41,7 @@ struct DiskRequirementsTable: View {
                 ModelCatalog.all.first { $0.nameKey == key }?.approximateResidentBytes
             }
             .reduce(0, +)
-        return Int64(Double(resident) * MemoryRequirementsTable.peakMultiplier)
+        return Int64(Double(resident) * MemoryRequirementsTable.mlxPeakMultiplier)
     }
 
     private var machines: [Machine] {

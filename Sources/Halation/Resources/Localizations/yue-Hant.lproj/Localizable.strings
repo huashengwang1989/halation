@@ -225,8 +225,8 @@
 
 "memory.table.combination" = "模型同引擎";
 
-/* Footnote under the table, and the only place the verdict words are explained. The 2.4x multiplier and the swap figure both come from one measured MLX render (50 GB of weights peaking at 120 GB on a 128 GB Mac), so it is a rule of thumb rather than a specification. Keep the quoted words identical to memory.verdict.tight and .swaps. */
-"memory.table.note" = "權重只係其中一part：生成嗰陣仲要額外嘅工作記憶體，實測一次算圖尖峰大概係權重數字嘅 2.4 倍，上面嘅判斷已經計咗呢樣。「緊」係話尖峰超出可用嘅份額，但仲裝得落已裝嘅記憶體，macOS 會換走一部分，算圖照樣做得完——實測喺 128 GB 機上面尖峰 120 GB，用咗 16 GB 置換空間，順利跑完。「置換」係話超出已裝嘅記憶體，本來一個鐘嘅算圖會拖好多。可用比例係 Metal 對部機嘅回報——大概係安裝容量嘅四分三到六分五，容量越大比例越高。";
+/* Footnote under the table, and the only place the verdict words are explained. Each multiplier comes from one measured render of that engine (MLX: 50 GB of weights peaking at 120 GB on a 128 GB Mac; ComfyUI: 55 GB peaking at 77.6 GB), so they are rules of thumb, not specifications. Keep the quoted words identical to memory.verdict.tight and memory.verdict.swaps. */
+"memory.table.note" = "權重只係其中一part：生成嗰陣仲要額外嘅工作記憶體，要幾多就睇引擎——實測 MLX 算圖尖峰大概係權重數字嘅 2.4 倍，ComfyUI 得 1.41 倍，因為 ComfyUI 係分階段載入模型，唔會同一時間全部擺晒喺度。上面嘅判斷已經計咗呢樣。「緊」係話尖峰超出可用嘅份額，但仲裝得落已裝嘅記憶體，macOS 會換走一部分，算圖照樣做得完——實測喺 128 GB 機上面尖峰 120 GB，用咗 16 GB 置換空間，順利跑完。「置換」係話超出已裝嘅記憶體，本來一個鐘嘅算圖會拖好多。可用比例係 Metal 對部機嘅回報——大概係安裝容量嘅四分三到六分五，容量越大比例越高。";
 
 "memory.table.orLess" = "%@ 或者更少";
 
@@ -350,7 +350,7 @@
 
 "model.support.mlx" = "video VAE(10.4 GB)、audio VAE、處理器同 tokenizer,由 pipeline 整包載入嘅 FL2VA 任務目錄度攞。每次算都要。";
 
-"model.textEncoder.mlx" = "bfloat16 版嘅 Qwen3-VL-32B——H3 讀佢第 50 層嘅隱藏狀態。單一檔案入面最大嘅下載,亦係而家 MLX pipeline 唯一載入到嘅文字編碼器。常駐大概 34 GB,所以決定呢個 App 喺部 Mac 跑唔跑到嘅係佢,唔係 transformer:配最細嗰個 transformer 大概 46 GB,所以實際門檻大概係 64 GB 統一記憶體。佢會同 VAE 一齊裝喺 FL2VA/ 入面。";
+"model.textEncoder.mlx" = "bfloat16 版嘅 Qwen3-VL-32B——H3 讀佢第 50 層嘅隱藏狀態。單一檔案入面最大嘅下載，亦係而家 MLX pipeline 唯一載入到嘅文字編碼器。常駐大概 34 GB，所以決定呢個 App 喺部 Mac 跑唔跑到嘅係佢，唔係 transformer：呢個係量化都減唔到嘅固定成本，換細啲嘅 transformer 最多都係慳到 29 GB。不過單睇權重唔準——實際要幾多，睇「系統需求」嗰版。佢會同 VAE 一齊裝喺 FL2VA/ 入面。";
 
 "model.textEncoder.uncensored" = "拒絕行為訓練走咗嘅 Qwen3-VL-32B。可以直接換走原本嗰個——H3 本身冇變,因為拒絕行為喺語言模型度,唔喺 diffusion transformer。淨係 ComfyUI 用得;MLX 冇呢個格式嘅載入器。";
 

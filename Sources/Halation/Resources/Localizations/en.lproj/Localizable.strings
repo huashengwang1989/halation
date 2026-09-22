@@ -225,8 +225,8 @@
 
 "memory.table.combination" = "Model and engine";
 
-/* Footnote under the table, and the only place the verdict words are explained. The 2.4x multiplier and the swap figure both come from one measured MLX render (50 GB of weights peaking at 120 GB on a 128 GB Mac), so it is a rule of thumb rather than a specification. Keep the quoted words identical to memory.verdict.tight and .swaps. */
-"memory.table.note" = "Weights are only part of it: generating needs working memory on top, and a measured render peaked at about 2.4 times its weight figure. The verdicts allow for that. “Tight” means the peak clears the usable share but still fits in installed memory, so macOS pages some of it out and the render finishes anyway — measured, a 120 GB peak on a 128 GB Mac used 16 GB of swap and completed. “Swaps” means it exceeds installed memory, and a render that would take an hour takes far longer. The usable share is what Metal reports for the machine — roughly three quarters to five sixths of what is installed, higher on the larger configurations.";
+/* Footnote under the table, and the only place the verdict words are explained. Each multiplier comes from one measured render of that engine (MLX: 50 GB of weights peaking at 120 GB on a 128 GB Mac; ComfyUI: 55 GB peaking at 77.6 GB), so they are rules of thumb, not specifications. Keep the quoted words identical to memory.verdict.tight and memory.verdict.swaps. */
+"memory.table.note" = "Weights are only part of it: generating needs working memory on top, and how much depends on the engine — a measured MLX render peaked at 2.4 times its weight figure, a ComfyUI one at 1.41, because ComfyUI loads its models in stages and never holds them all at once. The verdicts allow for that. “Tight” means the peak clears the usable share but still fits in installed memory, so macOS pages some of it out and the render finishes anyway — measured, a 120 GB peak on a 128 GB Mac used 16 GB of swap and completed. “Swaps” means it exceeds installed memory, and a render that would take an hour takes far longer. The usable share is what Metal reports for the machine — roughly three quarters to five sixths of what is installed, higher on the larger configurations.";
 
 "memory.table.orLess" = "%@ or less";
 
@@ -350,7 +350,7 @@
 
 "model.support.mlx" = "Video VAE (10.4 GB), audio VAE, processor and tokenizer, taken from the FL2VA task directory the pipeline loads as a unit. Required by every run.";
 
-"model.textEncoder.mlx" = "Qwen3-VL-32B in bfloat16 — H3 reads its 50th-layer hidden states. The largest single download, and currently the only text encoder the MLX pipeline can load. At about 34 GB resident it, not the transformer, decides whether this app runs on a given Mac: with the smallest transformer that is roughly 46 GB, so about 64 GB of unified memory is the practical floor. It installs beside the VAEs in FL2VA/.";
+"model.textEncoder.mlx" = "Qwen3-VL-32B in bfloat16 — H3 reads its 50th-layer hidden states. The largest single download, and currently the only text encoder the MLX pipeline can load. At about 34 GB resident it, not the transformer, decides whether this app runs on a given Mac: a fixed cost no quantization reduces, against which a smaller transformer saves at most 29 GB. Weights alone are not the test, though — see the Requirements tab for what a machine actually needs. It installs beside the VAEs in FL2VA/.";
 
 "model.textEncoder.uncensored" = "Qwen3-VL-32B with its refusal behaviour trained out. Drop-in replacement for the stock encoder — H3 itself is unchanged, since refusals live in the language model, not the diffusion transformer. ComfyUI only; MLX has no loader for this format.";
 

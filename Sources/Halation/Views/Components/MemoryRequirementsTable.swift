@@ -16,6 +16,9 @@ struct MemoryRequirementsTable: View {
         let id: String
         let label: String
         let weightBytes: Int64
+        /// What this engine holds at peak, as a multiple of its weights.
+        let peakMultiplier: Double
+        var peakBytes: Double { Double(weightBytes) * peakMultiplier }
     }
 
     /// Installed memory, and the share of it a model may hold.
@@ -60,17 +63,27 @@ struct MemoryRequirementsTable: View {
         }
     }
 
-    /// Generation holds well over twice the weights at peak.
+    /// What a render holds at peak, as a multiple of its weights. The two
+    /// engines differ so much that one number for both is simply wrong.
     ///
-    /// Measured on a live MLX render of the 4-bit set: 50 GB of catalogue
-    /// weights against a kernel-reported lifetime peak of 120 GB, so 2.4. A
-    /// table comparing weights alone against the budget would call that
-    /// combination comfortable on a 128 GB Mac, which it is not — that render
-    /// drove swap to 16 GB.
+    /// **MLX, 2.4.** Measured on a 4-bit render: 50 GB of catalogue weights
+    /// against a kernel-reported lifetime peak of 120 GB. The port holds the
+    /// encoder and the transformer at once for the whole run, so the peak is
+    /// the sum plus working memory. On a 128 GB Mac that render drove swap to
+    /// 16 GB and still finished.
     ///
-    /// One measurement, on one engine. The per-job peak the queue now records
-    /// will accumulate more, and this should follow them.
-    static let peakMultiplier = 2.4
+    /// **ComfyUI, 1.41.** Measured on an INT8 FL2VA render at 1344×768: 55 GB
+    /// of weights against a 77.6 GB peak. ComfyUI stages its models — the
+    /// footprint fell from 77 GB to 30 GB the moment sampling ended and only
+    /// the VAE was still needed — so it never holds everything at once. Its
+    /// peak is also a plateau rather than a spike: it sat at exactly 77.13 GB
+    /// for the entire sampling phase, because the Torch MPS allocator takes a
+    /// pool and reuses it.
+    ///
+    /// Reusing MLX's 2.4 for ComfyUI, as this table first did, called a 96 GB
+    /// Mac unusable for an engine that in fact fits inside its GPU budget.
+    static let mlxPeakMultiplier = 2.4
+    static let comfyPeakMultiplier = 1.41
 
     private let gigabyte: Int64 = 1_073_741_824
 
@@ -97,19 +110,25 @@ struct MemoryRequirementsTable: View {
 
         return [
             .init(id: "mlx-q4", label: "MLX · FL2VA · 4-bit",
-                  weightBytes: mlxFixed + bytes("model.name.fl2va.q4")),
+                  weightBytes: mlxFixed + bytes("model.name.fl2va.q4"),
+                  peakMultiplier: Self.mlxPeakMultiplier),
             .init(id: "mlx-q6", label: "MLX · FL2VA · 6-bit",
-                  weightBytes: mlxFixed + bytes("model.name.fl2va.q6")),
+                  weightBytes: mlxFixed + bytes("model.name.fl2va.q6"),
+                  peakMultiplier: Self.mlxPeakMultiplier),
             .init(id: "mlx-q8", label: "MLX · FL2VA · 8-bit",
-                  weightBytes: mlxFixed + bytes("model.name.fl2va.q8")),
+                  weightBytes: mlxFixed + bytes("model.name.fl2va.q8"),
+                  peakMultiplier: Self.mlxPeakMultiplier),
             .init(id: "mlx-bf16", label: "MLX · FL2VA · bfloat16",
-                  weightBytes: mlxFixed + bytes("model.name.fl2va.bf16")),
+                  weightBytes: mlxFixed + bytes("model.name.fl2va.bf16"),
+                  peakMultiplier: Self.mlxPeakMultiplier),
             .init(id: "comfy-fl2va", label: "ComfyUI · FL2VA · INT8",
                   weightBytes: comfyFixed + bytes("model.name.comfy.fl2va")
-                      + bytes("model.name.comfy.lora.fl2va")),
+                      + bytes("model.name.comfy.lora.fl2va"),
+                  peakMultiplier: Self.comfyPeakMultiplier),
             .init(id: "comfy-ref2va", label: "ComfyUI · Ref2VA · INT8",
                   weightBytes: comfyFixed + bytes("model.name.comfy.ref2va")
-                      + bytes("model.name.comfy.lora.ref2va")),
+                      + bytes("model.name.comfy.lora.ref2va"),
+                  peakMultiplier: Self.comfyPeakMultiplier),
         ]
     }
 
@@ -122,7 +141,7 @@ struct MemoryRequirementsTable: View {
     /// swap to 16 GB and completed. Over installed memory it is paging in
     /// earnest, and a render that would take an hour takes far longer.
     private func verdict(_ row: Row, on machine: Machine) -> Verdict {
-        let peak = Double(row.weightBytes) * Self.peakMultiplier
+        let peak = row.peakBytes
         if peak <= Double(machine.highBudget) { return .fits }
         if peak <= Double(machine.installedBytes) { return .tight }
         return .swaps

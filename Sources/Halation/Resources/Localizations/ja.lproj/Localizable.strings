@@ -225,8 +225,8 @@
 
 "memory.table.combination" = "モデルとエンジン";
 
-/* Footnote under the table, and the only place the verdict words are explained. The 2.4x multiplier and the swap figure both come from one measured MLX render (50 GB of weights peaking at 120 GB on a 128 GB Mac), so it is a rule of thumb rather than a specification. Keep the quoted words identical to memory.verdict.tight and .swaps. */
-"memory.table.note" = "重みは一部にすぎません。生成にはさらに作業用メモリが必要で、実測したレンダリングのピークは重みの約 2.4 倍でした。判定はそれを見込んでいます。「ぎりぎり」はピークが使える割当てを超えるものの搭載メモリには収まる状態で、macOS が一部を退避させながらもレンダリングは完走します——実測では 128 GB の Mac でピーク 120 GB、スワップ 16 GB を使って完了しました。「スワップ」は搭載メモリを超える状態で、一時間で済むレンダリングがはるかに長くかかります。使える割合は Metal がその機械について報告する値で、搭載量のおよそ四分の三から六分の五、容量が大きいほど高くなります。";
+/* Footnote under the table, and the only place the verdict words are explained. Each multiplier comes from one measured render of that engine (MLX: 50 GB of weights peaking at 120 GB on a 128 GB Mac; ComfyUI: 55 GB peaking at 77.6 GB), so they are rules of thumb, not specifications. Keep the quoted words identical to memory.verdict.tight and memory.verdict.swaps. */
+"memory.table.note" = "重みは一部にすぎません。生成にはさらに作業用メモリが必要で、どれだけ必要かはエンジンによります——実測では MLX のピークが重みの 2.4 倍、ComfyUI は 1.41 倍でした。ComfyUI はモデルを段階的に読み込み、すべてを同時に保持しないからです。上の判定はそれを見込んでいます。「ぎりぎり」はピークが使える割当てを超えるものの搭載メモリには収まる状態で、macOS が一部を退避させながらもレンダリングは完走します——実測では 128 GB の Mac でピーク 120 GB、スワップ 16 GB を使って完了しました。「スワップ」は搭載メモリを超える状態で、一時間で済むレンダリングがはるかに長くかかります。使える割合は Metal がその機械について報告する値で、搭載量のおよそ四分の三から六分の五、容量が大きいほど高くなります。";
 
 "memory.table.orLess" = "%@ 以下";
 
@@ -350,7 +350,7 @@
 
 "model.support.mlx" = "動画 VAE（10.4 GB）、音声 VAE、プロセッサ、トークナイザで、パイプラインがひとまとまりで読み込む FL2VA のタスクディレクトリから取得します。すべての実行に必要です。";
 
-"model.textEncoder.mlx" = "bfloat16 の Qwen3-VL-32B。H3 はその第 50 層の隠れ状態を読みます。単体では最大のダウンロードで、現在 MLX パイプラインが読み込める唯一のテキストエンコーダです。常駐約 34 GB で、このアプリがその Mac で動くかどうかを決めるのはトランスフォーマーではなくこちらです。最小のトランスフォーマーと合わせて約 46 GB になるため、実質的な下限はユニファイドメモリ 64 GB ほどです。VAE と同じ FL2VA/ に入ります。";
+"model.textEncoder.mlx" = "bfloat16 の Qwen3-VL-32B。H3 はその第 50 層の隠れ状態を読みます。単体では最大のダウンロードで、現在 MLX パイプラインが読み込める唯一のテキストエンコーダです。常駐約 34 GB で、このアプリがその Mac で動くかどうかを決めるのはトランスフォーマーではなくこちらです。量子化では減らせない固定費で、小さいトランスフォーマーに替えても最大 29 GB しか浮きません。ただし重みだけが判断材料ではありません。実際に必要な量は「動作要件」タブをご覧ください。VAE と同じ FL2VA/ に入ります。";
 
 "model.textEncoder.uncensored" = "拒否の振る舞いを学習から取り除いた Qwen3-VL-32B です。標準のエンコーダとそのまま差し替えられます。拒否は言語モデル側にあり拡散トランスフォーマーにはないため、H3 自体は変わりません。ComfyUI 専用で、MLX にはこの形式のローダーがありません。";
 

@@ -297,17 +297,43 @@ A run holds the transformer **and** the text encoder at once, and the encoder is
 the larger of the two: Qwen3-VL-32B in bfloat16 is about 34 GB resident against
 12 GB for the 4-bit transformer. Computed over the real catalogue figures:
 
-| installed | usable | what fits |
-|---|---|---|
-| 48 GB and below | ≤36 GB | **nothing** |
-| 64 GB | 48 GB | 4-bit and the INT8 ConvRot builds, all flagged "tight" (46 GB) |
-| 96 GB | 72 GB | everything except bfloat16 |
-| 128 GB and above | ≥96 GB | everything, bfloat16 included at 75 GB |
+Weights alone are not the test, though. **This table was wrong** and is kept
+here only so the error is not repeated: it compared weights against the budget
+and ignored working memory, so it called 64 GB usable. Measured peaks say
+otherwise — see *Peak memory is per-engine* below. The live figures are computed
+in `MemoryRequirementsTable`, which is the thing to read, not a table in a file.
 
-So **64 GB is the practical floor** and there is no quantization that changes
-that — choosing a smaller transformer saves at most 29 GB against a 34 GB fixed
-cost. Say this plainly in anything user-facing; it is the single most useful
-fact for someone deciding whether to try the app.
+The one durable fact here: the encoder is the larger half and is **fixed**.
+Qwen3-VL-32B in bfloat16 is about 34 GB resident against 12 GB for the 4-bit
+transformer, so choosing a smaller transformer saves at most 29 GB against a
+34 GB cost that never moves. No quantization rescues a machine that is too
+small.
+
+### Peak memory is per-engine, and the difference is large
+
+Two measured renders, each read from `ri_lifetime_max_phys_footprint`:
+
+| engine | weights | measured peak | ratio |
+|---|---|---|---|
+| MLX, FL2VA 4-bit, 50 steps | 50 GB | 120.4 GB | **2.4×** |
+| ComfyUI, FL2VA INT8, 4 steps, 1344×768 | 55 GB | 77.6 GB | **1.41×** |
+
+The ratio differs because **ComfyUI stages its models and MLX does not**. During
+the ComfyUI render the footprint sat at exactly 77.13 GB for the whole sampling
+phase — a plateau, not a spike, because the Torch MPS allocator takes a pool and
+reuses it — then fell to 29.78 GB the moment sampling ended and only the VAE was
+still needed. MLX holds the encoder and the transformer together for the whole
+run.
+
+Applying MLX's 2.4× to ComfyUI, which this table did at first, declared a 96 GB
+Mac unusable for a combination that in fact fits inside its GPU budget. **Do not
+carry a multiplier across engines.**
+
+So the practical floor is **96 GB, and only through ComfyUI**; MLX at 4-bit
+needs 128 GB and is tight even there. At 64 GB every combination exceeds
+installed memory and pages in earnest. A community report of ComfyUI completing
+on an M4 Pro / 64 GB is not a counter-example: it ran at 608×352, well under the
+1344×768 these figures are measured at.
 
 ### Render time is measured, not predicted
 

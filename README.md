@@ -33,7 +33,10 @@ H3 conditions on. The 4-bit transformer is 26 GB and the VAEs 12 GB.
 
 ## Requirements
 
-- Apple silicon Mac. 64 GB unified memory is the practical floor; 128 GB is comfortable.
+- Apple silicon Mac. **96 GB unified memory is the practical floor, and only
+  through ComfyUI** — its INT8 build peaked at 77.6 GB in measurement. MLX at
+  4-bit peaked at 120 GB and wants 128 GB, which is still tight. At 64 GB every
+  combination pages heavily.
 - macOS 26 or later by default. It **builds and runs on Sequoia (15)** — change
   `platforms: [.macOS(.v26)]` in `Package.swift` and `LSMinimumSystemVersion` in
   `Scripts/make_app.sh` to 15, and every macOS 26 API falls back on its own (see

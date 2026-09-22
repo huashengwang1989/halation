@@ -225,8 +225,8 @@
 
 "memory.table.combination" = "模型與引擎";
 
-/* Footnote under the table, and the only place the verdict words are explained. The 2.4x multiplier and the swap figure both come from one measured MLX render (50 GB of weights peaking at 120 GB on a 128 GB Mac), so it is a rule of thumb rather than a specification. Keep the quoted words identical to memory.verdict.tight and .swaps. */
-"memory.table.note" = "權重只是其中一部分：生成時還需要額外的工作記憶體，實測一次算圖的尖峰約為權重數字的 2.4 倍，上表的判定已計入這點。「吃緊」是指尖峰超出可用額度、但仍裝得進已安裝的記憶體，macOS 會把一部分換出，算圖照樣完成——實測在 128 GB 機器上尖峰 120 GB，用掉 16 GB 置換空間並順利跑完。「置換」是指超出已安裝的記憶體，本來一小時的算圖會拖得久很多。可用比例取自 Metal 對該機器的回報——大約是安裝容量的四分之三到六分之五，容量越大比例越高。";
+/* Footnote under the table, and the only place the verdict words are explained. Each multiplier comes from one measured render of that engine (MLX: 50 GB of weights peaking at 120 GB on a 128 GB Mac; ComfyUI: 55 GB peaking at 77.6 GB), so they are rules of thumb, not specifications. Keep the quoted words identical to memory.verdict.tight and memory.verdict.swaps. */
+"memory.table.note" = "權重只是其中一部分：生成時還需要額外的工作記憶體，需要多少則視引擎而定——實測 MLX 算圖的尖峰是權重數字的 2.4 倍，ComfyUI 只有 1.41 倍，因為 ComfyUI 分階段載入模型，不會同時全部留著。上表的判定已計入這點。「吃緊」是指尖峰超出可用額度、但仍裝得進已安裝的記憶體，macOS 會把一部分換出，算圖照樣完成——實測在 128 GB 機器上尖峰 120 GB，用掉 16 GB 置換空間並順利跑完。「置換」是指超出已安裝的記憶體，本來一小時的算圖會拖得久很多。可用比例取自 Metal 對該機器的回報——大約是安裝容量的四分之三到六分之五，容量越大比例越高。";
 
 "memory.table.orLess" = "%@ 或更少";
 
@@ -350,7 +350,7 @@
 
 "model.support.mlx" = "video VAE（10.4 GB）、audio VAE、處理器與 tokenizer，取自 pipeline 整包載入的 FL2VA 任務目錄。每次算圖都需要。";
 
-"model.textEncoder.mlx" = "bfloat16 版的 Qwen3-VL-32B——H3 讀取其第 50 層的隱藏狀態。單一檔案中最大的下載項目，目前也是 MLX pipeline 唯一能載入的文字編碼器。常駐約 34 GB，因此決定本 App 能否在某台 Mac 上執行的是它而非 transformer：搭配最小的 transformer 約需 46 GB，實務上統一記憶體約 64 GB 是門檻。會與 VAE 一同安裝在 FL2VA/ 之下。";
+"model.textEncoder.mlx" = "bfloat16 版的 Qwen3-VL-32B——H3 讀取其第 50 層的隱藏狀態。單一檔案中最大的下載項目，目前也是 MLX pipeline 唯一能載入的文字編碼器。常駐約 34 GB，因此決定本 App 能否在某台 Mac 上執行的是它而非 transformer：這是量化也減不掉的固定成本，換用較小的 transformer 最多只省 29 GB。不過單看權重並非判準——實際需要多少，請看「系統需求」分頁。會與 VAE 一同安裝在 FL2VA/ 之下。";
 
 "model.textEncoder.uncensored" = "已移除拒絕行為的 Qwen3-VL-32B。可直接替換原本的編碼器——H3 本身沒有改動，因為拒絕行為存在於語言模型，而非 diffusion transformer。僅支援 ComfyUI；MLX 無法載入此格式。";
 
