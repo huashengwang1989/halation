@@ -365,6 +365,7 @@ def cmd_generate(args: argparse.Namespace) -> int:
     tee = _StepTee(reporter, file_sizes=sizes)
 
     cache = None
+    restore_dit = None
 
     protocol.stage("preparing")
     total_gb = sum(sizes.values()) / 1e9
@@ -385,7 +386,7 @@ def cmd_generate(args: argparse.Namespace) -> int:
         # transformer rather than by editing the port: `minimax_h3_mlx` is
         # cloned from upstream and replaced whenever the runtime is repaired,
         # so a change made in there would have to be made again every time.
-        cache = _install_step_cache(pipeline, job, steps)
+        cache, restore_dit = _install_step_cache(pipeline, job, steps)
 
         protocol.stage("generating")
         with contextlib.redirect_stdout(tee):
@@ -403,6 +404,9 @@ def cmd_generate(args: argparse.Namespace) -> int:
         protocol.error(f"Generation failed: {exc}")
         protocol.log(traceback.format_exc(limit=14))
         return 1
+    finally:
+        if restore_dit is not None:
+            restore_dit()
 
     if cache is not None:
         summary = cache.summary()
@@ -414,7 +418,8 @@ def cmd_generate(args: argparse.Namespace) -> int:
             f"Step reuse: {summary['skipped']} of {summary['steps']} steps "
             f"reused rather than computed "
             f"(threshold {summary['reuse_threshold']}, "
-            f"window steps {summary['window'][0]}-{summary['window'][1]})."
+            f"window steps {summary['window'][0]}-{summary['window'][1]}), "
+            f"holding {summary['cache_bytes'] / 1e9:.2f} GB to do it."
         )
 
     reporter.report_memory()
@@ -456,44 +461,65 @@ _ENCODERS = {
 
 
 def _install_step_cache(pipeline, job, sigma_points: int):
-    """Wrap `pipeline.dit` so predictable steps are replayed instead of run.
+    """Intercept the transformer's calls so predictable steps are replayed.
 
-    Returns the cache for reporting, or None when it is switched off or cannot
-    be installed. A failure here is never fatal: the render is worth more than
-    the saving, so it falls back to computing every step and says so.
+    Returns ``(cache, restore)``: the cache for reporting, and a callable that
+    puts the transformer's class back. Both are ``None`` when step reuse is off
+    or cannot be installed — a failure here is never fatal, because the render
+    is worth more than the saving.
+
+    The interception is on the class, not on ``pipeline.dit``. Replacing the
+    attribute would also replace what the pipeline hands to
+    ``drop_adaln_weights``, which is how roughly 26 GB gets freed before
+    denoising starts, and would have cost far more memory than skipped steps
+    save — on top of breaking ``dit.config`` and ``dit.parameters()``.
     """
     if str(job.get("step_cache") or "off") == "off":
-        return None
+        return None, None
     try:
         from step_cache import StepCache
     except Exception as exc:
         protocol.log(f"Step reuse unavailable, rendering every step: {exc}")
-        return None
+        return None, None
 
-    inner = getattr(pipeline, "dit", None)
-    if inner is None:
+    dit = getattr(pipeline, "dit", None)
+    if dit is None:
         protocol.log("Step reuse: this port exposes no `dit`, "
                      "so every step will be computed.")
-        return None
+        return None, None
 
     # The port counts sigma-grid points and runs one fewer forward pass, so the
     # window has to be measured against the passes that actually happen.
     passes = max(1, int(sigma_points) - 1)
     cache = StepCache(
-        inner,
         passes,
         reuse_threshold=float(job.get("step_cache_threshold", 0.2)),
         start_percent=float(job.get("step_cache_start", 0.15)),
         end_percent=float(job.get("step_cache_end", 0.95)),
         verbose=bool(job.get("verbose")),
     )
-    pipeline.dit = cache
+
+    # Whatever the transformer actually is at this point — quantisation may
+    # have produced a different class than the source declares.
+    transformer_class = type(dit)
+    original_call = transformer_class.__call__
+
+    def patched_call(self, video, audio, *rest, **kwargs):
+        return cache.run(
+            lambda: original_call(self, video, audio, *rest, **kwargs),
+            video, audio)
+
+    transformer_class.__call__ = patched_call
+
+    def restore():
+        transformer_class.__call__ = original_call
+
     protocol.log(
         f"Step reuse on: threshold {cache.reuse_threshold}, "
         f"computing steps 0-{cache.start_step} and "
         f"{cache.end_step}-{passes} in full."
     )
-    return cache
+    return cache, restore
 
 
 def _report_prompt_tokens(pipeline, prompt: str, images) -> None:

@@ -12,12 +12,19 @@ similar outputs, so when a step's input has barely moved, the previous step's
 
 It lives here rather than in ``minimax_h3_mlx`` because that package is cloned
 from upstream and replaced whenever the runtime is repaired. A patch applied
-there is a patch to reapply forever; wrapping ``pipeline.dit`` from our own
-sidecar touches nothing that upstream owns, and it degrades to a no-op if the
-port's signature ever changes, since every argument is passed straight through.
+there is a patch to reapply forever; installing from our own sidecar touches
+nothing that upstream owns.
 
-The wrapper is deliberately blind to what it is wrapping. It only knows that
-the call takes video and audio rows and returns predictions for both.
+It intercepts the transformer's ``__call__`` on its class and leaves
+``pipeline.dit`` as the genuine module. Substituting the object there instead
+looks tidier and is wrong: the pipeline goes on to read ``dit.config``, to call
+``dit.parameters()``, and — the one that matters — to hand ``dit`` to
+``drop_adaln_weights``, which frees about 26 GB by discarding the projections
+that depend only on the timestep. A stand-in object breaks all three, and the
+last one silently costs more memory than any amount of step skipping saves.
+
+The cache is deliberately blind to what it is wrapping. It only knows that the
+call takes video and audio rows and returns predictions for both.
 """
 
 from __future__ import annotations
@@ -35,9 +42,8 @@ class StepCache:
     and reset it.
     """
 
-    def __init__(self, inner, total_steps, reuse_threshold=0.2,
+    def __init__(self, total_steps, reuse_threshold=0.2,
                  start_percent=0.15, end_percent=0.95, subsample=8, verbose=False):
-        self.inner = inner
         self.total_steps = max(1, int(total_steps))
         self.reuse_threshold = float(reuse_threshold)
         self.subsample = max(1, int(subsample))
@@ -51,6 +57,10 @@ class StepCache:
 
         self.step = 0
         self.skipped = 0
+        # What the cache itself costs, measured on the first step rather than
+        # estimated. Reuse buys time by spending memory, which is the wrong
+        # trade to make blind on a machine that is already close to its limit.
+        self.cache_bytes = 0
 
         # What a skip replays: the change the transformer made last time it ran.
         self._diff_video = None
@@ -90,7 +100,12 @@ class StepCache:
 
     # -- the wrapped call ---------------------------------------------------
 
-    def __call__(self, video, audio, *rest, **kwargs):
+    def run(self, compute, video, audio):
+        """Either replay the last change, or call `compute()` and record it.
+
+        `compute` is a thunk over the real transformer call, so this never holds
+        the transformer, its arguments, or any opinion about their shape.
+        """
         step = self.step
         self.step += 1
 
@@ -114,7 +129,7 @@ class StepCache:
                     return video + self._diff_video, audio + self._diff_audio
                 self._cumulative = 0.0
 
-        out_video, out_audio = self.inner(video, audio, *rest, **kwargs)
+        out_video, out_audio = compute()
 
         output_sub = self._sub(out_video)
         if self._output_prev is not None and input_change:
@@ -136,6 +151,12 @@ class StepCache:
         mx.eval(self._diff_video, self._diff_audio,
                 self._output_prev, self._input_prev)
 
+        if not self.cache_bytes:
+            self.cache_bytes = sum(
+                getattr(t, "nbytes", 0) for t in
+                (self._diff_video, self._diff_audio,
+                 self._output_prev, self._input_prev))
+
         return out_video, out_audio
 
     # -- reporting ----------------------------------------------------------
@@ -148,4 +169,5 @@ class StepCache:
             "skipped": self.skipped,
             "window": [self.start_step, self.end_step],
             "reuse_threshold": self.reuse_threshold,
+            "cache_bytes": self.cache_bytes,
         }
