@@ -9,6 +9,71 @@
 
 "a11y.usingMemory" = "using %@";
 
+"automation.address" = "Address";
+
+"automation.cap.cancel" = "Stop a render that is queued or running.";
+
+"automation.cap.estimate" = "How long a render would take and whether it can start at all.";
+
+"automation.cap.jobs" = "The queue: state, progress, timings and the log tail.";
+
+"automation.cap.library" = "Finished renders, with their prompt, seed and file path.";
+
+"automation.cap.machine" = "How much memory this Mac has, and which combinations fit in it.";
+
+"automation.cap.models" = "The catalogue, and which of it is installed here.";
+
+"automation.cap.reproduce" = "Render a library item again with its original seed — the same clip, not a fresh roll.";
+
+"automation.cap.submit" = "Queue a render. Validated exactly as the Generate button is.";
+
+"automation.connection" = "Connection";
+
+"automation.copied" = "Copied";
+
+"automation.depth" = "At most %@ job(s) waiting";
+
+"automation.depth.detail" = "The API refuses new work past this. This Mac renders one at a time, and an agent has no way to feel a queue getting long.";
+
+/* The master switch. Off until someone turns it on, every launch it has not been turned on before. */
+"automation.enable" = "Enable the local API";
+
+/* Listed on the page itself, so the person deciding whether to switch it on can see what they are granting while they decide. */
+"automation.exposes" = "What it exposes";
+
+"automation.exposes.detail" = "Reference images are never accepted over the API: they are files on disk, and taking a path from a caller would let it read anything this app can. Set those up in Compose.";
+
+"automation.footnote" = "Lets another program on this Mac — usually an agent — ask what this machine can render and hand it work. It listens on this Mac only, and every request must carry the token below.";
+
+"automation.hide" = "Hide";
+
+"automation.mcp" = "Talking to it";
+
+"automation.mcp.detail" = "Plain HTTP with JSON, so anything can call it. Start with GET /v1/health, which lists every route this build serves.";
+
+/* Editable, and it persists: an agent's configuration names a port, and one that moved every launch would break it daily. */
+"automation.port" = "Port";
+
+"automation.regenerate" = "Regenerate token";
+
+"automation.reveal" = "Show";
+
+"automation.status.off" = "Not listening.";
+
+/* WARNING: Shown while the server is up. The request count is there so the page shows the thing being used rather than merely switched on. */
+"automation.status.running" = "Listening on port %1$@ · %2$@ request(s) served";
+
+/* Heads the switch card. 'Local' is doing real work here: it says the port never leaves this machine. */
+"automation.title" = "Local API";
+
+"automation.token" = "Token";
+
+"automation.token.detail" = "Send it as an Authorization: Bearer header. Anything on this Mac that has it can use the API, so regenerating it is how you cut something off.";
+
+"automation.writes" = "Allow queueing renders";
+
+"automation.writes.detail" = "Off, the API can only answer questions. On, it can also start and cancel renders — which cost hours and most of this Mac's memory.";
+
 "backend.comfy.detail" = "PyTorch on Metal. The only backend that supports references, and the only one that can load the 4-step turbo LoRAs.";
 
 "backend.mlx.detail" = "Apple's own framework, running the model natively. Text-to-video and keyframes only — the port has no reference conditioning.";
@@ -862,6 +927,9 @@
 
 /* Labels the disk bar under the memory chart on the Queue page. Both halves, because both grow during a render and only one of them is ever large: swap reached 66 GB here while the scratch stayed in megabytes. */
 "scratch.bar.title" = "Swap + render scratch";
+
+/* Sidebar section for the local API another program can talk to. Not 'API' — the page is about letting something else drive the app, and the protocol is a detail of that. */
+"section.automation" = "Automation";
 
 /* The Compose tab: the screen where a render is set up. Not the verb. Distinct from settings.remember.section, which is the name of a group of settings *about* that screen. */
 "section.compose" = "Compose";

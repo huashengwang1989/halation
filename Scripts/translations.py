@@ -6937,3 +6937,340 @@ add("scratch.bar.summary", {
                     "share of the whole volume. Saying 'of the disk' was "
                     "misread as exactly that, which is why it no longer does.",
          "level": WARNING})
+
+# ── Automation page ──────────────────────────────────────────────────────────
+add("section.automation", {
+    "en": "Automation", "zh-Hant": "自動化", "zh-Hans": "自动化",
+    "de": "Automatisierung", "ar": "الأتمتة", "ja": "自動化",
+    "ko": "자동화", "th": "ระบบอัตโนมัติ", "yue-Hant": "自動化",
+    "en-SG": "Automation",
+}, note="Sidebar section for the local API another program can talk to. Not "
+        "'API' — the page is about letting something else drive the app, and "
+        "the protocol is a detail of that.")
+add("automation.title", {
+    "en": "Local API", "zh-Hant": "本機 API", "zh-Hans": "本机 API",
+    "de": "Lokale API", "ar": "واجهة برمجية محلية", "ja": "ローカル API",
+    "ko": "로컬 API", "th": "API ในเครื่อง", "yue-Hant": "本機 API",
+    "en-SG": "Local API",
+}, note="Heads the switch card. 'Local' is doing real work here: it says the "
+        "port never leaves this machine.")
+add("automation.footnote", {
+    "en": "Lets another program on this Mac — usually an agent — ask what this "
+          "machine can render and hand it work. It listens on this Mac only, "
+          "and every request must carry the token below.",
+    "zh-Hant": "讓這台 Mac 上的另一個程式——通常是代理——詢問本機能算什麼，並交付工作。只在本機監聽，而且每個請求都必須帶上下方的權杖。",
+    "zh-Hans": "让这台 Mac 上的另一个程序——通常是代理——询问本机能渲染什么，并交付工作。只在本机监听，而且每个请求都必须带上下方的令牌。",
+    "de": "Erlaubt einem anderen Programm auf diesem Mac — meist einem Agenten "
+          "— zu fragen, was diese Maschine rendern kann, und ihr Arbeit zu "
+          "übergeben. Lauscht nur auf diesem Mac, und jede Anfrage muss das "
+          "Token unten mitführen.",
+    "ar": "يتيح لبرنامج آخر على هذا الـ Mac — وكيل غالبًا — أن يسأل عمّا يستطيع "
+          "هذا الجهاز تصييره وأن يسلّمه عملًا. يستمع على هذا الجهاز فقط، وكل "
+          "طلب يجب أن يحمل الرمز أدناه.",
+    "ja": "この Mac 上のほかのプログラム——多くはエージェント——が、この機械に何をレンダリングできるかを尋ね、仕事を渡せるようにします。待ち受けるのはこの Mac の中だけで、すべてのリクエストに下のトークンが必要です。",
+    "ko": "이 Mac의 다른 프로그램 — 대개 에이전트 — 이 이 기기가 무엇을 렌더링할 수 있는지 묻고 작업을 넘길 수 있게 합니다. 이 Mac 안에서만 수신하며, 모든 요청에 아래 토큰이 있어야 합니다.",
+    "th": "ให้โปรแกรมอื่นบน Mac เครื่องนี้ — ส่วนใหญ่คือเอเจนต์ — ถามได้ว่าเครื่องนี้เรนเดอร์อะไรได้ "
+          "และส่งงานให้ได้ รับฟังเฉพาะในเครื่องนี้ และทุกคำขอต้องมีโทเคนด้านล่าง",
+    "yue-Hant": "俾呢部 Mac 上面第二個程式——通常係代理——問下部機算到啲咩，同埋派工作俾佢。淨係喺本機聽，而且每個請求都要帶住下面嗰個權杖。",
+    "en-SG": "Lets another program on this Mac — usually an agent — ask what "
+             "this machine can render and hand it work. It listens on this Mac "
+             "only, and every request must carry the token below.",
+})
+add("automation.enable", {
+    "en": "Enable the local API", "zh-Hant": "啟用本機 API", "zh-Hans": "启用本机 API",
+    "de": "Lokale API aktivieren", "ar": "تفعيل الواجهة المحلية",
+    "ja": "ローカル API を有効にする", "ko": "로컬 API 켜기",
+    "th": "เปิดใช้ API ในเครื่อง", "yue-Hant": "開啟本機 API",
+    "en-SG": "Enable the local API",
+}, note="The master switch. Off until someone turns it on, every launch it has "
+        "not been turned on before.")
+add("automation.status.off", {
+    "en": "Not listening.", "zh-Hant": "未在監聽。", "zh-Hans": "未在监听。",
+    "de": "Lauscht nicht.", "ar": "لا يستمع.", "ja": "待ち受けていません。",
+    "ko": "수신하지 않습니다.", "th": "ไม่ได้รับฟัง", "yue-Hant": "冇喺度聽。",
+    "en-SG": "Not listening.",
+})
+add("automation.status.running", {
+    "en": "Listening on port %1$@ · %2$@ request(s) served",
+    "zh-Hant": "正在監聽連接埠 %1$@ · 已處理 %2$@ 個請求",
+    "zh-Hans": "正在监听端口 %1$@ · 已处理 %2$@ 个请求",
+    "de": "Lauscht auf Port %1$@ · %2$@ Anfrage(n) beantwortet",
+    "ar": "يستمع على المنفذ %1$@ · جرى تلبية %2$@ طلب",
+    "ja": "ポート %1$@ で待ち受け中 · %2$@ 件のリクエストに応答",
+    "ko": "포트 %1$@에서 수신 중 · 요청 %2$@건 처리",
+    "th": "กำลังรับฟังที่พอร์ต %1$@ · ตอบแล้ว %2$@ คำขอ",
+    "yue-Hant": "喺連接埠 %1$@ 聽緊 · 處理咗 %2$@ 個請求",
+    "en-SG": "Listening on port %1$@ · %2$@ request(s) served",
+}, note={"content": "Shown while the server is up. The request count is there "
+                    "so the page shows the thing being used rather than merely "
+                    "switched on.",
+         "level": WARNING})
+add("automation.writes", {
+    "en": "Allow queueing renders", "zh-Hant": "允許排入算圖工作",
+    "zh-Hans": "允许排入渲染任务", "de": "Renders in die Warteschlange erlauben",
+    "ar": "السماح بإضافة عمليات تصيير", "ja": "レンダリングの登録を許可",
+    "ko": "렌더링 대기열 추가 허용", "th": "อนุญาตให้เพิ่มงานเรนเดอร์",
+    "yue-Hant": "容許排隊算圖", "en-SG": "Allow queueing renders",
+})
+add("automation.writes.detail", {
+    "en": "Off, the API can only answer questions. On, it can also start and "
+          "cancel renders — which cost hours and most of this Mac's memory.",
+    "zh-Hant": "關閉時，API 只能回答問題。開啟後，它也能開始與取消算圖——那要花上數小時，並佔用本機大部分記憶體。",
+    "zh-Hans": "关闭时，API 只能回答问题。开启后，它也能开始与取消渲染——那要花上数小时，并占用本机大部分内存。",
+    "de": "Aus beantwortet die API nur Fragen. An kann sie auch Renders starten "
+          "und abbrechen — die Stunden und den größten Teil des Arbeitsspeichers "
+          "dieses Macs kosten.",
+    "ar": "عند الإيقاف تجيب الواجهة عن الأسئلة فقط. وعند التشغيل تستطيع أيضًا "
+          "بدء عمليات التصيير وإلغاءها — وهي تكلّف ساعات ومعظم ذاكرة هذا الجهاز.",
+    "ja": "オフならこの API は質問に答えるだけです。オンにすると、レンダリングの開始と中止もできます。どちらも何時間もかかり、この Mac のメモリの大半を使います。",
+    "ko": "끄면 API는 질문에만 답합니다. 켜면 렌더링을 시작하고 취소할 수도 있습니다 — 몇 시간이 걸리고 이 Mac 메모리의 대부분을 씁니다.",
+    "th": "เมื่อปิด API ตอบได้เพียงคำถาม เมื่อเปิด จะเริ่มและยกเลิกการเรนเดอร์ได้ด้วย "
+          "ซึ่งใช้เวลาหลายชั่วโมงและกินหน่วยความจำเกือบทั้งเครื่อง",
+    "yue-Hant": "閂咗嘅話，API 淨係答到問題。開咗之後，佢仲可以開始同取消算圖——嗰啲要幾個鐘，仲要食埋部機大部分記憶體。",
+    "en-SG": "Off, the API can only answer questions. On, it can also start and "
+             "cancel renders — which cost hours and most of this Mac's memory.",
+})
+add("automation.depth", {
+    "en": "At most %@ job(s) waiting", "zh-Hant": "最多 %@ 個工作等待中",
+    "zh-Hans": "最多 %@ 个任务等待中", "de": "Höchstens %@ wartende Aufträge",
+    "ar": "بحد أقصى %@ مهمة في الانتظار", "ja": "待機は最大 %@ 件",
+    "ko": "대기 작업 최대 %@개", "th": "รออยู่ได้มากสุด %@ งาน",
+    "yue-Hant": "最多 %@ 個工作等緊", "en-SG": "At most %@ job(s) waiting",
+})
+add("automation.depth.detail", {
+    "en": "The API refuses new work past this. This Mac renders one at a time, "
+          "and an agent has no way to feel a queue getting long.",
+    "zh-Hant": "超過這個數量，API 就會拒絕新工作。本機一次只算一個，而代理沒辦法感覺到佇列愈排愈長。",
+    "zh-Hans": "超过这个数量，API 就会拒绝新任务。本机一次只渲染一个，而代理没办法感觉到队列越排越长。",
+    "de": "Darüber hinaus lehnt die API neue Arbeit ab. Dieser Mac rendert "
+          "eines nach dem anderen, und ein Agent kann nicht spüren, dass eine "
+          "Warteschlange lang wird.",
+    "ar": "بعد هذا الحد ترفض الواجهة أي عمل جديد. هذا الـ Mac يصيّر واحدًا في "
+          "كل مرة، والوكيل لا يشعر بطابور يطول.",
+    "ja": "これを超えると API は新しい仕事を断ります。この Mac は一度に一つしかレンダリングできませんが、エージェントには列が伸びていることを感じ取る術がありません。",
+    "ko": "이를 넘으면 API는 새 작업을 거절합니다. 이 Mac은 한 번에 하나씩만 렌더링하고, 에이전트는 대기열이 길어지는 것을 느낄 방법이 없습니다.",
+    "th": "เกินจากนี้ API จะปฏิเสธงานใหม่ Mac เครื่องนี้เรนเดอร์ได้ทีละงาน "
+          "และเอเจนต์ไม่มีทางรู้สึกได้ว่าคิวกำลังยาวขึ้น",
+    "yue-Hant": "超過呢個數，API 就會拒收新工作。部機一次淨係算到一個，而代理係感覺唔到條隊愈排愈長嘅。",
+    "en-SG": "The API refuses new work past this. This Mac renders one at a "
+             "time, and an agent has no way to feel a queue getting long.",
+})
+add("automation.connection", {
+    "en": "Connection", "zh-Hant": "連線", "zh-Hans": "连接",
+    "de": "Verbindung", "ar": "الاتصال", "ja": "接続",
+    "ko": "연결", "th": "การเชื่อมต่อ", "yue-Hant": "連線",
+    "en-SG": "Connection",
+})
+add("automation.address", {
+    "en": "Address", "zh-Hant": "位址", "zh-Hans": "地址",
+    "de": "Adresse", "ar": "العنوان", "ja": "アドレス",
+    "ko": "주소", "th": "ที่อยู่", "yue-Hant": "位址",
+    "en-SG": "Address",
+})
+add("automation.port", {
+    "en": "Port", "zh-Hant": "連接埠", "zh-Hans": "端口",
+    "de": "Port", "ar": "المنفذ", "ja": "ポート",
+    "ko": "포트", "th": "พอร์ต", "yue-Hant": "連接埠",
+    "en-SG": "Port",
+}, note="Editable, and it persists: an agent's configuration names a port, and "
+        "one that moved every launch would break it daily.")
+add("automation.token", {
+    "en": "Token", "zh-Hant": "權杖", "zh-Hans": "令牌",
+    "de": "Token", "ar": "الرمز", "ja": "トークン",
+    "ko": "토큰", "th": "โทเคน", "yue-Hant": "權杖",
+    "en-SG": "Token",
+})
+add("automation.token.detail", {
+    "en": "Send it as an Authorization: Bearer header. Anything on this Mac "
+          "that has it can use the API, so regenerating it is how you cut "
+          "something off.",
+    "zh-Hant": "以 Authorization: Bearer 標頭送出。本機上任何拿到它的東西都能使用這個 API，所以重新產生就是切斷存取的方式。",
+    "zh-Hans": "以 Authorization: Bearer 标头发送。本机上任何拿到它的东西都能使用这个 API，所以重新生成就是切断访问的方式。",
+    "de": "Als Authorization: Bearer-Header senden. Alles auf diesem Mac, das "
+          "es hat, kann die API nutzen — neu erzeugen ist also der Weg, etwas "
+          "abzuschneiden.",
+    "ar": "أرسله في ترويسة Authorization: Bearer. أي شيء على هذا الـ Mac يملكه "
+          "يستطيع استخدام الواجهة، ولذلك فإعادة توليده هي طريقة قطع الوصول.",
+    "ja": "Authorization: Bearer ヘッダで送ります。この Mac 上でこれを持っているものは誰でも API を使えるので、作り直すことが遮断の手段です。",
+    "ko": "Authorization: Bearer 헤더로 보냅니다. 이 Mac에서 이것을 가진 것은 무엇이든 API를 쓸 수 있으므로, 다시 만드는 것이 접근을 끊는 방법입니다.",
+    "th": "ส่งเป็นเฮดเดอร์ Authorization: Bearer อะไรก็ตามบน Mac เครื่องนี้ที่มีโทเคนนี้ใช้ API ได้ "
+          "การสร้างใหม่จึงเป็นวิธีตัดการเข้าถึง",
+    "yue-Hant": "用 Authorization: Bearer 標頭送出。部機上面任何攞到佢嘅嘢都用得呢個 API，所以重新整一個就係斷開存取嘅方法。",
+    "en-SG": "Send it as an Authorization: Bearer header. Anything on this Mac "
+             "that has it can use the API, so regenerating it is how you cut "
+             "something off.",
+})
+add("automation.reveal", {
+    "en": "Show", "zh-Hant": "顯示", "zh-Hans": "显示", "de": "Zeigen",
+    "ar": "إظهار", "ja": "表示", "ko": "보기", "th": "แสดง",
+    "yue-Hant": "顯示", "en-SG": "Show",
+})
+add("automation.hide", {
+    "en": "Hide", "zh-Hant": "隱藏", "zh-Hans": "隐藏", "de": "Verbergen",
+    "ar": "إخفاء", "ja": "隠す", "ko": "가리기", "th": "ซ่อน",
+    "yue-Hant": "隱藏", "en-SG": "Hide",
+})
+add("automation.regenerate", {
+    "en": "Regenerate token", "zh-Hant": "重新產生權杖", "zh-Hans": "重新生成令牌",
+    "de": "Token neu erzeugen", "ar": "إعادة توليد الرمز",
+    "ja": "トークンを作り直す", "ko": "토큰 다시 만들기",
+    "th": "สร้างโทเคนใหม่", "yue-Hant": "重新整個權杖",
+    "en-SG": "Regenerate token",
+})
+add("automation.copied", {
+    "en": "Copied", "zh-Hant": "已複製", "zh-Hans": "已复制", "de": "Kopiert",
+    "ar": "نُسخ", "ja": "コピーしました", "ko": "복사됨", "th": "คัดลอกแล้ว",
+    "yue-Hant": "複製咗", "en-SG": "Copied",
+})
+add("automation.exposes", {
+    "en": "What it exposes", "zh-Hant": "會開放哪些能力", "zh-Hans": "会开放哪些能力",
+    "de": "Was sie freigibt", "ar": "ما الذي تتيحه", "ja": "公開される範囲",
+    "ko": "무엇을 여는가", "th": "เปิดอะไรบ้าง", "yue-Hant": "會開放咩",
+    "en-SG": "What it exposes",
+}, note="Listed on the page itself, so the person deciding whether to switch "
+        "it on can see what they are granting while they decide.")
+add("automation.exposes.detail", {
+    "en": "Reference images are never accepted over the API: they are files on "
+          "disk, and taking a path from a caller would let it read anything "
+          "this app can. Set those up in Compose.",
+    "zh-Hant": "API 一律不接受參考圖：那些是磁碟上的檔案，而接受呼叫端給的路徑，等於讓它讀取本 App 讀得到的一切。請在「編寫」頁設定。",
+    "zh-Hans": "API 一律不接受参考图：那些是磁盘上的文件，而接受调用方给的路径，等于让它读取本 App 读得到的一切。请在“编写”页设置。",
+    "de": "Referenzbilder nimmt die API grundsätzlich nicht an: das sind Dateien "
+          "auf der Platte, und einen Pfad vom Aufrufer zu übernehmen hieße, ihn "
+          "alles lesen zu lassen, was diese App lesen kann. Die richtet man in "
+          "Erstellen ein.",
+    "ar": "لا تقبل الواجهة الصور المرجعية أبدًا: فهي ملفات على القرص، وقبول مسار "
+          "من المتصل يعني السماح له بقراءة كل ما يستطيع هذا التطبيق قراءته. "
+          "اضبطها من صفحة الإنشاء.",
+    "ja": "参考画像は API では一切受け付けません。ディスク上のファイルであり、呼び出し側からパスを受け取ることは、このアプリが読めるものすべてを読ませることになるからです。作成画面で設定してください。",
+    "ko": "참조 이미지는 API로 받지 않습니다. 디스크의 파일이고, 호출자가 준 경로를 받는 것은 이 앱이 읽을 수 있는 모든 것을 읽게 해주는 일이기 때문입니다. 작성 화면에서 설정하십시오.",
+    "th": "API ไม่รับภาพอ้างอิงเด็ดขาด เพราะเป็นไฟล์บนดิสก์ และการรับพาธจากผู้เรียก "
+          "เท่ากับให้อ่านทุกอย่างที่แอปนี้อ่านได้ ตั้งค่าได้ที่หน้าเขียน",
+    "yue-Hant": "API 一律唔收參考圖：嗰啲係磁碟上面嘅檔案，收呼叫方俾嘅路徑，等於俾佢讀晒呢個 App 讀到嘅嘢。請喺「編寫」嗰版整。",
+    "en-SG": "Reference images are never accepted over the API: they are files "
+             "on disk, and taking a path from a caller would let it read "
+             "anything this app can. Set those up in Compose.",
+})
+add("automation.cap.machine", {
+    "en": "How much memory this Mac has, and which combinations fit in it.",
+    "zh-Hant": "本機有多少記憶體，以及哪些組合裝得下。",
+    "zh-Hans": "本机有多少内存，以及哪些组合装得下。",
+    "de": "Wie viel Speicher dieser Mac hat und welche Kombinationen hineinpassen.",
+    "ar": "كم ذاكرة يملك هذا الـ Mac، وأي التوليفات تتّسع فيه.",
+    "ja": "この Mac の搭載メモリと、どの組み合わせが収まるか。",
+    "ko": "이 Mac의 메모리와 어떤 조합이 들어가는지.",
+    "th": "Mac เครื่องนี้มีหน่วยความจำเท่าไร และชุดไหนพอดี",
+    "yue-Hant": "部機有幾多記憶體，同埋邊啲組合裝得落。",
+    "en-SG": "How much memory this Mac has, and which combinations fit in it.",
+})
+add("automation.cap.estimate", {
+    "en": "How long a render would take and whether it can start at all.",
+    "zh-Hant": "一次算圖要多久，以及它到底能不能開始。",
+    "zh-Hans": "一次渲染要多久，以及它到底能不能开始。",
+    "de": "Wie lange ein Render dauern würde und ob er überhaupt starten kann.",
+    "ar": "كم يستغرق التصيير وهل يمكن أن يبدأ أصلًا.",
+    "ja": "レンダリングにどれだけかかるか、そもそも開始できるか。",
+    "ko": "렌더링에 얼마나 걸리는지, 애초에 시작할 수 있는지.",
+    "th": "การเรนเดอร์จะใช้เวลาเท่าไร และเริ่มได้หรือไม่",
+    "yue-Hant": "一次算圖要幾耐，同埋究竟開唔開得到。",
+    "en-SG": "How long a render would take and whether it can start at all.",
+})
+add("automation.cap.models", {
+    "en": "The catalogue, and which of it is installed here.",
+    "zh-Hant": "模型清單，以及其中哪些已安裝在本機。",
+    "zh-Hans": "模型清单，以及其中哪些已安装在本机。",
+    "de": "Der Katalog und was davon hier installiert ist.",
+    "ar": "الفهرس، وما المثبَّت منه هنا.",
+    "ja": "モデル一覧と、そのうちこの機械に入っているもの。",
+    "ko": "카탈로그와 그중 여기 설치된 것.",
+    "th": "รายการโมเดล และอันไหนติดตั้งไว้ที่นี่",
+    "yue-Hant": "模型清單，同埋邊啲已經裝咗喺本機。",
+    "en-SG": "The catalogue, and which of it is installed here.",
+})
+add("automation.cap.library", {
+    "en": "Finished renders, with their prompt, seed and file path.",
+    "zh-Hant": "已完成的算圖，含提示詞、種子與檔案路徑。",
+    "zh-Hans": "已完成的渲染，含提示词、种子与文件路径。",
+    "de": "Fertige Renders mit Prompt, Seed und Dateipfad.",
+    "ar": "عمليات التصيير المنتهية، مع المطالبة والبذرة ومسار الملف.",
+    "ja": "完了したレンダリングと、そのプロンプト・シード・ファイルパス。",
+    "ko": "완료된 렌더링과 프롬프트, 시드, 파일 경로.",
+    "th": "งานที่เรนเดอร์เสร็จแล้ว พร้อมพรอมต์ ซีด และพาธไฟล์",
+    "yue-Hant": "算好咗嘅嘢，連提示詞、種子同檔案路徑。",
+    "en-SG": "Finished renders, with their prompt, seed and file path.",
+})
+add("automation.cap.jobs", {
+    "en": "The queue: state, progress, timings and the log tail.",
+    "zh-Hant": "佇列：狀態、進度、時間與日誌結尾。",
+    "zh-Hans": "队列：状态、进度、时间与日志结尾。",
+    "de": "Die Warteschlange: Status, Fortschritt, Zeiten und das Ende des Logs.",
+    "ar": "الطابور: الحالة والتقدّم والتوقيتات وآخر السجل.",
+    "ja": "キュー。状態・進捗・所要時間・ログの末尾。",
+    "ko": "대기열: 상태, 진행, 시간, 로그 끝부분.",
+    "th": "คิวงาน: สถานะ ความคืบหน้า เวลา และท้ายบันทึก",
+    "yue-Hant": "佇列：狀態、進度、時間同日誌尾段。",
+    "en-SG": "The queue: state, progress, timings and the log tail.",
+})
+add("automation.cap.submit", {
+    "en": "Queue a render. Validated exactly as the Generate button is.",
+    "zh-Hant": "排入一次算圖。驗證方式與「生成」按鈕完全相同。",
+    "zh-Hans": "排入一次渲染。验证方式与“生成”按钮完全相同。",
+    "de": "Einen Render einreihen. Wird genau wie der Erzeugen-Knopf geprüft.",
+    "ar": "إضافة عملية تصيير إلى الطابور. تُفحص تمامًا كما يفعل زر التوليد.",
+    "ja": "レンダリングを登録します。検証は「生成」ボタンとまったく同じです。",
+    "ko": "렌더링을 대기열에 넣습니다. 생성 버튼과 똑같이 검증됩니다.",
+    "th": "เพิ่มงานเรนเดอร์เข้าคิว ตรวจสอบแบบเดียวกับปุ่มสร้างทุกประการ",
+    "yue-Hant": "排一次算圖入去。驗證同「生成」掣一模一樣。",
+    "en-SG": "Queue a render. Validated exactly as the Generate button is.",
+})
+add("automation.cap.reproduce", {
+    "en": "Render a library item again with its original seed — the same clip, "
+          "not a fresh roll.",
+    "zh-Hant": "用原本的種子重算媒體庫裡的某一項——是同一支片，不是重新擲骰。",
+    "zh-Hans": "用原本的种子重渲染媒体库里的某一项——是同一支片，不是重新掷骰。",
+    "de": "Ein Objekt der Mediathek mit seinem ursprünglichen Seed erneut "
+          "rendern — derselbe Clip, kein neuer Wurf.",
+    "ar": "إعادة تصيير عنصر من المكتبة ببذرته الأصلية — المقطع نفسه، لا رمية جديدة.",
+    "ja": "ライブラリの項目を元のシードで作り直します。同じクリップであって、振り直しではありません。",
+    "ko": "라이브러리 항목을 원래 시드로 다시 렌더링합니다. 같은 클립이지, 새로 굴리는 것이 아닙니다.",
+    "th": "เรนเดอร์รายการในคลังซ้ำด้วยซีดเดิม — คลิปเดิม ไม่ใช่การสุ่มใหม่",
+    "yue-Hant": "用返原本嘅種子再算一次媒體庫入面嘅嘢——係同一條片，唔係重新擲過。",
+    "en-SG": "Render a library item again with its original seed — the same "
+             "clip, not a fresh roll.",
+})
+add("automation.cap.cancel", {
+    "en": "Stop a render that is queued or running.",
+    "zh-Hant": "停止已排隊或正在進行的算圖。",
+    "zh-Hans": "停止已排队或正在进行的渲染。",
+    "de": "Einen wartenden oder laufenden Render stoppen.",
+    "ar": "إيقاف تصيير في الانتظار أو قيد التنفيذ.",
+    "ja": "待機中または実行中のレンダリングを止めます。",
+    "ko": "대기 중이거나 실행 중인 렌더링을 멈춥니다.",
+    "th": "หยุดงานเรนเดอร์ที่รออยู่หรือกำลังทำงาน",
+    "yue-Hant": "停低排緊隊或者做緊嘅算圖。",
+    "en-SG": "Stop a render that is queued or running.",
+})
+add("automation.mcp", {
+    "en": "Talking to it", "zh-Hant": "如何呼叫", "zh-Hans": "如何调用",
+    "de": "Wie man damit spricht", "ar": "كيف تخاطبها",
+    "ja": "呼び出しかた", "ko": "호출하는 법", "th": "วิธีเรียกใช้",
+    "yue-Hant": "點樣叫佢", "en-SG": "Talking to it",
+})
+add("automation.mcp.detail", {
+    "en": "Plain HTTP with JSON, so anything can call it. Start with "
+          "GET /v1/health, which lists every route this build serves.",
+    "zh-Hant": "就是一般的 HTTP 加 JSON，任何東西都呼叫得到。可從 GET /v1/health 開始，它會列出這個版本提供的所有路由。",
+    "zh-Hans": "就是普通的 HTTP 加 JSON，任何东西都调用得到。可从 GET /v1/health 开始，它会列出这个版本提供的所有路由。",
+    "de": "Schlichtes HTTP mit JSON, also kann alles damit sprechen. Fangen Sie "
+          "mit GET /v1/health an — das listet jede Route, die dieser Build "
+          "bedient.",
+    "ar": "‏HTTP عادي مع JSON، فأي شيء يستطيع مناداتها. ابدأ بـ GET /v1/health، "
+          "فهي تسرد كل مسار تخدمه هذه النسخة.",
+    "ja": "ただの HTTP と JSON なので、どんなものからでも呼べます。まずは GET /v1/health を。このビルドが提供する全ルートが並びます。",
+    "ko": "평범한 HTTP와 JSON이므로 무엇이든 호출할 수 있습니다. GET /v1/health부터 시작하십시오. 이 빌드가 제공하는 모든 경로가 나옵니다.",
+    "th": "เป็น HTTP ธรรมดากับ JSON อะไรก็เรียกได้ เริ่มที่ GET /v1/health "
+          "ซึ่งจะแสดงทุกเส้นทางที่บิลด์นี้ให้บริการ",
+    "yue-Hant": "就係普通 HTTP 加 JSON，乜嘢都叫得。可以由 GET /v1/health 開始，佢會列晒呢個版本有嘅路由。",
+    "en-SG": "Plain HTTP with JSON, so anything can call it. Start with "
+             "GET /v1/health, which lists every route this build serves.",
+})

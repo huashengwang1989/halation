@@ -10,12 +10,13 @@ final class AppState {
     let modelStore: ModelStore
     let runtime: RuntimeManager
     let comfyRuntime: ComfyUIRuntime
+    let api = LocalAPIServer()
     let library: LibraryStore
     let downloads: DownloadManager
     let engine: RenderEngine
 
     enum Section: String, CaseIterable, Identifiable, Hashable {
-        case compose, queue, library, models
+        case compose, queue, library, models, automation
 
         var id: String { rawValue }
 
@@ -25,6 +26,7 @@ final class AppState {
             case .queue: loc("section.queue")
             case .library: loc("section.library")
             case .models: loc("section.models")
+            case .automation: loc("section.automation")
             }
         }
 
@@ -34,6 +36,7 @@ final class AppState {
             case .queue: "list.bullet.rectangle"
             case .library: "film.stack"
             case .models: "cube.box"
+            case .automation: "point.3.connected.trianglepath.dotted"
             }
         }
     }
@@ -187,6 +190,9 @@ final class AppState {
         // So the memory chart can ask ComfyUI what Torch is holding. MLX pushes
         // its own figure instead; it cannot answer a poll mid-render.
         MemoryChartSampler.shared.comfyRuntime = comfyRuntime
+        // After the stored properties exist, because the server reads them
+        // and may start listening immediately if it was left switched on.
+        defer { api.attach(to: self) }
         let defaults = UserDefaults.standard
         self.licenseAcknowledged = defaults.bool(forKey: "licenseAcknowledged")
         // Absent means on: remembering is the default, so a fresh install does it.
@@ -279,6 +285,39 @@ final class AppState {
                 .filter { installed.contains($0.id) && $0.backend == backend }
                 .min { $0.approximateBytes < $1.approximateBytes }?.id
         }
+    }
+
+    /// The same choice `selectBestAvailableModels` makes, applied to a spec
+    /// passed in rather than to the draft on screen.
+    ///
+    /// The API needs this: a caller that switches mode or engine would
+    /// otherwise keep whatever pair the Compose screen happened to be holding,
+    /// and a transformer the new engine cannot read is a confusing way to fail.
+    /// Kept beside the draft version so the two rules stay one rule.
+    func resolvingModels(for spec: GenerationSpec) -> GenerationSpec {
+        var spec = spec
+        let installed = modelStore.installedEntryIDs
+        let task = spec.task
+        let backend = engine.backend(for: spec).id
+
+        func stillFits(_ id: String?, matchingTask: Bool) -> Bool {
+            guard let id, installed.contains(id),
+                  let entry = ModelCatalog.entry(id: id),
+                  entry.backend == backend
+            else { return false }
+            return matchingTask ? entry.task == task : true
+        }
+
+        if !stillFits(spec.transformerEntryID, matchingTask: true) {
+            spec.transformerEntryID = ModelCatalog.transformers(task: task)
+                .first { installed.contains($0.id) && $0.backend == backend }?.id
+        }
+        if !stillFits(spec.textEncoderEntryID, matchingTask: false) {
+            spec.textEncoderEntryID = ModelCatalog.entries(role: .textEncoder)
+                .filter { installed.contains($0.id) && $0.backend == backend }
+                .min { $0.approximateBytes < $1.approximateBytes }?.id
+        }
+        return spec
     }
 
     var draftProblems: [GenerationSpec.Problem] {

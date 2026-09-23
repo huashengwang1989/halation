@@ -9,6 +9,71 @@
 
 "a11y.usingMemory" = "用緊 %@";
 
+"automation.address" = "位址";
+
+"automation.cap.cancel" = "停低排緊隊或者做緊嘅算圖。";
+
+"automation.cap.estimate" = "一次算圖要幾耐，同埋究竟開唔開得到。";
+
+"automation.cap.jobs" = "佇列：狀態、進度、時間同日誌尾段。";
+
+"automation.cap.library" = "算好咗嘅嘢，連提示詞、種子同檔案路徑。";
+
+"automation.cap.machine" = "部機有幾多記憶體，同埋邊啲組合裝得落。";
+
+"automation.cap.models" = "模型清單，同埋邊啲已經裝咗喺本機。";
+
+"automation.cap.reproduce" = "用返原本嘅種子再算一次媒體庫入面嘅嘢——係同一條片，唔係重新擲過。";
+
+"automation.cap.submit" = "排一次算圖入去。驗證同「生成」掣一模一樣。";
+
+"automation.connection" = "連線";
+
+"automation.copied" = "複製咗";
+
+"automation.depth" = "最多 %@ 個工作等緊";
+
+"automation.depth.detail" = "超過呢個數，API 就會拒收新工作。部機一次淨係算到一個，而代理係感覺唔到條隊愈排愈長嘅。";
+
+/* The master switch. Off until someone turns it on, every launch it has not been turned on before. */
+"automation.enable" = "開啟本機 API";
+
+/* Listed on the page itself, so the person deciding whether to switch it on can see what they are granting while they decide. */
+"automation.exposes" = "會開放咩";
+
+"automation.exposes.detail" = "API 一律唔收參考圖：嗰啲係磁碟上面嘅檔案，收呼叫方俾嘅路徑，等於俾佢讀晒呢個 App 讀到嘅嘢。請喺「編寫」嗰版整。";
+
+"automation.footnote" = "俾呢部 Mac 上面第二個程式——通常係代理——問下部機算到啲咩，同埋派工作俾佢。淨係喺本機聽，而且每個請求都要帶住下面嗰個權杖。";
+
+"automation.hide" = "隱藏";
+
+"automation.mcp" = "點樣叫佢";
+
+"automation.mcp.detail" = "就係普通 HTTP 加 JSON，乜嘢都叫得。可以由 GET /v1/health 開始，佢會列晒呢個版本有嘅路由。";
+
+/* Editable, and it persists: an agent's configuration names a port, and one that moved every launch would break it daily. */
+"automation.port" = "連接埠";
+
+"automation.regenerate" = "重新整個權杖";
+
+"automation.reveal" = "顯示";
+
+"automation.status.off" = "冇喺度聽。";
+
+/* WARNING: Shown while the server is up. The request count is there so the page shows the thing being used rather than merely switched on. */
+"automation.status.running" = "喺連接埠 %1$@ 聽緊 · 處理咗 %2$@ 個請求";
+
+/* Heads the switch card. 'Local' is doing real work here: it says the port never leaves this machine. */
+"automation.title" = "本機 API";
+
+"automation.token" = "權杖";
+
+"automation.token.detail" = "用 Authorization: Bearer 標頭送出。部機上面任何攞到佢嘅嘢都用得呢個 API，所以重新整一個就係斷開存取嘅方法。";
+
+"automation.writes" = "容許排隊算圖";
+
+"automation.writes.detail" = "閂咗嘅話，API 淨係答到問題。開咗之後，佢仲可以開始同取消算圖——嗰啲要幾個鐘，仲要食埋部機大部分記憶體。";
+
 "backend.comfy.detail" = "喺 Metal 上面跑 PyTorch。得佢一個支援參考素材，亦都得佢載入到 4 步嘅 turbo LoRA。";
 
 "backend.mlx.detail" = "Apple 自己嘅框架，原生咁跑個模型。淨係做到文字轉片同關鍵格——移植版冇參考素材條件化。";
@@ -862,6 +927,9 @@
 
 /* Labels the disk bar under the memory chart on the Queue page. Both halves, because both grow during a render and only one of them is ever large: swap reached 66 GB here while the scratch stayed in megabytes. */
 "scratch.bar.title" = "置換空間 + 算圖暫存檔";
+
+/* Sidebar section for the local API another program can talk to. Not 'API' — the page is about letting something else drive the app, and the protocol is a detail of that. */
+"section.automation" = "自動化";
 
 /* The Compose tab: the screen where a render is set up. Not the verb. Distinct from settings.remember.section, which is the name of a group of settings *about* that screen. */
 "section.compose" = "編寫";

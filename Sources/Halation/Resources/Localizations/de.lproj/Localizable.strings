@@ -9,6 +9,71 @@
 
 "a11y.usingMemory" = "belegt %@";
 
+"automation.address" = "Adresse";
+
+"automation.cap.cancel" = "Einen wartenden oder laufenden Render stoppen.";
+
+"automation.cap.estimate" = "Wie lange ein Render dauern würde und ob er überhaupt starten kann.";
+
+"automation.cap.jobs" = "Die Warteschlange: Status, Fortschritt, Zeiten und das Ende des Logs.";
+
+"automation.cap.library" = "Fertige Renders mit Prompt, Seed und Dateipfad.";
+
+"automation.cap.machine" = "Wie viel Speicher dieser Mac hat und welche Kombinationen hineinpassen.";
+
+"automation.cap.models" = "Der Katalog und was davon hier installiert ist.";
+
+"automation.cap.reproduce" = "Ein Objekt der Mediathek mit seinem ursprünglichen Seed erneut rendern — derselbe Clip, kein neuer Wurf.";
+
+"automation.cap.submit" = "Einen Render einreihen. Wird genau wie der Erzeugen-Knopf geprüft.";
+
+"automation.connection" = "Verbindung";
+
+"automation.copied" = "Kopiert";
+
+"automation.depth" = "Höchstens %@ wartende Aufträge";
+
+"automation.depth.detail" = "Darüber hinaus lehnt die API neue Arbeit ab. Dieser Mac rendert eines nach dem anderen, und ein Agent kann nicht spüren, dass eine Warteschlange lang wird.";
+
+/* The master switch. Off until someone turns it on, every launch it has not been turned on before. */
+"automation.enable" = "Lokale API aktivieren";
+
+/* Listed on the page itself, so the person deciding whether to switch it on can see what they are granting while they decide. */
+"automation.exposes" = "Was sie freigibt";
+
+"automation.exposes.detail" = "Referenzbilder nimmt die API grundsätzlich nicht an: das sind Dateien auf der Platte, und einen Pfad vom Aufrufer zu übernehmen hieße, ihn alles lesen zu lassen, was diese App lesen kann. Die richtet man in Erstellen ein.";
+
+"automation.footnote" = "Erlaubt einem anderen Programm auf diesem Mac — meist einem Agenten — zu fragen, was diese Maschine rendern kann, und ihr Arbeit zu übergeben. Lauscht nur auf diesem Mac, und jede Anfrage muss das Token unten mitführen.";
+
+"automation.hide" = "Verbergen";
+
+"automation.mcp" = "Wie man damit spricht";
+
+"automation.mcp.detail" = "Schlichtes HTTP mit JSON, also kann alles damit sprechen. Fangen Sie mit GET /v1/health an — das listet jede Route, die dieser Build bedient.";
+
+/* Editable, and it persists: an agent's configuration names a port, and one that moved every launch would break it daily. */
+"automation.port" = "Port";
+
+"automation.regenerate" = "Token neu erzeugen";
+
+"automation.reveal" = "Zeigen";
+
+"automation.status.off" = "Lauscht nicht.";
+
+/* WARNING: Shown while the server is up. The request count is there so the page shows the thing being used rather than merely switched on. */
+"automation.status.running" = "Lauscht auf Port %1$@ · %2$@ Anfrage(n) beantwortet";
+
+/* Heads the switch card. 'Local' is doing real work here: it says the port never leaves this machine. */
+"automation.title" = "Lokale API";
+
+"automation.token" = "Token";
+
+"automation.token.detail" = "Als Authorization: Bearer-Header senden. Alles auf diesem Mac, das es hat, kann die API nutzen — neu erzeugen ist also der Weg, etwas abzuschneiden.";
+
+"automation.writes" = "Renders in die Warteschlange erlauben";
+
+"automation.writes.detail" = "Aus beantwortet die API nur Fragen. An kann sie auch Renders starten und abbrechen — die Stunden und den größten Teil des Arbeitsspeichers dieses Macs kosten.";
+
 "backend.comfy.detail" = "PyTorch auf Metal. Das einzige Backend mit Referenzen und das einzige, das die 4-Schritt-Turbo-LoRAs laden kann.";
 
 "backend.mlx.detail" = "Apples eigenes Framework, das Modell läuft nativ. Nur Text-zu-Video und Keyframes — die Portierung kennt keine Referenzkonditionierung.";
@@ -862,6 +927,9 @@
 
 /* Labels the disk bar under the memory chart on the Queue page. Both halves, because both grow during a render and only one of them is ever large: swap reached 66 GB here while the scratch stayed in megabytes. */
 "scratch.bar.title" = "Swap + Arbeitsdateien";
+
+/* Sidebar section for the local API another program can talk to. Not 'API' — the page is about letting something else drive the app, and the protocol is a detail of that. */
+"section.automation" = "Automatisierung";
 
 /* The Compose tab: the screen where a render is set up. Not the verb. Distinct from settings.remember.section, which is the name of a group of settings *about* that screen. */
 "section.compose" = "Erstellen";

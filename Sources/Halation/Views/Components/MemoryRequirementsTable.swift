@@ -74,6 +74,26 @@ struct MemoryRequirementsTable: View {
     private var machines: [MachineSize] { MachineSize.all }
     private var thisMac: MachineSize? { MachineSize.thisMac }
 
+    /// The same rows the table draws, for the local API.
+    ///
+    /// Read from here rather than recomputed so the API and the table cannot
+    /// give different answers about the same machine — the one thing that would
+    /// make both useless. The verdict is the raw case name, not the translated
+    /// label: a caller branches on it.
+    /// Which models are installed is left to `/v1/models`, which already
+    /// answers it; repeating it here would be a second place to get it wrong.
+    @MainActor
+    static func apiRows() -> [(id: String, label: String, weightBytes: Int64,
+                               peakBytes: Double, verdict: String)] {
+        let table = MemoryRequirementsTable()
+        let mine = MachineSize.thisMac
+        return table.rows.map { row in
+            let verdict = mine.map { table.verdict(row, on: $0) } ?? .swaps
+            return (row.id, row.label, row.weightBytes, row.peakBytes,
+                    String(describing: verdict))
+        }
+    }
+
     private var rows: [Row] {
         func bytes(_ nameKey: String) -> Int64 {
             ModelCatalog.all.first { $0.nameKey == nameKey }?.approximateResidentBytes ?? 0

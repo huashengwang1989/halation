@@ -9,6 +9,71 @@
 
 "a11y.usingMemory" = "%@ 使用中";
 
+"automation.address" = "アドレス";
+
+"automation.cap.cancel" = "待機中または実行中のレンダリングを止めます。";
+
+"automation.cap.estimate" = "レンダリングにどれだけかかるか、そもそも開始できるか。";
+
+"automation.cap.jobs" = "キュー。状態・進捗・所要時間・ログの末尾。";
+
+"automation.cap.library" = "完了したレンダリングと、そのプロンプト・シード・ファイルパス。";
+
+"automation.cap.machine" = "この Mac の搭載メモリと、どの組み合わせが収まるか。";
+
+"automation.cap.models" = "モデル一覧と、そのうちこの機械に入っているもの。";
+
+"automation.cap.reproduce" = "ライブラリの項目を元のシードで作り直します。同じクリップであって、振り直しではありません。";
+
+"automation.cap.submit" = "レンダリングを登録します。検証は「生成」ボタンとまったく同じです。";
+
+"automation.connection" = "接続";
+
+"automation.copied" = "コピーしました";
+
+"automation.depth" = "待機は最大 %@ 件";
+
+"automation.depth.detail" = "これを超えると API は新しい仕事を断ります。この Mac は一度に一つしかレンダリングできませんが、エージェントには列が伸びていることを感じ取る術がありません。";
+
+/* The master switch. Off until someone turns it on, every launch it has not been turned on before. */
+"automation.enable" = "ローカル API を有効にする";
+
+/* Listed on the page itself, so the person deciding whether to switch it on can see what they are granting while they decide. */
+"automation.exposes" = "公開される範囲";
+
+"automation.exposes.detail" = "参考画像は API では一切受け付けません。ディスク上のファイルであり、呼び出し側からパスを受け取ることは、このアプリが読めるものすべてを読ませることになるからです。作成画面で設定してください。";
+
+"automation.footnote" = "この Mac 上のほかのプログラム——多くはエージェント——が、この機械に何をレンダリングできるかを尋ね、仕事を渡せるようにします。待ち受けるのはこの Mac の中だけで、すべてのリクエストに下のトークンが必要です。";
+
+"automation.hide" = "隠す";
+
+"automation.mcp" = "呼び出しかた";
+
+"automation.mcp.detail" = "ただの HTTP と JSON なので、どんなものからでも呼べます。まずは GET /v1/health を。このビルドが提供する全ルートが並びます。";
+
+/* Editable, and it persists: an agent's configuration names a port, and one that moved every launch would break it daily. */
+"automation.port" = "ポート";
+
+"automation.regenerate" = "トークンを作り直す";
+
+"automation.reveal" = "表示";
+
+"automation.status.off" = "待ち受けていません。";
+
+/* WARNING: Shown while the server is up. The request count is there so the page shows the thing being used rather than merely switched on. */
+"automation.status.running" = "ポート %1$@ で待ち受け中 · %2$@ 件のリクエストに応答";
+
+/* Heads the switch card. 'Local' is doing real work here: it says the port never leaves this machine. */
+"automation.title" = "ローカル API";
+
+"automation.token" = "トークン";
+
+"automation.token.detail" = "Authorization: Bearer ヘッダで送ります。この Mac 上でこれを持っているものは誰でも API を使えるので、作り直すことが遮断の手段です。";
+
+"automation.writes" = "レンダリングの登録を許可";
+
+"automation.writes.detail" = "オフならこの API は質問に答えるだけです。オンにすると、レンダリングの開始と中止もできます。どちらも何時間もかかり、この Mac のメモリの大半を使います。";
+
 "backend.comfy.detail" = "Metal 上の PyTorch。参考素材に対応する唯一のバックエンドで、4 ステップの turbo LoRA を読み込めるのもこれだけです。";
 
 "backend.mlx.detail" = "Apple 自社のフレームワークで、モデルをネイティブに実行します。テキストからの生成とキーフレームのみ対応で、移植版に参考素材の条件付けはありません。";
@@ -862,6 +927,9 @@
 
 /* Labels the disk bar under the memory chart on the Queue page. Both halves, because both grow during a render and only one of them is ever large: swap reached 66 GB here while the scratch stayed in megabytes. */
 "scratch.bar.title" = "スワップ + レンダリングの作業ファイル";
+
+/* Sidebar section for the local API another program can talk to. Not 'API' — the page is about letting something else drive the app, and the protocol is a detail of that. */
+"section.automation" = "自動化";
 
 /* The Compose tab: the screen where a render is set up. Not the verb. Distinct from settings.remember.section, which is the name of a group of settings *about* that screen. */
 "section.compose" = "作成";

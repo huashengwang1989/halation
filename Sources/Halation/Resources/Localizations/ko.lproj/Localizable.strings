@@ -9,6 +9,71 @@
 
 "a11y.usingMemory" = "%@ 사용 중";
 
+"automation.address" = "주소";
+
+"automation.cap.cancel" = "대기 중이거나 실행 중인 렌더링을 멈춥니다.";
+
+"automation.cap.estimate" = "렌더링에 얼마나 걸리는지, 애초에 시작할 수 있는지.";
+
+"automation.cap.jobs" = "대기열: 상태, 진행, 시간, 로그 끝부분.";
+
+"automation.cap.library" = "완료된 렌더링과 프롬프트, 시드, 파일 경로.";
+
+"automation.cap.machine" = "이 Mac의 메모리와 어떤 조합이 들어가는지.";
+
+"automation.cap.models" = "카탈로그와 그중 여기 설치된 것.";
+
+"automation.cap.reproduce" = "라이브러리 항목을 원래 시드로 다시 렌더링합니다. 같은 클립이지, 새로 굴리는 것이 아닙니다.";
+
+"automation.cap.submit" = "렌더링을 대기열에 넣습니다. 생성 버튼과 똑같이 검증됩니다.";
+
+"automation.connection" = "연결";
+
+"automation.copied" = "복사됨";
+
+"automation.depth" = "대기 작업 최대 %@개";
+
+"automation.depth.detail" = "이를 넘으면 API는 새 작업을 거절합니다. 이 Mac은 한 번에 하나씩만 렌더링하고, 에이전트는 대기열이 길어지는 것을 느낄 방법이 없습니다.";
+
+/* The master switch. Off until someone turns it on, every launch it has not been turned on before. */
+"automation.enable" = "로컬 API 켜기";
+
+/* Listed on the page itself, so the person deciding whether to switch it on can see what they are granting while they decide. */
+"automation.exposes" = "무엇을 여는가";
+
+"automation.exposes.detail" = "참조 이미지는 API로 받지 않습니다. 디스크의 파일이고, 호출자가 준 경로를 받는 것은 이 앱이 읽을 수 있는 모든 것을 읽게 해주는 일이기 때문입니다. 작성 화면에서 설정하십시오.";
+
+"automation.footnote" = "이 Mac의 다른 프로그램 — 대개 에이전트 — 이 이 기기가 무엇을 렌더링할 수 있는지 묻고 작업을 넘길 수 있게 합니다. 이 Mac 안에서만 수신하며, 모든 요청에 아래 토큰이 있어야 합니다.";
+
+"automation.hide" = "가리기";
+
+"automation.mcp" = "호출하는 법";
+
+"automation.mcp.detail" = "평범한 HTTP와 JSON이므로 무엇이든 호출할 수 있습니다. GET /v1/health부터 시작하십시오. 이 빌드가 제공하는 모든 경로가 나옵니다.";
+
+/* Editable, and it persists: an agent's configuration names a port, and one that moved every launch would break it daily. */
+"automation.port" = "포트";
+
+"automation.regenerate" = "토큰 다시 만들기";
+
+"automation.reveal" = "보기";
+
+"automation.status.off" = "수신하지 않습니다.";
+
+/* WARNING: Shown while the server is up. The request count is there so the page shows the thing being used rather than merely switched on. */
+"automation.status.running" = "포트 %1$@에서 수신 중 · 요청 %2$@건 처리";
+
+/* Heads the switch card. 'Local' is doing real work here: it says the port never leaves this machine. */
+"automation.title" = "로컬 API";
+
+"automation.token" = "토큰";
+
+"automation.token.detail" = "Authorization: Bearer 헤더로 보냅니다. 이 Mac에서 이것을 가진 것은 무엇이든 API를 쓸 수 있으므로, 다시 만드는 것이 접근을 끊는 방법입니다.";
+
+"automation.writes" = "렌더링 대기열 추가 허용";
+
+"automation.writes.detail" = "끄면 API는 질문에만 답합니다. 켜면 렌더링을 시작하고 취소할 수도 있습니다 — 몇 시간이 걸리고 이 Mac 메모리의 대부분을 씁니다.";
+
 "backend.comfy.detail" = "Metal 기반 PyTorch. 참조 자료를 지원하는 유일한 백엔드이며, 4스텝 turbo LoRA를 불러올 수 있는 것도 이것뿐입니다.";
 
 "backend.mlx.detail" = "Apple 자체 프레임워크로 모델을 네이티브로 실행합니다. 텍스트-비디오와 키프레임만 지원하며, 이식판에는 참조 조건화가 없습니다.";
@@ -862,6 +927,9 @@
 
 /* Labels the disk bar under the memory chart on the Queue page. Both halves, because both grow during a render and only one of them is ever large: swap reached 66 GB here while the scratch stayed in megabytes. */
 "scratch.bar.title" = "스왑 + 렌더링 작업 파일";
+
+/* Sidebar section for the local API another program can talk to. Not 'API' — the page is about letting something else drive the app, and the protocol is a detail of that. */
+"section.automation" = "자동화";
 
 /* The Compose tab: the screen where a render is set up. Not the verb. Distinct from settings.remember.section, which is the name of a group of settings *about* that screen. */
 "section.compose" = "작성";

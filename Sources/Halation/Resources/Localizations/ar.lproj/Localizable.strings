@@ -9,6 +9,71 @@
 
 "a11y.usingMemory" = "يستخدم %@";
 
+"automation.address" = "العنوان";
+
+"automation.cap.cancel" = "إيقاف تصيير في الانتظار أو قيد التنفيذ.";
+
+"automation.cap.estimate" = "كم يستغرق التصيير وهل يمكن أن يبدأ أصلًا.";
+
+"automation.cap.jobs" = "الطابور: الحالة والتقدّم والتوقيتات وآخر السجل.";
+
+"automation.cap.library" = "عمليات التصيير المنتهية، مع المطالبة والبذرة ومسار الملف.";
+
+"automation.cap.machine" = "كم ذاكرة يملك هذا الـ Mac، وأي التوليفات تتّسع فيه.";
+
+"automation.cap.models" = "الفهرس، وما المثبَّت منه هنا.";
+
+"automation.cap.reproduce" = "إعادة تصيير عنصر من المكتبة ببذرته الأصلية — المقطع نفسه، لا رمية جديدة.";
+
+"automation.cap.submit" = "إضافة عملية تصيير إلى الطابور. تُفحص تمامًا كما يفعل زر التوليد.";
+
+"automation.connection" = "الاتصال";
+
+"automation.copied" = "نُسخ";
+
+"automation.depth" = "بحد أقصى %@ مهمة في الانتظار";
+
+"automation.depth.detail" = "بعد هذا الحد ترفض الواجهة أي عمل جديد. هذا الـ Mac يصيّر واحدًا في كل مرة، والوكيل لا يشعر بطابور يطول.";
+
+/* The master switch. Off until someone turns it on, every launch it has not been turned on before. */
+"automation.enable" = "تفعيل الواجهة المحلية";
+
+/* Listed on the page itself, so the person deciding whether to switch it on can see what they are granting while they decide. */
+"automation.exposes" = "ما الذي تتيحه";
+
+"automation.exposes.detail" = "لا تقبل الواجهة الصور المرجعية أبدًا: فهي ملفات على القرص، وقبول مسار من المتصل يعني السماح له بقراءة كل ما يستطيع هذا التطبيق قراءته. اضبطها من صفحة الإنشاء.";
+
+"automation.footnote" = "يتيح لبرنامج آخر على هذا الـ Mac — وكيل غالبًا — أن يسأل عمّا يستطيع هذا الجهاز تصييره وأن يسلّمه عملًا. يستمع على هذا الجهاز فقط، وكل طلب يجب أن يحمل الرمز أدناه.";
+
+"automation.hide" = "إخفاء";
+
+"automation.mcp" = "كيف تخاطبها";
+
+"automation.mcp.detail" = "‏HTTP عادي مع JSON، فأي شيء يستطيع مناداتها. ابدأ بـ GET /v1/health، فهي تسرد كل مسار تخدمه هذه النسخة.";
+
+/* Editable, and it persists: an agent's configuration names a port, and one that moved every launch would break it daily. */
+"automation.port" = "المنفذ";
+
+"automation.regenerate" = "إعادة توليد الرمز";
+
+"automation.reveal" = "إظهار";
+
+"automation.status.off" = "لا يستمع.";
+
+/* WARNING: Shown while the server is up. The request count is there so the page shows the thing being used rather than merely switched on. */
+"automation.status.running" = "يستمع على المنفذ %1$@ · جرى تلبية %2$@ طلب";
+
+/* Heads the switch card. 'Local' is doing real work here: it says the port never leaves this machine. */
+"automation.title" = "واجهة برمجية محلية";
+
+"automation.token" = "الرمز";
+
+"automation.token.detail" = "أرسله في ترويسة Authorization: Bearer. أي شيء على هذا الـ Mac يملكه يستطيع استخدام الواجهة، ولذلك فإعادة توليده هي طريقة قطع الوصول.";
+
+"automation.writes" = "السماح بإضافة عمليات تصيير";
+
+"automation.writes.detail" = "عند الإيقاف تجيب الواجهة عن الأسئلة فقط. وعند التشغيل تستطيع أيضًا بدء عمليات التصيير وإلغاءها — وهي تكلّف ساعات ومعظم ذاكرة هذا الجهاز.";
+
 "backend.comfy.detail" = "PyTorch على Metal. الواجهة الخلفية الوحيدة التي تدعم المراجع، والوحيدة القادرة على تحميل نماذج turbo LoRA ذات الأربع خطوات.";
 
 "backend.mlx.detail" = "إطار عمل Apple، يشغّل النموذج أصليًا. يدعم النص إلى فيديو والإطارات المفتاحية فقط، إذ لا يتضمّن النقل شرطنة المراجع.";
@@ -862,6 +927,9 @@
 
 /* Labels the disk bar under the memory chart on the Queue page. Both halves, because both grow during a render and only one of them is ever large: swap reached 66 GB here while the scratch stayed in megabytes. */
 "scratch.bar.title" = "التبديل + ملفات التصيير المؤقتة";
+
+/* Sidebar section for the local API another program can talk to. Not 'API' — the page is about letting something else drive the app, and the protocol is a detail of that. */
+"section.automation" = "الأتمتة";
 
 /* The Compose tab: the screen where a render is set up. Not the verb. Distinct from settings.remember.section, which is the name of a group of settings *about* that screen. */
 "section.compose" = "إنشاء";

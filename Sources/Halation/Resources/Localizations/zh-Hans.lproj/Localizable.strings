@@ -9,6 +9,71 @@
 
 "a11y.usingMemory" = "占用 %@";
 
+"automation.address" = "地址";
+
+"automation.cap.cancel" = "停止已排队或正在进行的渲染。";
+
+"automation.cap.estimate" = "一次渲染要多久，以及它到底能不能开始。";
+
+"automation.cap.jobs" = "队列：状态、进度、时间与日志结尾。";
+
+"automation.cap.library" = "已完成的渲染，含提示词、种子与文件路径。";
+
+"automation.cap.machine" = "本机有多少内存，以及哪些组合装得下。";
+
+"automation.cap.models" = "模型清单，以及其中哪些已安装在本机。";
+
+"automation.cap.reproduce" = "用原本的种子重渲染媒体库里的某一项——是同一支片，不是重新掷骰。";
+
+"automation.cap.submit" = "排入一次渲染。验证方式与“生成”按钮完全相同。";
+
+"automation.connection" = "连接";
+
+"automation.copied" = "已复制";
+
+"automation.depth" = "最多 %@ 个任务等待中";
+
+"automation.depth.detail" = "超过这个数量，API 就会拒绝新任务。本机一次只渲染一个，而代理没办法感觉到队列越排越长。";
+
+/* The master switch. Off until someone turns it on, every launch it has not been turned on before. */
+"automation.enable" = "启用本机 API";
+
+/* Listed on the page itself, so the person deciding whether to switch it on can see what they are granting while they decide. */
+"automation.exposes" = "会开放哪些能力";
+
+"automation.exposes.detail" = "API 一律不接受参考图：那些是磁盘上的文件，而接受调用方给的路径，等于让它读取本 App 读得到的一切。请在“编写”页设置。";
+
+"automation.footnote" = "让这台 Mac 上的另一个程序——通常是代理——询问本机能渲染什么，并交付工作。只在本机监听，而且每个请求都必须带上下方的令牌。";
+
+"automation.hide" = "隐藏";
+
+"automation.mcp" = "如何调用";
+
+"automation.mcp.detail" = "就是普通的 HTTP 加 JSON，任何东西都调用得到。可从 GET /v1/health 开始，它会列出这个版本提供的所有路由。";
+
+/* Editable, and it persists: an agent's configuration names a port, and one that moved every launch would break it daily. */
+"automation.port" = "端口";
+
+"automation.regenerate" = "重新生成令牌";
+
+"automation.reveal" = "显示";
+
+"automation.status.off" = "未在监听。";
+
+/* WARNING: Shown while the server is up. The request count is there so the page shows the thing being used rather than merely switched on. */
+"automation.status.running" = "正在监听端口 %1$@ · 已处理 %2$@ 个请求";
+
+/* Heads the switch card. 'Local' is doing real work here: it says the port never leaves this machine. */
+"automation.title" = "本机 API";
+
+"automation.token" = "令牌";
+
+"automation.token.detail" = "以 Authorization: Bearer 标头发送。本机上任何拿到它的东西都能使用这个 API，所以重新生成就是切断访问的方式。";
+
+"automation.writes" = "允许排入渲染任务";
+
+"automation.writes.detail" = "关闭时，API 只能回答问题。开启后，它也能开始与取消渲染——那要花上数小时，并占用本机大部分内存。";
+
 "backend.comfy.detail" = "以 Metal 运行 PyTorch。唯一支持参考素材的后端，也是唯一能加载 4 步 turbo LoRA 的。";
 
 "backend.mlx.detail" = "Apple 自家的框架，原生运行模型。仅支持文字转视频与关键帧，移植版没有参考素材条件化。";
@@ -862,6 +927,9 @@
 
 /* Labels the disk bar under the memory chart on the Queue page. Both halves, because both grow during a render and only one of them is ever large: swap reached 66 GB here while the scratch stayed in megabytes. */
 "scratch.bar.title" = "交换空间 + 渲染暂存";
+
+/* Sidebar section for the local API another program can talk to. Not 'API' — the page is about letting something else drive the app, and the protocol is a detail of that. */
+"section.automation" = "自动化";
 
 /* The Compose tab: the screen where a render is set up. Not the verb. Distinct from settings.remember.section, which is the name of a group of settings *about* that screen. */
 "section.compose" = "编写";

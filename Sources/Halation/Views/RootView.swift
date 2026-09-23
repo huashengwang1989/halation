@@ -48,6 +48,7 @@ struct RootView: View {
                 case .queue:   QueueView()
                 case .library: LibraryView()
                 case .models:  ModelsView()
+                case .automation: AutomationView()
                 }
             }
             .navigationTitle(app.section.label)

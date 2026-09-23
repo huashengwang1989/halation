@@ -9,6 +9,71 @@
 
 "a11y.usingMemory" = "ใช้ %@";
 
+"automation.address" = "ที่อยู่";
+
+"automation.cap.cancel" = "หยุดงานเรนเดอร์ที่รออยู่หรือกำลังทำงาน";
+
+"automation.cap.estimate" = "การเรนเดอร์จะใช้เวลาเท่าไร และเริ่มได้หรือไม่";
+
+"automation.cap.jobs" = "คิวงาน: สถานะ ความคืบหน้า เวลา และท้ายบันทึก";
+
+"automation.cap.library" = "งานที่เรนเดอร์เสร็จแล้ว พร้อมพรอมต์ ซีด และพาธไฟล์";
+
+"automation.cap.machine" = "Mac เครื่องนี้มีหน่วยความจำเท่าไร และชุดไหนพอดี";
+
+"automation.cap.models" = "รายการโมเดล และอันไหนติดตั้งไว้ที่นี่";
+
+"automation.cap.reproduce" = "เรนเดอร์รายการในคลังซ้ำด้วยซีดเดิม — คลิปเดิม ไม่ใช่การสุ่มใหม่";
+
+"automation.cap.submit" = "เพิ่มงานเรนเดอร์เข้าคิว ตรวจสอบแบบเดียวกับปุ่มสร้างทุกประการ";
+
+"automation.connection" = "การเชื่อมต่อ";
+
+"automation.copied" = "คัดลอกแล้ว";
+
+"automation.depth" = "รออยู่ได้มากสุด %@ งาน";
+
+"automation.depth.detail" = "เกินจากนี้ API จะปฏิเสธงานใหม่ Mac เครื่องนี้เรนเดอร์ได้ทีละงาน และเอเจนต์ไม่มีทางรู้สึกได้ว่าคิวกำลังยาวขึ้น";
+
+/* The master switch. Off until someone turns it on, every launch it has not been turned on before. */
+"automation.enable" = "เปิดใช้ API ในเครื่อง";
+
+/* Listed on the page itself, so the person deciding whether to switch it on can see what they are granting while they decide. */
+"automation.exposes" = "เปิดอะไรบ้าง";
+
+"automation.exposes.detail" = "API ไม่รับภาพอ้างอิงเด็ดขาด เพราะเป็นไฟล์บนดิสก์ และการรับพาธจากผู้เรียก เท่ากับให้อ่านทุกอย่างที่แอปนี้อ่านได้ ตั้งค่าได้ที่หน้าเขียน";
+
+"automation.footnote" = "ให้โปรแกรมอื่นบน Mac เครื่องนี้ — ส่วนใหญ่คือเอเจนต์ — ถามได้ว่าเครื่องนี้เรนเดอร์อะไรได้ และส่งงานให้ได้ รับฟังเฉพาะในเครื่องนี้ และทุกคำขอต้องมีโทเคนด้านล่าง";
+
+"automation.hide" = "ซ่อน";
+
+"automation.mcp" = "วิธีเรียกใช้";
+
+"automation.mcp.detail" = "เป็น HTTP ธรรมดากับ JSON อะไรก็เรียกได้ เริ่มที่ GET /v1/health ซึ่งจะแสดงทุกเส้นทางที่บิลด์นี้ให้บริการ";
+
+/* Editable, and it persists: an agent's configuration names a port, and one that moved every launch would break it daily. */
+"automation.port" = "พอร์ต";
+
+"automation.regenerate" = "สร้างโทเคนใหม่";
+
+"automation.reveal" = "แสดง";
+
+"automation.status.off" = "ไม่ได้รับฟัง";
+
+/* WARNING: Shown while the server is up. The request count is there so the page shows the thing being used rather than merely switched on. */
+"automation.status.running" = "กำลังรับฟังที่พอร์ต %1$@ · ตอบแล้ว %2$@ คำขอ";
+
+/* Heads the switch card. 'Local' is doing real work here: it says the port never leaves this machine. */
+"automation.title" = "API ในเครื่อง";
+
+"automation.token" = "โทเคน";
+
+"automation.token.detail" = "ส่งเป็นเฮดเดอร์ Authorization: Bearer อะไรก็ตามบน Mac เครื่องนี้ที่มีโทเคนนี้ใช้ API ได้ การสร้างใหม่จึงเป็นวิธีตัดการเข้าถึง";
+
+"automation.writes" = "อนุญาตให้เพิ่มงานเรนเดอร์";
+
+"automation.writes.detail" = "เมื่อปิด API ตอบได้เพียงคำถาม เมื่อเปิด จะเริ่มและยกเลิกการเรนเดอร์ได้ด้วย ซึ่งใช้เวลาหลายชั่วโมงและกินหน่วยความจำเกือบทั้งเครื่อง";
+
 "backend.comfy.detail" = "PyTorch บน Metal เป็น backend เดียวที่รองรับไฟล์อ้างอิง และเป็นตัวเดียวที่โหลด turbo LoRA แบบ 4 step ได้";
 
 "backend.mlx.detail" = "เฟรมเวิร์กของ Apple เองที่รันโมเดลแบบเนทีฟ รองรับเฉพาะข้อความเป็นวิดีโอและ keyframe เพราะพอร์ตนี้ไม่มีการกำหนดเงื่อนไขจากไฟล์อ้างอิง";
@@ -862,6 +927,9 @@
 
 /* Labels the disk bar under the memory chart on the Queue page. Both halves, because both grow during a render and only one of them is ever large: swap reached 66 GB here while the scratch stayed in megabytes. */
 "scratch.bar.title" = "พื้นที่สลับ + ไฟล์ชั่วคราวของการเรนเดอร์";
+
+/* Sidebar section for the local API another program can talk to. Not 'API' — the page is about letting something else drive the app, and the protocol is a detail of that. */
+"section.automation" = "ระบบอัตโนมัติ";
 
 /* The Compose tab: the screen where a render is set up. Not the verb. Distinct from settings.remember.section, which is the name of a group of settings *about* that screen. */
 "section.compose" = "เรียบเรียง";
