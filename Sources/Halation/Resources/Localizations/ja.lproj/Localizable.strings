@@ -639,13 +639,14 @@
 
 "onboarding.licence.bullet.unlawful" = "どこにいても、違法な出力と性的な出力はライセンスで禁止されています。ローカル実行にサーバー側のフィルタはないので、これはソフトウェアではなくあなたの責任です。";
 
-/* The licence's proper name stays in English; TW/CN gloss it. */
+/* The licence's proper name stays in English, US spelling and all, because it is the document's own title; TW/CN gloss it. */
 "onboarding.licence.heading" = "MiniMax H3 コミュニティライセンス";
 
 /* Keyboard hints under the licence checkbox. The key names are what macOS prints on the keys, so they stay in English. */
 "onboarding.licence.keys" = "⌘L で同意 · Return で次へ · Space でフォーカス中のボタンを実行";
 
-"onboarding.licence.readFull" = "Hugging Face で全文を読む";
+/* Names the document because the page now carries two sets of terms, and only this one is on Hugging Face. The proper name keeps its own US spelling in every language, including en-SG. */
+"onboarding.licence.readFull" = "MiniMax H3 コミュニティライセンスの全文を Hugging Face で読む";
 
 /* Card heading. "Bite" as in restrictions that have real consequences, not a warning about danger. */
 "onboarding.licence.restrictions" = "実際に効いてくる制限";

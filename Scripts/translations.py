@@ -3237,17 +3237,19 @@ add("onboarding.licence.acknowledge", {
     "en-SG": "I read the licence already, and where I stay I am allowed to use these weights",
 })
 add("onboarding.licence.readFull", {
-    "en": "Read the full licence on Hugging Face",
-    "zh-Hant": "在 Hugging Face 閱讀完整授權",
-    "zh-Hans": "在 Hugging Face 阅读完整许可",
-    "de": "Vollständige Lizenz auf Hugging Face lesen",
-    "ar": "اقرأ الترخيص كاملًا على Hugging Face",
-    "ja": "Hugging Face で全文を読む",
-    "ko": "Hugging Face에서 전문 읽기",
-    "th": "อ่านสัญญาอนุญาตฉบับเต็มบน Hugging Face",
-    "yue-Hant": "喺 Hugging Face 睇完整授權",
-    "en-SG": "Read the full licence on Hugging Face",
-})
+    "en": "Read the full MiniMax H3 Community License on Hugging Face",
+    "zh-Hant": "在 Hugging Face 閱讀完整的 MiniMax H3 社群授權條款",
+    "zh-Hans": "在 Hugging Face 阅读完整的 MiniMax H3 社区许可协议",
+    "de": "Vollständige MiniMax H3 Community License auf Hugging Face lesen",
+    "ar": "اقرأ ترخيص مجتمع MiniMax H3 كاملًا على Hugging Face",
+    "ja": "MiniMax H3 コミュニティライセンスの全文を Hugging Face で読む",
+    "ko": "Hugging Face에서 MiniMax H3 커뮤니티 라이선스 전문 읽기",
+    "th": "อ่านสัญญาอนุญาตชุมชน MiniMax H3 ฉบับเต็มบน Hugging Face",
+    "yue-Hant": "喺 Hugging Face 睇 MiniMax H3 社群授權條款全文",
+    "en-SG": "Read the full MiniMax H3 Community License on Hugging Face",
+}, note="Names the document because the page now carries two sets of terms, "
+        "and only this one is on Hugging Face. The proper name keeps its own "
+        "US spelling in every language, including en-SG.")
 add("onboarding.total", {
     "en": "Total",
     "zh-Hant": "總計",
@@ -4375,8 +4377,9 @@ add("onboarding.licence.heading", {
     "ko": "MiniMax H3 커뮤니티 라이선스",
     "th": "สัญญาอนุญาตชุมชน MiniMax H3",
     "yue-Hant": "MiniMax H3 社群授權條款",
-    "en-SG": "MiniMax H3 Community Licence",
-}, note="The licence's proper name stays in English; TW/CN gloss it.")
+    "en-SG": "MiniMax H3 Community License",
+}, note="The licence's proper name stays in English, US spelling and all, "
+        "because it is the document's own title; TW/CN gloss it.")
 add("runtime.ready", {
     "en": "Runtime ready — Python %1$@, MLX on Metal",
     "zh-Hant": "執行環境就緒 — Python %1$@，MLX on Metal",

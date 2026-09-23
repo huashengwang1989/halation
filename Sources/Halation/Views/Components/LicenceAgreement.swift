@@ -32,6 +32,9 @@ struct LicenceAgreement: View {
                 }
             }
 
+            Link(loc("onboarding.licence.readFull"),
+                 destination: .literal("https://huggingface.co/MiniMaxAI/MiniMax-H3"))
+
             GlassCard(title: loc("licence.halation.title"),
                       systemImage: "person.badge.shield.checkmark") {
                 VStack(alignment: .leading, spacing: 10) {
@@ -42,9 +45,6 @@ struct LicenceAgreement: View {
                     Bullet(loc("licence.halation.acceptance"))
                 }
             }
-
-            Link(loc("onboarding.licence.readFull"),
-                 destination: .literal("https://huggingface.co/MiniMaxAI/MiniMax-H3"))
 
             Toggle(loc("onboarding.licence.acknowledge"),
                    isOn: Binding(get: { app.licenseAcknowledged },
