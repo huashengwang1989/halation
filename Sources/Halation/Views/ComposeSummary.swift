@@ -168,12 +168,22 @@ struct SummaryContent: View {
     /// different amounts: a measurement from this Mac, or an extrapolation from a
     /// published figure for a different one.
     private var estimateSource: String {
+        // Counted the same way `RenderThroughput.measured` samples, or the
+        // footnote would claim renders that the estimate did not use.
         let samples = app.library.items.filter {
             $0.renderSeconds != nil && $0.spec.resolvedBackend == app.draftBackend
+                && $0.spec.sampling.stepCache.resolved(for: app.draftBackend) == .off
         }.count
-        return measuredThroughput == nil
+        let source = measuredThroughput == nil
             ? loc("summary.eta.footnote.predicted", MachineProfile.chipName)
             : loc("summary.eta.footnote.measured", "\(samples)")
+        // With reuse on the estimate becomes a ceiling, and saying so is the
+        // only honest option: how much a cache saves depends on the clip, so
+        // there is no better figure to offer instead.
+        if app.draft.sampling.stepCache.resolved(for: app.draftBackend) != .off {
+            return source + " " + loc("summary.eta.footnote.cached")
+        }
+        return source
     }
 
 }

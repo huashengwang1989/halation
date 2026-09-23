@@ -1227,6 +1227,9 @@
 
 "summary.eta" = "예상 시간";
 
+/* Appended to the estimate's footnote. The estimate is measured from renders that computed every step, so with reuse on it is a ceiling. */
+"summary.eta.footnote.cached" = "스텝 재사용이 켜져 있어 실제로는 이보다 짧습니다. 얼마나 짧아질지는 클립에 따라 다릅니다.";
+
 "summary.eta.footnote.measured" = "이 Mac에서 이 엔진으로 실제 측정한 값입니다(지금까지 %@ 회).";
 
 "summary.eta.footnote.predicted" = "%@ 에 대한 추정값으로, 다른 Mac의 공개 수치를 환산한 것입니다. 첫 렌더링이 끝나면 실측값으로 바뀝니다.";

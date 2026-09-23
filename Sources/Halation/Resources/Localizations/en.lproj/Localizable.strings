@@ -1227,6 +1227,9 @@
 
 "summary.eta" = "Estimated time";
 
+/* Appended to the estimate's footnote. The estimate is measured from renders that computed every step, so with reuse on it is a ceiling. */
+"summary.eta.footnote.cached" = "Step reuse is on, so expect less than this — how much less depends on the clip.";
+
 "summary.eta.footnote.measured" = "Measured from this Mac's own renders on this engine (%@ so far).";
 
 "summary.eta.footnote.predicted" = "An estimate for %@, scaled from a published figure for a different Mac. It will be replaced by a measurement after your first render.";

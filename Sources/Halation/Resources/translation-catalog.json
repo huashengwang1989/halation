@@ -9227,6 +9227,23 @@
       "level": "info"
     },
     {
+      "key": "summary.eta.footnote.cached",
+      "values": {
+        "en": "Step reuse is on, so expect less than this — how much less depends on the clip.",
+        "zh-Hant": "已開啟步驟重用，實際用時會比這短；短多少視內容而定。",
+        "zh-Hans": "已开启步骤复用，实际用时会比这短；短多少视内容而定。",
+        "de": "Schrittwiederverwendung ist aktiv, es wird also weniger — wie viel weniger, hängt vom Clip ab.",
+        "ar": "إعادة استخدام الخطوات مفعّلة، لذا توقّع أقل من ذلك؛ ومقدار الفرق يعتمد على المقطع.",
+        "ja": "ステップの再利用が有効なので、実際はこれより短くなります。どれだけ短くなるかはクリップ次第です。",
+        "ko": "스텝 재사용이 켜져 있어 실제로는 이보다 짧습니다. 얼마나 짧아질지는 클립에 따라 다릅니다.",
+        "th": "เปิดการใช้สเต็ปซ้ำอยู่ จึงน่าจะใช้เวลาน้อยกว่านี้ มากน้อยขึ้นกับคลิป",
+        "yue-Hant": "開咗步驟重用，所以實際會快過呢個；快幾多就睇內容。",
+        "en-SG": "Step reuse is on, so expect less than this — how much less depends on the clip."
+      },
+      "note": "Appended to the estimate's footnote. The estimate is measured from renders that computed every step, so with reuse on it is a ceiling.",
+      "level": "info"
+    },
+    {
       "key": "summary.eta.footnote.measured",
       "values": {
         "en": "Measured from this Mac's own renders on this engine (%@ so far).",

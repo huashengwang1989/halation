@@ -1227,6 +1227,9 @@
 
 "summary.eta" = "เวลาโดยประมาณ";
 
+/* Appended to the estimate's footnote. The estimate is measured from renders that computed every step, so with reuse on it is a ceiling. */
+"summary.eta.footnote.cached" = "เปิดการใช้สเต็ปซ้ำอยู่ จึงน่าจะใช้เวลาน้อยกว่านี้ มากน้อยขึ้นกับคลิป";
+
 "summary.eta.footnote.measured" = "วัดจากการเรนเดอร์จริงบน Mac เครื่องนี้ด้วย engine นี้ (%@ ครั้งจนถึงตอนนี้)";
 
 "summary.eta.footnote.predicted" = "เป็นค่าประมาณสำหรับ %@ ที่ปรับมาจากตัวเลขที่เผยแพร่ของ Mac รุ่นอื่น จะถูกแทนด้วยค่าที่วัดได้จริงหลังการเรนเดอร์ครั้งแรก";

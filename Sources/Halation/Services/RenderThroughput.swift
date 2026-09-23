@@ -34,10 +34,19 @@ enum RenderThroughput {
     /// Kept per backend, because the two are not comparable — ComfyUI runs a
     /// distilled LoRA at four steps where MLX wants sixteen, so a step means a
     /// different amount of work in each.
+    ///
+    /// Renders that reused steps are excluded for the same reason. Their cost
+    /// is divided by the steps that were asked for rather than the ones that
+    /// ran, so one 16-step render that skipped 6 reads as 202 s per step where
+    /// the machine actually needs 342 — and every later estimate, cached or
+    /// not, would inherit that. How much a cache saves depends on the clip, so
+    /// it cannot be corrected for either; the honest sample is the renders that
+    /// computed every step.
     static func measured(from items: [LibraryItem], backend: BackendID) -> Double? {
         let samples = items.compactMap { item -> Double? in
             guard let seconds = item.renderSeconds, seconds > 0,
-                  item.spec.resolvedBackend == backend
+                  item.spec.resolvedBackend == backend,
+                  item.spec.sampling.stepCache.resolved(for: backend) == .off
             else { return nil }
             // A render that did not record which checkpoint it used is still a
             // real measurement of this machine. Reference renders are all like

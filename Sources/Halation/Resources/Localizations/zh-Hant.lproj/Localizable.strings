@@ -1227,6 +1227,9 @@
 
 "summary.eta" = "預估時間";
 
+/* Appended to the estimate's footnote. The estimate is measured from renders that computed every step, so with reuse on it is a ceiling. */
+"summary.eta.footnote.cached" = "已開啟步驟重用，實際用時會比這短；短多少視內容而定。";
+
 "summary.eta.footnote.measured" = "依本機此引擎的實際算圖測得（目前 %@ 次）。";
 
 "summary.eta.footnote.predicted" = "針對 %@ 的推估值，由另一款 Mac 的公開數據換算而來。完成第一次算圖後，會改用實測值。";

@@ -1227,6 +1227,9 @@
 
 "summary.eta" = "الوقت المقدَّر";
 
+/* Appended to the estimate's footnote. The estimate is measured from renders that computed every step, so with reuse on it is a ceiling. */
+"summary.eta.footnote.cached" = "إعادة استخدام الخطوات مفعّلة، لذا توقّع أقل من ذلك؛ ومقدار الفرق يعتمد على المقطع.";
+
 "summary.eta.footnote.measured" = "مقيس من عمليات التصيير على هذا الـ Mac بهذا المحرّك (%@ حتى الآن).";
 
 "summary.eta.footnote.predicted" = "تقدير لجهاز %@، محسوب من رقم منشور لجهاز Mac مختلف. وسيحلّ محلّه قياس فعلي بعد أول تصيير تجريه.";

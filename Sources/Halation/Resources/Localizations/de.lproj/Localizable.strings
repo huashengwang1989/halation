@@ -1227,6 +1227,9 @@
 
 "summary.eta" = "Geschätzte Dauer";
 
+/* Appended to the estimate's footnote. The estimate is measured from renders that computed every step, so with reuse on it is a ceiling. */
+"summary.eta.footnote.cached" = "Schrittwiederverwendung ist aktiv, es wird also weniger — wie viel weniger, hängt vom Clip ab.";
+
 "summary.eta.footnote.measured" = "Aus den Renderings dieses Macs mit dieser Engine gemessen (bisher %@).";
 
 "summary.eta.footnote.predicted" = "Eine Schätzung für %@, hochgerechnet aus einem veröffentlichten Wert für einen anderen Mac. Nach Ihrem ersten Render wird sie durch eine Messung ersetzt.";
