@@ -149,41 +149,9 @@ struct OnboardingView: View {
     }
 
     private var licence: some View {
-        VStack(alignment: .leading, spacing: 16) {
-            Text(loc("onboarding.licence.heading"))
-                .font(.title.weight(.semibold))
-            Text(loc("onboarding.licence.body"))
-                .foregroundStyle(.secondary)
-                .fixedSize(horizontal: false, vertical: true)
-
-            GlassCard(title: loc("onboarding.licence.restrictions"),
-                      systemImage: "exclamationmark.shield") {
-                VStack(alignment: .leading, spacing: 10) {
-                    Bullet(loc("onboarding.licence.bullet.territory"))
-                    Bullet(loc("onboarding.licence.bullet.revenue"))
-                    Bullet(loc("onboarding.licence.bullet.training"))
-                    Bullet(loc("onboarding.licence.bullet.unlawful"))
-                }
-            }
-
-            Link(loc("onboarding.licence.readFull"),
-                 destination: .literal("https://huggingface.co/MiniMaxAI/MiniMax-H3"))
-
-            Toggle(loc("onboarding.licence.acknowledge"),
-                   isOn: Binding(get: { app.licenseAcknowledged },
-                                 set: { app.licenseAcknowledged = $0 }))
-                .toggleStyle(.checkbox)
-                .padding(.top, 4)
-                // This checkbox gates Continue. Without a shortcut, a keyboard user
-                // whose system keyboard-navigation is off can reach the button but
-                // never enable it — a dead end in the only mandatory step.
-                .keyboardShortcut("l", modifiers: .command)
-                .help(loc("onboarding.licence.toggleHelp"))
-
-            Text(loc("onboarding.licence.keys"))
-                .font(.caption)
-                .foregroundStyle(.tertiary)
-        }
+        // The agreement itself lives in `LicenceAgreement`, because Compose
+        // raises the same text in a sheet when this dialog has been skipped.
+        LicenceAgreement()
     }
 
     private var runtime: some View {
@@ -344,7 +312,9 @@ struct OnboardingView: View {
     }
 }
 
-private struct Bullet: View {
+// Shared with LicenceAgreement, which the welcome dialog and the licence
+// sheet both draw.
+struct Bullet: View {
     var text: String
     init(_ text: String) { self.text = text }
 

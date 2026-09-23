@@ -317,6 +317,20 @@
 
 "library.useSettings" = "استخدام هذه الإعدادات";
 
+"licence.halation.acceptance" = "إن استخدام Halation يُعدّ قبولًا لهذه الشروط ولتراخيص كل نموذج تختار تشغيله.";
+
+"licence.halation.affiliation" = "‏Halation تطبيق مستقل. وهو غير تابع لـ MiniMax أو مشروع ComfyUI أو Apple أو أي طرف آخر يمكن تشغيل برمجياته أو نماذجه به، ولا معتمد منهم ولا برعايتهم. وجميع العلامات التجارية ملك لأصحابها.";
+
+/* The obligation people are likeliest to overlook, and the one with the sharpest teeth in several jurisdictions. Kept separate from the general responsibility clause so it cannot be skimmed past. */
+"licence.halation.disclosure" = "عند نشر الوسائط المُنشأة أو توزيعها أو إتاحتها بأي شكل، تقع عليك مسؤولية الإفصاح عن أنها من إنشاء الذكاء الاصطناعي، بالإشعار أو الوسم أو العلامة المضمّنة التي يقتضيها القانون أو منصة النشر.";
+
+"licence.halation.liability" = "يُقدَّم Halation كما هو، دون أي ضمان من أي نوع. وإلى أقصى حد يسمح به القانون، لا يتحمّل مؤلفوه أي مسؤولية عن خسارة أو ضرر أو مطالبة تنشأ عن استخدامه أو عن الوسائط المنتجة به.";
+
+"licence.halation.responsibility" = "أنت وحدك المسؤول عن الوسائط التي تُنشئها وعن طريقة استخدامها، بما في ذلك الالتزام بتراخيص أي نموذج تشغّله، وبالقوانين المعمول بها، وبحقوق أي شخص يظهر فيها أو أي عمل يُستشهد به.";
+
+/* Heads the app's own terms, kept separate from the model licence above it: one is MiniMax's, this one is ours, and merging them would make neither clear. */
+"licence.halation.title" = "شروط استخدام Halation نفسه";
+
 /* A line across the memory chart, not a band: compressed pages are still inside the bands, squeezed rather than moved. The line rises before any swap appears, which is why it is worth showing. */
 "memory.chart.compressed" = "مضغوطة";
 
@@ -690,6 +704,9 @@
 "problem.chooseCheckpoint" = "اختر نقطة تحقق %@ من «النماذج».";
 
 "problem.duration" = "يولّد H3 مقاطع مدتها 4–15 ثانية فقط.";
+
+/* A blocking problem on Compose, beside a button that opens the terms. The welcome dialog can be skipped, so this is reachable in normal use. */
+"problem.licence" = "لم يُقبل ترخيص النموذج بعد.";
 
 "problem.longOvernight" = "قد تستغرق المقاطع الطويلة بأعداد خطوات كبيرة ليلة كاملة. جرّب اختبارًا قصيرًا أولًا.";
 
@@ -1209,6 +1226,9 @@
 "summary.problems" = "قبل التوليد";
 
 "summary.render" = "هذا التصيير";
+
+/* Opens the terms as a sheet from Compose, for someone who skipped the welcome dialog. 'Review' rather than 'Accept': the button opens the text, it does not agree on anyone's behalf. */
+"summary.reviewLicence" = "مراجعة الترخيص";
 
 /* The particular job a checkpoint was trained for — first-frame continuation or reference conditioning. A machine-learning sense, not a to-do item or a queued job. */
 "summary.task" = "المهمة";

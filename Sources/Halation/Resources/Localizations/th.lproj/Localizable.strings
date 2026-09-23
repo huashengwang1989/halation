@@ -317,6 +317,20 @@
 
 "library.useSettings" = "ใช้การตั้งค่านี้";
 
+"licence.halation.acceptance" = "การใช้ Halation ถือเป็นการยอมรับข้อกำหนดเหล่านี้ และสัญญาอนุญาตของทุกโมเดลที่คุณเลือกเรียกใช้";
+
+"licence.halation.affiliation" = "Halation เป็นแอปพลิเคชันอิสระ ไม่มีความเกี่ยวข้อง ไม่ได้รับการรับรอง และไม่ได้รับการสนับสนุนจาก MiniMax โครงการ ComfyUI Apple หรือบุคคลอื่นใดที่ซอฟต์แวร์หรือโมเดลของตนอาจถูกเรียกใช้ผ่านแอปนี้ เครื่องหมายการค้าทั้งหมดเป็นของเจ้าของแต่ละราย";
+
+/* The obligation people are likeliest to overlook, and the one with the sharpest teeth in several jurisdictions. Kept separate from the general responsibility clause so it cannot be skimmed past. */
+"licence.halation.disclosure" = "เมื่อคุณเผยแพร่ แจกจ่าย หรือทำให้สื่อที่สร้างขึ้นเข้าถึงได้โดยประการอื่น เป็นความรับผิดชอบของคุณที่จะเปิดเผยว่าสื่อนั้นสร้างโดยปัญญาประดิษฐ์ ด้วยข้อความแจ้ง ป้ายกำกับ หรือเครื่องหมายฝังตัวตามที่กฎหมายหรือแพลตฟอร์มกำหนด";
+
+"licence.halation.liability" = "Halation จัดให้ตามสภาพที่เป็นอยู่ โดยไม่มีการรับประกันใด ๆ ภายในขอบเขตสูงสุดที่กฎหมายอนุญาต ผู้เขียนไม่รับผิดต่อความสูญเสีย ความเสียหาย หรือข้อเรียกร้องใดอันเกิดจากการใช้งานหรือจากสื่อที่ผลิตด้วยเครื่องมือนี้";
+
+"licence.halation.responsibility" = "คุณรับผิดชอบแต่เพียงผู้เดียวต่อสื่อที่สร้างขึ้นและวิธีการนำไปใช้ รวมถึงการปฏิบัติตามสัญญาอนุญาตของโมเดลที่เรียกใช้ กฎหมายที่เกี่ยวข้อง และสิทธิของบุคคลที่ปรากฏหรือผลงานที่ถูกอ้างอิง";
+
+/* Heads the app's own terms, kept separate from the model licence above it: one is MiniMax's, this one is ours, and merging them would make neither clear. */
+"licence.halation.title" = "ข้อกำหนดการใช้งานของ Halation เอง";
+
 /* A line across the memory chart, not a band: compressed pages are still inside the bands, squeezed rather than moved. The line rises before any swap appears, which is why it is worth showing. */
 "memory.chart.compressed" = "ถูกบีบอัด";
 
@@ -690,6 +704,9 @@
 "problem.chooseCheckpoint" = "เลือก checkpoint %@ ในหน้าโมเดล";
 
 "problem.duration" = "H3 สร้างได้เฉพาะคลิปยาว 4–15 วินาทีเท่านั้น";
+
+/* A blocking problem on Compose, beside a button that opens the terms. The welcome dialog can be skipped, so this is reachable in normal use. */
+"problem.licence" = "ยังไม่ได้ยอมรับสัญญาอนุญาตของโมเดล";
 
 "problem.longOvernight" = "คลิปยาวที่ใช้ step มากอาจกินเวลาข้ามคืน ลองทดสอบสั้น ๆ ก่อนดีกว่า";
 
@@ -1209,6 +1226,9 @@
 "summary.problems" = "ก่อนเริ่มสร้าง";
 
 "summary.render" = "การเรนเดอร์นี้";
+
+/* Opens the terms as a sheet from Compose, for someone who skipped the welcome dialog. 'Review' rather than 'Accept': the button opens the text, it does not agree on anyone's behalf. */
+"summary.reviewLicence" = "ดูสัญญาอนุญาต";
 
 /* The particular job a checkpoint was trained for — first-frame continuation or reference conditioning. A machine-learning sense, not a to-do item or a queued job. */
 "summary.task" = "งาน";

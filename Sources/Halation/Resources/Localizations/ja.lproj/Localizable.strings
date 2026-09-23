@@ -317,6 +317,20 @@
 
 "library.useSettings" = "この設定を使う";
 
+"licence.halation.acceptance" = "Halation を利用することは、本条件および利用者が実行を選択したすべてのモデルのライセンスに同意したものとみなされます。";
+
+"licence.halation.affiliation" = "Halation は独立したアプリケーションです。MiniMax、ComfyUI プロジェクト、Apple、その他本アプリで実行しうるソフトウェアまたはモデルの提供者のいずれとも、提携・推奨・後援の関係にありません。各商標はそれぞれの権利者に帰属します。";
+
+/* The obligation people are likeliest to overlook, and the one with the sharpest teeth in several jurisdictions. Kept separate from the general responsibility clause so it cannot be skimmed past. */
+"licence.halation.disclosure" = "生成した媒体を公開・頒布その他の方法で提供する場合、それが人工知能により生成されたことを、法令または頒布先プラットフォームが求める表示・ラベル・埋め込み標識によって開示する責任は利用者にあります。";
+
+"licence.halation.liability" = "Halation は現状有姿で提供され、いかなる種類の保証も伴いません。法令が許す最大限の範囲において、その作者は、本ソフトウェアの利用または本ソフトウェアで作成された媒体に起因する損失・損害・請求について一切の責任を負いません。";
+
+"licence.halation.responsibility" = "生成した媒体およびその利用について、実行したモデルのライセンス、適用される法令、描写された人物や参照した著作物の権利の遵守を含め、すべての責任は利用者が負います。";
+
+/* Heads the app's own terms, kept separate from the model licence above it: one is MiniMax's, this one is ours, and merging them would make neither clear. */
+"licence.halation.title" = "Halation 自体の利用条件";
+
 /* A line across the memory chart, not a band: compressed pages are still inside the bands, squeezed rather than moved. The line rises before any swap appears, which is why it is worth showing. */
 "memory.chart.compressed" = "圧縮済み";
 
@@ -690,6 +704,9 @@
 "problem.chooseCheckpoint" = "「モデル」で %@ のチェックポイントを選んでください。";
 
 "problem.duration" = "H3 が生成できるのは 4〜15 秒のクリップだけです。";
+
+/* A blocking problem on Compose, beside a button that opens the terms. The welcome dialog can be skipped, so this is reachable in normal use. */
+"problem.licence" = "モデルのライセンスにまだ同意していません。";
 
 "problem.longOvernight" = "ステップ数の多い長いクリップは一晩かかることがあります。まず短いテストを試すことをおすすめします。";
 
@@ -1209,6 +1226,9 @@
 "summary.problems" = "生成する前に";
 
 "summary.render" = "このレンダリング";
+
+/* Opens the terms as a sheet from Compose, for someone who skipped the welcome dialog. 'Review' rather than 'Accept': the button opens the text, it does not agree on anyone's behalf. */
+"summary.reviewLicence" = "ライセンスを確認";
 
 /* The particular job a checkpoint was trained for — first-frame continuation or reference conditioning. A machine-learning sense, not a to-do item or a queued job. */
 "summary.task" = "タスク";

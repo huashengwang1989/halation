@@ -48,6 +48,36 @@ struct LicensesView: View {
 
                 Divider()
 
+                // Deliberately the same five points as the agreement people
+                // accept on first run, in the same order. Someone reading this
+                // window is checking what they agreed to; finding a different
+                // list here would tell them one of the two is out of date
+                // without saying which.
+                section("Using Halation") {
+                    Text("Halation is an independent application. It is not affiliated with, "
+                       + "endorsed by, or sponsored by MiniMax, the ComfyUI project, Apple, or "
+                       + "any other party whose software or models it can be used to run. All "
+                       + "trademarks are the property of their respective owners.")
+                    Text("You are solely responsible for the media you generate and for how you "
+                       + "use it, including compliance with the licences of any model you run, "
+                       + "with applicable law, and with the rights of any person depicted or any "
+                       + "work referenced.")
+                    Text("Where you publish, distribute or otherwise make generated media "
+                       + "available, it is your responsibility to disclose that it was generated "
+                       + "by artificial intelligence, by whatever notice, label or embedded "
+                       + "marking the law or platform of distribution requires.")
+                        .fontWeight(.medium)
+                    Text("Halation is provided as is, without warranty of any kind. To the "
+                       + "fullest extent permitted by law, its authors accept no liability for "
+                       + "any loss, damage or claim arising from its use or from the media "
+                       + "produced with it.")
+                    Text("Using Halation constitutes acceptance of these terms and of the "
+                       + "licences of every model you choose to run.")
+                        .foregroundStyle(.secondary)
+                }
+
+                Divider()
+
                 section("Model weights are not part of this program") {
                     Text("Halation downloads weights from Hugging Face at your request. It does "
                        + "not contain or redistribute any of them. Each is licensed by whoever "

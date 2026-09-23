@@ -317,6 +317,20 @@
 
 "library.useSettings" = "沿用呢啲設定";
 
+"licence.halation.acceptance" = "使用 Halation 即代表你接受本條款，以及你揀嚟行嘅每一個模型嘅授權條款。";
+
+"licence.halation.affiliation" = "Halation 係獨立嘅應用程式，同 MiniMax、ComfyUI 專案、Apple，或者任何軟件或模型可以喺本程式行嘅一方，都冇隸屬、背書或者贊助關係。所有商標均屬各自擁有人所有。";
+
+/* The obligation people are likeliest to overlook, and the one with the sharpest teeth in several jurisdictions. Kept separate from the general responsibility clause so it cannot be skimmed past. */
+"licence.halation.disclosure" = "當你發布、散布或者用其他方式公開生成嘅媒體，你有責任披露佢係人工智能生成，並按法律或者發布平台嘅要求加上相應聲明、標示或者嵌入式標記。";
+
+"licence.halation.liability" = "Halation 按「現狀」提供，唔附任何形式嘅保證。喺法律容許嘅最大範圍內，作者對因使用本軟件或者用佢整出嚟嘅媒體而引致嘅任何損失、損害或者申索，一概唔負責。";
+
+"licence.halation.responsibility" = "你對生成嘅媒體同點樣用佢負全部責任，包括遵守所行模型嘅授權、適用法律，以及任何被描繪嘅人或被引用作品嘅權利。";
+
+/* Heads the app's own terms, kept separate from the model licence above it: one is MiniMax's, this one is ours, and merging them would make neither clear. */
+"licence.halation.title" = "Halation 本身嘅使用條款";
+
 /* A line across the memory chart, not a band: compressed pages are still inside the bands, squeezed rather than moved. The line rises before any swap appears, which is why it is worth showing. */
 "memory.chart.compressed" = "壓縮咗";
 
@@ -690,6 +704,9 @@
 "problem.chooseCheckpoint" = "去「模型」度揀個 %@ 檢查點。";
 
 "problem.duration" = "H3 淨係生成到 4–15 秒嘅片。";
+
+/* A blocking problem on Compose, beside a button that opens the terms. The welcome dialog can be skipped, so this is reachable in normal use. */
+"problem.licence" = "仲未接受模型授權條款。";
 
 "problem.longOvernight" = "長片再加高步數，可能要成晚。不如先試條短嘅。";
 
@@ -1209,6 +1226,9 @@
 "summary.problems" = "生成前睇下";
 
 "summary.render" = "今次算圖";
+
+/* Opens the terms as a sheet from Compose, for someone who skipped the welcome dialog. 'Review' rather than 'Accept': the button opens the text, it does not agree on anyone's behalf. */
+"summary.reviewLicence" = "睇下授權條款";
 
 /* The particular job a checkpoint was trained for — first-frame continuation or reference conditioning. A machine-learning sense, not a to-do item or a queued job. */
 "summary.task" = "任務";

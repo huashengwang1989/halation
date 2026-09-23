@@ -317,6 +317,20 @@
 
 "library.useSettings" = "Diese Einstellungen übernehmen";
 
+"licence.halation.acceptance" = "Die Nutzung von Halation gilt als Annahme dieser Bedingungen sowie der Lizenzen jedes Modells, das Sie ausführen.";
+
+"licence.halation.affiliation" = "Halation ist eine unabhängige Anwendung. Sie steht in keiner Verbindung zu MiniMax, dem ComfyUI-Projekt, Apple oder anderen Parteien, deren Software oder Modelle mit ihr ausgeführt werden können, und wird von diesen weder unterstützt noch gesponsert. Alle Marken sind Eigentum ihrer jeweiligen Inhaber.";
+
+/* The obligation people are likeliest to overlook, and the one with the sharpest teeth in several jurisdictions. Kept separate from the general responsibility clause so it cannot be skimmed past. */
+"licence.halation.disclosure" = "Wenn Sie erzeugte Medien veröffentlichen, verbreiten oder anderweitig zugänglich machen, obliegt es Ihnen, deren Erzeugung durch künstliche Intelligenz offenzulegen — durch den Hinweis, die Kennzeichnung oder die eingebettete Markierung, die Gesetz oder Verbreitungsplattform verlangen.";
+
+"licence.halation.liability" = "Halation wird ohne Mängelgewähr und ohne jede Garantie bereitgestellt. Soweit gesetzlich zulässig, übernehmen die Autoren keine Haftung für Verluste, Schäden oder Ansprüche, die aus der Nutzung oder aus den damit erzeugten Medien entstehen.";
+
+"licence.halation.responsibility" = "Sie sind allein verantwortlich für die erzeugten Medien und deren Verwendung, einschließlich der Einhaltung der Lizenzen der ausgeführten Modelle, des geltenden Rechts sowie der Rechte abgebildeter Personen und referenzierter Werke.";
+
+/* Heads the app's own terms, kept separate from the model licence above it: one is MiniMax's, this one is ours, and merging them would make neither clear. */
+"licence.halation.title" = "Nutzungsbedingungen für Halation selbst";
+
 /* A line across the memory chart, not a band: compressed pages are still inside the bands, squeezed rather than moved. The line rises before any swap appears, which is why it is worth showing. */
 "memory.chart.compressed" = "Komprimiert";
 
@@ -690,6 +704,9 @@
 "problem.chooseCheckpoint" = "Wähle unter „Modelle“ einen %@-Checkpoint.";
 
 "problem.duration" = "H3 erzeugt nur Clips von 4–15 Sekunden.";
+
+/* A blocking problem on Compose, beside a button that opens the terms. The welcome dialog can be skipped, so this is reachable in normal use. */
+"problem.licence" = "Die Modelllizenz wurde noch nicht akzeptiert.";
 
 "problem.longOvernight" = "Lange Clips mit hoher Schrittzahl können über Nacht laufen. Erst einen kurzen Test erwägen.";
 
@@ -1209,6 +1226,9 @@
 "summary.problems" = "Vor dem Erzeugen";
 
 "summary.render" = "Dieser Render";
+
+/* Opens the terms as a sheet from Compose, for someone who skipped the welcome dialog. 'Review' rather than 'Accept': the button opens the text, it does not agree on anyone's behalf. */
+"summary.reviewLicence" = "Lizenz ansehen";
 
 /* The particular job a checkpoint was trained for — first-frame continuation or reference conditioning. A machine-learning sense, not a to-do item or a queued job. */
 "summary.task" = "Aufgabe";

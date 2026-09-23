@@ -122,9 +122,18 @@ struct AutomationView: View {
                             .textSelection(.enabled)
                             .lineLimit(1)
                             .truncationMode(.middle)
-                        Button(revealToken ? loc("automation.hide") : loc("automation.reveal")) {
+                        // The eye, as on any password field: the control is
+                        // recognised on sight, and a word here would be one
+                        // more thing to translate for no gain.
+                        Button {
                             revealToken.toggle()
+                        } label: {
+                            Image(systemName: revealToken ? "eye.slash" : "eye")
                         }
+                        .buttonStyle(.borderless)
+                        .help(revealToken ? loc("automation.hide") : loc("automation.reveal"))
+                        .accessibilityLabel(revealToken ? loc("automation.hide")
+                                                        : loc("automation.reveal"))
                         copyButton(api.token, id: "token")
                     }
                 }

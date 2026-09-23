@@ -21,6 +21,7 @@ struct APIRoutes {
             "writes_enabled": server.allowsWrites,
             "max_queue_depth": server.maxQueueDepth,
             "runtime_ready": app.runtime.phase.isReady,
+            "licence_accepted": app.licenceProblem == nil,
             "routes": [
                 "GET /v1/health", "GET /v1/machine", "GET /v1/models",
                 "GET /v1/library", "GET /v1/library/{id}",
@@ -113,7 +114,10 @@ struct APIRoutes {
         do { request = try RenderRequest.decode(body) } catch { return Self.badRequest(error) }
 
         let spec = request.apply(to: app.draft, app: app)
-        let problems = spec.validate(installed: app.modelStore.installedEntryIDs)
+        var problems = spec.validate(installed: app.modelStore.installedEntryIDs)
+        // Reported by estimate too, so an agent learns about it before it
+        // submits rather than by being refused.
+        if let licence = app.licenceProblem { problems.insert(licence, at: 0) }
         let blocking = problems.filter { $0.severity == .blocking }
 
         var payload: [String: Any] = [
@@ -182,6 +186,17 @@ struct APIRoutes {
     // MARK: - Shared
 
     private func enqueue(_ spec: GenerationSpec, maxQueueDepth: Int) -> HTTPResponse {
+        // Before anything else. The terms cannot be accepted over the API —
+        // agreeing to a licence is not something a program should be able to do
+        // on a person's behalf — so this is a wall, not a validation failure.
+        guard app.licenceProblem == nil else {
+            return .error(403, "licence_not_accepted",
+                          "The model licence has not been accepted on this Mac. "
+                          + "Open Halation, go to Compose, and use \"Review "
+                          + "licence\" under \"Before you generate\". Nothing can "
+                          + "be rendered until then.")
+        }
+
         let waiting = app.engine.jobs.count { !$0.state.isTerminal }
         guard waiting < maxQueueDepth else {
             return .error(429, "queue_full",

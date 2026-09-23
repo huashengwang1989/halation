@@ -320,8 +320,21 @@ final class AppState {
         return spec
     }
 
+    /// The licence, as a blocking problem, or nil once it is accepted.
+    ///
+    /// One property rather than a check at each call site. The welcome dialog
+    /// can be skipped, which used to leave the licence unaccepted while both
+    /// the Generate button and the local API went on working — the agreement
+    /// decided only whether the dialog appeared, and nothing else consulted it.
+    var licenceProblem: GenerationSpec.Problem? {
+        licenseAcknowledged ? nil
+            : .init(severity: .blocking, message: loc("problem.licence"))
+    }
+
     var draftProblems: [GenerationSpec.Problem] {
-        draft.validate(installed: modelStore.installedEntryIDs)
+        var problems = draft.validate(installed: modelStore.installedEntryIDs)
+        if let licenceProblem { problems.insert(licenceProblem, at: 0) }
+        return problems
     }
 
     var canGenerate: Bool {

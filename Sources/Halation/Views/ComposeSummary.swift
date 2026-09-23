@@ -36,6 +36,7 @@ struct SummaryContent: View {
     @Environment(AppState.self) private var app
     @Binding var showingPresetNamer: Bool
     @State private var isFlashing = false
+    @State private var showingLicence = false
 
     var body: some View {
         VStack(alignment: .leading, spacing: 18) {
@@ -68,6 +69,19 @@ struct SummaryContent: View {
                 GlassCard(title: loc("summary.problems"), systemImage: "checklist") {
                     VStack(alignment: .leading, spacing: 8) {
                         ForEach(app.draftProblems) { ProblemBadge(problem: $0) }
+
+                        // The licence is the one blocking problem with a fix
+                        // that is not on this screen, so it gets the way there.
+                        // Everything else here is answered by changing a
+                        // setting the person is already looking at.
+                        if app.licenceProblem != nil {
+                            Button(loc("summary.reviewLicence"),
+                                   systemImage: "checkmark.shield") {
+                                showingLicence = true
+                            }
+                            .buttonStyle(.bordered)
+                            .padding(.top, 2)
+                        }
                     }
                 }
                 .id(ComposeAnchor.problems)
@@ -106,6 +120,13 @@ struct SummaryContent: View {
             .frame(maxWidth: .infinity)
         }
         .frame(maxWidth: .infinity, alignment: .leading)
+        // The agreement on its own, not the whole welcome dialog: reopening
+        // that would walk someone back through model installation they have
+        // already done, to reach the one page they need.
+        .sheet(isPresented: $showingLicence) {
+            LicenceSheet()
+                .environment(app)
+        }
     }
 
     /// Two quick pulses — enough to catch the eye without being a distraction.

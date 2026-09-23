@@ -317,6 +317,20 @@
 
 "library.useSettings" = "沿用这些设置";
 
+"licence.halation.acceptance" = "使用 Halation 即表示您接受本条款，以及您所选择运行之每一模型之授权条款。";
+
+"licence.halation.affiliation" = "Halation 为独立应用程序，与 MiniMax、ComfyUI 项目、Apple 或任何其软件或模型可由本程序运行之第三方均无隶属、背书或赞助关系。所有商标均归其各自所有人所有。";
+
+/* The obligation people are likeliest to overlook, and the one with the sharpest teeth in several jurisdictions. Kept separate from the general responsibility clause so it cannot be skimmed past. */
+"licence.halation.disclosure" = "当您发布、分发或以其他方式公开所生成之媒体时，应由您负责披露其为人工智能生成，并依法律或发布平台之要求，采用相应之声明、标识或嵌入式标记。";
+
+"licence.halation.liability" = "Halation 按“现状”提供，不附任何形式之保证。在法律允许之最大范围内，其作者对因使用本软件或因以本软件制作之媒体所生之任何损失、损害或请求，概不承担责任。";
+
+"licence.halation.responsibility" = "您对所生成之媒体及其使用方式负全部责任，包括遵守所运行模型之授权条款、适用法律，以及任何被描绘之人或被引用作品之权利。";
+
+/* Heads the app's own terms, kept separate from the model licence above it: one is MiniMax's, this one is ours, and merging them would make neither clear. */
+"licence.halation.title" = "Halation 本身的使用条款";
+
 /* A line across the memory chart, not a band: compressed pages are still inside the bands, squeezed rather than moved. The line rises before any swap appears, which is why it is worth showing. */
 "memory.chart.compressed" = "已压缩";
 
@@ -690,6 +704,9 @@
 "problem.chooseCheckpoint" = "请在“模型”中选择 %@ 检查点。";
 
 "problem.duration" = "H3 只能生成 4–15 秒的片段。";
+
+/* A blocking problem on Compose, beside a button that opens the terms. The welcome dialog can be skipped, so this is reachable in normal use. */
+"problem.licence" = "尚未接受模型授权条款。";
 
 "problem.longOvernight" = "长片段搭配高步数可能需要整夜。建议先做一次短测试。";
 
@@ -1209,6 +1226,9 @@
 "summary.problems" = "生成前请确认";
 
 "summary.render" = "本次渲染";
+
+/* Opens the terms as a sheet from Compose, for someone who skipped the welcome dialog. 'Review' rather than 'Accept': the button opens the text, it does not agree on anyone's behalf. */
+"summary.reviewLicence" = "查看授权条款";
 
 /* The particular job a checkpoint was trained for — first-frame continuation or reference conditioning. A machine-learning sense, not a to-do item or a queued job. */
 "summary.task" = "任务";
