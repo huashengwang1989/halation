@@ -37,7 +37,11 @@ struct QueueView: View {
                 }
             } else {
                 List(selection: $selection) {
-                    ForEach(app.engine.jobs) { job in
+                    // Newest first. `app.engine.jobs` stays in the order the
+                    // queue runs them — `queuePosition` and everything that
+                    // picks the next job read it directly — so only the display
+                    // is reversed.
+                    ForEach(app.engine.jobs.reversed()) { job in
                         JobRow(job: job, showLog: { logJobID = job.id })
                             .tag(job.id)
                             .contextMenu { menu(for: job) }
@@ -190,9 +194,23 @@ private struct JobRow: View {
         .accessibilityValue(spokenState)
     }
 
-    /// Mode, canvas, length and steps — the identity of the render at a glance.
+    /// When, then mode, canvas, length and steps — the identity of the render at
+    /// a glance.
     private var specLine: some View {
         HStack(spacing: 6) {
+            // `createdAt`, not `startedAt`: the moment the render was asked
+            // for. It is the only one a job has in every state — a queued job
+            // has never started — and it does not move when the queue reaches
+            // the job hours later.
+            //
+            // Re-read on a timer because "2m ago" is a statement about now, not
+            // about the job. Rows for an active render redraw constantly with
+            // progress, but a finished or queued one would sit at whatever it
+            // said when it was last touched.
+            TimelineView(.periodic(from: .now, by: 60)) { _ in
+                Text(Format.relative(job.createdAt))
+            }
+            Text("·")
             Label(job.spec.mode.label, systemImage: job.spec.mode.symbolName)
                 .labelStyle(.titleAndIcon)
             if let backend = job.backend {
@@ -336,7 +354,8 @@ private struct JobRow: View {
     }
 
     private var spokenState: String {
-        var parts = [job.spec.mode.label, job.activityDescription]
+        var parts = [Format.relative(job.createdAt),
+                     job.spec.mode.label, job.activityDescription]
         if job.isHeld, job.state == .queued { parts.append(loc("queue.a11y.held")) }
         if job.state.isActive {
             parts.append(loc("a11y.percent", "\(Int(job.overallProgress * 100))"))
