@@ -7119,6 +7119,40 @@
       "level": "info"
     },
     {
+      "key": "sampling.cache.on",
+      "values": {
+        "en": "On",
+        "zh-Hant": "開啟",
+        "zh-Hans": "开启",
+        "de": "Ein",
+        "ar": "تشغيل",
+        "ja": "オン",
+        "ko": "켜기",
+        "th": "เปิด",
+        "yue-Hant": "開咗",
+        "en-SG": "On"
+      },
+      "note": "The MLX engine has one implementation rather than a choice of nodes, so its option is simply on.",
+      "level": "info"
+    },
+    {
+      "key": "sampling.cache.reuse.detail",
+      "values": {
+        "en": "Reuses a step when its output has barely moved. Faster, and the clip will differ from the same seed rendered in full — meant for previews. Halation's own, applied around the MLX port; the saving grows with the step count.",
+        "zh-Hant": "當某一步的輸出幾乎沒有變化時便重用它。速度較快，但成品會與同一種子的完整算繪有所不同，適合用於預覽。這是 Halation 自行加在 MLX 移植版外層的做法；步數越多，省下的時間越多。",
+        "zh-Hans": "当某一步的输出几乎没有变化时便复用它。速度较快，但成品会与同一种子的完整渲染有所不同，适合用于预览。这是 Halation 自行加在 MLX 移植版外层的做法；步数越多，省下的时间越多。",
+        "de": "Verwendet einen Schritt wieder, wenn sich sein Ergebnis kaum verändert hat. Schneller, und der Clip weicht von derselben vollständig gerenderten Seed ab — für Vorschauen gedacht. Halations eigene Umsetzung um die MLX-Portierung herum; die Ersparnis wächst mit der Schrittzahl.",
+        "ar": "يعيد استخدام الخطوة عندما لا يكاد ناتجها يتغير. أسرع، وسيختلف المقطع عن النتيجة الكاملة للبذرة نفسها — وهو مخصص للمعاينة. هذه إضافة من Halation حول منفذ MLX، ويزداد التوفير كلما زاد عدد الخطوات.",
+        "ja": "出力がほとんど変化していないステップを再利用します。高速になりますが、同じシードを完全に生成した場合とは結果が変わります。プレビュー向けです。MLX 版を包む Halation 独自の実装で、ステップ数が多いほど節約も大きくなります。",
+        "ko": "출력이 거의 변하지 않은 스텝을 재사용합니다. 더 빠르지만 같은 시드를 전부 계산한 결과와는 달라집니다. 미리보기용입니다. MLX 포팅을 감싸는 Halation 자체 구현이며, 스텝 수가 많을수록 절약도 커집니다.",
+        "th": "ใช้สเต็ปเดิมซ้ำเมื่อผลลัพธ์แทบไม่เปลี่ยน เร็วขึ้น และคลิปจะต่างจากการเรนเดอร์เต็มด้วยซีดเดียวกัน จึงเหมาะกับการดูตัวอย่าง เป็นส่วนที่ Halation เพิ่มหุ้มรอบพอร์ต MLX ยิ่งสเต็ปมากยิ่งประหยัดมาก",
+        "yue-Hant": "如果某一步嘅輸出幾乎冇變，就重用返佢。快啲，但出嚟嘅片會同同一個種子完整算出嚟嘅唔同，係用嚟預覽嘅。呢個係 Halation 自己包喺 MLX 移植版外面嘅做法；步數越多，慳得越多。",
+        "en-SG": "Reuses a step when its output has barely moved. Faster, and the clip will differ from the same seed rendered in full — meant for previews. Halation's own, applied around the MLX port; the saving grows with the step count."
+      },
+      "note": "The MLX engine's step reuse. Same algorithm as EasyCache, but Halation's code rather than ComfyUI's, so it does not claim the name.",
+      "level": "info"
+    },
+    {
       "key": "sampling.duration",
       "values": {
         "en": "Duration",

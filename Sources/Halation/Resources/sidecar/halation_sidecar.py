@@ -364,6 +364,8 @@ def cmd_generate(args: argparse.Namespace) -> int:
     # so we tee stdout through a parser instead of losing the progress entirely.
     tee = _StepTee(reporter, file_sizes=sizes)
 
+    cache = None
+
     protocol.stage("preparing")
     total_gb = sum(sizes.values()) / 1e9
     protocol.substage("Loading model", 0, sum(sizes.values()) or len(_LOAD_STEPS),
@@ -378,6 +380,12 @@ def cmd_generate(args: argparse.Namespace) -> int:
 
         images, anchors = _keyframes(job)
         _report_prompt_tokens(pipeline, job["prompt"], images)
+
+        # Step reuse, if asked for. Installed by wrapping the port's own
+        # transformer rather than by editing the port: `minimax_h3_mlx` is
+        # cloned from upstream and replaced whenever the runtime is repaired,
+        # so a change made in there would have to be made again every time.
+        cache = _install_step_cache(pipeline, job, steps)
 
         protocol.stage("generating")
         with contextlib.redirect_stdout(tee):
@@ -395,6 +403,19 @@ def cmd_generate(args: argparse.Namespace) -> int:
         protocol.error(f"Generation failed: {exc}")
         protocol.log(traceback.format_exc(limit=14))
         return 1
+
+    if cache is not None:
+        summary = cache.summary()
+        # Said plainly in the log, because a cache that silently did nothing
+        # and one that halved the work look identical from the outside — and
+        # the clip is the only other evidence, which is the evidence you
+        # cannot read until it is too late to change the setting.
+        protocol.log(
+            f"Step reuse: {summary['skipped']} of {summary['steps']} steps "
+            f"reused rather than computed "
+            f"(threshold {summary['reuse_threshold']}, "
+            f"window steps {summary['window'][0]}-{summary['window'][1]})."
+        )
 
     reporter.report_memory()
     protocol.stage("decoding")
@@ -432,6 +453,47 @@ _ENCODERS = {
     "h264": ["-c:v", "libx264", "-crf", "18", "-pix_fmt", "yuv420p"],
     "av1": ["-c:v", "libsvtav1", "-crf", "30", "-preset", "8", "-pix_fmt", "yuv420p"],
 }
+
+
+def _install_step_cache(pipeline, job, sigma_points: int):
+    """Wrap `pipeline.dit` so predictable steps are replayed instead of run.
+
+    Returns the cache for reporting, or None when it is switched off or cannot
+    be installed. A failure here is never fatal: the render is worth more than
+    the saving, so it falls back to computing every step and says so.
+    """
+    if str(job.get("step_cache") or "off") == "off":
+        return None
+    try:
+        from step_cache import StepCache
+    except Exception as exc:
+        protocol.log(f"Step reuse unavailable, rendering every step: {exc}")
+        return None
+
+    inner = getattr(pipeline, "dit", None)
+    if inner is None:
+        protocol.log("Step reuse: this port exposes no `dit`, "
+                     "so every step will be computed.")
+        return None
+
+    # The port counts sigma-grid points and runs one fewer forward pass, so the
+    # window has to be measured against the passes that actually happen.
+    passes = max(1, int(sigma_points) - 1)
+    cache = StepCache(
+        inner,
+        passes,
+        reuse_threshold=float(job.get("step_cache_threshold", 0.2)),
+        start_percent=float(job.get("step_cache_start", 0.15)),
+        end_percent=float(job.get("step_cache_end", 0.95)),
+        verbose=bool(job.get("verbose")),
+    )
+    pipeline.dit = cache
+    protocol.log(
+        f"Step reuse on: threshold {cache.reuse_threshold}, "
+        f"computing steps 0-{cache.start_step} and "
+        f"{cache.end_step}-{passes} in full."
+    )
+    return cache
 
 
 def _report_prompt_tokens(pipeline, prompt: str, images) -> None:

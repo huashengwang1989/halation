@@ -933,6 +933,12 @@
 
 "sampling.cache.off.detail" = "每一步都計算晒。呢個係基準路徑，時間估算都係咁計。";
 
+/* The MLX engine has one implementation rather than a choice of nodes, so its option is simply on. */
+"sampling.cache.on" = "開咗";
+
+/* The MLX engine's step reuse. Same algorithm as EasyCache, but Halation's code rather than ComfyUI's, so it does not claim the name. */
+"sampling.cache.reuse.detail" = "如果某一步嘅輸出幾乎冇變，就重用返佢。快啲，但出嚟嘅片會同同一個種子完整算出嚟嘅唔同，係用嚟預覽嘅。呢個係 Halation 自己包喺 MLX 移植版外面嘅做法；步數越多，慳得越多。";
+
 /* How long the finished clip will be, in the Sampling card. A length the user is choosing. Distinct from library.duration, which reports the length of a video already made. */
 "sampling.duration" = "長度";
 

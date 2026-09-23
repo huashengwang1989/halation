@@ -55,9 +55,9 @@ struct SummaryContent: View {
                     // the description of the render rather than only in the
                     // control that set it — but a row reading "Off" on every
                     // render would be a line of noise.
-                    if app.draftBackend == .comfyUI, app.draft.sampling.stepCache != .off {
-                        SpecRow(label: loc("sampling.cache"),
-                                value: app.draft.sampling.stepCache.label)
+                    if case let cache = app.draft.sampling.stepCache
+                        .resolved(for: app.draftBackend), cache != .off {
+                        SpecRow(label: loc("sampling.cache"), value: cache.label)
                     }
                     SpecRow(label: loc("compose.codec"), value: app.draft.format.codec.label)
                     if let bitrate = app.draft.format.estimatedBitrate() {

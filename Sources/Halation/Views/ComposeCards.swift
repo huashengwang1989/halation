@@ -104,31 +104,31 @@ struct SamplingCard: View {
                     }
                 }
 
-                // ComfyUI only: the MLX sidecar has no equivalent, and a
-                // control that silently does nothing on one engine is worse
-                // than one that is absent there.
-                if app.draftBackend == .comfyUI {
-                    Divider()
+                // Both engines can do this, by different routes, so the
+                // options are the ones the chosen engine can actually run.
+                // Switching engine translates the choice rather than dropping
+                // it: "on" survives, which of ComfyUI's two nodes it was does
+                // not, because MLX has neither.
+                Divider()
 
-                    VStack(alignment: .leading, spacing: 4) {
-                        Picker(loc("sampling.cache"), selection: Binding(
-                            get: { spec.sampling.stepCache },
-                            set: { chosen in
-                                InteractionLog.shared.recordChange(
-                                    .select, "sampling.cache",
-                                    from: spec.sampling.stepCache.rawValue,
-                                    to: chosen.rawValue)
-                                spec.sampling.stepCache = chosen
-                            })) {
-                            ForEach(StepCache.allCases) { mode in
-                                Text(mode.label).tag(mode)
-                            }
+                VStack(alignment: .leading, spacing: 4) {
+                    Picker(loc("sampling.cache"), selection: Binding(
+                        get: { spec.sampling.stepCache.resolved(for: app.draftBackend) },
+                        set: { chosen in
+                            InteractionLog.shared.recordChange(
+                                .select, "sampling.cache",
+                                from: spec.sampling.stepCache.rawValue,
+                                to: chosen.rawValue)
+                            spec.sampling.stepCache = chosen
+                        })) {
+                        ForEach(StepCache.available(for: app.draftBackend)) { mode in
+                            Text(mode.label).tag(mode)
                         }
-                        Text(spec.sampling.stepCache.detail)
-                            .font(.caption)
-                            .foregroundStyle(.secondary)
-                            .fixedSize(horizontal: false, vertical: true)
                     }
+                    Text(spec.sampling.stepCache.resolved(for: app.draftBackend).detail)
+                        .font(.caption)
+                        .foregroundStyle(.secondary)
+                        .fixedSize(horizontal: false, vertical: true)
                 }
 
                 Divider()

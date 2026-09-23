@@ -66,7 +66,7 @@ struct ComfyUIWorkflow {
         // rather than beside it: the scheduler only reads sigmas and is
         // indifferent, but leaving one of the two consumers on the unpatched
         // model is the kind of asymmetry that later reads as a bug.
-        if let cacheNode = spec.sampling.stepCache.comfyClassType {
+        if let cacheNode = spec.sampling.stepCache.resolved(for: .comfyUI).comfyClassType {
             nodes[Node.stepCache] = node(cacheNode, [
                 "model": modelSource,
                 "reuse_threshold": StepCache.Defaults.reuseThreshold,

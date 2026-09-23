@@ -28,6 +28,17 @@ struct JobFileWriter {
         ]
         if let seed = spec.sampling.seed { payload["seed"] = seed }
 
+        // Only when on, so a job file for an ordinary render reads the same as
+        // it always did. The thresholds travel with it rather than living in
+        // the sidecar, so what a render used is recorded in the job it ran.
+        let cache = spec.sampling.stepCache.resolved(for: .mlx)
+        if cache != .off {
+            payload["step_cache"] = cache.mlxName
+            payload["step_cache_threshold"] = StepCache.Defaults.reuseThreshold
+            payload["step_cache_start"] = StepCache.Defaults.startPercent
+            payload["step_cache_end"] = StepCache.Defaults.endPercent
+        }
+
         // `localPath` already resolves to the component folder when the repository
         // holds more than one, so these are handed over as-is.
         if let id = spec.transformerEntryID, let entry = ModelCatalog.entry(id: id),
