@@ -104,6 +104,33 @@ struct SamplingCard: View {
                     }
                 }
 
+                // ComfyUI only: the MLX sidecar has no equivalent, and a
+                // control that silently does nothing on one engine is worse
+                // than one that is absent there.
+                if app.draftBackend == .comfyUI {
+                    Divider()
+
+                    VStack(alignment: .leading, spacing: 4) {
+                        Picker(loc("sampling.cache"), selection: Binding(
+                            get: { spec.sampling.stepCache },
+                            set: { chosen in
+                                InteractionLog.shared.recordChange(
+                                    .select, "sampling.cache",
+                                    from: spec.sampling.stepCache.rawValue,
+                                    to: chosen.rawValue)
+                                spec.sampling.stepCache = chosen
+                            })) {
+                            ForEach(StepCache.allCases) { mode in
+                                Text(mode.label).tag(mode)
+                            }
+                        }
+                        Text(spec.sampling.stepCache.detail)
+                            .font(.caption)
+                            .foregroundStyle(.secondary)
+                            .fixedSize(horizontal: false, vertical: true)
+                    }
+                }
+
                 Divider()
 
                 Toggle(loc("sampling.seed.fixed"), isOn: Binding(

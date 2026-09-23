@@ -117,6 +117,9 @@ struct SamplingSettings: Codable, Sendable, Hashable {
     /// the same amount of work whichever engine runs it.
     var steps: Int = 16
 
+    /// Reuse unchanged denoising steps instead of recomputing them. ComfyUI only.
+    var stepCache: StepCache = .off
+
     /// What the MLX sidecar must be told to achieve `steps` forward passes.
     var mlxSigmaPoints: Int { steps + 1 }
     /// `nil` means "pick a fresh random seed for each run".
@@ -128,6 +131,24 @@ struct SamplingSettings: Codable, Sendable, Hashable {
 
     static let durationRange = 5...15
     static let stepsRange = 4...60
+
+    // Settings persisted before a property existed decode as that property's
+    // default rather than as a failure. Swift's synthesised decoder does not do
+    // this — it raises `keyNotFound` even where a default is written right
+    // there — and the `try?` around it would then discard every remembered
+    // setting at once, not only the missing one.
+    init() {}
+
+    init(from decoder: any Decoder) throws {
+        let c = try decoder.container(keyedBy: CodingKeys.self)
+        let fallback = SamplingSettings()
+        durationSeconds = try c.decodeIfPresent(Int.self, forKey: .durationSeconds)
+            ?? fallback.durationSeconds
+        steps = try c.decodeIfPresent(Int.self, forKey: .steps) ?? fallback.steps
+        stepCache = try c.decodeIfPresent(StepCache.self, forKey: .stepCache)
+            ?? fallback.stepCache
+        seed = try c.decodeIfPresent(Int64.self, forKey: .seed)
+    }
 
     /// The duration actually rendered, after snapping to the VAE's frame grid.
     var effectiveSeconds: Double { FrameGrid.alignedSeconds(forSeconds: durationSeconds) }

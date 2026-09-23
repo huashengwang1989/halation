@@ -920,6 +920,19 @@
 
 "runtime.ready" = "Runtime พร้อมแล้ว — Python %1$@, MLX บน Metal";
 
+/* Labels the ComfyUI-only picker choosing EasyCache, LazyCache or off. Named for what it does, not for the nodes: the node names are the options themselves and stay in English. */
+"sampling.cache" = "การใช้สเต็ปซ้ำ";
+
+/* EasyCache. Keep "preview" prominent: this trades quality for time. */
+"sampling.cache.easy.detail" = "ใช้สเต็ปเดิมซ้ำเมื่อผลลัพธ์แทบไม่เปลี่ยน เร็วขึ้น และคลิปจะต่างจากการเรนเดอร์เต็มด้วยซีดเดียวกัน จึงเหมาะกับการดูตัวอย่าง ยิ่งสเต็ปมากยิ่งประหยัดมาก";
+
+/* LazyCache. ComfyUI's own description calls it a homebrew EasyCache that works worse overall but has universal compatibility. */
+"sampling.cache.lazy.detail" = "กฎการใช้ซ้ำที่ง่ายกว่า EasyCache โดยทั่วไปให้ผลแย่กว่าที่เวลาประหยัดเท่ากัน แต่บางครั้งก็ดีกว่า ลองใช้เมื่อ EasyCache ทำให้ภาพเสีย";
+
+"sampling.cache.off" = "ปิด";
+
+"sampling.cache.off.detail" = "คำนวณทุกสเต็ป เป็นเส้นทางอ้างอิงและเป็นสิ่งที่การประมาณเวลาใช้เป็นฐาน";
+
 /* How long the finished clip will be, in the Sampling card. A length the user is choosing. Distinct from library.duration, which reports the length of a video already made. */
 "sampling.duration" = "ความยาว";
 

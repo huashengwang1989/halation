@@ -51,6 +51,14 @@ struct SummaryContent: View {
                     SpecRow(label: loc("summary.length"),
                             value: renderedLength)
                     SpecRow(label: loc("sampling.steps"), value: "\(app.draft.sampling.steps)")
+                    // Only when on. It changes what comes out, so it belongs in
+                    // the description of the render rather than only in the
+                    // control that set it — but a row reading "Off" on every
+                    // render would be a line of noise.
+                    if app.draftBackend == .comfyUI, app.draft.sampling.stepCache != .off {
+                        SpecRow(label: loc("sampling.cache"),
+                                value: app.draft.sampling.stepCache.label)
+                    }
                     SpecRow(label: loc("compose.codec"), value: app.draft.format.codec.label)
                     if let bitrate = app.draft.format.estimatedBitrate() {
                         SpecRow(label: loc("summary.bitrate"), value: "\(bitrate / 1_000_000) Mb/s")

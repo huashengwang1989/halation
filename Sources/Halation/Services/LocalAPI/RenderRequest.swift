@@ -20,6 +20,9 @@ struct RenderRequest: Decodable {
     var aspect: String?
     var resolution: String?
     var codec: String?
+    /// `off`, `easycache` or `lazycache`. ComfyUI only, and a preview setting:
+    /// it buys time with quality.
+    var cache: String?
     /// Omit for a fresh roll; give one to reproduce a previous render exactly.
     var seed: Int64?
 
@@ -64,6 +67,9 @@ struct RenderRequest: Decodable {
             spec.format.resolution = parsed
         }
         if let codec, let parsed = VideoCodec(rawValue: codec) { spec.format.codec = parsed }
+        if let cache, let parsed = StepCache(rawValue: cache.lowercased()) {
+            spec.sampling.stepCache = parsed
+        }
 
         // References are not accepted over the API: they are files on disk, and
         // taking a path from a caller would let it read anything the app can.

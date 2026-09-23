@@ -7034,6 +7034,91 @@
       "level": "info"
     },
     {
+      "key": "sampling.cache",
+      "values": {
+        "en": "Step reuse",
+        "zh-Hant": "步驟重用",
+        "zh-Hans": "步骤复用",
+        "de": "Schrittwiederverwendung",
+        "ar": "إعادة استخدام الخطوات",
+        "ja": "ステップの再利用",
+        "ko": "스텝 재사용",
+        "th": "การใช้สเต็ปซ้ำ",
+        "yue-Hant": "步驟重用",
+        "en-SG": "Step reuse"
+      },
+      "note": "Labels the ComfyUI-only picker choosing EasyCache, LazyCache or off. Named for what it does, not for the nodes: the node names are the options themselves and stay in English.",
+      "level": "info"
+    },
+    {
+      "key": "sampling.cache.easy.detail",
+      "values": {
+        "en": "Reuses a step when its output has barely moved. Faster, and the clip will differ from the same seed rendered in full — meant for previews. The saving grows with the step count.",
+        "zh-Hant": "當某一步的輸出幾乎沒有變化時便重用它。速度較快，但成品會與同一種子的完整算繪有所不同，適合用於預覽。步數越多，省下的時間越多。",
+        "zh-Hans": "当某一步的输出几乎没有变化时便复用它。速度较快，但成品会与同一种子的完整渲染有所不同，适合用于预览。步数越多，省下的时间越多。",
+        "de": "Verwendet einen Schritt wieder, wenn sich sein Ergebnis kaum verändert hat. Schneller, und der Clip weicht von derselben vollständig gerenderten Seed ab — für Vorschauen gedacht. Die Ersparnis wächst mit der Schrittzahl.",
+        "ar": "يعيد استخدام الخطوة عندما لا يكاد ناتجها يتغير. أسرع، وسيختلف المقطع عن النتيجة الكاملة للبذرة نفسها — وهو مخصص للمعاينة. ويزداد التوفير كلما زاد عدد الخطوات.",
+        "ja": "出力がほとんど変化していないステップを再利用します。高速になりますが、同じシードを完全に生成した場合とは結果が変わります。プレビュー向けです。ステップ数が多いほど節約も大きくなります。",
+        "ko": "출력이 거의 변하지 않은 스텝을 재사용합니다. 더 빠르지만 같은 시드를 전부 계산한 결과와는 달라집니다. 미리보기용입니다. 스텝 수가 많을수록 절약도 커집니다.",
+        "th": "ใช้สเต็ปเดิมซ้ำเมื่อผลลัพธ์แทบไม่เปลี่ยน เร็วขึ้น และคลิปจะต่างจากการเรนเดอร์เต็มด้วยซีดเดียวกัน จึงเหมาะกับการดูตัวอย่าง ยิ่งสเต็ปมากยิ่งประหยัดมาก",
+        "yue-Hant": "如果某一步嘅輸出幾乎冇變，就重用返佢。快啲，但出嚟嘅片會同同一個種子完整算出嚟嘅唔同，係用嚟預覽嘅。步數越多，慳得越多。",
+        "en-SG": "Reuses a step when its output has barely moved. Faster, and the clip will differ from the same seed rendered in full — meant for previews. The saving grows with the step count."
+      },
+      "note": "EasyCache. Keep \"preview\" prominent: this trades quality for time.",
+      "level": "info"
+    },
+    {
+      "key": "sampling.cache.lazy.detail",
+      "values": {
+        "en": "A simpler reuse rule than EasyCache. Usually worse for the same time saved, occasionally better. Try it if EasyCache spoils a shot.",
+        "zh-Hant": "比 EasyCache 更簡單的重用規則。在省下同樣時間的前提下通常較差，偶爾較好。若 EasyCache 毀了某個鏡頭，可以試試這個。",
+        "zh-Hans": "比 EasyCache 更简单的复用规则。在省下同样时间的前提下通常较差，偶尔较好。若 EasyCache 毁了某个镜头，可以试试这个。",
+        "de": "Eine einfachere Wiederverwendungsregel als EasyCache. Bei gleicher Zeitersparnis meist schlechter, gelegentlich besser. Einen Versuch wert, wenn EasyCache eine Einstellung verdirbt.",
+        "ar": "قاعدة إعادة استخدام أبسط من EasyCache. أسوأ عادةً مقابل التوفير نفسه، وأفضل أحيانًا. جرّبها إذا أفسد EasyCache لقطة ما.",
+        "ja": "EasyCache より単純な再利用の判定です。同じ時間短縮なら通常は劣りますが、まれに上回ります。EasyCache で画が崩れるときに試してください。",
+        "ko": "EasyCache보다 단순한 재사용 규칙입니다. 같은 시간을 아낄 때 대체로 더 나쁘지만 가끔 더 낫습니다. EasyCache가 장면을 망칠 때 시도해 보세요.",
+        "th": "กฎการใช้ซ้ำที่ง่ายกว่า EasyCache โดยทั่วไปให้ผลแย่กว่าที่เวลาประหยัดเท่ากัน แต่บางครั้งก็ดีกว่า ลองใช้เมื่อ EasyCache ทำให้ภาพเสีย",
+        "yue-Hant": "比 EasyCache 簡單啲嘅重用規則。慳返同樣時間嘅話通常差啲，偶爾好啲。如果 EasyCache 搞衰咗個鏡頭，可以試下呢個。",
+        "en-SG": "A simpler reuse rule than EasyCache. Usually worse for the same time saved, occasionally better. Try it if EasyCache spoils a shot."
+      },
+      "note": "LazyCache. ComfyUI's own description calls it a homebrew EasyCache that works worse overall but has universal compatibility.",
+      "level": "info"
+    },
+    {
+      "key": "sampling.cache.off",
+      "values": {
+        "en": "Off",
+        "zh-Hant": "關閉",
+        "zh-Hans": "关闭",
+        "de": "Aus",
+        "ar": "إيقاف",
+        "ja": "オフ",
+        "ko": "끄기",
+        "th": "ปิด",
+        "yue-Hant": "閂咗",
+        "en-SG": "Off"
+      },
+      "note": "",
+      "level": "info"
+    },
+    {
+      "key": "sampling.cache.off.detail",
+      "values": {
+        "en": "Every step is computed. The reference path, and what the time estimate assumes.",
+        "zh-Hant": "每一步都完整計算。這是基準路徑，時間估算也以此為準。",
+        "zh-Hans": "每一步都完整计算。这是基准路径，时间估算也以此为准。",
+        "de": "Jeder Schritt wird berechnet. Der Referenzpfad, von dem auch die Zeitschätzung ausgeht.",
+        "ar": "تُحسب كل خطوة. هذا هو المسار المرجعي الذي يفترضه تقدير الوقت.",
+        "ja": "すべてのステップを計算します。基準となる経路で、所要時間の見積もりもこれを前提にしています。",
+        "ko": "모든 스텝을 계산합니다. 기준 경로이며 예상 시간도 이를 전제로 합니다.",
+        "th": "คำนวณทุกสเต็ป เป็นเส้นทางอ้างอิงและเป็นสิ่งที่การประมาณเวลาใช้เป็นฐาน",
+        "yue-Hant": "每一步都計算晒。呢個係基準路徑，時間估算都係咁計。",
+        "en-SG": "Every step is computed. The reference path, and what the time estimate assumes."
+      },
+      "note": "",
+      "level": "info"
+    },
+    {
       "key": "sampling.duration",
       "values": {
         "en": "Duration",

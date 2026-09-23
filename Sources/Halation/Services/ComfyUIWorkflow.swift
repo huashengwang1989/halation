@@ -33,6 +33,7 @@ struct ComfyUIWorkflow {
     enum Node {
         static let unet = "10", lora = "11", clip = "12"
         static let videoVAE = "13", audioVAE = "14"
+        static let stepCache = "15"
         static let conditioning = "30", guider = "40", samplerSelect = "41"
         static let scheduler = "42", noise = "43", sampler = "44"
         static let decodeVideo = "50", decodeAudio = "51"
@@ -49,7 +50,7 @@ struct ComfyUIWorkflow {
         ])
 
         // The LoRA is model-only; conditioning comes from the H3 node.
-        let modelSource: [Any]
+        var modelSource: [Any]
         if let lora = models.turboLoRA {
             nodes[Node.lora] = node("LoraLoaderModelOnly", [
                 "model": [Node.unet, 0],
@@ -59,6 +60,21 @@ struct ComfyUIWorkflow {
             modelSource = [Node.lora, 0]
         } else {
             modelSource = [Node.unet, 0]
+        }
+
+        // Step reuse, if asked for. A model-clone patch, so it goes in the chain
+        // rather than beside it: the scheduler only reads sigmas and is
+        // indifferent, but leaving one of the two consumers on the unpatched
+        // model is the kind of asymmetry that later reads as a bug.
+        if let cacheNode = spec.sampling.stepCache.comfyClassType {
+            nodes[Node.stepCache] = node(cacheNode, [
+                "model": modelSource,
+                "reuse_threshold": StepCache.Defaults.reuseThreshold,
+                "start_percent": StepCache.Defaults.startPercent,
+                "end_percent": StepCache.Defaults.endPercent,
+                "verbose": false,
+            ])
+            modelSource = [Node.stepCache, 0]
         }
 
         nodes[Node.clip] = node("CLIPLoader", [
@@ -196,6 +212,7 @@ struct ComfyUIWorkflow {
         switch id {
         case Node.unet: return "Loading the transformer"
         case Node.lora: return "Loading the turbo LoRA"
+        case Node.stepCache: return "Enabling step reuse"
         case Node.clip: return "Loading the text encoder"
         case Node.videoVAE: return "Loading the video VAE"
         case Node.audioVAE: return "Loading the audio VAE"
