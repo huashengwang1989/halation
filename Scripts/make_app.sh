@@ -69,6 +69,12 @@ mkdir -p "$APP/Contents/MacOS" "$APP/Contents/Resources"
 
 cp "$BIN_DIR/Halation" "$APP/Contents/MacOS/Halation"
 
+# The MCP server ships beside the app rather than as a separate download: an
+# MCP client launches its servers itself, so the path in someone's client
+# configuration has to be one that exists without a second install step. Inside
+# the bundle it is also version-locked to the app it proxies.
+cp "$BIN_DIR/halation-mcp" "$APP/Contents/MacOS/halation-mcp"
+
 # Bundle.module resolves relative to the executable's directory, so the resource
 # bundle goes beside the binary as well as into Resources.
 for BUNDLE in "$BIN_DIR"/*.bundle; do

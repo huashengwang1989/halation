@@ -47,9 +47,14 @@
 
 "automation.hide" = "إخفاء";
 
+"automation.http" = "أو نادِها مباشرة";
+
 "automation.mcp" = "كيف تخاطبها";
 
-"automation.mcp.detail" = "‏HTTP عادي مع JSON، فأي شيء يستطيع مناداتها. ابدأ بـ GET /v1/health، فهي تسرد كل مسار تخدمه هذه النسخة.";
+"automation.mcp.detail" = "يأتي Halation بخادم MCP. الصق هذا في إعدادات MCP الخاصة بوكيلك — فهو يشير إلى النسخة الموجودة داخل هذا التطبيق، ولا شيء آخر لتثبيته.";
+
+/* Says why the snippet may not carry the real token: it is hidden until revealed, so copying during a screen share does not leak it. */
+"automation.mcp.token" = "أظهر الرمز أعلاه أولًا، وإلا فسيُنسخ المقطع بعنصر نائب بدلًا منه.";
 
 /* Editable, and it persists: an agent's configuration names a port, and one that moved every launch would break it daily. */
 "automation.port" = "المنفذ";

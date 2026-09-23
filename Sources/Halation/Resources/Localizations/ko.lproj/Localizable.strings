@@ -47,9 +47,14 @@
 
 "automation.hide" = "가리기";
 
+"automation.http" = "또는 직접 호출";
+
 "automation.mcp" = "호출하는 법";
 
-"automation.mcp.detail" = "평범한 HTTP와 JSON이므로 무엇이든 호출할 수 있습니다. GET /v1/health부터 시작하십시오. 이 빌드가 제공하는 모든 경로가 나옵니다.";
+"automation.mcp.detail" = "Halation에는 MCP 서버가 함께 들어 있습니다. 이것을 에이전트의 MCP 설정에 붙여 넣으십시오. 이 앱 안의 것을 가리키므로 따로 설치할 것이 없습니다.";
+
+/* Says why the snippet may not carry the real token: it is hidden until revealed, so copying during a screen share does not leak it. */
+"automation.mcp.token" = "먼저 위의 토큰을 표시하십시오. 그러지 않으면 토큰 자리에 자리표시자가 들어간 채로 복사됩니다.";
 
 /* Editable, and it persists: an agent's configuration names a port, and one that moved every launch would break it daily. */
 "automation.port" = "포트";

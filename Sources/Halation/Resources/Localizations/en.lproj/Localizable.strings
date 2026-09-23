@@ -47,9 +47,14 @@
 
 "automation.hide" = "Hide";
 
+"automation.http" = "Or call it directly";
+
 "automation.mcp" = "Talking to it";
 
-"automation.mcp.detail" = "Plain HTTP with JSON, so anything can call it. Start with GET /v1/health, which lists every route this build serves.";
+"automation.mcp.detail" = "Halation ships an MCP server. Paste this into your agent's MCP configuration — it names the copy inside this app, so there is nothing else to install.";
+
+/* Says why the snippet may not carry the real token: it is hidden until revealed, so copying during a screen share does not leak it. */
+"automation.mcp.token" = "Reveal the token above first, or the snippet copies with a placeholder in place of it.";
 
 /* Editable, and it persists: an agent's configuration names a port, and one that moved every launch would break it daily. */
 "automation.port" = "Port";

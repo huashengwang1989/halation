@@ -214,9 +214,48 @@ struct AutomationView: View {
                     .foregroundStyle(.secondary)
                     .fixedSize(horizontal: false, vertical: true)
 
+                snippet(mcpConfig, id: "mcp")
+
+                Text(loc("automation.mcp.token"))
+                    .font(.caption)
+                    .foregroundStyle(.secondary)
+                    .fixedSize(horizontal: false, vertical: true)
+
+                Divider()
+
+                Text(loc("automation.http"))
+                    .font(.caption.weight(.medium))
                 snippet(curlExample, id: "curl")
             }
         }
+    }
+
+    /// Ready to paste. The token is only written in once it has been revealed —
+    /// otherwise the snippet carries a placeholder, so copying it during a
+    /// screen share does not hand the secret to the room.
+    private var mcpConfig: String {
+        """
+        {
+          "mcpServers": {
+            "halation": {
+              "command": "\(Self.serverPath)",
+              "env": {
+                "HALATION_URL": "\(api.baseURL)",
+                "HALATION_TOKEN": "\(revealToken ? api.token : "paste-the-token-here")"
+              }
+            }
+          }
+        }
+        """
+    }
+
+    /// Beside the running app, whether that is in Applications or a build
+    /// directory — so the path is right without anyone being asked where they
+    /// put the app.
+    private static var serverPath: String {
+        Bundle.main.bundleURL
+            .appending(path: "Contents/MacOS/halation-mcp")
+            .path(percentEncoded: false)
     }
 
     private var curlExample: String {

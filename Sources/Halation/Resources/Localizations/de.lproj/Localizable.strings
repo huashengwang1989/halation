@@ -47,9 +47,14 @@
 
 "automation.hide" = "Verbergen";
 
+"automation.http" = "Oder direkt aufrufen";
+
 "automation.mcp" = "Wie man damit spricht";
 
-"automation.mcp.detail" = "Schlichtes HTTP mit JSON, also kann alles damit sprechen. Fangen Sie mit GET /v1/health an — das listet jede Route, die dieser Build bedient.";
+"automation.mcp.detail" = "Halation bringt einen MCP-Server mit. Fügen Sie dies in die MCP-Konfiguration Ihres Agenten ein — es benennt die Kopie in dieser App, sonst ist nichts zu installieren.";
+
+/* Says why the snippet may not carry the real token: it is hidden until revealed, so copying during a screen share does not leak it. */
+"automation.mcp.token" = "Zeigen Sie zuerst das Token oben an, sonst wird der Ausschnitt mit einem Platzhalter an seiner Stelle kopiert.";
 
 /* Editable, and it persists: an agent's configuration names a port, and one that moved every launch would break it daily. */
 "automation.port" = "Port";

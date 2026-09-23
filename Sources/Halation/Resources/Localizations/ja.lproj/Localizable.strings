@@ -47,9 +47,14 @@
 
 "automation.hide" = "隠す";
 
+"automation.http" = "あるいは直接呼ぶ";
+
 "automation.mcp" = "呼び出しかた";
 
-"automation.mcp.detail" = "ただの HTTP と JSON なので、どんなものからでも呼べます。まずは GET /v1/health を。このビルドが提供する全ルートが並びます。";
+"automation.mcp.detail" = "Halation には MCP サーバが同梱されています。これをエージェントの MCP 設定に貼り付けてください。このアプリの中にあるものを指しているので、ほかに入れるものはありません。";
+
+/* Says why the snippet may not carry the real token: it is hidden until revealed, so copying during a screen share does not leak it. */
+"automation.mcp.token" = "先に上のトークンを表示してください。そうしないと、この断片はトークンの代わりにプレースホルダを入れてコピーされます。";
 
 /* Editable, and it persists: an agent's configuration names a port, and one that moved every launch would break it daily. */
 "automation.port" = "ポート";

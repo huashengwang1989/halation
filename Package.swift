@@ -17,6 +17,15 @@ let package = Package(
             // AVKit itself, so instantiating the player aborted in
             // getSuperclassMetadata. Link it explicitly.
             linkerSettings: [.linkedFramework("AVKit")]
-        )
+        ),
+        // The MCP server, shipped inside the app bundle. Its own executable and
+        // no shared code: it is a proxy over the local API's HTTP routes, and
+        // anything it knew about specs or the queue would be a second copy of a
+        // rule that the app already owns.
+        .executableTarget(
+            name: "halation-mcp",
+            path: "Sources/HalationMCP",
+            swiftSettings: [.swiftLanguageMode(.v6)]
+        ),
     ]
 )

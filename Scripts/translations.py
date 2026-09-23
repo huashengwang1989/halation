@@ -7257,20 +7257,44 @@ add("automation.mcp", {
     "yue-Hant": "點樣叫佢", "en-SG": "Talking to it",
 })
 add("automation.mcp.detail", {
-    "en": "Plain HTTP with JSON, so anything can call it. Start with "
-          "GET /v1/health, which lists every route this build serves.",
-    "zh-Hant": "就是一般的 HTTP 加 JSON，任何東西都呼叫得到。可從 GET /v1/health 開始，它會列出這個版本提供的所有路由。",
-    "zh-Hans": "就是普通的 HTTP 加 JSON，任何东西都调用得到。可从 GET /v1/health 开始，它会列出这个版本提供的所有路由。",
-    "de": "Schlichtes HTTP mit JSON, also kann alles damit sprechen. Fangen Sie "
-          "mit GET /v1/health an — das listet jede Route, die dieser Build "
-          "bedient.",
-    "ar": "‏HTTP عادي مع JSON، فأي شيء يستطيع مناداتها. ابدأ بـ GET /v1/health، "
-          "فهي تسرد كل مسار تخدمه هذه النسخة.",
-    "ja": "ただの HTTP と JSON なので、どんなものからでも呼べます。まずは GET /v1/health を。このビルドが提供する全ルートが並びます。",
-    "ko": "평범한 HTTP와 JSON이므로 무엇이든 호출할 수 있습니다. GET /v1/health부터 시작하십시오. 이 빌드가 제공하는 모든 경로가 나옵니다.",
-    "th": "เป็น HTTP ธรรมดากับ JSON อะไรก็เรียกได้ เริ่มที่ GET /v1/health "
-          "ซึ่งจะแสดงทุกเส้นทางที่บิลด์นี้ให้บริการ",
-    "yue-Hant": "就係普通 HTTP 加 JSON，乜嘢都叫得。可以由 GET /v1/health 開始，佢會列晒呢個版本有嘅路由。",
-    "en-SG": "Plain HTTP with JSON, so anything can call it. Start with "
-             "GET /v1/health, which lists every route this build serves.",
+    "en": "Halation ships an MCP server. Paste this into your agent's MCP "
+          "configuration — it names the copy inside this app, so there is "
+          "nothing else to install.",
+    "zh-Hant": "Halation 內附一個 MCP 伺服器。把這段貼進你的代理的 MCP 設定即可——它指向本 App 內的那一份，不需要另外安裝任何東西。",
+    "zh-Hans": "Halation 内附一个 MCP 服务器。把这段贴进你的代理的 MCP 配置即可——它指向本 App 内的那一份，不需要另外安装任何东西。",
+    "de": "Halation bringt einen MCP-Server mit. Fügen Sie dies in die "
+          "MCP-Konfiguration Ihres Agenten ein — es benennt die Kopie in dieser "
+          "App, sonst ist nichts zu installieren.",
+    "ar": "يأتي Halation بخادم MCP. الصق هذا في إعدادات MCP الخاصة بوكيلك — "
+          "فهو يشير إلى النسخة الموجودة داخل هذا التطبيق، ولا شيء آخر لتثبيته.",
+    "ja": "Halation には MCP サーバが同梱されています。これをエージェントの MCP 設定に貼り付けてください。このアプリの中にあるものを指しているので、ほかに入れるものはありません。",
+    "ko": "Halation에는 MCP 서버가 함께 들어 있습니다. 이것을 에이전트의 MCP 설정에 붙여 넣으십시오. 이 앱 안의 것을 가리키므로 따로 설치할 것이 없습니다.",
+    "th": "Halation มีเซิร์ฟเวอร์ MCP มาให้ วางค่านี้ในการตั้งค่า MCP ของเอเจนต์ของคุณ "
+          "โดยชี้ไปที่ตัวที่อยู่ในแอปนี้ จึงไม่ต้องติดตั้งอะไรเพิ่ม",
+    "yue-Hant": "Halation 入面有個 MCP 伺服器。貼呢段落你個代理嘅 MCP 設定就得——佢指住呢個 App 入面嗰份，唔使再裝第二樣嘢。",
+    "en-SG": "Halation ships an MCP server. Paste this into your agent's MCP "
+             "configuration — it names the copy inside this app, so there is "
+             "nothing else to install.",
+})
+add("automation.mcp.token", {
+    "en": "Reveal the token above first, or the snippet copies with a "
+          "placeholder in place of it.",
+    "zh-Hant": "請先顯示上方的權杖，否則複製出來的片段只會有一個佔位字串。",
+    "zh-Hans": "请先显示上方的令牌，否则复制出来的片段只会有一个占位字符串。",
+    "de": "Zeigen Sie zuerst das Token oben an, sonst wird der Ausschnitt mit "
+          "einem Platzhalter an seiner Stelle kopiert.",
+    "ar": "أظهر الرمز أعلاه أولًا، وإلا فسيُنسخ المقطع بعنصر نائب بدلًا منه.",
+    "ja": "先に上のトークンを表示してください。そうしないと、この断片はトークンの代わりにプレースホルダを入れてコピーされます。",
+    "ko": "먼저 위의 토큰을 표시하십시오. 그러지 않으면 토큰 자리에 자리표시자가 들어간 채로 복사됩니다.",
+    "th": "แสดงโทเคนด้านบนก่อน มิฉะนั้นข้อความที่คัดลอกจะมีตัวแทนแทนโทเคน",
+    "yue-Hant": "請先顯示上面嗰個權杖，唔係複製出嚟嘅嘢淨係得個佔位字串。",
+    "en-SG": "Reveal the token above first, or the snippet copies with a "
+             "placeholder in place of it.",
+}, note="Says why the snippet may not carry the real token: it is hidden until "
+        "revealed, so copying during a screen share does not leak it.")
+add("automation.http", {
+    "en": "Or call it directly", "zh-Hant": "或直接呼叫", "zh-Hans": "或直接调用",
+    "de": "Oder direkt aufrufen", "ar": "أو نادِها مباشرة",
+    "ja": "あるいは直接呼ぶ", "ko": "또는 직접 호출", "th": "หรือเรียกโดยตรง",
+    "yue-Hant": "或者直接叫", "en-SG": "Or call it directly",
 })

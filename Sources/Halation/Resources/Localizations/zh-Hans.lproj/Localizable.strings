@@ -47,9 +47,14 @@
 
 "automation.hide" = "隐藏";
 
+"automation.http" = "或直接调用";
+
 "automation.mcp" = "如何调用";
 
-"automation.mcp.detail" = "就是普通的 HTTP 加 JSON，任何东西都调用得到。可从 GET /v1/health 开始，它会列出这个版本提供的所有路由。";
+"automation.mcp.detail" = "Halation 内附一个 MCP 服务器。把这段贴进你的代理的 MCP 配置即可——它指向本 App 内的那一份，不需要另外安装任何东西。";
+
+/* Says why the snippet may not carry the real token: it is hidden until revealed, so copying during a screen share does not leak it. */
+"automation.mcp.token" = "请先显示上方的令牌，否则复制出来的片段只会有一个占位字符串。";
 
 /* Editable, and it persists: an agent's configuration names a port, and one that moved every launch would break it daily. */
 "automation.port" = "端口";
