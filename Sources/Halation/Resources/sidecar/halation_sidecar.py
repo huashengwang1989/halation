@@ -390,6 +390,21 @@ def cmd_generate(args: argparse.Namespace) -> int:
 
         protocol.stage("generating")
         with contextlib.redirect_stdout(tee):
+            # The canvas is passed explicitly, not left to `aspect`. Resolving
+            # from the ratio alone always lands on the native 768 short edge,
+            # which is right for a full render and wrong for a preview — and
+            # the app has already applied the same area cap and multiple-of-32
+            # rounding the port would, so the two agree on what the ratio means.
+            accepts = h3_adapter.pipeline_call_kwargs(MiniMaxH3Pipeline)
+            geometry = {}
+            if "width" in accepts and "height" in accepts:
+                geometry = {"width": int(job["width"]), "height": int(job["height"])}
+            elif _native_short_edge(job) != int(AspectRatio_SHORT_EDGE):
+                protocol.log(
+                    "This port takes no canvas override, so the render will use "
+                    "its native size rather than the resolution chosen."
+                )
+
             result = pipeline(
                 prompt=job["prompt"],
                 duration_seconds=float(job["duration_seconds"]),
@@ -399,6 +414,7 @@ def cmd_generate(args: argparse.Namespace) -> int:
                 images=images or None,
                 keyframe_anchors=tuple(anchors),
                 verbose=True,
+                **geometry,
             )
     except Exception as exc:
         protocol.error(f"Generation failed: {exc}")
@@ -458,6 +474,17 @@ _ENCODERS = {
     "h264": ["-c:v", "libx264", "-crf", "18", "-pix_fmt", "yuv420p"],
     "av1": ["-c:v", "libsvtav1", "-crf", "30", "-preset", "8", "-pix_fmt", "yuv420p"],
 }
+
+
+# The model's native short edge, mirrored from `AspectRatio.shortEdgeTarget`.
+# Only used to notice that a job asked for something else and could not have it.
+AspectRatio_SHORT_EDGE = 768
+
+
+def _native_short_edge(job) -> int:
+    """The shorter of the two axes the job asks for, for the one case where the
+    port cannot be told the canvas and we can only say so."""
+    return min(int(job["width"]), int(job["height"]))
 
 
 def _install_step_cache(pipeline, job, sigma_points: int):

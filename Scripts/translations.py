@@ -4965,6 +4965,53 @@ add("summary.eta.footnote.cached", {
              "on the clip.",
 }, note="Appended to the estimate's footnote. The estimate is measured from "
         "renders that computed every step, so with reuse on it is a ceiling.")
+add("format.res.preview", {
+    "en": "%1$@p — preview",
+    "zh-Hant": "%1$@p — 預覽",
+    "zh-Hans": "%1$@p — 预览",
+    "de": "%1$@p — Vorschau",
+    "ar": "%1$@p — معاينة",
+    "ja": "%1$@p — プレビュー",
+    "ko": "%1$@p — 미리보기",
+    "th": "%1$@p — ตัวอย่าง",
+    "yue-Hant": "%1$@p — 預覽",
+    "en-SG": "%1$@p — preview",
+}, note="One string for every tier below native; %1$@ is the short edge. The "
+        "number is all that differs, and four copies of a sentence is four "
+        "chances for them to drift apart across ten languages.")
+add("format.res.preview.detail", {
+    "en": "Rendered at this size, not shrunk afterwards — much faster, and far "
+          "less memory. H3 is trained at 768, so a preview drifts from what a "
+          "full render of the same seed gives: fix the seed to compare them.",
+    "zh-Hant": "直接以此尺寸算繪，而非事後縮小——速度快得多，記憶體也省得多。"
+               "H3 是以 768 訓練的，因此預覽會與同一種子的完整算繪有所偏離："
+               "固定種子即可互相比對。",
+    "zh-Hans": "直接以此尺寸渲染，而非事后缩小——速度快得多，内存也省得多。"
+               "H3 是以 768 训练的，因此预览会与同一种子的完整渲染有所偏离："
+               "固定种子即可互相比对。",
+    "de": "Wird in dieser Größe gerendert, nicht nachträglich verkleinert — "
+          "deutlich schneller und mit viel weniger Speicher. H3 ist auf 768 "
+          "trainiert, eine Vorschau weicht also von einem vollständigen Render "
+          "derselben Seed ab: Seed fixieren, um beide zu vergleichen.",
+    "ar": "يُنتَج بهذا الحجم مباشرةً لا بالتصغير لاحقًا — أسرع بكثير وبذاكرة أقل "
+          "بكثير. دُرِّب H3 على 768، لذا تبتعد المعاينة عمّا ينتجه التوليد الكامل "
+          "للبذرة نفسها: ثبّت البذرة للمقارنة بينهما.",
+    "ja": "この大きさで直接生成します。後から縮小するのではありません。大幅に速く、"
+          "メモリもはるかに少なくて済みます。H3 は 768 で学習しているため、"
+          "プレビューは同じシードの完全な生成とは差が出ます。比べるにはシードを固定してください。",
+    "ko": "나중에 줄이는 것이 아니라 이 크기로 직접 생성합니다. 훨씬 빠르고 메모리도 "
+          "훨씬 적게 씁니다. H3는 768로 학습되어 미리보기는 같은 시드의 전체 "
+          "렌더링과 달라집니다. 비교하려면 시드를 고정하세요.",
+    "th": "เรนเดอร์ที่ขนาดนี้โดยตรง ไม่ใช่ย่อทีหลัง จึงเร็วกว่ามากและใช้หน่วยความจำน้อยกว่ามาก "
+          "H3 ฝึกมาที่ 768 ตัวอย่างจึงต่างจากการเรนเดอร์เต็มด้วยซีดเดียวกัน ล็อกซีดไว้เพื่อเทียบกัน",
+    "yue-Hant": "直接用呢個尺寸算，唔係之後先縮細——快好多，記憶體都慳好多。"
+                "H3 係用 768 訓練嘅，所以預覽會同同一個種子嘅完整算繪有出入："
+                "固定種子就可以互相比較。",
+    "en-SG": "Rendered at this size, not shrunk afterwards — much faster, and far "
+             "less memory. H3 is trained at 768, so a preview drifts from what a "
+             "full render of the same seed gives: fix the seed to compare them.",
+}, note="Shared by every tier below native. Says plainly that it is generated "
+        "small rather than downscaled, and that it will not match a full render.")
 add("sampling.cache", {
     "en": "Step reuse",
     "zh-Hant": "步驟重用",

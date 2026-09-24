@@ -172,7 +172,10 @@ struct FormatCard: View {
                     Text(loc("compose.aspect")).font(.callout).foregroundStyle(.secondary)
                     HStack(spacing: 8) {
                         ForEach(AspectRatio.allCases) { ratio in
-                            AspectButton(ratio: ratio, isSelected: spec.format.aspectRatio == ratio) {
+                            AspectButton(ratio: ratio,
+                                         size: ratio.size(shortEdge:
+                                            spec.format.resolution.generationShortEdge),
+                                         isSelected: spec.format.aspectRatio == ratio) {
                                 spec.format.aspectRatio = ratio
                             }
                         }
@@ -220,6 +223,9 @@ struct FormatCard: View {
 
 private struct AspectButton: View {
     var ratio: AspectRatio
+    /// The canvas this ratio gives at the resolution currently chosen, so the
+    /// tooltip names the render about to happen rather than the native one.
+    var size: PixelSize
     var isSelected: Bool
     var action: () -> Void
 
@@ -238,11 +244,11 @@ private struct AspectButton: View {
             .contentShape(.rect)
         }
         .buttonStyle(.plain)
-        .help(loc("compose.aspect.help", ratio.label, ratio.nativeSize.description))
+        .help(loc("compose.aspect.help", ratio.label, size.description))
         // The swatch carries its meaning in shape and colour alone, so state and
         // size have to be spoken.
         .accessibilityLabel(loc("compose.aspect.accessibility", ratio.label))
-        .accessibilityValue(loc("compose.aspect.pixels", "\(ratio.nativeSize.width)", "\(ratio.nativeSize.height)"))
+        .accessibilityValue(loc("compose.aspect.pixels", "\(size.width)", "\(size.height)"))
         .accessibilityAddTraits(isSelected ? [.isButton, .isSelected] : .isButton)
     }
 

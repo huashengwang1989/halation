@@ -73,6 +73,17 @@ def _signature_kwargs(func) -> List[str]:
     ]
 
 
+def pipeline_call_kwargs(pipeline_class) -> List[str]:
+    """The keyword arguments this port's `__call__` accepts.
+
+    Asked of the class we are about to call rather than taken from `detect()`,
+    which runs in the doctor and is not in scope during a render. A fork that
+    resolves its canvas only from the aspect ratio is a real possibility, and
+    passing it a keyword it does not take would fail the render outright.
+    """
+    return _signature_kwargs(getattr(pipeline_class, "__call__"))
+
+
 def detect() -> Capabilities:
     caps = Capabilities(checkout_path=os.environ.get("HALATION_H3_REPO"))
 

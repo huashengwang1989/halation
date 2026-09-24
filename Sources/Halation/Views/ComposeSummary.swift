@@ -61,7 +61,8 @@ struct SummaryContent: View {
                     }
                     SpecRow(label: loc("compose.codec"), value: app.draft.format.codec.label)
                     if let bitrate = app.draft.format.estimatedBitrate() {
-                        SpecRow(label: loc("summary.bitrate"), value: "\(bitrate / 1_000_000) Mb/s")
+                        SpecRow(label: loc("summary.bitrate"),
+                                value: Format.bitrate(bitrate))
                     }
                 }
             }
@@ -173,6 +174,7 @@ struct SummaryContent: View {
         let samples = app.library.items.filter {
             $0.renderSeconds != nil && $0.spec.resolvedBackend == app.draftBackend
                 && $0.spec.sampling.stepCache.resolved(for: app.draftBackend) == .off
+                && !$0.spec.format.resolution.isPreview
         }.count
         let source = measuredThroughput == nil
             ? loc("summary.eta.footnote.predicted", MachineProfile.chipName)

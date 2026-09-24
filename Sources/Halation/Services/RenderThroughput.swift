@@ -46,7 +46,15 @@ enum RenderThroughput {
         let samples = items.compactMap { item -> Double? in
             guard let seconds = item.renderSeconds, seconds > 0,
                   item.spec.resolvedBackend == backend,
-                  item.spec.sampling.stepCache.resolved(for: backend) == .off
+                  item.spec.sampling.stepCache.resolved(for: backend) == .off,
+                  // And renders below the native canvas, for the same reason in
+                  // a different variable. `work` scales cost linearly with
+                  // pixels, but attention is quadratic in the sequence length,
+                  // so a small canvas is cheaper per megapixel than a large one
+                  // and would teach the estimate a rate a full render cannot
+                  // meet. Varying aspect ratios already stretch that
+                  // approximation; a quarter-size preview would break it.
+                  !item.spec.format.resolution.isPreview
             else { return nil }
             // A render that did not record which checkpoint it used is still a
             // real measurement of this machine. Reference renders are all like

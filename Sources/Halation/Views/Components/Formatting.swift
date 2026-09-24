@@ -64,6 +64,16 @@ enum Format {
         return low == high ? low : "\(low) – \(high)"
     }
 
+    /// Bits per second as Mb/s, keeping a decimal where the whole number would
+    /// be zero. A 448×256 preview is around 0.33 Mb/s, and integer division
+    /// reported that as "0 Mb/s" — a figure that reads as broken rather than
+    /// small.
+    static func bitrate(_ bitsPerSecond: Int) -> String {
+        let mbps = Double(bitsPerSecond) / 1_000_000
+        let digits = mbps < 10 ? (mbps < 1 ? 2 : 1) : 0
+        return mbps.formatted(.number.precision(.fractionLength(digits))) + " Mb/s"
+    }
+
     static func relative(_ date: Date) -> String {
         let formatter = RelativeDateTimeFormatter()
         formatter.unitsStyle = .abbreviated

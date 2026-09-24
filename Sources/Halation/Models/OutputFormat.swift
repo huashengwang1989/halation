@@ -15,12 +15,23 @@ enum AspectRatio: String, CaseIterable, Codable, Sendable, Identifiable {
     var id: String { rawValue }
     var label: String { rawValue }
 
-    /// The canvas the model resolves this ratio to.
+    /// The canvas the model resolves this ratio to at its native short edge.
     ///
     /// Mirrors `resolve_canvas_size` in the MLX port: start from a 768 px short
     /// edge, cap the area at 768 × 1344, then round both axes to a multiple of 32.
     /// The cap is why 21:9 comes out below 768 on its short edge.
-    var nativeSize: PixelSize { Self.resolveCanvas(width: ratioWidth, height: ratioHeight) }
+    var nativeSize: PixelSize { size(shortEdge: Int(Self.shortEdgeTarget)) }
+
+    /// The canvas this ratio resolves to at any short edge.
+    ///
+    /// The same rule at a smaller scale: the area cap shrinks with the square of
+    /// the short edge, so a 21:9 preview is clipped in the same proportion a
+    /// 21:9 native render is, and every tier of the same ratio is the same
+    /// picture at a different size.
+    func size(shortEdge: Int) -> PixelSize {
+        Self.resolveCanvas(width: ratioWidth, height: ratioHeight,
+                           shortEdge: Double(shortEdge))
+    }
 
     /// The integer pair the pipeline's `aspect` argument expects.
     var aspectPair: (width: Int, height: Int) { (Int(ratioWidth), Int(ratioHeight)) }
@@ -50,20 +61,26 @@ enum AspectRatio: String, CaseIterable, Codable, Sendable, Identifiable {
     static let shortEdgeTarget = 768.0
     static let areaBudget = 768.0 * 1344.0
 
-    static func resolveCanvas(width aspectWidth: Double, height aspectHeight: Double) -> PixelSize {
+    static func resolveCanvas(width aspectWidth: Double, height aspectHeight: Double,
+                              shortEdge: Double = shortEdgeTarget) -> PixelSize {
         let ratio = aspectWidth / aspectHeight
         var height: Double
         var width: Double
         if ratio >= 1 {
-            height = shortEdgeTarget
-            width = shortEdgeTarget * ratio
+            height = shortEdge
+            width = shortEdge * ratio
         } else {
-            width = shortEdgeTarget
-            height = shortEdgeTarget / ratio
+            width = shortEdge
+            height = shortEdge / ratio
         }
+        // Area scales with the square of the short edge, so the cap has to as
+        // well. A fixed cap would leave every tier below native uncapped, and
+        // the widest ratios would change shape on the way down.
+        let scaleFromNative = shortEdge / shortEdgeTarget
+        let budget = areaBudget * scaleFromNative * scaleFromNative
         let area = width * height
-        if area > areaBudget {
-            let scale = (areaBudget / area).squareRoot()
+        if area > budget {
+            let scale = (budget / area).squareRoot()
             width *= scale
             height *= scale
         }
@@ -103,32 +120,61 @@ struct PixelSize: Codable, Sendable, Hashable, CustomStringConvertible {
     }
 }
 
-/// Delivery resolution.
+/// Delivery resolution, and — below native — generation resolution too.
 ///
-/// H3 renders at a 768 px short edge and nothing local can change that. Its 2K mode
-/// (H3-Regenerate-2K) is explicitly *not* open-sourced — MiniMax run it as a cloud
-/// API — so every tier above native here is a plain resample that adds pixels, not
-/// detail. The UI says so rather than implying a quality gain.
+/// Above 768 nothing local adds detail. H3's 2K mode (H3-Regenerate-2K) is
+/// explicitly *not* open-sourced — MiniMax run it as a cloud API — so every tier
+/// above native is a plain resample that adds pixels, not detail. The UI says so
+/// rather than implying a quality gain.
+///
+/// Below 768 is the opposite: the model really does render at that size. The MLX
+/// port takes `height`/`width` overrides at any multiple of 32, and ComfyUI's H3
+/// nodes take the canvas directly, so a preview tier produces a smaller latent
+/// grid rather than a downscale of a full render. That is where the time goes —
+/// cost follows the packed sequence, which is quadratic in it for attention, so
+/// halving the short edge is worth more than halving the work.
+///
+/// What it costs is fidelity. H3 is trained at a 768 px short edge, so a preview
+/// is off-distribution and will drift from what a full render of the same seed
+/// gives. It is for seeing whether a shot works, not for seeing how it will look.
 enum ResolutionTier: String, CaseIterable, Codable, Sendable, Identifiable {
+    case preview256 = "256"
+    case preview384 = "384"
+    case preview512 = "512"
+    case preview640 = "640"
     case native768 = "768"
     case upscale1080 = "1080"
     case upscale1440 = "1440"
 
     var id: String { rawValue }
 
+    /// Ascending, so the picker reads as one ladder from cheapest to largest
+    /// rather than as two lists that happen to meet at native.
     var shortEdge: Int {
         switch self {
+        case .preview256: 256
+        case .preview384: 384
+        case .preview512: 512
+        case .preview640: 640
         case .native768: 768
         case .upscale1080: 1080
         case .upscale1440: 1440
         }
     }
 
+    /// The short edge the model is actually asked for. Above native the model
+    /// still renders at native and the extra pixels are added afterwards.
+    var generationShortEdge: Int { min(shortEdge, Int(AspectRatio.shortEdgeTarget)) }
+
     var label: String {
         switch self {
         case .native768: loc("format.res.native")
         case .upscale1080: loc("format.res.1080")
         case .upscale1440: loc("format.res.1440")
+        // One format string rather than four near-identical ones: the number is
+        // the only thing that differs, and four copies of a sentence is four
+        // chances for them to drift apart in ten languages.
+        default: loc("format.res.preview", rawValue)
         }
     }
 
@@ -137,10 +183,13 @@ enum ResolutionTier: String, CaseIterable, Codable, Sendable, Identifiable {
         case .native768: loc("format.res.native.detail")
         case .upscale1080: loc("format.res.1080.detail")
         case .upscale1440: loc("format.res.1440.detail")
+        default: loc("format.res.preview.detail")
         }
     }
 
-    var isUpscale: Bool { self != .native768 }
+    var isUpscale: Bool { shortEdge > Int(AspectRatio.shortEdgeTarget) }
+    /// Below native: rendered small, not shrunk afterwards.
+    var isPreview: Bool { shortEdge < Int(AspectRatio.shortEdgeTarget) }
 }
 
 /// H3 only ever emits 24 fps. Higher rates are conform-only: we duplicate frames
@@ -252,21 +301,31 @@ struct OutputFormat: Codable, Sendable, Hashable {
     var audio: AudioHandling = .muxed
 
     /// The canvas the model is asked to render.
-    var generationSize: PixelSize { aspectRatio.nativeSize }
+    var generationSize: PixelSize {
+        aspectRatio.size(shortEdge: resolution.generationShortEdge)
+    }
 
     /// The canvas we finally write to disk.
+    ///
+    /// Only an upscale changes it. A preview is delivered at the size it was
+    /// rendered — resampling it back up to native would add nothing but time
+    /// and a false impression of what the model produced.
     var deliverySize: PixelSize {
-        resolution == .native768
-            ? generationSize
-            : generationSize.scaled(toShortEdge: resolution.shortEdge)
+        resolution.isUpscale
+            ? generationSize.scaled(toShortEdge: resolution.shortEdge)
+            : generationSize
     }
 
     /// True when the *delivery* settings ask for no geometry or timing change.
     ///
     /// Not sufficient on its own to skip the encoder: the source's codec has to
     /// match the requested one as well. See `VideoPostProcessor.process`.
+    /// A preview needs no resample either: it is delivered at the size it was
+    /// rendered. Testing for native exactly would have sent every preview
+    /// through the encoder for nothing — a lost generation of quality and time
+    /// spent, on the one setting whose whole purpose is to be quick.
     var needsNoResample: Bool {
-        resolution == .native768 && frameRate.isNative
+        !resolution.isUpscale && frameRate.isNative
     }
 
     func estimatedBitrate() -> Int? {

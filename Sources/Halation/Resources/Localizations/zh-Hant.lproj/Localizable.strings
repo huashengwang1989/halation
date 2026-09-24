@@ -269,6 +269,12 @@
 
 "format.res.native.detail" = "模型的原始輸出，不做重新取樣。建議使用。";
 
+/* One string for every tier below native; %1$@ is the short edge. The number is all that differs, and four copies of a sentence is four chances for them to drift apart across ten languages. */
+"format.res.preview" = "%1$@p — 預覽";
+
+/* Shared by every tier below native. Says plainly that it is generated small rather than downscaled, and that it will not match a full render. */
+"format.res.preview.detail" = "直接以此尺寸算繪，而非事後縮小——速度快得多，記憶體也省得多。H3 是以 768 訓練的，因此預覽會與同一種子的完整算繪有所偏離：固定種子即可互相比對。";
+
 "format.seconds" = "%@ 秒";
 
 /* WARNING: Takes a count. English offers only two forms and this string supplies one, so "1 steps" is already wrong; Arabic needs six categories and settles for a single compromise form. Any language with Slavic-style plurals will need a .stringsdict before this can be translated correctly. GenerationSpec.stepsRange is 4...60, so the singular is unreachable today — but that range is a UI choice, not a property of the sampler. */

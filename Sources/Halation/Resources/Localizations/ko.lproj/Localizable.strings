@@ -269,6 +269,12 @@
 
 "format.res.native.detail" = "모델이 만든 그대로이며 리샘플링하지 않습니다. 권장합니다.";
 
+/* One string for every tier below native; %1$@ is the short edge. The number is all that differs, and four copies of a sentence is four chances for them to drift apart across ten languages. */
+"format.res.preview" = "%1$@p — 미리보기";
+
+/* Shared by every tier below native. Says plainly that it is generated small rather than downscaled, and that it will not match a full render. */
+"format.res.preview.detail" = "나중에 줄이는 것이 아니라 이 크기로 직접 생성합니다. 훨씬 빠르고 메모리도 훨씬 적게 씁니다. H3는 768로 학습되어 미리보기는 같은 시드의 전체 렌더링과 달라집니다. 비교하려면 시드를 고정하세요.";
+
 "format.seconds" = "%@ 초";
 
 /* WARNING: Takes a count. English offers only two forms and this string supplies one, so "1 steps" is already wrong; Arabic needs six categories and settles for a single compromise form. Any language with Slavic-style plurals will need a .stringsdict before this can be translated correctly. GenerationSpec.stepsRange is 4...60, so the singular is unreachable today — but that range is a UI choice, not a property of the sampler. */
