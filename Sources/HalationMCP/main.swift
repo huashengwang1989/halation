@@ -294,7 +294,7 @@ func handle(_ message: [String: Any]) {
         reply(id: id, result: [
             "protocolVersion": version,
             "capabilities": ["tools": [:] as [String: Any]],
-            "serverInfo": ["name": "halation", "version": "0.4.0"],
+            "serverInfo": ["name": "halation", "version": "0.5.0"],
             "instructions": """
                 Halation renders video locally on this Mac. Renders take twenty minutes \
                 to several hours and only one runs at a time. Ask \
