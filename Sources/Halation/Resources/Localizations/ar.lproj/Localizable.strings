@@ -272,8 +272,8 @@
 /* One string for every tier below native; %1$@ is the short edge. The number is all that differs, and four copies of a sentence is four chances for them to drift apart across ten languages. */
 "format.res.preview" = "%1$@p — معاينة";
 
-/* Shared by every tier below native. Says plainly that it is generated small rather than downscaled, and that it will not match a full render. */
-"format.res.preview.detail" = "يُنتَج بهذا الحجم مباشرةً لا بالتصغير لاحقًا — أسرع بكثير وبذاكرة أقل بكثير. دُرِّب H3 على 768، لذا تبتعد المعاينة عمّا ينتجه التوليد الكامل للبذرة نفسها: ثبّت البذرة للمقارنة بينهما.";
+/* Shared by every tier below native. Must not imply a preview previews the final shot: the noise is drawn to the latent shape, so changing resolution changes the content outright, not just its size. An earlier version said to fix the seed to compare them, which invited exactly that misreading. */
+"format.res.preview.detail" = "يُنتَج بهذا الحجم مباشرةً لا بالتصغير لاحقًا — أسرع بكثير وبذاكرة أقل بكثير. يُظهر ما إذا كان الوصف ناجحًا، لا كيف ستبدو اللقطة: فاختلاف المساحة يعني ضجيجًا مختلفًا، وبالتالي تعطي البذرة نفسها لقطة مختلفة، فضلًا عن أن H3 دُرِّب على 768.";
 
 "format.seconds" = "%@ ث";
 

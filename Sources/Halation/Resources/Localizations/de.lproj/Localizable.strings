@@ -272,8 +272,8 @@
 /* One string for every tier below native; %1$@ is the short edge. The number is all that differs, and four copies of a sentence is four chances for them to drift apart across ten languages. */
 "format.res.preview" = "%1$@p — Vorschau";
 
-/* Shared by every tier below native. Says plainly that it is generated small rather than downscaled, and that it will not match a full render. */
-"format.res.preview.detail" = "Wird in dieser Größe gerendert, nicht nachträglich verkleinert — deutlich schneller und mit viel weniger Speicher. H3 ist auf 768 trainiert, eine Vorschau weicht also von einem vollständigen Render derselben Seed ab: Seed fixieren, um beide zu vergleichen.";
+/* Shared by every tier below native. Must not imply a preview previews the final shot: the noise is drawn to the latent shape, so changing resolution changes the content outright, not just its size. An earlier version said to fix the seed to compare them, which invited exactly that misreading. */
+"format.res.preview.detail" = "Wird in dieser Größe gerendert, nicht nachträglich verkleinert — deutlich schneller und mit viel weniger Speicher. Es zeigt, ob ein Prompt funktioniert, nicht wie die Einstellung aussehen wird: eine andere Leinwand zieht anderes Rauschen, dieselbe Seed ergibt also einen anderen Take — und H3 ist auf 768 trainiert.";
 
 "format.seconds" = "%@ s";
 

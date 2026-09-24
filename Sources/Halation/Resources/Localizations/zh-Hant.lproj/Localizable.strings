@@ -272,8 +272,8 @@
 /* One string for every tier below native; %1$@ is the short edge. The number is all that differs, and four copies of a sentence is four chances for them to drift apart across ten languages. */
 "format.res.preview" = "%1$@p — 預覽";
 
-/* Shared by every tier below native. Says plainly that it is generated small rather than downscaled, and that it will not match a full render. */
-"format.res.preview.detail" = "直接以此尺寸算繪，而非事後縮小——速度快得多，記憶體也省得多。H3 是以 768 訓練的，因此預覽會與同一種子的完整算繪有所偏離：固定種子即可互相比對。";
+/* Shared by every tier below native. Must not imply a preview previews the final shot: the noise is drawn to the latent shape, so changing resolution changes the content outright, not just its size. An earlier version said to fix the seed to compare them, which invited exactly that misreading. */
+"format.res.preview.detail" = "直接以此尺寸算繪，而非事後縮小——速度快得多，記憶體也省得多。它能看出提示詞是否奏效，卻看不出成片長什麼樣：畫布尺寸不同，抽出的雜訊也不同，因此同一種子會得到不同的一次拍攝；何況 H3 是以 768 訓練的。";
 
 "format.seconds" = "%@ 秒";
 

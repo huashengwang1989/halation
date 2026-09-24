@@ -435,7 +435,7 @@ def cmd_generate(args: argparse.Namespace) -> int:
             f"reused rather than computed "
             f"(threshold {summary['reuse_threshold']}, "
             f"window steps {summary['window'][0]}-{summary['window'][1]}), "
-            f"holding {summary['cache_bytes'] / 1e9:.2f} GB to do it."
+            f"holding {_si_bytes(summary['cache_bytes'])} to do it."
         )
 
     reporter.report_memory()
@@ -479,6 +479,13 @@ _ENCODERS = {
 # The model's native short edge, mirrored from `AspectRatio.shortEdgeTarget`.
 # Only used to notice that a job asked for something else and could not have it.
 AspectRatio_SHORT_EDGE = 768
+
+
+def _si_bytes(count: int) -> str:
+    """Bytes in a unit that shows them. At a preview canvas the cache is a few
+    megabytes, which printed as "0.00 GB" — a figure that reads as nothing at
+    all rather than as very little."""
+    return f"{count / 1e9:.2f} GB" if count >= 1e8 else f"{count / 1e6:.0f} MB"
 
 
 def _native_short_edge(job) -> int:
