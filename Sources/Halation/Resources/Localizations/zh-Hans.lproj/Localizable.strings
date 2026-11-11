@@ -386,7 +386,7 @@
 "memory.table.combination" = "模型与引擎";
 
 /* Footnote under the table, and the only place the verdict words are explained. Each multiplier comes from one measured render of that engine (MLX: 50 GB of weights peaking at 120 GB on a 128 GB Mac; ComfyUI: 55 GB peaking at 77.6 GB), so they are rules of thumb, not specifications. Keep the quoted words identical to memory.verdict.tight and memory.verdict.swaps. */
-"memory.table.note" = "权重只是其中一部分：生成时还需要额外的工作内存，需要多少则视引擎而定——实测 MLX 渲染的峰值是权重数字的 2.4 倍，ComfyUI 只有 1.41 倍，因为 ComfyUI 分阶段载入模型，不会同时全部留着。上表的判定已计入这点。“吃紧”是指峰值超出可用额度、但仍装得进已安装的内存，macOS 会把一部分换出，渲染照样完成——实测在 128 GB 机器上峰值 120 GB，用掉 16 GB 交换空间并顺利跑完。“交换”是指超出已安装的内存，本来一小时的渲染会拖得久很多。可用比例取自 Metal 对该机器的报告——大约是安装容量的四分之三到六分之五，容量越大比例越高。";
+"memory.table.note" = "权重只是其中一部分：生成时还需要额外的工作内存，需要多少则视引擎而定——实测 MLX 渲染的峰值是权重数字的 1.8 倍，ComfyUI 只有 1.41 倍，因为 ComfyUI 分阶段载入模型，不会同时全部留着。上表的判定已计入这点。“吃紧”是指峰值超出可用额度、但仍装得进已安装的内存，macOS 会把一部分换出，渲染照样完成——实测在 128 GB 机器上峰值 120 GB，用掉 16 GB 交换空间并顺利跑完。“交换”是指超出已安装的内存，本来一小时的渲染会拖得久很多。可用比例取自 Metal 对该机器的报告——大约是安装容量的四分之三到六分之五，容量越大比例越高。";
 
 "memory.table.orLess" = "%@ 或更少";
 
@@ -515,7 +515,7 @@
 /* Mode names (first-frame, first-and-last-frame) should match how the modes are named elsewhere in this language. */
 "model.textEncoder.mlx" = "bfloat16 版的 Qwen3-VL-32B——H3 读取其第 50 层的隐藏状态。单个文件中最大的下载项，也是参考用的编码器：唯一带有视觉部分的一个，因此“首帧”与“首尾帧”生成都需要它。编码提示词时它是占用内存最多的部分，之后 Halation 会在 transformer 运行前释放它，所以它只在加载模型时推高峰值。4-bit 编码器能以约三分之一的内存完成同样的文本工作。实际需要多少，请看“系统需求”分页。会与 VAE 一同安装在 FL2VA/ 之下。";
 
-"model.textEncoder.q4" = "同样是 Qwen3-VL-32B 的 50 层，来自 mlx-serve 的 MLX 4-bit 版本：下载 16 GB 而非 67 GB，内存约为三分之一。内存较少的 Mac 能跑 MLX，靠的就是它。只处理文本——没有视觉部分，因此首帧与首尾帧渲染需要 bfloat16 编码器。这是社区量化版本，条件信号可能与参考版本略有差异。";
+"model.textEncoder.q4" = "同样是 Qwen3-VL-32B 的 50 层，来自 mlx-serve 的 MLX 4-bit 版本：下载 16 GB 而非 67 GB，它能在预览尺寸下降低峰值，因为那时峰值取决于加载：384p 渲染约 61 GB，用 bfloat16 则至少 89 GB。全尺寸时峰值取决于生成过程，它只省下几 GB。只处理文本——没有视觉部分，因此首帧与首尾帧渲染需要 bfloat16 编码器。这是社区量化版本，条件信号可能与参考版本略有差异。";
 
 "model.textEncoder.uncensored" = "已移除拒绝行为的 Qwen3-VL-32B。可直接替换原本的编码器——H3 本身没有改动，因为拒绝行为存在于语言模型，而非 diffusion transformer。仅支持 ComfyUI；MLX 无法加载此格式。";
 

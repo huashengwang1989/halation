@@ -386,7 +386,7 @@
 "memory.table.combination" = "模型與引擎";
 
 /* Footnote under the table, and the only place the verdict words are explained. Each multiplier comes from one measured render of that engine (MLX: 50 GB of weights peaking at 120 GB on a 128 GB Mac; ComfyUI: 55 GB peaking at 77.6 GB), so they are rules of thumb, not specifications. Keep the quoted words identical to memory.verdict.tight and memory.verdict.swaps. */
-"memory.table.note" = "權重只是其中一部分：生成時還需要額外的工作記憶體，需要多少則視引擎而定——實測 MLX 算圖的尖峰是權重數字的 2.4 倍，ComfyUI 只有 1.41 倍，因為 ComfyUI 分階段載入模型，不會同時全部留著。上表的判定已計入這點。「吃緊」是指尖峰超出可用額度、但仍裝得進已安裝的記憶體，macOS 會把一部分換出，算圖照樣完成——實測在 128 GB 機器上尖峰 120 GB，用掉 16 GB 置換空間並順利跑完。「置換」是指超出已安裝的記憶體，本來一小時的算圖會拖得久很多。可用比例取自 Metal 對該機器的回報——大約是安裝容量的四分之三到六分之五，容量越大比例越高。";
+"memory.table.note" = "權重只是其中一部分：生成時還需要額外的工作記憶體，需要多少則視引擎而定——實測 MLX 算圖的尖峰是權重數字的 1.8 倍，ComfyUI 只有 1.41 倍，因為 ComfyUI 分階段載入模型，不會同時全部留著。上表的判定已計入這點。「吃緊」是指尖峰超出可用額度、但仍裝得進已安裝的記憶體，macOS 會把一部分換出，算圖照樣完成——實測在 128 GB 機器上尖峰 120 GB，用掉 16 GB 置換空間並順利跑完。「置換」是指超出已安裝的記憶體，本來一小時的算圖會拖得久很多。可用比例取自 Metal 對該機器的回報——大約是安裝容量的四分之三到六分之五，容量越大比例越高。";
 
 "memory.table.orLess" = "%@ 或更少";
 
@@ -515,7 +515,7 @@
 /* Mode names (first-frame, first-and-last-frame) should match how the modes are named elsewhere in this language. */
 "model.textEncoder.mlx" = "bfloat16 版的 Qwen3-VL-32B——H3 讀取其第 50 層的隱藏狀態。單一檔案中最大的下載項目，也是參考用的編碼器：唯一帶有視覺部分的一個，因此「首幀」與「首尾幀」生成都需要它。編碼提示詞時它是佔用記憶體最多的部分，之後 Halation 會在 transformer 執行前釋放它，所以它只在載入模型時推高峰值。4-bit 編碼器能以約三分之一的記憶體完成同樣的文字工作。實際需要多少，請看「系統需求」分頁。會與 VAE 一同安裝在 FL2VA/ 之下。";
 
-"model.textEncoder.q4" = "同樣是 Qwen3-VL-32B 的 50 層，來自 mlx-serve 的 MLX 4-bit 版本：下載 16 GB 而非 67 GB，記憶體約為三分之一。記憶體較少的 Mac 能跑 MLX，靠的就是它。只處理文字——沒有視覺部分，因此首影格與首尾影格算圖需要 bfloat16 編碼器。這是社群量化版本，條件訊號可能與參考版本略有差異。";
+"model.textEncoder.q4" = "同樣是 Qwen3-VL-32B 的 50 層，來自 mlx-serve 的 MLX 4-bit 版本：下載 16 GB 而非 67 GB，它能在預覽尺寸下降低峰值，因為那時峰值取決於載入：384p 算圖約 61 GB，用 bfloat16 則至少 89 GB。全尺寸時峰值取決於生成過程，它只省下幾 GB。只處理文字——沒有視覺部分，因此首影格與首尾影格算圖需要 bfloat16 編碼器。這是社群量化版本，條件訊號可能與參考版本略有差異。";
 
 "model.textEncoder.uncensored" = "已移除拒絕行為的 Qwen3-VL-32B。可直接替換原本的編碼器——H3 本身沒有改動，因為拒絕行為存在於語言模型，而非 diffusion transformer。僅支援 ComfyUI；MLX 無法載入此格式。";
 

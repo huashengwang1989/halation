@@ -5549,44 +5549,55 @@ add("model.name.textEncoder.q4", {
 })
 add("model.textEncoder.q4", {
     "en": "The same 50 layers of Qwen3-VL-32B in MLX 4-bit, from mlx-serve's pack: a 16 GB download "
-          "instead of 67, and about a third of the memory. It is what lets a Mac with less memory "
-          "run MLX at all. Text only — it has no vision part, so first-frame and first-and-last-frame "
+          "instead of 67. It lowers the peak at preview sizes, where loading sets it: about 61 GB "
+          "for a 384p render against at least 89 GB with bfloat16. At full size, generation sets "
+          "the peak and it saves only a few GB. Text only — it has no vision part, so first-frame and first-and-last-frame "
           "renders need the bfloat16 encoder. A community quantization, so the conditioning may "
           "differ slightly from the reference.",
     "zh-Hant": "同樣是 Qwen3-VL-32B 的 50 層，來自 mlx-serve 的 MLX 4-bit 版本：下載 16 GB 而非 67 GB，"
-               "記憶體約為三分之一。記憶體較少的 Mac 能跑 MLX，靠的就是它。只處理文字——沒有視覺部分，"
+               "它能在預覽尺寸下降低峰值，因為那時峰值取決於載入：384p 算圖約 61 GB，用 bfloat16 則至少 89 GB。"
+               "全尺寸時峰值取決於生成過程，它只省下幾 GB。只處理文字——沒有視覺部分，"
                "因此首影格與首尾影格算圖需要 bfloat16 編碼器。這是社群量化版本，條件訊號可能與參考版本略有差異。",
     "zh-Hans": "同样是 Qwen3-VL-32B 的 50 层，来自 mlx-serve 的 MLX 4-bit 版本：下载 16 GB 而非 67 GB，"
-               "内存约为三分之一。内存较少的 Mac 能跑 MLX，靠的就是它。只处理文本——没有视觉部分，"
+               "它能在预览尺寸下降低峰值，因为那时峰值取决于加载：384p 渲染约 61 GB，用 bfloat16 则至少 89 GB。"
+               "全尺寸时峰值取决于生成过程，它只省下几 GB。只处理文本——没有视觉部分，"
                "因此首帧与首尾帧渲染需要 bfloat16 编码器。这是社区量化版本，条件信号可能与参考版本略有差异。",
     "de": "Dieselben 50 Schichten von Qwen3-VL-32B in MLX 4-bit, aus dem Paket von mlx-serve: 16 GB "
-          "Download statt 67 und etwa ein Drittel des Speichers. Damit läuft MLX überhaupt erst auf "
-          "einem Mac mit weniger Speicher. Nur Text – ohne Vision-Teil, daher brauchen Renderings mit "
+          "Download statt 67. Er senkt die Spitze bei Vorschaugrößen, wo das Laden sie bestimmt: "
+          "etwa 61 GB für ein 384p-Rendering statt mindestens 89 GB mit bfloat16. In voller Größe "
+          "bestimmt die Generierung die Spitze, und er spart nur wenige GB. Nur Text – ohne Vision-Teil, daher brauchen Renderings mit "
           "erstem oder erstem und letztem Bild den bfloat16-Encoder. Eine Community-Quantisierung; die "
           "Konditionierung kann leicht von der Referenz abweichen.",
     "ar": "الطبقات الخمسون نفسها من Qwen3-VL-32B بدقة MLX 4-bit، من حزمة mlx-serve: تنزيل 16 غيغابايت "
-          "بدلًا من 67، ونحو ثلث الذاكرة. وهو ما يتيح تشغيل MLX أصلًا على جهاز Mac بذاكرة أقل. للنص فقط — "
+          "بدلًا من 67. يخفّض الذروة في أحجام المعاينة، حيث يحدّدها التحميل: نحو 61 غيغابايت لتصيير "
+          "384p مقابل 89 على الأقل مع bfloat16. أما بالحجم الكامل فيحدّد التوليد الذروة، ولا يوفّر "
+          "إلا بضعة غيغابايت. للنص فقط — "
           "بلا جزء بصري، لذا تحتاج عمليات التصيير بالإطار الأول أو بالإطارين الأول والأخير إلى مشفّر "
           "bfloat16. تكميم مجتمعي، فقد يختلف التكييف قليلًا عن المرجع.",
     "ja": "Qwen3-VL-32B の同じ 50 層を MLX 4-bit にしたもので、mlx-serve のパックから取得します。"
-          "ダウンロードは 67 GB ではなく 16 GB、メモリはおよそ 3 分の 1 です。メモリの少ない Mac で "
-          "MLX を動かせるのはこれのおかげです。テキスト専用でビジョン部分がないため、先頭フレームや"
+          "ダウンロードは 67 GB ではなく 16 GB です。読み込みがピークを決めるプレビューサイズでは"
+          "ピークを下げます。384p なら約 61 GB で、bfloat16 では最低 89 GB です。フルサイズでは生成が"
+          "ピークを決めるため、節約は数 GB にとどまります。テキスト専用でビジョン部分がないため、先頭フレームや"
           "先頭・末尾フレームの生成には bfloat16 エンコーダが必要です。コミュニティによる量子化のため、"
           "条件付けが基準とわずかに異なる場合があります。",
     "ko": "Qwen3-VL-32B의 같은 50개 층을 MLX 4-bit로 만든 것으로, mlx-serve 패키지에서 받습니다. "
-          "다운로드는 67 GB 대신 16 GB, 메모리는 약 3분의 1입니다. 메모리가 적은 Mac에서 MLX를 돌릴 수 "
-          "있는 것은 이 덕분입니다. 텍스트 전용이라 비전 부분이 없어서, 첫 프레임 및 첫·끝 프레임 "
+          "다운로드는 67 GB 대신 16 GB입니다. 불러오기가 최고치를 정하는 미리보기 크기에서 최고치를 "
+          "낮춥니다. 384p 렌더링은 약 61 GB로, bfloat16이면 최소 89 GB입니다. 전체 크기에서는 생성이 "
+          "최고치를 정하므로 몇 GB만 줄어듭니다. 텍스트 전용이라 비전 부분이 없어서, 첫 프레임 및 첫·끝 프레임 "
           "렌더링에는 bfloat16 인코더가 필요합니다. 커뮤니티 양자화라 조건 신호가 기준과 조금 다를 수 있습니다.",
     "th": "Qwen3-VL-32B 50 ชั้นเดิมในแบบ MLX 4-bit จากแพ็กของ mlx-serve: ดาวน์โหลด 16 GB แทน 67 GB "
-          "และใช้หน่วยความจำราวหนึ่งในสาม เป็นสิ่งที่ทำให้ Mac ที่หน่วยความจำน้อยรัน MLX ได้ "
-          "รับเฉพาะข้อความ ไม่มีส่วนการมองเห็น การเรนเดอร์จากเฟรมแรก หรือเฟรมแรกและเฟรมสุดท้าย "
+          "ช่วยลดค่าสูงสุดที่ขนาดพรีวิว ซึ่งการโหลดเป็นตัวกำหนด: เรนเดอร์ 384p ใช้ราว 61 GB "
+          "เทียบกับอย่างน้อย 89 GB เมื่อใช้ bfloat16 ที่ขนาดเต็ม การสร้างวิดีโอเป็นตัวกำหนดค่าสูงสุด "
+          "จึงประหยัดได้เพียงไม่กี่ GB รับเฉพาะข้อความ ไม่มีส่วนการมองเห็น การเรนเดอร์จากเฟรมแรก หรือเฟรมแรกและเฟรมสุดท้าย "
           "จึงต้องใช้ตัวเข้ารหัส bfloat16 เป็น quantization จากชุมชน สัญญาณกำกับอาจต่างจากต้นฉบับเล็กน้อย",
     "yue-Hant": "同樣係 Qwen3-VL-32B 嗰 50 層，嚟自 mlx-serve 嘅 MLX 4-bit 版本：下載 16 GB 而唔係 67 GB，"
-                "記憶體大約三分一。記憶體少啲嘅 Mac 跑到 MLX，靠嘅就係佢。淨係處理文字——冇視覺部分，"
+                "喺預覽尺寸佢可以壓低峰值，因為嗰陣峰值由載入決定：384p 算圖大概 61 GB，用 bfloat16 就最少 89 GB。"
+                "全尺寸嗰陣峰值由生成決定，佢只係慳到幾 GB。淨係處理文字——冇視覺部分，"
                 "所以首格同首尾格算圖要用 bfloat16 編碼器。呢個係社群量化版本，條件訊號可能同參考版本有少少分別。",
     "en-SG": "Same 50 layers of Qwen3-VL-32B, in MLX 4-bit, from mlx-serve's pack: 16 GB to download "
-             "instead of 67, and about a third of the memory. This is what lets a Mac with less memory "
-             "run MLX at all. Text only — no vision part, so first-frame and first-and-last-frame "
+             "instead of 67. It brings the peak down at preview sizes, where loading sets it: about "
+             "61 GB for a 384p render against at least 89 GB with bfloat16. At full size, generation "
+             "sets the peak and it saves only a few GB. Text only — no vision part, so first-frame and first-and-last-frame "
              "renders still need the bfloat16 encoder. Community quantization, so the conditioning can "
              "be a bit different from the reference.",
 })
@@ -7058,16 +7069,16 @@ add("memory.verdict.swaps", {
         "would take an hour takes far longer. Not a refusal — the app still "
         "lets the user try.")
 add("memory.table.note", {
-    'en': 'Weights are only part of it: generating needs working memory on top, and how much depends on the engine — a measured MLX render peaked at 2.4 times its weight figure, a ComfyUI one at 1.41, because ComfyUI loads its models in stages and never holds them all at once. The verdicts allow for that. “Tight” means the peak clears the usable share but still fits in installed memory, so macOS pages some of it out and the render finishes anyway — measured, a 120 GB peak on a 128 GB Mac used 16 GB of swap and completed. “Swaps” means it exceeds installed memory, and a render that would take an hour takes far longer. The usable share is what Metal reports for the machine — roughly three quarters to five sixths of what is installed, higher on the larger configurations.',
-    'zh-Hant': '權重只是其中一部分：生成時還需要額外的工作記憶體，需要多少則視引擎而定——實測 MLX 算圖的尖峰是權重數字的 2.4 倍，ComfyUI 只有 1.41 倍，因為 ComfyUI 分階段載入模型，不會同時全部留著。上表的判定已計入這點。「吃緊」是指尖峰超出可用額度、但仍裝得進已安裝的記憶體，macOS 會把一部分換出，算圖照樣完成——實測在 128 GB 機器上尖峰 120 GB，用掉 16 GB 置換空間並順利跑完。「置換」是指超出已安裝的記憶體，本來一小時的算圖會拖得久很多。可用比例取自 Metal 對該機器的回報——大約是安裝容量的四分之三到六分之五，容量越大比例越高。',
-    'zh-Hans': '权重只是其中一部分：生成时还需要额外的工作内存，需要多少则视引擎而定——实测 MLX 渲染的峰值是权重数字的 2.4 倍，ComfyUI 只有 1.41 倍，因为 ComfyUI 分阶段载入模型，不会同时全部留着。上表的判定已计入这点。“吃紧”是指峰值超出可用额度、但仍装得进已安装的内存，macOS 会把一部分换出，渲染照样完成——实测在 128 GB 机器上峰值 120 GB，用掉 16 GB 交换空间并顺利跑完。“交换”是指超出已安装的内存，本来一小时的渲染会拖得久很多。可用比例取自 Metal 对该机器的报告——大约是安装容量的四分之三到六分之五，容量越大比例越高。',
-    'de': 'Die Gewichte sind nur ein Teil: Das Erzeugen braucht zusätzlich Arbeitsspeicher, und wie viel, hängt von der Engine ab — ein gemessener MLX-Render erreichte in der Spitze das 2,4-Fache seines Gewichtswerts, ein ComfyUI-Render nur das 1,41-Fache, weil ComfyUI seine Modelle gestaffelt lädt und nie alle gleichzeitig hält. Die Urteile berücksichtigen das. „Knapp“ heißt, die Spitze übersteigt den nutzbaren Anteil, passt aber noch in den verbauten Speicher: macOS lagert einen Teil aus und der Render läuft dennoch durch — gemessen brauchte eine Spitze von 120 GB auf einem Mac mit 128 GB 16 GB Swap und wurde fertig. „Swap“ heißt, es übersteigt den verbauten Speicher, und ein Render von einer Stunde dauert dann weit länger. Der nutzbare Anteil ist der, den Metal für die Maschine meldet — etwa drei Viertel bis fünf Sechstel des Verbauten, bei größeren Konfigurationen mehr.',
-    'ar': 'الأوزان ليست كل الحكاية: التوليد يحتاج ذاكرة عمل إضافية، والمقدار يتوقف على المحرّك — بلغ تصيير MLX مقيس نحو 2.4 مرة رقم أوزانه في الذروة، وتصيير ComfyUI نحو 1.41 مرة فقط، لأن ComfyUI يحمّل نماذجه على مراحل ولا يبقيها كلها في الذاكرة معًا. والأحكام تأخذ ذلك في الحساب. “محدود” يعني أن الذروة تتجاوز الحصة المتاحة لكنها تبقى داخل الذاكرة المثبَّتة، فيُرحِّل macOS جزءًا منها ويكتمل التصيير رغم ذلك — بالقياس، ذروة 120 غيغابايت على جهاز بـ 128 غيغابايت استهلكت 16 غيغابايت من التبديل وأُنجزت. و“تبديل” يعني أنها تتجاوز الذاكرة المثبَّتة، فيستغرق تصيير مدته ساعة وقتًا أطول بكثير. أما الحصة المتاحة فهي ما يبلّغ عنه Metal لهذا الجهاز — نحو ثلاثة أرباع إلى خمسة أسداس المثبَّت، وترتفع في التكوينات الأكبر.',
-    'ja': '重みは一部にすぎません。生成にはさらに作業用メモリが必要で、どれだけ必要かはエンジンによります——実測では MLX のピークが重みの 2.4 倍、ComfyUI は 1.41 倍でした。ComfyUI はモデルを段階的に読み込み、すべてを同時に保持しないからです。上の判定はそれを見込んでいます。「ぎりぎり」はピークが使える割当てを超えるものの搭載メモリには収まる状態で、macOS が一部を退避させながらもレンダリングは完走します——実測では 128 GB の Mac でピーク 120 GB、スワップ 16 GB を使って完了しました。「スワップ」は搭載メモリを超える状態で、一時間で済むレンダリングがはるかに長くかかります。使える割合は Metal がその機械について報告する値で、搭載量のおよそ四分の三から六分の五、容量が大きいほど高くなります。',
-    'ko': '가중치는 일부일 뿐입니다. 생성에는 별도의 작업 메모리가 필요하고, 얼마나 필요한지는 엔진에 따라 다릅니다 — 실측에서 MLX의 최대치는 가중치의 2.4배, ComfyUI는 1.41배였습니다. ComfyUI는 모델을 단계적으로 불러와 전부를 동시에 들고 있지 않기 때문입니다. 위 판정은 그것을 감안한 것입니다. ‘빡빡함’은 최대치가 사용 가능한 몫을 넘지만 설치된 메모리에는 들어가는 경우로, macOS가 일부를 내보내면서도 렌더링은 끝까지 진행됩니다 — 실측으로 128 GB Mac에서 최대 120 GB, 스왑 16 GB를 쓰고 완료했습니다. ‘스왑’은 설치된 메모리를 넘는 경우이며, 한 시간이면 될 렌더링이 훨씬 오래 걸립니다. 사용 가능한 비율은 Metal이 해당 기기에 대해 보고하는 값으로, 설치된 용량의 약 4분의 3에서 6분의 5이며 용량이 클수록 높아집니다.',
-    'th': 'ไฟล์น้ำหนักเป็นเพียงส่วนหนึ่ง การสร้างต้องใช้หน่วยความจำทำงานเพิ่มอีก และมากแค่ไหนขึ้นกับเอนจิน — การเรนเดอร์ MLX ที่วัดได้ขึ้นสูงสุดราว 2.4 เท่าของตัวเลขน้ำหนัก ส่วน ComfyUI อยู่ที่ 1.41 เท่า เพราะ ComfyUI โหลดโมเดลเป็นขั้น ๆ และไม่เคยถือไว้พร้อมกันทั้งหมด ผลสรุปคิดเผื่อไว้แล้ว “คับ” หมายถึงจุดสูงสุดเกินสัดส่วนที่ใช้ได้ แต่ยังพอดีกับหน่วยความจำที่ติดตั้ง macOS จะย้ายบางส่วนออกไปและการเรนเดอร์ก็ยังเสร็จ — วัดได้ว่าจุดสูงสุด 120 GB บนเครื่อง 128 GB ใช้พื้นที่สลับไป 16 GB และทำงานจบ ส่วน “สลับ” หมายถึงเกินหน่วยความจำที่ติดตั้ง งานที่ควรใช้หนึ่งชั่วโมงจะนานขึ้นอีกมาก สัดส่วนที่ใช้ได้คือค่าที่ Metal รายงานสำหรับเครื่องนั้น — ราวสามในสี่ถึงห้าในหกของที่ติดตั้ง และสูงขึ้นในรุ่นที่หน่วยความจำมากกว่า',
-    'yue-Hant': '權重只係其中一part：生成嗰陣仲要額外嘅工作記憶體，要幾多就睇引擎——實測 MLX 算圖尖峰大概係權重數字嘅 2.4 倍，ComfyUI 得 1.41 倍，因為 ComfyUI 係分階段載入模型，唔會同一時間全部擺晒喺度。上面嘅判斷已經計咗呢樣。「緊」係話尖峰超出可用嘅份額，但仲裝得落已裝嘅記憶體，macOS 會換走一部分，算圖照樣做得完——實測喺 128 GB 機上面尖峰 120 GB，用咗 16 GB 置換空間，順利跑完。「置換」係話超出已裝嘅記憶體，本來一個鐘嘅算圖會拖好多。可用比例係 Metal 對部機嘅回報——大概係安裝容量嘅四分三到六分五，容量越大比例越高。',
-    'en-SG': 'Weights are only part of the story: generating needs working memory on top, and how much depends on the engine — one measured MLX render peaked at 2.4 times its weight figure, a ComfyUI one at 1.41, because ComfyUI loads its models in stages and never holds everything at once. The verdicts already count that in. “Tight” means the peak goes past the usable share but still fits inside installed memory, so macOS pages some of it out and the render still finishes — measured, a 120 GB peak on a 128 GB Mac used 16 GB of swap and completed. “Swaps” means it goes past installed memory altogether, and a render that would take an hour takes very much longer. The usable share is whatever Metal reports for the machine — roughly three quarters to five sixths of what is installed, higher on the bigger configurations.',
+    'en': 'Weights are only part of it: generating needs working memory on top, and how much depends on the engine — a measured MLX render peaked at 1.8 times its weight figure, a ComfyUI one at 1.41, because ComfyUI loads its models in stages and never holds them all at once. The verdicts allow for that. “Tight” means the peak clears the usable share but still fits in installed memory, so macOS pages some of it out and the render finishes anyway — measured, a 120 GB peak on a 128 GB Mac used 16 GB of swap and completed. “Swaps” means it exceeds installed memory, and a render that would take an hour takes far longer. The usable share is what Metal reports for the machine — roughly three quarters to five sixths of what is installed, higher on the larger configurations.',
+    'zh-Hant': '權重只是其中一部分：生成時還需要額外的工作記憶體，需要多少則視引擎而定——實測 MLX 算圖的尖峰是權重數字的 1.8 倍，ComfyUI 只有 1.41 倍，因為 ComfyUI 分階段載入模型，不會同時全部留著。上表的判定已計入這點。「吃緊」是指尖峰超出可用額度、但仍裝得進已安裝的記憶體，macOS 會把一部分換出，算圖照樣完成——實測在 128 GB 機器上尖峰 120 GB，用掉 16 GB 置換空間並順利跑完。「置換」是指超出已安裝的記憶體，本來一小時的算圖會拖得久很多。可用比例取自 Metal 對該機器的回報——大約是安裝容量的四分之三到六分之五，容量越大比例越高。',
+    'zh-Hans': '权重只是其中一部分：生成时还需要额外的工作内存，需要多少则视引擎而定——实测 MLX 渲染的峰值是权重数字的 1.8 倍，ComfyUI 只有 1.41 倍，因为 ComfyUI 分阶段载入模型，不会同时全部留着。上表的判定已计入这点。“吃紧”是指峰值超出可用额度、但仍装得进已安装的内存，macOS 会把一部分换出，渲染照样完成——实测在 128 GB 机器上峰值 120 GB，用掉 16 GB 交换空间并顺利跑完。“交换”是指超出已安装的内存，本来一小时的渲染会拖得久很多。可用比例取自 Metal 对该机器的报告——大约是安装容量的四分之三到六分之五，容量越大比例越高。',
+    'de': 'Die Gewichte sind nur ein Teil: Das Erzeugen braucht zusätzlich Arbeitsspeicher, und wie viel, hängt von der Engine ab — ein gemessener MLX-Render erreichte in der Spitze das 1,8-Fache seines Gewichtswerts, ein ComfyUI-Render nur das 1,41-Fache, weil ComfyUI seine Modelle gestaffelt lädt und nie alle gleichzeitig hält. Die Urteile berücksichtigen das. „Knapp“ heißt, die Spitze übersteigt den nutzbaren Anteil, passt aber noch in den verbauten Speicher: macOS lagert einen Teil aus und der Render läuft dennoch durch — gemessen brauchte eine Spitze von 120 GB auf einem Mac mit 128 GB 16 GB Swap und wurde fertig. „Swap“ heißt, es übersteigt den verbauten Speicher, und ein Render von einer Stunde dauert dann weit länger. Der nutzbare Anteil ist der, den Metal für die Maschine meldet — etwa drei Viertel bis fünf Sechstel des Verbauten, bei größeren Konfigurationen mehr.',
+    'ar': 'الأوزان ليست كل الحكاية: التوليد يحتاج ذاكرة عمل إضافية، والمقدار يتوقف على المحرّك — بلغ تصيير MLX مقيس نحو 1.8 مرة رقم أوزانه في الذروة، وتصيير ComfyUI نحو 1.41 مرة فقط، لأن ComfyUI يحمّل نماذجه على مراحل ولا يبقيها كلها في الذاكرة معًا. والأحكام تأخذ ذلك في الحساب. “محدود” يعني أن الذروة تتجاوز الحصة المتاحة لكنها تبقى داخل الذاكرة المثبَّتة، فيُرحِّل macOS جزءًا منها ويكتمل التصيير رغم ذلك — بالقياس، ذروة 120 غيغابايت على جهاز بـ 128 غيغابايت استهلكت 16 غيغابايت من التبديل وأُنجزت. و“تبديل” يعني أنها تتجاوز الذاكرة المثبَّتة، فيستغرق تصيير مدته ساعة وقتًا أطول بكثير. أما الحصة المتاحة فهي ما يبلّغ عنه Metal لهذا الجهاز — نحو ثلاثة أرباع إلى خمسة أسداس المثبَّت، وترتفع في التكوينات الأكبر.',
+    'ja': '重みは一部にすぎません。生成にはさらに作業用メモリが必要で、どれだけ必要かはエンジンによります——実測では MLX のピークが重みの 1.8 倍、ComfyUI は 1.41 倍でした。ComfyUI はモデルを段階的に読み込み、すべてを同時に保持しないからです。上の判定はそれを見込んでいます。「ぎりぎり」はピークが使える割当てを超えるものの搭載メモリには収まる状態で、macOS が一部を退避させながらもレンダリングは完走します——実測では 128 GB の Mac でピーク 120 GB、スワップ 16 GB を使って完了しました。「スワップ」は搭載メモリを超える状態で、一時間で済むレンダリングがはるかに長くかかります。使える割合は Metal がその機械について報告する値で、搭載量のおよそ四分の三から六分の五、容量が大きいほど高くなります。',
+    'ko': '가중치는 일부일 뿐입니다. 생성에는 별도의 작업 메모리가 필요하고, 얼마나 필요한지는 엔진에 따라 다릅니다 — 실측에서 MLX의 최대치는 가중치의 1.8배, ComfyUI는 1.41배였습니다. ComfyUI는 모델을 단계적으로 불러와 전부를 동시에 들고 있지 않기 때문입니다. 위 판정은 그것을 감안한 것입니다. ‘빡빡함’은 최대치가 사용 가능한 몫을 넘지만 설치된 메모리에는 들어가는 경우로, macOS가 일부를 내보내면서도 렌더링은 끝까지 진행됩니다 — 실측으로 128 GB Mac에서 최대 120 GB, 스왑 16 GB를 쓰고 완료했습니다. ‘스왑’은 설치된 메모리를 넘는 경우이며, 한 시간이면 될 렌더링이 훨씬 오래 걸립니다. 사용 가능한 비율은 Metal이 해당 기기에 대해 보고하는 값으로, 설치된 용량의 약 4분의 3에서 6분의 5이며 용량이 클수록 높아집니다.',
+    'th': 'ไฟล์น้ำหนักเป็นเพียงส่วนหนึ่ง การสร้างต้องใช้หน่วยความจำทำงานเพิ่มอีก และมากแค่ไหนขึ้นกับเอนจิน — การเรนเดอร์ MLX ที่วัดได้ขึ้นสูงสุดราว 1.8 เท่าของตัวเลขน้ำหนัก ส่วน ComfyUI อยู่ที่ 1.41 เท่า เพราะ ComfyUI โหลดโมเดลเป็นขั้น ๆ และไม่เคยถือไว้พร้อมกันทั้งหมด ผลสรุปคิดเผื่อไว้แล้ว “คับ” หมายถึงจุดสูงสุดเกินสัดส่วนที่ใช้ได้ แต่ยังพอดีกับหน่วยความจำที่ติดตั้ง macOS จะย้ายบางส่วนออกไปและการเรนเดอร์ก็ยังเสร็จ — วัดได้ว่าจุดสูงสุด 120 GB บนเครื่อง 128 GB ใช้พื้นที่สลับไป 16 GB และทำงานจบ ส่วน “สลับ” หมายถึงเกินหน่วยความจำที่ติดตั้ง งานที่ควรใช้หนึ่งชั่วโมงจะนานขึ้นอีกมาก สัดส่วนที่ใช้ได้คือค่าที่ Metal รายงานสำหรับเครื่องนั้น — ราวสามในสี่ถึงห้าในหกของที่ติดตั้ง และสูงขึ้นในรุ่นที่หน่วยความจำมากกว่า',
+    'yue-Hant': '權重只係其中一part：生成嗰陣仲要額外嘅工作記憶體，要幾多就睇引擎——實測 MLX 算圖尖峰大概係權重數字嘅 1.8 倍，ComfyUI 得 1.41 倍，因為 ComfyUI 係分階段載入模型，唔會同一時間全部擺晒喺度。上面嘅判斷已經計咗呢樣。「緊」係話尖峰超出可用嘅份額，但仲裝得落已裝嘅記憶體，macOS 會換走一部分，算圖照樣做得完——實測喺 128 GB 機上面尖峰 120 GB，用咗 16 GB 置換空間，順利跑完。「置換」係話超出已裝嘅記憶體，本來一個鐘嘅算圖會拖好多。可用比例係 Metal 對部機嘅回報——大概係安裝容量嘅四分三到六分五，容量越大比例越高。',
+    'en-SG': 'Weights are only part of the story: generating needs working memory on top, and how much depends on the engine — one measured MLX render peaked at 1.8 times its weight figure, a ComfyUI one at 1.41, because ComfyUI loads its models in stages and never holds everything at once. The verdicts already count that in. “Tight” means the peak goes past the usable share but still fits inside installed memory, so macOS pages some of it out and the render still finishes — measured, a 120 GB peak on a 128 GB Mac used 16 GB of swap and completed. “Swaps” means it goes past installed memory altogether, and a render that would take an hour takes very much longer. The usable share is whatever Metal reports for the machine — roughly three quarters to five sixths of what is installed, higher on the bigger configurations.',
 }, note="Footnote under the table, and the only place the verdict words are "
         "explained. Each multiplier comes from one measured render of that "
         "engine (MLX: 50 GB of weights peaking at 120 GB on a 128 GB Mac; "

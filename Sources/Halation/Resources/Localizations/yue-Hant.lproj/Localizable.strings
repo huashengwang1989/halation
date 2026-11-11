@@ -386,7 +386,7 @@
 "memory.table.combination" = "模型同引擎";
 
 /* Footnote under the table, and the only place the verdict words are explained. Each multiplier comes from one measured render of that engine (MLX: 50 GB of weights peaking at 120 GB on a 128 GB Mac; ComfyUI: 55 GB peaking at 77.6 GB), so they are rules of thumb, not specifications. Keep the quoted words identical to memory.verdict.tight and memory.verdict.swaps. */
-"memory.table.note" = "權重只係其中一part：生成嗰陣仲要額外嘅工作記憶體，要幾多就睇引擎——實測 MLX 算圖尖峰大概係權重數字嘅 2.4 倍，ComfyUI 得 1.41 倍，因為 ComfyUI 係分階段載入模型，唔會同一時間全部擺晒喺度。上面嘅判斷已經計咗呢樣。「緊」係話尖峰超出可用嘅份額，但仲裝得落已裝嘅記憶體，macOS 會換走一部分，算圖照樣做得完——實測喺 128 GB 機上面尖峰 120 GB，用咗 16 GB 置換空間，順利跑完。「置換」係話超出已裝嘅記憶體，本來一個鐘嘅算圖會拖好多。可用比例係 Metal 對部機嘅回報——大概係安裝容量嘅四分三到六分五，容量越大比例越高。";
+"memory.table.note" = "權重只係其中一part：生成嗰陣仲要額外嘅工作記憶體，要幾多就睇引擎——實測 MLX 算圖尖峰大概係權重數字嘅 1.8 倍，ComfyUI 得 1.41 倍，因為 ComfyUI 係分階段載入模型，唔會同一時間全部擺晒喺度。上面嘅判斷已經計咗呢樣。「緊」係話尖峰超出可用嘅份額，但仲裝得落已裝嘅記憶體，macOS 會換走一部分，算圖照樣做得完——實測喺 128 GB 機上面尖峰 120 GB，用咗 16 GB 置換空間，順利跑完。「置換」係話超出已裝嘅記憶體，本來一個鐘嘅算圖會拖好多。可用比例係 Metal 對部機嘅回報——大概係安裝容量嘅四分三到六分五，容量越大比例越高。";
 
 "memory.table.orLess" = "%@ 或者更少";
 
@@ -515,7 +515,7 @@
 /* Mode names (first-frame, first-and-last-frame) should match how the modes are named elsewhere in this language. */
 "model.textEncoder.mlx" = "bfloat16 版嘅 Qwen3-VL-32B——H3 讀佢第 50 層嘅隱藏狀態。單一檔案入面最大嘅下載，亦係參考用嘅編碼器：唯一有視覺部分嘅一個，所以「首幀」同「首尾幀」生成都要用佢。編碼提示詞嗰陣佢食記憶體食得最多，之後 Halation 會喺 transformer 行之前放走佢，所以佢只係載入模型嗰陣推高峰值。4-bit 編碼器用大概三分之一嘅記憶體，就做到同樣嘅文字工作。實際要幾多，睇「系統需求」嗰版。佢會同 VAE 一齊裝喺 FL2VA/ 入面。";
 
-"model.textEncoder.q4" = "同樣係 Qwen3-VL-32B 嗰 50 層，嚟自 mlx-serve 嘅 MLX 4-bit 版本：下載 16 GB 而唔係 67 GB，記憶體大約三分一。記憶體少啲嘅 Mac 跑到 MLX，靠嘅就係佢。淨係處理文字——冇視覺部分，所以首格同首尾格算圖要用 bfloat16 編碼器。呢個係社群量化版本，條件訊號可能同參考版本有少少分別。";
+"model.textEncoder.q4" = "同樣係 Qwen3-VL-32B 嗰 50 層，嚟自 mlx-serve 嘅 MLX 4-bit 版本：下載 16 GB 而唔係 67 GB，喺預覽尺寸佢可以壓低峰值，因為嗰陣峰值由載入決定：384p 算圖大概 61 GB，用 bfloat16 就最少 89 GB。全尺寸嗰陣峰值由生成決定，佢只係慳到幾 GB。淨係處理文字——冇視覺部分，所以首格同首尾格算圖要用 bfloat16 編碼器。呢個係社群量化版本，條件訊號可能同參考版本有少少分別。";
 
 "model.textEncoder.uncensored" = "拒絕行為訓練走咗嘅 Qwen3-VL-32B。可以直接換走原本嗰個——H3 本身冇變,因為拒絕行為喺語言模型度,唔喺 diffusion transformer。淨係 ComfyUI 用得;MLX 冇呢個格式嘅載入器。";
 

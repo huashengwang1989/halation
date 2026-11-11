@@ -386,7 +386,7 @@
 "memory.table.combination" = "모델과 엔진";
 
 /* Footnote under the table, and the only place the verdict words are explained. Each multiplier comes from one measured render of that engine (MLX: 50 GB of weights peaking at 120 GB on a 128 GB Mac; ComfyUI: 55 GB peaking at 77.6 GB), so they are rules of thumb, not specifications. Keep the quoted words identical to memory.verdict.tight and memory.verdict.swaps. */
-"memory.table.note" = "가중치는 일부일 뿐입니다. 생성에는 별도의 작업 메모리가 필요하고, 얼마나 필요한지는 엔진에 따라 다릅니다 — 실측에서 MLX의 최대치는 가중치의 2.4배, ComfyUI는 1.41배였습니다. ComfyUI는 모델을 단계적으로 불러와 전부를 동시에 들고 있지 않기 때문입니다. 위 판정은 그것을 감안한 것입니다. ‘빡빡함’은 최대치가 사용 가능한 몫을 넘지만 설치된 메모리에는 들어가는 경우로, macOS가 일부를 내보내면서도 렌더링은 끝까지 진행됩니다 — 실측으로 128 GB Mac에서 최대 120 GB, 스왑 16 GB를 쓰고 완료했습니다. ‘스왑’은 설치된 메모리를 넘는 경우이며, 한 시간이면 될 렌더링이 훨씬 오래 걸립니다. 사용 가능한 비율은 Metal이 해당 기기에 대해 보고하는 값으로, 설치된 용량의 약 4분의 3에서 6분의 5이며 용량이 클수록 높아집니다.";
+"memory.table.note" = "가중치는 일부일 뿐입니다. 생성에는 별도의 작업 메모리가 필요하고, 얼마나 필요한지는 엔진에 따라 다릅니다 — 실측에서 MLX의 최대치는 가중치의 1.8배, ComfyUI는 1.41배였습니다. ComfyUI는 모델을 단계적으로 불러와 전부를 동시에 들고 있지 않기 때문입니다. 위 판정은 그것을 감안한 것입니다. ‘빡빡함’은 최대치가 사용 가능한 몫을 넘지만 설치된 메모리에는 들어가는 경우로, macOS가 일부를 내보내면서도 렌더링은 끝까지 진행됩니다 — 실측으로 128 GB Mac에서 최대 120 GB, 스왑 16 GB를 쓰고 완료했습니다. ‘스왑’은 설치된 메모리를 넘는 경우이며, 한 시간이면 될 렌더링이 훨씬 오래 걸립니다. 사용 가능한 비율은 Metal이 해당 기기에 대해 보고하는 값으로, 설치된 용량의 약 4분의 3에서 6분의 5이며 용량이 클수록 높아집니다.";
 
 "memory.table.orLess" = "%@ 이하";
 
@@ -515,7 +515,7 @@
 /* Mode names (first-frame, first-and-last-frame) should match how the modes are named elsewhere in this language. */
 "model.textEncoder.mlx" = "bfloat16 Qwen3-VL-32B — H3는 이 모델의 50번째 층 은닉 상태를 읽습니다. 단일 항목으로 가장 큰 다운로드이며 기준 인코더입니다. 이미지를 읽는 부분이 있는 유일한 인코더라서, 첫 프레임 및 첫·끝 프레임 렌더링에는 이것이 필요합니다. 프롬프트를 인코딩하는 동안 메모리를 가장 많이 쓰지만, Halation은 트랜스포머가 돌기 전에 이를 해제하므로 모델을 불러오는 동안에만 최고치를 끌어올립니다. 4비트 인코더는 텍스트에 대해 같은 일을 약 3분의 1의 메모리로 해냅니다. 실제로 필요한 양은 요구 사항 탭을 보십시오. VAE와 나란히 FL2VA/ 에 설치됩니다.";
 
-"model.textEncoder.q4" = "Qwen3-VL-32B의 같은 50개 층을 MLX 4-bit로 만든 것으로, mlx-serve 패키지에서 받습니다. 다운로드는 67 GB 대신 16 GB, 메모리는 약 3분의 1입니다. 메모리가 적은 Mac에서 MLX를 돌릴 수 있는 것은 이 덕분입니다. 텍스트 전용이라 비전 부분이 없어서, 첫 프레임 및 첫·끝 프레임 렌더링에는 bfloat16 인코더가 필요합니다. 커뮤니티 양자화라 조건 신호가 기준과 조금 다를 수 있습니다.";
+"model.textEncoder.q4" = "Qwen3-VL-32B의 같은 50개 층을 MLX 4-bit로 만든 것으로, mlx-serve 패키지에서 받습니다. 다운로드는 67 GB 대신 16 GB입니다. 불러오기가 최고치를 정하는 미리보기 크기에서 최고치를 낮춥니다. 384p 렌더링은 약 61 GB로, bfloat16이면 최소 89 GB입니다. 전체 크기에서는 생성이 최고치를 정하므로 몇 GB만 줄어듭니다. 텍스트 전용이라 비전 부분이 없어서, 첫 프레임 및 첫·끝 프레임 렌더링에는 bfloat16 인코더가 필요합니다. 커뮤니티 양자화라 조건 신호가 기준과 조금 다를 수 있습니다.";
 
 "model.textEncoder.uncensored" = "거부 동작을 학습에서 제거한 Qwen3-VL-32B입니다. 기본 인코더와 그대로 바꿔 쓸 수 있습니다. 거부는 언어 모델 쪽에 있고 디퓨전 트랜스포머에는 없으므로 H3 자체는 달라지지 않습니다. ComfyUI 전용이며 MLX에는 이 형식의 로더가 없습니다.";
 

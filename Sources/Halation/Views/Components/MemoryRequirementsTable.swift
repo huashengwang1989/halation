@@ -52,11 +52,15 @@ struct MemoryRequirementsTable: View {
     /// What a render holds at peak, as a multiple of its weights. The two
     /// engines differ so much that one number for both is simply wrong.
     ///
-    /// **MLX, 2.4.** Measured on a 4-bit render: 50 GB of catalogue weights
-    /// against a kernel-reported lifetime peak of 120 GB. The port holds the
-    /// encoder and the transformer at once for the whole run, so the peak is
-    /// the sum plus working memory. On a 128 GB Mac that render drove swap to
-    /// 16 GB and still finished.
+    /// **MLX, 1.8.** Measured at 1344×768 on a 4-bit render: 50 GB of
+    /// catalogue weights against a kernel-reported lifetime peak of 88.9 GB.
+    /// It was 2.4 (120 GB) while the port held the encoder for the whole run;
+    /// since 0.6 the sidecar releases it once the prompt is encoded, and the
+    /// same render kept-versus-released measured 115.3 against 88.9 GB. The
+    /// peak is now set twice over, and both land near 89 GB at full size:
+    /// loading (both models resident, 88.8 GB) and diffusion plus decode.
+    /// The 4-bit encoder is not modelled here — it only moves the peak at
+    /// preview sizes. See verified-facts, *Releasing the encoder*.
     ///
     /// **ComfyUI, 1.41.** Measured on an INT8 FL2VA render at 1344×768: 55 GB
     /// of weights against a 77.6 GB peak. ComfyUI stages its models — the
@@ -68,7 +72,7 @@ struct MemoryRequirementsTable: View {
     ///
     /// Reusing MLX's 2.4 for ComfyUI, as this table first did, called a 96 GB
     /// Mac unusable for an engine that in fact fits inside its GPU budget.
-    static let mlxPeakMultiplier = 2.4
+    static let mlxPeakMultiplier = 1.8
     static let comfyPeakMultiplier = 1.41
 
     private var machines: [MachineSize] { MachineSize.all }
