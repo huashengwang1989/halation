@@ -276,15 +276,67 @@ final class AppState {
             return matchingTask ? entry.task == task : true
         }
 
-        if !stillFits(draft.transformerEntryID, matchingTask: true) {
-            draft.transformerEntryID = ModelCatalog.transformers(task: task)
-                .first { installed.contains($0.id) && $0.backend == backend }?.id
+        // What the user picked by hand for this engine and task comes before the
+        // catalog's own ranking. Without it every launch re-chose the largest
+        // installed transformer — bf16 — so someone who had moved to 4-bit to
+        // stop running out of memory was quietly put back on it by a relaunch.
+        let chosen = remembersEngine ? chosenModels : [:]
+        let chosenTransformer = chosen[Self.modelChoiceKey(.transformer, backend, task)]
+        let chosenEncoder = chosen[Self.modelChoiceKey(.textEncoder, backend, nil)]
+
+        if !stillFits(draft.transformerEntryID, matchingTask: true)
+            || (chosenTransformer != draft.transformerEntryID
+                && stillFits(chosenTransformer, matchingTask: true)) {
+            draft.transformerEntryID = stillFits(chosenTransformer, matchingTask: true)
+                ? chosenTransformer
+                : ModelCatalog.transformers(task: task)
+                    .first { installed.contains($0.id) && $0.backend == backend }?.id
         }
-        if !stillFits(draft.textEncoderEntryID, matchingTask: false) {
-            draft.textEncoderEntryID = ModelCatalog.entries(role: .textEncoder)
-                .filter { installed.contains($0.id) && $0.backend == backend }
-                .min { $0.approximateBytes < $1.approximateBytes }?.id
+        if !stillFits(draft.textEncoderEntryID, matchingTask: false)
+            || (chosenEncoder != draft.textEncoderEntryID
+                && stillFits(chosenEncoder, matchingTask: false)) {
+            draft.textEncoderEntryID = stillFits(chosenEncoder, matchingTask: false)
+                ? chosenEncoder
+                : ModelCatalog.entries(role: .textEncoder)
+                    .filter { installed.contains($0.id) && $0.backend == backend }
+                    .min { $0.approximateBytes < $1.approximateBytes }?.id
         }
+    }
+
+    /// Puts a checkpoint into the draft because the user asked for it, and
+    /// remembers that they did.
+    ///
+    /// Only a choice made by hand is recorded. The fallback in
+    /// `selectBestAvailableModels` is not, so a model that is briefly missing —
+    /// a drive not yet mounted — does not overwrite what the user picked.
+    func chooseModel(_ entry: CatalogEntry) {
+        if entry.role == .transformer {
+            draft.transformerEntryID = entry.id
+            // Selecting a checkpoint implies its task.
+            if let task = entry.task, task != draft.task {
+                draft.mode = task.supportedModes.first ?? draft.mode
+            }
+        } else {
+            draft.textEncoderEntryID = entry.id
+        }
+        guard remembersEngine else { return }
+        var chosen = chosenModels
+        chosen[Self.modelChoiceKey(entry.role, entry.backend,
+                                   entry.role == .transformer ? entry.task : nil)] = entry.id
+        UserDefaults.standard.set(chosen, forKey: Self.chosenModelsKey)
+    }
+
+    /// Hand-picked checkpoints, one per engine and role — and per task for a
+    /// transformer, since each task has its own.
+    private var chosenModels: [String: String] {
+        UserDefaults.standard.dictionary(forKey: Self.chosenModelsKey) as? [String: String] ?? [:]
+    }
+
+    private static let chosenModelsKey = "chosenComposeModels"
+
+    private static func modelChoiceKey(_ role: ModelRole, _ backend: BackendID,
+                                       _ task: ModelTask?) -> String {
+        [backend.rawValue, role.rawValue, task?.rawValue].compactMap { $0 }.joined(separator: ".")
     }
 
     /// The same choice `selectBestAvailableModels` makes, applied to a spec

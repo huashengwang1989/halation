@@ -7187,6 +7187,74 @@
       "level": "info"
     },
     {
+      "key": "sampling.cache.threshold",
+      "values": {
+        "en": "Reuse threshold",
+        "zh-Hant": "重用門檻",
+        "zh-Hans": "复用阈值",
+        "de": "Wiederverwendungsschwelle",
+        "ar": "عتبة إعادة الاستخدام",
+        "ja": "再利用のしきい値",
+        "ko": "재사용 임계값",
+        "th": "เกณฑ์การใช้ซ้ำ",
+        "yue-Hant": "重用門檻",
+        "en-SG": "Reuse threshold"
+      },
+      "note": "Labels the slider setting how readily a denoising step is reused.",
+      "level": "info"
+    },
+    {
+      "key": "sampling.cache.threshold.closer",
+      "values": {
+        "en": "Closer",
+        "zh-Hant": "較接近",
+        "zh-Hans": "较接近",
+        "de": "Genauer",
+        "ar": "أقرب",
+        "ja": "忠実",
+        "ko": "충실",
+        "th": "ใกล้เคียง",
+        "yue-Hant": "貼近啲",
+        "en-SG": "Closer"
+      },
+      "note": "Low end of the reuse-threshold slider: closer to the full render. One short word; it sits beside the slider.",
+      "level": "info"
+    },
+    {
+      "key": "sampling.cache.threshold.detail",
+      "values": {
+        "en": "How much a step may change and still be reused. Higher skips more steps and strays further from the full render. %1$@ is the default both ComfyUI nodes ship with.",
+        "zh-Hant": "某一步變化多少以內仍可重用。數值越高，略過的步數越多，與完整算繪的差距也越大。%1$@ 是兩個 ComfyUI 節點的預設值。",
+        "zh-Hans": "某一步变化多少以内仍可复用。数值越高，跳过的步数越多，与完整渲染的差距也越大。%1$@ 是两个 ComfyUI 节点的默认值。",
+        "de": "Wie stark sich ein Schritt ändern darf, um trotzdem wiederverwendet zu werden. Höher überspringt mehr Schritte und entfernt sich weiter vom vollständigen Rendering. %1$@ ist der Standardwert beider ComfyUI-Nodes.",
+        "ar": "مقدار التغيّر المسموح به في الخطوة مع بقائها قابلة لإعادة الاستخدام. القيمة الأعلى تتخطى خطوات أكثر وتبتعد أكثر عن التصيير الكامل. ‏%1$@ هي القيمة الافتراضية في عقدتَي ComfyUI.",
+        "ja": "どの程度の変化までならステップを再利用するかを決めます。値を上げるほど省くステップが増え、完全な生成からは離れます。%1$@ は ComfyUI の 2 つのノードの既定値です。",
+        "ko": "스텝이 얼마나 변해도 재사용할지 정합니다. 값이 높을수록 더 많은 스텝을 건너뛰고 전체 렌더링과는 더 멀어집니다. %1$@은(는) 두 ComfyUI 노드의 기본값입니다.",
+        "th": "สเต็ปเปลี่ยนได้มากแค่ไหนแล้วยังนำมาใช้ซ้ำได้ ค่าสูงจะข้ามสเต็ปมากขึ้นและห่างจากการเรนเดอร์เต็มมากขึ้น %1$@ คือค่าเริ่มต้นของโหนด ComfyUI ทั้งสอง",
+        "yue-Hant": "一步變幾多以內仲可以重用。數值越高，跳過嘅步數越多，同完整算圖差得越遠。%1$@ 係兩個 ComfyUI 節點嘅預設值。",
+        "en-SG": "How much one step can change and still get reused. Higher skips more steps and goes further from the full render. %1$@ is the default both ComfyUI nodes come with."
+      },
+      "note": "%1$@ is the default threshold, e.g. 0.20.",
+      "level": "info"
+    },
+    {
+      "key": "sampling.cache.threshold.faster",
+      "values": {
+        "en": "Faster",
+        "zh-Hant": "較快",
+        "zh-Hans": "较快",
+        "de": "Schneller",
+        "ar": "أسرع",
+        "ja": "高速",
+        "ko": "빠름",
+        "th": "เร็วขึ้น",
+        "yue-Hant": "快啲",
+        "en-SG": "Faster"
+      },
+      "note": "High end of the reuse-threshold slider. One short word.",
+      "level": "info"
+    },
+    {
       "key": "sampling.duration",
       "values": {
         "en": "Duration",
@@ -8600,18 +8668,18 @@
     {
       "key": "settings.remember.engine",
       "values": {
-        "en": "Remember the last engine",
-        "zh-Hant": "記住上次使用的引擎",
-        "zh-Hans": "记住上次使用的引擎",
-        "de": "Zuletzt verwendete Engine merken",
-        "ar": "تذكّر المحرّك المستخدم آخر مرة",
-        "ja": "前回のエンジンを覚えておく",
-        "ko": "마지막 엔진 기억하기",
-        "th": "จำ engine ล่าสุด",
-        "yue-Hant": "記住上次用嘅引擎",
-        "en-SG": "Remember the last engine"
+        "en": "Remember the last engine and models",
+        "zh-Hant": "記住上次使用的引擎與模型",
+        "zh-Hans": "记住上次使用的引擎与模型",
+        "de": "Zuletzt verwendete Engine und Modelle merken",
+        "ar": "تذكّر المحرّك والنماذج المستخدمة آخر مرة",
+        "ja": "前回のエンジンとモデルを覚えておく",
+        "ko": "마지막 엔진과 모델 기억하기",
+        "th": "จำ engine และโมเดลล่าสุด",
+        "yue-Hant": "記住上次用嘅引擎同模型",
+        "en-SG": "Remember the last engine and models"
       },
-      "note": "",
+      "note": "Covers the transformer and text encoder picked by hand, too.",
       "level": "info"
     },
     {

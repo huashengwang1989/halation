@@ -57,7 +57,8 @@ struct SummaryContent: View {
                     // render would be a line of noise.
                     if case let cache = app.draft.sampling.stepCache
                         .resolved(for: app.draftBackend), cache != .off {
-                        SpecRow(label: loc("sampling.cache"), value: cache.label)
+                        SpecRow(label: loc("sampling.cache"),
+                                value: "\(cache.label) · \(Format.threshold(app.draft.sampling.stepCacheThreshold))")
                     }
                     SpecRow(label: loc("compose.codec"), value: app.draft.format.codec.label)
                     if let bitrate = app.draft.format.estimatedBitrate() {

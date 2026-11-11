@@ -945,6 +945,18 @@
 /* The MLX engine's step reuse. Same algorithm as EasyCache, but Halation's code rather than ComfyUI's, so it does not claim the name. */
 "sampling.cache.reuse.detail" = "출력이 거의 변하지 않은 스텝을 재사용합니다. 더 빠르지만 같은 시드를 전부 계산한 결과와는 달라집니다. 미리보기용입니다. MLX 포팅을 감싸는 Halation 자체 구현이며, 스텝 수가 많을수록 절약도 커집니다.";
 
+/* Labels the slider setting how readily a denoising step is reused. */
+"sampling.cache.threshold" = "재사용 임계값";
+
+/* Low end of the reuse-threshold slider: closer to the full render. One short word; it sits beside the slider. */
+"sampling.cache.threshold.closer" = "충실";
+
+/* %1$@ is the default threshold, e.g. 0.20. */
+"sampling.cache.threshold.detail" = "스텝이 얼마나 변해도 재사용할지 정합니다. 값이 높을수록 더 많은 스텝을 건너뛰고 전체 렌더링과는 더 멀어집니다. %1$@은(는) 두 ComfyUI 노드의 기본값입니다.";
+
+/* High end of the reuse-threshold slider. One short word. */
+"sampling.cache.threshold.faster" = "빠름";
+
 /* How long the finished clip will be, in the Sampling card. A length the user is choosing. Distinct from library.duration, which reports the length of a video already made. */
 "sampling.duration" = "길이";
 
@@ -1142,7 +1154,8 @@
 
 "settings.recheck" = "다시 확인";
 
-"settings.remember.engine" = "마지막 엔진 기억하기";
+/* Covers the transformer and text encoder picked by hand, too. */
+"settings.remember.engine" = "마지막 엔진과 모델 기억하기";
 
 "settings.remember.mode" = "마지막 모드 기억하기";
 

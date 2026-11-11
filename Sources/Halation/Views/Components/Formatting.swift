@@ -74,6 +74,14 @@ enum Format {
         return mbps.formatted(.number.precision(.fractionLength(digits))) + " Mb/s"
     }
 
+    /// A step-reuse threshold, always to two places so 0.20 and 0.25 line up
+    /// as the slider moves. Locale-aware, because the decimal mark is not a
+    /// full stop everywhere.
+    static func threshold(_ value: Double) -> String {
+        value.formatted(.number.precision(.fractionLength(2))
+            .locale(Localization.currentLocale))
+    }
+
     static func relative(_ date: Date) -> String {
         let formatter = RelativeDateTimeFormatter()
         formatter.unitsStyle = .abbreviated

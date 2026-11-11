@@ -131,6 +131,40 @@ struct SamplingCard: View {
                         .fixedSize(horizontal: false, vertical: true)
                 }
 
+                // Only while reuse is on: a threshold for something switched
+                // off is a control that does nothing.
+                if spec.sampling.stepCache.resolved(for: app.draftBackend) != .off {
+                    VStack(alignment: .leading, spacing: 4) {
+                        LabeledContent(loc("sampling.cache.threshold")) {
+                            HStack {
+                                Slider(value: $spec.sampling.stepCacheThreshold,
+                                       in: StepCache.thresholdRange,
+                                       step: StepCache.thresholdStep,
+                                       onEditingChanged: { editing in
+                                           guard !editing else { return }
+                                           InteractionLog.shared.record(
+                                               .slide, "sampling.cache.threshold",
+                                               value: Format.threshold(
+                                                   spec.sampling.stepCacheThreshold))
+                                       },
+                                       minimumValueLabel: Text(loc("sampling.cache.threshold.closer")),
+                                       maximumValueLabel: Text(loc("sampling.cache.threshold.faster"))) {
+                                    Text(loc("sampling.cache.threshold"))
+                                }
+                                .labelsHidden()
+                                Text(Format.threshold(spec.sampling.stepCacheThreshold))
+                                    .monospacedDigit()
+                                    .frame(width: 42, alignment: .trailing)
+                            }
+                        }
+                        Text(loc("sampling.cache.threshold.detail",
+                                 Format.threshold(StepCache.Defaults.reuseThreshold)))
+                            .font(.caption)
+                            .foregroundStyle(.secondary)
+                            .fixedSize(horizontal: false, vertical: true)
+                    }
+                }
+
                 Divider()
 
                 Toggle(loc("sampling.seed.fixed"), isOn: Binding(

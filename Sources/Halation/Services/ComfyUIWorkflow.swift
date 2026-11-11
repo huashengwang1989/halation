@@ -69,7 +69,7 @@ struct ComfyUIWorkflow {
         if let cacheNode = spec.sampling.stepCache.resolved(for: .comfyUI).comfyClassType {
             nodes[Node.stepCache] = node(cacheNode, [
                 "model": modelSource,
-                "reuse_threshold": StepCache.Defaults.reuseThreshold,
+                "reuse_threshold": spec.sampling.stepCacheThreshold,
                 "start_percent": StepCache.Defaults.startPercent,
                 "end_percent": StepCache.Defaults.endPercent,
                 "verbose": false,

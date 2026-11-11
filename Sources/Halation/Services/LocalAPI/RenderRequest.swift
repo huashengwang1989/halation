@@ -20,9 +20,12 @@ struct RenderRequest: Decodable {
     var aspect: String?
     var resolution: String?
     var codec: String?
-    /// `off`, `easycache` or `lazycache`. ComfyUI only, and a preview setting:
-    /// it buys time with quality.
+    /// `off`, `easycache` or `lazycache` on ComfyUI; `off` or `reuse` on MLX.
+    /// A preview setting: it buys time with quality.
     var cache: String?
+    /// How readily a step is reused, 0.05 to 0.5. Higher is faster and further
+    /// from the full render. Ignored while `cache` is off.
+    var cache_threshold: Double?
     /// Omit for a fresh roll; give one to reproduce a previous render exactly.
     var seed: Int64?
 
@@ -69,6 +72,9 @@ struct RenderRequest: Decodable {
         if let codec, let parsed = VideoCodec(rawValue: codec) { spec.format.codec = parsed }
         if let cache, let parsed = StepCache(rawValue: cache.lowercased()) {
             spec.sampling.stepCache = parsed
+        }
+        if let cache_threshold {
+            spec.sampling.stepCacheThreshold = StepCache.clampedThreshold(cache_threshold)
         }
 
         // References are not accepted over the API: they are files on disk, and

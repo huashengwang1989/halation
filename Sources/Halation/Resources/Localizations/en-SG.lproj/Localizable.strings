@@ -945,6 +945,18 @@
 /* The MLX engine's step reuse. Same algorithm as EasyCache, but Halation's code rather than ComfyUI's, so it does not claim the name. */
 "sampling.cache.reuse.detail" = "Reuses a step when its output has barely moved. Faster, and the clip will differ from the same seed rendered in full — meant for previews. Halation's own, applied around the MLX port; the saving grows with the step count.";
 
+/* Labels the slider setting how readily a denoising step is reused. */
+"sampling.cache.threshold" = "Reuse threshold";
+
+/* Low end of the reuse-threshold slider: closer to the full render. One short word; it sits beside the slider. */
+"sampling.cache.threshold.closer" = "Closer";
+
+/* %1$@ is the default threshold, e.g. 0.20. */
+"sampling.cache.threshold.detail" = "How much one step can change and still get reused. Higher skips more steps and goes further from the full render. %1$@ is the default both ComfyUI nodes come with.";
+
+/* High end of the reuse-threshold slider. One short word. */
+"sampling.cache.threshold.faster" = "Faster";
+
 /* How long the finished clip will be, in the Sampling card. A length the user is choosing. Distinct from library.duration, which reports the length of a video already made. */
 "sampling.duration" = "How Long";
 
@@ -1142,7 +1154,8 @@
 
 "settings.recheck" = "Check Again";
 
-"settings.remember.engine" = "Remember the last engine";
+/* Covers the transformer and text encoder picked by hand, too. */
+"settings.remember.engine" = "Remember the last engine and models";
 
 "settings.remember.mode" = "Remember the last mode";
 

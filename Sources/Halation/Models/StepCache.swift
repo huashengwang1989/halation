@@ -90,6 +90,22 @@ enum StepCache: String, Codable, CaseIterable, Sendable, Identifiable {
         return self == .off ? .off : (options.first { $0 != .off } ?? .off)
     }
 
+    /// The range the threshold slider offers.
+    ///
+    /// ComfyUI's nodes accept 0 to 3, but that is a type bound, not advice. At 0
+    /// nothing is ever reused — the same as off, only slower for the bookkeeping
+    /// — and past about half the estimate lets most of the schedule go by
+    /// uncomputed, which stops being a preview of anything. 0.2 is the default
+    /// both nodes ship with; on a 16-step MLX render it reused 6 or 7 steps.
+    static let thresholdRange = 0.05...0.5
+    static let thresholdStep = 0.05
+
+    /// A threshold brought back inside the range, for values that arrive from
+    /// outside the slider: an older saved setting, or the local API.
+    static func clampedThreshold(_ value: Double) -> Double {
+        min(max(value, thresholdRange.lowerBound), thresholdRange.upperBound)
+    }
+
     /// ComfyUI's own defaults for both nodes, which agree with each other.
     /// Named rather than written into the graph so the numbers can be found.
     enum Defaults {

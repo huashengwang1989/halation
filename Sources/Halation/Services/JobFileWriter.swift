@@ -34,7 +34,7 @@ struct JobFileWriter {
         let cache = spec.sampling.stepCache.resolved(for: .mlx)
         if cache != .off {
             payload["step_cache"] = cache.mlxName
-            payload["step_cache_threshold"] = StepCache.Defaults.reuseThreshold
+            payload["step_cache_threshold"] = spec.sampling.stepCacheThreshold
             payload["step_cache_start"] = StepCache.Defaults.startPercent
             payload["step_cache_end"] = StepCache.Defaults.endPercent
         }

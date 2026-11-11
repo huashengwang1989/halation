@@ -275,14 +275,6 @@ struct EntryRow: View {
     }
 
     private func select() {
-        if entry.role == .transformer {
-            app.draft.transformerEntryID = entry.id
-            // Selecting a checkpoint implies its task.
-            if let task = entry.task, task != app.draft.task {
-                app.draft.mode = task.supportedModes.first ?? app.draft.mode
-            }
-        } else {
-            app.draft.textEncoderEntryID = entry.id
-        }
+        app.chooseModel(entry)
     }
 }

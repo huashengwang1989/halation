@@ -117,8 +117,11 @@ struct SamplingSettings: Codable, Sendable, Hashable {
     /// the same amount of work whichever engine runs it.
     var steps: Int = 16
 
-    /// Reuse unchanged denoising steps instead of recomputing them. ComfyUI only.
+    /// Reuse unchanged denoising steps instead of recomputing them.
     var stepCache: StepCache = .off
+    /// How much change a step may show and still be reused. Higher reuses more:
+    /// faster, further from the full render. Read only while `stepCache` is on.
+    var stepCacheThreshold: Double = StepCache.Defaults.reuseThreshold
 
     /// What the MLX sidecar must be told to achieve `steps` forward passes.
     var mlxSigmaPoints: Int { steps + 1 }
@@ -147,6 +150,8 @@ struct SamplingSettings: Codable, Sendable, Hashable {
         steps = try c.decodeIfPresent(Int.self, forKey: .steps) ?? fallback.steps
         stepCache = try c.decodeIfPresent(StepCache.self, forKey: .stepCache)
             ?? fallback.stepCache
+        stepCacheThreshold = try c.decodeIfPresent(Double.self, forKey: .stepCacheThreshold)
+            .map(StepCache.clampedThreshold) ?? fallback.stepCacheThreshold
         seed = try c.decodeIfPresent(Int64.self, forKey: .seed)
     }
 
