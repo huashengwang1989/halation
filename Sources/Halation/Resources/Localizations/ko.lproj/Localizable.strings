@@ -45,13 +45,14 @@
 
 "automation.footnote" = "이 Mac의 다른 프로그램 — 대개 에이전트 — 이 이 기기가 무엇을 렌더링할 수 있는지 묻고 작업을 넘길 수 있게 합니다. 이 Mac 안에서만 수신하며, 모든 요청에 아래 토큰이 있어야 합니다.";
 
+"automation.guide" = "설정 단계";
+
+/* Introduces the numbered steps. Keep `halation` as-is: it is the command name. */
+"automation.guide.detail" = "이 앱에는 `halation` 명령이 들어 있으며 MCP 서버도 겸합니다. 각 단계를 직접 터미널에 붙여 넣으십시오. 실행하기 전에는 Mac에 아무것도 바뀌지 않습니다.";
+
 "automation.hide" = "가리기";
 
 "automation.http" = "또는 직접 호출";
-
-"automation.mcp" = "호출하는 법";
-
-"automation.mcp.detail" = "Halation에는 MCP 서버가 함께 들어 있습니다. 이것을 에이전트의 MCP 설정에 붙여 넣으십시오. 이 앱 안의 것을 가리키므로 따로 설치할 것이 없습니다.";
 
 /* Says why the snippet may not carry the real token: it is hidden until revealed, so copying during a screen share does not leak it. */
 "automation.mcp.token" = "먼저 위의 토큰을 표시하십시오. 그러지 않으면 토큰 자리에 자리표시자가 들어간 채로 복사됩니다.";
@@ -67,6 +68,33 @@
 
 /* WARNING: Shown while the server is up. The request count is there so the page shows the thing being used rather than merely switched on. */
 "automation.status.running" = "포트 %1$@에서 수신 중 · 요청 %2$@건 처리";
+
+"automation.step.agent" = "에이전트 연결";
+
+"automation.step.agent.detail" = "Claude Code라면 첫 줄을 실행하십시오. 다른 MCP 클라이언트라면 두 번째 것을 설정에 추가하십시오. 둘 다 토큰을 담지 않으므로 토큰을 새로 만들어도 끊기지 않습니다.";
+
+"automation.step.api" = "로컬 API 켜기";
+
+/* Names the automation.writes switch; keep it matching that string. */
+"automation.step.api.detail" = "이 페이지 위쪽의 스위치로 켭니다. 켜져 있을 때만 명령과 에이전트가 Halation에 연결됩니다. 보기만 하게 하려면 ‘렌더링 대기열 추가 허용’을 끈 채로 두십시오.";
+
+"automation.step.check" = "Halation에 연결되는지 확인";
+
+"automation.step.check.detail" = "주소와 토큰은 이 앱의 설정에서 스스로 찾습니다. 그 밖에 할 수 있는 일은 `halation help`로 볼 수 있습니다.";
+
+/* Accessibility label for a step's tick. */
+"automation.step.done" = "완료";
+
+"automation.step.link" = "명령을 PATH에 넣기";
+
+"automation.step.link.detail" = "~/.local/bin에 링크하므로 관리자 암호가 필요 없습니다. 링크는 앱 업데이트를 따라갑니다. 앱을 옮겼다면 다시 실행하십시오.";
+
+/* Keep “command not found” in English: it is what the shell prints. */
+"automation.step.path" = "그 뒤 터미널에 ‘command not found’가 뜨면 그 폴더를 PATH에 한 번 추가하십시오.";
+
+"automation.step.try" = "빠른 렌더링 해 보기";
+
+"automation.step.try.detail" = "단계 재사용을 켠 384p 미리보기는 한 시간이 아니라 몇 분이면 됩니다. ‘렌더링 대기열 추가 허용’이 켜져 있어야 합니다.";
 
 /* Heads the switch card. 'Local' is doing real work here: it says the port never leaves this machine. */
 "automation.title" = "로컬 API";
@@ -474,6 +502,8 @@
 
 "model.name.textEncoder.mlx" = "텍스트 인코더 — bfloat16";
 
+"model.name.textEncoder.q4" = "텍스트 인코더 — 4-bit (MLX)";
+
 "model.name.textEncoder.uncensored" = "텍스트 인코더 — INT8 ConvRot, 무검열";
 
 "model.ref2va.bf16" = "업스트림 bf16 Ref2VA 체크포인트입니다. 선택지가 보이도록 실어 두었지만, MLX 이식판 파이프라인은 키프레임만 받고 참조 조건화 경로가 없어 아직 이 앱에서는 구동할 수 없습니다.";
@@ -482,7 +512,10 @@
 
 "model.support.mlx" = "비디오 VAE(10.4 GB), 오디오 VAE, 프로세서, 토크나이저로, 파이프라인이 한 덩어리로 불러오는 FL2VA 작업 디렉터리에서 가져옵니다. 모든 실행에 필요합니다.";
 
-"model.textEncoder.mlx" = "bfloat16 Qwen3-VL-32B — H3는 이 모델의 50번째 층 은닉 상태를 읽습니다. 단일 항목으로 가장 큰 다운로드이며, 현재 MLX 파이프라인이 불러올 수 있는 유일한 텍스트 인코더입니다. 상주 약 34 GB로, 이 앱이 특정 Mac에서 돌아가는지를 정하는 것은 트랜스포머가 아니라 이것입니다. 양자화로도 줄지 않는 고정 비용이며, 더 작은 트랜스포머로 바꿔도 최대 29 GB밖에 아끼지 못합니다. 다만 가중치만으로는 판단할 수 없습니다. 실제로 필요한 양은 요구 사항 탭을 보십시오. VAE와 나란히 FL2VA/ 에 설치됩니다.";
+/* Mode names (first-frame, first-and-last-frame) should match how the modes are named elsewhere in this language. */
+"model.textEncoder.mlx" = "bfloat16 Qwen3-VL-32B — H3는 이 모델의 50번째 층 은닉 상태를 읽습니다. 단일 항목으로 가장 큰 다운로드이며 기준 인코더입니다. 이미지를 읽는 부분이 있는 유일한 인코더라서, 첫 프레임 및 첫·끝 프레임 렌더링에는 이것이 필요합니다. 프롬프트를 인코딩하는 동안 메모리를 가장 많이 쓰지만, Halation은 트랜스포머가 돌기 전에 이를 해제하므로 모델을 불러오는 동안에만 최고치를 끌어올립니다. 4비트 인코더는 텍스트에 대해 같은 일을 약 3분의 1의 메모리로 해냅니다. 실제로 필요한 양은 요구 사항 탭을 보십시오. VAE와 나란히 FL2VA/ 에 설치됩니다.";
+
+"model.textEncoder.q4" = "Qwen3-VL-32B의 같은 50개 층을 MLX 4-bit로 만든 것으로, mlx-serve 패키지에서 받습니다. 다운로드는 67 GB 대신 16 GB, 메모리는 약 3분의 1입니다. 메모리가 적은 Mac에서 MLX를 돌릴 수 있는 것은 이 덕분입니다. 텍스트 전용이라 비전 부분이 없어서, 첫 프레임 및 첫·끝 프레임 렌더링에는 bfloat16 인코더가 필요합니다. 커뮤니티 양자화라 조건 신호가 기준과 조금 다를 수 있습니다.";
 
 "model.textEncoder.uncensored" = "거부 동작을 학습에서 제거한 Qwen3-VL-32B입니다. 기본 인코더와 그대로 바꿔 쓸 수 있습니다. 거부는 언어 모델 쪽에 있고 디퓨전 트랜스포머에는 없으므로 H3 자체는 달라지지 않습니다. ComfyUI 전용이며 MLX에는 이 형식의 로더가 없습니다.";
 
@@ -569,6 +602,12 @@
 
 "models.rescan.help" = "공유 모델 폴더를 다시 읽습니다";
 
+/* Button on a model whose download was interrupted. Short: the button is narrow. */
+"models.resume" = "이어받기";
+
+/* Tooltip. %1$@ is what is on disk, %2$@ the full size, e.g. 12.3 GB of 66.7 GB. */
+"models.resume.help" = "%2$@ 중 %1$@는 이미 받았습니다. 이어받으면 나머지만 받고, 쓰기 전에 파일 전체를 검사합니다.";
+
 /* WARNING: Injects a name into a sentence. Languages that inflect a noun for case, choose an article by gender, or attach a vowel-harmonising suffix cannot do it without knowing the word, and it is only known at runtime. Prefer wording that sets the name apart — quoted, or on its own line. */
 "models.revealInFinder" = "Finder에서 %@ 보기";
 
@@ -582,6 +621,11 @@
 "models.showIncompatible.help" = "이 Mac에서 실행할 수 없는 형식의 체크포인트도 포함합니다";
 
 "models.spaceWarning" = "권장 세트에는 약 %@ 에 더해 렌더링 중 임시 공간이 필요합니다.";
+
+/* Small link under Resume. Discards the partial download. */
+"models.startOver" = "처음부터";
+
+"models.startOver.help" = "지금까지 받은 것을 버리고 파일 전체를 다시 받습니다.";
 
 "models.status.inUse" = "다운로드되어 이번 렌더링에 사용됩니다";
 
@@ -711,6 +755,9 @@
 "problem.chooseCheckpoint" = "모델에서 %@ 체크포인트를 고르세요.";
 
 "problem.duration" = "H3는 4~15초 길이의 클립만 생성합니다.";
+
+/* Blocking problem. %1$@ is the encoder's name, e.g. Text encoder — 4-bit (MLX). Mode names should match mode.t2v. */
+"problem.encoderTextOnly" = "%1$@은(는) 텍스트만 읽는데, 이 모드는 키프레임 이미지를 넘깁니다. 모델에서 bfloat16 텍스트 인코더를 고르거나 ‘텍스트로 비디오’로 바꾸세요.";
 
 /* A blocking problem on Compose, beside a button that opens the terms. The welcome dialog can be skipped, so this is reachable in normal use. */
 "problem.licence" = "모델 라이선스에 아직 동의하지 않았습니다.";

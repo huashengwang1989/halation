@@ -45,13 +45,14 @@
 
 "automation.footnote" = "Erlaubt einem anderen Programm auf diesem Mac — meist einem Agenten — zu fragen, was diese Maschine rendern kann, und ihr Arbeit zu übergeben. Lauscht nur auf diesem Mac, und jede Anfrage muss das Token unten mitführen.";
 
+"automation.guide" = "Einrichten";
+
+/* Introduces the numbered steps. Keep `halation` as-is: it is the command name. */
+"automation.guide.detail" = "Halation bringt in dieser App einen Befehl `halation` mit, der zugleich ein MCP-Server ist. Fügen Sie jeden Schritt selbst im Terminal ein; vorher ändert sich an Ihrem Mac nichts.";
+
 "automation.hide" = "Verbergen";
 
 "automation.http" = "Oder direkt aufrufen";
-
-"automation.mcp" = "Wie man damit spricht";
-
-"automation.mcp.detail" = "Halation bringt einen MCP-Server mit. Fügen Sie dies in die MCP-Konfiguration Ihres Agenten ein — es benennt die Kopie in dieser App, sonst ist nichts zu installieren.";
 
 /* Says why the snippet may not carry the real token: it is hidden until revealed, so copying during a screen share does not leak it. */
 "automation.mcp.token" = "Zeigen Sie zuerst das Token oben an, sonst wird der Ausschnitt mit einem Platzhalter an seiner Stelle kopiert.";
@@ -67,6 +68,33 @@
 
 /* WARNING: Shown while the server is up. The request count is there so the page shows the thing being used rather than merely switched on. */
 "automation.status.running" = "Lauscht auf Port %1$@ · %2$@ Anfrage(n) beantwortet";
+
+"automation.step.agent" = "Einen Agenten verbinden";
+
+"automation.step.agent.detail" = "Für Claude Code führen Sie die erste Zeile aus. Für andere MCP-Clients fügen Sie den zweiten Block in deren Konfiguration ein. Keiner enthält das Token, ein neues Token bricht also nichts.";
+
+"automation.step.api" = "Lokale API einschalten";
+
+/* Names the automation.writes switch; keep it matching that string. */
+"automation.step.api.detail" = "Mit dem Schalter oben auf dieser Seite. Nur dann erreichen Befehl und Agenten Halation; lassen Sie „Renders in die Warteschlange erlauben“ aus, wenn sie nur nachsehen sollen.";
+
+"automation.step.check" = "Prüfen, ob Halation erreichbar ist";
+
+"automation.step.check.detail" = "Adresse und Token liest er selbst aus den Einstellungen dieser App. `halation help` zeigt, was er sonst kann.";
+
+/* Accessibility label for a step's tick. */
+"automation.step.done" = "Erledigt";
+
+"automation.step.link" = "Den Befehl in den PATH legen";
+
+"automation.step.link.detail" = "Das verlinkt ihn nach ~/.local/bin, ohne Administratorpasswort. Der Link folgt den Updates der App; führen Sie ihn erneut aus, wenn Sie die App verschieben.";
+
+/* Keep “command not found” in English: it is what the shell prints. */
+"automation.step.path" = "Meldet das Terminal danach „command not found“, fügen Sie den Ordner einmalig dem PATH hinzu:";
+
+"automation.step.try" = "Ein schnelles Rendern ausprobieren";
+
+"automation.step.try.detail" = "Eine 384p-Vorschau mit Schritt-Wiederverwendung dauert Minuten statt einer Stunde. Erfordert „Renders in die Warteschlange erlauben“.";
 
 /* Heads the switch card. 'Local' is doing real work here: it says the port never leaves this machine. */
 "automation.title" = "Lokale API";
@@ -474,6 +502,8 @@
 
 "model.name.textEncoder.mlx" = "Text-Encoder – bfloat16";
 
+"model.name.textEncoder.q4" = "Text-Encoder – 4-bit (MLX)";
+
 "model.name.textEncoder.uncensored" = "Text-Encoder – INT8 ConvRot, ohne Filter";
 
 "model.ref2va.bf16" = "Upstream-bf16-Checkpoint für Ref2VA. Nur aufgeführt, damit die Option sichtbar ist: Die Pipeline der MLX-Portierung akzeptiert ausschließlich Keyframes und kennt keinen Pfad für Referenzkonditionierung, lässt sich also aus dieser App noch nicht ansteuern.";
@@ -482,7 +512,10 @@
 
 "model.support.mlx" = "Video-VAE (10,4 GB), Audio-VAE, Prozessor und Tokenizer aus dem FL2VA-Aufgabenverzeichnis, das die Pipeline als Einheit lädt. Für jeden Lauf erforderlich.";
 
-"model.textEncoder.mlx" = "Qwen3-VL-32B in bfloat16 – H3 liest dessen Hidden States aus Schicht 50. Der größte Einzeldownload und derzeit der einzige Text-Encoder, den die MLX-Pipeline laden kann. Mit rund 34 GB resident entscheidet er, nicht der Transformer, ob die App auf einem Mac läuft: ein fester Posten, den keine Quantisierung senkt, und ein kleinerer Transformer spart höchstens 29 GB dagegen. Die Gewichte allein sind aber nicht der Maßstab — was eine Maschine wirklich braucht, steht im Tab „Anforderungen“. Wird neben den VAEs unter FL2VA/ installiert.";
+/* Mode names (first-frame, first-and-last-frame) should match how the modes are named elsewhere in this language. */
+"model.textEncoder.mlx" = "Qwen3-VL-32B in bfloat16 – H3 liest dessen Hidden States aus Schicht 50. Der größte Einzeldownload und der Referenz-Encoder: der einzige mit Bildteil, daher brauchen Renderings ab erstem Bild sowie ab erstem und letztem Bild ihn. Beim Kodieren des Prompts belegt er mehr Speicher als alles andere; danach gibt Halation ihn frei, bevor der Transformer läuft, sodass er die Spitze nur beim Laden der Modelle erhöht. Der 4-Bit-Encoder erledigt dieselbe Arbeit für Text mit etwa einem Drittel des Speichers. Was eine Maschine wirklich braucht, steht im Tab „Anforderungen“. Wird neben den VAEs unter FL2VA/ installiert.";
+
+"model.textEncoder.q4" = "Dieselben 50 Schichten von Qwen3-VL-32B in MLX 4-bit, aus dem Paket von mlx-serve: 16 GB Download statt 67 und etwa ein Drittel des Speichers. Damit läuft MLX überhaupt erst auf einem Mac mit weniger Speicher. Nur Text – ohne Vision-Teil, daher brauchen Renderings mit erstem oder erstem und letztem Bild den bfloat16-Encoder. Eine Community-Quantisierung; die Konditionierung kann leicht von der Referenz abweichen.";
 
 "model.textEncoder.uncensored" = "Qwen3-VL-32B, dem das Verweigerungsverhalten abtrainiert wurde. Direkter Ersatz für den Standard-Encoder – H3 selbst bleibt unverändert, da Verweigerungen im Sprachmodell sitzen, nicht im Diffusion-Transformer. Nur ComfyUI; MLX hat keinen Loader für dieses Format.";
 
@@ -569,6 +602,12 @@
 
 "models.rescan.help" = "Den gemeinsamen Modellordner neu einlesen";
 
+/* Button on a model whose download was interrupted. Short: the button is narrow. */
+"models.resume" = "Fortsetzen";
+
+/* Tooltip. %1$@ is what is on disk, %2$@ the full size, e.g. 12.3 GB of 66.7 GB. */
+"models.resume.help" = "%1$@ von %2$@ sind bereits da. Beim Fortsetzen wird nur der Rest geladen und die ganze Datei vor der Verwendung geprüft.";
+
 /* WARNING: Injects a name into a sentence. Languages that inflect a noun for case, choose an article by gender, or attach a vowel-harmonising suffix cannot do it without knowing the word, and it is only known at runtime. Prefer wording that sets the name apart — quoted, or on its own line. */
 "models.revealInFinder" = "%@ im Finder zeigen";
 
@@ -582,6 +621,11 @@
 "models.showIncompatible.help" = "Auch Checkpoints in Formaten zeigen, die dieser Mac nicht ausführen kann";
 
 "models.spaceWarning" = "Der empfohlene Satz benötigt etwa %@, zuzüglich Arbeitsspeicherplatz beim Rendern.";
+
+/* Small link under Resume. Discards the partial download. */
+"models.startOver" = "Neu beginnen";
+
+"models.startOver.help" = "Das bisher Geladene verwerfen und die ganze Datei neu laden.";
 
 "models.status.inUse" = "Geladen und für dieses Rendering verwendet";
 
@@ -711,6 +755,9 @@
 "problem.chooseCheckpoint" = "Wähle unter „Modelle“ einen %@-Checkpoint.";
 
 "problem.duration" = "H3 erzeugt nur Clips von 4–15 Sekunden.";
+
+/* Blocking problem. %1$@ is the encoder's name, e.g. Text encoder — 4-bit (MLX). Mode names should match mode.t2v. */
+"problem.encoderTextOnly" = "%1$@ liest nur Text, dieser Modus übergibt aber Keyframe-Bilder. Wähle unter „Modelle“ den bfloat16-Text-Encoder oder wechsle zu „Text zu Video“.";
 
 /* A blocking problem on Compose, beside a button that opens the terms. The welcome dialog can be skipped, so this is reachable in normal use. */
 "problem.licence" = "Die Modelllizenz wurde noch nicht akzeptiert.";

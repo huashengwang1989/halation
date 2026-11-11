@@ -303,11 +303,11 @@ and ignored working memory, so it called 64 GB usable. Measured peaks say
 otherwise — see *Peak memory is per-engine* below. The live figures are computed
 in `MemoryRequirementsTable`, which is the thing to read, not a table in a file.
 
-The one durable fact here: the encoder is the larger half and is **fixed**.
-Qwen3-VL-32B in bfloat16 is about 34 GB resident against 12 GB for the 4-bit
-transformer, so choosing a smaller transformer saves at most 29 GB against a
-34 GB cost that never moves. No quantization rescues a machine that is too
-small.
+~~The encoder is the larger half and is fixed; no quantization rescues a
+machine that is too small.~~ **Wrong since 0.6.0** — kept struck through so it is
+not reintroduced. Two things changed it, both measured below in *Releasing the
+encoder*: the sidecar now frees the encoder once the prompt is encoded, and a
+4-bit encoder (mlx-serve's pack) loads for text-only modes.
 
 ### Peak memory is per-engine, and the difference is large
 
@@ -322,8 +322,28 @@ The ratio differs because **ComfyUI stages its models and MLX does not**. During
 the ComfyUI render the footprint sat at exactly 77.13 GB for the whole sampling
 phase — a plateau, not a spike, because the Torch MPS allocator takes a pool and
 reuses it — then fell to 29.78 GB the moment sampling ended and only the VAE was
-still needed. MLX holds the encoder and the transformer together for the whole
-run.
+still needed. MLX held the encoder and the transformer together for the whole
+run — until 0.6.0, below.
+
+### Releasing the encoder after encoding
+
+The MLX pipeline reads `self.text_encoder` once, at the top of `__call__`, and
+there is one sidecar process per render, so the encoder can be dropped as soon
+as the prompt is encoded (`low_memory.release_after_encode`). Measured on this
+Mac, MLX, 4-bit transformer, 1344×768, two passes, `ri_lifetime_max_phys_footprint`:
+
+| run | encoder | returned on release | lifetime peak | wall |
+|---|---|---|---|---|
+| A | bf16, kept | — | 115.3 GB | 854 s |
+| B | bf16, released | 50.3 GB | **88.9 GB** | 826 s |
+| C | 4-bit, released | 15.3 GB | *(in progress at commit)* | |
+
+With the encoder released, the peak moves from generation to **loading**
+(88.8 GB while preparing, 88.9 GB generating): both models are resident for a
+moment before encoding. So after this the encoder's size still sets the peak,
+through the load — which is what the 4-bit encoder addresses. Release is on by
+default; `HALATION_KEEP_TEXT_ENCODER=1` turns it off for comparison.
+`MemoryRequirementsTable` has not yet been recalibrated to these runs.
 
 Applying MLX's 2.4× to ComfyUI, which this table did at first, declared a 96 GB
 Mac unusable for a combination that in fact fits inside its GPU budget. **Do not
@@ -559,9 +579,41 @@ way the queue does while a model loads.
 
 A cancelled transfer leaves the repository's own folder scaffolding behind —
 `hf_hub_download` recreates the repo path under `local_dir`, and the move up to
-`dest_dir/<name>` only happens once the download finishes. An interrupted one
-therefore leaves an empty nested folder and a partial in `.cache`. Both are
-harmless and the partial is what lets a retry resume.
+`dest_dir/<name>` only happens once the download finishes.
+
+### huggingface_hub does not resume across runs; large files are ours
+
+This file used to say the hub's partial "is what lets a retry resume". **It is
+not.** Since 1.x `_download_to_tmp_and_move` writes to
+`<etag>.<uuid4[:8]>.incomplete`, opened `"wb"`, so a second run never finds the
+first run's bytes — the random suffix is visible in the two names above. A run
+that is killed (Cancel terminates the process) skips its `finally` and leaves
+that file as dead weight. The hub's own retry covers only a dropped connection
+within one run.
+
+So `resumable.py` fetches every LFS file of 256 MB or more itself: 64 MB ranges
+over parallel connections into `<target>.part`, with `<target>.part.json`
+recording finished ranges, a SHA-256 check against the hub's `lfs.sha256`, then
+a rename. For the cache layout the target is `blobs/<sha256>`; a blob already
+present is only linked by `snapshot_download`, never fetched, so calling it
+afterwards fills in the small files and the snapshot symlinks exactly as the hub
+would have. Measured: a 5.2 GB VAE interrupted twice (at 16 and 40 of 78 ranges)
+resumed from exactly 16 × 64 MB and finished with a matching SHA-256.
+
+`ModelStore.partialBytes` reads the `.part.json` files — not the `.part` size,
+which is created at full length (sparse) — and Models offers Resume and Start
+over. `--fresh` discards the partial and any stray hub `*.incomplete`.
+
+### A broken IPv6 route stalls Python, not curl
+
+On the development network, curl over IPv6 to Hugging Face's CDN moved **0
+bytes in 25 s**; over IPv4 it ran at 9.7 MB/s. curl and browsers race the two
+(RFC 8305); Python's sockets take resolver order and do not, so httpx — and
+therefore huggingface_hub, and the hub's first API call — stalled or crawled at
+under 1 MB/s. The downloader binds connections to `0.0.0.0` when the host has an
+IPv4 address, and installs the same transport as the hub's client factory
+(`route_hub_over_ipv4`). Forced onto IPv4 the same transfer ran at ~10 MB/s,
+the line's full speed.
 
 ### The catalogue's repository paths need checking, not assuming
 

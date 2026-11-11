@@ -30,6 +30,8 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 import protocol  # noqa: E402
 import h3_adapter  # noqa: E402
+import resumable  # noqa: E402
+import low_memory  # noqa: E402
 
 
 # ── doctor ──────────────────────────────────────────────────────────────────────
@@ -117,46 +119,84 @@ def cmd_download(args: argparse.Namespace) -> int:
     repo_id: str = args.repo
     patterns: Optional[List[str]] = json.loads(args.patterns) if args.patterns else None
 
+    try:
+        resumable.route_hub_over_ipv4()
+    except Exception as exc:  # an older hub without the hook: keep its default
+        protocol.log(f"Could not prefer IPv4 for the hub's own requests ({exc}).")
+
     # A single named file, fetched as a plain file rather than into the HF cache.
     # ComfyUI reads real files from its own folder layout; it cannot use the
     # symlinked cache tree the MLX path relies on.
     if args.file:
-        return _download_single(repo_id, args.file, args.dest)
+        return _download_single(repo_id, args.file, args.dest,
+                                fresh=args.fresh, workers=args.workers)
 
     protocol.stage("preparing")
     protocol.log(f"Resolving {repo_id}…")
 
-    total_bytes = 0
+    from huggingface_hub import HfApi, hf_hub_url
+    from huggingface_hub.utils import build_hf_headers
     try:
-        from huggingface_hub import HfApi
         info = HfApi().model_info(repo_id, files_metadata=True)
-        for sibling in info.siblings or []:
-            if patterns and not _matches(sibling.rfilename, patterns):
-                continue
-            total_bytes += getattr(sibling, "size", None) or 0
     except Exception as exc:
-        protocol.log(f"Could not read the file manifest ({exc}). Progress will be coarse.")
-
-    cache_dir = _repo_cache_dir(repo_id)
-    watcher = _SizeWatcher(repo_id, cache_dir, total_bytes)
-    protocol.download(repo_id, 0, total_bytes)
-
-    protocol.stage("generating")  # reuse the UI's "active" styling
-    watcher.start()
-    try:
-        path = snapshot_download(
-            repo_id=repo_id,
-            allow_patterns=patterns,
-            max_workers=args.workers,
-        )
-    except Exception as exc:
-        watcher.stop()
-        protocol.error(f"Download of {repo_id} failed: {exc}")
+        protocol.error(f"Could not read the file list of {repo_id}: {exc}")
         return 1
-    watcher.stop()
 
-    final = watcher.downloaded()
-    protocol.download(repo_id, total_bytes or final, total_bytes or final)
+    # Pinned to the commit just read, so a file's ranges cannot come from two
+    # different revisions if the repository is updated mid-transfer.
+    revision = info.sha
+    wanted = [sibling for sibling in info.siblings or []
+              if not patterns or _matches(sibling.rfilename, patterns)]
+    total_bytes = sum(getattr(sibling, "size", None) or 0 for sibling in wanted)
+    blobs = _repo_cache_dir(repo_id) / "blobs"
+
+    large = [sibling for sibling in wanted
+             if sibling.lfs and (sibling.size or 0) >= resumable.MIN_RESUMABLE_BYTES]
+    if args.fresh:
+        for sibling in large:
+            resumable.discard(blobs / sibling.lfs.sha256)
+        resumable.discard_hub_leftovers(blobs)
+
+    headers = build_hf_headers()
+    pending = [sibling for sibling in large if not (blobs / sibling.lfs.sha256).exists()]
+    already = total_bytes - sum(sibling.size for sibling in pending) \
+        - sum(sibling.size or 0 for sibling in wanted if sibling not in large)
+
+    protocol.download(repo_id, already, total_bytes)
+    protocol.stage("generating")  # reuse the UI's "active" styling
+
+    def report(completed: int, note: Optional[str]) -> None:
+        protocol.download(repo_id, min(completed, total_bytes), total_bytes, note)
+
+    try:
+        with resumable.ProgressPump(report) as pump:
+            pump.base = already
+            for sibling in pending:
+                transfer = resumable.ResumableFile(
+                    url=hf_hub_url(repo_id, sibling.rfilename, revision=revision),
+                    size=sibling.size, target=blobs / sibling.lfs.sha256,
+                    sha256=sibling.lfs.sha256, headers=headers,
+                    label=sibling.rfilename, workers=args.workers)
+                pump.sources = [transfer.completed_bytes]
+                pump.note = lambda t=transfer: (
+                    f"Checking {t.label}" if t.verifying else None)
+                resumed = transfer.part.exists()
+                transfer.run()
+                pump.base += sibling.size
+                pump.sources = []
+                protocol.log(f"{sibling.rfilename} {'resumed and ' if resumed else ''}verified.")
+
+            # The large blobs are in place, so this only fetches the small files
+            # and links everything into a snapshot the way the hub always does.
+            pump.note = lambda: "Linking files"
+            path = snapshot_download(repo_id=repo_id, revision=revision,
+                                     allow_patterns=patterns, max_workers=args.workers)
+    except Exception as exc:
+        protocol.error(f"Download of {repo_id} stopped: {exc}. "
+                       "What arrived is kept; Download again to resume.")
+        return 1
+
+    protocol.download(repo_id, total_bytes, total_bytes)
     protocol.log(f"{repo_id} is in place at {path}")
     protocol.done()
     return 0
@@ -185,7 +225,8 @@ def _prune_empty_children(directory: Path) -> None:
                 pass
 
 
-def _download_single(repo_id: str, filename: str, dest_dir: str) -> int:
+def _download_single(repo_id: str, filename: str, dest_dir: str,
+                     fresh: bool = False, workers: int = 8) -> int:
     """Fetch one file into `dest_dir`, reporting progress from its size on disk."""
     from huggingface_hub import hf_hub_download, HfApi
 
@@ -194,14 +235,22 @@ def _download_single(repo_id: str, filename: str, dest_dir: str) -> int:
     target = destination / Path(filename).name
 
     total = 0
+    found = None
+    revision = None
     try:
         info = HfApi().model_info(repo_id, files_metadata=True)
+        revision = info.sha
         for sibling in info.siblings or []:
             if sibling.rfilename == filename:
+                found = sibling
                 total = getattr(sibling, "size", None) or 0
                 break
     except Exception as exc:
         protocol.log(f"Could not read the manifest ({exc}). Progress will be coarse.")
+
+    if fresh:
+        resumable.discard(target)
+        resumable.discard_hub_leftovers(destination / ".cache")
 
     if target.exists() and total and target.stat().st_size >= total * 0.99:
         protocol.log(f"{target.name} is already present.")
@@ -211,6 +260,10 @@ def _download_single(repo_id: str, filename: str, dest_dir: str) -> int:
 
     # A transfer that was cancelled leaves the repository's folder shape behind.
     _prune_empty_children(destination)
+
+    if found is not None and found.lfs and total >= resumable.MIN_RESUMABLE_BYTES:
+        return _download_single_resumable(repo_id, filename, found, revision,
+                                          target, workers)
 
     protocol.stage("preparing")
     protocol.download(repo_id, 0, total)
@@ -242,6 +295,41 @@ def _download_single(repo_id: str, filename: str, dest_dir: str) -> int:
 
     protocol.download(repo_id, total or watcher.downloaded(), total or watcher.downloaded())
     protocol.log(f"{filename} is in place.")
+    protocol.done()
+    return 0
+
+
+def _download_single_resumable(repo_id: str, filename: str, sibling: Any,
+                               revision: Optional[str], target: Path, workers: int) -> int:
+    """A large single file, straight into place with `ResumableFile`."""
+    from huggingface_hub import hf_hub_url
+    from huggingface_hub.utils import build_hf_headers
+
+    transfer = resumable.ResumableFile(
+        url=hf_hub_url(repo_id, filename, revision=revision),
+        size=sibling.size, target=target, sha256=sibling.lfs.sha256,
+        headers=build_hf_headers(), label=Path(filename).name, workers=workers)
+    resumed = transfer.part.exists()
+
+    protocol.stage("preparing")
+    protocol.download(repo_id, 0, sibling.size)
+    protocol.stage("generating")
+
+    def report(completed: int, note: Optional[str]) -> None:
+        protocol.download(repo_id, completed, sibling.size, note)
+
+    try:
+        with resumable.ProgressPump(report) as pump:
+            pump.sources = [transfer.completed_bytes]
+            pump.note = lambda: f"Checking {transfer.label}" if transfer.verifying else None
+            transfer.run()
+    except Exception as exc:
+        protocol.error(f"Download of {filename} stopped: {exc}. "
+                       "What arrived is kept; Download again to resume.")
+        return 1
+
+    protocol.download(repo_id, sibling.size, sibling.size)
+    protocol.log(f"{filename} {'resumed and ' if resumed else ''}verified, and in place.")
     protocol.done()
     return 0
 
@@ -358,7 +446,8 @@ def cmd_generate(args: argparse.Namespace) -> int:
     reporter = protocol.StepReporter(max(1, steps - 1))
 
     _enable_loader_verbosity()
-    sizes = _component_file_sizes(checkpoint, job.get("transformer_path"))
+    sizes = _component_file_sizes(checkpoint, job.get("transformer_path"),
+                                  job.get("text_encoder_path"))
 
     # The pipeline prints "  step done/total" as it denoises and takes no callback,
     # so we tee stdout through a parser instead of losing the progress entirely.
@@ -372,12 +461,20 @@ def cmd_generate(args: argparse.Namespace) -> int:
     protocol.substage("Loading model", 0, sum(sizes.values()) or len(_LOAD_STEPS),
                       f"{_LOAD_STEPS[0]} first · {total_gb:.0f} GB of weights")
     try:
+        text_encoder_path = job.get("text_encoder_path")
         with contextlib.redirect_stdout(tee):
-            pipeline = MiniMaxH3Pipeline.from_pretrained(
-                checkpoint_dir=checkpoint,
-                transformer_dir=job.get("transformer_path"),
-                verbose=True,
-            )
+            if low_memory.is_quantized_pack(text_encoder_path):
+                # `from_pretrained` always loads `<checkpoint>/text_encoder`,
+                # so the 4-bit encoder needs the pipeline assembled here.
+                pipeline = low_memory.build_pipeline(
+                    MiniMaxH3Pipeline, checkpoint, job.get("transformer_path"),
+                    text_encoder_path)
+            else:
+                pipeline = MiniMaxH3Pipeline.from_pretrained(
+                    checkpoint_dir=checkpoint,
+                    transformer_dir=job.get("transformer_path"),
+                    verbose=True,
+                )
 
         images, anchors = _keyframes(job)
         _report_prompt_tokens(pipeline, job["prompt"], images)
@@ -387,6 +484,20 @@ def cmd_generate(args: argparse.Namespace) -> int:
         # cloned from upstream and replaced whenever the runtime is repaired,
         # so a change made in there would have to be made again every time.
         cache, restore_dit = _install_step_cache(pipeline, job, steps)
+
+        # The encoder is read once, at the start of the render, and then sits
+        # in memory beside the transformer for every step. Letting it go is
+        # the largest single saving there is: 34 GB in bfloat16.
+        # HALATION_KEEP_TEXT_ENCODER=1 keeps the old behaviour. It exists only so
+        # the saving can be measured against it; the app never sets it.
+        try:
+            if os.environ.get("HALATION_KEEP_TEXT_ENCODER") != "1":
+                low_memory.release_after_encode(
+                    pipeline,
+                    on_release=lambda freed: protocol.log(
+                        f"Text encoder released after encoding: {_si_bytes(freed)} returned."))
+        except Exception as exc:  # never fatal: the render works without it
+            protocol.log(f"Could not arrange to release the text encoder: {exc}")
 
         protocol.stage("generating")
         with contextlib.redirect_stdout(tee):
@@ -682,7 +793,8 @@ def _enable_loader_verbosity() -> bool:
     return patched
 
 
-def _component_file_sizes(checkpoint: str, transformer: Optional[str]) -> Dict[str, int]:
+def _component_file_sizes(checkpoint: str, transformer: Optional[str],
+                          text_encoder: Optional[str] = None) -> Dict[str, int]:
     """Map weight-file name -> size, across every component that will be loaded.
 
     Used to weight load progress by bytes rather than by component count, so the
@@ -690,8 +802,12 @@ def _component_file_sizes(checkpoint: str, transformer: Optional[str]) -> Dict[s
     Symlinks are followed: huggingface_hub stores content in a shared Xet tree.
     """
     sizes: Dict[str, int] = {}
-    roots = [os.path.join(checkpoint, name)
-             for name in ("text_encoder", "video_vae", "audio_vae")]
+    # The 4-bit pack is loaded from its own folder; the upstream encoder from
+    # the checkpoint's, whatever path the job names (see `low_memory`).
+    encoder_root = (text_encoder if low_memory.is_quantized_pack(text_encoder)
+                    else os.path.join(checkpoint, "text_encoder"))
+    roots = [encoder_root] + [os.path.join(checkpoint, name)
+                              for name in ("video_vae", "audio_vae")]
     roots.append(transformer or os.path.join(checkpoint, "transformer"))
 
     for root in roots:
@@ -803,6 +919,8 @@ def main(argv: Optional[List[str]] = None) -> int:
                           help="Fetch this single repo file instead of a snapshot.")
     download.add_argument("--dest", default=None,
                           help="Destination folder for --file.")
+    download.add_argument("--fresh", action="store_true",
+                          help="Discard any partial download and start from zero.")
     download.set_defaults(func=cmd_download)
 
     generate = subparsers.add_parser("generate")

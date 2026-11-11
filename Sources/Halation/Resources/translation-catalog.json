@@ -421,6 +421,40 @@
       "level": "info"
     },
     {
+      "key": "automation.guide",
+      "values": {
+        "en": "Setting it up",
+        "zh-Hant": "設定步驟",
+        "zh-Hans": "设置步骤",
+        "de": "Einrichten",
+        "ar": "خطوات الإعداد",
+        "ja": "設定の手順",
+        "ko": "설정 단계",
+        "th": "ขั้นตอนการตั้งค่า",
+        "yue-Hant": "設定步驟",
+        "en-SG": "Setting it up"
+      },
+      "note": "",
+      "level": "info"
+    },
+    {
+      "key": "automation.guide.detail",
+      "values": {
+        "en": "Halation ships a `halation` command and an MCP server in one, inside this app. Paste each step into Terminal yourself; nothing here changes your Mac until you do.",
+        "zh-Hant": "Halation 在本 App 內附帶一個 `halation` 指令，同時也是 MCP 伺服器。每一步請自行貼進「終端機」執行；在你執行之前，這裡不會改動你的 Mac。",
+        "zh-Hans": "Halation 在本 App 内附带一个 `halation` 命令，同时也是 MCP 服务器。每一步请自行粘贴到“终端”执行；在你执行之前，这里不会改动你的 Mac。",
+        "de": "Halation bringt in dieser App einen Befehl `halation` mit, der zugleich ein MCP-Server ist. Fügen Sie jeden Schritt selbst im Terminal ein; vorher ändert sich an Ihrem Mac nichts.",
+        "ar": "يأتي Halation داخل هذا التطبيق بالأمر `halation`، وهو أيضًا خادم MCP. الصق كل خطوة في Terminal بنفسك؛ لن يتغيّر شيء في جهاز Mac قبل أن تفعل.",
+        "ja": "このアプリには `halation` コマンドが入っていて、MCP サーバも兼ねています。各手順はご自身でターミナルに貼り付けてください。実行するまで Mac には何も変更が加わりません。",
+        "ko": "이 앱에는 `halation` 명령이 들어 있으며 MCP 서버도 겸합니다. 각 단계를 직접 터미널에 붙여 넣으십시오. 실행하기 전에는 Mac에 아무것도 바뀌지 않습니다.",
+        "th": "แอปนี้มีคำสั่ง `halation` มาให้ ซึ่งเป็นเซิร์ฟเวอร์ MCP ในตัว วางแต่ละขั้นตอนใน Terminal ด้วยตนเอง ก่อนหน้านั้นจะไม่มีอะไรเปลี่ยนใน Mac ของคุณ",
+        "yue-Hant": "呢個 App 入面有個 `halation` 指令，同時都係 MCP 伺服器。每一步請自己貼落「終端機」執行；你未執行之前，呢度唔會改你部 Mac 任何嘢。",
+        "en-SG": "Halation ships a `halation` command and an MCP server in one, inside this app. Paste each step into Terminal yourself; nothing here changes your Mac until you do."
+      },
+      "note": "Introduces the numbered steps. Keep `halation` as-is: it is the command name.",
+      "level": "info"
+    },
+    {
       "key": "automation.hide",
       "values": {
         "en": "Hide",
@@ -450,40 +484,6 @@
         "th": "หรือเรียกโดยตรง",
         "yue-Hant": "或者直接叫",
         "en-SG": "Or call it directly"
-      },
-      "note": "",
-      "level": "info"
-    },
-    {
-      "key": "automation.mcp",
-      "values": {
-        "en": "Talking to it",
-        "zh-Hant": "如何呼叫",
-        "zh-Hans": "如何调用",
-        "de": "Wie man damit spricht",
-        "ar": "كيف تخاطبها",
-        "ja": "呼び出しかた",
-        "ko": "호출하는 법",
-        "th": "วิธีเรียกใช้",
-        "yue-Hant": "點樣叫佢",
-        "en-SG": "Talking to it"
-      },
-      "note": "",
-      "level": "info"
-    },
-    {
-      "key": "automation.mcp.detail",
-      "values": {
-        "en": "Halation ships an MCP server. Paste this into your agent's MCP configuration — it names the copy inside this app, so there is nothing else to install.",
-        "zh-Hant": "Halation 內附一個 MCP 伺服器。把這段貼進你的代理的 MCP 設定即可——它指向本 App 內的那一份，不需要另外安裝任何東西。",
-        "zh-Hans": "Halation 内附一个 MCP 服务器。把这段贴进你的代理的 MCP 配置即可——它指向本 App 内的那一份，不需要另外安装任何东西。",
-        "de": "Halation bringt einen MCP-Server mit. Fügen Sie dies in die MCP-Konfiguration Ihres Agenten ein — es benennt die Kopie in dieser App, sonst ist nichts zu installieren.",
-        "ar": "يأتي Halation بخادم MCP. الصق هذا في إعدادات MCP الخاصة بوكيلك — فهو يشير إلى النسخة الموجودة داخل هذا التطبيق، ولا شيء آخر لتثبيته.",
-        "ja": "Halation には MCP サーバが同梱されています。これをエージェントの MCP 設定に貼り付けてください。このアプリの中にあるものを指しているので、ほかに入れるものはありません。",
-        "ko": "Halation에는 MCP 서버가 함께 들어 있습니다. 이것을 에이전트의 MCP 설정에 붙여 넣으십시오. 이 앱 안의 것을 가리키므로 따로 설치할 것이 없습니다.",
-        "th": "Halation มีเซิร์ฟเวอร์ MCP มาให้ วางค่านี้ในการตั้งค่า MCP ของเอเจนต์ของคุณ โดยชี้ไปที่ตัวที่อยู่ในแอปนี้ จึงไม่ต้องติดตั้งอะไรเพิ่ม",
-        "yue-Hant": "Halation 入面有個 MCP 伺服器。貼呢段落你個代理嘅 MCP 設定就得——佢指住呢個 App 入面嗰份，唔使再裝第二樣嘢。",
-        "en-SG": "Halation ships an MCP server. Paste this into your agent's MCP configuration — it names the copy inside this app, so there is nothing else to install."
       },
       "note": "",
       "level": "info"
@@ -589,6 +589,210 @@
       },
       "note": "Shown while the server is up. The request count is there so the page shows the thing being used rather than merely switched on.",
       "level": "warning"
+    },
+    {
+      "key": "automation.step.agent",
+      "values": {
+        "en": "Connect an agent",
+        "zh-Hant": "連接代理",
+        "zh-Hans": "连接代理",
+        "de": "Einen Agenten verbinden",
+        "ar": "اربط وكيلًا",
+        "ja": "エージェントをつなぐ",
+        "ko": "에이전트 연결",
+        "th": "เชื่อมต่อเอเจนต์",
+        "yue-Hant": "接駁代理",
+        "en-SG": "Connect an agent"
+      },
+      "note": "",
+      "level": "info"
+    },
+    {
+      "key": "automation.step.agent.detail",
+      "values": {
+        "en": "For Claude Code, run the first line. For any other MCP client, add the second to its configuration. Neither holds the token, so regenerating it never breaks them.",
+        "zh-Hant": "Claude Code 請執行第一行。其他 MCP 用戶端，請把第二段加進它的設定。兩者都不含權杖，所以重新產生權杖也不會令它們失效。",
+        "zh-Hans": "Claude Code 请执行第一行。其他 MCP 客户端，请把第二段加进它的配置。两者都不含令牌，所以重新生成令牌也不会令它们失效。",
+        "de": "Für Claude Code führen Sie die erste Zeile aus. Für andere MCP-Clients fügen Sie den zweiten Block in deren Konfiguration ein. Keiner enthält das Token, ein neues Token bricht also nichts.",
+        "ar": "في Claude Code شغّل السطر الأول. ولأي عميل MCP آخر أضف المقطع الثاني إلى إعداداته. لا يحمل أيّ منهما الرمز، فإعادة توليده لا تعطّلهما.",
+        "ja": "Claude Code なら 1 行目を実行してください。その他の MCP クライアントには、2 つ目を設定に追加してください。どちらもトークンを含まないので、トークンを作り直しても動かなくなることはありません。",
+        "ko": "Claude Code라면 첫 줄을 실행하십시오. 다른 MCP 클라이언트라면 두 번째 것을 설정에 추가하십시오. 둘 다 토큰을 담지 않으므로 토큰을 새로 만들어도 끊기지 않습니다.",
+        "th": "สำหรับ Claude Code ให้เรียกบรรทัดแรก สำหรับไคลเอนต์ MCP อื่น ให้เพิ่มส่วนที่สองในการตั้งค่า ทั้งสองไม่มีโทเคนอยู่ข้างใน การสร้างโทเคนใหม่จึงไม่ทำให้ใช้ไม่ได้",
+        "yue-Hant": "Claude Code 就行第一行。其他 MCP 用戶端，就將第二段加落佢嘅設定。兩樣都冇權杖喺入面，所以重新整過權杖都唔會整壞佢哋。",
+        "en-SG": "For Claude Code, run the first line. For any other MCP client, add the second to its configuration. Neither holds the token, so regenerating it never breaks them."
+      },
+      "note": "",
+      "level": "info"
+    },
+    {
+      "key": "automation.step.api",
+      "values": {
+        "en": "Turn on the local API",
+        "zh-Hant": "開啟本機 API",
+        "zh-Hans": "开启本机 API",
+        "de": "Lokale API einschalten",
+        "ar": "شغّل الواجهة البرمجية المحلية",
+        "ja": "ローカル API をオンにする",
+        "ko": "로컬 API 켜기",
+        "th": "เปิด API ภายในเครื่อง",
+        "yue-Hant": "開本機 API",
+        "en-SG": "Turn on the local API"
+      },
+      "note": "",
+      "level": "info"
+    },
+    {
+      "key": "automation.step.api.detail",
+      "values": {
+        "en": "With the switch at the top of this page. The command and agents can only reach Halation while it is on; leave Allow queueing renders off if they should only look.",
+        "zh-Hant": "用本頁頂端的開關。只有開啟時，指令和代理才連得上 Halation；若只想讓它們查看，請保持「允許排入算圖工作」關閉。",
+        "zh-Hans": "用本页顶部的开关。只有开启时，命令和代理才能连上 Halation；若只想让它们查看，请保持“允许排入渲染任务”关闭。",
+        "de": "Mit dem Schalter oben auf dieser Seite. Nur dann erreichen Befehl und Agenten Halation; lassen Sie „Renders in die Warteschlange erlauben“ aus, wenn sie nur nachsehen sollen.",
+        "ar": "بالمفتاح أعلى هذه الصفحة. لا يصل الأمر والوكلاء إلى Halation إلا وهو مُشغَّل؛ اترك «السماح بإضافة عمليات تصيير» مطفأً إن أردتهم أن يطّلعوا فقط.",
+        "ja": "このページ上部のスイッチで。オンの間だけ、コマンドやエージェントが Halation に接続できます。見るだけにしたい場合は「レンダリングの登録を許可」をオフのままにしてください。",
+        "ko": "이 페이지 위쪽의 스위치로 켭니다. 켜져 있을 때만 명령과 에이전트가 Halation에 연결됩니다. 보기만 하게 하려면 ‘렌더링 대기열 추가 허용’을 끈 채로 두십시오.",
+        "th": "ด้วยสวิตช์ด้านบนของหน้านี้ คำสั่งและเอเจนต์จะเชื่อมต่อ Halation ได้เฉพาะตอนเปิด หากต้องการให้ดูได้อย่างเดียว ให้ปิด “อนุญาตให้เพิ่มงานเรนเดอร์” ไว้",
+        "yue-Hant": "用呢頁頂嘅掣。開咗先至連到 Halation；如果只想佢哋睇，就由得「容許排隊算圖」閂住。",
+        "en-SG": "With the switch at the top of this page. The command and agents can only reach Halation while it is on; leave Allow queueing renders off if they should only look."
+      },
+      "note": "Names the automation.writes switch; keep it matching that string.",
+      "level": "info"
+    },
+    {
+      "key": "automation.step.check",
+      "values": {
+        "en": "Check it can reach Halation",
+        "zh-Hant": "確認連得上 Halation",
+        "zh-Hans": "确认能连上 Halation",
+        "de": "Prüfen, ob Halation erreichbar ist",
+        "ar": "تحقّق من أنه يصل إلى Halation",
+        "ja": "Halation に届くか確かめる",
+        "ko": "Halation에 연결되는지 확인",
+        "th": "ตรวจว่าเชื่อมต่อ Halation ได้",
+        "yue-Hant": "睇下連唔連到 Halation",
+        "en-SG": "Check it can reach Halation"
+      },
+      "note": "",
+      "level": "info"
+    },
+    {
+      "key": "automation.step.check.detail",
+      "values": {
+        "en": "It finds the address and token in this app's settings by itself. `halation help` lists everything else it can do.",
+        "zh-Hant": "它會自行從本 App 的設定找到位址和權杖。`halation help` 會列出它能做的其他事。",
+        "zh-Hans": "它会自行从本 App 的设置找到地址和令牌。`halation help` 会列出它能做的其他事。",
+        "de": "Adresse und Token liest er selbst aus den Einstellungen dieser App. `halation help` zeigt, was er sonst kann.",
+        "ar": "يجد العنوان والرمز بنفسه في إعدادات هذا التطبيق. ويعرض ‎`halation help`‎ كل ما يستطيع فعله.",
+        "ja": "アドレスとトークンは、このアプリの設定から自動で読み取ります。ほかにできることは `halation help` で一覧できます。",
+        "ko": "주소와 토큰은 이 앱의 설정에서 스스로 찾습니다. 그 밖에 할 수 있는 일은 `halation help`로 볼 수 있습니다.",
+        "th": "คำสั่งจะหาที่อยู่และโทเคนจากการตั้งค่าของแอปนี้เอง `halation help` จะแสดงทุกอย่างที่ทำได้",
+        "yue-Hant": "佢會自己喺呢個 App 嘅設定搵到地址同權杖。`halation help` 會列出佢仲做到乜。",
+        "en-SG": "It finds the address and token in this app's settings by itself. `halation help` lists everything else it can do."
+      },
+      "note": "",
+      "level": "info"
+    },
+    {
+      "key": "automation.step.done",
+      "values": {
+        "en": "Done",
+        "zh-Hant": "已完成",
+        "zh-Hans": "已完成",
+        "de": "Erledigt",
+        "ar": "تم",
+        "ja": "完了",
+        "ko": "완료",
+        "th": "เสร็จแล้ว",
+        "yue-Hant": "搞掂",
+        "en-SG": "Done"
+      },
+      "note": "Accessibility label for a step's tick.",
+      "level": "info"
+    },
+    {
+      "key": "automation.step.link",
+      "values": {
+        "en": "Put the command on your PATH",
+        "zh-Hant": "把指令加入 PATH",
+        "zh-Hans": "把命令加入 PATH",
+        "de": "Den Befehl in den PATH legen",
+        "ar": "ضع الأمر في PATH",
+        "ja": "コマンドを PATH に置く",
+        "ko": "명령을 PATH에 넣기",
+        "th": "ใส่คำสั่งไว้ใน PATH",
+        "yue-Hant": "將指令加入 PATH",
+        "en-SG": "Put the command on your PATH"
+      },
+      "note": "",
+      "level": "info"
+    },
+    {
+      "key": "automation.step.link.detail",
+      "values": {
+        "en": "This links it into ~/.local/bin, so no administrator password is needed. The link follows the app's updates; run it again if you move the app.",
+        "zh-Hant": "這會把它連結到 ~/.local/bin，不需要管理者密碼。連結會隨 App 更新；若移動了 App，請再執行一次。",
+        "zh-Hans": "这会把它链接到 ~/.local/bin，不需要管理员密码。链接会随 App 更新；若移动了 App，请再执行一次。",
+        "de": "Das verlinkt ihn nach ~/.local/bin, ohne Administratorpasswort. Der Link folgt den Updates der App; führen Sie ihn erneut aus, wenn Sie die App verschieben.",
+        "ar": "يربطه هذا في ‎~/.local/bin، فلا حاجة إلى كلمة سر المسؤول. يتبع الرابط تحديثات التطبيق؛ شغّله مجددًا إن نقلت التطبيق.",
+        "ja": "~/.local/bin にリンクするので、管理者パスワードは不要です。リンクはアプリの更新に追従します。アプリを移動したら、もう一度実行してください。",
+        "ko": "~/.local/bin에 링크하므로 관리자 암호가 필요 없습니다. 링크는 앱 업데이트를 따라갑니다. 앱을 옮겼다면 다시 실행하십시오.",
+        "th": "คำสั่งนี้ลิงก์ไว้ที่ ~/.local/bin จึงไม่ต้องใช้รหัสผ่านผู้ดูแล ลิงก์จะตามการอัปเดตของแอป หากย้ายแอป ให้เรียกใช้อีกครั้ง",
+        "yue-Hant": "呢句會將佢連結去 ~/.local/bin，唔使管理員密碼。連結會跟住 App 更新；如果搬咗個 App，就再行一次。",
+        "en-SG": "This links it into ~/.local/bin, so no administrator password is needed. The link follows the app's updates; run it again if you move the app."
+      },
+      "note": "",
+      "level": "info"
+    },
+    {
+      "key": "automation.step.path",
+      "values": {
+        "en": "If Terminal then says “command not found”, add that folder to your PATH once:",
+        "zh-Hant": "如果「終端機」之後顯示「command not found」，請把那個資料夾加入 PATH（只需一次）：",
+        "zh-Hans": "如果“终端”之后显示“command not found”，请把那个文件夹加入 PATH（只需一次）：",
+        "de": "Meldet das Terminal danach „command not found“, fügen Sie den Ordner einmalig dem PATH hinzu:",
+        "ar": "إن قال Terminal بعدها «command not found»، فأضف ذلك المجلد إلى PATH مرة واحدة:",
+        "ja": "その後ターミナルに「command not found」と出る場合は、そのフォルダを一度だけ PATH に加えてください：",
+        "ko": "그 뒤 터미널에 ‘command not found’가 뜨면 그 폴더를 PATH에 한 번 추가하십시오.",
+        "th": "หาก Terminal แจ้งว่า “command not found” ให้เพิ่มโฟลเดอร์นั้นใน PATH หนึ่งครั้ง:",
+        "yue-Hant": "如果「終端機」之後話「command not found」，就將嗰個資料夾加入 PATH（一次就夠）：",
+        "en-SG": "If Terminal then says “command not found”, add that folder to your PATH once:"
+      },
+      "note": "Keep “command not found” in English: it is what the shell prints.",
+      "level": "info"
+    },
+    {
+      "key": "automation.step.try",
+      "values": {
+        "en": "Try a quick render",
+        "zh-Hant": "試一次快速生成",
+        "zh-Hans": "试一次快速生成",
+        "de": "Ein schnelles Rendern ausprobieren",
+        "ar": "جرّب تصييرًا سريعًا",
+        "ja": "短いレンダリングを試す",
+        "ko": "빠른 렌더링 해 보기",
+        "th": "ลองเรนเดอร์แบบเร็ว",
+        "yue-Hant": "試一次快速算圖",
+        "en-SG": "Try a quick render"
+      },
+      "note": "",
+      "level": "info"
+    },
+    {
+      "key": "automation.step.try.detail",
+      "values": {
+        "en": "A 384p preview with step reuse takes minutes rather than an hour. Needs Allow queueing renders on.",
+        "zh-Hant": "開啟步驟重用的 384p 預覽只需數分鐘，而不是一小時。需要開啟「允許排入算圖工作」。",
+        "zh-Hans": "开启步骤复用的 384p 预览只需几分钟，而不是一小时。需要开启“允许排入渲染任务”。",
+        "de": "Eine 384p-Vorschau mit Schritt-Wiederverwendung dauert Minuten statt einer Stunde. Erfordert „Renders in die Warteschlange erlauben“.",
+        "ar": "تستغرق معاينة 384p مع إعادة استخدام الخطوات دقائق بدل ساعة. يتطلب تشغيل «السماح بإضافة عمليات تصيير».",
+        "ja": "ステップ再利用付きの 384p プレビューなら、1 時間ではなく数分で済みます。「レンダリングの登録を許可」をオンにする必要があります。",
+        "ko": "단계 재사용을 켠 384p 미리보기는 한 시간이 아니라 몇 분이면 됩니다. ‘렌더링 대기열 추가 허용’이 켜져 있어야 합니다.",
+        "th": "พรีวิว 384p ที่ใช้ขั้นตอนซ้ำใช้เวลาไม่กี่นาทีแทนที่จะเป็นชั่วโมง ต้องเปิด “อนุญาตให้เพิ่มงานเรนเดอร์”",
+        "yue-Hant": "開咗步驟重用嘅 384p 預覽幾分鐘就得，唔使一個鐘。要開「容許排隊算圖」。",
+        "en-SG": "A 384p preview with step reuse takes minutes rather than an hour. Needs Allow queueing renders on."
+      },
+      "note": "",
+      "level": "info"
     },
     {
       "key": "automation.title",
@@ -3600,6 +3804,23 @@
       "level": "info"
     },
     {
+      "key": "model.name.textEncoder.q4",
+      "values": {
+        "en": "Text encoder — 4-bit (MLX)",
+        "zh-Hant": "文字編碼器 — 4-bit (MLX)",
+        "zh-Hans": "文本编码器 — 4-bit (MLX)",
+        "de": "Text-Encoder – 4-bit (MLX)",
+        "ar": "مشفّر النص — 4-bit (MLX)",
+        "ja": "テキストエンコーダ — 4-bit (MLX)",
+        "ko": "텍스트 인코더 — 4-bit (MLX)",
+        "th": "ตัวเข้ารหัสข้อความ — 4-bit (MLX)",
+        "yue-Hant": "文字編碼器 — 4-bit (MLX)",
+        "en-SG": "Text encoder — 4-bit (MLX)"
+      },
+      "note": "",
+      "level": "info"
+    },
+    {
       "key": "model.name.textEncoder.uncensored",
       "values": {
         "en": "Text encoder — INT8 ConvRot, uncensored",
@@ -3670,16 +3891,33 @@
     {
       "key": "model.textEncoder.mlx",
       "values": {
-        "en": "Qwen3-VL-32B in bfloat16 — H3 reads its 50th-layer hidden states. The largest single download, and currently the only text encoder the MLX pipeline can load. At about 34 GB resident it, not the transformer, decides whether this app runs on a given Mac: a fixed cost no quantization reduces, against which a smaller transformer saves at most 29 GB. Weights alone are not the test, though — see the Requirements tab for what a machine actually needs. It installs beside the VAEs in FL2VA/.",
-        "zh-Hant": "bfloat16 版的 Qwen3-VL-32B——H3 讀取其第 50 層的隱藏狀態。單一檔案中最大的下載項目，目前也是 MLX pipeline 唯一能載入的文字編碼器。常駐約 34 GB，因此決定本 App 能否在某台 Mac 上執行的是它而非 transformer：這是量化也減不掉的固定成本，換用較小的 transformer 最多只省 29 GB。不過單看權重並非判準——實際需要多少，請看「系統需求」分頁。會與 VAE 一同安裝在 FL2VA/ 之下。",
-        "zh-Hans": "bfloat16 版的 Qwen3-VL-32B——H3 读取其第 50 层的隐藏状态。单个文件中最大的下载项，目前也是 MLX pipeline 唯一能加载的文本编码器。常驻约 34 GB，因此决定本 App 能否在某台 Mac 上运行的是它而非 transformer：这是量化也减不掉的固定成本，换用较小的 transformer 最多只省 29 GB。不过单看权重并非判准——实际需要多少，请看“系统需求”分页。会与 VAE 一同安装在 FL2VA/ 之下。",
-        "de": "Qwen3-VL-32B in bfloat16 – H3 liest dessen Hidden States aus Schicht 50. Der größte Einzeldownload und derzeit der einzige Text-Encoder, den die MLX-Pipeline laden kann. Mit rund 34 GB resident entscheidet er, nicht der Transformer, ob die App auf einem Mac läuft: ein fester Posten, den keine Quantisierung senkt, und ein kleinerer Transformer spart höchstens 29 GB dagegen. Die Gewichte allein sind aber nicht der Maßstab — was eine Maschine wirklich braucht, steht im Tab „Anforderungen“. Wird neben den VAEs unter FL2VA/ installiert.",
-        "ar": "‏Qwen3-VL-32B بدقة bfloat16 — يقرأ H3 الحالات المخفية من طبقته الخمسين. أكبر تنزيل مفرد، وهو حاليًا مشفّر النص الوحيد الذي تستطيع منظومة MLX تحميله. وبإشغاله نحو 34 غيغابايت، فهو — لا المحوّل — ما يحدّد إمكانية تشغيل التطبيق على جهاز بعينه: تكلفة ثابتة لا يخفّضها أي تكميم، ولا يوفّر محوّل أصغر أكثر من 29 غيغابايت في مقابلها. غير أن الأوزان وحدها ليست المعيار — انظر تبويب المتطلبات لمعرفة ما يحتاجه الجهاز فعلًا. ويُثبَّت بجوار مشفّرات VAE داخل FL2VA/.",
-        "ja": "bfloat16 の Qwen3-VL-32B。H3 はその第 50 層の隠れ状態を読みます。単体では最大のダウンロードで、現在 MLX パイプラインが読み込める唯一のテキストエンコーダです。常駐約 34 GB で、このアプリがその Mac で動くかどうかを決めるのはトランスフォーマーではなくこちらです。量子化では減らせない固定費で、小さいトランスフォーマーに替えても最大 29 GB しか浮きません。ただし重みだけが判断材料ではありません。実際に必要な量は「動作要件」タブをご覧ください。VAE と同じ FL2VA/ に入ります。",
-        "ko": "bfloat16 Qwen3-VL-32B — H3는 이 모델의 50번째 층 은닉 상태를 읽습니다. 단일 항목으로 가장 큰 다운로드이며, 현재 MLX 파이프라인이 불러올 수 있는 유일한 텍스트 인코더입니다. 상주 약 34 GB로, 이 앱이 특정 Mac에서 돌아가는지를 정하는 것은 트랜스포머가 아니라 이것입니다. 양자화로도 줄지 않는 고정 비용이며, 더 작은 트랜스포머로 바꿔도 최대 29 GB밖에 아끼지 못합니다. 다만 가중치만으로는 판단할 수 없습니다. 실제로 필요한 양은 요구 사항 탭을 보십시오. VAE와 나란히 FL2VA/ 에 설치됩니다.",
-        "th": "Qwen3-VL-32B แบบ bfloat16 — H3 อ่านสถานะซ่อนของชั้นที่ 50 เป็นไฟล์ดาวน์โหลดเดี่ยวที่ใหญ่ที่สุด และตอนนี้เป็นตัวเข้ารหัสข้อความเพียงตัวเดียวที่ไปป์ไลน์ MLX โหลดได้ ด้วยหน่วยความจำราว 34 GB สิ่งที่ตัดสินว่าแอปนี้รันบน Mac เครื่องใดได้คือตัวนี้ ไม่ใช่ transformer เป็นต้นทุนคงที่ที่การทำ quantization ก็ลดไม่ได้ และเปลี่ยนไปใช้ transformer ที่เล็กลงก็ประหยัดได้มากสุด 29 GB แต่ลำพังไฟล์น้ำหนักไม่ใช่เกณฑ์ตัดสิน ดูว่าเครื่องต้องมีเท่าไรจริง ๆ ได้ที่แท็บความต้องการของระบบ และติดตั้งไว้ข้าง VAE ใน FL2VA/",
-        "yue-Hant": "bfloat16 版嘅 Qwen3-VL-32B——H3 讀佢第 50 層嘅隱藏狀態。單一檔案入面最大嘅下載，亦係而家 MLX pipeline 唯一載入到嘅文字編碼器。常駐大概 34 GB，所以決定呢個 App 喺部 Mac 跑唔跑到嘅係佢，唔係 transformer：呢個係量化都減唔到嘅固定成本，換細啲嘅 transformer 最多都係慳到 29 GB。不過單睇權重唔準——實際要幾多，睇「系統需求」嗰版。佢會同 VAE 一齊裝喺 FL2VA/ 入面。",
-        "en-SG": "Qwen3-VL-32B in bfloat16 — H3 reads its 50th-layer hidden states. Biggest single download, and right now the only text encoder the MLX pipeline can load. About 34 GB resident, so this one — not the transformer — decides whether this app can run on your Mac: a fixed cost no quantization brings down, against which a smaller transformer saves you 29 GB at most. But weights alone are not the test — see the Requirements tab for what a machine actually needs. It installs beside the VAEs inside FL2VA/."
+        "en": "Qwen3-VL-32B in bfloat16 — H3 reads its 50th-layer hidden states. The largest single download, and the reference encoder: the only one with a vision part, so first-frame and first-and-last-frame renders need it. It takes the most memory of anything while the prompt is encoded, then Halation releases it before the transformer runs, so it raises the peak only while the models load. The 4-bit encoder does the same job for text in about a third of the memory. See the Requirements tab for what a machine actually needs. It installs beside the VAEs in FL2VA/.",
+        "zh-Hant": "bfloat16 版的 Qwen3-VL-32B——H3 讀取其第 50 層的隱藏狀態。單一檔案中最大的下載項目，也是參考用的編碼器：唯一帶有視覺部分的一個，因此「首幀」與「首尾幀」生成都需要它。編碼提示詞時它是佔用記憶體最多的部分，之後 Halation 會在 transformer 執行前釋放它，所以它只在載入模型時推高峰值。4-bit 編碼器能以約三分之一的記憶體完成同樣的文字工作。實際需要多少，請看「系統需求」分頁。會與 VAE 一同安裝在 FL2VA/ 之下。",
+        "zh-Hans": "bfloat16 版的 Qwen3-VL-32B——H3 读取其第 50 层的隐藏状态。单个文件中最大的下载项，也是参考用的编码器：唯一带有视觉部分的一个，因此“首帧”与“首尾帧”生成都需要它。编码提示词时它是占用内存最多的部分，之后 Halation 会在 transformer 运行前释放它，所以它只在加载模型时推高峰值。4-bit 编码器能以约三分之一的内存完成同样的文本工作。实际需要多少，请看“系统需求”分页。会与 VAE 一同安装在 FL2VA/ 之下。",
+        "de": "Qwen3-VL-32B in bfloat16 – H3 liest dessen Hidden States aus Schicht 50. Der größte Einzeldownload und der Referenz-Encoder: der einzige mit Bildteil, daher brauchen Renderings ab erstem Bild sowie ab erstem und letztem Bild ihn. Beim Kodieren des Prompts belegt er mehr Speicher als alles andere; danach gibt Halation ihn frei, bevor der Transformer läuft, sodass er die Spitze nur beim Laden der Modelle erhöht. Der 4-Bit-Encoder erledigt dieselbe Arbeit für Text mit etwa einem Drittel des Speichers. Was eine Maschine wirklich braucht, steht im Tab „Anforderungen“. Wird neben den VAEs unter FL2VA/ installiert.",
+        "ar": "‏Qwen3-VL-32B بدقة bfloat16 — يقرأ H3 الحالات المخفية من طبقته الخمسين. أكبر تنزيل مفرد، وهو المشفّر المرجعي: الوحيد الذي يملك جزءًا بصريًا، لذا يحتاجه التصيير من الإطار الأول ومن الإطارين الأول والأخير. يشغل أكثر الذاكرة أثناء ترميز الوصف، ثم يحرّره Halation قبل تشغيل المحوّل، فلا يرفع الذروة إلا أثناء تحميل النماذج. ويؤدي المشفّر بدقة 4 بت العمل نفسه للنص بنحو ثلث الذاكرة. انظر تبويب المتطلبات لمعرفة ما يحتاجه الجهاز فعلًا. ويُثبَّت بجوار مشفّرات VAE داخل FL2VA/.",
+        "ja": "bfloat16 の Qwen3-VL-32B。H3 はその第 50 層の隠れ状態を読みます。単体では最大のダウンロードで、基準となるエンコーダです。画像を読む部分を持つ唯一のもので、先頭フレームや先頭・末尾フレームからの生成にはこれが必要です。プロンプトのエンコード中は最も多くのメモリを使いますが、Halation はトランスフォーマーの実行前にこれを解放するので、ピークを押し上げるのはモデルの読み込み中だけです。4 ビットのエンコーダなら、テキストに対して同じ働きを約 3 分の 1 のメモリでこなします。実際に必要な量は「動作要件」タブをご覧ください。VAE と同じ FL2VA/ に入ります。",
+        "ko": "bfloat16 Qwen3-VL-32B — H3는 이 모델의 50번째 층 은닉 상태를 읽습니다. 단일 항목으로 가장 큰 다운로드이며 기준 인코더입니다. 이미지를 읽는 부분이 있는 유일한 인코더라서, 첫 프레임 및 첫·끝 프레임 렌더링에는 이것이 필요합니다. 프롬프트를 인코딩하는 동안 메모리를 가장 많이 쓰지만, Halation은 트랜스포머가 돌기 전에 이를 해제하므로 모델을 불러오는 동안에만 최고치를 끌어올립니다. 4비트 인코더는 텍스트에 대해 같은 일을 약 3분의 1의 메모리로 해냅니다. 실제로 필요한 양은 요구 사항 탭을 보십시오. VAE와 나란히 FL2VA/ 에 설치됩니다.",
+        "th": "Qwen3-VL-32B แบบ bfloat16 — H3 อ่านสถานะซ่อนของชั้นที่ 50 เป็นไฟล์ดาวน์โหลดเดี่ยวที่ใหญ่ที่สุด และเป็นตัวเข้ารหัสอ้างอิง: ตัวเดียวที่มีส่วนอ่านภาพ การเรนเดอร์จากเฟรมแรก และจากเฟรมแรกกับเฟรมสุดท้ายจึงต้องใช้ตัวนี้ ระหว่างเข้ารหัสพรอมต์มันใช้หน่วยความจำมากที่สุด จากนั้น Halation จะปล่อยมันก่อน transformer ทำงาน จึงดันค่าสูงสุดขึ้นเฉพาะตอนโหลดโมเดล ตัวเข้ารหัส 4 บิตทำงานเดียวกันกับข้อความโดยใช้หน่วยความจำราวหนึ่งในสาม ดูว่าเครื่องต้องมีเท่าไรจริง ๆ ได้ที่แท็บความต้องการของระบบ และติดตั้งไว้ข้าง VAE ใน FL2VA/",
+        "yue-Hant": "bfloat16 版嘅 Qwen3-VL-32B——H3 讀佢第 50 層嘅隱藏狀態。單一檔案入面最大嘅下載，亦係參考用嘅編碼器：唯一有視覺部分嘅一個，所以「首幀」同「首尾幀」生成都要用佢。編碼提示詞嗰陣佢食記憶體食得最多，之後 Halation 會喺 transformer 行之前放走佢，所以佢只係載入模型嗰陣推高峰值。4-bit 編碼器用大概三分之一嘅記憶體，就做到同樣嘅文字工作。實際要幾多，睇「系統需求」嗰版。佢會同 VAE 一齊裝喺 FL2VA/ 入面。",
+        "en-SG": "Qwen3-VL-32B in bfloat16 — H3 reads its 50th-layer hidden states. Biggest single download, and the reference encoder: the only one with a vision part, so first-frame and first-and-last-frame renders need it. It takes the most memory of anything while the prompt is encoded, then Halation releases it before the transformer runs, so it only raises the peak while the models load. The 4-bit encoder does the same job for text in about a third of the memory. See the Requirements tab for what a machine actually needs. It installs beside the VAEs inside FL2VA/."
+      },
+      "note": "Mode names (first-frame, first-and-last-frame) should match how the modes are named elsewhere in this language.",
+      "level": "info"
+    },
+    {
+      "key": "model.textEncoder.q4",
+      "values": {
+        "en": "The same 50 layers of Qwen3-VL-32B in MLX 4-bit, from mlx-serve's pack: a 16 GB download instead of 67, and about a third of the memory. It is what lets a Mac with less memory run MLX at all. Text only — it has no vision part, so first-frame and first-and-last-frame renders need the bfloat16 encoder. A community quantization, so the conditioning may differ slightly from the reference.",
+        "zh-Hant": "同樣是 Qwen3-VL-32B 的 50 層，來自 mlx-serve 的 MLX 4-bit 版本：下載 16 GB 而非 67 GB，記憶體約為三分之一。記憶體較少的 Mac 能跑 MLX，靠的就是它。只處理文字——沒有視覺部分，因此首影格與首尾影格算圖需要 bfloat16 編碼器。這是社群量化版本，條件訊號可能與參考版本略有差異。",
+        "zh-Hans": "同样是 Qwen3-VL-32B 的 50 层，来自 mlx-serve 的 MLX 4-bit 版本：下载 16 GB 而非 67 GB，内存约为三分之一。内存较少的 Mac 能跑 MLX，靠的就是它。只处理文本——没有视觉部分，因此首帧与首尾帧渲染需要 bfloat16 编码器。这是社区量化版本，条件信号可能与参考版本略有差异。",
+        "de": "Dieselben 50 Schichten von Qwen3-VL-32B in MLX 4-bit, aus dem Paket von mlx-serve: 16 GB Download statt 67 und etwa ein Drittel des Speichers. Damit läuft MLX überhaupt erst auf einem Mac mit weniger Speicher. Nur Text – ohne Vision-Teil, daher brauchen Renderings mit erstem oder erstem und letztem Bild den bfloat16-Encoder. Eine Community-Quantisierung; die Konditionierung kann leicht von der Referenz abweichen.",
+        "ar": "الطبقات الخمسون نفسها من Qwen3-VL-32B بدقة MLX 4-bit، من حزمة mlx-serve: تنزيل 16 غيغابايت بدلًا من 67، ونحو ثلث الذاكرة. وهو ما يتيح تشغيل MLX أصلًا على جهاز Mac بذاكرة أقل. للنص فقط — بلا جزء بصري، لذا تحتاج عمليات التصيير بالإطار الأول أو بالإطارين الأول والأخير إلى مشفّر bfloat16. تكميم مجتمعي، فقد يختلف التكييف قليلًا عن المرجع.",
+        "ja": "Qwen3-VL-32B の同じ 50 層を MLX 4-bit にしたもので、mlx-serve のパックから取得します。ダウンロードは 67 GB ではなく 16 GB、メモリはおよそ 3 分の 1 です。メモリの少ない Mac で MLX を動かせるのはこれのおかげです。テキスト専用でビジョン部分がないため、先頭フレームや先頭・末尾フレームの生成には bfloat16 エンコーダが必要です。コミュニティによる量子化のため、条件付けが基準とわずかに異なる場合があります。",
+        "ko": "Qwen3-VL-32B의 같은 50개 층을 MLX 4-bit로 만든 것으로, mlx-serve 패키지에서 받습니다. 다운로드는 67 GB 대신 16 GB, 메모리는 약 3분의 1입니다. 메모리가 적은 Mac에서 MLX를 돌릴 수 있는 것은 이 덕분입니다. 텍스트 전용이라 비전 부분이 없어서, 첫 프레임 및 첫·끝 프레임 렌더링에는 bfloat16 인코더가 필요합니다. 커뮤니티 양자화라 조건 신호가 기준과 조금 다를 수 있습니다.",
+        "th": "Qwen3-VL-32B 50 ชั้นเดิมในแบบ MLX 4-bit จากแพ็กของ mlx-serve: ดาวน์โหลด 16 GB แทน 67 GB และใช้หน่วยความจำราวหนึ่งในสาม เป็นสิ่งที่ทำให้ Mac ที่หน่วยความจำน้อยรัน MLX ได้ รับเฉพาะข้อความ ไม่มีส่วนการมองเห็น การเรนเดอร์จากเฟรมแรก หรือเฟรมแรกและเฟรมสุดท้าย จึงต้องใช้ตัวเข้ารหัส bfloat16 เป็น quantization จากชุมชน สัญญาณกำกับอาจต่างจากต้นฉบับเล็กน้อย",
+        "yue-Hant": "同樣係 Qwen3-VL-32B 嗰 50 層，嚟自 mlx-serve 嘅 MLX 4-bit 版本：下載 16 GB 而唔係 67 GB，記憶體大約三分一。記憶體少啲嘅 Mac 跑到 MLX，靠嘅就係佢。淨係處理文字——冇視覺部分，所以首格同首尾格算圖要用 bfloat16 編碼器。呢個係社群量化版本，條件訊號可能同參考版本有少少分別。",
+        "en-SG": "Same 50 layers of Qwen3-VL-32B, in MLX 4-bit, from mlx-serve's pack: 16 GB to download instead of 67, and about a third of the memory. This is what lets a Mac with less memory run MLX at all. Text only — no vision part, so first-frame and first-and-last-frame renders still need the bfloat16 encoder. Community quantization, so the conditioning can be a bit different from the reference."
       },
       "note": "",
       "level": "info"
@@ -4382,6 +4620,40 @@
       "level": "info"
     },
     {
+      "key": "models.resume",
+      "values": {
+        "en": "Resume",
+        "zh-Hant": "繼續下載",
+        "zh-Hans": "继续下载",
+        "de": "Fortsetzen",
+        "ar": "استئناف",
+        "ja": "再開",
+        "ko": "이어받기",
+        "th": "ดาวน์โหลดต่อ",
+        "yue-Hant": "繼續下載",
+        "en-SG": "Resume"
+      },
+      "note": "Button on a model whose download was interrupted. Short: the button is narrow.",
+      "level": "info"
+    },
+    {
+      "key": "models.resume.help",
+      "values": {
+        "en": "%1$@ of %2$@ is already here. Resuming fetches only the rest, and checks the whole file before using it.",
+        "zh-Hant": "已下載 %1$@，共 %2$@。繼續下載只會取回剩下的部分，並在使用前檢查整個檔案。",
+        "zh-Hans": "已下载 %1$@，共 %2$@。继续下载只会获取剩下的部分，并在使用前检查整个文件。",
+        "de": "%1$@ von %2$@ sind bereits da. Beim Fortsetzen wird nur der Rest geladen und die ganze Datei vor der Verwendung geprüft.",
+        "ar": "تم تنزيل %1$@ من %2$@ بالفعل. يجلب الاستئناف الباقي فقط، ويتحقق من الملف كاملًا قبل استخدامه.",
+        "ja": "%2$@ のうち %1$@ はダウンロード済みです。再開すると残りだけを取得し、使う前にファイル全体を検証します。",
+        "ko": "%2$@ 중 %1$@는 이미 받았습니다. 이어받으면 나머지만 받고, 쓰기 전에 파일 전체를 검사합니다.",
+        "th": "ดาวน์โหลดแล้ว %1$@ จาก %2$@ การดาวน์โหลดต่อจะดึงเฉพาะส่วนที่เหลือ และตรวจสอบทั้งไฟล์ก่อนใช้งาน",
+        "yue-Hant": "已經落咗 %1$@，總共 %2$@。繼續下載淨係會攞返剩低嘅部分，用之前會檢查成個檔案。",
+        "en-SG": "%1$@ of %2$@ already downloaded. Resume only fetches the rest, and checks the whole file before using it."
+      },
+      "note": "Tooltip. %1$@ is what is on disk, %2$@ the full size, e.g. 12.3 GB of 66.7 GB.",
+      "level": "info"
+    },
+    {
       "key": "models.revealInFinder",
       "values": {
         "en": "Reveal %@ in Finder",
@@ -4479,6 +4751,40 @@
         "th": "ชุดที่แนะนำต้องใช้ราว %@ บวกกับพื้นที่ทำงานชั่วคราวขณะเรนเดอร์",
         "yue-Hant": "建議嗰 set 大概要 %@，算圖嗰陣仲要額外暫存空間。",
         "en-SG": "The recommended set needs about %@, then still got working space while rendering. Better check your disk first."
+      },
+      "note": "",
+      "level": "info"
+    },
+    {
+      "key": "models.startOver",
+      "values": {
+        "en": "Start over",
+        "zh-Hant": "重新下載",
+        "zh-Hans": "重新下载",
+        "de": "Neu beginnen",
+        "ar": "البدء من جديد",
+        "ja": "最初から",
+        "ko": "처음부터",
+        "th": "เริ่มใหม่",
+        "yue-Hant": "重新下載",
+        "en-SG": "Start over"
+      },
+      "note": "Small link under Resume. Discards the partial download.",
+      "level": "info"
+    },
+    {
+      "key": "models.startOver.help",
+      "values": {
+        "en": "Discard what has downloaded so far and fetch the whole file again.",
+        "zh-Hant": "捨棄目前已下載的部分，重新下載整個檔案。",
+        "zh-Hans": "舍弃目前已下载的部分，重新下载整个文件。",
+        "de": "Das bisher Geladene verwerfen und die ganze Datei neu laden.",
+        "ar": "تجاهل ما تم تنزيله حتى الآن وتنزيل الملف كاملًا من جديد.",
+        "ja": "ここまでのダウンロードを破棄し、ファイル全体を取得し直します。",
+        "ko": "지금까지 받은 것을 버리고 파일 전체를 다시 받습니다.",
+        "th": "ทิ้งส่วนที่ดาวน์โหลดไว้แล้ว และดาวน์โหลดทั้งไฟล์ใหม่",
+        "yue-Hant": "掉咗而家落咗嘅部分，成個檔案重新下載。",
+        "en-SG": "Throw away what downloaded so far and fetch the whole file again."
       },
       "note": "",
       "level": "info"
@@ -5450,6 +5756,23 @@
         "en-SG": "H3 only can make 4–15 second clips."
       },
       "note": "",
+      "level": "info"
+    },
+    {
+      "key": "problem.encoderTextOnly",
+      "values": {
+        "en": "%1$@ reads text only, and this mode hands it keyframe images. Choose the bfloat16 text encoder in Models, or switch to Text to video.",
+        "zh-Hant": "%1$@ 只讀取文字，而此模式會傳入關鍵影格圖片。請在「模型」中選擇 bfloat16 文字編碼器，或改用「文字轉影片」。",
+        "zh-Hans": "%1$@ 只读取文本，而此模式会传入关键帧图片。请在“模型”中选择 bfloat16 文本编码器，或改用“文字转视频”。",
+        "de": "%1$@ liest nur Text, dieser Modus übergibt aber Keyframe-Bilder. Wähle unter „Modelle“ den bfloat16-Text-Encoder oder wechsle zu „Text zu Video“.",
+        "ar": "يقرأ %1$@ النص فقط، وهذا الوضع يمرّر إليه صور إطارات مفتاحية. اختر مشفّر النص bfloat16 في النماذج، أو انتقل إلى «نص إلى فيديو».",
+        "ja": "%1$@ はテキストしか読めませんが、このモードはキーフレーム画像を渡します。「モデル」で bfloat16 のテキストエンコーダを選ぶか、「テキストから動画」に切り替えてください。",
+        "ko": "%1$@은(는) 텍스트만 읽는데, 이 모드는 키프레임 이미지를 넘깁니다. 모델에서 bfloat16 텍스트 인코더를 고르거나 ‘텍스트로 비디오’로 바꾸세요.",
+        "th": "%1$@ อ่านได้เฉพาะข้อความ แต่โหมดนี้ส่งภาพคีย์เฟรมให้ เลือกตัวเข้ารหัสข้อความ bfloat16 ในหน้าโมเดล หรือเปลี่ยนเป็นข้อความเป็นวิดีโอ",
+        "yue-Hant": "%1$@ 淨係讀到文字，但呢個模式會傳關鍵格圖片俾佢。喺「模型」揀 bfloat16 文字編碼器，或者轉做「文字轉片」。",
+        "en-SG": "%1$@ can only read text, but this mode passes it keyframe images. Choose the bfloat16 text encoder in Models, or switch to Text to video."
+      },
+      "note": "Blocking problem. %1$@ is the encoder's name, e.g. Text encoder — 4-bit (MLX). Mode names should match mode.t2v.",
       "level": "info"
     },
     {

@@ -45,13 +45,14 @@
 
 "automation.footnote" = "يتيح لبرنامج آخر على هذا الـ Mac — وكيل غالبًا — أن يسأل عمّا يستطيع هذا الجهاز تصييره وأن يسلّمه عملًا. يستمع على هذا الجهاز فقط، وكل طلب يجب أن يحمل الرمز أدناه.";
 
+"automation.guide" = "خطوات الإعداد";
+
+/* Introduces the numbered steps. Keep `halation` as-is: it is the command name. */
+"automation.guide.detail" = "يأتي Halation داخل هذا التطبيق بالأمر `halation`، وهو أيضًا خادم MCP. الصق كل خطوة في Terminal بنفسك؛ لن يتغيّر شيء في جهاز Mac قبل أن تفعل.";
+
 "automation.hide" = "إخفاء";
 
 "automation.http" = "أو نادِها مباشرة";
-
-"automation.mcp" = "كيف تخاطبها";
-
-"automation.mcp.detail" = "يأتي Halation بخادم MCP. الصق هذا في إعدادات MCP الخاصة بوكيلك — فهو يشير إلى النسخة الموجودة داخل هذا التطبيق، ولا شيء آخر لتثبيته.";
 
 /* Says why the snippet may not carry the real token: it is hidden until revealed, so copying during a screen share does not leak it. */
 "automation.mcp.token" = "أظهر الرمز أعلاه أولًا، وإلا فسيُنسخ المقطع بعنصر نائب بدلًا منه.";
@@ -67,6 +68,33 @@
 
 /* WARNING: Shown while the server is up. The request count is there so the page shows the thing being used rather than merely switched on. */
 "automation.status.running" = "يستمع على المنفذ %1$@ · جرى تلبية %2$@ طلب";
+
+"automation.step.agent" = "اربط وكيلًا";
+
+"automation.step.agent.detail" = "في Claude Code شغّل السطر الأول. ولأي عميل MCP آخر أضف المقطع الثاني إلى إعداداته. لا يحمل أيّ منهما الرمز، فإعادة توليده لا تعطّلهما.";
+
+"automation.step.api" = "شغّل الواجهة البرمجية المحلية";
+
+/* Names the automation.writes switch; keep it matching that string. */
+"automation.step.api.detail" = "بالمفتاح أعلى هذه الصفحة. لا يصل الأمر والوكلاء إلى Halation إلا وهو مُشغَّل؛ اترك «السماح بإضافة عمليات تصيير» مطفأً إن أردتهم أن يطّلعوا فقط.";
+
+"automation.step.check" = "تحقّق من أنه يصل إلى Halation";
+
+"automation.step.check.detail" = "يجد العنوان والرمز بنفسه في إعدادات هذا التطبيق. ويعرض ‎`halation help`‎ كل ما يستطيع فعله.";
+
+/* Accessibility label for a step's tick. */
+"automation.step.done" = "تم";
+
+"automation.step.link" = "ضع الأمر في PATH";
+
+"automation.step.link.detail" = "يربطه هذا في ‎~/.local/bin، فلا حاجة إلى كلمة سر المسؤول. يتبع الرابط تحديثات التطبيق؛ شغّله مجددًا إن نقلت التطبيق.";
+
+/* Keep “command not found” in English: it is what the shell prints. */
+"automation.step.path" = "إن قال Terminal بعدها «command not found»، فأضف ذلك المجلد إلى PATH مرة واحدة:";
+
+"automation.step.try" = "جرّب تصييرًا سريعًا";
+
+"automation.step.try.detail" = "تستغرق معاينة 384p مع إعادة استخدام الخطوات دقائق بدل ساعة. يتطلب تشغيل «السماح بإضافة عمليات تصيير».";
 
 /* Heads the switch card. 'Local' is doing real work here: it says the port never leaves this machine. */
 "automation.title" = "واجهة برمجية محلية";
@@ -474,6 +502,8 @@
 
 "model.name.textEncoder.mlx" = "مشفّر النص — bfloat16";
 
+"model.name.textEncoder.q4" = "مشفّر النص — 4-bit (MLX)";
+
 "model.name.textEncoder.uncensored" = "مشفّر النص — ‏INT8 ConvRot، بلا رقابة";
 
 "model.ref2va.bf16" = "نقطة تحقّق Ref2VA الأصلية بدقة bf16. مُدرجة ليظهر الخيار فحسب، لكن منظومة نسخة MLX لا تقبل سوى الإطارات المفتاحية ولا تملك مسارًا للاشتراط المرجعي، لذا لا يمكن تشغيلها من هذا التطبيق بعد.";
@@ -482,7 +512,10 @@
 
 "model.support.mlx" = "‏video VAE (10.4 GB) و‏audio VAE والمعالج و‏tokenizer، مأخوذة من مجلد مهمة FL2VA الذي تحمّله المنظومة ككتلة واحدة. مطلوبة في كل تشغيل.";
 
-"model.textEncoder.mlx" = "‏Qwen3-VL-32B بدقة bfloat16 — يقرأ H3 الحالات المخفية من طبقته الخمسين. أكبر تنزيل مفرد، وهو حاليًا مشفّر النص الوحيد الذي تستطيع منظومة MLX تحميله. وبإشغاله نحو 34 غيغابايت، فهو — لا المحوّل — ما يحدّد إمكانية تشغيل التطبيق على جهاز بعينه: تكلفة ثابتة لا يخفّضها أي تكميم، ولا يوفّر محوّل أصغر أكثر من 29 غيغابايت في مقابلها. غير أن الأوزان وحدها ليست المعيار — انظر تبويب المتطلبات لمعرفة ما يحتاجه الجهاز فعلًا. ويُثبَّت بجوار مشفّرات VAE داخل FL2VA/.";
+/* Mode names (first-frame, first-and-last-frame) should match how the modes are named elsewhere in this language. */
+"model.textEncoder.mlx" = "‏Qwen3-VL-32B بدقة bfloat16 — يقرأ H3 الحالات المخفية من طبقته الخمسين. أكبر تنزيل مفرد، وهو المشفّر المرجعي: الوحيد الذي يملك جزءًا بصريًا، لذا يحتاجه التصيير من الإطار الأول ومن الإطارين الأول والأخير. يشغل أكثر الذاكرة أثناء ترميز الوصف، ثم يحرّره Halation قبل تشغيل المحوّل، فلا يرفع الذروة إلا أثناء تحميل النماذج. ويؤدي المشفّر بدقة 4 بت العمل نفسه للنص بنحو ثلث الذاكرة. انظر تبويب المتطلبات لمعرفة ما يحتاجه الجهاز فعلًا. ويُثبَّت بجوار مشفّرات VAE داخل FL2VA/.";
+
+"model.textEncoder.q4" = "الطبقات الخمسون نفسها من Qwen3-VL-32B بدقة MLX 4-bit، من حزمة mlx-serve: تنزيل 16 غيغابايت بدلًا من 67، ونحو ثلث الذاكرة. وهو ما يتيح تشغيل MLX أصلًا على جهاز Mac بذاكرة أقل. للنص فقط — بلا جزء بصري، لذا تحتاج عمليات التصيير بالإطار الأول أو بالإطارين الأول والأخير إلى مشفّر bfloat16. تكميم مجتمعي، فقد يختلف التكييف قليلًا عن المرجع.";
 
 "model.textEncoder.uncensored" = "‏Qwen3-VL-32B بعد تدريبه على التخلّي عن سلوك الرفض. بديل مباشر للمشفّر القياسي — ويبقى H3 نفسه دون تغيير، لأن الرفض يقيم في نموذج اللغة لا في محوّل الانتشار. يعمل مع ComfyUI فقط؛ ولا يملك MLX محمِّلًا لهذه الصيغة.";
 
@@ -569,6 +602,12 @@
 
 "models.rescan.help" = "إعادة قراءة مجلد النماذج المشترك";
 
+/* Button on a model whose download was interrupted. Short: the button is narrow. */
+"models.resume" = "استئناف";
+
+/* Tooltip. %1$@ is what is on disk, %2$@ the full size, e.g. 12.3 GB of 66.7 GB. */
+"models.resume.help" = "تم تنزيل %1$@ من %2$@ بالفعل. يجلب الاستئناف الباقي فقط، ويتحقق من الملف كاملًا قبل استخدامه.";
+
 /* WARNING: Injects a name into a sentence. Languages that inflect a noun for case, choose an article by gender, or attach a vowel-harmonising suffix cannot do it without knowing the word, and it is only known at runtime. Prefer wording that sets the name apart — quoted, or on its own line. */
 "models.revealInFinder" = "إظهار %@ في Finder";
 
@@ -582,6 +621,11 @@
 "models.showIncompatible.help" = "تضمين نقاط التحقق بصيغ لا يستطيع هذا الـ Mac تشغيلها";
 
 "models.spaceWarning" = "تحتاج المجموعة الموصى بها نحو %@، إضافةً إلى مساحة مؤقتة أثناء التصيير.";
+
+/* Small link under Resume. Discards the partial download. */
+"models.startOver" = "البدء من جديد";
+
+"models.startOver.help" = "تجاهل ما تم تنزيله حتى الآن وتنزيل الملف كاملًا من جديد.";
 
 "models.status.inUse" = "مُنزَّل، ويُستخدم في هذا التصيير";
 
@@ -711,6 +755,9 @@
 "problem.chooseCheckpoint" = "اختر نقطة تحقق %@ من «النماذج».";
 
 "problem.duration" = "يولّد H3 مقاطع مدتها 4–15 ثانية فقط.";
+
+/* Blocking problem. %1$@ is the encoder's name, e.g. Text encoder — 4-bit (MLX). Mode names should match mode.t2v. */
+"problem.encoderTextOnly" = "يقرأ %1$@ النص فقط، وهذا الوضع يمرّر إليه صور إطارات مفتاحية. اختر مشفّر النص bfloat16 في النماذج، أو انتقل إلى «نص إلى فيديو».";
 
 /* A blocking problem on Compose, beside a button that opens the terms. The welcome dialog can be skipped, so this is reachable in normal use. */
 "problem.licence" = "لم يُقبل ترخيص النموذج بعد.";

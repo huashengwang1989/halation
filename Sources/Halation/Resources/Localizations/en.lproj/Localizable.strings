@@ -45,13 +45,14 @@
 
 "automation.footnote" = "Lets another program on this Mac — usually an agent — ask what this machine can render and hand it work. It listens on this Mac only, and every request must carry the token below.";
 
+"automation.guide" = "Setting it up";
+
+/* Introduces the numbered steps. Keep `halation` as-is: it is the command name. */
+"automation.guide.detail" = "Halation ships a `halation` command and an MCP server in one, inside this app. Paste each step into Terminal yourself; nothing here changes your Mac until you do.";
+
 "automation.hide" = "Hide";
 
 "automation.http" = "Or call it directly";
-
-"automation.mcp" = "Talking to it";
-
-"automation.mcp.detail" = "Halation ships an MCP server. Paste this into your agent's MCP configuration — it names the copy inside this app, so there is nothing else to install.";
 
 /* Says why the snippet may not carry the real token: it is hidden until revealed, so copying during a screen share does not leak it. */
 "automation.mcp.token" = "Reveal the token above first, or the snippet copies with a placeholder in place of it.";
@@ -67,6 +68,33 @@
 
 /* WARNING: Shown while the server is up. The request count is there so the page shows the thing being used rather than merely switched on. */
 "automation.status.running" = "Listening on port %1$@ · %2$@ request(s) served";
+
+"automation.step.agent" = "Connect an agent";
+
+"automation.step.agent.detail" = "For Claude Code, run the first line. For any other MCP client, add the second to its configuration. Neither holds the token, so regenerating it never breaks them.";
+
+"automation.step.api" = "Turn on the local API";
+
+/* Names the automation.writes switch; keep it matching that string. */
+"automation.step.api.detail" = "With the switch at the top of this page. The command and agents can only reach Halation while it is on; leave Allow queueing renders off if they should only look.";
+
+"automation.step.check" = "Check it can reach Halation";
+
+"automation.step.check.detail" = "It finds the address and token in this app's settings by itself. `halation help` lists everything else it can do.";
+
+/* Accessibility label for a step's tick. */
+"automation.step.done" = "Done";
+
+"automation.step.link" = "Put the command on your PATH";
+
+"automation.step.link.detail" = "This links it into ~/.local/bin, so no administrator password is needed. The link follows the app's updates; run it again if you move the app.";
+
+/* Keep “command not found” in English: it is what the shell prints. */
+"automation.step.path" = "If Terminal then says “command not found”, add that folder to your PATH once:";
+
+"automation.step.try" = "Try a quick render";
+
+"automation.step.try.detail" = "A 384p preview with step reuse takes minutes rather than an hour. Needs Allow queueing renders on.";
 
 /* Heads the switch card. 'Local' is doing real work here: it says the port never leaves this machine. */
 "automation.title" = "Local API";
@@ -474,6 +502,8 @@
 
 "model.name.textEncoder.mlx" = "Text encoder — bfloat16";
 
+"model.name.textEncoder.q4" = "Text encoder — 4-bit (MLX)";
+
 "model.name.textEncoder.uncensored" = "Text encoder — INT8 ConvRot, uncensored";
 
 "model.ref2va.bf16" = "Upstream bf16 Ref2VA checkpoint. Listed so the option is visible, but the MLX port's pipeline accepts keyframes only — it has no reference conditioning path — so this cannot be driven from this app yet.";
@@ -482,7 +512,10 @@
 
 "model.support.mlx" = "Video VAE (10.4 GB), audio VAE, processor and tokenizer, taken from the FL2VA task directory the pipeline loads as a unit. Required by every run.";
 
-"model.textEncoder.mlx" = "Qwen3-VL-32B in bfloat16 — H3 reads its 50th-layer hidden states. The largest single download, and currently the only text encoder the MLX pipeline can load. At about 34 GB resident it, not the transformer, decides whether this app runs on a given Mac: a fixed cost no quantization reduces, against which a smaller transformer saves at most 29 GB. Weights alone are not the test, though — see the Requirements tab for what a machine actually needs. It installs beside the VAEs in FL2VA/.";
+/* Mode names (first-frame, first-and-last-frame) should match how the modes are named elsewhere in this language. */
+"model.textEncoder.mlx" = "Qwen3-VL-32B in bfloat16 — H3 reads its 50th-layer hidden states. The largest single download, and the reference encoder: the only one with a vision part, so first-frame and first-and-last-frame renders need it. It takes the most memory of anything while the prompt is encoded, then Halation releases it before the transformer runs, so it raises the peak only while the models load. The 4-bit encoder does the same job for text in about a third of the memory. See the Requirements tab for what a machine actually needs. It installs beside the VAEs in FL2VA/.";
+
+"model.textEncoder.q4" = "The same 50 layers of Qwen3-VL-32B in MLX 4-bit, from mlx-serve's pack: a 16 GB download instead of 67, and about a third of the memory. It is what lets a Mac with less memory run MLX at all. Text only — it has no vision part, so first-frame and first-and-last-frame renders need the bfloat16 encoder. A community quantization, so the conditioning may differ slightly from the reference.";
 
 "model.textEncoder.uncensored" = "Qwen3-VL-32B with its refusal behaviour trained out. Drop-in replacement for the stock encoder — H3 itself is unchanged, since refusals live in the language model, not the diffusion transformer. ComfyUI only; MLX has no loader for this format.";
 
@@ -569,6 +602,12 @@
 
 "models.rescan.help" = "Re-read the shared models folder";
 
+/* Button on a model whose download was interrupted. Short: the button is narrow. */
+"models.resume" = "Resume";
+
+/* Tooltip. %1$@ is what is on disk, %2$@ the full size, e.g. 12.3 GB of 66.7 GB. */
+"models.resume.help" = "%1$@ of %2$@ is already here. Resuming fetches only the rest, and checks the whole file before using it.";
+
 /* WARNING: Injects a name into a sentence. Languages that inflect a noun for case, choose an article by gender, or attach a vowel-harmonising suffix cannot do it without knowing the word, and it is only known at runtime. Prefer wording that sets the name apart — quoted, or on its own line. */
 "models.revealInFinder" = "Reveal %@ in Finder";
 
@@ -582,6 +621,11 @@
 "models.showIncompatible.help" = "Include checkpoints in formats this Mac cannot run";
 
 "models.spaceWarning" = "The recommended set needs about %@, plus scratch space while rendering.";
+
+/* Small link under Resume. Discards the partial download. */
+"models.startOver" = "Start over";
+
+"models.startOver.help" = "Discard what has downloaded so far and fetch the whole file again.";
 
 "models.status.inUse" = "Downloaded, and used by this render";
 
@@ -711,6 +755,9 @@
 "problem.chooseCheckpoint" = "Choose a %@ checkpoint in Models.";
 
 "problem.duration" = "H3 only generates 4–15 second clips.";
+
+/* Blocking problem. %1$@ is the encoder's name, e.g. Text encoder — 4-bit (MLX). Mode names should match mode.t2v. */
+"problem.encoderTextOnly" = "%1$@ reads text only, and this mode hands it keyframe images. Choose the bfloat16 text encoder in Models, or switch to Text to video.";
 
 /* A blocking problem on Compose, beside a button that opens the terms. The welcome dialog can be skipped, so this is reachable in normal use. */
 "problem.licence" = "The model licence has not been accepted yet.";

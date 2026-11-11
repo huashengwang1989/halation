@@ -176,6 +176,8 @@ final class AppState {
     }
 
     init() {
+        // Before anything reads a setting; see `SettingsMigration`.
+        SettingsMigration.runIfNeeded()
         let modelStore = ModelStore()
         let runtime = RuntimeManager(modelStore: modelStore)
         let comfyRuntime = ComfyUIRuntime(modelStore: modelStore)
@@ -297,9 +299,8 @@ final class AppState {
                 && stillFits(chosenEncoder, matchingTask: false)) {
             draft.textEncoderEntryID = stillFits(chosenEncoder, matchingTask: false)
                 ? chosenEncoder
-                : ModelCatalog.entries(role: .textEncoder)
-                    .filter { installed.contains($0.id) && $0.backend == backend }
-                    .min { $0.approximateBytes < $1.approximateBytes }?.id
+                : ModelCatalog.defaultTextEncoder(installed: installed, backend: backend,
+                                                  mode: draft.mode)?.id
         }
     }
 
@@ -365,9 +366,8 @@ final class AppState {
                 .first { installed.contains($0.id) && $0.backend == backend }?.id
         }
         if !stillFits(spec.textEncoderEntryID, matchingTask: false) {
-            spec.textEncoderEntryID = ModelCatalog.entries(role: .textEncoder)
-                .filter { installed.contains($0.id) && $0.backend == backend }
-                .min { $0.approximateBytes < $1.approximateBytes }?.id
+            spec.textEncoderEntryID = ModelCatalog.defaultTextEncoder(
+                installed: installed, backend: backend, mode: spec.mode)?.id
         }
         return spec
     }

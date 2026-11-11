@@ -45,13 +45,14 @@
 
 "automation.footnote" = "この Mac 上のほかのプログラム——多くはエージェント——が、この機械に何をレンダリングできるかを尋ね、仕事を渡せるようにします。待ち受けるのはこの Mac の中だけで、すべてのリクエストに下のトークンが必要です。";
 
+"automation.guide" = "設定の手順";
+
+/* Introduces the numbered steps. Keep `halation` as-is: it is the command name. */
+"automation.guide.detail" = "このアプリには `halation` コマンドが入っていて、MCP サーバも兼ねています。各手順はご自身でターミナルに貼り付けてください。実行するまで Mac には何も変更が加わりません。";
+
 "automation.hide" = "隠す";
 
 "automation.http" = "あるいは直接呼ぶ";
-
-"automation.mcp" = "呼び出しかた";
-
-"automation.mcp.detail" = "Halation には MCP サーバが同梱されています。これをエージェントの MCP 設定に貼り付けてください。このアプリの中にあるものを指しているので、ほかに入れるものはありません。";
 
 /* Says why the snippet may not carry the real token: it is hidden until revealed, so copying during a screen share does not leak it. */
 "automation.mcp.token" = "先に上のトークンを表示してください。そうしないと、この断片はトークンの代わりにプレースホルダを入れてコピーされます。";
@@ -67,6 +68,33 @@
 
 /* WARNING: Shown while the server is up. The request count is there so the page shows the thing being used rather than merely switched on. */
 "automation.status.running" = "ポート %1$@ で待ち受け中 · %2$@ 件のリクエストに応答";
+
+"automation.step.agent" = "エージェントをつなぐ";
+
+"automation.step.agent.detail" = "Claude Code なら 1 行目を実行してください。その他の MCP クライアントには、2 つ目を設定に追加してください。どちらもトークンを含まないので、トークンを作り直しても動かなくなることはありません。";
+
+"automation.step.api" = "ローカル API をオンにする";
+
+/* Names the automation.writes switch; keep it matching that string. */
+"automation.step.api.detail" = "このページ上部のスイッチで。オンの間だけ、コマンドやエージェントが Halation に接続できます。見るだけにしたい場合は「レンダリングの登録を許可」をオフのままにしてください。";
+
+"automation.step.check" = "Halation に届くか確かめる";
+
+"automation.step.check.detail" = "アドレスとトークンは、このアプリの設定から自動で読み取ります。ほかにできることは `halation help` で一覧できます。";
+
+/* Accessibility label for a step's tick. */
+"automation.step.done" = "完了";
+
+"automation.step.link" = "コマンドを PATH に置く";
+
+"automation.step.link.detail" = "~/.local/bin にリンクするので、管理者パスワードは不要です。リンクはアプリの更新に追従します。アプリを移動したら、もう一度実行してください。";
+
+/* Keep “command not found” in English: it is what the shell prints. */
+"automation.step.path" = "その後ターミナルに「command not found」と出る場合は、そのフォルダを一度だけ PATH に加えてください：";
+
+"automation.step.try" = "短いレンダリングを試す";
+
+"automation.step.try.detail" = "ステップ再利用付きの 384p プレビューなら、1 時間ではなく数分で済みます。「レンダリングの登録を許可」をオンにする必要があります。";
 
 /* Heads the switch card. 'Local' is doing real work here: it says the port never leaves this machine. */
 "automation.title" = "ローカル API";
@@ -474,6 +502,8 @@
 
 "model.name.textEncoder.mlx" = "テキストエンコーダ — bfloat16";
 
+"model.name.textEncoder.q4" = "テキストエンコーダ — 4-bit (MLX)";
+
 "model.name.textEncoder.uncensored" = "テキストエンコーダ — INT8 ConvRot、無検閲";
 
 "model.ref2va.bf16" = "上流の bf16 Ref2VA チェックポイントです。選択肢として見えるように載せていますが、MLX 移植版のパイプラインはキーフレームしか受け付けず参考素材の条件付け経路がないため、現時点ではこのアプリから動かせません。";
@@ -482,7 +512,10 @@
 
 "model.support.mlx" = "動画 VAE（10.4 GB）、音声 VAE、プロセッサ、トークナイザで、パイプラインがひとまとまりで読み込む FL2VA のタスクディレクトリから取得します。すべての実行に必要です。";
 
-"model.textEncoder.mlx" = "bfloat16 の Qwen3-VL-32B。H3 はその第 50 層の隠れ状態を読みます。単体では最大のダウンロードで、現在 MLX パイプラインが読み込める唯一のテキストエンコーダです。常駐約 34 GB で、このアプリがその Mac で動くかどうかを決めるのはトランスフォーマーではなくこちらです。量子化では減らせない固定費で、小さいトランスフォーマーに替えても最大 29 GB しか浮きません。ただし重みだけが判断材料ではありません。実際に必要な量は「動作要件」タブをご覧ください。VAE と同じ FL2VA/ に入ります。";
+/* Mode names (first-frame, first-and-last-frame) should match how the modes are named elsewhere in this language. */
+"model.textEncoder.mlx" = "bfloat16 の Qwen3-VL-32B。H3 はその第 50 層の隠れ状態を読みます。単体では最大のダウンロードで、基準となるエンコーダです。画像を読む部分を持つ唯一のもので、先頭フレームや先頭・末尾フレームからの生成にはこれが必要です。プロンプトのエンコード中は最も多くのメモリを使いますが、Halation はトランスフォーマーの実行前にこれを解放するので、ピークを押し上げるのはモデルの読み込み中だけです。4 ビットのエンコーダなら、テキストに対して同じ働きを約 3 分の 1 のメモリでこなします。実際に必要な量は「動作要件」タブをご覧ください。VAE と同じ FL2VA/ に入ります。";
+
+"model.textEncoder.q4" = "Qwen3-VL-32B の同じ 50 層を MLX 4-bit にしたもので、mlx-serve のパックから取得します。ダウンロードは 67 GB ではなく 16 GB、メモリはおよそ 3 分の 1 です。メモリの少ない Mac で MLX を動かせるのはこれのおかげです。テキスト専用でビジョン部分がないため、先頭フレームや先頭・末尾フレームの生成には bfloat16 エンコーダが必要です。コミュニティによる量子化のため、条件付けが基準とわずかに異なる場合があります。";
 
 "model.textEncoder.uncensored" = "拒否の振る舞いを学習から取り除いた Qwen3-VL-32B です。標準のエンコーダとそのまま差し替えられます。拒否は言語モデル側にあり拡散トランスフォーマーにはないため、H3 自体は変わりません。ComfyUI 専用で、MLX にはこの形式のローダーがありません。";
 
@@ -569,6 +602,12 @@
 
 "models.rescan.help" = "共有モデルフォルダを読み直します";
 
+/* Button on a model whose download was interrupted. Short: the button is narrow. */
+"models.resume" = "再開";
+
+/* Tooltip. %1$@ is what is on disk, %2$@ the full size, e.g. 12.3 GB of 66.7 GB. */
+"models.resume.help" = "%2$@ のうち %1$@ はダウンロード済みです。再開すると残りだけを取得し、使う前にファイル全体を検証します。";
+
 /* WARNING: Injects a name into a sentence. Languages that inflect a noun for case, choose an article by gender, or attach a vowel-harmonising suffix cannot do it without knowing the word, and it is only known at runtime. Prefer wording that sets the name apart — quoted, or on its own line. */
 "models.revealInFinder" = "%@ を Finder に表示";
 
@@ -582,6 +621,11 @@
 "models.showIncompatible.help" = "この Mac で実行できない形式のチェックポイントも含めます";
 
 "models.spaceWarning" = "推奨セットには約 %@ に加えて、レンダリング中の作業用領域が必要です。";
+
+/* Small link under Resume. Discards the partial download. */
+"models.startOver" = "最初から";
+
+"models.startOver.help" = "ここまでのダウンロードを破棄し、ファイル全体を取得し直します。";
 
 "models.status.inUse" = "ダウンロード済みで、このレンダリングで使用します";
 
@@ -711,6 +755,9 @@
 "problem.chooseCheckpoint" = "「モデル」で %@ のチェックポイントを選んでください。";
 
 "problem.duration" = "H3 が生成できるのは 4〜15 秒のクリップだけです。";
+
+/* Blocking problem. %1$@ is the encoder's name, e.g. Text encoder — 4-bit (MLX). Mode names should match mode.t2v. */
+"problem.encoderTextOnly" = "%1$@ はテキストしか読めませんが、このモードはキーフレーム画像を渡します。「モデル」で bfloat16 のテキストエンコーダを選ぶか、「テキストから動画」に切り替えてください。";
 
 /* A blocking problem on Compose, beside a button that opens the terms. The welcome dialog can be skipped, so this is reachable in normal use. */
 "problem.licence" = "モデルのライセンスにまだ同意していません。";

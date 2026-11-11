@@ -250,7 +250,15 @@ struct APIRoutes {
             "state": job.state.rawValue,
             "prompt": job.spec.prompt,
             "engine": job.spec.resolvedBackend.rawValue,
+            // Within the current stage, kept for existing callers; `overall_progress`
+            // is the one to draw a bar from, since it does not drop back to zero
+            // when a stage changes.
             "progress": job.progress,
+            "overall_progress": job.overallProgress,
+            "stage_progress": job.stageProgress as Any,
+            "stage_detail": job.stageDetail as Any,
+            "elapsed_seconds": job.elapsed as Any,
+            "remaining_seconds": job.estimatedRemaining as Any,
             "completed_steps": job.completedSteps,
             "total_steps": job.totalSteps,
             "created_at": ISO8601DateFormatter().string(from: job.createdAt),

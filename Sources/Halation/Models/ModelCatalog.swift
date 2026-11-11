@@ -221,7 +221,8 @@ struct CatalogEntry: Identifiable, Codable, Sendable, Hashable {
     /// snapshot root. Several entries share a repository, so each needs its own.
     var markerPath: String {
         guard repoID == Self.upstreamRepoIDStatic else {
-            return "model.safetensors.index.json"
+            // mlx-serve's pack is one flat file per component.
+            return readsImages ? "model.safetensors.index.json" : "text_encoder.safetensors"
         }
         switch role {
         case .support:     return "FL2VA/video_vae"
@@ -232,6 +233,13 @@ struct CatalogEntry: Identifiable, Codable, Sendable, Hashable {
     }
 
     fileprivate static let upstreamRepoIDStatic = "MiniMaxAI/MiniMax-H3"
+
+    /// Whether this text encoder has a vision tower. mlx-serve's 4-bit pack
+    /// carries none, so it can encode a prompt but not a keyframe.
+    var readsImages: Bool {
+        guard role == .textEncoder else { return true }
+        return repoID != "ddalcu/MiniMax-H3-FL2VA-MLX-Serve-4bit"
+    }
 
     /// Why this cannot be used on this machine, or `nil` if it can.
     ///

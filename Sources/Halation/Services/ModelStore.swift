@@ -171,6 +171,58 @@ final class ModelStore {
         return installed.contains { $0.matchedEntryIDs.contains(entry.id) }
     }
 
+    /// How much of an interrupted download of `entry` is already on disk, or
+    /// `nil` when there is none to resume.
+    ///
+    /// Read from the state files the sidecar's resumable downloader keeps beside
+    /// each partial (`<file>.part.json`), which record the ranges that are
+    /// complete. The `.part` file's own size says nothing: it is created at full
+    /// length, sparse, so that ranges can land in any order.
+    func partialBytes(for entry: CatalogEntry) -> Int64? {
+        _ = revision  // observation dependency; see `revision`.
+        let states: [URL]
+        if let file = entry.comfyUIFile {
+            let path = comfyUIPath(for: file)
+            states = [path.deletingLastPathComponent()
+                .appending(path: path.lastPathComponent + Self.partialStateSuffix)]
+        } else {
+            let blobs = hubURL
+                .appending(path: "models--" + entry.repoID.replacingOccurrences(of: "/", with: "--"),
+                           directoryHint: .isDirectory)
+                .appending(path: "blobs", directoryHint: .isDirectory)
+            let names = (try? FileManager.default.contentsOfDirectory(atPath: blobs.path)) ?? []
+            states = names.filter { $0.hasSuffix(Self.partialStateSuffix) }
+                .map { blobs.appending(path: $0) }
+        }
+
+        var total: Int64 = 0
+        for url in states {
+            guard let data = try? Data(contentsOf: url),
+                  let state = try? JSONDecoder().decode(PartialState.self, from: data)
+            else { continue }
+            // One repository can hold several entries — the upstream release
+            // carries the VAEs and the text encoder — so a partial counts only
+            // for the entry whose patterns name its file.
+            if entry.comfyUIFile == nil, let patterns = entry.allowPatterns,
+               !patterns.contains(where: { fnmatch($0, state.label, 0) == 0 }) {
+                continue
+            }
+            let whole = Int64(state.done.count) * state.chunk
+            total += min(whole, state.size)
+        }
+        return total > 0 ? total : nil
+    }
+
+    private static let partialStateSuffix = ".part.json"
+
+    /// The sidecar's record of a partial download; see `resumable.py`.
+    private struct PartialState: Decodable {
+        var size: Int64
+        var chunk: Int64
+        var label: String
+        var done: [Int]
+    }
+
     /// Where a ComfyUI-format weight lives inside the shared folder.
     func comfyUIPath(for file: CatalogEntry.ComfyUIFile) -> URL {
         rootURL

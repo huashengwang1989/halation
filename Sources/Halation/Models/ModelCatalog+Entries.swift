@@ -21,6 +21,7 @@ enum ModelCatalog {
     static let comfyRepoID = "Comfy-Org/MiniMax-H3"
 
     static let upstreamRepoID = "MiniMaxAI/MiniMax-H3"
+    static let mlxServePackRepoID = "ddalcu/MiniMax-H3-FL2VA-MLX-Serve-4bit"
     /// Where the turbo LoRAs are distilled and published.
     static let turboRepoID = "lightx2v/Minimax-h3-Turbo"
 
@@ -54,6 +55,25 @@ enum ModelCatalog {
             provenance: .official,
             nameKey: "model.name.textEncoder.mlx",
             summaryKey: "model.textEncoder.mlx"
+        ),
+        // The same 50-layer stack in MLX 4-bit, from mlx-serve's pack. Only the
+        // encoder and its tokenizer are taken: the pack's transformer is the
+        // same 4-bit quantization as pipenetwork's, and its VAEs are byte-for-
+        // byte the upstream ones. Loaded by the sidecar's `low_memory` module,
+        // since the port reads neither this layout nor a quantized encoder.
+        CatalogEntry(
+            repoID: mlxServePackRepoID,
+            role: .textEncoder,
+            task: nil,
+            quantization: .q4,
+            approximateBytes: 16 * GB,
+            approximateResidentBytes: 16 * GB,
+            allowPatterns: ["text_encoder.safetensors", "config.json", "tokenizer.json",
+                            "tokenizer_config.json", "vocab.json", "merges.txt",
+                            "LICENSE", "NOTICE", "MODIFICATIONS.md", "README.md"],
+            provenance: .community,
+            nameKey: "model.name.textEncoder.q4",
+            summaryKey: "model.textEncoder.q4"
         ),
 
         // ── MLX diffusion transformers (FL2VA) ───────────────────────────────
@@ -295,6 +315,27 @@ enum ModelCatalog {
             summaryKey: "model.fl2va.nvfp4"
         )
     ]
+
+    /// The text encoder to use when the user has not picked one.
+    ///
+    /// One that can read this mode's inputs, then one that fits this Mac's
+    /// memory, then the higher precision. It used to be simply the smallest,
+    /// which was harmless while there was one MLX encoder and would now hand a
+    /// 128 GB Mac the 4-bit one, and a keyframe render an encoder that cannot
+    /// see keyframes.
+    static func defaultTextEncoder(installed: Set<String>, backend: BackendID,
+                                   mode: GenerationMode) -> CatalogEntry? {
+        let candidates = entries(role: .textEncoder)
+            .filter { installed.contains($0.id) && $0.backend == backend }
+            .filter { mode.takesImages ? $0.readsImages : true }
+        func fits(_ entry: CatalogEntry) -> Bool {
+            entry.approximateResidentBytes.map { MachineProfile.fit(residentBytes: $0).isUsable } ?? true
+        }
+        return candidates.max { lhs, rhs in
+            if fits(lhs) != fits(rhs) { return !fits(lhs) }
+            return lhs.quantization < rhs.quantization
+        }
+    }
 
     static func entries(role: ModelRole) -> [CatalogEntry] {
         all.filter { $0.role == role }

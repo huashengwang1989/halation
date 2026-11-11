@@ -209,6 +209,21 @@ struct EntryRow: View {
                     // transfer the Downloads section is already showing.
                     Button(loc("models.downloading")) {}
                         .disabled(true)
+                } else if let partial = app.modelStore.partialBytes(for: entry) {
+                    // Part of it is already here. Resuming is the obvious next
+                    // step, so it is the button; starting over is offered, not
+                    // assumed, for a partial the user no longer trusts.
+                    let help = loc("models.resume.help", Format.bytes(partial),
+                                   Format.bytes(entry.approximateBytes))
+                    Button(loc("models.resume")) { app.downloads.enqueue([entry]) }
+                        .disabled(!entry.isUsableHere)
+                        .help(help)
+                    Button(loc("models.startOver")) {
+                        app.downloads.enqueue([entry], fresh: true)
+                    }
+                    .buttonStyle(.link)
+                    .font(.caption)
+                    .help(loc("models.startOver.help"))
                 } else {
                     Button(loc("common.download")) { app.downloads.enqueue([entry]) }
                         .disabled(!entry.isUsableHere)

@@ -12,6 +12,10 @@ enum GenerationMode: String, Codable, Sendable, CaseIterable, Identifiable {
 
     var id: String { rawValue }
 
+    /// Whether this mode hands images to the text encoder. Reference renders
+    /// do too, but only through ComfyUI, whose encoders all have vision.
+    var takesImages: Bool { self == .firstFrame || self == .firstAndLastFrame }
+
     var label: String {
         switch self {
         case .textToVideo: loc("mode.t2v")
@@ -280,6 +284,14 @@ struct GenerationSpec: Codable, Sendable, Hashable {
         } else {
             problems.append(.init(severity: .blocking,
                 message: loc("problem.chooseCheckpoint", task.rawValue)))
+        }
+
+        // The 4-bit encoder has no vision tower. Caught here rather than an
+        // hour into a render, which is where the sidecar would otherwise fail.
+        if mode.takesImages, let id = textEncoderEntryID,
+           let encoder = ModelCatalog.entry(id: id), !encoder.readsImages {
+            problems.append(.init(severity: .blocking,
+                message: loc("problem.encoderTextOnly", encoder.displayName)))
         }
 
         problems.append(contentsOf: memoryProblems)

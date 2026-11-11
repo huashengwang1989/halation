@@ -11,6 +11,9 @@ struct AutomationView: View {
     @Environment(AppState.self) private var app
     @State private var revealToken = false
     @State private var copied: String?
+    /// Whether `~/.local/bin/halation` leads to this app's binary. Checked on a
+    /// timer, because the step is done in Terminal and nothing tells the app.
+    @State private var commandLinked = false
 
     private var api: LocalAPIServer { app.api }
 
@@ -19,8 +22,8 @@ struct AutomationView: View {
             VStack(alignment: .leading, spacing: 18) {
                 switchCard
                 if api.isEnabled { connectionCard }
+                guideCard
                 capabilitiesCard
-                if api.isEnabled { mcpCard }
             }
             .padding(20)
             // Capped so the lines stay readable, then pinned left. A bare
@@ -213,49 +216,123 @@ struct AutomationView: View {
         }
     }
 
-    // MARK: - Connecting an agent
+    // MARK: - Step-by-step guide
 
-    private var mcpCard: some View {
-        GlassCard(title: loc("automation.mcp"), systemImage: "terminal") {
-            VStack(alignment: .leading, spacing: 12) {
-                Text(loc("automation.mcp.detail"))
+    /// Setting up the command and an agent, one step at a time.
+    ///
+    /// Every step is something the user pastes into Terminal themselves rather
+    /// than something the app does for them: nothing here writes outside the
+    /// app until they choose to, and each step can be seen before it is run.
+    /// Steps the app can check get a tick when they are done.
+    private var guideCard: some View {
+        GlassCard(title: loc("automation.guide"), systemImage: "terminal") {
+            VStack(alignment: .leading, spacing: 16) {
+                Text(loc("automation.guide.detail"))
                     .font(.caption)
                     .foregroundStyle(.secondary)
                     .fixedSize(horizontal: false, vertical: true)
 
-                snippet(mcpConfig, id: "mcp")
+                step(1, loc("automation.step.api"), done: api.status.isRunning) {
+                    caption(loc("automation.step.api.detail"))
+                }
 
-                Text(loc("automation.mcp.token"))
-                    .font(.caption)
-                    .foregroundStyle(.secondary)
-                    .fixedSize(horizontal: false, vertical: true)
+                step(2, loc("automation.step.link"), done: commandLinked) {
+                    caption(loc("automation.step.link.detail"))
+                    snippet(linkCommand, id: "link")
+                    caption(loc("automation.step.path"))
+                    snippet(#"echo 'export PATH="$HOME/.local/bin:$PATH"' >> ~/.zshrc && source ~/.zshrc"#,
+                            id: "path")
+                }
+
+                step(3, loc("automation.step.check"), done: nil) {
+                    caption(loc("automation.step.check.detail"))
+                    snippet("halation status", id: "check")
+                }
+
+                step(4, loc("automation.step.agent"), done: nil) {
+                    caption(loc("automation.step.agent.detail"))
+                    snippet(claudeCodeCommand, id: "claude")
+                    snippet(mcpConfig, id: "mcp")
+                }
+
+                step(5, loc("automation.step.try"), done: nil) {
+                    caption(loc("automation.step.try.detail"))
+                    snippet(tryCommand, id: "try")
+                }
 
                 Divider()
 
                 Text(loc("automation.http"))
                     .font(.caption.weight(.medium))
                 snippet(curlExample, id: "curl")
+                caption(loc("automation.mcp.token"))
+            }
+        }
+        .task {
+            while !Task.isCancelled {
+                commandLinked = Self.isCommandLinked
+                try? await Task.sleep(for: .seconds(2))
             }
         }
     }
 
-    /// Ready to paste. The token is only written in once it has been revealed —
-    /// otherwise the snippet carries a placeholder, so copying it during a
-    /// screen share does not hand the secret to the room.
+    private func step<Content: View>(_ number: Int, _ title: String, done: Bool?,
+                                     @ViewBuilder content: () -> Content) -> some View {
+        HStack(alignment: .top, spacing: 10) {
+            Image(systemName: done == true ? "checkmark.circle.fill" : "\(number).circle")
+                .font(.title3)
+                .foregroundStyle(done == true ? .green : .secondary)
+                .accessibilityLabel(done == true ? loc("automation.step.done") : "\(number)")
+            VStack(alignment: .leading, spacing: 6) {
+                Text(title).font(.callout.weight(.semibold))
+                content()
+            }
+        }
+    }
+
+    private func caption(_ text: String) -> some View {
+        Text(text)
+            .font(.caption)
+            .foregroundStyle(.secondary)
+            .fixedSize(horizontal: false, vertical: true)
+    }
+
+    /// Into `~/.local/bin`, which needs no administrator password, unlike
+    /// `/usr/local/bin`. A link rather than a copy, so updating the app updates
+    /// the command — and it goes wherever the app is, which is why moving the
+    /// app means running it again.
+    private var linkCommand: String {
+        #"mkdir -p ~/.local/bin && ln -sf "\#(Self.serverPath)" ~/.local/bin/halation"#
+    }
+
+    private var tryCommand: String {
+        #"halation render "A paper boat drifting down a rain gutter, close-up" "#
+            + "--resolution 384 --cache reuse --wait"
+    }
+
+    private var claudeCodeCommand: String {
+        #"claude mcp add halation -- "\#(Self.serverPath)""#
+    }
+
+    /// No token and no address: the server reads both from this app's settings,
+    /// so the config cannot go stale when the token is regenerated.
     private var mcpConfig: String {
         """
         {
           "mcpServers": {
             "halation": {
-              "command": "\(Self.serverPath)",
-              "env": {
-                "HALATION_URL": "\(api.baseURL)",
-                "HALATION_TOKEN": "\(revealToken ? api.token : "paste-the-token-here")"
-              }
+              "command": "\(Self.serverPath)"
             }
           }
         }
         """
+    }
+
+    private static var isCommandLinked: Bool {
+        let link = FileManager.default.homeDirectoryForCurrentUser
+            .appending(path: ".local/bin/halation")
+        return link.resolvingSymlinksInPath().path(percentEncoded: false)
+            == URL(fileURLWithPath: serverPath).resolvingSymlinksInPath().path(percentEncoded: false)
     }
 
     /// Beside the running app, whether that is in Applications or a build

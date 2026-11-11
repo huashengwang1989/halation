@@ -45,13 +45,14 @@
 
 "automation.footnote" = "讓這台 Mac 上的另一個程式——通常是代理——詢問本機能算什麼，並交付工作。只在本機監聽，而且每個請求都必須帶上下方的權杖。";
 
+"automation.guide" = "設定步驟";
+
+/* Introduces the numbered steps. Keep `halation` as-is: it is the command name. */
+"automation.guide.detail" = "Halation 在本 App 內附帶一個 `halation` 指令，同時也是 MCP 伺服器。每一步請自行貼進「終端機」執行；在你執行之前，這裡不會改動你的 Mac。";
+
 "automation.hide" = "隱藏";
 
 "automation.http" = "或直接呼叫";
-
-"automation.mcp" = "如何呼叫";
-
-"automation.mcp.detail" = "Halation 內附一個 MCP 伺服器。把這段貼進你的代理的 MCP 設定即可——它指向本 App 內的那一份，不需要另外安裝任何東西。";
 
 /* Says why the snippet may not carry the real token: it is hidden until revealed, so copying during a screen share does not leak it. */
 "automation.mcp.token" = "請先顯示上方的權杖，否則複製出來的片段只會有一個佔位字串。";
@@ -67,6 +68,33 @@
 
 /* WARNING: Shown while the server is up. The request count is there so the page shows the thing being used rather than merely switched on. */
 "automation.status.running" = "正在監聽連接埠 %1$@ · 已處理 %2$@ 個請求";
+
+"automation.step.agent" = "連接代理";
+
+"automation.step.agent.detail" = "Claude Code 請執行第一行。其他 MCP 用戶端，請把第二段加進它的設定。兩者都不含權杖，所以重新產生權杖也不會令它們失效。";
+
+"automation.step.api" = "開啟本機 API";
+
+/* Names the automation.writes switch; keep it matching that string. */
+"automation.step.api.detail" = "用本頁頂端的開關。只有開啟時，指令和代理才連得上 Halation；若只想讓它們查看，請保持「允許排入算圖工作」關閉。";
+
+"automation.step.check" = "確認連得上 Halation";
+
+"automation.step.check.detail" = "它會自行從本 App 的設定找到位址和權杖。`halation help` 會列出它能做的其他事。";
+
+/* Accessibility label for a step's tick. */
+"automation.step.done" = "已完成";
+
+"automation.step.link" = "把指令加入 PATH";
+
+"automation.step.link.detail" = "這會把它連結到 ~/.local/bin，不需要管理者密碼。連結會隨 App 更新；若移動了 App，請再執行一次。";
+
+/* Keep “command not found” in English: it is what the shell prints. */
+"automation.step.path" = "如果「終端機」之後顯示「command not found」，請把那個資料夾加入 PATH（只需一次）：";
+
+"automation.step.try" = "試一次快速生成";
+
+"automation.step.try.detail" = "開啟步驟重用的 384p 預覽只需數分鐘，而不是一小時。需要開啟「允許排入算圖工作」。";
 
 /* Heads the switch card. 'Local' is doing real work here: it says the port never leaves this machine. */
 "automation.title" = "本機 API";
@@ -474,6 +502,8 @@
 
 "model.name.textEncoder.mlx" = "文字編碼器 — bfloat16";
 
+"model.name.textEncoder.q4" = "文字編碼器 — 4-bit (MLX)";
+
 "model.name.textEncoder.uncensored" = "文字編碼器 — INT8 ConvRot，無審查";
 
 "model.ref2va.bf16" = "上游的 bf16 Ref2VA 檢查點。列出是為了讓選項可見，但 MLX 移植版的 pipeline 只接受關鍵影格——沒有參考條件的路徑——因此目前無法從本 App 驅動。";
@@ -482,7 +512,10 @@
 
 "model.support.mlx" = "video VAE（10.4 GB）、audio VAE、處理器與 tokenizer，取自 pipeline 整包載入的 FL2VA 任務目錄。每次算圖都需要。";
 
-"model.textEncoder.mlx" = "bfloat16 版的 Qwen3-VL-32B——H3 讀取其第 50 層的隱藏狀態。單一檔案中最大的下載項目，目前也是 MLX pipeline 唯一能載入的文字編碼器。常駐約 34 GB，因此決定本 App 能否在某台 Mac 上執行的是它而非 transformer：這是量化也減不掉的固定成本，換用較小的 transformer 最多只省 29 GB。不過單看權重並非判準——實際需要多少，請看「系統需求」分頁。會與 VAE 一同安裝在 FL2VA/ 之下。";
+/* Mode names (first-frame, first-and-last-frame) should match how the modes are named elsewhere in this language. */
+"model.textEncoder.mlx" = "bfloat16 版的 Qwen3-VL-32B——H3 讀取其第 50 層的隱藏狀態。單一檔案中最大的下載項目，也是參考用的編碼器：唯一帶有視覺部分的一個，因此「首幀」與「首尾幀」生成都需要它。編碼提示詞時它是佔用記憶體最多的部分，之後 Halation 會在 transformer 執行前釋放它，所以它只在載入模型時推高峰值。4-bit 編碼器能以約三分之一的記憶體完成同樣的文字工作。實際需要多少，請看「系統需求」分頁。會與 VAE 一同安裝在 FL2VA/ 之下。";
+
+"model.textEncoder.q4" = "同樣是 Qwen3-VL-32B 的 50 層，來自 mlx-serve 的 MLX 4-bit 版本：下載 16 GB 而非 67 GB，記憶體約為三分之一。記憶體較少的 Mac 能跑 MLX，靠的就是它。只處理文字——沒有視覺部分，因此首影格與首尾影格算圖需要 bfloat16 編碼器。這是社群量化版本，條件訊號可能與參考版本略有差異。";
 
 "model.textEncoder.uncensored" = "已移除拒絕行為的 Qwen3-VL-32B。可直接替換原本的編碼器——H3 本身沒有改動，因為拒絕行為存在於語言模型，而非 diffusion transformer。僅支援 ComfyUI；MLX 無法載入此格式。";
 
@@ -569,6 +602,12 @@
 
 "models.rescan.help" = "重新讀取共用模型資料夾";
 
+/* Button on a model whose download was interrupted. Short: the button is narrow. */
+"models.resume" = "繼續下載";
+
+/* Tooltip. %1$@ is what is on disk, %2$@ the full size, e.g. 12.3 GB of 66.7 GB. */
+"models.resume.help" = "已下載 %1$@，共 %2$@。繼續下載只會取回剩下的部分，並在使用前檢查整個檔案。";
+
 /* WARNING: Injects a name into a sentence. Languages that inflect a noun for case, choose an article by gender, or attach a vowel-harmonising suffix cannot do it without knowing the word, and it is only known at runtime. Prefer wording that sets the name apart — quoted, or on its own line. */
 "models.revealInFinder" = "在 Finder 中顯示 %@";
 
@@ -582,6 +621,11 @@
 "models.showIncompatible.help" = "一併顯示本機無法執行之格式的檢查點";
 
 "models.spaceWarning" = "建議的組合約需 %@，算圖時還需要額外的暫存空間。";
+
+/* Small link under Resume. Discards the partial download. */
+"models.startOver" = "重新下載";
+
+"models.startOver.help" = "捨棄目前已下載的部分，重新下載整個檔案。";
 
 "models.status.inUse" = "已下載，且本次算圖會用到";
 
@@ -711,6 +755,9 @@
 "problem.chooseCheckpoint" = "請在「模型」中選擇 %@ 檢查點。";
 
 "problem.duration" = "H3 只能生成 4–15 秒的片段。";
+
+/* Blocking problem. %1$@ is the encoder's name, e.g. Text encoder — 4-bit (MLX). Mode names should match mode.t2v. */
+"problem.encoderTextOnly" = "%1$@ 只讀取文字，而此模式會傳入關鍵影格圖片。請在「模型」中選擇 bfloat16 文字編碼器，或改用「文字轉影片」。";
 
 /* A blocking problem on Compose, beside a button that opens the terms. The welcome dialog can be skipped, so this is reachable in normal use. */
 "problem.licence" = "尚未接受模型授權條款。";

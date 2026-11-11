@@ -19,6 +19,8 @@ final class DownloadManager {
         /// Bytes are all in, but the hub is still verifying and linking. Without
         /// this the UI shows a full bar for minutes with no explanation.
         var isFinalising = false
+        /// Discard any partial download first rather than resuming it.
+        var startsFresh = false
 
         enum State: Sendable, Equatable {
             case waiting, active, finished, failed, cancelled
@@ -67,7 +69,7 @@ final class DownloadManager {
     /// still that entry's row. Re-running "Install Recommended" used to append a
     /// second copy of every completed item, which then raced the first for the
     /// same cache directory and reported nonsense.
-    func enqueue(_ entries: [CatalogEntry]) {
+    func enqueue(_ entries: [CatalogEntry], fresh: Bool = false) {
         Notifier.shared.requestPermissionIfNeeded()
         for entry in entries {
             guard entry.isUsableHere, !modelStore.isInstalled(entry) else { continue }
@@ -80,11 +82,13 @@ final class DownloadManager {
                 // finished transfer alone meant the Download button did nothing
                 // for the rest of the session once a file had been removed.
                 if transfers[existing].state.isTerminal {
-                    transfers[existing] = Transfer(entry: entry, totalBytes: entry.approximateBytes)
+                    transfers[existing] = Transfer(entry: entry, totalBytes: entry.approximateBytes,
+                                                   startsFresh: fresh)
                 }
                 continue
             }
-            transfers.append(Transfer(entry: entry, totalBytes: entry.approximateBytes))
+            transfers.append(Transfer(entry: entry, totalBytes: entry.approximateBytes,
+                                      startsFresh: fresh))
         }
         startNextIfIdle()
     }
@@ -145,6 +149,7 @@ final class DownloadManager {
                   let json = String(data: data, encoding: .utf8) {
             arguments += ["--patterns", json]
         }
+        if transfers[index].startsFresh { arguments.append("--fresh") }
 
         do {
             let runner = ProcessRunner()

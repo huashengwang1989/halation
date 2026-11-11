@@ -45,13 +45,14 @@
 
 "automation.footnote" = "ให้โปรแกรมอื่นบน Mac เครื่องนี้ — ส่วนใหญ่คือเอเจนต์ — ถามได้ว่าเครื่องนี้เรนเดอร์อะไรได้ และส่งงานให้ได้ รับฟังเฉพาะในเครื่องนี้ และทุกคำขอต้องมีโทเคนด้านล่าง";
 
+"automation.guide" = "ขั้นตอนการตั้งค่า";
+
+/* Introduces the numbered steps. Keep `halation` as-is: it is the command name. */
+"automation.guide.detail" = "แอปนี้มีคำสั่ง `halation` มาให้ ซึ่งเป็นเซิร์ฟเวอร์ MCP ในตัว วางแต่ละขั้นตอนใน Terminal ด้วยตนเอง ก่อนหน้านั้นจะไม่มีอะไรเปลี่ยนใน Mac ของคุณ";
+
 "automation.hide" = "ซ่อน";
 
 "automation.http" = "หรือเรียกโดยตรง";
-
-"automation.mcp" = "วิธีเรียกใช้";
-
-"automation.mcp.detail" = "Halation มีเซิร์ฟเวอร์ MCP มาให้ วางค่านี้ในการตั้งค่า MCP ของเอเจนต์ของคุณ โดยชี้ไปที่ตัวที่อยู่ในแอปนี้ จึงไม่ต้องติดตั้งอะไรเพิ่ม";
 
 /* Says why the snippet may not carry the real token: it is hidden until revealed, so copying during a screen share does not leak it. */
 "automation.mcp.token" = "แสดงโทเคนด้านบนก่อน มิฉะนั้นข้อความที่คัดลอกจะมีตัวแทนแทนโทเคน";
@@ -67,6 +68,33 @@
 
 /* WARNING: Shown while the server is up. The request count is there so the page shows the thing being used rather than merely switched on. */
 "automation.status.running" = "กำลังรับฟังที่พอร์ต %1$@ · ตอบแล้ว %2$@ คำขอ";
+
+"automation.step.agent" = "เชื่อมต่อเอเจนต์";
+
+"automation.step.agent.detail" = "สำหรับ Claude Code ให้เรียกบรรทัดแรก สำหรับไคลเอนต์ MCP อื่น ให้เพิ่มส่วนที่สองในการตั้งค่า ทั้งสองไม่มีโทเคนอยู่ข้างใน การสร้างโทเคนใหม่จึงไม่ทำให้ใช้ไม่ได้";
+
+"automation.step.api" = "เปิด API ภายในเครื่อง";
+
+/* Names the automation.writes switch; keep it matching that string. */
+"automation.step.api.detail" = "ด้วยสวิตช์ด้านบนของหน้านี้ คำสั่งและเอเจนต์จะเชื่อมต่อ Halation ได้เฉพาะตอนเปิด หากต้องการให้ดูได้อย่างเดียว ให้ปิด “อนุญาตให้เพิ่มงานเรนเดอร์” ไว้";
+
+"automation.step.check" = "ตรวจว่าเชื่อมต่อ Halation ได้";
+
+"automation.step.check.detail" = "คำสั่งจะหาที่อยู่และโทเคนจากการตั้งค่าของแอปนี้เอง `halation help` จะแสดงทุกอย่างที่ทำได้";
+
+/* Accessibility label for a step's tick. */
+"automation.step.done" = "เสร็จแล้ว";
+
+"automation.step.link" = "ใส่คำสั่งไว้ใน PATH";
+
+"automation.step.link.detail" = "คำสั่งนี้ลิงก์ไว้ที่ ~/.local/bin จึงไม่ต้องใช้รหัสผ่านผู้ดูแล ลิงก์จะตามการอัปเดตของแอป หากย้ายแอป ให้เรียกใช้อีกครั้ง";
+
+/* Keep “command not found” in English: it is what the shell prints. */
+"automation.step.path" = "หาก Terminal แจ้งว่า “command not found” ให้เพิ่มโฟลเดอร์นั้นใน PATH หนึ่งครั้ง:";
+
+"automation.step.try" = "ลองเรนเดอร์แบบเร็ว";
+
+"automation.step.try.detail" = "พรีวิว 384p ที่ใช้ขั้นตอนซ้ำใช้เวลาไม่กี่นาทีแทนที่จะเป็นชั่วโมง ต้องเปิด “อนุญาตให้เพิ่มงานเรนเดอร์”";
 
 /* Heads the switch card. 'Local' is doing real work here: it says the port never leaves this machine. */
 "automation.title" = "API ในเครื่อง";
@@ -474,6 +502,8 @@
 
 "model.name.textEncoder.mlx" = "ตัวเข้ารหัสข้อความ — bfloat16";
 
+"model.name.textEncoder.q4" = "ตัวเข้ารหัสข้อความ — 4-bit (MLX)";
+
 "model.name.textEncoder.uncensored" = "ตัวเข้ารหัสข้อความ — INT8 ConvRot ไม่เซ็นเซอร์";
 
 "model.ref2va.bf16" = "Checkpoint Ref2VA แบบ bf16 จากต้นทาง แสดงไว้ให้เห็นเป็นตัวเลือก แต่ไปป์ไลน์ของพอร์ต MLX รับได้เฉพาะ keyframe และไม่มีเส้นทางกำหนดเงื่อนไขจากไฟล์อ้างอิง จึงยังสั่งงานจากแอปนี้ไม่ได้";
@@ -482,7 +512,10 @@
 
 "model.support.mlx" = "VAE วิดีโอ (10.4 GB), VAE เสียง, ตัวประมวลผล และ tokenizer นำมาจากไดเรกทอรีงาน FL2VA ที่ไปป์ไลน์โหลดเป็นชุดเดียว จำเป็นต่อการรันทุกครั้ง";
 
-"model.textEncoder.mlx" = "Qwen3-VL-32B แบบ bfloat16 — H3 อ่านสถานะซ่อนของชั้นที่ 50 เป็นไฟล์ดาวน์โหลดเดี่ยวที่ใหญ่ที่สุด และตอนนี้เป็นตัวเข้ารหัสข้อความเพียงตัวเดียวที่ไปป์ไลน์ MLX โหลดได้ ด้วยหน่วยความจำราว 34 GB สิ่งที่ตัดสินว่าแอปนี้รันบน Mac เครื่องใดได้คือตัวนี้ ไม่ใช่ transformer เป็นต้นทุนคงที่ที่การทำ quantization ก็ลดไม่ได้ และเปลี่ยนไปใช้ transformer ที่เล็กลงก็ประหยัดได้มากสุด 29 GB แต่ลำพังไฟล์น้ำหนักไม่ใช่เกณฑ์ตัดสิน ดูว่าเครื่องต้องมีเท่าไรจริง ๆ ได้ที่แท็บความต้องการของระบบ และติดตั้งไว้ข้าง VAE ใน FL2VA/";
+/* Mode names (first-frame, first-and-last-frame) should match how the modes are named elsewhere in this language. */
+"model.textEncoder.mlx" = "Qwen3-VL-32B แบบ bfloat16 — H3 อ่านสถานะซ่อนของชั้นที่ 50 เป็นไฟล์ดาวน์โหลดเดี่ยวที่ใหญ่ที่สุด และเป็นตัวเข้ารหัสอ้างอิง: ตัวเดียวที่มีส่วนอ่านภาพ การเรนเดอร์จากเฟรมแรก และจากเฟรมแรกกับเฟรมสุดท้ายจึงต้องใช้ตัวนี้ ระหว่างเข้ารหัสพรอมต์มันใช้หน่วยความจำมากที่สุด จากนั้น Halation จะปล่อยมันก่อน transformer ทำงาน จึงดันค่าสูงสุดขึ้นเฉพาะตอนโหลดโมเดล ตัวเข้ารหัส 4 บิตทำงานเดียวกันกับข้อความโดยใช้หน่วยความจำราวหนึ่งในสาม ดูว่าเครื่องต้องมีเท่าไรจริง ๆ ได้ที่แท็บความต้องการของระบบ และติดตั้งไว้ข้าง VAE ใน FL2VA/";
+
+"model.textEncoder.q4" = "Qwen3-VL-32B 50 ชั้นเดิมในแบบ MLX 4-bit จากแพ็กของ mlx-serve: ดาวน์โหลด 16 GB แทน 67 GB และใช้หน่วยความจำราวหนึ่งในสาม เป็นสิ่งที่ทำให้ Mac ที่หน่วยความจำน้อยรัน MLX ได้ รับเฉพาะข้อความ ไม่มีส่วนการมองเห็น การเรนเดอร์จากเฟรมแรก หรือเฟรมแรกและเฟรมสุดท้าย จึงต้องใช้ตัวเข้ารหัส bfloat16 เป็น quantization จากชุมชน สัญญาณกำกับอาจต่างจากต้นฉบับเล็กน้อย";
 
 "model.textEncoder.uncensored" = "Qwen3-VL-32B ที่ฝึกให้ไม่มีพฤติกรรมปฏิเสธ ใช้แทนตัวเข้ารหัสมาตรฐานได้ทันที ตัว H3 เองไม่เปลี่ยน เพราะการปฏิเสธอยู่ในโมเดลภาษา ไม่ใช่ใน diffusion transformer ใช้ได้กับ ComfyUI เท่านั้น เพราะ MLX ไม่มีตัวโหลดสำหรับรูปแบบนี้";
 
@@ -569,6 +602,12 @@
 
 "models.rescan.help" = "อ่านโฟลเดอร์โมเดลที่ใช้ร่วมกันอีกครั้ง";
 
+/* Button on a model whose download was interrupted. Short: the button is narrow. */
+"models.resume" = "ดาวน์โหลดต่อ";
+
+/* Tooltip. %1$@ is what is on disk, %2$@ the full size, e.g. 12.3 GB of 66.7 GB. */
+"models.resume.help" = "ดาวน์โหลดแล้ว %1$@ จาก %2$@ การดาวน์โหลดต่อจะดึงเฉพาะส่วนที่เหลือ และตรวจสอบทั้งไฟล์ก่อนใช้งาน";
+
 /* WARNING: Injects a name into a sentence. Languages that inflect a noun for case, choose an article by gender, or attach a vowel-harmonising suffix cannot do it without knowing the word, and it is only known at runtime. Prefer wording that sets the name apart — quoted, or on its own line. */
 "models.revealInFinder" = "แสดง %@ ใน Finder";
 
@@ -582,6 +621,11 @@
 "models.showIncompatible.help" = "รวม checkpoint ในรูปแบบที่ Mac เครื่องนี้รันไม่ได้ด้วย";
 
 "models.spaceWarning" = "ชุดที่แนะนำต้องใช้ราว %@ บวกกับพื้นที่ทำงานชั่วคราวขณะเรนเดอร์";
+
+/* Small link under Resume. Discards the partial download. */
+"models.startOver" = "เริ่มใหม่";
+
+"models.startOver.help" = "ทิ้งส่วนที่ดาวน์โหลดไว้แล้ว และดาวน์โหลดทั้งไฟล์ใหม่";
 
 "models.status.inUse" = "ดาวน์โหลดแล้ว และใช้กับการเรนเดอร์นี้";
 
@@ -711,6 +755,9 @@
 "problem.chooseCheckpoint" = "เลือก checkpoint %@ ในหน้าโมเดล";
 
 "problem.duration" = "H3 สร้างได้เฉพาะคลิปยาว 4–15 วินาทีเท่านั้น";
+
+/* Blocking problem. %1$@ is the encoder's name, e.g. Text encoder — 4-bit (MLX). Mode names should match mode.t2v. */
+"problem.encoderTextOnly" = "%1$@ อ่านได้เฉพาะข้อความ แต่โหมดนี้ส่งภาพคีย์เฟรมให้ เลือกตัวเข้ารหัสข้อความ bfloat16 ในหน้าโมเดล หรือเปลี่ยนเป็นข้อความเป็นวิดีโอ";
 
 /* A blocking problem on Compose, beside a button that opens the terms. The welcome dialog can be skipped, so this is reachable in normal use. */
 "problem.licence" = "ยังไม่ได้ยอมรับสัญญาอนุญาตของโมเดล";
