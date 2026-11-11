@@ -332,16 +332,29 @@ there is one sidecar process per render, so the encoder can be dropped as soon
 as the prompt is encoded (`low_memory.release_after_encode`). Measured on this
 Mac, MLX, 4-bit transformer, 1344×768, two passes, `ri_lifetime_max_phys_footprint`:
 
-| run | encoder | returned on release | lifetime peak | wall |
-|---|---|---|---|---|
-| A | bf16, kept | — | 115.3 GB | 854 s |
-| B | bf16, released | 50.3 GB | **88.9 GB** | 826 s |
-| C | 4-bit, released | 15.3 GB | *(in progress at commit)* | |
+| run | encoder | canvas | load + encode | diffusion | lifetime peak | wall |
+|---|---|---|---|---|---|---|
+| A | bf16, kept | 1344×768 | 88.8 | 115.1 | 115.3 GB | 854 s |
+| B | bf16, released | 1344×768 | 88.8 | 80.8 | **88.9 GB** | 826 s |
+| C | 4-bit, released | 1344×768 | 53.8 | 85.9 | **86.6 GB** | 976 s* |
+| D | 4-bit, released | 672×384 | 53.8 | 60.7 | **61.3 GB** | 179 s |
 
-With the encoder released, the peak moves from generation to **loading**
-(88.8 GB while preparing, 88.9 GB generating): both models are resident for a
-moment before encoding. So after this the encoder's size still sets the peak,
-through the load — which is what the 4-bit encoder addresses. Release is on by
+\*C overlapped two release builds and notarization; its time is not comparable.
+Release returned 50.3 GB (bf16) and 15.3 GB (4-bit). Decoding adds under 1 GB
+over diffusion in every run.
+
+Two different floors, and which one binds depends on the canvas:
+
+- **Loading**: both models are resident before the encoder can be released —
+  88.8 GB with bf16, 53.8 GB with 4-bit, independent of canvas.
+- **Diffusion + decode**: transformer weights plus activations, which scale
+  with the canvas — about 86 GB at 1344×768, about 61 GB at 672×384.
+
+So at full size the 4-bit encoder buys almost nothing (88.9 → 86.6 GB): the
+diffusion floor binds. **It pays off only at preview sizes**, where bf16's load
+floor (88.8 GB) would otherwise dominate a render that needs 61 GB. Do not
+describe the 4-bit encoder as "what lets a smaller Mac run H3" without that
+qualifier. Release is on by
 default; `HALATION_KEEP_TEXT_ENCODER=1` turns it off for comparison.
 `MemoryRequirementsTable` has not yet been recalibrated to these runs.
 
