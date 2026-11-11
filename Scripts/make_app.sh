@@ -202,6 +202,22 @@ while IFS= read -r NESTED; do
 done < <(find "$APP/Contents" -depth \( -name "*.bundle" -o -name "*.framework" \
                                       -o -name "*.app" -o -name "*.dylib" \) 2>/dev/null)
 
+# Helper executables beside the main one. They are plain files, so the loop
+# above does not find them, and the bundle's signature does not sign them: it
+# only seals their hashes. Left with the linker's ad-hoc signature, notarization
+# rejects the whole image ("not signed with a valid Developer ID certificate").
+# No entitlements: those are the app's, and the command needs none of them.
+for HELPER in "$APP/Contents/MacOS/"*; do
+  [ -f "$HELPER" ] && [ -x "$HELPER" ] || continue   # the resource bundle is a directory
+  [ "$(basename "$HELPER")" = "Halation" ] && continue
+  HELPER_ARGS=("${SIGN_ARGS[@]}")
+  if [ "$IDENTITY" != "-" ]; then
+    HELPER_ARGS=(--force --sign "$IDENTITY" --options runtime --timestamp)
+  fi
+  codesign "${HELPER_ARGS[@]}" --identifier "$BUNDLE_ID.$(basename "$HELPER")" "$HELPER" ||
+    echo "    could not sign $(basename "$HELPER")"
+done
+
 if codesign "${SIGN_ARGS[@]}" "$APP"; then
   codesign --verify --strict --verbose=2 "$APP" 2>&1 | sed 's/^/    /'
 else
